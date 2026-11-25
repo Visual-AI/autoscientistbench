@@ -300,16 +300,24 @@ select:focus-visible,
   text-wrap: balance;
 }
 
+.hero-authors {
+  margin: 16px auto 0;
+  font-size: var(--text-body);
+  font-weight: 560;
+  letter-spacing: -0.01em;
+  color: var(--ink-secondary);
+}
+
 .hero-subtitle {
   max-width: 72ch;
-  margin: 20px auto 0;
+  margin: 14px auto 0;
   font-size: clamp(1.0625rem, 1.35vw, 1.25rem);
   line-height: 1.55;
   color: var(--muted);
 }
 
 .hero-action {
-  margin-top: 26px;
+  margin-top: 24px;
   display: flex;
   justify-content: center;
 }
