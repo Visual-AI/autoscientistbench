@@ -287,7 +287,7 @@ select:focus-visible,
 
 .hero-header {
   max-width: 1060px;
-  margin: 0 auto 34px;
+  margin: 0 auto 30px;
   text-align: center;
 }
 
@@ -301,23 +301,165 @@ select:focus-visible,
 }
 
 .hero-authors {
-  margin: 16px auto 0;
-  font-size: var(--text-body);
-  font-weight: 560;
-  letter-spacing: -0.01em;
-  color: var(--ink-secondary);
+  margin: 18px auto 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.author-rule {
+  width: 68px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #94a3b8);
+}
+
+.author-rule.right {
+  background: linear-gradient(90deg, #94a3b8, transparent);
+}
+
+.author-mark {
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+  background: var(--accent);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+
+.author-name {
+  font-size: 1.125rem;
+  font-weight: 640;
+  letter-spacing: -0.015em;
+  color: var(--ink);
 }
 
 .hero-subtitle {
-  max-width: 72ch;
-  margin: 14px auto 0;
-  font-size: clamp(1.0625rem, 1.35vw, 1.25rem);
-  line-height: 1.55;
+  max-width: 68ch;
+  margin: 16px auto 0;
+  font-size: clamp(1.0625rem, 1.38vw, 1.25rem);
+  line-height: 1.52;
   color: var(--muted);
+  text-wrap: balance;
+}
+
+.hero-subtitle strong {
+  font-weight: 620;
+  color: var(--ink);
+}
+
+.hero-pillars {
+  margin: 22px auto 0;
+  max-width: 1020px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.05fr 1.45fr;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: 0 12px 32px rgba(10, 14, 23, 0.05), 0 1px 0 rgba(255, 255, 255, 0.9) inset;
+  backdrop-filter: blur(12px);
+  overflow: hidden;
+}
+
+.hero-pillar {
+  position: relative;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 16px 18px;
+  border-right: 1px solid var(--line);
+  transition: background-color 180ms var(--ease);
+}
+
+.hero-pillar:last-child {
+  border-right: 0;
+}
+
+.hero-pillar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: transparent;
+  transition: background-color 180ms var(--ease);
+}
+
+.hero-pillar:hover {
+  background: rgba(245, 247, 251, 0.85);
+}
+
+.hero-pillar:nth-child(1):hover::before { background: #0052ff; }
+.hero-pillar:nth-child(2):hover::before { background: #0d9488; }
+.hero-pillar:nth-child(3):hover::before { background: #4f46e5; }
+
+.hero-pillar dd {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: clamp(1.375rem, 2vw, 1.625rem);
+  line-height: 1.15;
+  font-weight: 680;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.hero-pillar dd svg {
+  width: 19px;
+  height: 19px;
+  fill: none;
+  stroke: var(--muted);
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+
+.hero-pillar:nth-child(1) dd svg { stroke: #0052ff; }
+.hero-pillar:nth-child(2) dd svg { stroke: #0d9488; }
+.hero-pillar:nth-child(3) dd svg { stroke: #4f46e5; }
+
+.hero-pillar dt {
+  font-size: var(--text-sm);
+  font-weight: 520;
+  color: var(--muted);
+  line-height: 1.35;
+}
+
+.hero-pillar.is-featured {
+  background: linear-gradient(135deg, rgba(0, 82, 255, 0.06), rgba(13, 148, 136, 0.055));
+}
+
+.hero-pillar.is-featured::before {
+  background: linear-gradient(90deg, #0052ff, #0d9488);
+}
+
+.hero-pillar.is-featured:hover {
+  background: linear-gradient(135deg, rgba(0, 82, 255, 0.09), rgba(13, 148, 136, 0.08));
+}
+
+.hero-pillar.is-featured dd {
+  color: var(--accent);
+  font-size: clamp(1.125rem, 1.55vw, 1.375rem);
+  white-space: nowrap;
+}
+
+.hero-pillar.is-featured dd svg {
+  stroke: var(--accent);
+}
+
+.hero-pillar.is-featured dt {
+  color: var(--ink-secondary);
+  font-weight: 580;
 }
 
 .hero-action {
-  margin-top: 24px;
+  margin-top: 22px;
   display: flex;
   justify-content: center;
 }
@@ -3250,6 +3392,32 @@ dialog::backdrop {
 
   .hero-header h1 {
     font-size: clamp(2.15rem, 9.5vw, 2.85rem);
+  }
+
+  .author-rule {
+    width: 30px;
+  }
+
+  .hero-pillars {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hero-pillar {
+    padding: 14px 12px;
+  }
+
+  .hero-pillar.is-featured dd {
+    font-size: 1rem;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .hero-pillar:nth-child(2n) {
+    border-right: 0;
+  }
+
+  .hero-pillar:nth-child(-n+2) {
+    border-bottom: 1px solid var(--line);
   }
 
   .atlas-toolbar {
