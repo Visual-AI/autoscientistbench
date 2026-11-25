@@ -1,0 +1,159 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>CompArb: Computational Arbitrage in AI Model Markets</title>
+  <desc>A two-model repeated-sampling cascade from GPT-5 mini to DeepSeek under a one-dollar cap yields a lower convex purchase envelope that minimizes expected cost at a 70 percent solve rate.</desc>
+  <defs>
+    <clipPath id="arb-card-clip">
+      <rect x="0" y="0" width="640" height="400" rx="16"/>
+    </clipPath>
+    <linearGradient id="arb-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F4FAFE"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="arb-accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0284C7"/>
+      <stop offset="100%" stop-color="#06B6D4"/>
+    </linearGradient>
+    <linearGradient id="arb-gain-fill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#059669" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#06B6D4" stop-opacity="0.06"/>
+    </linearGradient>
+    <pattern id="arb-dots" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#0C4366" opacity="0.16"/>
+    </pattern>
+    <marker id="arb-arrow-dark" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M 1 1.5 L 8.5 5 L 1 8.5 Z" fill="#0C4366"/>
+    </marker>
+    <marker id="arb-arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M 1 1.5 L 8.5 5 L 1 8.5 Z" fill="#059669"/>
+    </marker>
+    <marker id="arb-arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M 1 1.5 L 8.5 5 L 1 8.5 Z" fill="#0284C7"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#arb-card-clip)">
+    <rect x="0" y="0" width="640" height="400" fill="url(#arb-bg)"/>
+    <rect x="20" y="58" width="600" height="296" fill="url(#arb-dots)"/>
+    <rect x="0" y="0" width="640" height="3" fill="url(#arb-accent)"/>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="16" fill="none" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- Header -->
+  <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <text x="28" y="38" font-size="18" font-weight="700" fill="#0A0E17">CompArb</text>
+    <text x="612" y="37" text-anchor="end" font-size="12.5" fill="#475569">AI Model Market Arbitrage</text>
+    <line x1="28" y1="54" x2="612" y2="54" stroke="#CBD5E1" stroke-width="0.9" opacity="0.75"/>
+  </g>
+
+  <!-- Left Panel: Two-Model Stopping Cascade -->
+  <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <!-- Issue Input -->
+    <rect x="36" y="74" width="162" height="34" rx="10" fill="#FFFFFF" stroke="#0C4366" stroke-width="1.8"/>
+    <circle cx="54" cy="91" r="5" fill="#0284C7"/>
+    <text x="68" y="95.5" font-size="12.5" font-weight="600" fill="#0A0E17">SWE-bench Issue</text>
+
+    <!-- Down arrow to Stage 1 -->
+    <line x1="117" y1="108" x2="117" y2="132" stroke="#0C4366" stroke-width="2" marker-end="url(#arb-arrow-dark)"/>
+
+    <!-- Stage 1: GPT-5 mini -->
+    <rect x="34" y="136" width="166" height="66" rx="12" fill="#E0F2FE" stroke="#06B6D4" stroke-width="2.2"/>
+    <text x="48" y="157" font-size="13" font-weight="700" fill="#0C4366">GPT-5 mini</text>
+    <text x="186" y="157" text-anchor="end" font-size="11.5" font-weight="600" fill="#0284C7">k₁ tries</text>
+    <!-- Repeated attempt blocks -->
+    <rect x="48" y="168" width="28" height="20" rx="5" fill="#06B6D4"/>
+    <rect x="82" y="168" width="28" height="20" rx="5" fill="#06B6D4" opacity="0.82"/>
+    <rect x="116" y="168" width="28" height="20" rx="5" fill="#06B6D4" opacity="0.58"/>
+    <rect x="150" y="168" width="36" height="20" rx="5" fill="#FFFFFF" stroke="#06B6D4" stroke-width="1.5" stroke-dasharray="3 2.5"/>
+
+    <!-- Early Exit 1 -->
+    <line x1="200" y1="169" x2="236" y2="169" stroke="#059669" stroke-width="2.2" marker-end="url(#arb-arrow-green)"/>
+    <circle cx="250" cy="169" r="9.5" fill="#059669"/>
+    <path d="M 245.5 169 L 248.8 172.3 L 254.8 165.8" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="234" y="153" text-anchor="middle" font-size="11.5" font-weight="600" fill="#059669">Stop</text>
+
+    <!-- Unsolved survival arrow -->
+    <line x1="117" y1="202" x2="117" y2="236" stroke="#0C4366" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arb-arrow-dark)"/>
+    <text x="128" y="224" font-size="11.5" fill="#475569">Unsolved</text>
+
+    <!-- Stage 2: DeepSeek -->
+    <rect x="34" y="240" width="166" height="66" rx="12" fill="#FFFFFF" stroke="#0284C7" stroke-width="2.2"/>
+    <text x="48" y="261" font-size="13" font-weight="700" fill="#0C4366">DeepSeek</text>
+    <text x="186" y="261" text-anchor="end" font-size="11.5" font-weight="600" fill="#0C4366">k₂ tries</text>
+    <!-- Larger cost attempt blocks -->
+    <rect x="48" y="272" width="42" height="20" rx="5" fill="#0284C7"/>
+    <rect x="96" y="272" width="42" height="20" rx="5" fill="#0284C7" opacity="0.72"/>
+    <rect x="144" y="272" width="42" height="20" rx="5" fill="#E0F2FE" stroke="#0284C7" stroke-width="1.5" stroke-dasharray="3 2.5"/>
+
+    <!-- Early Exit 2 -->
+    <line x1="200" y1="273" x2="236" y2="273" stroke="#059669" stroke-width="2.2" marker-end="url(#arb-arrow-green)"/>
+    <circle cx="250" cy="273" r="9.5" fill="#059669"/>
+    <path d="M 245.5 273 L 248.8 276.3 L 254.8 269.8" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Budget Cap Bracket -->
+    <path d="M 34 318 V 326 H 200 V 318" fill="none" stroke="#0C4366" stroke-width="1.8"/>
+    <text x="117" y="344" text-anchor="middle" font-size="12" font-weight="700" fill="#0C4366">Spend ≤ $1 / issue</text>
+  </g>
+
+  <!-- Right Panel: Lower Convex Purchase Envelope -->
+  <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <!-- Subtle plot card -->
+    <rect x="282" y="72" width="330" height="274" rx="12" fill="#FFFFFF" fill-opacity="0.82" stroke="#CBD5E1" stroke-width="1"/>
+
+    <!-- Faint plot grid lines -->
+    <g stroke="#CBD5E1" stroke-width="0.9" opacity="0.55">
+      <line x1="332" y1="142" x2="594" y2="142"/>
+      <line x1="332" y1="196" x2="594" y2="196"/>
+      <line x1="332" y1="250" x2="594" y2="250"/>
+      <line x1="420" y1="92" x2="420" y2="304"/>
+    </g>
+
+    <!-- Shaded Arbitrage Gain Region -->
+    <path d="M 332 302 C 378 292 414 274 446 232 L 456 208 C 478 190 498 172 516 154 L 580 104 L 580 138 L 516 212 L 456 258 L 396 286 Z" fill="url(#arb-gain-fill)"/>
+
+    <!-- Single-model frontier 1: GPT-5 mini only (dashed cyan) -->
+    <path d="M 332 302 C 384 292 422 272 454 222 C 474 188 486 146 494 96" fill="none" stroke="#06B6D4" stroke-width="2.4" stroke-dasharray="6 4" stroke-linecap="round"/>
+    <text x="484" y="102" text-anchor="end" font-size="11.5" font-weight="600" fill="#0284C7">GPT-5 only</text>
+
+    <!-- Single-model frontier 2: DeepSeek only (dashed dark) -->
+    <path d="M 332 272 C 396 244 460 202 516 154 C 542 132 564 116 588 98" fill="none" stroke="#0C4366" stroke-width="2.2" stroke-dasharray="5 4" stroke-linecap="round"/>
+    <text x="594" y="89" text-anchor="end" font-size="11.5" font-weight="600" fill="#0C4366">DeepSeek only</text>
+
+    <!-- 70% Target Vertical Line -->
+    <line x1="516" y1="96" x2="516" y2="304" stroke="#059669" stroke-width="1.8" stroke-dasharray="5 4"/>
+
+    <!-- Savings vertical indicator at 70% -->
+    <line x1="516" y1="160" x2="516" y2="202" stroke="#059669" stroke-width="2.4"/>
+
+    <!-- Lower Convex Envelope (Bold Primary) -->
+    <path d="M 332 302 L 396 286 L 456 258 L 516 212 L 580 138" fill="none" stroke="#0284C7" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="396" cy="286" r="4.5" fill="#FFFFFF" stroke="#0284C7" stroke-width="2.4"/>
+    <circle cx="456" cy="258" r="4.5" fill="#FFFFFF" stroke="#0284C7" stroke-width="2.4"/>
+    <circle cx="580" cy="138" r="4.5" fill="#FFFFFF" stroke="#0284C7" stroke-width="2.4"/>
+
+    <!-- Optimal Target Point at 70% -->
+    <circle cx="516" cy="212" r="12" fill="#059669" opacity="0.18"/>
+    <circle cx="516" cy="212" r="6" fill="#059669" stroke="#FFFFFF" stroke-width="2.4"/>
+
+    <!-- Clean Callout in open bottom-right triangle -->
+    <line x1="523" y1="219" x2="538" y2="236" stroke="#059669" stroke-width="1.6"/>
+    <text x="542" y="242" font-size="12" font-weight="700" fill="#059669">70% opt</text>
+    <text x="542" y="258" font-size="11.5" fill="#475569">Lower hull</text>
+
+    <!-- Axes -->
+    <path d="M 332 90 V 304 H 596" fill="none" stroke="#0A0E17" stroke-width="2" stroke-linecap="round"/>
+
+    <!-- Axis Labels & Ticks -->
+    <text x="302" y="198" transform="rotate(-90 302 198)" text-anchor="middle" font-size="12" fill="#475569">Expected cost ($)</text>
+    <text x="332" y="321" text-anchor="middle" font-size="11.5" fill="#475569">0%</text>
+    <text x="516" y="321" text-anchor="middle" font-size="12" font-weight="700" fill="#059669">70%</text>
+    <text x="590" y="321" text-anchor="middle" font-size="11.5" fill="#475569">100%</text>
+    <text x="464" y="338" text-anchor="middle" font-size="12" font-weight="600" fill="#0A0E17">Solve rate</text>
+  </g>
+
+  <!-- Footer -->
+  <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-width="0.9" opacity="0.75"/>
+    <text x="28" y="380" font-size="12.5" fill="#475569">Target metric: <tspan font-weight="700" fill="#0284C7">buy_cost_usd ↓</tspan></text>
+    <text x="612" y="380" text-anchor="end" font-size="12" fill="#475569">70% solve rate · 500-issue scale</text>
+  </g>
+</svg>

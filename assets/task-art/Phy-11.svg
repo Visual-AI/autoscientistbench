@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>NA-QSP — Non-Abelian Quantum Signal Processing Composite Pulse</title>
+  <desc>Oscillator phase-space coherent states and even-cat interference fringes coupled via a bounded-budget conditional-displacement and qubit-rotation composite pulse implementing sign-controlled Bloch-sphere rotations.</desc>
+  <defs>
+    <linearGradient id="card-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFBF2"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="accent-bar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#D97706"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+    <radialGradient id="lobe-neg" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#D97706" stop-opacity="0.88"/>
+      <stop offset="50%" stop-color="#F59E0B" stop-opacity="0.40"/>
+      <stop offset="100%" stop-color="#FEF3C7" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="lobe-pos" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#059669" stop-opacity="0.85"/>
+      <stop offset="50%" stop-color="#059669" stop-opacity="0.30"/>
+      <stop offset="100%" stop-color="#059669" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="bloch-bg" cx="38%" cy="32%" r="65%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="70%" stop-color="#FEF3C7" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#F59E0B" stop-opacity="0.18"/>
+    </radialGradient>
+    <clipPath id="card-clip">
+      <rect x="0" y="0" width="640" height="400" rx="14"/>
+    </clipPath>
+    <pattern id="dot-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#6E3A05" fill-opacity="0.16"/>
+    </pattern>
+    <marker id="arrow-slate" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#475569"/>
+    </marker>
+    <marker id="arrow-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#D97706"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#card-clip)" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <!-- Base canvas & grid -->
+    <rect x="0" y="0" width="640" height="400" fill="url(#card-bg)"/>
+    <rect x="16" y="54" width="608" height="304" fill="url(#dot-grid)"/>
+    <rect x="0" y="0" width="640" height="3" fill="url(#accent-bar)"/>
+
+    <!-- Header (y=18..54) -->
+    <text x="28" y="36" font-size="18" font-weight="700" fill="#0A0E17" letter-spacing="-0.3">NA-QSP</text>
+    <text x="612" y="36" font-size="12.5" font-weight="500" fill="#475569" text-anchor="end">Sign-Controlled Oscillator-Qubit Pulse</text>
+    <line x1="28" y1="53" x2="612" y2="53" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.7"/>
+
+    <!-- LEFT PANEL: Bosonic Phase Space (x, p) & Even-Cat Wigner Function -->
+    <text x="166" y="80" font-size="12.5" font-weight="600" fill="#0A0E17" text-anchor="middle">Phase Space (x, p)</text>
+
+    <!-- Quadrature axes -->
+    <line x1="42" y1="204" x2="288" y2="204" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow-slate)"/>
+    <line x1="166" y1="312" x2="166" y2="96" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow-slate)"/>
+    <text x="284" y="194" font-size="12" font-weight="600" fill="#475569" text-anchor="end">x</text>
+    <text x="176" y="104" font-size="12" font-weight="600" fill="#475569">p</text>
+
+    <!-- Sign(x) = 0 boundary line -->
+    <line x1="166" y1="112" x2="166" y2="300" stroke="#6E3A05" stroke-width="1.3" stroke-opacity="0.4" stroke-dasharray="4 4"/>
+
+    <!-- Even-cat Wigner interference fringes along x=0 -->
+    <g>
+      <ellipse cx="166" cy="176" rx="20" ry="4.2" fill="#D97706" fill-opacity="0.50"/>
+      <ellipse cx="166" cy="190" rx="24" ry="4.6" fill="#059669" fill-opacity="0.46"/>
+      <ellipse cx="166" cy="204" rx="27" ry="5.2" fill="#D97706" fill-opacity="0.62"/>
+      <ellipse cx="166" cy="218" rx="24" ry="4.6" fill="#059669" fill-opacity="0.46"/>
+      <ellipse cx="166" cy="232" rx="20" ry="4.2" fill="#D97706" fill-opacity="0.50"/>
+    </g>
+
+    <!-- Coherent state lobes |-alpha> and |+alpha> -->
+    <circle cx="96" cy="204" r="36" fill="url(#lobe-neg)"/>
+    <circle cx="96" cy="204" r="19" fill="none" stroke="#D97706" stroke-width="1.8" stroke-opacity="0.75"/>
+    <circle cx="96" cy="204" r="5" fill="#6E3A05"/>
+
+    <circle cx="236" cy="204" r="36" fill="url(#lobe-pos)"/>
+    <circle cx="236" cy="204" r="19" fill="none" stroke="#059669" stroke-width="1.8" stroke-opacity="0.75"/>
+    <circle cx="236" cy="204" r="5" fill="#0A0E17"/>
+
+    <!-- Curved non-Abelian CD momentum/position correction arcs -->
+    <path d="M 96 162 Q 108 134 142 138" fill="none" stroke="#D97706" stroke-width="2.2" marker-end="url(#arrow-amber)"/>
+    <path d="M 236 162 Q 224 134 190 138" fill="none" stroke="#059669" stroke-width="2.2" marker-end="url(#arrow-green)"/>
+
+    <!-- Coherent branch & interference labels -->
+    <text x="96" y="260" font-size="12.5" font-weight="700" fill="#6E3A05" text-anchor="middle">|−α⟩</text>
+    <text x="236" y="260" font-size="12.5" font-weight="700" fill="#059669" text-anchor="middle">|+α⟩</text>
+    <text x="166" y="334" font-size="11.5" font-weight="500" fill="#475569" text-anchor="middle">Even-Cat Interference</text>
+
+    <!-- Vertical section divider -->
+    <line x1="312" y1="70" x2="312" y2="346" stroke="#CBD5E1" stroke-width="1.2" stroke-dasharray="3 5"/>
+
+    <!-- RIGHT-TOP PANEL: Composite NA-QSP Gate Sequence -->
+    <text x="469" y="80" font-size="12.5" font-weight="600" fill="#0A0E17" text-anchor="middle">Composite CD + Qubit Pulse</text>
+
+    <!-- Two horizontal rails: oscillator & qubit -->
+    <text x="352" y="117" font-size="12" font-weight="600" fill="#475569" text-anchor="end">|±α⟩</text>
+    <line x1="360" y1="113" x2="602" y2="113" stroke="#475569" stroke-width="1.8"/>
+    <text x="352" y="154" font-size="12" font-weight="600" fill="#475569" text-anchor="end">|g⟩</text>
+    <line x1="360" y1="150" x2="602" y2="150" stroke="#475569" stroke-width="1.8"/>
+
+    <!-- Alternating Conditional Displacement (CD) & Qubit Rotation gates -->
+    <g>
+      <rect x="370" y="96" width="42" height="68" rx="7" fill="#FEF3C7" stroke="#D97706" stroke-width="2"/>
+      <text x="391" y="134" font-size="13.5" font-weight="700" fill="#6E3A05" text-anchor="middle">CD<tspan font-size="11.5" dy="2.5">p</tspan></text>
+
+      <rect x="420" y="135" width="30" height="30" rx="6" fill="#FFFFFF" stroke="#0A0E17" stroke-width="1.8"/>
+      <text x="435" y="154" font-size="13.5" font-weight="700" fill="#0A0E17" text-anchor="middle">R<tspan font-size="11.5" dy="2.5">1</tspan></text>
+
+      <rect x="458" y="96" width="42" height="68" rx="7" fill="#FEF3C7" stroke="#D97706" stroke-width="2"/>
+      <text x="479" y="134" font-size="13.5" font-weight="700" fill="#6E3A05" text-anchor="middle">CD<tspan font-size="11.5" dy="2.5">x</tspan></text>
+
+      <rect x="508" y="135" width="30" height="30" rx="6" fill="#FFFFFF" stroke="#0A0E17" stroke-width="1.8"/>
+      <text x="523" y="154" font-size="13.5" font-weight="700" fill="#0A0E17" text-anchor="middle">R<tspan font-size="11.5" dy="2.5">2</tspan></text>
+
+      <rect x="546" y="96" width="42" height="68" rx="7" fill="#FEF3C7" stroke="#D97706" stroke-width="2"/>
+      <text x="567" y="134" font-size="13.5" font-weight="700" fill="#6E3A05" text-anchor="middle">CD<tspan font-size="11.5" dy="2.5">p</tspan></text>
+    </g>
+
+    <!-- Fixed amplitude budget bracket -->
+    <path d="M 370 172 V 178 H 588 V 172" fill="none" stroke="#6E3A05" stroke-width="1.4"/>
+    <text x="479" y="194" font-size="12.5" font-weight="600" fill="#6E3A05" text-anchor="middle">Budget: Σ|λ<tspan font-size="11.5" dy="2">k</tspan><tspan dy="-2">| ≤ π/4</tspan></text>
+
+    <!-- RIGHT-BOTTOM PANEL: Sign-Controlled Bloch Sphere Rotation -->
+    <circle cx="469" cy="280" r="52" fill="url(#bloch-bg)" stroke="#475569" stroke-width="1.8"/>
+    <ellipse cx="469" cy="280" rx="52" ry="15" fill="none" stroke="#CBD5E1" stroke-width="1.4" stroke-dasharray="4 3"/>
+    <line x1="469" y1="228" x2="469" y2="332" stroke="#CBD5E1" stroke-width="1.2" stroke-dasharray="3 3"/>
+
+    <!-- Suppressed Gaussian error spread markers (subtle crimson) -->
+    <path d="M 417 271 A 52 52 0 0 0 418 289" fill="none" stroke="#E11D48" stroke-width="5" stroke-opacity="0.24"/>
+    <path d="M 521 271 A 52 52 0 0 1 520 289" fill="none" stroke="#E11D48" stroke-width="5" stroke-opacity="0.24"/>
+
+    <!-- Symmetric sign-controlled rotation arcs from |g> -->
+    <path d="M 469 228 A 52 52 0 0 0 419 272" fill="none" stroke="#D97706" stroke-width="3.2" marker-end="url(#arrow-amber)"/>
+    <path d="M 469 228 A 52 52 0 0 1 519 272" fill="none" stroke="#059669" stroke-width="3.2" marker-end="url(#arrow-green)"/>
+
+    <!-- Initial ground state & rotated endpoints -->
+    <circle cx="469" cy="228" r="4.5" fill="#0A0E17"/>
+    <text x="469" y="219" font-size="11.5" font-weight="700" fill="#0A0E17" text-anchor="middle">|g⟩</text>
+    <circle cx="417" cy="280" r="5" fill="#D97706" stroke="#FFFFFF" stroke-width="1.6"/>
+    <circle cx="521" cy="280" r="5" fill="#059669" stroke="#FFFFFF" stroke-width="1.6"/>
+
+    <!-- Branch rotation labels flanking Bloch sphere -->
+    <text x="404" y="278" font-size="13" font-weight="700" fill="#D97706" text-anchor="end">R<tspan font-size="11.5" dy="2.5">x</tspan><tspan dy="-2.5">(−θ</tspan><tspan font-size="11.5" dy="2.5">t</tspan><tspan dy="-2.5">)</tspan></text>
+    <text x="404" y="297" font-size="11.5" fill="#475569" text-anchor="end">x &lt; 0</text>
+    <text x="534" y="278" font-size="13" font-weight="700" fill="#059669" text-anchor="start">R<tspan font-size="11.5" dy="2.5">x</tspan><tspan dy="-2.5">(+θ</tspan><tspan font-size="11.5" dy="2.5">t</tspan><tspan dy="-2.5">)</tspan></text>
+    <text x="534" y="297" font-size="11.5" fill="#475569" text-anchor="start">x &gt; 0</text>
+
+    <!-- Footer (y=378) -->
+    <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.7"/>
+    <text x="28" y="378" font-size="12.5" fill="#475569">Σ|λ| ≤ π/4 · Coherent ±α &amp; Even-Cat</text>
+    <text x="612" y="378" font-size="12.5" fill="#475569" text-anchor="end">Metric: <tspan font-weight="700" fill="#D97706">hybrid_infidelity ↓</tspan></text>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="13.5" fill="none" stroke="#CBD5E1" stroke-width="1"/>
+</svg>

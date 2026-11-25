@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>CLMCP — Online Segment Mean Tracking Under Change Points</title>
+  <desc>A noisy CPU stream undergoes multiple abrupt mean shifts while a strictly causal online estimator tracks reference segment means and accumulates squared regret across detection-lag windows.</desc>
+  <defs>
+    <clipPath id="card-clip">
+      <rect x="0" y="0" width="640" height="400" rx="16"/>
+    </clipPath>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F7FAFF"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="top-bar" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0052FF"/>
+      <stop offset="100%" stop-color="#0EA5E9"/>
+    </linearGradient>
+    <linearGradient id="regret-fill" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0052FF" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#0052FF" stop-opacity="0.02"/>
+    </linearGradient>
+    <pattern id="dot-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#0A1E5E" opacity="0.15"/>
+    </pattern>
+  </defs>
+
+  <g clip-path="url(#card-clip)">
+    <rect x="0" y="0" width="640" height="400" fill="url(#bg-grad)"/>
+    <rect x="0" y="54" width="640" height="304" fill="url(#dot-grid)"/>
+    <rect x="0" y="0" width="640" height="3" fill="url(#top-bar)"/>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="15.5" fill="none" stroke="#CBD5E1" stroke-opacity="0.75" stroke-width="1"/>
+
+  <!-- Header -->
+  <text x="28" y="36" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="700" fill="#0A0E17">CLMCP</text>
+  <text x="612" y="35" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="500" fill="#475569">Online Tracking Across Change Points</text>
+  <line x1="28" y1="53" x2="612" y2="53" stroke="#CBD5E1" stroke-opacity="0.7" stroke-width="1"/>
+
+  <!-- Change-point labels cleanly above upper plot -->
+  <text x="214" y="73" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#E11D48">Change τ₁</text>
+  <text x="396" y="73" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#E11D48">Change τ₂</text>
+  <text x="524" y="73" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#0A1E5E">Now t</text>
+
+  <!-- Upper Panel: Stream & Segment Mean Tracking -->
+  <g id="stream-panel">
+    <rect x="54" y="80" width="546" height="162" rx="10" fill="#FFFFFF" fill-opacity="0.88" stroke="#CBD5E1" stroke-width="1.1"/>
+
+    <!-- Horizontal guide hairlines -->
+    <line x1="54" y1="118" x2="600" y2="118" stroke="#CBD5E1" stroke-opacity="0.45" stroke-width="1"/>
+    <line x1="54" y1="162" x2="600" y2="162" stroke="#CBD5E1" stroke-opacity="0.45" stroke-width="1"/>
+    <line x1="54" y1="204" x2="600" y2="204" stroke="#CBD5E1" stroke-opacity="0.45" stroke-width="1"/>
+
+    <!-- Detection-lag cost bands -->
+    <rect x="214" y="80" width="48" height="162" fill="#E11D48" fill-opacity="0.09"/>
+    <rect x="396" y="80" width="44" height="162" fill="#E11D48" fill-opacity="0.09"/>
+
+    <!-- Future unobserved causal boundary zone -->
+    <path d="M 524 80 H 590 A 10 10 0 0 1 600 90 V 232 A 10 10 0 0 1 590 242 H 524 Z" fill="#DBEAFE" fill-opacity="0.38"/>
+    <text x="562" y="101" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#475569">Hidden</text>
+    <text x="562" y="116" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#475569">Xₜ₊₁…</text>
+
+    <!-- Squared-error lag wedges between reference mean and online estimate -->
+    <path d="M 214 190 L 228 182 L 244 170 L 258 156 L 262 126 L 262 118 L 214 118 Z" fill="#E11D48" fill-opacity="0.22"/>
+    <path d="M 396 118 L 412 126 L 428 139 L 438 150 L 440 166 L 440 172 L 396 172 Z" fill="#E11D48" fill-opacity="0.22"/>
+
+    <!-- Noisy NAB CPU observations polyline + dots -->
+    <polyline points="62,202 74,180 86,196 98,176 110,192 122,206 134,184 146,194 158,178 170,200 182,188 194,197 206,182 218,128 230,110 242,126 254,104 266,124 278,112 290,130 302,106 314,120 326,110 338,126 350,114 362,108 374,124 386,116 398,164 410,182 422,162 434,178 446,166 458,184 470,164 482,176 494,160 506,180 518,168" fill="none" stroke="#0EA5E9" stroke-opacity="0.45" stroke-width="1.4"/>
+    <g fill="#0EA5E9" opacity="0.72">
+      <circle cx="62" cy="202" r="2.5"/><circle cx="74" cy="180" r="2.5"/><circle cx="86" cy="196" r="2.5"/>
+      <circle cx="98" cy="176" r="2.5"/><circle cx="110" cy="192" r="2.5"/><circle cx="122" cy="206" r="2.5"/>
+      <circle cx="134" cy="184" r="2.5"/><circle cx="146" cy="194" r="2.5"/><circle cx="158" cy="178" r="2.5"/>
+      <circle cx="170" cy="200" r="2.5"/><circle cx="182" cy="188" r="2.5"/><circle cx="194" cy="197" r="2.5"/>
+      <circle cx="206" cy="182" r="2.5"/><circle cx="218" cy="128" r="2.5"/><circle cx="230" cy="110" r="2.5"/>
+      <circle cx="242" cy="126" r="2.5"/><circle cx="254" cy="104" r="2.5"/><circle cx="266" cy="124" r="2.5"/>
+      <circle cx="278" cy="112" r="2.5"/><circle cx="290" cy="130" r="2.5"/><circle cx="302" cy="106" r="2.5"/>
+      <circle cx="314" cy="120" r="2.5"/><circle cx="326" cy="110" r="2.5"/><circle cx="338" cy="126" r="2.5"/>
+      <circle cx="350" cy="114" r="2.5"/><circle cx="362" cy="108" r="2.5"/><circle cx="374" cy="124" r="2.5"/>
+      <circle cx="386" cy="116" r="2.5"/><circle cx="398" cy="164" r="2.5"/><circle cx="410" cy="182" r="2.5"/>
+      <circle cx="422" cy="162" r="2.5"/><circle cx="434" cy="178" r="2.5"/><circle cx="446" cy="166" r="2.5"/>
+      <circle cx="458" cy="184" r="2.5"/><circle cx="470" cy="164" r="2.5"/><circle cx="482" cy="176" r="2.5"/>
+      <circle cx="494" cy="160" r="2.5"/><circle cx="506" cy="180" r="2.5"/><circle cx="518" cy="168" r="2.5"/>
+    </g>
+    <!-- Faint unobserved future stream -->
+    <g fill="#475569" opacity="0.25">
+      <circle cx="536" cy="178" r="2.3"/><circle cx="550" cy="164" r="2.3"/><circle cx="564" cy="176" r="2.3"/><circle cx="578" cy="166" r="2.3"/><circle cx="590" cy="174" r="2.3"/>
+    </g>
+
+    <!-- Fixed Reference Segment Means (mu_t) -->
+    <g fill="none" stroke="#059669" stroke-width="3.2" stroke-linecap="round">
+      <line x1="60" y1="190" x2="214" y2="190"/>
+      <line x1="214" y1="118" x2="396" y2="118"/>
+      <line x1="396" y1="172" x2="524" y2="172"/>
+    </g>
+    <line x1="524" y1="172" x2="592" y2="172" stroke="#059669" stroke-width="2.2" stroke-dasharray="5 4" stroke-opacity="0.4"/>
+
+    <!-- Causal Online Estimator Curve (mu_hat_t) -->
+    <path d="M 62 204 Q 82 192 108 191 L 214 190 L 228 182 L 244 170 L 258 156 L 262 126 Q 274 119 294 118 L 396 118 L 412 126 L 428 139 L 438 150 L 440 166 Q 452 172 472 172 L 524 172" fill="none" stroke="#0052FF" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+    <!-- Active frontier point -->
+    <circle cx="524" cy="172" r="5.5" fill="#0052FF" stroke="#FFFFFF" stroke-width="2"/>
+
+    <!-- Legend cleanly positioned in open upper-left space -->
+    <line x1="68" y1="98" x2="88" y2="98" stroke="#059669" stroke-width="3" stroke-linecap="round"/>
+    <text x="95" y="102" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#0A0E17">Ref Mean μₜ</text>
+    <line x1="68" y1="116" x2="88" y2="116" stroke="#0052FF" stroke-width="3" stroke-linecap="round"/>
+    <text x="95" y="120" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#0052FF">Causal Est. μ̂ₜ</text>
+
+    <!-- Detection lag callouts cleanly right of change-point lines -->
+    <text x="220" y="232" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#E11D48">Detect lag</text>
+    <text x="402" y="232" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#E11D48">Reset split</text>
+  </g>
+
+  <!-- Lower Aligned Panel: Cumulative Squared Error Regret -->
+  <g id="regret-panel">
+    <rect x="54" y="256" width="546" height="76" rx="10" fill="#FFFFFF" fill-opacity="0.88" stroke="#CBD5E1" stroke-width="1.1"/>
+    <!-- Aligned lag highlights -->
+    <rect x="214" y="256" width="48" height="76" fill="#E11D48" fill-opacity="0.09"/>
+    <rect x="396" y="256" width="44" height="76" fill="#E11D48" fill-opacity="0.09"/>
+    <path d="M 524 256 H 590 A 10 10 0 0 1 600 266 V 322 A 10 10 0 0 1 590 332 H 524 Z" fill="#DBEAFE" fill-opacity="0.38"/>
+
+    <!-- Shaded area + Regret staircase -->
+    <path d="M 60 326 L 214 319 L 238 307 L 262 293 L 396 289 L 420 278 L 440 268 L 524 265 L 524 332 L 60 332 Z" fill="url(#regret-fill)"/>
+    <path d="M 60 326 L 214 319 L 238 307 L 262 293 L 396 289 L 420 278 L 440 268 L 524 265" fill="none" stroke="#0A1E5E" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/>
+    <!-- Highlight steep error jumps -->
+    <line x1="214" y1="319" x2="262" y2="293" stroke="#E11D48" stroke-width="3.2" stroke-linecap="round"/>
+    <line x1="396" y1="289" x2="440" y2="268" stroke="#E11D48" stroke-width="3.2" stroke-linecap="round"/>
+    <circle cx="524" cy="265" r="4.8" fill="#0A1E5E" stroke="#FFFFFF" stroke-width="1.8"/>
+
+    <text x="66" y="278" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0A1E5E">Regret Σ(μ̂ₜ−μₜ)²</text>
+    <text x="562" y="298" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#0052FF">Horizon T</text>
+  </g>
+
+  <!-- Continuous Vertical Change-Point & Causal Frontier Lines across both panels -->
+  <line x1="214" y1="80" x2="214" y2="332" stroke="#E11D48" stroke-width="1.8" stroke-dasharray="5 4"/>
+  <line x1="396" y1="80" x2="396" y2="332" stroke="#E11D48" stroke-width="1.8" stroke-dasharray="5 4"/>
+  <line x1="524" y1="80" x2="524" y2="332" stroke="#0A1E5E" stroke-width="1.8"/>
+
+  <!-- Axis captions -->
+  <text x="38" y="162" text-anchor="middle" transform="rotate(-90 38 162)" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#475569">CPU Stream</text>
+  <text x="38" y="295" text-anchor="middle" transform="rotate(-90 38 295)" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#475569">Regret</text>
+  <text x="326" y="349" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="500" fill="#475569">Causal Observation Order  (Observe Xₜ → Submit μ̂ₜ)</text>
+
+  <!-- Footer -->
+  <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-opacity="0.7" stroke-width="1"/>
+  <text x="28" y="380" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#475569">NAB CPU streams · online change-point tracking</text>
+  <text x="612" y="380" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5"><tspan fill="#475569">Target: </tspan><tspan font-weight="700" fill="#0052FF">cumulative_regret ↓</tspan></text>
+</svg>

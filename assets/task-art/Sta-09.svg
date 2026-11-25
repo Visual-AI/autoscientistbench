@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>ClusterSMART — Longitudinal Inference for Clustered SMARTs</title>
+  <desc>Clustered longitudinal trajectories split across two adaptive randomization stages comparing the (1,1) and (-1,-1) regimes, yielding a tighter 95% confidence interval that strictly excludes zero.</desc>
+  <defs>
+    <clipPath id="cardClip">
+      <rect width="640" height="400" rx="16"/>
+    </clipPath>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFF6F8"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#E11D48"/>
+      <stop offset="100%" stop-color="#F43F5E"/>
+    </linearGradient>
+    <pattern id="dotGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#6B1028" opacity="0.16"/>
+    </pattern>
+    <marker id="arrowDark" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 1 1.5 L 9 5 L 1 8.5 Z" fill="#0A0E17"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#cardClip)">
+    <rect width="640" height="400" fill="url(#bgGrad)"/>
+    <rect x="24" y="60" width="592" height="296" fill="url(#dotGrid)"/>
+    <rect x="0" y="0" width="640" height="3" fill="url(#accentGrad)"/>
+  </g>
+  <rect x="0.75" y="0.75" width="638.5" height="398.5" rx="15.5" fill="none" stroke="#CBD5E1" stroke-opacity="0.75" stroke-width="1.5"/>
+
+  <!-- Header -->
+  <text x="28" y="38" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="700" fill="#0A0E17">ClusterSMART</text>
+  <text x="612" y="38" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="500" fill="#475569">Clustered Sequential Adaptive Trials</text>
+  <line x1="28" y1="54" x2="612" y2="54" stroke="#CBD5E1" stroke-opacity="0.6" stroke-width="1"/>
+
+  <!-- Left longitudinal trajectory panel -->
+  <line x1="58" y1="92" x2="58" y2="314" stroke="#CBD5E1" stroke-width="1.5"/>
+  <line x1="58" y1="314" x2="398" y2="314" stroke="#CBD5E1" stroke-width="1.5"/>
+  <line x1="218" y1="92" x2="218" y2="314" stroke="#CBD5E1" stroke-dasharray="5 4" stroke-width="1.5"/>
+  <text x="218" y="84" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" fill="#475569">R = 0</text>
+
+  <!-- Time ticks -->
+  <line x1="78" y1="314" x2="78" y2="319" stroke="#475569" stroke-width="1.5"/>
+  <line x1="218" y1="314" x2="218" y2="319" stroke="#475569" stroke-width="1.5"/>
+  <line x1="382" y1="314" x2="382" y2="319" stroke="#475569" stroke-width="1.5"/>
+  <text x="78" y="335" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#475569">t₀</text>
+  <text x="218" y="335" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#475569">Stage 2</text>
+  <text x="382" y="335" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#475569">t_T</text>
+
+  <!-- Faint individual/cluster longitudinal trajectories -->
+  <g fill="none" stroke-width="1.5" opacity="0.24">
+    <path d="M 92 198 C 138 172, 174 150, 218 142 C 272 132, 326 114, 382 104" stroke="#059669"/>
+    <path d="M 92 204 C 142 184, 178 166, 218 158 C 270 148, 326 134, 382 126" stroke="#059669"/>
+    <path d="M 92 201 C 144 176, 176 156, 218 149 C 274 136, 324 124, 382 114" stroke="#059669"/>
+    <path d="M 92 214 C 138 238, 174 252, 218 262 C 272 270, 326 282, 382 290" stroke="#E11D48"/>
+    <path d="M 92 210 C 140 228, 178 244, 218 250 C 272 258, 326 268, 382 272" stroke="#E11D48"/>
+    <path d="M 92 216 C 144 244, 176 262, 218 269 C 274 278, 324 288, 382 293" stroke="#E11D48"/>
+  </g>
+
+  <!-- Alternative non-responder rerandomized branches -->
+  <path d="M 228 152 C 272 164, 320 182, 372 194" fill="none" stroke="#059669" stroke-opacity="0.4" stroke-width="2" stroke-dasharray="5 4"/>
+  <path d="M 228 258 C 272 246, 320 230, 372 220" fill="none" stroke="#E11D48" stroke-opacity="0.4" stroke-width="2" stroke-dasharray="5 4"/>
+
+  <!-- Focal adaptive regime trajectories -->
+  <path d="M 92 202 C 140 178, 176 160, 218 152 C 272 138, 326 122, 382 112" fill="none" stroke="#059669" stroke-width="3.4" stroke-linecap="round"/>
+  <path d="M 92 212 C 140 234, 176 250, 218 258 C 272 268, 326 278, 382 284" fill="none" stroke="#E11D48" stroke-width="3.4" stroke-linecap="round"/>
+
+  <!-- Longitudinal measurement nodes -->
+  <g fill="#FFFFFF" stroke="#059669" stroke-width="2.4">
+    <circle cx="152" cy="172" r="4"/>
+    <circle cx="300" cy="131" r="4"/>
+  </g>
+  <circle cx="382" cy="112" r="6" fill="#059669"/>
+  <g fill="#FFFFFF" stroke="#E11D48" stroke-width="2.4">
+    <circle cx="152" cy="240" r="4"/>
+    <circle cx="300" cy="272" r="4"/>
+  </g>
+  <circle cx="382" cy="284" r="6" fill="#E11D48"/>
+
+  <!-- Stage 2 decision diamonds -->
+  <polygon points="218,142 228,152 218,162 208,152" fill="#FFFFFF" stroke="#059669" stroke-width="2.5"/>
+  <polygon points="218,248 228,258 218,268 208,258" fill="#FFFFFF" stroke="#E11D48" stroke-width="2.5"/>
+
+  <!-- Cluster bubbles at t0 -->
+  <g>
+    <circle cx="78" cy="176" r="13" fill="#FFE4E6" stroke="#E11D48" stroke-width="1.6"/>
+    <circle cx="74" cy="173" r="2.2" fill="#6B1028"/><circle cx="82" cy="174" r="2.2" fill="#6B1028"/><circle cx="78" cy="181" r="2.2" fill="#6B1028"/>
+    <circle cx="78" cy="207" r="13" fill="#FFE4E6" stroke="#E11D48" stroke-width="1.6"/>
+    <circle cx="74" cy="204" r="2.2" fill="#6B1028"/><circle cx="82" cy="205" r="2.2" fill="#6B1028"/><circle cx="78" cy="212" r="2.2" fill="#6B1028"/>
+    <circle cx="78" cy="238" r="13" fill="#FFE4E6" stroke="#E11D48" stroke-width="1.6"/>
+    <circle cx="74" cy="235" r="2.2" fill="#6B1028"/><circle cx="82" cy="236" r="2.2" fill="#6B1028"/><circle cx="78" cy="243" r="2.2" fill="#6B1028"/>
+  </g>
+  <text x="78" y="152" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" fill="#6B1028">Clusters</text>
+  <text x="122" y="211" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#0A0E17">A₁</text>
+  <text x="382" y="90" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#059669">(1, 1)</text>
+  <text x="382" y="309" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#E11D48">(−1, −1)</text>
+
+  <!-- Contrast Delta bracket -->
+  <line x1="402" y1="118" x2="402" y2="278" stroke="#0A0E17" stroke-width="1.8" marker-start="url(#arrowDark)" marker-end="url(#arrowDark)"/>
+  <text x="415" y="203" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="700" fill="#0A0E17">Δ</text>
+
+  <!-- Right 95% CI & Power Panel -->
+  <rect x="438" y="76" width="174" height="266" rx="12" fill="#FFFFFF" fill-opacity="0.84" stroke="#CBD5E1" stroke-width="1.2"/>
+  <line x1="482" y1="96" x2="482" y2="314" stroke="#E11D48" stroke-dasharray="4 4" stroke-width="1.8"/>
+  <text x="482" y="332" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#E11D48">0</text>
+
+  <!-- Wide Final-Only CI -->
+  <text x="536" y="108" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="500" fill="#475569">Final Y only</text>
+  <path d="M 454 170 C 480 170, 502 126, 536 126 C 570 126, 584 170, 602 170 Z" fill="#CBD5E1" fill-opacity="0.4" stroke="#475569" stroke-opacity="0.55" stroke-width="1.8"/>
+  <line x1="464" y1="184" x2="598" y2="184" stroke="#475569" stroke-width="3.2" stroke-linecap="round"/>
+  <line x1="464" y1="178" x2="464" y2="190" stroke="#475569" stroke-width="2"/>
+  <line x1="598" y1="178" x2="598" y2="190" stroke="#475569" stroke-width="2"/>
+  <circle cx="536" cy="184" r="4.5" fill="#FFFFFF" stroke="#475569" stroke-width="2.4"/>
+
+  <!-- Narrow Longitudinal CI -->
+  <text x="546" y="222" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#059669">Longitudinal</text>
+  <path d="M 498 284 C 516 284, 526 234, 546 234 C 566 234, 576 284, 594 284 Z" fill="#059669" fill-opacity="0.18" stroke="#059669" stroke-width="2.5"/>
+  <line x1="506" y1="298" x2="586" y2="298" stroke="#059669" stroke-width="4.2" stroke-linecap="round"/>
+  <line x1="506" y1="292" x2="506" y2="304" stroke="#059669" stroke-width="2.2"/>
+  <line x1="586" y1="292" x2="586" y2="304" stroke="#059669" stroke-width="2.2"/>
+  <circle cx="546" cy="298" r="5" fill="#FFFFFF" stroke="#059669" stroke-width="2.8"/>
+  <text x="550" y="332" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" fill="#059669">95% CI &gt; 0</text>
+
+  <!-- Footer -->
+  <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-opacity="0.6" stroke-width="1"/>
+  <text x="28" y="378" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#475569">End-of-study (1,1) vs (−1,−1) cAI contrast</text>
+  <text x="612" y="378" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#475569">Target: <tspan font-weight="700" fill="#E11D48">power ↑</tspan></text>
+</svg>

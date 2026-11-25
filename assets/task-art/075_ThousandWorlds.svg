@@ -1,0 +1,197 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>ThousandWorlds: Tidally Locked Exoplanet Climate Emulation</title>
+  <desc>Eight planetary parameters and five climate simulator categories drive a Gaussian process latent factor emulator that predicts 32-by-64 global tidally locked waterworld climate grids across partially observed atmospheric fields.</desc>
+  <defs>
+    <clipPath id="cardClip">
+      <rect x="0" y="0" width="640" height="400" rx="16"/>
+    </clipPath>
+    <clipPath id="mapClip">
+      <rect x="342" y="92" width="264" height="148" rx="14"/>
+    </clipPath>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFBF2"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="accentBar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#D97706"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+    <radialGradient id="eyeballGrad" cx="50%" cy="50%" r="54%">
+      <stop offset="0%" stop-color="#6E3A05" stop-opacity="0.88"/>
+      <stop offset="28%" stop-color="#D97706" stop-opacity="0.82"/>
+      <stop offset="56%" stop-color="#F59E0B" stop-opacity="0.45"/>
+      <stop offset="84%" stop-color="#FEF3C7" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#FFFBF2"/>
+    </radialGradient>
+    <radialGradient id="starGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#F59E0B" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#FEF3C7" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="dotGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#6E3A05" fill-opacity="0.15"/>
+    </pattern>
+    <pattern id="maskHatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="8" stroke="#475569" stroke-width="2" stroke-opacity="0.32"/>
+    </pattern>
+    <marker id="arrAmber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M1 1.5 L8.5 5 L1 8.5 Z" fill="#D97706"/>
+    </marker>
+    <marker id="arrInk" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M1 1.5 L8.5 5 L1 8.5 Z" fill="#0A0E17"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#cardClip)" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <!-- Base Plate -->
+    <rect x="0" y="0" width="640" height="400" fill="url(#bgGrad)"/>
+    <rect x="24" y="58" width="592" height="296" fill="url(#dotGrid)"/>
+    <rect x="0" y="0" width="640" height="3" fill="url(#accentBar)"/>
+
+    <!-- Header Zone (y=18..54) -->
+    <text x="28" y="36" font-size="18" font-weight="700" fill="#0A0E17">ThousandWorlds</text>
+    <text x="612" y="36" text-anchor="end" font-size="12.5" font-weight="500" fill="#475569">Tidally Locked Exoplanet Emulation</text>
+    <line x1="28" y1="53" x2="612" y2="53" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.75"/>
+
+    <!-- LEFT: Tidal Lock Star-Planet + 8 Parameters + 5 GCMs -->
+    <g>
+      <!-- Host Star & Tidally Locked Waterworld -->
+      <circle cx="66" cy="108" r="24" fill="url(#starGlow)"/>
+      <circle cx="66" cy="108" r="12" fill="#F59E0B" stroke="#D97706" stroke-width="1.8"/>
+      <!-- Stellar Flux Rays -->
+      <g stroke="#F59E0B" stroke-width="1.6" stroke-dasharray="3 3">
+        <line x1="84" y1="98" x2="122" y2="98"/>
+        <line x1="86" y1="108" x2="122" y2="108"/>
+        <line x1="84" y1="118" x2="122" y2="118"/>
+      </g>
+      <!-- Tidally Locked Planet (Day / Night Hemispheres) -->
+      <circle cx="146" cy="108" r="17" fill="#FEF3C7" stroke="#6E3A05" stroke-width="2"/>
+      <path d="M146 91 A17 17 0 0 1 146 125 Z" fill="#6E3A05" fill-opacity="0.28"/>
+      <path d="M146 91 A17 17 0 0 0 146 125 Z" fill="#F59E0B" fill-opacity="0.58"/>
+
+      <!-- 8 Planetary Parameter Sliders -->
+      <text x="108" y="152" text-anchor="middle" font-size="12" font-weight="700" fill="#0A0E17">8 Planet Params</text>
+      <g stroke="#CBD5E1" stroke-width="2" stroke-linecap="round">
+        <line x1="42" y1="166" x2="174" y2="166"/><line x1="42" y1="179" x2="174" y2="179"/>
+        <line x1="42" y1="192" x2="174" y2="192"/><line x1="42" y1="205" x2="174" y2="205"/>
+        <line x1="42" y1="218" x2="174" y2="218"/><line x1="42" y1="231" x2="174" y2="231"/>
+        <line x1="42" y1="244" x2="174" y2="244"/><line x1="42" y1="257" x2="174" y2="257"/>
+      </g>
+      <g fill="#D97706" stroke="#FFFFFF" stroke-width="1.4">
+        <circle cx="132" cy="166" r="4.2"/><circle cx="76" cy="179" r="4.2"/>
+        <circle cx="150" cy="192" r="4.2"/><circle cx="104" cy="205" r="4.2"/>
+        <circle cx="62" cy="218" r="4.2"/><circle cx="122" cy="231" r="4.2"/>
+        <circle cx="88" cy="244" r="4.2"/><circle cx="144" cy="257" r="4.2"/>
+      </g>
+
+      <!-- 5 GCM Category Chips -->
+      <g font-size="10.5" font-weight="600" text-anchor="middle">
+        <rect x="36" y="278" width="42" height="20" rx="5" fill="#D97706"/>
+        <text x="57" y="292" fill="#FFFFFF">UM</text>
+        <rect x="84" y="278" width="52" height="20" rx="5" fill="#FEF3C7" stroke="#D97706" stroke-width="1.2"/>
+        <text x="110" y="292" fill="#6E3A05">ExoCAM</text>
+        <rect x="142" y="278" width="38" height="20" rx="5" fill="#FFFFFF" stroke="#CBD5E1"/>
+        <text x="161" y="292" fill="#475569">LFRic</text>
+
+        <rect x="52" y="304" width="52" height="20" rx="5" fill="#FFFFFF" stroke="#CBD5E1"/>
+        <text x="78" y="318" fill="#475569">Pre-22</text>
+        <rect x="112" y="304" width="54" height="20" rx="5" fill="#FFFFFF" stroke="#CBD5E1"/>
+        <text x="139" y="318" fill="#475569">PlaSim</text>
+      </g>
+      <text x="108" y="342" text-anchor="middle" font-size="11.5" fill="#475569">5 GCM Simulators</text>
+    </g>
+
+    <!-- CENTER: GPLFR Latent GP Emulator -->
+    <g>
+      <line x1="184" y1="206" x2="204" y2="206" stroke="#D97706" stroke-width="2.4" marker-end="url(#arrAmber)"/>
+
+      <rect x="208" y="132" width="96" height="148" rx="14" fill="#FFFFFF" fill-opacity="0.95" stroke="#D97706" stroke-width="2.4"/>
+      <text x="256" y="122" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0A0E17">GPLFR</text>
+
+      <!-- Mini GP Prior Curve -->
+      <path d="M220 184 C232 162 246 154 256 164 C266 174 278 158 292 148 L292 178 C278 186 266 196 256 188 C246 180 232 190 220 198 Z"
+            fill="#FEF3C7"/>
+      <path d="M220 190 C232 176 246 168 256 176 C266 184 278 172 292 162"
+            fill="none" stroke="#D97706" stroke-width="2.4"/>
+
+      <!-- Divider -->
+      <line x1="222" y1="208" x2="290" y2="208" stroke="#CBD5E1" stroke-width="1" stroke-dasharray="3 3"/>
+
+      <!-- Latent Factor Bars -->
+      <g fill="#F59E0B">
+        <rect x="224" y="236" width="9" height="26" rx="2"/>
+        <rect x="238" y="222" width="9" height="40" rx="2" fill="#D97706"/>
+        <rect x="252" y="230" width="9" height="32" rx="2"/>
+        <rect x="266" y="218" width="9" height="44" rx="2" fill="#6E3A05"/>
+        <rect x="280" y="240" width="9" height="22" rx="2"/>
+      </g>
+      <text x="256" y="298" text-anchor="middle" font-size="11.5" font-weight="600" fill="#D97706">Latent Prior</text>
+
+      <line x1="308" y1="206" x2="334" y2="206" stroke="#D97706" stroke-width="2.4" marker-end="url(#arrAmber)"/>
+    </g>
+
+    <!-- RIGHT HERO: 32×64 Tidally Locked Global Climate Grid + Multi-Field Stack -->
+    <g>
+      <text x="474" y="82" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0A0E17">Global Climate Grid (32 × 64)</text>
+
+      <!-- Main Equirectangular Tidally Locked Map -->
+      <g clip-path="url(#mapClip)">
+        <rect x="342" y="92" width="264" height="148" fill="url(#eyeballGrad)"/>
+
+        <!-- Concentric Eyeball Thermal Isotherms -->
+        <ellipse cx="474" cy="166" rx="108" ry="64" fill="none" stroke="#D97706" stroke-width="1.4" stroke-opacity="0.45"/>
+        <ellipse cx="474" cy="166" rx="74" ry="44" fill="none" stroke="#D97706" stroke-width="1.8" stroke-opacity="0.72"/>
+        <ellipse cx="474" cy="166" rx="42" ry="25" fill="none" stroke="#6E3A05" stroke-width="2" stroke-opacity="0.85"/>
+
+        <!-- Lat-Lon Graticule -->
+        <g stroke="#6E3A05" stroke-width="0.9" stroke-opacity="0.2">
+          <line x1="342" y1="129" x2="606" y2="129"/>
+          <line x1="342" y1="166" x2="606" y2="166"/>
+          <line x1="342" y1="203" x2="606" y2="203"/>
+          <line x1="386" y1="92" x2="386" y2="240"/>
+          <line x1="430" y1="92" x2="430" y2="240"/>
+          <line x1="474" y1="92" x2="474" y2="240"/>
+          <line x1="518" y1="92" x2="518" y2="240"/>
+          <line x1="562" y1="92" x2="562" y2="240"/>
+        </g>
+
+        <!-- Substellar Point Crosshair -->
+        <circle cx="474" cy="166" r="5" fill="#FFFFFF" stroke="#6E3A05" stroke-width="2"/>
+
+        <!-- Super-Rotating Equatorial Wind Jets -->
+        <path d="M402 146 C444 134 504 134 550 146" fill="none" stroke="#0A0E17" stroke-width="2.2" marker-end="url(#arrInk)"/>
+        <path d="M402 186 C444 198 504 198 550 186" fill="none" stroke="#0A0E17" stroke-width="2.2" marker-end="url(#arrInk)"/>
+      </g>
+      <rect x="342" y="92" width="264" height="148" rx="14" fill="none" stroke="#6E3A05" stroke-width="2.2"/>
+
+      <!-- 4 Mini Atmospheric Field Channels Below Map -->
+      <g transform="translate(342, 258)">
+        <!-- Temp -->
+        <rect x="0" y="0" width="58" height="46" rx="7" fill="#FEF3C7" stroke="#D97706" stroke-width="1.6"/>
+        <ellipse cx="29" cy="23" rx="19" ry="12" fill="#D97706" fill-opacity="0.65"/>
+        <ellipse cx="29" cy="23" rx="8" ry="5" fill="#6E3A05"/>
+        <text x="29" y="64" text-anchor="middle" font-size="11.5" font-weight="600" fill="#0A0E17">Temp</text>
+
+        <!-- Cloud -->
+        <rect x="69" y="0" width="58" height="46" rx="7" fill="#FFFFFF" stroke="#F59E0B" stroke-width="1.6"/>
+        <path d="M84 28 C84 18 96 14 102 20 C110 16 116 24 112 30 Z" fill="#F59E0B" fill-opacity="0.45" stroke="#D97706" stroke-width="1.5"/>
+        <text x="98" y="64" text-anchor="middle" font-size="11.5" font-weight="600" fill="#0A0E17">Cloud</text>
+
+        <!-- Wind -->
+        <rect x="138" y="0" width="58" height="46" rx="7" fill="#FFFBF2" stroke="#D97706" stroke-width="1.6"/>
+        <path d="M146 16 Q167 10 186 16 M146 25 Q167 21 186 25 M146 34 Q167 38 186 34" fill="none" stroke="#6E3A05" stroke-width="1.8" stroke-linecap="round"/>
+        <text x="167" y="64" text-anchor="middle" font-size="11.5" font-weight="600" fill="#0A0E17">Wind</text>
+
+        <!-- Masked Field (Structured Missingness) -->
+        <rect x="206" y="0" width="58" height="46" rx="7" fill="url(#maskHatch)" stroke="#475569" stroke-width="1.6" stroke-dasharray="4 3"/>
+        <text x="235" y="64" text-anchor="middle" font-size="11.5" font-weight="600" fill="#475569">Masked</text>
+      </g>
+    </g>
+
+    <!-- Footer Bar (y=378) -->
+    <line x1="28" y1="357" x2="612" y2="357" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.75"/>
+    <text x="28" y="378" font-size="12.5" fill="#475569">53 fields · 5 GCMs · latitude-weighted</text>
+    <text x="612" y="378" text-anchor="end" font-size="12.5" fill="#475569">Metric <tspan font-weight="700" fill="#D97706">relative_rmse ↓</tspan></text>
+  </g>
+
+  <rect x="0.5" y="0.5" width="639" height="399" rx="16" fill="none" stroke="#CBD5E1" stroke-opacity="0.75"/>
+</svg>

@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>RandBetting — Permutation-Averaged Betting and Randomized Markov</title>
+  <desc>Predictable betting wealth trajectories averaged across random permutations yield an exchangeable e-value tested against the randomized Markov threshold U over alpha to improve power.</desc>
+  <defs>
+    <clipPath id="cardClip">
+      <rect x="0" y="0" width="640" height="400" rx="16"/>
+    </clipPath>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F7F6FF"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#4F46E5"/>
+      <stop offset="100%" stop-color="#8B5CF6"/>
+    </linearGradient>
+    <linearGradient id="rejectStrip" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#059669" stop-opacity="0.26"/>
+      <stop offset="100%" stop-color="#059669" stop-opacity="0.08"/>
+    </linearGradient>
+    <pattern id="dotGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#261E6B" opacity="0.16"/>
+    </pattern>
+    <marker id="arrGreen" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#cardClip)">
+    <rect x="0" y="0" width="640" height="400" fill="url(#bgGrad)"/>
+    <rect x="16" y="56" width="608" height="298" fill="url(#dotGrid)"/>
+    <rect x="0" y="0" width="640" height="3.5" fill="url(#accentGrad)"/>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="16" fill="none" stroke="#CBD5E1" stroke-opacity="0.75" stroke-width="1"/>
+
+  <!-- Header -->
+  <text x="28" y="37" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="700" fill="#0A0E17">RandBetting</text>
+  <text x="612" y="37" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="500" fill="#475569">Exchangeable Wealth &amp; Randomized Markov</text>
+  <line x1="28" y1="53" x2="612" y2="53" stroke="#CBD5E1" stroke-opacity="0.75" stroke-width="1"/>
+
+  <!-- Axes for Betting Wealth -->
+  <line x1="68" y1="78" x2="68" y2="316" stroke="#0A0E17" stroke-width="1.6"/>
+  <line x1="68" y1="316" x2="432" y2="316" stroke="#0A0E17" stroke-width="1.6"/>
+
+  <!-- Capital Baseline K = 1 -->
+  <line x1="68" y1="286" x2="432" y2="286" stroke="#CBD5E1" stroke-width="1.4" stroke-dasharray="4 3"/>
+  <text x="58" y="290" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">1</text>
+  <text x="58" y="84" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#0A0E17">Kₜ</text>
+
+  <!-- X-Axis Labels -->
+  <text x="74" y="334" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">1</text>
+  <text x="250" y="338" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">Observation Step t</text>
+  <text x="424" y="334" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">n</text>
+
+  <!-- Deterministic Markov Threshold 1/alpha -->
+  <line x1="68" y1="100" x2="522" y2="100" stroke="#E11D48" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="80" y="91" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" fill="#E11D48">Markov 1/α</text>
+
+  <!-- Randomized Markov Threshold U/alpha -->
+  <line x1="68" y1="192" x2="522" y2="192" stroke="#059669" stroke-width="2.2"/>
+  <text x="80" y="183" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" fill="#059669">Randomized U/α</text>
+
+  <!-- 7 Permutation Betting Trajectories K_t(pi_b) -->
+  <g fill="none" stroke="#8B5CF6" stroke-width="1.8" stroke-opacity="0.38" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M 68 286 C 122 272 164 252 214 218 C 266 184 316 144 368 122 C 394 111 410 107 424 105"/>
+    <path d="M 68 286 C 118 292 166 266 220 242 C 276 218 326 172 374 146 C 398 134 412 128 424 121"/>
+    <path d="M 68 286 C 126 268 176 268 228 232 C 282 194 330 168 380 148 C 402 140 414 137 424 135"/>
+    <path d="M 68 286 C 114 282 168 278 218 258 C 272 238 324 202 378 172 C 400 160 414 156 424 152"/>
+    <path d="M 68 286 C 128 298 174 282 230 268 C 284 254 334 216 382 192 C 404 181 414 176 424 171"/>
+    <path d="M 68 286 C 116 276 172 292 224 274 C 280 256 336 232 384 210 C 404 200 414 198 424 196"/>
+    <path d="M 68 286 C 122 296 178 298 234 284 C 290 270 340 244 388 224 C 406 218 416 216 424 214"/>
+  </g>
+
+  <!-- Permutation-Averaged Exchangeable Wealth Curve -->
+  <path d="M 68 286 C 124 282 174 270 226 246 C 280 220 332 184 382 158 C 402 147 414 142 424 138" fill="none" stroke="#4F46E5" stroke-width="3.4" stroke-linecap="round"/>
+
+  <!-- Terminal E-Value Connector to Right Strip -->
+  <line x1="424" y1="138" x2="478" y2="138" stroke="#4F46E5" stroke-width="2" stroke-dasharray="4 3"/>
+  <circle cx="424" cy="138" r="6" fill="#4F46E5" stroke="#FFFFFF" stroke-width="2.2"/>
+  <text x="451" y="128" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#4F46E5">Mean Ē</text>
+
+  <!-- Sub-label for Permutations & Null -->
+  <text x="344" y="305" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">Permutations Kₜ(π)</text>
+  <text x="80" y="305" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#261E6B">H₀: E[X] = ½</text>
+
+  <!-- Right Panel: Randomized Markov Uniform Strip [0, 1/alpha] -->
+  <text x="500" y="84" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" fill="#261E6B">U ~ Unif(0,1)</text>
+
+  <!-- Uniform Bar Container -->
+  <rect x="478" y="100" width="44" height="186" rx="6" fill="#E0E7FF" fill-opacity="0.55" stroke="#4F46E5" stroke-opacity="0.45" stroke-width="1.4"/>
+  <!-- Rejection Zone (U/alpha < Ē) -->
+  <rect x="479" y="138" width="42" height="147" rx="5" fill="url(#rejectStrip)"/>
+  <!-- Ē Level Bar inside Strip -->
+  <line x1="478" y1="138" x2="522" y2="138" stroke="#4F46E5" stroke-width="2.6"/>
+
+  <!-- Sampled U/alpha Marker on Strip -->
+  <circle cx="500" cy="192" r="5.5" fill="#059669" stroke="#FFFFFF" stroke-width="2"/>
+
+  <!-- Power Gain Margin Bracket (between Ē and U/alpha) -->
+  <path d="M 530 138 L 538 138 L 538 192 L 530 192" fill="none" stroke="#059669" stroke-width="2"/>
+  <text x="546" y="160" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#059669">Ē &gt; U/α</text>
+  <text x="546" y="178" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#059669">Reject H₀</text>
+
+  <!-- Deterministic Miss Note -->
+  <text x="536" y="122" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">Power Gain</text>
+
+  <!-- Strip Bottom 0 Label -->
+  <text x="500" y="303" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">0</text>
+
+  <!-- Footer -->
+  <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-opacity="0.75" stroke-width="1"/>
+  <text x="28" y="380" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#475569">Target metric: <tspan font-weight="700" fill="#4F46E5">power ↑</tspan></text>
+  <text x="612" y="380" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">Type-I Guard α = 0.05</text>
+</svg>

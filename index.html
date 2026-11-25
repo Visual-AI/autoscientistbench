@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AutoScientistBench: Benchmarking long-horizon AI agents with 104 AutoResearch tasks across nine scientific disciplines.">
+  <meta name="theme-color" content="#FFFFFF">
+  <title>AutoScientistBench</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#top" aria-label="AutoScientistBench home">
+        <img src="favicon.svg" width="28" height="28" alt="">
+        <span>AutoScientistBench</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="#overview" data-nav="overview" class="active">Overview</a>
+        <a href="#leaderboard" data-nav="leaderboard">Leaderboard</a>
+        <a href="#papers" data-nav="papers">Papers</a>
+        <a href="#tasks" data-nav="tasks">Tasks</a>
+        <a href="#protocol" data-nav="protocol">Protocol</a>
+      </nav>
+      <button class="header-status refresh-button" type="button" title="Check for updated benchmark exports">
+        <span class="snapshot-date">Loading snapshot...</span>
+        <span class="refresh-icon" aria-hidden="true">↻</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="shell">
+      <div id="load-error" class="notice error" role="alert" hidden></div>
+    </div>
+
+    <!-- Overview: Hero + Interactive 104-Task Visual Map -->
+    <section id="overview" class="hero-stage" aria-labelledby="hero-title">
+      <div class="hero-backdrop" aria-hidden="true"></div>
+      <div class="shell hero-shell">
+        <div class="hero-header">
+          <h1 id="hero-title">Benchmarking Long-Horizon Agents with AutoResearch Tasks</h1>
+          <p class="hero-subtitle">Evaluate whether AI agents can optimize methods published in 2026.<br>104 real problems, 104 published papers, 9 scientific disciplines.</p>
+          <div class="hero-action">
+            <a class="primary-cta" href="#leaderboard">Explore the leaderboard <span aria-hidden="true">↓</span></a>
+          </div>
+        </div>
+
+        <div class="atlas-frame" aria-label="Interactive 104-task benchmark overview">
+          <div class="atlas-toolbar">
+            <div class="atlas-summary">
+              <strong id="atlas-headline">104 research tasks across 9 disciplines</strong>
+              <span id="atlas-caption">Hover any tile to inspect metrics and improvement scores, or click to open its full task record.</span>
+            </div>
+            <div class="atlas-controls">
+              <div class="segmented" role="group" aria-label="Overview lens">
+                <button type="button" data-atlas-mode="art" class="selected" aria-pressed="true">Diagrams</button>
+                <button type="button" data-atlas-mode="papers" aria-pressed="false">Papers</button>
+                <button type="button" data-atlas-mode="heatmap" aria-pressed="false">Score map</button>
+              </div>
+              <label class="select-control">
+                <span class="sr-only">Overlay model improvement score</span>
+                <select id="atlas-model" aria-label="Overlay model improvement score">
+                  <option value="all">All models (improvement score)</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <div id="atlas-mosaic" class="atlas-mosaic" role="region" aria-label="104 tasks grouped by discipline">
+            <div class="loading-panel">Loading 104-task overview...</div>
+          </div>
+
+          <div class="atlas-legend" id="atlas-legend" aria-live="polite">
+            <div class="legend-items" id="atlas-legend-items"></div>
+            <span class="legend-hint">Click any tile for full diagram, paper PDF, and model scores</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Leaderboard & Multi-View Analytics -->
+    <section id="leaderboard" class="band band-surface" aria-labelledby="leaderboard-title">
+      <div class="shell">
+        <div class="section-header">
+          <div>
+            <h2 id="leaderboard-title">Model leaderboard</h2>
+            <p class="section-lead" id="chart-subtitle">Improvement score relative to baseline (0%) and target ceiling (100%), averaged across all 104 tasks.</p>
+          </div>
+          <div class="section-controls">
+            <div class="segmented" role="group" aria-label="Visualization mode">
+              <button type="button" data-layout="columns" class="selected" aria-pressed="true">Columns</button>
+              <button type="button" data-layout="rows" aria-pressed="false">Rows</button>
+              <button type="button" data-layout="frontier" aria-pressed="false">Frontier</button>
+              <button type="button" data-layout="matrix" aria-pressed="false">Disciplines</button>
+            </div>
+            <label class="select-control">
+              <span class="sr-only">Filter by discipline</span>
+              <select id="leader-domain" aria-label="Leaderboard discipline filter">
+                <option value="all">All 104 tasks</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div class="analytics-stage">
+          <div class="stage-meta">
+            <span class="stage-scope" id="stage-scope">8 evaluated models · All 104 tasks</span>
+            <div class="provider-legend" id="provider-legend"></div>
+          </div>
+
+          <div id="performance-chart" class="performance-chart" aria-label="Model benchmark visualization">
+            <div class="loading-panel">Loading benchmark results...</div>
+          </div>
+        </div>
+
+        <div class="table-header-row">
+          <div class="table-title-group">
+            <h3 id="rankings-title">Rankings</h3>
+            <span class="muted-meta" id="ranking-count">8 models</span>
+          </div>
+          <div class="table-tools">
+            <label class="search-input">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="m13 13 4 4"/></svg>
+              <input id="model-search" type="search" placeholder="Filter models or harness" aria-label="Search models">
+            </label>
+            <button class="tool-button" id="download-results" type="button" title="Download current rankings as CSV" aria-label="Download current rankings as CSV">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v9m-3.5-3.5L10 12l3.5-3.5M4 14v2.5h12V14"/></svg>
+              <span>Export CSV</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="rankings-definitions">
+          <p><strong>Improvement score:</strong> Measures how far an agent's solution progresses from the reproduced baseline (0%) toward the calibrated target ceiling (100%), averaged across the selected tasks with negative task scores clipped to zero.</p>
+          <p><strong>Passed:</strong> Counts tasks where a valid submission outperforms the baseline by at least the task's improvement margin and twice the baseline's cross-seed standard deviation.</p>
+        </div>
+
+        <div class="table-wrap">
+          <table class="ranking-table">
+            <caption class="sr-only">Model rankings by improvement score</caption>
+            <thead>
+              <tr>
+                <th scope="col" class="col-rank">Rank</th>
+                <th scope="col"><button class="sort-trigger" type="button" data-sort="name">Model <span>↕</span></button></th>
+                <th scope="col">Harness</th>
+                <th scope="col" class="numeric"><button class="sort-trigger" type="button" data-sort="passed">Passed <span>↕</span></button></th>
+                <th scope="col" class="numeric" aria-sort="descending"><button class="sort-trigger" type="button" data-sort="score">Improvement score <span>↓</span></button></th>
+                <th scope="col" class="col-action"><span class="sr-only">Details</span></th>
+              </tr>
+            </thead>
+            <tbody id="rankings-body"></tbody>
+          </table>
+          <div class="empty-panel" id="no-models" hidden>No models match the current search filter.</div>
+        </div>
+
+        <div class="table-footnote">
+          <p id="score-note">Improvement score averages normalized task scores across the selected collection.</p>
+          <a class="inline-link" href="#protocol-score">Evaluation protocol details ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Research Papers Observatory (Harmonized Luminous Light-Table Studio) -->
+    <section id="papers" class="band band-studio" aria-labelledby="papers-title">
+      <div class="studio-backdrop" aria-hidden="true"></div>
+      <div class="shell studio-shell">
+        <div class="section-header studio-header">
+          <div>
+            <h2 id="papers-title">Grounded in 104 published papers</h2>
+            <p class="section-lead">Every environment preserves an authentic paper codebase, data boundary, and metric contract. Browse the archival collection and inspect how frontier agents perform on each paper.</p>
+          </div>
+          <div class="paper-stage-actions">
+            <span class="paper-counter" id="paper-counter" aria-live="polite">001 / 104</span>
+            <div class="reel-nav" aria-label="Navigate archival paper deck">
+              <button class="icon-circle" id="paper-play" type="button" title="Pause auto-play" aria-label="Pause auto-play" aria-pressed="true">
+                <svg viewBox="0 0 20 20" width="14" height="14" fill="currentColor" aria-hidden="true"><rect x="4.5" y="3.5" width="3.5" height="13" rx="1"/><rect x="12" y="3.5" width="3.5" height="13" rx="1"/></svg>
+              </button>
+              <button class="icon-circle" id="paper-prev" type="button" aria-label="Previous paper">←</button>
+              <button class="icon-circle" id="paper-next" type="button" aria-label="Next paper">→</button>
+              <button class="icon-circle" id="paper-shuffle" type="button" title="Jump to a random paper" aria-label="Jump to a random paper">
+                <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 4h2v2m0 8v2h-2M3 6h3.5l7 8H18M3 14h3.5l2.1-2.4M12.4 7.4 13.5 6H18"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div id="paper-domain-tabs" class="paper-domain-tabs" role="tablist" aria-label="Filter papers by discipline"></div>
+
+        <div class="paper-observatory" id="paper-observatory">
+          <div class="paper-deck-stage" id="paper-deck-stage">
+            <div class="paper-spotlight-glow" id="paper-spotlight-glow" aria-hidden="true"></div>
+            <div id="paper-deck" class="paper-deck" tabindex="0" aria-label="Interactive 3D archival paper deck"></div>
+            <div class="deck-progress" aria-hidden="true"><span id="deck-progress-fill"></span></div>
+          </div>
+
+          <aside id="paper-dossier" class="paper-dossier" aria-live="polite">
+            <div class="loading-panel">Loading paper archive...</div>
+          </aside>
+        </div>
+
+        <div id="paper-filmstrip" class="paper-filmstrip" aria-label="All paper thumbnails"></div>
+
+        <div class="pillars-grid">
+          <article class="pillar">
+            <div class="pillar-schematic" aria-hidden="true">
+              <svg viewBox="0 0 280 76" fill="none">
+                <rect x="6" y="14" width="76" height="48" rx="6" stroke="#CBD5E1" fill="#FFFFFF"/>
+                <line x1="18" y1="30" x2="68" y2="30" stroke="#0052FF" stroke-width="2" stroke-linecap="round"/>
+                <line x1="18" y1="40" x2="58" y2="40" stroke="#94A3B8" stroke-width="2" stroke-linecap="round"/>
+                <line x1="18" y1="50" x2="64" y2="50" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
+                <path d="M88 38h36" stroke="#94A3B8" stroke-width="1.5" stroke-dasharray="3 3"/>
+                <circle cx="132" cy="38" r="14" stroke="#0052FF" stroke-width="1.8" fill="#EEF4FF"/>
+                <circle cx="132" cy="38" r="4" fill="#0052FF"/>
+                <path d="M150 38h36" stroke="#94A3B8" stroke-width="1.5"/>
+                <rect x="192" y="14" width="82" height="48" rx="6" stroke="#0D9488" stroke-width="1.5" fill="#F0FDFA"/>
+                <path d="M206 46l12-16 14 10 16-18 12 8" stroke="#0D9488" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3>Authentic paper baselines</h3>
+            <p>Each task pins the authors' reference repository and verified runtime environment so every evaluated agent begins from the same working baseline.</p>
+          </article>
+          <article class="pillar">
+            <div class="pillar-schematic" aria-hidden="true">
+              <svg viewBox="0 0 280 76" fill="none">
+                <rect x="8" y="12" width="120" height="52" rx="6" stroke="#0052FF" stroke-width="1.5" stroke-dasharray="4 3" fill="#EEF4FF"/>
+                <circle cx="44" cy="38" r="14" stroke="#94A3B8" stroke-width="1.5" fill="#FFFFFF"/>
+                <path d="M44 24a14 14 0 0 1 14 14" stroke="#0052FF" stroke-width="2.2" stroke-linecap="round"/>
+                <line x1="72" y1="30" x2="112" y2="30" stroke="#475569" stroke-width="2" stroke-linecap="round"/>
+                <line x1="72" y1="42" x2="104" y2="42" stroke="#059669" stroke-width="2" stroke-linecap="round"/>
+                <line x1="150" y1="10" x2="150" y2="66" stroke="#CBD5E1" stroke-width="1.5"/>
+                <rect x="170" y="16" width="102" height="44" rx="6" stroke="#CBD5E1" fill="#FFFFFF"/>
+                <rect x="184" y="28" width="22" height="20" rx="3" stroke="#E11D48" stroke-width="1.6" fill="#FFF1F2"/>
+                <path d="M190 28v-4a5 5 0 0 1 10 0v4" stroke="#E11D48" stroke-width="1.6"/>
+                <line x1="218" y1="34" x2="258" y2="34" stroke="#64748B" stroke-width="2" stroke-linecap="round"/>
+                <line x1="218" y1="44" x2="248" y2="44" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3>Bounded method freedom</h3>
+            <p>Agents may invent new algorithms, architectures, and training procedures within each task's research contract using only train and validation data.</p>
+          </article>
+          <article class="pillar">
+            <div class="pillar-schematic" aria-hidden="true">
+              <svg viewBox="0 0 280 76" fill="none">
+                <circle cx="28" cy="22" r="5" fill="#0284C7"/>
+                <circle cx="28" cy="38" r="5" fill="#0052FF"/>
+                <circle cx="28" cy="54" r="5" fill="#059669"/>
+                <path d="M36 22c34 0 34 16 68 16M36 38h68M36 54c34 0 34-16 68-16" stroke="#94A3B8" stroke-width="1.5"/>
+                <rect x="108" y="18" width="66" height="40" rx="6" stroke="#0052FF" stroke-width="1.6" fill="#EEF4FF"/>
+                <path d="M124 38h34" stroke="#0A0E17" stroke-width="2" stroke-linecap="round"/>
+                <path d="M178 38h28" stroke="#94A3B8" stroke-width="1.5"/>
+                <circle cx="232" cy="38" r="20" stroke="#059669" stroke-width="1.8" fill="#ECFDF5"/>
+                <path d="M223 38l6 6 13-13" stroke="#059669" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3>Independent hidden replay</h3>
+            <p>Submitted git patches are rebuilt inside isolated judge sandboxes, retrained across evaluation seeds, and scored against held-out test data.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Task Collection Explorer -->
+    <section id="tasks" class="band band-white" aria-labelledby="tasks-title">
+      <div class="shell">
+        <div class="section-header">
+          <div>
+            <h2 id="tasks-title">Task collection</h2>
+            <p class="section-lead">Inspect every problem statement, bespoke task diagram, baseline threshold, and model-by-model outcome.</p>
+          </div>
+          <div class="tasks-stat-line">
+            <span id="task-count" aria-live="polite">104 of 104 tasks</span>
+          </div>
+        </div>
+
+        <div class="tasks-workspace">
+          <aside class="discipline-rail" aria-label="Filter tasks by discipline">
+            <div class="rail-title">Disciplines</div>
+            <div id="domain-filters" class="rail-list" role="group" aria-label="Discipline filters"></div>
+          </aside>
+
+          <div class="tasks-content">
+            <div class="tasks-controls">
+              <label class="search-input grow">
+                <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="m13 13 4 4"/></svg>
+                <input id="task-search" type="search" placeholder="Search 104 tasks by number, short name, title, metric, or objective" aria-label="Search tasks">
+              </label>
+              <label class="select-control">
+                <span class="sr-only">Sort tasks</span>
+                <select id="task-sort" aria-label="Sort tasks">
+                  <option value="original">Task number (001 to 104)</option>
+                  <option value="hardest">Hardest first</option>
+                  <option value="easiest">Highest pass rate</option>
+                  <option value="topscore">Highest top score</option>
+                  <option value="shortname">Short name A to Z</option>
+                  <option value="title">Full title A to Z</option>
+                  <option value="domain">Discipline</option>
+                </select>
+              </label>
+              <div class="segmented" role="group" aria-label="Task view mode">
+                <button type="button" data-task-view="grid" class="selected" aria-pressed="true">Gallery</button>
+                <button type="button" data-task-view="list" aria-pressed="false">List</button>
+              </div>
+            </div>
+
+            <div class="task-list-columns" id="task-list-columns" hidden>
+              <span>Task and diagram</span>
+              <span>Pass spectrum</span>
+              <span>Metric</span>
+            </div>
+
+            <div id="task-grid" class="task-collection grid-mode"></div>
+            <div id="no-tasks" class="empty-panel" hidden>No tasks match the current search or discipline selection.</div>
+
+            <div class="pagination-bar" id="pagination-bar">
+              <button class="tool-button" id="tasks-prev" type="button">← Previous</button>
+              <span id="page-counter" class="muted-meta" aria-live="polite">1 / 9</span>
+              <button class="tool-button" id="tasks-next" type="button">Next →</button>
+              <button class="text-action" id="tasks-show-all" type="button">Show all matching</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Evaluation Protocol -->
+    <section id="protocol" class="band band-surface" aria-labelledby="protocol-title">
+      <div class="shell">
+        <div class="section-header">
+          <div>
+            <h2 id="protocol-title">Evaluation protocol</h2>
+            <p class="section-lead">How improvement scores, pass criteria, and isolated hidden-test verification work across all 104 tasks.</p>
+          </div>
+        </div>
+
+        <div class="protocol-grid">
+          <aside class="protocol-toc" aria-label="Protocol sections">
+            <a href="#protocol-score">Improvement scoring</a>
+            <a href="#protocol-pass">Pass criteria</a>
+            <a href="#protocol-flow">Evaluation pipeline</a>
+          </aside>
+
+          <div class="protocol-body">
+            <article id="protocol-score" class="protocol-block">
+              <h3>Relative improvement toward the target ceiling</h3>
+              <p>For each task, let xi denote the candidate's evaluated metric, baseline denote the reproduced reference implementation, and target_ceiling denote the calibrated upper anchor used to normalize progress across heterogeneous metrics.</p>
+              <div class="formula-strip">
+                <strong>Task score = (xi - baseline) / (target_ceiling - baseline) × 100%</strong>
+              </div>
+              <p>Under this normalization, the baseline maps to <strong>0%</strong> and the target ceiling maps to <strong>100%</strong>. The ratio handles both higher-is-better and lower-is-better metrics uniformly without an extra sign factor. <span id="score-policy">Negative task scores are clipped to 0% before aggregation, while solutions that surpass the target ceiling remain uncapped above 100%.</span></p>
+              <div class="formula-strip">
+                <strong>Collection score = sum of task scores / N</strong>
+              </div>
+              <p>Overall leaderboard scores average across all <strong>104</strong> benchmark tasks. When viewing a single scientific discipline or the discipline matrix, scores average over that discipline's exact task count N, placing every field on the same 0% to 100% scale. Confirmed agent failures contribute 0% rather than omitting failed tasks.</p>
+            </article>
+
+            <article id="protocol-pass" class="protocol-block">
+              <h3>Beating the baseline beyond seed noise</h3>
+              <p>Alongside the continuous improvement score, each task evaluates a strict binary pass verdict governed by its optimization direction, minimum gain margin, and cross-seed baseline variance.</p>
+              <div class="formula-strip stacked">
+                <span>gain = direction × (candidate - baseline) / max(|baseline|, 10⁻¹²)</span>
+                <span>threshold = max(task_delta, 2 × baseline_std / max(|baseline|, 10⁻¹²))</span>
+                <strong>PASS when gain ≥ threshold and the submission satisfies all task constraints.</strong>
+              </div>
+              <p>Here direction is +1 for higher-is-better metrics and -1 for lower-is-better metrics. Submissions that produce invalid output formats, return nonfinite metrics, exceed replay limits, or touch frozen evaluation files cannot earn a pass.</p>
+            </article>
+
+            <article id="protocol-flow" class="protocol-block">
+              <h3>From grounded workspace to hidden-test replay</h3>
+              <ol class="pipeline-steps">
+                <li>
+                  <strong>1. Grounded research workspace</strong>
+                  <p>Each agent starts inside an executable environment containing the paper context, pinned baseline repository, permitted training and validation splits, and read-only validation scripts.</p>
+                </li>
+                <li>
+                  <strong>2. Long-horizon autonomous optimization</strong>
+                  <p>Within its wall-clock budget, the agent diagnoses bottlenecks, formulates methodological improvements, edits permitted source files, manages dependencies, and validates iteratively.</p>
+                </li>
+                <li>
+                  <strong>3. Clean code patch submission</strong>
+                  <p>Rather than exporting pre-trained weights, the agent submits a self-contained git patch relative to the baseline commit alongside its locked software environment.</p>
+                </li>
+                <li>
+                  <strong>4. Isolated hidden-test verification</strong>
+                  <p>An independent judge rebuilds the environment from scratch, retrains across fixed evaluation seeds, runs inference on held-out test data, and records the final score and pass verdict.</p>
+                </li>
+              </ol>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-inner">
+      <div class="footer-brand-col">
+        <a class="footer-brand" href="#top">
+          <img src="favicon.svg" width="24" height="24" alt="">
+          <span>AutoScientistBench</span>
+        </a>
+        <p>Benchmarking long-horizon AI agents across 104 paper-derived AutoResearch tasks in nine scientific disciplines.</p>
+      </div>
+      <div class="footer-nav-col">
+        <a href="#overview">Overview</a>
+        <a href="#leaderboard">Leaderboard</a>
+        <a href="#papers">Papers</a>
+        <a href="#tasks">Tasks</a>
+        <a href="#protocol">Protocol</a>
+        <span class="footer-divider" aria-hidden="true"></span>
+        <span class="snapshot-date"></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Tooltip for Overview & Frontier Scatter -->
+  <div id="hover-tooltip" class="hover-tooltip" role="tooltip" hidden></div>
+
+  <!-- Rich Inspector Modal -->
+  <dialog id="detail-dialog" aria-labelledby="dialog-title">
+    <div class="dialog-header">
+      <span class="dialog-context" id="dialog-context">Benchmark details</span>
+      <button class="icon-circle small" id="close-dialog" type="button" aria-label="Close details">✕</button>
+    </div>
+    <div id="dialog-content" class="dialog-body"></div>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" hidden></div>
+  <noscript><p class="notice error">Please enable JavaScript to inspect the 104-task overview and benchmark results.</p></noscript>
+</body>
+</html>

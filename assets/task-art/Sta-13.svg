@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>TAVIE-SSG — Tangent Variational Inference for Student-t Regression</title>
+  <desc>Quadratic tangent minorizer touching the heavy-tailed Student-t log-likelihood at auxiliary points, paired with joint posterior contours in regression coefficients and log precision under sliced-Wasserstein projection.</desc>
+  <defs>
+    <clipPath id="cardClip">
+      <rect width="640" height="400" rx="16"/>
+    </clipPath>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F4FAFE"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0284C7"/>
+      <stop offset="100%" stop-color="#06B6D4"/>
+    </linearGradient>
+    <pattern id="dotGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#0C4366" opacity="0.16"/>
+    </pattern>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M 1 1.5 L 9 5 L 1 8.5 Z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#cardClip)">
+    <rect width="640" height="400" fill="url(#bgGrad)"/>
+    <rect x="24" y="60" width="592" height="296" fill="url(#dotGrid)"/>
+    <rect x="0" y="0" width="640" height="3" fill="url(#accentGrad)"/>
+  </g>
+  <rect x="0.75" y="0.75" width="638.5" height="398.5" rx="15.5" fill="none" stroke="#CBD5E1" stroke-opacity="0.75" stroke-width="1.5"/>
+
+  <!-- Header -->
+  <text x="28" y="38" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="700" fill="#0A0E17">TAVIE-SSG</text>
+  <text x="612" y="38" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="500" fill="#475569">Tangent Variational Inference · Student-t</text>
+  <line x1="28" y1="54" x2="612" y2="54" stroke="#CBD5E1" stroke-opacity="0.6" stroke-width="1"/>
+
+  <!-- Left Hero: Student-t Log-Likelihood + Quadratic Tangent Minorizer -->
+  <rect x="32" y="76" width="276" height="266" rx="12" fill="#FFFFFF" fill-opacity="0.8" stroke="#CBD5E1" stroke-width="1.2"/>
+  <line x1="170" y1="98" x2="170" y2="310" stroke="#CBD5E1" stroke-width="1.4"/>
+  <line x1="46" y1="310" x2="294" y2="310" stroke="#475569" stroke-width="1.5"/>
+  <text x="170" y="92" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" fill="#475569">log L(r)</text>
+  <text x="292" y="330" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#475569">r</text>
+
+  <!-- Shaded variational minorizer gap between Student-t and quadratic bound -->
+  <path d="M 72 267 C 92 228, 108 202, 120 183 C 142 148, 156 126, 170 126 C 184 126, 198 148, 220 183 C 232 202, 248 228, 268 267 L 268 308 C 246 242, 232 202, 220 183 C 202 154, 186 138, 170 138 C 154 138, 138 154, 120 183 C 108 202, 94 242, 72 308 Z" fill="#E0F2FE" fill-opacity="0.78"/>
+
+  <!-- Tangent vertical drop guides -->
+  <line x1="120" y1="183" x2="120" y2="310" stroke="#06B6D4" stroke-dasharray="4 3" stroke-width="1.5"/>
+  <line x1="220" y1="183" x2="220" y2="310" stroke="#06B6D4" stroke-dasharray="4 3" stroke-width="1.5"/>
+  <text x="120" y="328" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" fill="#0284C7">−ξ</text>
+  <text x="220" y="328" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" fill="#0284C7">+ξ</text>
+
+  <!-- Quadratic Tangent Minorizer (strictly below, touching at +/-xi) -->
+  <path d="M 72 308 C 94 242, 108 202, 120 183 C 138 154, 154 138, 170 138 C 186 138, 202 154, 220 183 C 232 202, 246 242, 268 308" fill="none" stroke="#0284C7" stroke-width="2.8" stroke-linecap="round"/>
+
+  <!-- Exact heavy-tailed Student-t (nu=5) log-likelihood -->
+  <path d="M 52 298 C 68 274, 92 228, 120 183 C 142 148, 156 126, 170 126 C 184 126, 198 148, 220 183 C 248 228, 272 274, 288 298" fill="none" stroke="#0C4366" stroke-width="3.2" stroke-linecap="round"/>
+
+  <!-- Contact points at +/-xi -->
+  <circle cx="120" cy="183" r="5" fill="#06B6D4" stroke="#0C4366" stroke-width="2"/>
+  <circle cx="220" cy="183" r="5" fill="#06B6D4" stroke="#0C4366" stroke-width="2"/>
+
+  <text x="252" y="156" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0C4366">Student-t</text>
+  <rect x="125" y="242" width="90" height="20" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+  <text x="170" y="256" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0284C7">Tangent bound</text>
+
+  <!-- Right Hero: Joint Posterior Contours + Sliced-Wasserstein Projection -->
+  <rect x="332" y="76" width="280" height="266" rx="12" fill="#FFFFFF" fill-opacity="0.84" stroke="#CBD5E1" stroke-width="1.2"/>
+  <!-- Axes -->
+  <line x1="364" y1="98" x2="364" y2="310" stroke="#475569" stroke-width="1.5"/>
+  <line x1="364" y1="310" x2="594" y2="310" stroke="#475569" stroke-width="1.5"/>
+  <text x="364" y="92" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" fill="#475569">log τ²</text>
+  <text x="594" y="330" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="600" fill="#475569">β</text>
+
+  <!-- Reference NUTS posterior contours (dashed slate) -->
+  <g transform="translate(476, 212) rotate(-24)" fill="none" stroke="#475569" stroke-dasharray="5 3" stroke-width="1.8">
+    <ellipse cx="4" cy="-3" rx="74" ry="45"/>
+    <ellipse cx="2" cy="-2" rx="49" ry="30"/>
+    <ellipse cx="1" cy="-1" rx="25" ry="15"/>
+  </g>
+
+  <!-- Variational Normal-Gamma approximation contours -->
+  <g transform="translate(470, 216) rotate(-24)">
+    <ellipse cx="0" cy="0" rx="68" ry="41" fill="#0284C7" fill-opacity="0.13" stroke="#0284C7" stroke-width="2.2"/>
+    <ellipse cx="0" cy="0" rx="44" ry="26" fill="#0284C7" fill-opacity="0.20" stroke="#0284C7" stroke-width="2.2"/>
+    <ellipse cx="0" cy="0" rx="21" ry="12" fill="#06B6D4" fill-opacity="0.34" stroke="#0C4366" stroke-width="2.2"/>
+  </g>
+
+  <!-- Sliced-Wasserstein 1D projection ray -->
+  <line x1="398" y1="286" x2="572" y2="114" stroke="#059669" stroke-width="2.4" marker-end="url(#arrowGreen)"/>
+  <text x="584" y="114" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#059669">θ</text>
+
+  <!-- 1D projected marginal bells along the SW projection ray -->
+  <g transform="translate(534, 152) rotate(-45)">
+    <path d="M -30 0 C -18 0, -10 -24, 0 -24 C 10 -24, 18 0, 30 0" fill="#0284C7" fill-opacity="0.22" stroke="#0284C7" stroke-width="2"/>
+    <path d="M -28 0 C -14 0, -6 -22, 4 -22 C 14 -22, 22 0, 34 0" fill="none" stroke="#475569" stroke-dasharray="4 3" stroke-width="1.8"/>
+  </g>
+  <text x="576" y="158" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" fill="#059669">SW slice</text>
+
+  <!-- Compact legend -->
+  <line x1="382" y1="112" x2="402" y2="112" stroke="#0284C7" stroke-width="2.8"/>
+  <text x="408" y="116" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" fill="#0C4366">q(β, log τ²)</text>
+  <line x1="382" y1="132" x2="402" y2="132" stroke="#475569" stroke-dasharray="4 3" stroke-width="2"/>
+  <text x="408" y="136" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#475569">NUTS ref</text>
+
+  <!-- Footer -->
+  <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-opacity="0.6" stroke-width="1"/>
+  <text x="28" y="378" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#475569">Joint Student-t posterior · ν = 5 · 10D</text>
+  <text x="612" y="378" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#475569">Target: <tspan font-weight="700" fill="#0284C7">sw ↓</tspan></text>
+</svg>

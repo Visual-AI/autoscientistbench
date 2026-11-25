@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>MartingalePost — Parametric Martingale Posterior</title>
+  <desc>A bivariate normal sample initializes forward predictive resampling updates scaling as 1 over N, whose stabilizing stochastic paths define a limiting martingale posterior and central 95% credible intervals.</desc>
+  <defs>
+    <clipPath id="cardClip">
+      <rect x="0" y="0" width="640" height="400" rx="16"/>
+    </clipPath>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFF6F8"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#E11D48"/>
+      <stop offset="100%" stop-color="#F43F5E"/>
+    </linearGradient>
+    <linearGradient id="fanFill" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FFE4E6" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#FFE4E6" stop-opacity="0.62"/>
+    </linearGradient>
+    <pattern id="dotGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#6B1028" opacity="0.15"/>
+    </pattern>
+    <marker id="arrRose" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#E11D48"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#cardClip)">
+    <rect x="0" y="0" width="640" height="400" fill="url(#bgGrad)"/>
+    <rect x="16" y="56" width="608" height="298" fill="url(#dotGrid)"/>
+    <rect x="0" y="0" width="640" height="3.5" fill="url(#accentGrad)"/>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="16" fill="none" stroke="#CBD5E1" stroke-opacity="0.75" stroke-width="1"/>
+
+  <!-- Header -->
+  <text x="28" y="37" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="700" fill="#0A0E17">MartingalePost</text>
+  <text x="612" y="37" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="500" fill="#475569">Predictive Resampling &amp; 95% Intervals</text>
+  <line x1="28" y1="53" x2="612" y2="53" stroke="#CBD5E1" stroke-opacity="0.75" stroke-width="1"/>
+
+  <!-- Stage 1: Bivariate Normal Observed Sample -->
+  <text x="106" y="79" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="600" fill="#0A0E17">Bivariate Sample</text>
+
+  <rect x="34" y="102" width="144" height="194" rx="10" fill="#FFFFFF" fill-opacity="0.92" stroke="#CBD5E1" stroke-width="1.3"/>
+  <!-- Crosshairs -->
+  <line x1="46" y1="199" x2="166" y2="199" stroke="#CBD5E1" stroke-width="1"/>
+  <line x1="106" y1="114" x2="106" y2="284" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- Tilted Covariance Ellipses N(mu, Sigma) -->
+  <g transform="rotate(-34 106 199)">
+    <ellipse cx="106" cy="199" rx="56" ry="28" fill="#FFE4E6" fill-opacity="0.62" stroke="#F43F5E" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <ellipse cx="106" cy="199" rx="32" ry="16" fill="#F43F5E" fill-opacity="0.22" stroke="#E11D48" stroke-width="1.8"/>
+  </g>
+
+  <!-- Observed 2xn Data Scatter -->
+  <g fill="#6B1028" fill-opacity="0.82">
+    <circle cx="72" cy="222" r="2.7"/><circle cx="82" cy="212" r="2.7"/><circle cx="88" cy="226" r="2.7"/>
+    <circle cx="94" cy="204" r="2.7"/><circle cx="98" cy="186" r="2.7"/><circle cx="114" cy="208" r="2.7"/>
+    <circle cx="118" cy="190" r="2.7"/><circle cx="126" cy="176" r="2.7"/><circle cx="136" cy="184" r="2.7"/>
+    <circle cx="142" cy="170" r="2.7"/><circle cx="78" cy="236" r="2.7"/><circle cx="130" cy="162" r="2.7"/>
+  </g>
+  <!-- Sample Mean / Covariance Anchor -->
+  <circle cx="106" cy="199" r="5.2" fill="#E11D48" stroke="#FFFFFF" stroke-width="2"/>
+
+  <text x="106" y="316" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" fill="#6B1028">2×n Data → θ̂ₙ</text>
+  <text x="106" y="334" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">N(μ, Σ) Init</text>
+
+  <!-- Arrow from Sample to Resampling Anchor -->
+  <line x1="180" y1="199" x2="202" y2="199" stroke="#E11D48" stroke-width="2.3" marker-end="url(#arrRose)"/>
+
+  <!-- Stage 2: Forward Predictive Resampling Martingale Fan -->
+  <text x="336" y="79" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="600" fill="#0A0E17">Forward Predictive Resampling</text>
+
+  <!-- Trumpet Asymptotic Stabilization Envelope -->
+  <path d="M 212 199 C 246 146 312 118 466 112 L 466 286 C 312 280 246 252 212 199 Z" fill="url(#fanFill)"/>
+  <path d="M 212 199 C 246 146 312 118 466 112" fill="none" stroke="#F43F5E" stroke-width="1.6" stroke-dasharray="5 3"/>
+  <path d="M 212 199 C 246 252 312 280 466 286" fill="none" stroke="#F43F5E" stroke-width="1.6" stroke-dasharray="5 3"/>
+
+  <!-- Step Axis -->
+  <line x1="212" y1="102" x2="212" y2="300" stroke="#CBD5E1" stroke-width="1.3"/>
+  <line x1="212" y1="300" x2="466" y2="300" stroke="#0A0E17" stroke-width="1.5"/>
+
+  <!-- 10 Converging Martingale Paths (Larger 1/N jumps early, flat asymptotes late) -->
+  <g fill="none" stroke="#F43F5E" stroke-width="1.6" stroke-opacity="0.48" stroke-linejoin="round">
+    <polyline points="212,199 226,172 244,154 268,144 298,136 336,133 386,131 466,130"/>
+    <polyline points="212,199 228,182 248,166 274,158 308,154 348,151 398,150 466,149"/>
+    <polyline points="212,199 224,188 246,179 276,174 314,171 356,169 406,168 466,168"/>
+    <polyline points="212,199 230,204 252,192 282,196 320,192 364,191 414,190 466,190"/>
+    <polyline points="212,199 228,216 250,208 278,214 316,211 360,210 410,210 466,210"/>
+    <polyline points="212,199 224,224 248,236 278,228 314,232 356,230 406,230 466,229"/>
+    <polyline points="212,199 228,234 252,248 282,254 318,252 360,250 412,250 466,249"/>
+    <polyline points="212,199 226,242 246,260 274,268 312,272 356,271 408,270 466,270"/>
+  </g>
+  <!-- Highlighted Martingale Trajectories -->
+  <polyline points="212,199 226,178 246,162 272,170 304,162 346,160 398,159 466,158" fill="none" stroke="#E11D48" stroke-width="2.4" stroke-linejoin="round"/>
+  <polyline points="212,199 228,218 250,232 278,224 314,222 358,220 408,219 466,219" fill="none" stroke="#6B1028" stroke-width="2.2" stroke-linejoin="round"/>
+
+  <!-- Launch Anchor Node θ̂ₙ -->
+  <circle cx="212" cy="199" r="6" fill="#6B1028" stroke="#FFFFFF" stroke-width="2.2"/>
+
+  <!-- Step Axis Ticks & Update Rule -->
+  <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569" text-anchor="middle">
+    <text x="212" y="317">N = n</text>
+    <text x="339" y="317">n + T</text>
+    <text x="462" y="317">N → ∞</text>
+  </g>
+  <text x="339" y="338" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" fill="#6B1028">Δθ = Z(Y) / N</text>
+
+  <!-- Stage 3: Limiting Martingale Posterior & 95% Interval -->
+  <text x="538" y="79" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="600" fill="#0A0E17">Limiting θ∞</text>
+
+  <!-- Vertical Limiting Density Curve Facing Right from x=468 -->
+  <path d="M 468 106 C 470 128 486 144 510 164 C 528 179 540 189 540 199 C 540 209 528 219 510 234 C 486 254 470 270 468 292 Z" fill="#FFE4E6" fill-opacity="0.72"/>
+  <!-- Shaded Central 95% Region (y=130..268) -->
+  <path d="M 468 130 C 481 142 496 153 510 164 C 528 179 540 189 540 199 C 540 209 528 219 510 234 C 496 245 481 256 468 268 Z" fill="#E11D48" fill-opacity="0.22"/>
+  <path d="M 468 106 C 470 128 486 144 510 164 C 528 179 540 189 540 199 C 540 209 528 219 510 234 C 486 254 470 270 468 292" fill="none" stroke="#6B1028" stroke-width="2.5"/>
+  <line x1="468" y1="102" x2="468" y2="300" stroke="#0A0E17" stroke-width="1.6"/>
+
+  <!-- 2.5% and 97.5% Quantile Dashed Guides -->
+  <line x1="468" y1="130" x2="556" y2="130" stroke="#059669" stroke-width="1.7" stroke-dasharray="4 3"/>
+  <line x1="468" y1="268" x2="556" y2="268" stroke="#059669" stroke-width="1.7" stroke-dasharray="4 3"/>
+
+  <!-- Vertical 95% Interval Caliper -->
+  <line x1="556" y1="130" x2="556" y2="268" stroke="#059669" stroke-width="2.6"/>
+  <line x1="550" y1="130" x2="562" y2="130" stroke="#059669" stroke-width="2.4"/>
+  <line x1="550" y1="268" x2="562" y2="268" stroke="#059669" stroke-width="2.4"/>
+
+  <!-- True Parameter Marker θ* -->
+  <circle cx="468" cy="186" r="5" fill="#059669" stroke="#FFFFFF" stroke-width="1.8"/>
+
+  <!-- Clean Caliper Labels -->
+  <text x="554" y="122" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#059669">97.5%</text>
+  <text x="554" y="284" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#059669">2.5%</text>
+  <text x="566" y="196" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#059669">95%</text>
+  <text x="566" y="212" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#059669">CI</text>
+  <text x="538" y="317" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">μ₁, s₁, s₁₂</text>
+
+  <!-- Footer -->
+  <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-opacity="0.75" stroke-width="1"/>
+  <text x="28" y="380" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#475569">Target metric: <tspan font-weight="700" fill="#E11D48">interval_score ↓</tspan></text>
+  <text x="612" y="380" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">Scaled √n Interval Score</text>
+</svg>

@@ -1,0 +1,169 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>DistTransformers: Prior-Adaptive Amortised Bayesian Inference</title>
+  <desc>A shared Distribution Transformer maps supplied Inverse-Gamma prior parameters and a single normal observation in one forward pass to a two-component Gaussian mixture tightly approximating the exact log-variance posterior.</desc>
+  <defs>
+    <clipPath id="dt-card-clip">
+      <rect x="0" y="0" width="640" height="400" rx="16"/>
+    </clipPath>
+    <linearGradient id="dt-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F7FAFF"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="dt-accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0052FF"/>
+      <stop offset="100%" stop-color="#0EA5E9"/>
+    </linearGradient>
+    <linearGradient id="dt-block" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#DBEAFE"/>
+    </linearGradient>
+    <pattern id="dt-dots" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#0A1E5E" opacity="0.15"/>
+    </pattern>
+    <marker id="dt-arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M 1 1.5 L 8.5 5 L 1 8.5 Z" fill="#0052FF"/>
+    </marker>
+    <marker id="dt-arrow-dark" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 1 1.5 L 8.5 5 L 1 8.5 Z" fill="#0A1E5E"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#dt-card-clip)">
+    <rect x="0" y="0" width="640" height="400" fill="url(#dt-bg)"/>
+    <rect x="20" y="58" width="600" height="296" fill="url(#dt-dots)"/>
+    <rect x="0" y="0" width="640" height="3" fill="url(#dt-accent)"/>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="16" fill="none" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- Header -->
+  <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <text x="28" y="38" font-size="18" font-weight="700" fill="#0A0E17">DistTransformers</text>
+    <text x="612" y="37" text-anchor="end" font-size="12.5" fill="#475569">Prior-Adaptive Amortised Bayes</text>
+    <line x1="28" y1="54" x2="612" y2="54" stroke="#CBD5E1" stroke-width="0.9" opacity="0.75"/>
+  </g>
+
+  <!-- Left Column: On-The-Fly Prior + Single Observation -->
+  <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <!-- Top Mini-Card: Flexible Inverse-Gamma Prior -->
+    <rect x="28" y="76" width="160" height="124" rx="11" fill="#FFFFFF" fill-opacity="0.88" stroke="#CBD5E1" stroke-width="1"/>
+    <text x="108" y="96" text-anchor="middle" font-size="12" font-weight="700" fill="#0A1E5E">Prior IG(c, r)</text>
+
+    <!-- Prior Curve 1 (filled sharp IG) -->
+    <path d="M 42 174 C 52 172 60 118 74 118 C 90 118 106 160 172 173 L 172 174 Z" fill="#0052FF" opacity="0.14"/>
+    <path d="M 42 174 C 52 172 60 118 74 118 C 90 118 106 160 172 173" fill="none" stroke="#0052FF" stroke-width="2.4" stroke-linecap="round"/>
+
+    <!-- Prior Curve 2 (dashed shifted IG) -->
+    <path d="M 42 174 C 66 172 88 130 106 130 C 126 130 144 162 174 173" fill="none" stroke="#0EA5E9" stroke-width="2.1" stroke-dasharray="4 3" stroke-linecap="round"/>
+
+    <line x1="40" y1="174" x2="176" y2="174" stroke="#0A0E17" stroke-width="1.5"/>
+    <text x="108" y="191" text-anchor="middle" font-size="11" fill="#475569">Supplied ϕ = (c, r)</text>
+
+    <!-- Bottom Mini-Card: Normal Observation z -->
+    <rect x="28" y="216" width="160" height="124" rx="11" fill="#FFFFFF" fill-opacity="0.88" stroke="#CBD5E1" stroke-width="1"/>
+    <text x="108" y="236" text-anchor="middle" font-size="12" font-weight="700" fill="#0A1E5E">Obs z ~ N(0, σ²)</text>
+
+    <!-- Normal Bell -->
+    <path d="M 42 314 C 68 313 84 256 108 256 C 132 256 148 313 174 314 Z" fill="#DBEAFE" opacity="0.65"/>
+    <path d="M 42 314 C 68 313 84 256 108 256 C 132 256 148 313 174 314" fill="none" stroke="#0A1E5E" stroke-width="2" stroke-linecap="round"/>
+
+    <!-- Single Sample Pin z -->
+    <line x1="136" y1="314" x2="136" y2="282" stroke="#0052FF" stroke-width="2.4"/>
+    <circle cx="136" cy="282" r="5" fill="#0052FF" stroke="#FFFFFF" stroke-width="1.8"/>
+    <text x="148" y="278" font-size="12" font-weight="700" fill="#0052FF">z</text>
+
+    <line x1="40" y1="314" x2="176" y2="314" stroke="#0A0E17" stroke-width="1.5"/>
+    <text x="108" y="331" text-anchor="middle" font-size="11" fill="#475569">0</text>
+  </g>
+
+  <!-- Converging Arrows into Transformer -->
+  <g fill="none" stroke="#0052FF" stroke-width="2.2">
+    <path d="M 188 138 C 204 138 206 168 218 176" marker-end="url(#dt-arrow-blue)"/>
+    <path d="M 188 278 C 204 278 206 248 218 240" marker-end="url(#dt-arrow-blue)"/>
+  </g>
+
+  <!-- Center: Amortised Distribution Transformer Stack -->
+  <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <!-- Depth stack layers -->
+    <rect x="232" y="116" width="94" height="172" rx="12" fill="#DBEAFE" opacity="0.55" stroke="#0EA5E9" stroke-width="1.2"/>
+    <rect x="227" y="122" width="94" height="172" rx="12" fill="#DBEAFE" opacity="0.78" stroke="#0052FF" stroke-width="1.4" stroke-opacity="0.55"/>
+    <rect x="222" y="128" width="94" height="172" rx="12" fill="url(#dt-block)" stroke="#0052FF" stroke-width="2.2"/>
+
+    <text x="269" y="152" text-anchor="middle" font-size="13" font-weight="700" fill="#0A1E5E">Transformer</text>
+
+    <!-- Internal Self-Attention Chords -->
+    <g stroke="#0052FF" stroke-linecap="round" fill="none">
+      <path d="M 244 176 C 266 176 272 204 294 204" stroke-width="2" opacity="0.8"/>
+      <path d="M 244 176 C 266 176 272 232 294 232" stroke-width="1.3" opacity="0.35"/>
+      <path d="M 244 204 C 266 204 272 176 294 176" stroke-width="1.4" opacity="0.45"/>
+      <path d="M 244 204 C 266 204 272 232 294 232" stroke-width="2.2" opacity="0.85"/>
+      <path d="M 244 232 C 266 232 272 176 294 176" stroke-width="1.3" opacity="0.35"/>
+      <path d="M 244 232 C 266 232 272 204 294 204" stroke-width="1.8" opacity="0.7"/>
+    </g>
+    <g fill="#0A1E5E" stroke="#FFFFFF" stroke-width="1.5">
+      <circle cx="244" cy="176" r="4.8"/>
+      <circle cx="244" cy="204" r="4.8"/>
+      <circle cx="244" cy="232" r="4.8"/>
+      <circle cx="294" cy="176" r="4.8" fill="#0052FF"/>
+      <circle cx="294" cy="204" r="4.8" fill="#0EA5E9"/>
+      <circle cx="294" cy="232" r="4.8" fill="#0052FF"/>
+    </g>
+
+    <!-- 1-pass Badge -->
+    <rect x="237" y="264" width="64" height="22" rx="11" fill="#0052FF"/>
+    <text x="269" y="279" text-anchor="middle" font-size="11" font-weight="700" fill="#FFFFFF">1-pass</text>
+  </g>
+
+  <!-- Arrow from Transformer to Posterior Density -->
+  <line x1="322" y1="210" x2="350" y2="210" stroke="#0052FF" stroke-width="2.6" marker-end="url(#dt-arrow-blue)"/>
+
+  <!-- Right Panel: Exact Posterior vs 2-Component Log-Variance GMM -->
+  <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <rect x="354" y="76" width="258" height="264" rx="11" fill="#FFFFFF" fill-opacity="0.88" stroke="#CBD5E1" stroke-width="1"/>
+    <text x="483" y="96" text-anchor="middle" font-size="12" font-weight="700" fill="#0A1E5E">2-Comp Log-Variance Posterior</text>
+
+    <!-- Faint Plot Grid -->
+    <g stroke="#CBD5E1" stroke-width="0.9" opacity="0.5">
+      <line x1="374" y1="154" x2="598" y2="154"/>
+      <line x1="374" y1="204" x2="598" y2="204"/>
+      <line x1="374" y1="244" x2="598" y2="244"/>
+    </g>
+
+    <!-- Gaussian Component 1 (Left Main Mode) -->
+    <path d="M 382 284 C 412 282 432 152 456 152 C 480 152 500 282 530 284 Z" fill="#0EA5E9" opacity="0.16"/>
+    <path d="M 382 284 C 412 282 432 152 456 152 C 480 152 500 282 530 284" fill="none" stroke="#0EA5E9" stroke-width="1.8" stroke-dasharray="4 3"/>
+
+    <!-- Gaussian Component 2 (Right Skew Tail Mode) -->
+    <path d="M 434 284 C 468 282 490 202 518 202 C 546 202 568 282 596 284 Z" fill="#0052FF" opacity="0.13"/>
+    <path d="M 434 284 C 468 282 490 202 518 202 C 546 202 568 282 596 284" fill="none" stroke="#0052FF" stroke-width="1.8" stroke-dasharray="4 3"/>
+
+    <!-- Predicted 2-Component Mixture q(log sigma^2) -->
+    <path d="M 382 284 C 414 282 432 128 458 128 C 478 128 492 184 518 192 C 544 200 564 276 596 284" fill="none" stroke="#0052FF" stroke-width="3.4" stroke-linecap="round"/>
+
+    <!-- Exact Skewed Log-Inverse-Gamma Posterior p(log sigma^2 | z) -->
+    <path d="M 384 284 C 416 281 434 124 460 124 C 482 124 494 176 520 189 C 546 202 566 274 596 284" fill="none" stroke="#059669" stroke-width="2.4" stroke-dasharray="6 3.5" stroke-linecap="round"/>
+
+    <!-- Component Markers -->
+    <text x="454" y="272" text-anchor="middle" font-size="11" font-weight="700" fill="#0EA5E9">N₁</text>
+    <text x="524" y="272" text-anchor="middle" font-size="11" font-weight="700" fill="#0052FF">N₂</text>
+
+    <!-- Curve Labels in Open Upper Space -->
+    <text x="430" y="122" text-anchor="end" font-size="11.5" font-weight="700" fill="#059669">p exact</text>
+    <text x="596" y="122" text-anchor="end" font-size="11.5" font-weight="700" fill="#0052FF">q = w₁N₁ + w₂N₂</text>
+
+    <!-- KL Gap Callout -->
+    <rect x="514" y="142" width="80" height="22" rx="11" fill="#DBEAFE"/>
+    <text x="554" y="157" text-anchor="middle" font-size="11" font-weight="700" fill="#0A1E5E">KL(p ‖ q)</text>
+
+    <!-- Axes -->
+    <path d="M 374 108 V 284 H 598" fill="none" stroke="#0A0E17" stroke-width="1.8" stroke-linecap="round"/>
+    <text x="486" y="305" text-anchor="middle" font-size="12" font-weight="700" fill="#0A0E17">log σ²</text>
+    <text x="486" y="325" text-anchor="middle" font-size="11" fill="#475569">Amortised · Zero MCMC</text>
+  </g>
+
+  <!-- Footer -->
+  <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-width="0.9" opacity="0.75"/>
+    <text x="28" y="380" font-size="12.5" fill="#475569">Target metric: <tspan font-weight="700" fill="#0052FF">posterior_kl ↓</tspan></text>
+    <text x="612" y="380" text-anchor="end" font-size="12" fill="#475569">2-comp GMM · Jacobian KL</text>
+  </g>
+</svg>

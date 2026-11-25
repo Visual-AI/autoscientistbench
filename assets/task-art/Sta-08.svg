@@ -1,0 +1,177 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>HD-MissLin — Debiased High-Dimensional Missing-Outcome Inference</title>
+  <desc>High-dimensional design matrix with missing-at-random outcomes and propensity curve beside narrowed debiased Gaussian density and valid 95 percent confidence intervals for the conditional mean.</desc>
+  <defs>
+    <linearGradient id="card-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFBF2"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="accent-bar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#D97706"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+    <linearGradient id="prop-fill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F59E0B" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#FEF3C7" stop-opacity="0.02"/>
+    </linearGradient>
+    <clipPath id="card-clip">
+      <rect x="0" y="0" width="640" height="400" rx="14"/>
+    </clipPath>
+    <pattern id="dot-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#6E3A05" fill-opacity="0.16"/>
+    </pattern>
+  </defs>
+
+  <g clip-path="url(#card-clip)" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <!-- Base canvas & grid -->
+    <rect x="0" y="0" width="640" height="400" fill="url(#card-bg)"/>
+    <rect x="16" y="54" width="608" height="304" fill="url(#dot-grid)"/>
+    <rect x="0" y="0" width="640" height="3" fill="url(#accent-bar)"/>
+
+    <!-- Header (y=18..54) -->
+    <text x="28" y="36" font-size="18" font-weight="700" fill="#0A0E17" letter-spacing="-0.3">HD-MissLin</text>
+    <text x="612" y="36" font-size="12.5" font-weight="500" fill="#475569" text-anchor="end">High-Dimensional Missing-Outcome CI</text>
+    <line x1="28" y1="53" x2="612" y2="53" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.7"/>
+
+    <!-- LEFT PANEL TOP: Fat High-Dimensional Design Matrix X (n < d) & MAR (R, Y) -->
+    <text x="122" y="83" font-size="12" font-weight="600" fill="#0A0E17" text-anchor="middle">Design X (n &lt; d)</text>
+    <text x="229" y="83" font-size="12" font-weight="700" fill="#0A0E17" text-anchor="middle">R</text>
+    <text x="268" y="83" font-size="12" font-weight="700" fill="#0A0E17" text-anchor="middle">Y</text>
+
+    <!-- Design matrix block X (160x104) -->
+    <rect x="42" y="92" width="160" height="104" rx="6" fill="#FFFFFF" stroke="#475569" stroke-width="1.6"/>
+    <!-- Subtle matrix grid lines -->
+    <g stroke="#CBD5E1" stroke-width="0.9" stroke-opacity="0.7">
+      <line x1="42" y1="105" x2="202" y2="105"/><line x1="42" y1="118" x2="202" y2="118"/>
+      <line x1="42" y1="131" x2="202" y2="131"/><line x1="42" y1="144" x2="202" y2="144"/>
+      <line x1="42" y1="157" x2="202" y2="157"/><line x1="42" y1="170" x2="202" y2="170"/>
+      <line x1="42" y1="183" x2="202" y2="183"/>
+      <line x1="62" y1="92" x2="62" y2="196"/><line x1="82" y1="92" x2="82" y2="196"/>
+      <line x1="102" y1="92" x2="102" y2="196"/><line x1="122" y1="92" x2="122" y2="196"/>
+      <line x1="142" y1="92" x2="142" y2="196"/><line x1="162" y1="92" x2="162" y2="196"/>
+      <line x1="182" y1="92" x2="182" y2="196"/>
+    </g>
+    <!-- Missing-row soft crimson wash across R=0 rows (rows 2 & 5) -->
+    <rect x="43" y="118" width="158" height="13" fill="#E11D48" fill-opacity="0.08"/>
+    <rect x="43" y="157" width="158" height="13" fill="#E11D48" fill-opacity="0.08"/>
+
+    <!-- Highlighted target query column e_100 -->
+    <rect x="142" y="92" width="14" height="104" fill="#D97706" fill-opacity="0.26" stroke="#D97706" stroke-width="1.8"/>
+    <text x="149" y="213" font-size="11.5" font-weight="700" fill="#D97706" text-anchor="middle">e100</text>
+
+    <!-- MAR Indicator vector R (8 rows: rows 2 & 5 missing R=0) -->
+    <g>
+      <rect x="218" y="92" width="22" height="11" rx="2.5" fill="#059669" fill-opacity="0.82"/>
+      <rect x="218" y="105" width="22" height="11" rx="2.5" fill="#059669" fill-opacity="0.82"/>
+      <rect x="218" y="118" width="22" height="11" rx="2.5" fill="#FFFFFF" stroke="#E11D48" stroke-width="1.3" stroke-dasharray="2.5 2"/>
+      <rect x="218" y="131" width="22" height="11" rx="2.5" fill="#059669" fill-opacity="0.82"/>
+      <rect x="218" y="144" width="22" height="11" rx="2.5" fill="#059669" fill-opacity="0.82"/>
+      <rect x="218" y="157" width="22" height="11" rx="2.5" fill="#FFFFFF" stroke="#E11D48" stroke-width="1.3" stroke-dasharray="2.5 2"/>
+      <rect x="218" y="170" width="22" height="11" rx="2.5" fill="#059669" fill-opacity="0.82"/>
+      <rect x="218" y="183" width="22" height="11" rx="2.5" fill="#059669" fill-opacity="0.82"/>
+    </g>
+
+    <!-- Outcome vector Y (observed bars where R=1, missing ? where R=0) -->
+    <g>
+      <rect x="250" y="92" width="36" height="104" rx="4" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+      <rect x="254" y="94.5" width="26" height="6" rx="2" fill="#D97706"/>
+      <rect x="254" y="107.5" width="19" height="6" rx="2" fill="#F59E0B"/>
+      <text x="268" y="128" font-size="11.5" font-weight="700" fill="#E11D48" text-anchor="middle">?</text>
+      <rect x="254" y="133.5" width="28" height="6" rx="2" fill="#D97706"/>
+      <rect x="254" y="146.5" width="15" height="6" rx="2" fill="#F59E0B"/>
+      <text x="268" y="167" font-size="11.5" font-weight="700" fill="#E11D48" text-anchor="middle">?</text>
+      <rect x="254" y="172.5" width="23" height="6" rx="2" fill="#D97706"/>
+      <rect x="254" y="185.5" width="27" height="6" rx="2" fill="#F59E0B"/>
+    </g>
+
+    <!-- LEFT PANEL BOTTOM: MAR Propensity Sigmoid pi(X) = P(R=1 | X) -->
+    <line x1="52" y1="244" x2="52" y2="318" stroke="#475569" stroke-width="1.5"/>
+    <line x1="52" y1="318" x2="284" y2="318" stroke="#475569" stroke-width="1.5"/>
+    <line x1="52" y1="252" x2="282" y2="252" stroke="#CBD5E1" stroke-width="1.2" stroke-dasharray="3 3"/>
+
+    <!-- Propensity curve & fill -->
+    <path d="M 58 313 C 118 312 146 256 216 253 L 278 252 L 278 318 L 58 318 Z" fill="url(#prop-fill)"/>
+    <path d="M 58 313 C 118 312 146 256 216 253 L 278 252" fill="none" stroke="#D97706" stroke-width="2.6" stroke-linecap="round"/>
+
+    <!-- Observed (R=1) & missing (R=0) indicator dots along 1 and 0 -->
+    <g fill="#059669">
+      <circle cx="176" cy="252" r="3"/><circle cx="196" cy="252" r="3"/>
+      <circle cx="218" cy="252" r="3"/><circle cx="240" cy="252" r="3"/>
+      <circle cx="264" cy="252" r="3"/>
+    </g>
+    <g fill="#E11D48">
+      <circle cx="72" cy="318" r="3"/><circle cx="96" cy="318" r="3"/>
+      <circle cx="122" cy="318" r="3"/>
+    </g>
+
+    <text x="45" y="256" font-size="11.5" fill="#475569" text-anchor="end">1</text>
+    <text x="45" y="321" font-size="11.5" fill="#475569" text-anchor="end">0</text>
+    <text x="56" y="240" font-size="11.5" font-weight="600" fill="#6E3A05">π(X) = P(R=1|X)</text>
+    <text x="168" y="338" font-size="11.5" font-weight="500" fill="#475569" text-anchor="middle">X7 − X8 (MAR Propensity)</text>
+
+    <!-- Vertical section divider -->
+    <line x1="308" y1="70" x2="308" y2="346" stroke="#CBD5E1" stroke-width="1.2" stroke-dasharray="3 5"/>
+
+    <!-- RIGHT PANEL: Debiased Sampling Density & Stacked 95% CI Forest Plot -->
+    <text x="468" y="83" font-size="12" font-weight="700" fill="#059669" text-anchor="middle">True m(e100)</text>
+
+    <!-- Vertical true conditional mean line -->
+    <line x1="468" y1="92" x2="468" y2="326" stroke="#059669" stroke-width="2" stroke-dasharray="5 3"/>
+
+    <!-- Top: Baseline vs Narrower Efficient Debiased Gaussian Density -->
+    <line x1="332" y1="186" x2="604" y2="186" stroke="#475569" stroke-width="1.5"/>
+    <!-- Wide baseline Gaussian -->
+    <path d="M 336 186 C 382 186 410 140 468 140 C 526 140 554 186 600 186 Z" fill="#CBD5E1" fill-opacity="0.24" stroke="#475569" stroke-width="1.8" stroke-dasharray="5 3"/>
+    <!-- Narrower efficient debiased Gaussian -->
+    <path d="M 384 186 C 422 186 438 104 468 104 C 498 104 514 186 552 186 Z" fill="#FEF3C7" fill-opacity="0.76" stroke="#D97706" stroke-width="2.8"/>
+
+    <text x="336" y="132" font-size="11.5" font-weight="500" fill="#475569">Baseline SE</text>
+    <text x="520" y="120" font-size="11.5" font-weight="700" fill="#D97706">Debiased SE</text>
+
+    <!-- Bottom: Stacked 95% Confidence Intervals across independent instances -->
+    <!-- Ghost baseline wider CI bars (grey) -->
+    <g stroke="#CBD5E1" stroke-width="2" stroke-linecap="round">
+      <line x1="378" y1="216" x2="534" y2="216"/>
+      <line x1="402" y1="242" x2="558" y2="242"/>
+      <line x1="386" y1="268" x2="542" y2="268"/>
+      <line x1="398" y1="294" x2="554" y2="294"/>
+      <line x1="374" y1="320" x2="530" y2="320"/>
+    </g>
+
+    <!-- Shorter efficient 95% CI bars (amber, all covering true green line x=468) -->
+    <g stroke="#D97706" stroke-width="2.8" stroke-linecap="round">
+      <!-- Row 1: center 456, [410..502] -->
+      <line x1="410" y1="216" x2="502" y2="216"/>
+      <line x1="410" y1="211" x2="410" y2="221"/><line x1="502" y1="211" x2="502" y2="221"/>
+      <!-- Row 2: center 480, [434..526] -->
+      <line x1="434" y1="242" x2="526" y2="242"/>
+      <line x1="434" y1="237" x2="434" y2="247"/><line x1="526" y1="237" x2="526" y2="247"/>
+      <!-- Row 3: center 464, [418..510] -->
+      <line x1="418" y1="268" x2="510" y2="268"/>
+      <line x1="418" y1="263" x2="418" y2="273"/><line x1="510" y1="263" x2="510" y2="273"/>
+      <!-- Row 4: center 476, [430..522] -->
+      <line x1="430" y1="294" x2="522" y2="294"/>
+      <line x1="430" y1="289" x2="430" y2="299"/><line x1="522" y1="289" x2="522" y2="299"/>
+      <!-- Row 5: center 452, [406..498] -->
+      <line x1="406" y1="320" x2="498" y2="320"/>
+      <line x1="406" y1="315" x2="406" y2="325"/><line x1="498" y1="315" x2="498" y2="325"/>
+    </g>
+
+    <!-- Debiased point estimates m_deb -->
+    <g fill="#FFFFFF" stroke="#0A0E17" stroke-width="1.9">
+      <circle cx="456" cy="216" r="3.8"/>
+      <circle cx="480" cy="242" r="3.8"/>
+      <circle cx="464" cy="268" r="3.8"/>
+      <circle cx="476" cy="294" r="3.8"/>
+      <circle cx="452" cy="320" r="3.8"/>
+    </g>
+
+    <text x="468" y="344" font-size="11.5" font-weight="600" fill="#6E3A05" text-anchor="middle">Shorter 95% CIs · Valid Coverage</text>
+
+    <!-- Footer (y=378) -->
+    <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.7"/>
+    <text x="28" y="378" font-size="12.5" fill="#475569">n = 900 · d = 1000 · MAR · Query e100</text>
+    <text x="612" y="378" font-size="12.5" fill="#475569" text-anchor="end">Metric: <tspan font-weight="700" fill="#D97706">ci_length ↓</tspan></text>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="13.5" fill="none" stroke="#CBD5E1" stroke-width="1"/>
+</svg>

@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>CLEAR — Calibrated Learning for Epistemic and Aleatoric Risk</title>
+  <desc>Heteroscedastic regression plot illustrating nested aleatoric and epistemic uncertainty bands around a PCS median curve, alongside joint lambda quantile-loss calibration and 95% interval width comparison.</desc>
+  <defs>
+    <clipPath id="card-clip">
+      <rect x="0.5" y="0.5" width="639" height="399" rx="14"/>
+    </clipPath>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F7FAFF"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="accent-bar" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0052FF"/>
+      <stop offset="100%" stop-color="#0EA5E9"/>
+    </linearGradient>
+    <linearGradient id="epistemic-fill" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0052FF" stop-opacity="0.10"/>
+      <stop offset="62%" stop-color="#0052FF" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#0052FF" stop-opacity="0.24"/>
+    </linearGradient>
+    <linearGradient id="aleatoric-fill" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0EA5E9" stop-opacity="0.22"/>
+      <stop offset="55%" stop-color="#0EA5E9" stop-opacity="0.30"/>
+      <stop offset="100%" stop-color="#0EA5E9" stop-opacity="0.20"/>
+    </linearGradient>
+    <pattern id="dot-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1" fill="#475569" fill-opacity="0.16"/>
+    </pattern>
+  </defs>
+
+  <g clip-path="url(#card-clip)" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <!-- Base luminous plate -->
+    <rect x="0" y="0" width="640" height="400" fill="url(#bg-grad)"/>
+    <rect x="24" y="60" width="592" height="292" fill="url(#dot-grid)"/>
+    <rect x="0" y="0" width="640" height="3.5" fill="url(#accent-bar)"/>
+
+    <!-- Header -->
+    <text x="28" y="36" font-size="18" font-weight="700" fill="#0A0E17" letter-spacing="-0.3">CLEAR</text>
+    <text x="612" y="35" text-anchor="end" font-size="12.5" font-weight="500" fill="#475569">Epistemic &amp; Aleatoric Risk Intervals</text>
+    <line x1="28" y1="52" x2="612" y2="52" stroke="#CBD5E1" stroke-opacity="0.6" stroke-width="1"/>
+
+    <!-- LEFT MAIN PANEL: Dual-Band Uncertainty Decomposition -->
+    <rect x="34" y="70" width="404" height="278" rx="10" fill="#FFFFFF" fill-opacity="0.72" stroke="#CBD5E1" stroke-width="1"/>
+
+    <!-- Sparse region tint -->
+    <rect x="284" y="84" width="140" height="232" rx="4" fill="#DBEAFE" fill-opacity="0.28"/>
+    <line x1="284" y1="84" x2="284" y2="316" stroke="#475569" stroke-opacity="0.35" stroke-width="1.2" stroke-dasharray="4,4"/>
+
+    <!-- Plot axes -->
+    <line x1="56" y1="84" x2="56" y2="316" stroke="#475569" stroke-width="1.4"/>
+    <line x1="56" y1="316" x2="424" y2="316" stroke="#475569" stroke-width="1.4"/>
+
+    <!-- Outer Epistemic + Aleatoric Band: [f - g1*a - lambda*g1*e, f + g1*a + lambda*g1*e] -->
+    <path d="M 66 208 C 110 176, 152 128, 200 116 C 246 105, 286 126, 336 122 C 372 118, 398 106, 418 98
+             L 418 292 C 398 290, 372 288, 336 286 C 286 282, 246 250, 200 242 C 152 234, 110 256, 66 276 Z"
+          fill="url(#epistemic-fill)" stroke="#0052FF" stroke-width="2.2"/>
+
+    <!-- Inner Aleatoric Band: [f - g1*a, f + g1*a] -->
+    <path d="M 66 222 C 110 192, 152 146, 200 134 C 246 124, 286 154, 336 170 C 372 180, 398 166, 418 156
+             L 418 228 C 398 232, 372 242, 336 244 C 286 246, 246 230, 200 224 C 152 218, 110 242, 66 262 Z"
+          fill="url(#aleatoric-fill)" stroke="#0EA5E9" stroke-width="1.8" stroke-dasharray="5,3"/>
+
+    <!-- Central PCS Median Curve f(x) -->
+    <path d="M 66 242 C 110 218, 152 182, 200 178 C 246 174, 286 198, 336 206 C 372 211, 398 198, 418 192"
+          fill="none" stroke="#0A1E5E" stroke-width="3" stroke-linecap="round"/>
+
+    <!-- Heteroscedastic Dense Observations (left) -->
+    <g fill="#0A1E5E" fill-opacity="0.72">
+      <circle cx="74" cy="238" r="2.8"/>
+      <circle cx="84" cy="248" r="2.8"/>
+      <circle cx="94" cy="222" r="2.8"/>
+      <circle cx="104" cy="234" r="2.8"/>
+      <circle cx="114" cy="206" r="2.8"/>
+      <circle cx="122" cy="226" r="2.8"/>
+      <circle cx="132" cy="188" r="2.8"/>
+      <circle cx="142" cy="212" r="2.8"/>
+      <circle cx="152" cy="176" r="2.8"/>
+      <circle cx="160" cy="196" r="2.8"/>
+      <circle cx="170" cy="154" r="2.8"/>
+      <circle cx="176" cy="214" r="2.8"/>
+      <circle cx="186" cy="182" r="2.8"/>
+      <circle cx="194" cy="144" r="2.8"/>
+      <circle cx="204" cy="208" r="2.8"/>
+      <circle cx="212" cy="166" r="2.8"/>
+      <circle cx="222" cy="142" r="2.8"/>
+      <circle cx="228" cy="218" r="2.8"/>
+      <circle cx="238" cy="178" r="2.8"/>
+      <circle cx="246" cy="154" r="2.8"/>
+      <circle cx="256" cy="206" r="2.8"/>
+      <circle cx="264" cy="184" r="2.8"/>
+      <circle cx="274" cy="220" r="2.8"/>
+      <!-- Sparse observations (right) -->
+      <circle cx="322" cy="194" r="3"/>
+      <circle cx="384" cy="216" r="3"/>
+    </g>
+
+    <!-- Highlighted vertical decomposition slice at x=366 -->
+    <line x1="366" y1="118" x2="366" y2="176" stroke="#0052FF" stroke-width="2.6"/>
+    <line x1="360" y1="118" x2="372" y2="118" stroke="#0052FF" stroke-width="2"/>
+    <line x1="366" y1="176" x2="366" y2="207" stroke="#0EA5E9" stroke-width="2.6"/>
+    <line x1="360" y1="176" x2="372" y2="176" stroke="#0EA5E9" stroke-width="2"/>
+    <circle cx="366" cy="207" r="3.8" fill="#0A1E5E" stroke="#FFFFFF" stroke-width="1.5"/>
+
+    <!-- Clean non-overlapping callout labels inside left panel -->
+    <text x="116" y="100" text-anchor="middle" font-size="12" font-weight="600" fill="#0EA5E9">Aleatoric g₁a</text>
+    <line x1="128" y1="106" x2="152" y2="152" stroke="#0EA5E9" stroke-width="1.4"/>
+
+    <text x="334" y="96" text-anchor="middle" font-size="12" font-weight="600" fill="#0052FF">Epistemic λg₁e</text>
+    <line x1="354" y1="102" x2="364" y2="136" stroke="#0052FF" stroke-width="1.4"/>
+
+    <text x="108" y="302" text-anchor="middle" font-size="12" font-weight="600" fill="#0A1E5E">PCS median f(x)</text>
+    <line x1="108" y1="286" x2="108" y2="224" stroke="#0A1E5E" stroke-opacity="0.55" stroke-width="1.3" stroke-dasharray="2,2"/>
+
+    <text x="171" y="336" text-anchor="middle" font-size="11.5" font-weight="500" fill="#475569">Dense Noise</text>
+    <text x="355" y="336" text-anchor="middle" font-size="11.5" font-weight="500" fill="#475569">Sparse Region</text>
+
+    <!-- RIGHT TOP PANEL: Joint lambda Calibration Curve -->
+    <rect x="450" y="70" width="162" height="132" rx="10" fill="#FFFFFF" fill-opacity="0.92" stroke="#CBD5E1" stroke-width="1"/>
+    <text x="531" y="90" text-anchor="middle" font-size="12" font-weight="600" fill="#0A1E5E">Quantile Loss vs λ</text>
+
+    <!-- Mini U-curve axes -->
+    <line x1="470" y1="104" x2="470" y2="178" stroke="#475569" stroke-opacity="0.55" stroke-width="1.2"/>
+    <line x1="470" y1="178" x2="596" y2="178" stroke="#475569" stroke-opacity="0.55" stroke-width="1.2"/>
+    <!-- Convex quantile-loss curve -->
+    <path d="M 476 116 C 492 162, 514 166, 532 164 C 554 162, 574 146, 592 122"
+          fill="none" stroke="#0052FF" stroke-width="2.6" stroke-linecap="round"/>
+    <!-- Optimal lambda* marker -->
+    <line x1="530" y1="164" x2="530" y2="178" stroke="#059669" stroke-width="1.5" stroke-dasharray="3,2"/>
+    <circle cx="530" cy="164" r="4.8" fill="#059669" stroke="#FFFFFF" stroke-width="1.8"/>
+    <text x="530" y="194" text-anchor="middle" font-size="12" font-weight="700" fill="#059669">λ*</text>
+
+    <!-- RIGHT BOTTOM PANEL: 95% Coverage Width Comparison -->
+    <rect x="450" y="214" width="162" height="134" rx="10" fill="#FFFFFF" fill-opacity="0.92" stroke="#CBD5E1" stroke-width="1"/>
+    <text x="531" y="234" text-anchor="middle" font-size="12" font-weight="600" fill="#0A1E5E">95% Interval Width</text>
+
+    <!-- Comparison horizontal bars -->
+    <text x="506" y="264" text-anchor="end" font-size="11.5" font-weight="500" fill="#475569">CQR</text>
+    <rect x="514" y="252" width="84" height="15" rx="4" fill="#CBD5E1"/>
+
+    <text x="506" y="294" text-anchor="end" font-size="11.5" font-weight="500" fill="#475569">PCS</text>
+    <rect x="514" y="282" width="72" height="15" rx="4" fill="#0EA5E9" fill-opacity="0.45"/>
+
+    <text x="506" y="324" text-anchor="end" font-size="11.5" font-weight="700" fill="#0052FF">CLEAR</text>
+    <rect x="514" y="312" width="54" height="15" rx="4" fill="#0052FF"/>
+    <circle cx="578" cy="319.5" r="4" fill="#059669"/>
+
+    <!-- Footer -->
+    <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-opacity="0.6" stroke-width="1"/>
+    <text x="28" y="381" font-size="12" font-weight="500" fill="#475569">95% nominal coverage · 17 datasets</text>
+    <text x="612" y="381" text-anchor="end" font-size="12.5" fill="#475569">Target: <tspan font-weight="700" fill="#0052FF">nciw ↓</tspan></text>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="14" fill="none" stroke="#CBD5E1" stroke-opacity="0.75" stroke-width="1"/>
+</svg>

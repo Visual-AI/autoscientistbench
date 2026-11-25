@@ -1,0 +1,246 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>Platonic-fMRI: Universal Cortical Representation Geometry</title>
+  <desc>Repeated subject-specific fMRI responses are encoded onto a compact shared latent hypersphere where repetitions of each image cluster for cosine retrieval while preserving pairwise representational dissimilarity geometry.</desc>
+  <defs>
+    <clipPath id="cardClip">
+      <rect x="0" y="0" width="640" height="400" rx="16"/>
+    </clipPath>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFF6F8"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="accentBar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#E11D48"/>
+      <stop offset="100%" stop-color="#F43F5E"/>
+    </linearGradient>
+    <radialGradient id="sphereGrad" cx="38%" cy="32%" r="68%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="58%" stop-color="#FFE4E6" stop-opacity="0.65"/>
+      <stop offset="100%" stop-color="#F43F5E" stop-opacity="0.24"/>
+    </radialGradient>
+    <pattern id="dotGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#6B1028" fill-opacity="0.15"/>
+    </pattern>
+    <marker id="arrRose" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M1 1.5 L8.5 5 L1 8.5 Z" fill="#E11D48"/>
+    </marker>
+    <marker id="arrDark" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto">
+      <path d="M1 1.5 L8.5 5 L1 8.5 Z" fill="#6B1028"/>
+    </marker>
+    <marker id="arrDarkStart" viewBox="0 0 10 10" refX="2" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto">
+      <path d="M9 1.5 L1.5 5 L9 8.5 Z" fill="#6B1028"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#cardClip)" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <!-- Base Plate -->
+    <rect x="0" y="0" width="640" height="400" fill="url(#bgGrad)"/>
+    <rect x="24" y="58" width="592" height="296" fill="url(#dotGrid)"/>
+    <rect x="0" y="0" width="640" height="3" fill="url(#accentBar)"/>
+
+    <!-- Header Zone (y=18..54) -->
+    <text x="28" y="36" font-size="18" font-weight="700" fill="#0A0E17">Platonic-fMRI</text>
+    <text x="612" y="36" text-anchor="end" font-size="12.5" font-weight="500" fill="#475569">Universal Cortical Representation Geometry</text>
+    <line x1="28" y1="53" x2="612" y2="53" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.75"/>
+
+    <!-- LEFT: Cortical ROI + 3 Repeated Presentations -->
+    <g>
+      <text x="100" y="84" text-anchor="middle" font-size="12" font-weight="700" fill="#0A0E17">fMRI Voxel Trials</text>
+      <!-- Stylized Cortical Silhouette -->
+      <path d="M46 154 C42 124 62 100 98 98 C128 96 156 112 162 138 C168 160 156 184 134 190 C122 194 114 186 106 188 C94 192 84 202 68 196 C52 190 48 172 46 154 Z"
+            fill="#FFE4E6" fill-opacity="0.65" stroke="#6B1028" stroke-width="2.2"/>
+      <!-- Clean Cortical Sulci -->
+      <path d="M66 132 C80 124 94 128 104 140 M76 164 C92 156 108 162 118 174 M112 114 C124 124 128 138 122 152"
+            fill="none" stroke="#F43F5E" stroke-width="1.6" stroke-linecap="round" stroke-opacity="0.55"/>
+      <!-- Highlighted Visual Cortex ROI -->
+      <circle cx="140" cy="154" r="17" fill="#E11D48" fill-opacity="0.22" stroke="#E11D48" stroke-width="1.6" stroke-dasharray="3 2"/>
+      <circle cx="136" cy="150" r="3.5" fill="#E11D48"/>
+      <circle cx="145" cy="156" r="3.2" fill="#F43F5E"/>
+      <circle cx="139" cy="162" r="2.8" fill="#6B1028"/>
+
+      <!-- 3 Stacked Repetition Voxel Strips -->
+      <g>
+        <!-- Rep 1 -->
+        <rect x="42" y="218" width="118" height="22" rx="5" fill="#FFFFFF" stroke="#E11D48" stroke-width="1.6"/>
+        <circle cx="54" cy="229" r="3.5" fill="#E11D48"/>
+        <g stroke="#E11D48" stroke-width="2" stroke-linecap="round">
+          <line x1="68" y1="224" x2="68" y2="234"/><line x1="78" y1="226" x2="78" y2="234"/>
+          <line x1="88" y1="222" x2="88" y2="234"/><line x1="98" y1="227" x2="98" y2="234"/>
+          <line x1="110" y1="223" x2="110" y2="234"/><line x1="122" y1="225" x2="122" y2="234"/>
+          <line x1="136" y1="222" x2="136" y2="234"/><line x1="148" y1="227" x2="148" y2="234"/>
+        </g>
+        <!-- Rep 2 -->
+        <rect x="42" y="250" width="118" height="22" rx="5" fill="#FFFFFF" stroke="#0A0E17" stroke-width="1.5"/>
+        <rect x="51" y="258" width="6.5" height="6.5" rx="1" fill="#0A0E17"/>
+        <g stroke="#475569" stroke-width="2" stroke-linecap="round">
+          <line x1="68" y1="256" x2="68" y2="266"/><line x1="78" y1="258" x2="78" y2="266"/>
+          <line x1="88" y1="254" x2="88" y2="266"/><line x1="98" y1="259" x2="98" y2="266"/>
+          <line x1="110" y1="255" x2="110" y2="266"/><line x1="122" y1="257" x2="122" y2="266"/>
+          <line x1="136" y1="254" x2="136" y2="266"/><line x1="148" y1="259" x2="148" y2="266"/>
+        </g>
+        <!-- Rep 3 -->
+        <rect x="42" y="282" width="118" height="22" rx="5" fill="#FFFFFF" stroke="#059669" stroke-width="1.6"/>
+        <polygon points="54,289 58,296 50,296" fill="#059669"/>
+        <g stroke="#059669" stroke-width="2" stroke-linecap="round">
+          <line x1="68" y1="288" x2="68" y2="298"/><line x1="78" y1="290" x2="78" y2="298"/>
+          <line x1="88" y1="286" x2="88" y2="298"/><line x1="98" y1="291" x2="98" y2="298"/>
+          <line x1="110" y1="287" x2="110" y2="298"/><line x1="122" y1="289" x2="122" y2="298"/>
+          <line x1="136" y1="286" x2="136" y2="298"/><line x1="148" y1="291" x2="148" y2="298"/>
+        </g>
+      </g>
+      <text x="101" y="328" text-anchor="middle" font-size="11.5" fill="#475569">3× Repetitions</text>
+    </g>
+
+    <!-- ENCODER FUNNEL (f_θ) -->
+    <g>
+      <path d="M160 229 C169 229 169 190 178 190 M160 261 C169 261 169 210 178 210 M160 293 C169 293 169 232 178 232" fill="none" stroke="#CBD5E1" stroke-width="1.8"/>
+      <polygon points="178,162 222,182 222,238 178,258" fill="#FFFFFF" stroke="#E11D48" stroke-width="2.2"/>
+      <text x="200" y="213" text-anchor="middle" font-size="14" font-weight="700" fill="#0A0E17">f<tspan dy="3" font-size="11.5">θ</tspan></text>
+      <text x="200" y="276" text-anchor="middle" font-size="11.5" font-weight="600" fill="#E11D48">d ≤ 128</text>
+      <line x1="224" y1="210" x2="246" y2="210" stroke="#E11D48" stroke-width="2.2" marker-end="url(#arrRose)"/>
+    </g>
+
+    <!-- CENTER HERO: Platonic Hypersphere Manifold -->
+    <g>
+      <text x="344" y="96" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0A0E17">Shared Platonic Manifold</text>
+
+      <!-- Sphere Body -->
+      <circle cx="344" cy="206" r="92" fill="url(#sphereGrad)" stroke="#E11D48" stroke-width="2.6"/>
+
+      <!-- 3D Wireframe Graticule -->
+      <ellipse cx="344" cy="206" rx="92" ry="27" fill="none" stroke="#F43F5E" stroke-width="1.3" stroke-opacity="0.38" stroke-dasharray="4 4"/>
+      <path d="M252 206 A92 27 0 0 0 436 206" fill="none" stroke="#F43F5E" stroke-width="1.5" stroke-opacity="0.52"/>
+      <ellipse cx="344" cy="206" rx="34" ry="92" fill="none" stroke="#F43F5E" stroke-width="1.3" stroke-opacity="0.32" stroke-dasharray="4 4"/>
+
+      <!-- Universal Relational Simplex Connecting 4 Image Concepts -->
+      <polygon points="304,158 386,166 370,252 292,232"
+               fill="#E11D48" fill-opacity="0.08" stroke="#6B1028" stroke-width="2"/>
+      <line x1="304" y1="158" x2="370" y2="252" stroke="#6B1028" stroke-width="1.5" stroke-dasharray="4 3" stroke-opacity="0.65"/>
+      <line x1="386" y1="166" x2="292" y2="232" stroke="#6B1028" stroke-width="1.5" stroke-dasharray="4 3" stroke-opacity="0.65"/>
+
+      <!-- Tight 3-Repetition Clusters at Each Image Concept Vertex -->
+      <!-- Concept 1 -->
+      <circle cx="304" cy="158" r="14" fill="#FFFFFF" fill-opacity="0.72" stroke="#E11D48" stroke-width="1.3" stroke-dasharray="3 2"/>
+      <circle cx="299" cy="155" r="4" fill="#E11D48"/>
+      <rect x="305" y="152" width="6.5" height="6.5" rx="1" fill="#0A0E17"/>
+      <polygon points="303,161 307,168 299,168" fill="#059669"/>
+
+      <!-- Concept 2 -->
+      <circle cx="386" cy="166" r="14" fill="#FFFFFF" fill-opacity="0.72" stroke="#E11D48" stroke-width="1.3" stroke-dasharray="3 2"/>
+      <circle cx="381" cy="163" r="4" fill="#E11D48"/>
+      <rect x="387" y="160" width="6.5" height="6.5" rx="1" fill="#0A0E17"/>
+      <polygon points="385,169 389,176 381,176" fill="#059669"/>
+
+      <!-- Concept 3 -->
+      <circle cx="370" cy="252" r="14" fill="#FFFFFF" fill-opacity="0.72" stroke="#E11D48" stroke-width="1.3" stroke-dasharray="3 2"/>
+      <circle cx="365" cy="249" r="4" fill="#E11D48"/>
+      <rect x="371" y="246" width="6.5" height="6.5" rx="1" fill="#0A0E17"/>
+      <polygon points="369,255 373,262 365,262" fill="#059669"/>
+
+      <!-- Concept 4 -->
+      <circle cx="292" cy="232" r="14" fill="#FFFFFF" fill-opacity="0.72" stroke="#E11D48" stroke-width="1.3" stroke-dasharray="3 2"/>
+      <circle cx="287" cy="229" r="4" fill="#E11D48"/>
+      <rect x="293" y="226" width="6.5" height="6.5" rx="1" fill="#0A0E17"/>
+      <polygon points="291,235 295,242 287,242" fill="#059669"/>
+
+      <!-- Compact Legend Below Sphere -->
+      <g transform="translate(262, 326)" font-size="11.5" fill="#475569">
+        <circle cx="6" cy="-4" r="3.8" fill="#E11D48"/>
+        <text x="14" y="0">Rep 1</text>
+        <rect x="60" y="-7.5" width="7" height="7" rx="1" fill="#0A0E17"/>
+        <text x="72" y="0">Rep 2</text>
+        <polygon points="122,-8 126,-1 118,-1" fill="#059669"/>
+        <text x="130" y="0">Rep 3</text>
+      </g>
+    </g>
+
+    <!-- Connector to RDM Panel -->
+    <line x1="440" y1="206" x2="468" y2="206" stroke="#6B1028" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arrDark)"/>
+
+    <!-- RIGHT: Dual Representational Dissimilarity Matrices (RSA) -->
+    <g>
+      <text x="536" y="84" text-anchor="middle" font-size="12" font-weight="700" fill="#0A0E17">RDM (Rep 1)</text>
+      <!-- Top 5x5 Symmetric RDM -->
+      <g transform="translate(491, 94)">
+        <!-- Row 0 -->
+        <rect x="0" y="0" width="18" height="18" fill="#FFFFFF"/>
+        <rect x="18" y="0" width="18" height="18" fill="#F43F5E"/>
+        <rect x="36" y="0" width="18" height="18" fill="#FFE4E6"/>
+        <rect x="54" y="0" width="18" height="18" fill="#6B1028"/>
+        <rect x="72" y="0" width="18" height="18" fill="#E11D48"/>
+        <!-- Row 1 -->
+        <rect x="0" y="18" width="18" height="18" fill="#F43F5E"/>
+        <rect x="18" y="18" width="18" height="18" fill="#FFFFFF"/>
+        <rect x="36" y="18" width="18" height="18" fill="#E11D48"/>
+        <rect x="54" y="18" width="18" height="18" fill="#FFE4E6"/>
+        <rect x="72" y="18" width="18" height="18" fill="#6B1028"/>
+        <!-- Row 2 -->
+        <rect x="0" y="36" width="18" height="18" fill="#FFE4E6"/>
+        <rect x="18" y="36" width="18" height="18" fill="#E11D48"/>
+        <rect x="36" y="36" width="18" height="18" fill="#FFFFFF"/>
+        <rect x="54" y="36" width="18" height="18" fill="#F43F5E"/>
+        <rect x="72" y="36" width="18" height="18" fill="#FFE4E6"/>
+        <!-- Row 3 -->
+        <rect x="0" y="54" width="18" height="18" fill="#6B1028"/>
+        <rect x="18" y="54" width="18" height="18" fill="#FFE4E6"/>
+        <rect x="36" y="54" width="18" height="18" fill="#F43F5E"/>
+        <rect x="54" y="54" width="18" height="18" fill="#FFFFFF"/>
+        <rect x="72" y="54" width="18" height="18" fill="#E11D48"/>
+        <!-- Row 4 -->
+        <rect x="0" y="72" width="18" height="18" fill="#E11D48"/>
+        <rect x="18" y="72" width="18" height="18" fill="#6B1028"/>
+        <rect x="36" y="72" width="18" height="18" fill="#FFE4E6"/>
+        <rect x="54" y="72" width="18" height="18" fill="#E11D48"/>
+        <rect x="72" y="72" width="18" height="18" fill="#FFFFFF"/>
+        <rect x="0" y="0" width="90" height="90" rx="4" fill="none" stroke="#6B1028" stroke-width="1.8"/>
+      </g>
+
+      <!-- Double-headed RSA Alignment Indicator -->
+      <line x1="491" y1="190" x2="491" y2="220" stroke="#6B1028" stroke-width="2" marker-start="url(#arrDarkStart)" marker-end="url(#arrDark)"/>
+      <text x="546" y="210" text-anchor="middle" font-size="12.5" font-weight="700" fill="#E11D48">RSA ≥ 0.51</text>
+
+      <!-- Bottom 5x5 Matching RDM -->
+      <g transform="translate(491, 226)">
+        <!-- Row 0 -->
+        <rect x="0" y="0" width="18" height="18" fill="#FFFFFF"/>
+        <rect x="18" y="0" width="18" height="18" fill="#F43F5E"/>
+        <rect x="36" y="0" width="18" height="18" fill="#FFE4E6"/>
+        <rect x="54" y="0" width="18" height="18" fill="#6B1028"/>
+        <rect x="72" y="0" width="18" height="18" fill="#E11D48"/>
+        <!-- Row 1 -->
+        <rect x="0" y="18" width="18" height="18" fill="#F43F5E"/>
+        <rect x="18" y="18" width="18" height="18" fill="#FFFFFF"/>
+        <rect x="36" y="18" width="18" height="18" fill="#E11D48"/>
+        <rect x="54" y="18" width="18" height="18" fill="#FFE4E6"/>
+        <rect x="72" y="18" width="18" height="18" fill="#6B1028"/>
+        <!-- Row 2 -->
+        <rect x="0" y="36" width="18" height="18" fill="#FFE4E6"/>
+        <rect x="18" y="36" width="18" height="18" fill="#E11D48"/>
+        <rect x="36" y="36" width="18" height="18" fill="#FFFFFF"/>
+        <rect x="54" y="36" width="18" height="18" fill="#F43F5E"/>
+        <rect x="72" y="36" width="18" height="18" fill="#FFE4E6"/>
+        <!-- Row 3 -->
+        <rect x="0" y="54" width="18" height="18" fill="#6B1028"/>
+        <rect x="18" y="54" width="18" height="18" fill="#FFE4E6"/>
+        <rect x="36" y="54" width="18" height="18" fill="#F43F5E"/>
+        <rect x="54" y="54" width="18" height="18" fill="#FFFFFF"/>
+        <rect x="72" y="54" width="18" height="18" fill="#E11D48"/>
+        <!-- Row 4 -->
+        <rect x="0" y="72" width="18" height="18" fill="#E11D48"/>
+        <rect x="18" y="72" width="18" height="18" fill="#6B1028"/>
+        <rect x="36" y="72" width="18" height="18" fill="#FFE4E6"/>
+        <rect x="54" y="72" width="18" height="18" fill="#E11D48"/>
+        <rect x="72" y="72" width="18" height="18" fill="#FFFFFF"/>
+        <rect x="0" y="0" width="90" height="90" rx="4" fill="none" stroke="#6B1028" stroke-width="1.8"/>
+      </g>
+      <text x="536" y="334" text-anchor="middle" font-size="12" font-weight="700" fill="#0A0E17">RDM (Rep 2)</text>
+    </g>
+
+    <!-- Footer Bar (y=378) -->
+    <line x1="28" y1="357" x2="612" y2="357" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.75"/>
+    <text x="28" y="378" font-size="12.5" fill="#475569">8 subjects · d ≤ 128 · cosine retrieval</text>
+    <text x="612" y="378" text-anchor="end" font-size="12.5" fill="#475569">Metric <tspan font-weight="700" fill="#E11D48">recall_at_1 ↑</tspan></text>
+  </g>
+
+  <rect x="0.5" y="0.5" width="639" height="399" rx="16" fill="none" stroke="#CBD5E1" stroke-opacity="0.75"/>
+</svg>

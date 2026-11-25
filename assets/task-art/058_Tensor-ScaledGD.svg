@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>Tensor-ScaledGD — Low-Rank Tensor Scaled Gradient Descent</title>
+  <desc>Isometric three-dimensional low-tubal-rank tensor factorization into L and R transpose factors with inverse Gram scaling, paired with semi-log convergence curves showing condition-number-invariant linear convergence for ScaledGD versus fanned-out vanilla GD.</desc>
+  <defs>
+    <clipPath id="card-clip">
+      <rect x="0.5" y="0.5" width="639" height="399" rx="14"/>
+    </clipPath>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F7F6FF"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="accent-bar" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4F46E5"/>
+      <stop offset="100%" stop-color="#8B5CF6"/>
+    </linearGradient>
+    <pattern id="dot-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1" fill="#475569" fill-opacity="0.16"/>
+    </pattern>
+  </defs>
+
+  <g clip-path="url(#card-clip)" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <!-- Base luminous plate -->
+    <rect x="0" y="0" width="640" height="400" fill="url(#bg-grad)"/>
+    <rect x="24" y="60" width="592" height="292" fill="url(#dot-grid)"/>
+    <rect x="0" y="0" width="640" height="3.5" fill="url(#accent-bar)"/>
+
+    <!-- Header -->
+    <text x="28" y="36" font-size="18" font-weight="700" fill="#0A0E17" letter-spacing="-0.3">Tensor-ScaledGD</text>
+    <text x="612" y="35" text-anchor="end" font-size="12.5" font-weight="500" fill="#475569">Low-Rank Tensor Scaled GD</text>
+    <line x1="28" y1="52" x2="612" y2="52" stroke="#CBD5E1" stroke-opacity="0.6" stroke-width="1"/>
+
+    <!-- LEFT PANEL: 3D Isometric Low-Tubal-Rank Tensor Factorization -->
+    <rect x="34" y="70" width="344" height="278" rx="10" fill="#FFFFFF" fill-opacity="0.74" stroke="#CBD5E1" stroke-width="1"/>
+    <text x="108" y="92" text-anchor="middle" font-size="12" font-weight="600" fill="#261E6B">Observed Tensor Y</text>
+    <text x="290" y="92" text-anchor="middle" font-size="12" font-weight="600" fill="#4F46E5">t-SVD Factors L ∗ Rᵀ</text>
+
+    <!-- 3D ISOMETRIC TENSOR CUBE Y (with missing entries Omega & corruptions S*) -->
+    <!-- Top isometric face -->
+    <polygon points="58,154 86,128 158,128 130,154" fill="#E0E7FF" stroke="#4F46E5" stroke-width="1.5" stroke-linejoin="round"/>
+    <!-- Right isometric face (showing DFT/DCT frontal slices) -->
+    <polygon points="130,154 158,128 158,200 130,226" fill="#8B5CF6" fill-opacity="0.34" stroke="#4F46E5" stroke-width="1.5" stroke-linejoin="round"/>
+    <!-- Mode-3 slice dividers across top and right faces -->
+    <g stroke="#4F46E5" stroke-opacity="0.55" stroke-width="1">
+      <line x1="65" y1="147.5" x2="137" y2="147.5"/>
+      <line x1="72" y1="141" x2="144" y2="141"/>
+      <line x1="79" y1="134.5" x2="151" y2="134.5"/>
+      <line x1="137" y1="147.5" x2="137" y2="219.5"/>
+      <line x1="144" y1="141" x2="144" y2="213"/>
+      <line x1="151" y1="134.5" x2="151" y2="206.5"/>
+    </g>
+    <!-- Front face 4x4 grid (72x72 from x=58..130, y=154..226) -->
+    <rect x="58" y="154" width="72" height="72" fill="#FFFFFF" stroke="#4F46E5" stroke-width="1.8"/>
+    <!-- Cells: normal observed (#E0E7FF), missing holes (white dashed), sparse corruptions (#E11D48) -->
+    <g>
+      <!-- Row 0 -->
+      <rect x="59" y="155" width="16.5" height="16.5" fill="#E0E7FF"/>
+      <rect x="77" y="155" width="16.5" height="16.5" fill="#FFFFFF" stroke="#475569" stroke-opacity="0.45" stroke-dasharray="2,2" stroke-width="0.9"/>
+      <rect x="95" y="155" width="16.5" height="16.5" fill="#E0E7FF"/>
+      <rect x="113" y="155" width="16" height="16.5" fill="#E11D48" fill-opacity="0.82"/>
+      <!-- Row 1 -->
+      <rect x="59" y="173" width="16.5" height="16.5" fill="#4F46E5" fill-opacity="0.24"/>
+      <rect x="77" y="173" width="16.5" height="16.5" fill="#E0E7FF"/>
+      <rect x="95" y="173" width="16.5" height="16.5" fill="#E11D48" fill-opacity="0.82"/>
+      <rect x="113" y="173" width="16" height="16.5" fill="#E0E7FF"/>
+      <!-- Row 2 -->
+      <rect x="59" y="191" width="16.5" height="16.5" fill="#FFFFFF" stroke="#475569" stroke-opacity="0.45" stroke-dasharray="2,2" stroke-width="0.9"/>
+      <rect x="77" y="191" width="16.5" height="16.5" fill="#4F46E5" fill-opacity="0.24"/>
+      <rect x="95" y="191" width="16.5" height="16.5" fill="#E0E7FF"/>
+      <rect x="113" y="191" width="16" height="16.5" fill="#FFFFFF" stroke="#475569" stroke-opacity="0.45" stroke-dasharray="2,2" stroke-width="0.9"/>
+      <!-- Row 3 -->
+      <rect x="59" y="209" width="16.5" height="16" fill="#E11D48" fill-opacity="0.82"/>
+      <rect x="77" y="209" width="16.5" height="16" fill="#E0E7FF"/>
+      <rect x="95" y="209" width="16.5" height="16" fill="#4F46E5" fill-opacity="0.24"/>
+      <rect x="113" y="209" width="16" height="16" fill="#E0E7FF"/>
+    </g>
+    <text x="108" y="252" text-anchor="middle" font-size="11.5" font-weight="500" fill="#475569">Ω · (X* + S*)</text>
+
+    <!-- Approximation / Transform Bridge -->
+    <text x="184" y="188" text-anchor="middle" font-size="18" font-weight="700" fill="#4F46E5">≈</text>
+    <text x="184" y="206" text-anchor="middle" font-size="10.5" font-weight="600" fill="#475569">DFT/DCT</text>
+
+    <!-- 3D ISOMETRIC FACTOR SLAB L (n x r x n3) -->
+    <polygon points="212,154 236,132 258,132 234,154" fill="#8B5CF6" fill-opacity="0.65" stroke="#261E6B" stroke-width="1.4" stroke-linejoin="round"/>
+    <polygon points="234,154 258,132 258,204 234,226" fill="#261E6B" fill-opacity="0.82" stroke="#261E6B" stroke-width="1.4" stroke-linejoin="round"/>
+    <rect x="212" y="154" width="22" height="72" fill="#4F46E5" stroke="#261E6B" stroke-width="1.5"/>
+    <!-- Frontal slices on L -->
+    <g stroke="#E0E7FF" stroke-opacity="0.55" stroke-width="1">
+      <line x1="242" y1="146.5" x2="242" y2="218.5"/>
+      <line x1="250" y1="139" x2="250" y2="211"/>
+    </g>
+    <text x="234" y="252" text-anchor="middle" font-size="12.5" font-weight="700" fill="#4F46E5">L</text>
+
+    <!-- t-product operator -->
+    <text x="272" y="196" text-anchor="middle" font-size="18" font-weight="700" fill="#261E6B">∗</text>
+
+    <!-- 3D ISOMETRIC FACTOR SLAB R^T (r x n x n3) -->
+    <polygon points="286,184 310,162 368,162 344,184" fill="#E0E7FF" stroke="#4F46E5" stroke-width="1.4" stroke-linejoin="round"/>
+    <polygon points="344,184 368,162 368,184 344,206" fill="#4F46E5" stroke="#261E6B" stroke-width="1.4" stroke-linejoin="round"/>
+    <rect x="286" y="184" width="58" height="22" fill="#8B5CF6" stroke="#261E6B" stroke-width="1.5"/>
+    <!-- Frontal slices on R^T -->
+    <g stroke="#4F46E5" stroke-opacity="0.5" stroke-width="1">
+      <line x1="294" y1="176.5" x2="352" y2="176.5"/>
+      <line x1="302" y1="169" x2="360" y2="169"/>
+    </g>
+    <text x="326" y="252" text-anchor="middle" font-size="12.5" font-weight="700" fill="#8B5CF6">Rᵀ</text>
+
+    <!-- ScaledGD Inverse Gram Preconditioner Box -->
+    <rect x="50" y="276" width="312" height="54" rx="10" fill="#E0E7FF" fill-opacity="0.72" stroke="#4F46E5" stroke-opacity="0.35" stroke-width="1"/>
+    <text x="206" y="296" text-anchor="middle" font-size="11.5" font-weight="600" fill="#261E6B">Inverse Gram Preconditioning</text>
+    <text x="206" y="317" text-anchor="middle" font-size="12" font-weight="700" fill="#4F46E5">∇_L f · (RᵀR)⁻¹   ·   ∇_R f · (LᵀL)⁻¹</text>
+
+    <!-- RIGHT PANEL: Semi-Log Condition-Number-Invariant Linear Convergence -->
+    <rect x="390" y="70" width="222" height="278" rx="10" fill="#FFFFFF" fill-opacity="0.92" stroke="#CBD5E1" stroke-width="1"/>
+    <text x="501" y="92" text-anchor="middle" font-size="12.5" font-weight="600" fill="#261E6B">κ-Invariant Convergence</text>
+
+    <!-- Plot axes -->
+    <line x1="428" y1="110" x2="428" y2="306" stroke="#475569" stroke-width="1.3"/>
+    <line x1="428" y1="306" x2="598" y2="306" stroke="#475569" stroke-width="1.3"/>
+
+    <!-- Y-axis semi-log ticks -->
+    <text x="422" y="124" text-anchor="end" font-size="10.5" fill="#475569">10⁰</text>
+    <text x="422" y="196" text-anchor="end" font-size="10.5" fill="#475569">10⁻³</text>
+    <text x="422" y="268" text-anchor="end" font-size="10.5" font-weight="700" fill="#059669">10⁻⁶</text>
+
+    <!-- 1e-6 Relative Frobenius Error Threshold -->
+    <line x1="428" y1="264" x2="598" y2="264" stroke="#059669" stroke-width="2" stroke-dasharray="5,4"/>
+
+    <!-- Vanilla GD curves fanning out dramatically with kappa = 1, 5, 10, 20 -->
+    <line x1="430" y1="122" x2="594" y2="146" stroke="#E11D48" stroke-opacity="0.72" stroke-width="2.1" stroke-dasharray="5,3"/>
+    <line x1="430" y1="122" x2="594" y2="180" stroke="#475569" stroke-opacity="0.65" stroke-width="2" stroke-dasharray="5,3"/>
+    <line x1="430" y1="122" x2="594" y2="218" stroke="#8B5CF6" stroke-opacity="0.72" stroke-width="2" stroke-dasharray="5,3"/>
+    <line x1="430" y1="122" x2="594" y2="278" stroke="#8B5CF6" stroke-width="2.2" stroke-dasharray="5,3"/>
+
+    <!-- Vanilla GD fan labels -->
+    <text x="594" y="138" text-anchor="end" font-size="11" font-weight="600" fill="#E11D48">GD (κ=20)</text>
+    <text x="594" y="172" text-anchor="end" font-size="10.5" font-weight="500" fill="#475569">κ=10</text>
+    <text x="594" y="210" text-anchor="end" font-size="10.5" font-weight="500" fill="#8B5CF6">κ=5</text>
+
+    <!-- ScaledGD: ALL kappa=1,5,10,20 collapse onto ONE steep straight linear-rate bundle! -->
+    <line x1="430" y1="122" x2="474" y2="296" stroke="#4F46E5" stroke-opacity="0.22" stroke-width="8.5" stroke-linecap="round"/>
+    <line x1="430" y1="122" x2="472" y2="296" stroke="#4F46E5" stroke-width="3" stroke-linecap="round"/>
+    <line x1="430" y1="122" x2="475" y2="296" stroke="#261E6B" stroke-opacity="0.7" stroke-width="1.6" stroke-linecap="round"/>
+
+    <!-- Crossing dot at 1e-6 threshold -->
+    <line x1="466" y1="264" x2="466" y2="306" stroke="#059669" stroke-width="1.4" stroke-dasharray="3,2"/>
+    <circle cx="466" cy="264" r="5" fill="#059669" stroke="#FFFFFF" stroke-width="1.8"/>
+
+    <!-- ScaledGD collapsed bundle callout (in wide open space between ScaledGD and GD k=1) -->
+    <text x="476" y="236" font-size="12" font-weight="700" fill="#4F46E5">ScaledGD</text>
+    <text x="476" y="250" font-size="11" font-weight="600" fill="#059669">(all κ)</text>
+
+    <text x="513" y="332" text-anchor="middle" font-size="11.5" font-weight="500" fill="#475569">Reported Updates t</text>
+
+    <!-- Footer -->
+    <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-opacity="0.6" stroke-width="1"/>
+    <text x="28" y="381" font-size="12" font-weight="500" fill="#475569">32 inverse-problem cells · κ = 1..20</text>
+    <text x="612" y="381" text-anchor="end" font-size="12.5" fill="#475569">Target: <tspan font-weight="700" fill="#4F46E5">scaledgd_iterations ↓</tspan></text>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="14" fill="none" stroke="#CBD5E1" stroke-opacity="0.75" stroke-width="1"/>
+</svg>

@@ -1,0 +1,197 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>LexicMap: Diverged-Read Prefix Anchor Alignment</title>
+  <desc>Sorted 31-mer lexicographic genome probes yield variable-length prefix anchors that chain collinearly across diverged 1,000 bp query reads to recover true source intervals while rejecting off-target hits.</desc>
+  <defs>
+    <clipPath id="cardClip">
+      <rect x="0" y="0" width="640" height="400" rx="16"/>
+    </clipPath>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F4FBF9"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="accentBar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0D9488"/>
+      <stop offset="100%" stop-color="#10B981"/>
+    </linearGradient>
+    <pattern id="dotGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#114B46" fill-opacity="0.15"/>
+    </pattern>
+    <marker id="arrTeal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M1 1.5 L8.5 5 L1 8.5 Z" fill="#0D9488"/>
+    </marker>
+    <marker id="arrGreen" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto">
+      <path d="M1 1.5 L8.5 5 L1 8.5 Z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#cardClip)" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <!-- Base Plate -->
+    <rect x="0" y="0" width="640" height="400" fill="url(#bgGrad)"/>
+    <rect x="24" y="58" width="592" height="296" fill="url(#dotGrid)"/>
+    <rect x="0" y="0" width="640" height="3" fill="url(#accentBar)"/>
+
+    <!-- Header Zone (y=18..54) -->
+    <text x="28" y="36" font-size="18" font-weight="700" fill="#0A0E17">LexicMap</text>
+    <text x="612" y="36" text-anchor="end" font-size="12.5" font-weight="500" fill="#475569">Diverged-Read Prefix Anchor Alignment</text>
+    <line x1="28" y1="53" x2="612" y2="53" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.75"/>
+
+    <!-- LEFT: Lexicographic Probe Index (Variable-Length Prefix Matches) -->
+    <g>
+      <rect x="28" y="80" width="152" height="256" rx="12" fill="#FFFFFF" fill-opacity="0.95" stroke="#CBD5E1" stroke-width="1.2"/>
+      <text x="104" y="102" text-anchor="middle" font-size="12" font-weight="700" fill="#0A0E17">Sorted Probes (k=31)</text>
+
+      <!-- 7 Lexicographic Probe Bars: Teal Prefix Match + Diverged Suffix -->
+      <g transform="translate(40, 118)">
+        <!-- Row 1 -->
+        <rect x="0" y="0" width="128" height="16" rx="3.5" fill="#F4FBF9" stroke="#CBD5E1" stroke-width="1"/>
+        <rect x="0" y="0" width="82" height="16" rx="3.5" fill="#0D9488"/>
+        <rect x="90" y="0" width="4" height="16" fill="#E11D48"/>
+        <rect x="112" y="0" width="4" height="16" fill="#E11D48"/>
+
+        <!-- Row 2 -->
+        <rect x="0" y="25" width="128" height="16" rx="3.5" fill="#F4FBF9" stroke="#CBD5E1" stroke-width="1"/>
+        <rect x="0" y="25" width="62" height="16" rx="3.5" fill="#10B981"/>
+        <rect x="68" y="25" width="4" height="16" fill="#E11D48"/>
+        <rect x="100" y="25" width="4" height="16" fill="#E11D48"/>
+
+        <!-- Row 3 -->
+        <rect x="0" y="50" width="128" height="16" rx="3.5" fill="#F4FBF9" stroke="#CBD5E1" stroke-width="1"/>
+        <rect x="0" y="50" width="96" height="16" rx="3.5" fill="#0D9488"/>
+        <rect x="102" y="50" width="4" height="16" fill="#E11D48"/>
+
+        <!-- Row 4 -->
+        <rect x="0" y="75" width="128" height="16" rx="3.5" fill="#F4FBF9" stroke="#CBD5E1" stroke-width="1"/>
+        <rect x="0" y="75" width="72" height="16" rx="3.5" fill="#10B981"/>
+        <rect x="78" y="75" width="4" height="16" fill="#E11D48"/>
+        <rect x="116" y="75" width="4" height="16" fill="#E11D48"/>
+
+        <!-- Row 5 -->
+        <rect x="0" y="100" width="128" height="16" rx="3.5" fill="#F4FBF9" stroke="#CBD5E1" stroke-width="1"/>
+        <rect x="0" y="100" width="106" height="16" rx="3.5" fill="#0D9488"/>
+        <rect x="112" y="100" width="4" height="16" fill="#E11D48"/>
+
+        <!-- Row 6 -->
+        <rect x="0" y="125" width="128" height="16" rx="3.5" fill="#F4FBF9" stroke="#CBD5E1" stroke-width="1"/>
+        <rect x="0" y="125" width="66" height="16" rx="3.5" fill="#10B981"/>
+        <rect x="72" y="125" width="4" height="16" fill="#E11D48"/>
+        <rect x="94" y="125" width="4" height="16" fill="#E11D48"/>
+
+        <!-- Row 7 -->
+        <rect x="0" y="150" width="128" height="16" rx="3.5" fill="#F4FBF9" stroke="#CBD5E1" stroke-width="1"/>
+        <rect x="0" y="150" width="88" height="16" rx="3.5" fill="#0D9488"/>
+        <rect x="94" y="150" width="4" height="16" fill="#E11D48"/>
+
+        <!-- Minimum Anchor Threshold Line (len >= 15) -->
+        <line x1="58" y1="-6" x2="58" y2="174" stroke="#114B46" stroke-width="1.6" stroke-dasharray="4 3"/>
+      </g>
+      <text x="104" y="318" text-anchor="middle" font-size="11.5" font-weight="700" fill="#0D9488">Prefix anchor ≥ 15</text>
+    </g>
+
+    <!-- Connector Arrow -->
+    <line x1="184" y1="191" x2="210" y2="191" stroke="#0D9488" stroke-width="2.4" marker-end="url(#arrTeal)"/>
+
+    <!-- CENTER HERO: Diagonal Anchor-Chaining Dot-Plot -->
+    <g>
+      <text x="336" y="90" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0A0E17">Collinear Anchor Chain</text>
+
+      <!-- Dot-Plot Frame -->
+      <rect x="248" y="102" width="176" height="176" rx="6" fill="#FFFFFF" stroke="#114B46" stroke-width="2"/>
+      <!-- Faint Internal Grid -->
+      <g stroke="#CBD5E1" stroke-width="0.9" stroke-opacity="0.55">
+        <line x1="292" y1="102" x2="292" y2="278"/>
+        <line x1="336" y1="102" x2="336" y2="278"/>
+        <line x1="380" y1="102" x2="380" y2="278"/>
+        <line x1="248" y1="146" x2="424" y2="146"/>
+        <line x1="248" y1="190" x2="424" y2="190"/>
+        <line x1="248" y1="234" x2="424" y2="234"/>
+      </g>
+
+      <!-- Diagonal Extended HSP Alignment Corridor -->
+      <polygon points="262,126 276,112 410,246 396,260" fill="#CCFBF1" fill-opacity="0.82"/>
+
+      <!-- Collinear Dashed Chain Links -->
+      <line x1="270" y1="120" x2="402" y2="252" stroke="#10B981" stroke-width="2" stroke-dasharray="5 4"/>
+
+      <!-- 5 Bold Variable-Length Diagonal Anchors -->
+      <g stroke="#0D9488" stroke-width="4.2" stroke-linecap="round">
+        <line x1="270" y1="120" x2="288" y2="138"/>
+        <line x1="298" y1="148" x2="320" y2="170"/>
+        <line x1="330" y1="180" x2="344" y2="194"/>
+        <line x1="354" y1="204" x2="376" y2="226"/>
+        <line x1="386" y1="236" x2="402" y2="252"/>
+      </g>
+
+      <!-- Crisp True Interval Endpoint Markers -->
+      <circle cx="270" cy="120" r="4.5" fill="#059669" stroke="#FFFFFF" stroke-width="1.6"/>
+      <circle cx="402" cy="252" r="4.5" fill="#059669" stroke="#FFFFFF" stroke-width="1.6"/>
+
+      <!-- Rejected Off-Target Spurious Hits -->
+      <g stroke="#E11D48" stroke-width="3" stroke-linecap="round" stroke-opacity="0.82">
+        <line x1="368" y1="126" x2="378" y2="136"/>
+        <line x1="272" y1="236" x2="282" y2="246"/>
+        <line x1="384" y1="176" x2="392" y2="184"/>
+      </g>
+
+      <!-- Axis Labels -->
+      <text x="336" y="302" text-anchor="middle" font-size="11.5" font-weight="600" fill="#475569">Reference Genome</text>
+      <text x="236" y="190" text-anchor="middle" font-size="11.5" font-weight="600" fill="#475569" transform="rotate(-90 236 190)">Query (1 kb)</text>
+
+      <!-- Compact Dot-Plot Legend -->
+      <g transform="translate(248, 330)" font-size="11.5" font-weight="600">
+        <line x1="0" y1="-4" x2="14" y2="-4" stroke="#0D9488" stroke-width="3.5" stroke-linecap="round"/>
+        <text x="20" y="0" fill="#0D9488">Chained HSP</text>
+        <line x1="108" y1="-4" x2="118" y2="-4" stroke="#E11D48" stroke-width="3" stroke-linecap="round"/>
+        <text x="124" y="0" fill="#E11D48">Off-target</text>
+      </g>
+    </g>
+
+    <!-- RIGHT: Robustness Across Sequence Divergence -->
+    <g>
+      <rect x="444" y="80" width="168" height="256" rx="12" fill="#FFFFFF" fill-opacity="0.95" stroke="#CBD5E1" stroke-width="1.2"/>
+      <text x="528" y="102" text-anchor="middle" font-size="12" font-weight="700" fill="#0A0E17">Divergence Robustness</text>
+
+      <!-- Hard Identity Target Band (80–86%) -->
+      <rect x="468" y="124" width="60" height="160" fill="#CCFBF1" fill-opacity="0.58"/>
+      <text x="498" y="140" text-anchor="middle" font-size="10.5" font-weight="700" fill="#114B46">80–86%</text>
+
+      <!-- Plot Axes -->
+      <line x1="468" y1="284" x2="596" y2="284" stroke="#475569" stroke-width="1.4"/>
+      <line x1="468" y1="124" x2="468" y2="284" stroke="#475569" stroke-width="1.4"/>
+
+      <!-- 100% Control Ceiling -->
+      <line x1="468" y1="132" x2="596" y2="132" stroke="#CBD5E1" stroke-width="1.2" stroke-dasharray="3 3"/>
+
+      <!-- Baseline Curve (drops steeply at 80–84%) -->
+      <path d="M472 268 C492 246 508 202 528 158 C548 136 572 133 592 132"
+            fill="none" stroke="#CBD5E1" stroke-width="2.4" stroke-dasharray="5 4"/>
+
+      <!-- Improved Alignment Curve -->
+      <path d="M472 224 C492 192 508 164 528 144 C548 134 572 132 592 132"
+            fill="none" stroke="#0D9488" stroke-width="3" stroke-linecap="round"/>
+
+      <!-- Key Identity Dots -->
+      <g fill="#0D9488" stroke="#FFFFFF" stroke-width="1.5">
+        <circle cx="472" cy="224" r="4"/>
+        <circle cx="500" cy="176" r="4"/>
+        <circle cx="528" cy="144" r="4"/>
+        <circle cx="592" cy="132" r="4"/>
+      </g>
+
+      <!-- Recall Gain Arrow -->
+      <line x1="498" y1="232" x2="498" y2="190" stroke="#059669" stroke-width="2.2" marker-end="url(#arrGreen)"/>
+
+      <!-- X-Axis Labels -->
+      <text x="472" y="302" text-anchor="middle" font-size="11" fill="#475569">80</text>
+      <text x="528" y="302" text-anchor="middle" font-size="11" fill="#475569">86</text>
+      <text x="590" y="302" text-anchor="middle" font-size="11" fill="#475569">100%</text>
+      <text x="532" y="322" text-anchor="middle" font-size="11.5" font-weight="600" fill="#475569">Read Identity</text>
+    </g>
+
+    <!-- Footer Bar (y=378) -->
+    <line x1="28" y1="357" x2="612" y2="357" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.75"/>
+    <text x="28" y="378" font-size="12.5" fill="#475569">k = 31 · 20k probes · off-target ≤ 0.14</text>
+    <text x="612" y="378" text-anchor="end" font-size="12.5" fill="#475569">Metric <tspan font-weight="700" fill="#0D9488">alignment_rate ↑</tspan></text>
+  </g>
+
+  <rect x="0.5" y="0.5" width="639" height="399" rx="16" fill="none" stroke="#CBD5E1" stroke-opacity="0.75"/>
+</svg>

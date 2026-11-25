@@ -1,0 +1,200 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>EOC-Dropout — Edge-of-Chaos Layerwise Dropout Allocation</title>
+  <desc>A six-layer critical ReLU MLP with fixed mean dropout budget compares an early-step baseline against an optimized layerwise dropout schedule alongside the ordered-to-chaotic criticality phase boundary.</desc>
+  <defs>
+    <clipPath id="card-clip">
+      <rect x="0" y="0" width="640" height="400" rx="16"/>
+    </clipPath>
+    <clipPath id="phase-clip">
+      <rect x="428" y="96" width="168" height="202" rx="6"/>
+    </clipPath>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F7FAFF"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="top-bar" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0052FF"/>
+      <stop offset="100%" stop-color="#0EA5E9"/>
+    </linearGradient>
+    <linearGradient id="bar-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0052FF"/>
+      <stop offset="100%" stop-color="#0EA5E9"/>
+    </linearGradient>
+    <pattern id="dot-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#0A1E5E" opacity="0.15"/>
+    </pattern>
+  </defs>
+
+  <g clip-path="url(#card-clip)">
+    <rect x="0" y="0" width="640" height="400" fill="url(#bg-grad)"/>
+    <rect x="0" y="54" width="640" height="304" fill="url(#dot-grid)"/>
+    <rect x="0" y="0" width="640" height="3" fill="url(#top-bar)"/>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="15.5" fill="none" stroke="#CBD5E1" stroke-opacity="0.75" stroke-width="1"/>
+
+  <!-- Header -->
+  <text x="28" y="36" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="700" fill="#0A0E17">EOC-Dropout</text>
+  <text x="612" y="35" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="500" fill="#475569">Edge-of-Chaos Layerwise Dropout</text>
+  <line x1="28" y1="53" x2="612" y2="53" stroke="#CBD5E1" stroke-opacity="0.7" stroke-width="1"/>
+
+  <!-- Left-Center Upper: 6-Layer Critical ReLU MLP Architecture -->
+  <g id="mlp-layers">
+    <!-- Signal propagation streamlines -->
+    <g fill="none" stroke="#0EA5E9" stroke-width="1.5" stroke-opacity="0.45">
+      <path d="M 54 114 C 120 112 240 108 362 126"/>
+      <path d="M 54 132 C 140 130 250 136 362 138"/>
+      <path d="M 54 150 C 150 152 240 148 362 150"/>
+      <path d="M 54 168 C 140 172 250 166 362 162"/>
+    </g>
+
+    <!-- Input block -->
+    <rect x="36" y="102" width="18" height="78" rx="5" fill="#DBEAFE" stroke="#475569" stroke-width="1.5"/>
+    <text x="45" y="92" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#475569">x</text>
+
+    <!-- 6 Hidden ReLU Layers (width 256) -->
+    <g fill="#FFFFFF" stroke="#0052FF" stroke-width="1.8">
+      <rect x="81" y="92" width="22" height="98" rx="6"/>
+      <rect x="127" y="92" width="22" height="98" rx="6"/>
+      <rect x="173" y="92" width="22" height="98" rx="6"/>
+      <rect x="219" y="92" width="22" height="98" rx="6"/>
+      <rect x="265" y="92" width="22" height="98" rx="6"/>
+      <rect x="311" y="92" width="22" height="98" rx="6"/>
+    </g>
+
+    <!-- Active neurons (blue/cyan) -->
+    <g fill="#0052FF">
+      <!-- L1: 5 active -->
+      <circle cx="92" cy="107" r="4"/><circle cx="92" cy="124" r="4"/><circle cx="92" cy="141" r="4"/><circle cx="92" cy="158" r="4"/><circle cx="92" cy="175" r="4"/>
+      <!-- L2: 4 active -->
+      <circle cx="138" cy="107" r="4"/><circle cx="138" cy="124" r="4"/><circle cx="138" cy="141" r="4"/><circle cx="138" cy="175" r="4"/>
+      <!-- L3: 4 active -->
+      <circle cx="184" cy="107" r="4"/><circle cx="184" cy="141" r="4"/><circle cx="184" cy="158" r="4"/><circle cx="184" cy="175" r="4"/>
+      <!-- L4: 3 active -->
+      <circle cx="230" cy="107" r="4"/><circle cx="230" cy="141" r="4"/><circle cx="230" cy="175" r="4"/>
+      <!-- L5: 3 active -->
+      <circle cx="276" cy="107" r="4"/><circle cx="276" cy="158" r="4"/><circle cx="276" cy="175" r="4"/>
+      <!-- L6: 4 active -->
+      <circle cx="322" cy="107" r="4"/><circle cx="322" cy="124" r="4"/><circle cx="322" cy="141" r="4"/><circle cx="322" cy="175" r="4"/>
+    </g>
+
+    <!-- Dropped-out neurons (hollow crimson with cross) -->
+    <g fill="#FFFFFF" stroke="#E11D48" stroke-width="1.6">
+      <circle cx="138" cy="158" r="4.2"/>
+      <circle cx="184" cy="124" r="4.2"/>
+      <circle cx="230" cy="124" r="4.2"/>
+      <circle cx="230" cy="158" r="4.2"/>
+      <circle cx="276" cy="124" r="4.2"/>
+      <circle cx="276" cy="141" r="4.2"/>
+      <circle cx="322" cy="158" r="4.2"/>
+    </g>
+    <g stroke="#E11D48" stroke-width="1.4" stroke-linecap="round">
+      <path d="M 135.5 155.5 L 140.5 160.5 M 140.5 155.5 L 135.5 160.5"/>
+      <path d="M 181.5 121.5 L 186.5 126.5 M 186.5 121.5 L 181.5 126.5"/>
+      <path d="M 227.5 121.5 L 232.5 126.5 M 232.5 121.5 L 227.5 126.5"/>
+      <path d="M 227.5 155.5 L 232.5 160.5 M 232.5 155.5 L 227.5 160.5"/>
+      <path d="M 273.5 121.5 L 278.5 126.5 M 278.5 121.5 L 273.5 126.5"/>
+      <path d="M 273.5 138.5 L 278.5 143.5 M 278.5 138.5 L 273.5 143.5"/>
+      <path d="M 319.5 155.5 L 324.5 160.5 M 324.5 155.5 L 319.5 160.5"/>
+    </g>
+
+    <!-- Output logits block -->
+    <rect x="362" y="114" width="18" height="54" rx="5" fill="#0A1E5E"/>
+    <text x="371" y="104" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#0A1E5E">ŷ</text>
+
+    <!-- Layer column labels -->
+    <g text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#0A1E5E">
+      <text x="92" y="83">L₁</text>
+      <text x="138" y="83">L₂</text>
+      <text x="184" y="83">L₃</text>
+      <text x="230" y="83">L₄</text>
+      <text x="276" y="83">L₅</text>
+      <text x="322" y="83">L₆</text>
+    </g>
+  </g>
+
+  <!-- Left-Center Lower: Aligned Fixed-Budget Dropout Schedule Profile -->
+  <g id="dropout-profile">
+    <rect x="64" y="210" width="292" height="114" rx="10" fill="#FFFFFF" fill-opacity="0.9" stroke="#CBD5E1" stroke-width="1.1"/>
+    <!-- Zero baseline -->
+    <line x1="74" y1="310" x2="346" y2="310" stroke="#CBD5E1" stroke-width="1.3"/>
+
+    <!-- Baseline Step (early): [0.2, 0.2, 0.2, 0, 0, 0] -->
+    <g fill="#E11D48" fill-opacity="0.09" stroke="#E11D48" stroke-width="1.6" stroke-dasharray="4 3">
+      <rect x="77" y="246" width="30" height="64" rx="3"/>
+      <rect x="123" y="246" width="30" height="64" rx="3"/>
+      <rect x="169" y="246" width="30" height="64" rx="3"/>
+    </g>
+
+    <!-- Optimized Layerwise Allocation (mean = 0.10): [0.03, 0.06, 0.10, 0.14, 0.15, 0.12] -->
+    <g fill="url(#bar-grad)">
+      <rect x="82" y="300" width="20" height="10" rx="3"/>
+      <rect x="128" y="291" width="20" height="19" rx="3"/>
+      <rect x="174" y="278" width="20" height="32" rx="3"/>
+      <rect x="220" y="265" width="20" height="45" rx="3"/>
+      <rect x="266" y="262" width="20" height="48" rx="3"/>
+      <rect x="312" y="272" width="20" height="38" rx="3"/>
+    </g>
+
+    <!-- Smooth optimal schedule spline envelope -->
+    <path d="M 92 300 C 115 297 125 293 138 291 C 160 286 168 282 184 278 C 206 271 215 268 230 265 C 248 262 260 262 276 262 C 296 263 310 268 322 272" fill="none" stroke="#059669" stroke-width="2.4" stroke-linecap="round"/>
+
+    <!-- Fixed Budget Mean Line (h_bar = 0.10) -->
+    <line x1="74" y1="278" x2="346" y2="278" stroke="#0A1E5E" stroke-width="1.6" stroke-dasharray="5 4"/>
+    <line x1="230" y1="228" x2="246" y2="228" stroke="#0A1E5E" stroke-width="1.6" stroke-dasharray="4 3"/>
+    <text x="344" y="232" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#0A1E5E">Budget h̄ = 0.10</text>
+
+    <!-- Y-axis label -->
+    <text x="48" y="268" text-anchor="middle" transform="rotate(-90 48 268)" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#475569">Rate hₗ</text>
+
+    <!-- Bottom Legend for Bar Profile -->
+    <rect x="74" y="335" width="12" height="9" rx="2" fill="#E11D48" fill-opacity="0.14" stroke="#E11D48" stroke-width="1.3" stroke-dasharray="2 2"/>
+    <text x="92" y="344" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="500" fill="#475569">Step baseline</text>
+    <rect x="200" y="335" width="12" height="9" rx="2" fill="#0052FF"/>
+    <text x="218" y="344" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#0052FF">Optimal schedule</text>
+  </g>
+
+  <!-- Right Panel: Edge-of-Chaos Criticality Phase Plane -->
+  <g id="phase-diagram">
+    <rect x="412" y="80" width="198" height="244" rx="12" fill="#FFFFFF" fill-opacity="0.94" stroke="#CBD5E1" stroke-width="1.2"/>
+
+    <!-- Clipped Ordered / Chaotic Phase Regions -->
+    <g clip-path="url(#phase-clip)">
+      <!-- Ordered phase (left of curve) -->
+      <path d="M 428 96 L 552 96 C 534 156 508 228 480 298 L 428 298 Z" fill="#DBEAFE" fill-opacity="0.52"/>
+      <!-- Chaotic phase (right of curve) -->
+      <path d="M 552 96 L 596 96 L 596 298 L 480 298 C 508 228 534 156 552 96 Z" fill="#E11D48" fill-opacity="0.09"/>
+      <!-- Critical boundary glow + bold line (chi_1 = 1) -->
+      <path d="M 480 298 C 508 228 534 156 552 96" fill="none" stroke="#0EA5E9" stroke-width="8" stroke-opacity="0.22"/>
+      <path d="M 480 298 C 508 228 534 156 552 96" fill="none" stroke="#0052FF" stroke-width="3.2" stroke-linecap="round"/>
+    </g>
+
+    <!-- Phase plane axes -->
+    <line x1="428" y1="298" x2="596" y2="298" stroke="#475569" stroke-width="1.4"/>
+    <line x1="428" y1="96" x2="428" y2="298" stroke="#475569" stroke-width="1.4"/>
+
+    <!-- Critical Init Point on Edge-of-Chaos -->
+    <circle cx="519" cy="196" r="12" fill="#059669" fill-opacity="0.2"/>
+    <circle cx="519" cy="196" r="6" fill="#059669" stroke="#FFFFFF" stroke-width="2"/>
+
+    <!-- Leader from Critical Init to open space inside Ordered region -->
+    <line x1="511" y1="203" x2="466" y2="234" stroke="#059669" stroke-width="1.5"/>
+    <text x="458" y="250" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#059669">Critical</text>
+    <text x="458" y="264" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#059669">Init</text>
+
+    <!-- Phase labels -->
+    <text x="470" y="146" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0A1E5E">Ordered</text>
+    <text x="562" y="256" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#E11D48">Chaotic</text>
+    <text x="570" y="134" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#0052FF">χ₁ = 1</text>
+
+    <!-- Axis parameter labels -->
+    <text x="436" y="112" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#475569">Bias σ²</text>
+    <text x="596" y="315" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#475569">Weight σ²</text>
+
+    <text x="511" y="344" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0A1E5E">Criticality Phase Plane</text>
+  </g>
+
+  <!-- Footer -->
+  <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-opacity="0.7" stroke-width="1"/>
+  <text x="28" y="378" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#475569">6-layer critical ReLU MLP · mean budget 0.1</text>
+  <text x="612" y="378" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5"><tspan fill="#475569">Target: </tspan><tspan font-weight="700" fill="#0052FF">final_loss_reduction_pct ↑</tspan></text>
+</svg>

@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>MultiContextSeeds: Variable-Length Seed Read Mapping</title>
+  <desc>Long linked strobe seeds map directly to the CHM13 reference while mismatched context seeds fall back to a shorter prefix seed, chaining and extending anchors to maximize interval overlap.</desc>
+  <defs>
+    <clipPath id="cardClip">
+      <rect x="0" y="0" width="640" height="400" rx="16"/>
+    </clipPath>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F4FBF9"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0D9488"/>
+      <stop offset="100%" stop-color="#10B981"/>
+    </linearGradient>
+    <pattern id="dotGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#0D9488" fill-opacity="0.16"/>
+    </pattern>
+    <marker id="arrowPrimary" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M 1 1.5 L 9 5 L 1 8.5 Z" fill="#0D9488"/>
+    </marker>
+    <marker id="arrowGain" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M 1 1.5 L 9 5 L 1 8.5 Z" fill="#059669"/>
+    </marker>
+    <marker id="arrowDark" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto">
+      <path d="M 1 1.5 L 9 5 L 1 8.5 Z" fill="#114B46"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#cardClip)" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <!-- Base luminous plate -->
+    <rect x="0" y="0" width="640" height="400" fill="url(#bgGrad)"/>
+    <rect x="0" y="0" width="640" height="3.5" fill="url(#accentGrad)"/>
+    <rect x="20" y="58" width="600" height="298" fill="url(#dotGrid)"/>
+
+    <!-- Header -->
+    <text x="28" y="38" font-size="18" font-weight="700" fill="#0A0E17">MultiContextSeeds</text>
+    <text x="612" y="37" text-anchor="end" font-size="12.5" font-weight="500" fill="#475569">Variable-Length Seed Read Mapping</text>
+    <line x1="28" y1="56" x2="612" y2="56" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.75"/>
+
+    <!-- Top Track: 150 bp Read -->
+    <text x="42" y="99" font-size="11.5" font-weight="600" fill="#114B46">150 bp read</text>
+    <rect x="42" y="108" width="556" height="26" rx="7" fill="#FFFFFF" stroke="#114B46" stroke-width="2"/>
+    <!-- Subtle base ticks -->
+    <g stroke="#CBD5E1" stroke-width="1">
+      <line x1="64" y1="112" x2="64" y2="130"/>
+      <line x1="178" y1="112" x2="178" y2="130"/>
+      <line x1="304" y1="112" x2="304" y2="130"/>
+      <line x1="336" y1="112" x2="336" y2="130"/>
+      <line x1="464" y1="112" x2="464" y2="130"/>
+      <line x1="578" y1="112" x2="578" y2="130"/>
+    </g>
+
+    <!-- Left Multi-Context Seed: Full (s1 + s2) -->
+    <rect x="82" y="112" width="76" height="18" rx="4" fill="#0D9488"/>
+    <text x="120" y="125" text-anchor="middle" font-size="11.5" font-weight="700" fill="#FFFFFF">s₁</text>
+    <rect x="200" y="112" width="76" height="18" rx="4" fill="#10B981"/>
+    <text x="238" y="125" text-anchor="middle" font-size="11.5" font-weight="700" fill="#FFFFFF">s₂</text>
+    <path d="M 120 107 Q 179 82 238 107" fill="none" stroke="#0D9488" stroke-width="2.4" stroke-linecap="round"/>
+    <text x="179" y="80" text-anchor="middle" font-size="11.5" font-weight="600" fill="#0D9488">Full seed (s₁ + s₂)</text>
+
+    <!-- Right Multi-Context Seed: Mismatch -> Prefix Fallback -->
+    <rect x="366" y="112" width="76" height="18" rx="4" fill="#0D9488"/>
+    <text x="404" y="125" text-anchor="middle" font-size="11.5" font-weight="700" fill="#FFFFFF">s₁</text>
+    <rect x="484" y="112" width="76" height="18" rx="4" fill="#E11D48" fill-opacity="0.14" stroke="#E11D48" stroke-width="1.8"/>
+    <text x="522" y="125" text-anchor="middle" font-size="11.5" font-weight="700" fill="#E11D48">s₂ ×</text>
+    <path d="M 404 107 Q 463 82 522 107" fill="none" stroke="#E11D48" stroke-width="2" stroke-dasharray="4 4" stroke-linecap="round"/>
+    <text x="463" y="80" text-anchor="middle" font-size="11.5" font-weight="600" fill="#E11D48">Prefix fallback (s₁)</text>
+
+    <!-- Middle Projection Cones -->
+    <!-- Full-seed exact lookup cone -->
+    <path d="M 82 135 L 276 135 L 288 228 L 154 228 Z" fill="#CCFBF1" fill-opacity="0.55"/>
+    <line x1="184" y1="138" x2="220" y2="222" stroke="#059669" stroke-width="2.6" marker-end="url(#arrowGain)"/>
+    <text x="44" y="186" font-size="11.5" font-weight="600" fill="#059669">Exact full hit</text>
+
+    <!-- Prefix-fallback rescue cone -->
+    <path d="M 366 135 L 442 135 L 434 228 L 372 228 Z" fill="#0D9488" fill-opacity="0.13"/>
+    <line x1="404" y1="138" x2="404" y2="222" stroke="#0D9488" stroke-width="2.6" marker-end="url(#arrowPrimary)"/>
+    <!-- Secondary off-target prefix hit filtered out by chaining -->
+    <line x1="428" y1="138" x2="544" y2="224" stroke="#CBD5E1" stroke-width="1.8" stroke-dasharray="4 4"/>
+    <circle cx="550" cy="234" r="5" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.8"/>
+    <text x="492" y="162" font-size="11.5" font-weight="600" fill="#0D9488">Prefix rescue</text>
+
+    <!-- Chained Anchor Track & Extension -->
+    <rect x="154" y="228" width="134" height="12" rx="4" fill="#059669"/>
+    <rect x="372" y="228" width="62" height="12" rx="4" fill="#0D9488"/>
+    <line x1="292" y1="234" x2="368" y2="234" stroke="#114B46" stroke-width="2.5" stroke-dasharray="5 3"/>
+    <path d="M 150 234 H 124" fill="none" stroke="#114B46" stroke-width="2.2" marker-end="url(#arrowDark)"/>
+    <path d="M 438 234 H 484" fill="none" stroke="#114B46" stroke-width="2.2" marker-end="url(#arrowDark)"/>
+    <text x="330" y="218" text-anchor="middle" font-size="11.5" font-weight="600" fill="#114B46">Chain &amp; extend</text>
+
+    <!-- Bottom Track: CHM13 Reference & Interval Overlap -->
+    <!-- Translucent overlap band -->
+    <rect x="134" y="256" width="356" height="72" rx="6" fill="#059669" fill-opacity="0.10"/>
+
+    <!-- Mapped alignment interval -->
+    <rect x="118" y="262" width="372" height="14" rx="4" fill="#0D9488"/>
+    <text x="108" y="273" text-anchor="end" font-size="11.5" font-weight="600" fill="#0D9488">Mapped</text>
+
+    <!-- CHM13 v2.0 Reference chromosome bar -->
+    <rect x="42" y="284" width="556" height="14" rx="7" fill="#CCFBF1" stroke="#114B46" stroke-width="1.8"/>
+    <g stroke="#114B46" stroke-width="1.1" opacity="0.35">
+      <line x1="100" y1="286" x2="100" y2="296"/>
+      <line x1="200" y1="286" x2="200" y2="296"/>
+      <line x1="300" y1="286" x2="300" y2="296"/>
+      <line x1="400" y1="286" x2="400" y2="296"/>
+      <line x1="500" y1="286" x2="500" y2="296"/>
+    </g>
+
+    <!-- True origin interval -->
+    <rect x="134" y="306" width="372" height="14" rx="4" fill="#059669" fill-opacity="0.22" stroke="#059669" stroke-width="2"/>
+    <text x="124" y="317" text-anchor="end" font-size="11.5" font-weight="600" fill="#059669">Origin</text>
+    <text x="518" y="317" font-size="11.5" font-weight="700" fill="#059669">Overlap ✓</text>
+
+    <text x="42" y="340" font-size="11.5" fill="#475569">CHM13 v2.0 reference</text>
+
+    <!-- Footer -->
+    <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.75"/>
+    <text x="28" y="381" font-size="12.5" fill="#475569">Target: <tspan font-weight="700" fill="#0D9488">mapping_accuracy_pct ↑</tspan></text>
+    <text x="612" y="381" text-anchor="end" font-size="11.5" fill="#475569">Human CHM13 v2.0 · 150 bp</text>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="16" fill="none" stroke="#CBD5E1" stroke-width="1"/>
+</svg>

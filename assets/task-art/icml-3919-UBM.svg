@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>UBM: Uncovering Bias Mechanisms in Observational Studies</title>
+  <desc>A causal graph contrasts measured covariates, unmeasured confounding, treatment, outcome, and factual selection against a correlation plot where confounding induces a positive slope between treatment-effect bias magnitude and treatment squared error while null regimes stay flat under four false-positive caps.</desc>
+  <defs>
+    <clipPath id="ubm-card-clip">
+      <rect x="0" y="0" width="640" height="400" rx="16"/>
+    </clipPath>
+    <linearGradient id="ubm-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFF6F8"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="ubm-accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#E11D48"/>
+      <stop offset="100%" stop-color="#F43F5E"/>
+    </linearGradient>
+    <pattern id="ubm-dots" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#6B1028" opacity="0.14"/>
+    </pattern>
+    <marker id="ubm-arrow-dark" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 1 1.5 L 8.5 5 L 1 8.5 Z" fill="#6B1028"/>
+    </marker>
+    <marker id="ubm-arrow-rose" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M 1 1.5 L 8.5 5 L 1 8.5 Z" fill="#E11D48"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#ubm-card-clip)">
+    <rect x="0" y="0" width="640" height="400" fill="url(#ubm-bg)"/>
+    <rect x="20" y="58" width="600" height="296" fill="url(#ubm-dots)"/>
+    <rect x="0" y="0" width="640" height="3" fill="url(#ubm-accent)"/>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="16" fill="none" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- Header -->
+  <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <text x="28" y="38" font-size="18" font-weight="700" fill="#0A0E17">UBM</text>
+    <text x="612" y="37" text-anchor="end" font-size="12.5" fill="#475569">Causal Bias Mechanism Detection</text>
+    <line x1="28" y1="54" x2="612" y2="54" stroke="#CBD5E1" stroke-width="0.9" opacity="0.75"/>
+  </g>
+
+  <!-- Left Panel: Planar Causal DAG -->
+  <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <rect x="28" y="72" width="278" height="272" rx="12" fill="#FFFFFF" fill-opacity="0.86" stroke="#CBD5E1" stroke-width="1"/>
+    <text x="167" y="94" text-anchor="middle" font-size="12" font-weight="700" fill="#6B1028">Causal Structure (RCT vs OS)</text>
+
+    <!-- Solid Causal Edges (Planar, zero crossings) -->
+    <g fill="none" stroke="#6B1028" stroke-width="2" stroke-linecap="round">
+      <!-- X -> A -->
+      <line x1="88" y1="212" x2="122" y2="212" marker-end="url(#ubm-arrow-dark)"/>
+      <!-- A -> Y -->
+      <line x1="170" y1="212" x2="232" y2="212" marker-end="url(#ubm-arrow-dark)"/>
+      <!-- X -> Y (smooth arch beneath A) -->
+      <path d="M 84 226 Q 162 262 240 226" marker-end="url(#ubm-arrow-dark)"/>
+      <!-- X -> S -->
+      <path d="M 76 233 Q 94 286 130 298" marker-end="url(#ubm-arrow-dark)"/>
+      <!-- Y -> S -->
+      <path d="M 248 233 Q 230 286 194 298" marker-end="url(#ubm-arrow-dark)"/>
+    </g>
+
+    <!-- Unmeasured Confounding Dashed Rose Edges -->
+    <g fill="none" stroke="#E11D48" stroke-width="2.5" stroke-dasharray="5 3.5" stroke-linecap="round">
+      <!-- U -> A -->
+      <path d="M 190 144 Q 170 166 156 189" marker-end="url(#ubm-arrow-rose)"/>
+      <!-- U -> Y -->
+      <path d="M 216 144 Q 236 166 248 189" marker-end="url(#ubm-arrow-rose)"/>
+    </g>
+
+    <!-- Node U (Unmeasured Confounder) -->
+    <circle cx="203" cy="128" r="21" fill="#FFE4E6" stroke="#E11D48" stroke-width="2.4" stroke-dasharray="5 3"/>
+    <text x="203" y="134" text-anchor="middle" font-size="16" font-weight="700" fill="#E11D48">U</text>
+    <text x="172" y="132" text-anchor="end" font-size="11.5" font-weight="600" fill="#E11D48">Unmeasured</text>
+
+    <!-- Node X (Measured Covariates) -->
+    <circle cx="67" cy="212" r="21" fill="#FFFFFF" stroke="#6B1028" stroke-width="2.2"/>
+    <text x="67" y="218" text-anchor="middle" font-size="16" font-weight="700" fill="#0A0E17">X</text>
+    <text x="67" y="182" text-anchor="middle" font-size="11.5" fill="#475569">Covariates</text>
+
+    <!-- Node A (Treatment) -->
+    <circle cx="148" cy="212" r="21" fill="#FFF6F8" stroke="#E11D48" stroke-width="2.4"/>
+    <text x="148" y="218" text-anchor="middle" font-size="16" font-weight="700" fill="#6B1028">A</text>
+
+    <!-- Node Y (Outcome) -->
+    <circle cx="258" cy="212" r="21" fill="#FFFFFF" stroke="#0A0E17" stroke-width="2.4"/>
+    <text x="258" y="218" text-anchor="middle" font-size="16" font-weight="700" fill="#0A0E17">Y</text>
+    <text x="252" y="178" font-size="11" fill="#475569">Outcome</text>
+
+    <!-- Node S (Factual Selection) -->
+    <rect x="134" y="286" width="56" height="28" rx="14" fill="#FFE4E6" stroke="#6B1028" stroke-width="2"/>
+    <text x="162" y="305" text-anchor="middle" font-size="14" font-weight="700" fill="#6B1028">S</text>
+    <text x="162" y="332" text-anchor="middle" font-size="11.5" fill="#475569">Factual selection</text>
+  </g>
+
+  <!-- Right Panel: Dual-Regime Bias-Error Correlation -->
+  <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <rect x="322" y="72" width="290" height="272" rx="12" fill="#FFFFFF" fill-opacity="0.88" stroke="#CBD5E1" stroke-width="1"/>
+    <text x="468" y="94" text-anchor="middle" font-size="12" font-weight="700" fill="#6B1028">Bias–Error Correlation</text>
+
+    <!-- Faint Plot Grid -->
+    <g stroke="#CBD5E1" stroke-width="0.9" opacity="0.5">
+      <line x1="364" y1="154" x2="592" y2="154"/>
+      <line x1="364" y1="202" x2="592" y2="202"/>
+      <line x1="364" y1="250" x2="592" y2="250"/>
+      <line x1="440" y1="112" x2="440" y2="294"/>
+      <line x1="516" y1="112" x2="516" y2="294"/>
+    </g>
+
+    <!-- Null / Control Regime (No Bias / Selection / Transportability) -->
+    <rect x="372" y="254" width="214" height="24" rx="6" fill="#059669" opacity="0.10"/>
+    <line x1="374" y1="267" x2="584" y2="264" stroke="#059669" stroke-width="2.4" stroke-dasharray="6 4" stroke-linecap="round"/>
+    <g fill="#059669" opacity="0.82">
+      <circle cx="388" cy="272" r="3.6"/>
+      <circle cx="412" cy="260" r="3.6"/>
+      <circle cx="438" cy="270" r="3.6"/>
+      <circle cx="464" cy="263" r="3.6"/>
+      <circle cx="492" cy="274" r="3.6"/>
+      <circle cx="518" cy="259" r="3.6"/>
+      <circle cx="546" cy="269" r="3.6"/>
+      <circle cx="572" cy="261" r="3.6"/>
+    </g>
+    <text x="586" y="246" text-anchor="end" font-size="11.5" font-weight="700" fill="#059669">Null · FP capped</text>
+
+    <!-- Confounding Regime (Positive Slope) -->
+    <polygon points="374,234 580,108 586,136 380,262" fill="#E11D48" opacity="0.12"/>
+    <line x1="376" y1="248" x2="582" y2="120" stroke="#E11D48" stroke-width="3.4" stroke-linecap="round"/>
+    <g fill="#E11D48" stroke="#FFFFFF" stroke-width="1.6">
+      <circle cx="386" cy="242" r="4.8"/>
+      <circle cx="408" cy="222" r="4.8"/>
+      <circle cx="428" cy="218" r="4.8"/>
+      <circle cx="450" cy="196" r="4.8"/>
+      <circle cx="472" cy="192" r="4.8"/>
+      <circle cx="494" cy="170" r="4.8"/>
+      <circle cx="516" cy="166" r="4.8"/>
+      <circle cx="538" cy="144" r="4.8"/>
+      <circle cx="560" cy="136" r="4.8"/>
+      <circle cx="578" cy="122" r="4.8"/>
+    </g>
+
+    <!-- Confounding Callout in Open Upper-Left -->
+    <text x="378" y="130" font-size="12" font-weight="700" fill="#E11D48">Confounding</text>
+    <text x="378" y="146" font-size="11.5" font-weight="600" fill="#6B1028">r &gt; 0, p &lt; 0.01</text>
+
+    <!-- Axes -->
+    <path d="M 364 108 V 294 H 594" fill="none" stroke="#0A0E17" stroke-width="2" stroke-linecap="round"/>
+
+    <!-- Axis Labels -->
+    <text x="342" y="202" transform="rotate(-90 342 202)" text-anchor="middle" font-size="12" fill="#475569">|b₁(X)| bias</text>
+    <text x="479" y="315" text-anchor="middle" font-size="12" font-weight="600" fill="#0A0E17">Treatment error SE_A</text>
+    <text x="479" y="333" text-anchor="middle" font-size="11" font-weight="600" fill="#6B1028">b₁ = τ̂_RCT − τ̂_OS</text>
+  </g>
+
+  <!-- Footer -->
+  <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-width="0.9" opacity="0.75"/>
+    <text x="28" y="380" font-size="12.5" fill="#475569">Target metric: <tspan font-weight="700" fill="#E11D48">rho_b1_A_detection ↑</tspan></text>
+    <text x="612" y="380" text-anchor="end" font-size="12" fill="#475569">p &lt; 0.01 · 4 false-positive caps</text>
+  </g>
+</svg>

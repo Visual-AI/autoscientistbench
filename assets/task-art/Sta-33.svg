@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>AnytimeMC — Anytime-Valid Monte Carlo Multiple Testing</title>
+  <desc>Sequential Monte Carlo null trajectories stop early upon crossing futility or BH rejection boundaries across M hypotheses, saving most of the permutation budget while preserving FDR and power.</desc>
+  <defs>
+    <clipPath id="cardClip">
+      <rect x="0" y="0" width="640" height="400" rx="16"/>
+    </clipPath>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F4FBF9"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0D9488"/>
+      <stop offset="100%" stop-color="#10B981"/>
+    </linearGradient>
+    <linearGradient id="savedGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#CCFBF1" stop-opacity="0.32"/>
+      <stop offset="100%" stop-color="#CCFBF1" stop-opacity="0.06"/>
+    </linearGradient>
+    <pattern id="dotGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#114B46" opacity="0.16"/>
+    </pattern>
+    <marker id="arrTeal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#0D9488"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#cardClip)">
+    <rect x="0" y="0" width="640" height="400" fill="url(#bgGrad)"/>
+    <rect x="16" y="56" width="608" height="298" fill="url(#dotGrid)"/>
+    <rect x="0" y="0" width="640" height="3.5" fill="url(#accentGrad)"/>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="16" fill="none" stroke="#CBD5E1" stroke-opacity="0.75" stroke-width="1"/>
+
+  <!-- Header -->
+  <text x="28" y="37" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="700" fill="#0A0E17">AnytimeMC</text>
+  <text x="612" y="37" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="500" fill="#475569">Adaptive Permutation Stopping &amp; FDR</text>
+  <line x1="28" y1="53" x2="612" y2="53" stroke="#CBD5E1" stroke-opacity="0.75" stroke-width="1"/>
+
+  <!-- Saved Budget Vertical Shaded Region (t̄ to B) -->
+  <rect x="272" y="84" width="326" height="232" fill="url(#savedGrad)"/>
+
+  <!-- Upper Early-Stop (Futility / Retain H0) Region -->
+  <path d="M 74 84 L 598 84 L 598 206 C 460 198 320 186 218 166 C 148 152 106 138 74 132 Z" fill="#CCFBF1" fill-opacity="0.52"/>
+  <path d="M 74 132 C 106 138 148 152 218 166 C 320 186 460 198 598 206" fill="none" stroke="#114B46" stroke-width="2.2" stroke-dasharray="6 4"/>
+
+  <!-- Lower Rejection Region (BH / FDR <= 0.1) -->
+  <path d="M 74 294 C 185 292 315 288 440 282 C 510 278 560 275 598 273 L 598 316 L 74 316 Z" fill="#10B981" fill-opacity="0.20"/>
+  <path d="M 74 294 C 185 292 315 288 440 282 C 510 278 560 275 598 273" fill="none" stroke="#059669" stroke-width="2.4"/>
+
+  <!-- Mean Stopping Time Reference Line (t̄ ≈ 135 on log10[10..10000]) -->
+  <line x1="272" y1="84" x2="272" y2="316" stroke="#0D9488" stroke-width="1.8" stroke-dasharray="4 3"/>
+  <text x="272" y="75" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0D9488">Mean Stop t̄</text>
+
+  <!-- Axes -->
+  <line x1="74" y1="84" x2="74" y2="316" stroke="#0A0E17" stroke-width="1.6"/>
+  <line x1="74" y1="316" x2="598" y2="316" stroke="#0A0E17" stroke-width="1.6"/>
+
+  <!-- Y-Axis Ticks & Labels -->
+  <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569" text-anchor="end">
+    <line x1="69" y1="86" x2="74" y2="86" stroke="#0A0E17" stroke-width="1.4"/>
+    <text x="64" y="90">1.0</text>
+    <line x1="69" y1="201" x2="74" y2="201" stroke="#0A0E17" stroke-width="1.4"/>
+    <text x="64" y="205">0.5</text>
+    <line x1="69" y1="316" x2="74" y2="316" stroke="#0A0E17" stroke-width="1.4"/>
+    <text x="64" y="320">0</text>
+  </g>
+  <text x="58" y="74" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#0A0E17">pₜ</text>
+
+  <!-- X-Axis Ticks & Log Labels -->
+  <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569" text-anchor="middle">
+    <line x1="74" y1="316" x2="74" y2="321" stroke="#0A0E17" stroke-width="1.4"/>
+    <text x="74" y="334">10</text>
+    <line x1="249" y1="316" x2="249" y2="321" stroke="#0A0E17" stroke-width="1.4"/>
+    <text x="249" y="334">10²</text>
+    <line x1="423" y1="316" x2="423" y2="321" stroke="#0A0E17" stroke-width="1.4"/>
+    <text x="423" y="334">10³</text>
+    <line x1="598" y1="316" x2="598" y2="321" stroke="#0A0E17" stroke-width="1.4"/>
+    <text x="598" y="334">10⁴ (B)</text>
+  </g>
+  <text x="336" y="350" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="500" fill="#475569">Sequential Null Permutations t (log scale)</text>
+
+  <!-- Early-Stopped Null Trajectories (Retain H0 quickly) -->
+  <g fill="none" stroke="#114B46" stroke-width="2" stroke-opacity="0.72" stroke-linejoin="round">
+    <polyline points="74,210 86,184 98,162 111,141"/>
+    <polyline points="74,224 94,205 112,188 128,168 142,149"/>
+    <polyline points="74,234 102,216 124,204 148,184 166,169 178,158"/>
+    <polyline points="74,242 106,232 138,218 168,200 194,186 216,166"/>
+    <polyline points="74,248 118,240 156,226 196,210 228,196 254,174"/>
+    <polyline points="74,255 128,246 180,236 226,222 268,208 308,196 336,186"/>
+  </g>
+
+  <!-- Early-Stop Terminal Nodes (Hollow Ring) -->
+  <g fill="#FFFFFF" stroke="#114B46" stroke-width="2.2">
+    <circle cx="111" cy="141" r="4.5"/>
+    <circle cx="142" cy="149" r="4.5"/>
+    <circle cx="178" cy="158" r="4.5"/>
+    <circle cx="216" cy="166" r="4.5"/>
+    <circle cx="254" cy="174" r="4.5"/>
+    <circle cx="336" cy="186" r="4.5"/>
+  </g>
+
+  <!-- Rejected Alternative Trajectories (Dive into BH Rejection Zone) -->
+  <g fill="none" stroke="#0D9488" stroke-width="2.6" stroke-linejoin="round">
+    <polyline points="74,252 92,268 110,282 128,293"/>
+    <polyline points="74,258 106,266 134,274 162,285 186,292"/>
+    <polyline points="74,264 114,260 154,268 194,274 226,282 252,290"/>
+    <polyline points="74,268 122,258 176,264 224,256 266,266 306,278 342,286"/>
+  </g>
+
+  <!-- Rejection Terminal Nodes (Solid Emerald) -->
+  <g fill="#059669" stroke="#FFFFFF" stroke-width="2">
+    <circle cx="128" cy="293" r="5.2"/>
+    <circle cx="186" cy="292" r="5.2"/>
+    <circle cx="252" cy="290" r="5.2"/>
+    <circle cx="342" cy="286" r="5.2"/>
+  </g>
+
+  <!-- Clean Region Labels in Open Space -->
+  <text x="448" y="122" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#114B46">Early Stop · Retain H₀</text>
+  <text x="448" y="140" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">Anytime-valid futility frontier</text>
+
+  <!-- Saved Budget Double-Headed Arrow -->
+  <line x1="286" y1="244" x2="584" y2="244" stroke="#0D9488" stroke-width="2.2" marker-start="url(#arrTeal)" marker-end="url(#arrTeal)"/>
+  <text x="435" y="232" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#0D9488">Saved Null Budget</text>
+
+  <text x="492" y="303" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#059669">Reject H₀ (FDR ≤ 0.1)</text>
+
+  <!-- Footer -->
+  <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-opacity="0.75" stroke-width="1"/>
+  <text x="28" y="380" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#475569">Target metric: <tspan font-weight="700" fill="#0D9488">mean_permutations_per_hypothesis_anytime_valid_BC ↓</tspan></text>
+</svg>

@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>ALPINE: Long-Read Editing Outcome Classification</title>
+  <desc>Long-read amplicons spanning the TRAC and TRBC cut sites are resolved into unmodified, indel, full HDR, ITR-flanked integration, and truncated outcomes across ONT and HiFi sequencing pools.</desc>
+  <defs>
+    <clipPath id="cardClip">
+      <rect x="0" y="0" width="640" height="400" rx="16"/>
+    </clipPath>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F4FBF9"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0D9488"/>
+      <stop offset="100%" stop-color="#10B981"/>
+    </linearGradient>
+    <pattern id="dotGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#0D9488" fill-opacity="0.16"/>
+    </pattern>
+    <marker id="arrowPrimary" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M 1 1.5 L 9 5 L 1 8.5 Z" fill="#0D9488"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#cardClip)" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <!-- Base luminous plate -->
+    <rect x="0" y="0" width="640" height="400" fill="url(#bgGrad)"/>
+    <rect x="0" y="0" width="640" height="3.5" fill="url(#accentGrad)"/>
+    <rect x="20" y="58" width="600" height="298" fill="url(#dotGrid)"/>
+
+    <!-- Header -->
+    <text x="28" y="38" font-size="18" font-weight="700" fill="#0A0E17">ALPINE</text>
+    <text x="612" y="37" text-anchor="end" font-size="12.5" font-weight="500" fill="#475569">Long-Read Editing Outcome Classification</text>
+    <line x1="28" y1="56" x2="612" y2="56" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.75"/>
+
+    <!-- Top Reference Locus Header -->
+    <text x="130" y="99" text-anchor="end" font-size="11.5" font-weight="700" fill="#114B46">TRAC / TRBC</text>
+    <rect x="142" y="89" width="134" height="12" rx="4" fill="#CCFBF1" stroke="#114B46" stroke-width="1.2"/>
+    <rect x="286" y="89" width="134" height="12" rx="4" fill="#CCFBF1" stroke="#114B46" stroke-width="1.2"/>
+    <!-- Cut site marker & dashed vertical axis -->
+    <polygon points="281,86 275,76 287,76" fill="#E11D48"/>
+    <text x="294" y="83" font-size="11.5" font-weight="600" fill="#E11D48">Cut site</text>
+    <line x1="281" y1="103" x2="281" y2="338" stroke="#E11D48" stroke-width="1.4" stroke-dasharray="4 4" stroke-opacity="0.65"/>
+
+    <!-- Track 1: Unmodified -->
+    <text x="130" y="135" text-anchor="end" font-size="12" font-weight="600" fill="#475569">Unmodified</text>
+    <rect x="142" y="122" width="278" height="18" rx="5" fill="#FFFFFF" stroke="#475569" stroke-width="1.8"/>
+    <!-- Subtle ONT sequencing error ticks -->
+    <g stroke="#E11D48" stroke-width="1.8" opacity="0.45">
+      <line x1="176" y1="125" x2="176" y2="137"/>
+      <line x1="234" y1="125" x2="234" y2="137"/>
+      <line x1="348" y1="125" x2="348" y2="137"/>
+      <line x1="392" y1="125" x2="392" y2="137"/>
+    </g>
+
+    <!-- Track 2: Indel / SNP -->
+    <text x="130" y="180" text-anchor="end" font-size="12" font-weight="600" fill="#E11D48">Indel / SNP</text>
+    <rect x="142" y="167" width="108" height="18" rx="4" fill="#FFFFFF" stroke="#475569" stroke-width="1.8"/>
+    <rect x="312" y="167" width="108" height="18" rx="4" fill="#FFFFFF" stroke="#475569" stroke-width="1.8"/>
+    <path d="M 250 176 L 281 189 L 312 176" fill="none" stroke="#E11D48" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="281" y="172" text-anchor="middle" font-size="11.5" font-weight="700" fill="#E11D48">Δ</text>
+
+    <!-- Track 3: Full HDR -->
+    <text x="130" y="225" text-anchor="end" font-size="12" font-weight="700" fill="#059669">Full HDR</text>
+    <rect x="142" y="214" width="68" height="16" rx="4" fill="#CCFBF1" stroke="#0D9488" stroke-width="1.6"/>
+    <rect x="352" y="214" width="68" height="16" rx="4" fill="#CCFBF1" stroke="#0D9488" stroke-width="1.6"/>
+    <rect x="208" y="210" width="146" height="24" rx="5" fill="#059669"/>
+    <text x="281" y="226" text-anchor="middle" font-size="11.5" font-weight="700" fill="#FFFFFF">Donor cassette</text>
+
+    <!-- Track 4: HDR + ITRs (iconic stem-loop hairpins) -->
+    <text x="130" y="272" text-anchor="end" font-size="12" font-weight="700" fill="#0D9488">HDR + ITRs</text>
+    <rect x="142" y="261" width="50" height="16" rx="4" fill="#CCFBF1" stroke="#0D9488" stroke-width="1.6"/>
+    <rect x="370" y="261" width="50" height="16" rx="4" fill="#CCFBF1" stroke="#0D9488" stroke-width="1.6"/>
+    <!-- Left ITR hairpin -->
+    <path d="M 192 269 H 200 V 252 C 200 245, 211 245, 211 252 V 269 H 218" fill="none" stroke="#114B46" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Right ITR hairpin -->
+    <path d="M 344 269 H 351 V 252 C 351 245, 362 245, 362 252 V 269 H 370" fill="none" stroke="#114B46" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="218" y="257" width="126" height="24" rx="5" fill="#0D9488"/>
+    <text x="281" y="273" text-anchor="middle" font-size="11.5" font-weight="700" fill="#FFFFFF">ITR · Donor · ITR</text>
+
+    <!-- Track 5: Truncated / Cross-target -->
+    <text x="130" y="318" text-anchor="end" font-size="12" font-weight="600" fill="#114B46">Truncated</text>
+    <rect x="142" y="307" width="80" height="16" rx="4" fill="#CCFBF1" stroke="#0D9488" stroke-width="1.6"/>
+    <path d="M 222 303 H 316 L 308 309 L 316 315 L 308 321 L 316 327 H 222 Z" fill="#10B981" fill-opacity="0.32" stroke="#114B46" stroke-width="1.8" stroke-linejoin="round"/>
+    <line x1="319" y1="315" x2="352" y2="315" stroke="#475569" stroke-width="1.6" stroke-dasharray="4 3"/>
+    <rect x="352" y="307" width="68" height="16" rx="4" fill="#CCFBF1" stroke="#0D9488" stroke-width="1.6"/>
+
+    <!-- Grouping bracket into 4-pool classifier -->
+    <path d="M 426 130 C 436 130, 434 218, 444 218 C 434 218, 436 314, 426 314" fill="none" stroke="#0D9488" stroke-width="2" stroke-linecap="round"/>
+
+    <!-- Right Panel: 4-Pool Scoring & Guards -->
+    <text x="530" y="96" text-anchor="middle" font-size="12" font-weight="600" fill="#114B46">4-Pool Classifier</text>
+
+    <!-- 2x2 Sequencing Pool Cards -->
+    <g text-anchor="middle">
+      <!-- ONT TRAC -->
+      <rect x="452" y="108" width="74" height="60" rx="8" fill="#CCFBF1" stroke="#0D9488" stroke-width="2"/>
+      <text x="489" y="128" font-size="12" font-weight="700" fill="#114B46">ONT</text>
+      <text x="489" y="143" font-size="11.5" fill="#475569">TRAC</text>
+      <text x="489" y="160" font-size="11.5" font-weight="700" fill="#0D9488">F1 ↑</text>
+
+      <!-- ONT TRBC -->
+      <rect x="534" y="108" width="74" height="60" rx="8" fill="#CCFBF1" stroke="#0D9488" stroke-width="2"/>
+      <text x="571" y="128" font-size="12" font-weight="700" fill="#114B46">ONT</text>
+      <text x="571" y="143" font-size="11.5" fill="#475569">TRBC</text>
+      <text x="571" y="160" font-size="11.5" font-weight="700" fill="#0D9488">F1 ↑</text>
+
+      <!-- HiFi TRAC -->
+      <rect x="452" y="176" width="74" height="60" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+      <text x="489" y="196" font-size="12" font-weight="700" fill="#114B46">HiFi</text>
+      <text x="489" y="211" font-size="11.5" fill="#475569">TRAC</text>
+      <text x="489" y="228" font-size="11.5" font-weight="600" fill="#059669">Guard ✓</text>
+
+      <!-- HiFi TRBC -->
+      <rect x="534" y="176" width="74" height="60" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+      <text x="571" y="196" font-size="12" font-weight="700" fill="#114B46">HiFi</text>
+      <text x="571" y="211" font-size="11.5" fill="#475569">TRBC</text>
+      <text x="571" y="228" font-size="11.5" font-weight="600" fill="#059669">Guard ✓</text>
+    </g>
+
+    <!-- Bottom Exact-Class F1 Mini Bars -->
+    <rect x="452" y="248" width="156" height="90" rx="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+    <text x="530" y="268" text-anchor="middle" font-size="11.5" font-weight="600" fill="#114B46">Exact-class F1</text>
+    <line x1="468" y1="322" x2="592" y2="322" stroke="#475569" stroke-width="1.4"/>
+    <rect x="472" y="284" width="16" height="38" rx="3" fill="#475569" fill-opacity="0.7"/>
+    <rect x="496" y="290" width="16" height="32" rx="3" fill="#E11D48" fill-opacity="0.8"/>
+    <rect x="520" y="278" width="16" height="44" rx="3" fill="#059669"/>
+    <rect x="544" y="281" width="16" height="41" rx="3" fill="#0D9488"/>
+    <rect x="568" y="288" width="16" height="34" rx="3" fill="#10B981"/>
+
+    <!-- Footer -->
+    <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.75"/>
+    <text x="28" y="381" font-size="12.5" fill="#475569">Target: <tspan font-weight="700" fill="#0D9488">f1 ↑</tspan></text>
+    <text x="612" y="381" text-anchor="end" font-size="11.5" fill="#475569">ONT &amp; HiFi · TRAC / TRBC</text>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="16" fill="none" stroke="#CBD5E1" stroke-width="1"/>
+</svg>

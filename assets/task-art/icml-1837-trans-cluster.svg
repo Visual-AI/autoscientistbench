@@ -1,0 +1,189 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>TransCluster — Transformer Circuits for Clustering</title>
+  <desc>A single learned four-attention transformer layer with residual connections is unrolled for twenty clustering updates to steer random initial centers across a Voronoi point cloud into optimal k-means centroids.</desc>
+  <defs>
+    <clipPath id="cardClip">
+      <rect x="0" y="0" width="640" height="400" rx="16"/>
+    </clipPath>
+    <clipPath id="voronoiClip">
+      <rect x="334" y="72" width="276" height="274" rx="12"/>
+    </clipPath>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F7FAFF"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0052FF"/>
+      <stop offset="100%" stop-color="#0EA5E9"/>
+    </linearGradient>
+    <pattern id="dotGrid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="12" cy="12" r="1.1" fill="#0A1E5E" opacity="0.16"/>
+    </pattern>
+    <marker id="arrPri" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M1,1.5 L9,5 L1,8.5 L3,5 Z" fill="#0052FF"/>
+    </marker>
+    <marker id="arrSec" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M1,1.5 L9,5 L1,8.5 L3,5 Z" fill="#0EA5E9"/>
+    </marker>
+    <marker id="arrOk" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto">
+      <path d="M1,1.5 L9,5 L1,8.5 L3,5 Z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- Base Card -->
+  <g clip-path="url(#cardClip)">
+    <rect x="0" y="0" width="640" height="400" fill="url(#bgGrad)"/>
+    <rect x="20" y="60" width="600" height="294" fill="url(#dotGrid)"/>
+    <rect x="0" y="0" width="640" height="3.5" fill="url(#accentGrad)"/>
+  </g>
+  <rect x="0.75" y="0.75" width="638.5" height="398.5" rx="15.25" fill="none" stroke="#CBD5E1" stroke-opacity="0.75" stroke-width="1.5"/>
+
+  <!-- Top Header -->
+  <text x="28" y="38" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="700" fill="#0A0E17" letter-spacing="-0.2">TransCluster</text>
+  <text x="612" y="37" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="500" fill="#475569">Transformer Circuits for Clustering</text>
+  <line x1="28" y1="54" x2="612" y2="54" stroke="#CBD5E1" stroke-opacity="0.6" stroke-width="1"/>
+
+  <!-- LEFT PANEL: Recurrent 1-Layer 4-Attention Circuit (x20 steps) -->
+  <rect x="30" y="72" width="268" height="274" rx="12" fill="#FFFFFF" fill-opacity="0.84" stroke="#CBD5E1" stroke-width="1.4"/>
+  <text x="164" y="94" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" fill="#0A1E5E">Recurrent Attention Layer</text>
+
+  <!-- Input Badges -->
+  <rect x="66" y="106" width="58" height="22" rx="6" fill="#DBEAFE" stroke="#0EA5E9" stroke-width="1.4"/>
+  <text x="95" y="121" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0A1E5E">Points X</text>
+
+  <rect x="172" y="106" width="64" height="22" rx="6" fill="#DBEAFE" stroke="#0052FF" stroke-width="1.4"/>
+  <text x="204" y="121" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0052FF">Centers C</text>
+
+  <!-- Vertical Rails -->
+  <line x1="95" y1="128" x2="95" y2="146" stroke="#0EA5E9" stroke-width="2.2"/>
+  <line x1="95" y1="180" x2="95" y2="192" stroke="#0EA5E9" stroke-width="2.2"/>
+
+  <line x1="204" y1="128" x2="204" y2="216" stroke="#0052FF" stroke-width="2.2"/>
+  <line x1="204" y1="252" x2="204" y2="264" stroke="#0052FF" stroke-width="2.2"/>
+
+  <!-- Cross-wire C -> CAX -->
+  <path d="M204,136 C174,136 168,158 142,158" fill="none" stroke="#0052FF" stroke-width="1.9" marker-end="url(#arrPri)"/>
+  <!-- Residual Bypass for X -->
+  <path d="M95,134 L42,134 L42,202 L83,202" fill="none" stroke="#0EA5E9" stroke-width="1.7" stroke-dasharray="3 2.5"/>
+
+  <!-- Stage 1 Block: CAX + SAX -->
+  <rect x="52" y="146" width="88" height="34" rx="8" fill="#0EA5E9" fill-opacity="0.14" stroke="#0EA5E9" stroke-width="2"/>
+  <text x="96" y="167" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0A1E5E">CAX · SAX</text>
+
+  <!-- Residual Sum Node X' -->
+  <circle cx="95" cy="202" r="10" fill="#FFFFFF" stroke="#0EA5E9" stroke-width="2"/>
+  <text x="95" y="206" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#0EA5E9">+</text>
+  <text x="74" y="224" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#475569">X′</text>
+
+  <!-- Cross-wire X' -> CAC -->
+  <path d="M95,212 C122,212 132,234 156,234" fill="none" stroke="#0EA5E9" stroke-width="1.9" marker-end="url(#arrSec)"/>
+  <!-- Residual Bypass for C -->
+  <path d="M204,204 L258,204 L258,274 L216,274" fill="none" stroke="#0052FF" stroke-width="1.7" stroke-dasharray="3 2.5"/>
+
+  <!-- Stage 2 Block: CAC + SAC -->
+  <rect x="160" y="218" width="88" height="34" rx="8" fill="#0052FF" fill-opacity="0.12" stroke="#0052FF" stroke-width="2"/>
+  <text x="204" y="239" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0052FF">CAC · SAC</text>
+
+  <!-- Residual Sum Node C' -->
+  <circle cx="204" cy="274" r="10" fill="#FFFFFF" stroke="#0052FF" stroke-width="2"/>
+  <text x="204" y="278" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#0052FF">+</text>
+
+  <!-- Recurrent Feedback Loop (x20 updates) -->
+  <path d="M204,284 L204,306 L278,306 L278,117 L238,117" fill="none" stroke="#0052FF" stroke-width="2.6" stroke-linejoin="round" marker-end="url(#arrPri)"/>
+
+  <!-- Capacity & Loop Pill -->
+  <rect x="44" y="314" width="236" height="22" rx="11" fill="#DBEAFE" fill-opacity="0.8"/>
+  <text x="162" y="329" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#0052FF">×20 updates · ≤ 21.7k params</text>
+
+  <!-- Bridge Arrow to Voronoi Field -->
+  <line x1="298" y1="210" x2="328" y2="210" stroke="#0052FF" stroke-width="2.6" marker-end="url(#arrPri)"/>
+
+  <!-- RIGHT PANEL: Voronoi Partition & Converging Centroid Trajectories -->
+  <g clip-path="url(#voronoiClip)">
+    <rect x="334" y="72" width="276" height="274" fill="#FFFFFF"/>
+
+    <!-- Soft Voronoi Cell Tints -->
+    <polygon points="334,72 478,72 456,162 334,178" fill="#F7FAFF"/>
+    <polygon points="478,72 610,72 610,168 456,162" fill="#DBEAFE" fill-opacity="0.24"/>
+    <polygon points="334,178 456,162 496,246 396,346 334,346" fill="#DBEAFE" fill-opacity="0.18"/>
+    <polygon points="456,162 610,168 610,272 496,246" fill="#F7FAFF"/>
+    <polygon points="396,346 496,246 610,272 610,346" fill="#DBEAFE" fill-opacity="0.28"/>
+
+    <!-- Voronoi Partition Boundaries -->
+    <g stroke="#CBD5E1" stroke-width="1.8" stroke-linecap="round">
+      <line x1="478" y1="72" x2="456" y2="162"/>
+      <line x1="334" y1="178" x2="456" y2="162"/>
+      <line x1="456" y1="162" x2="610" y2="168"/>
+      <line x1="456" y1="162" x2="496" y2="246"/>
+      <line x1="496" y1="246" x2="396" y2="346"/>
+      <line x1="496" y1="246" x2="610" y2="272"/>
+    </g>
+
+    <!-- Clustered Data Point Clouds -->
+    <g fill="#0EA5E9" fill-opacity="0.48">
+      <!-- Cluster 1 (Top-Left) -->
+      <circle cx="386" cy="126" r="3.2"/><circle cx="404" cy="118" r="3.2"/><circle cx="416" cy="136" r="3.2"/>
+      <circle cx="392" cy="144" r="3.2"/><circle cx="376" cy="138" r="3.2"/><circle cx="408" cy="146" r="3.2"/>
+      <!-- Cluster 2 (Top-Right) -->
+      <circle cx="534" cy="112" r="3.2"/><circle cx="554" cy="108" r="3.2"/><circle cx="566" cy="124" r="3.2"/>
+      <circle cx="546" cy="132" r="3.2"/><circle cx="526" cy="126" r="3.2"/><circle cx="560" cy="136" r="3.2"/>
+      <!-- Cluster 3 (Mid-Left) -->
+      <circle cx="384" cy="238" r="3.2"/><circle cx="404" cy="228" r="3.2"/><circle cx="416" cy="248" r="3.2"/>
+      <circle cx="394" cy="260" r="3.2"/><circle cx="374" cy="252" r="3.2"/><circle cx="410" cy="264" r="3.2"/>
+      <!-- Cluster 4 (Mid-Right) -->
+      <circle cx="546" cy="204" r="3.2"/><circle cx="566" cy="198" r="3.2"/><circle cx="576" cy="216" r="3.2"/>
+      <circle cx="556" cy="226" r="3.2"/><circle cx="536" cy="218" r="3.2"/><circle cx="570" cy="228" r="3.2"/>
+      <!-- Cluster 5 (Bottom-Right) -->
+      <circle cx="508" cy="288" r="3.2"/><circle cx="528" cy="282" r="3.2"/><circle cx="540" cy="298" r="3.2"/>
+      <circle cx="518" cy="306" r="3.2"/><circle cx="498" cy="298" r="3.2"/><circle cx="532" cy="308" r="3.2"/>
+    </g>
+
+    <!-- Centroid Trajectories C^(0) -> C^(20) -->
+    <g fill="none" stroke="#0052FF" stroke-width="2.4" stroke-linecap="round">
+      <path d="M446,112 C432,118 418,124 405,131" marker-end="url(#arrPri)"/>
+      <path d="M498,144 C514,138 528,130 541,124" marker-end="url(#arrPri)"/>
+      <path d="M454,206 C434,216 420,230 407,242" marker-end="url(#arrPri)"/>
+      <path d="M510,184 C526,192 538,200 549,210" marker-end="url(#arrPri)"/>
+      <path d="M462,296 C480,296 494,296 509,295" marker-end="url(#arrPri)"/>
+    </g>
+
+    <!-- Initial Random Centers C^(0) -->
+    <g fill="#FFFFFF" stroke="#E11D48" stroke-width="2.2">
+      <circle cx="446" cy="112" r="4.8"/>
+      <circle cx="498" cy="144" r="4.8"/>
+      <circle cx="454" cy="206" r="4.8"/>
+      <circle cx="510" cy="184" r="4.8"/>
+      <circle cx="462" cy="296" r="4.8"/>
+    </g>
+
+    <!-- Converged Centroids C^(20) -->
+    <g fill="#059669" stroke="#FFFFFF" stroke-width="2">
+      <circle cx="398" cy="134" r="6.2"/>
+      <circle cx="548" cy="121" r="6.2"/>
+      <circle cx="399" cy="248" r="6.2"/>
+      <circle cx="556" cy="214" r="6.2"/>
+      <circle cx="518" cy="294" r="6.2"/>
+    </g>
+
+    <!-- Overlay Title Pill & Legend Strip -->
+    <rect x="344" y="80" width="150" height="22" rx="6" fill="#FFFFFF" fill-opacity="0.92" stroke="#CBD5E1" stroke-width="1"/>
+    <text x="419" y="95" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#0A1E5E">Voronoi Centroid Flow</text>
+
+    <rect x="344" y="316" width="256" height="22" rx="6" fill="#FFFFFF" fill-opacity="0.92" stroke="#CBD5E1" stroke-width="1"/>
+    <circle cx="360" cy="327" r="4" fill="#FFFFFF" stroke="#E11D48" stroke-width="1.8"/>
+    <text x="370" y="331" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#475569">C⁽⁰⁾</text>
+    <line x1="404" y1="327" x2="432" y2="327" stroke="#0052FF" stroke-width="2.2" marker-end="url(#arrPri)"/>
+    <circle cx="452" cy="327" r="4.5" fill="#059669"/>
+    <text x="462" y="331" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#059669">C⁽²⁰⁾</text>
+    <text x="588" y="331" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="500" fill="#475569">Normal + 4 OOD</text>
+  </g>
+  <rect x="334" y="72" width="276" height="274" rx="12" fill="none" stroke="#CBD5E1" stroke-width="1.4"/>
+
+  <!-- Bottom Footer -->
+  <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-opacity="0.6" stroke-width="1"/>
+  <text x="28" y="378" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="500" fill="#475569">512 pts · 10 centers · 4 OOD guards</text>
+  <text x="612" y="378" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5">
+    <tspan fill="#475569" font-weight="500">Target </tspan>
+    <tspan fill="#0052FF" font-weight="700">normal_log_objective ↓</tspan>
+  </text>
+</svg>

@@ -1,0 +1,172 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>StirlingGamma: Bayesian Nonparametric Latent Partition Posterior</title>
+  <desc>Bivariate normal mixture observations modeled by a Dirichlet process mixture with a Stirling-Gamma precision prior yield sharp posterior probability mass concentrated at the true occupied cluster count.</desc>
+  <defs>
+    <clipPath id="plateClip">
+      <rect x="0" y="0" width="640" height="400" rx="14"/>
+    </clipPath>
+    <linearGradient id="plateBg" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0%" stop-color="#F4FBF6"/>
+      <stop offset="55%" stop-color="#F4FBF6" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="topAccent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#124724"/>
+      <stop offset="45%" stop-color="#15803D"/>
+      <stop offset="100%" stop-color="#22C55E"/>
+    </linearGradient>
+    <linearGradient id="sgFill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#22C55E" stop-opacity="0.38"/>
+      <stop offset="100%" stop-color="#DCFCE7" stop-opacity="0.16"/>
+    </linearGradient>
+    <pattern id="coordDots" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#15803D" opacity="0.16"/>
+    </pattern>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 1.2 L8.8 5 L0 8.8 Z" fill="#15803D"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#plateClip)">
+    <rect x="0" y="0" width="640" height="400" fill="#FFFFFF"/>
+    <rect x="0" y="0" width="640" height="400" fill="url(#plateBg)"/>
+    <rect x="20" y="58" width="600" height="296" fill="url(#coordDots)"/>
+    <rect x="0" y="0" width="640" height="3" fill="url(#topAccent)"/>
+
+    <!-- Header -->
+    <text x="28" y="38" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="700" fill="#0A0E17">StirlingGamma</text>
+    <text x="612" y="37" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="500" fill="#475569">DPM Latent Partition Posterior</text>
+    <line x1="28" y1="54" x2="612" y2="54" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.75"/>
+
+    <!-- Left Hero Panel: Bivariate Gaussian Mixture Partition -->
+    <g>
+      <rect x="34" y="70" width="264" height="270" rx="11" fill="#FFFFFF" fill-opacity="0.92" stroke="#CBD5E1" stroke-width="1.2"/>
+      <text x="166" y="92" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#0A0E17">Bivariate DPM Partition</text>
+
+      <!-- 2D observation space -->
+      <rect x="50" y="104" width="232" height="204" rx="7" fill="#F4FBF6" stroke="#CBD5E1" stroke-width="1.2"/>
+
+      <!-- Subtle latent partition boundaries -->
+      <line x1="164" y1="105" x2="168" y2="307" stroke="#CBD5E1" stroke-width="1.5" stroke-dasharray="5 4"/>
+      <line x1="51" y1="204" x2="281" y2="208" stroke="#CBD5E1" stroke-width="1.5" stroke-dasharray="5 4"/>
+
+      <!-- Cluster 1 (top-left) -->
+      <g transform="translate(106, 154) rotate(-14)">
+        <ellipse cx="0" cy="0" rx="37" ry="28" fill="#DCFCE7" fill-opacity="0.82" stroke="#22C55E" stroke-width="1.6"/>
+        <ellipse cx="0" cy="0" rx="20" ry="15" fill="#22C55E" fill-opacity="0.24" stroke="#15803D" stroke-width="1.6"/>
+      </g>
+      <g fill="#15803D" stroke="#FFFFFF" stroke-width="0.9">
+        <circle cx="96" cy="148" r="3.4"/><circle cx="112" cy="146" r="3.4"/><circle cx="104" cy="158" r="3.6"/>
+        <circle cx="118" cy="158" r="3.3"/><circle cx="92" cy="162" r="3.2"/><circle cx="108" cy="168" r="3.2"/>
+        <circle cx="122" cy="146" r="3.1"/><circle cx="88" cy="152" r="3.1"/>
+      </g>
+
+      <!-- Cluster 2 (top-right) -->
+      <g transform="translate(224, 154) rotate(18)">
+        <ellipse cx="0" cy="0" rx="35" ry="27" fill="#DCFCE7" fill-opacity="0.82" stroke="#22C55E" stroke-width="1.6"/>
+        <ellipse cx="0" cy="0" rx="19" ry="14" fill="#15803D" fill-opacity="0.22" stroke="#124724" stroke-width="1.6"/>
+      </g>
+      <g fill="#124724" stroke="#FFFFFF" stroke-width="0.9">
+        <circle cx="216" cy="148" r="3.4"/><circle cx="230" cy="146" r="3.4"/><circle cx="224" cy="158" r="3.6"/>
+        <circle cx="238" cy="158" r="3.3"/><circle cx="212" cy="162" r="3.2"/><circle cx="228" cy="168" r="3.2"/>
+        <circle cx="242" cy="150" r="3.1"/><circle cx="206" cy="150" r="3.1"/>
+      </g>
+
+      <!-- Cluster 3 (bottom-left) -->
+      <g transform="translate(108, 256) rotate(12)">
+        <ellipse cx="0" cy="0" rx="36" ry="26" fill="#DCFCE7" fill-opacity="0.82" stroke="#22C55E" stroke-width="1.6"/>
+        <ellipse cx="0" cy="0" rx="19" ry="14" fill="#15803D" fill-opacity="0.22" stroke="#124724" stroke-width="1.6"/>
+      </g>
+      <g fill="#124724" stroke="#FFFFFF" stroke-width="0.9">
+        <circle cx="98" cy="250" r="3.4"/><circle cx="114" cy="248" r="3.4"/><circle cx="106" cy="260" r="3.6"/>
+        <circle cx="122" cy="258" r="3.3"/><circle cx="94" cy="264" r="3.2"/><circle cx="112" cy="268" r="3.2"/>
+        <circle cx="126" cy="250" r="3.1"/><circle cx="88" cy="256" r="3.1"/>
+      </g>
+
+      <!-- Cluster 4 (bottom-right) -->
+      <g transform="translate(224, 258) rotate(-10)">
+        <ellipse cx="0" cy="0" rx="37" ry="27" fill="#DCFCE7" fill-opacity="0.82" stroke="#22C55E" stroke-width="1.6"/>
+        <ellipse cx="0" cy="0" rx="20" ry="15" fill="#22C55E" fill-opacity="0.24" stroke="#15803D" stroke-width="1.6"/>
+      </g>
+      <g fill="#15803D" stroke="#FFFFFF" stroke-width="0.9">
+        <circle cx="216" cy="252" r="3.4"/><circle cx="232" cy="250" r="3.4"/><circle cx="224" cy="262" r="3.6"/>
+        <circle cx="238" cy="262" r="3.3"/><circle cx="210" cy="264" r="3.2"/><circle cx="226" cy="272" r="3.2"/>
+        <circle cx="242" cy="254" r="3.1"/><circle cx="206" cy="256" r="3.1"/>
+      </g>
+
+      <text x="166" y="328" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#475569">yᵢ ~ N(μᵢ, Σᵢ) · G ~ DP(α, G₀)</text>
+    </g>
+
+    <!-- Connector Arrow Left -> Right -->
+    <line x1="302" y1="205" x2="326" y2="205" stroke="#15803D" stroke-width="2.6" marker-end="url(#arrowGreen)"/>
+
+    <!-- Right-Top Card: Stirling-Gamma Precision Prior -->
+    <g>
+      <rect x="332" y="70" width="280" height="118" rx="11" fill="#FFFFFF" fill-opacity="0.92" stroke="#CBD5E1" stroke-width="1.2"/>
+      <text x="348" y="90" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0A0E17">Precision Prior</text>
+      <text x="598" y="90" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#15803D">Sg(1, 0.25, n)</text>
+
+      <!-- Axes -->
+      <path d="M356 102 V166 H598" fill="none" stroke="#475569" stroke-width="1.5" stroke-linecap="round"/>
+
+      <!-- Diffuse baseline Gamma prior (dashed slate) -->
+      <path d="M358 165 C386 138, 434 134, 486 146 C530 156, 564 162, 594 164" fill="none" stroke="#475569" stroke-width="1.8" stroke-dasharray="5 3.5"/>
+
+      <!-- Stirling-Gamma calibrated density -->
+      <path d="M358 166 C376 160, 392 106, 412 108 C432 110, 456 148, 502 160 C538 164, 568 166, 594 166 Z" fill="url(#sgFill)"/>
+      <path d="M358 166 C376 160, 392 106, 412 108 C432 110, 456 148, 502 160 C538 164, 568 166, 594 166" fill="none" stroke="#15803D" stroke-width="2.8" stroke-linecap="round"/>
+
+      <text x="456" y="122" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#124724">p(α)</text>
+      <text x="596" y="180" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">Precision α</text>
+    </g>
+
+    <!-- Right-Bottom Card: Posterior Cluster Count P(K_n = k | y) -->
+    <g>
+      <rect x="332" y="198" width="280" height="142" rx="11" fill="#FFFFFF" fill-opacity="0.92" stroke="#CBD5E1" stroke-width="1.2"/>
+      <text x="348" y="218" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0A0E17">Posterior P(Kₙ = k | y)</text>
+
+      <!-- Axes -->
+      <path d="M356 228 V308 H598" fill="none" stroke="#475569" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="356" y1="268" x2="598" y2="268" stroke="#CBD5E1" stroke-width="0.9" stroke-dasharray="3 3" stroke-opacity="0.7"/>
+
+      <!-- Discrete probability mass bars (k = 1..7) -->
+      <!-- k=1 -->
+      <rect x="368" y="303" width="22" height="5" rx="2.5" fill="#DCFCE7" stroke="#22C55E" stroke-width="1.2"/>
+      <!-- k=2 -->
+      <rect x="400" y="297" width="22" height="11" rx="3" fill="#DCFCE7" stroke="#22C55E" stroke-width="1.2"/>
+      <!-- k=3 -->
+      <rect x="432" y="284" width="22" height="24" rx="3" fill="#22C55E" fill-opacity="0.45" stroke="#15803D" stroke-width="1.3"/>
+      <!-- k=4 (True K Peak) -->
+      <rect x="464" y="234" width="22" height="74" rx="4" fill="#15803D" stroke="#124724" stroke-width="1.8"/>
+      <circle cx="475" cy="234" r="4" fill="#059669" stroke="#FFFFFF" stroke-width="1.4"/>
+      <!-- k=5 -->
+      <rect x="496" y="280" width="22" height="28" rx="3" fill="#22C55E" fill-opacity="0.45" stroke="#15803D" stroke-width="1.3"/>
+      <!-- k=6 -->
+      <rect x="528" y="294" width="22" height="14" rx="3" fill="#DCFCE7" stroke="#22C55E" stroke-width="1.2"/>
+      <!-- k=7 -->
+      <rect x="560" y="301" width="22" height="7" rx="2.5" fill="#DCFCE7" stroke="#22C55E" stroke-width="1.2"/>
+
+      <!-- Peak callout cleanly in open top-right area -->
+      <rect x="510" y="232" width="84" height="22" rx="11" fill="#DCFCE7" stroke="#15803D" stroke-width="1.3"/>
+      <text x="552" y="247" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#124724">True K = 4</text>
+      <line x1="508" y1="243" x2="492" y2="243" stroke="#15803D" stroke-width="1.8" marker-end="url(#arrowGreen)"/>
+
+      <!-- X tick labels -->
+      <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" text-anchor="middle" fill="#475569">
+        <text x="379" y="325">1</text>
+        <text x="411" y="325">2</text>
+        <text x="443" y="325">3</text>
+        <text x="475" y="325" font-weight="700" fill="#15803D">4</text>
+        <text x="507" y="325">5</text>
+        <text x="539" y="325">6</text>
+        <text x="571" y="325">7</text>
+      </g>
+    </g>
+
+    <!-- Footer -->
+    <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.7"/>
+    <text x="28" y="381" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#475569">Target: <tspan font-weight="700" fill="#15803D">posterior_probability ↑</tspan></text>
+    <text x="612" y="381" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#475569">α ~ Sg(1, 0.25, n) · K ∈ {2, 4, 6}</text>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="13.5" fill="none" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.75"/>
+</svg>

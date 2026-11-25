@@ -1,0 +1,175 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>CausalOT: Conditional Optimal Transport Partial Identification Inference</title>
+  <desc>Smooth conditional bivariate densities of potential outcomes across covariate slices are coupled via squared 2-Wasserstein optimal transport, feeding bootstrap inference for a tight valid 95 percent confidence interval around the COT lower bound.</desc>
+  <defs>
+    <clipPath id="cardClip">
+      <rect x="0" y="0" width="640" height="400" rx="16"/>
+    </clipPath>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F4FAFE"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="accentBar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0284C7"/>
+      <stop offset="100%" stop-color="#06B6D4"/>
+    </linearGradient>
+    <linearGradient id="slabGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#E0F2FE" stop-opacity="0.55"/>
+    </linearGradient>
+    <pattern id="dotGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#0C4366" fill-opacity="0.15"/>
+    </pattern>
+    <marker id="arrDark" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto">
+      <path d="M1 1.5 L8.5 5 L1 8.5 Z" fill="#0C4366"/>
+    </marker>
+    <marker id="arrSky" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M1 1.5 L8.5 5 L1 8.5 Z" fill="#0284C7"/>
+    </marker>
+    <marker id="arrSlate" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto">
+      <path d="M1 1.5 L8.5 5 L1 8.5 Z" fill="#475569"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#cardClip)" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <!-- Base Plate -->
+    <rect x="0" y="0" width="640" height="400" fill="url(#bgGrad)"/>
+    <rect x="24" y="58" width="592" height="296" fill="url(#dotGrid)"/>
+    <rect x="0" y="0" width="640" height="3" fill="url(#accentBar)"/>
+
+    <!-- Header Zone (y=18..54) -->
+    <text x="28" y="36" font-size="18" font-weight="700" fill="#0A0E17">CausalOT</text>
+    <text x="612" y="36" text-anchor="end" font-size="12.5" font-weight="500" fill="#475569">Conditional Optimal Transport Inference</text>
+    <line x1="28" y1="53" x2="612" y2="53" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.75"/>
+
+    <!-- LEFT & CENTER HERO: Covariate-Sliced Conditional OT (W2^2) -->
+    <g>
+      <text x="206" y="79" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0A0E17">Conditional W₂² Across Covariate Z</text>
+
+      <!-- Clean Inline Density Legend Directly Under Title -->
+      <g font-size="11.5" font-weight="600">
+        <circle cx="144" cy="95" r="4.5" fill="#0284C7"/>
+        <text x="153" y="99" fill="#0284C7">Y(0)|z</text>
+        <circle cx="222" cy="95" r="4.5" fill="#06B6D4"/>
+        <text x="231" y="99" fill="#06B6D4">Y(1)|z</text>
+      </g>
+
+      <!-- Covariate Z Axis -->
+      <line x1="50" y1="308" x2="372" y2="308" stroke="#475569" stroke-width="1.8" marker-end="url(#arrSlate)"/>
+      <text x="210" y="340" text-anchor="middle" font-size="12" font-weight="600" fill="#475569">Covariate Z ∈ [0, 1]</text>
+
+      <!-- SLICE 1 (z1) -->
+      <g>
+        <line x1="100" y1="272" x2="100" y2="308" stroke="#CBD5E1" stroke-width="1.5" stroke-dasharray="3 3"/>
+        <circle cx="100" cy="308" r="3.5" fill="#0284C7"/>
+        <text x="100" y="324" text-anchor="middle" font-size="11.5" font-weight="600" fill="#0C4366">z₁</text>
+        <polygon points="56,140 144,114 144,258 56,284" fill="url(#slabGrad)" stroke="#0284C7" stroke-width="1.8" stroke-opacity="0.7"/>
+        <!-- Y(0)|z1 contours -->
+        <ellipse cx="86" cy="168" rx="22" ry="14" transform="rotate(-17 86 168)" fill="#0284C7" fill-opacity="0.16" stroke="#0284C7" stroke-width="1.8"/>
+        <ellipse cx="86" cy="168" rx="11" ry="7" transform="rotate(-17 86 168)" fill="#0284C7" fill-opacity="0.34" stroke="#0284C7" stroke-width="1.5"/>
+        <!-- Y(1)|z1 contours -->
+        <ellipse cx="114" cy="232" rx="22" ry="14" transform="rotate(-17 114 232)" fill="#06B6D4" fill-opacity="0.2" stroke="#06B6D4" stroke-width="1.8"/>
+        <ellipse cx="114" cy="232" rx="11" ry="7" transform="rotate(-17 114 232)" fill="#06B6D4" fill-opacity="0.4" stroke="#06B6D4" stroke-width="1.5"/>
+        <!-- Optimal Transport Coupling Vectors -->
+        <g stroke="#0C4366" stroke-width="1.8" marker-end="url(#arrDark)">
+          <line x1="78" y1="178" x2="102" y2="219"/>
+          <line x1="90" y1="174" x2="115" y2="218"/>
+          <line x1="100" y1="168" x2="124" y2="215"/>
+        </g>
+      </g>
+
+      <!-- SLICE 2 (z2) -->
+      <g>
+        <line x1="206" y1="272" x2="206" y2="308" stroke="#CBD5E1" stroke-width="1.5" stroke-dasharray="3 3"/>
+        <circle cx="206" cy="308" r="3.5" fill="#0284C7"/>
+        <text x="206" y="324" text-anchor="middle" font-size="11.5" font-weight="600" fill="#0C4366">z₂</text>
+        <polygon points="162,140 250,114 250,258 162,284" fill="url(#slabGrad)" stroke="#0284C7" stroke-width="2"/>
+        <!-- Y(0)|z2 contours (smoothly shifted) -->
+        <ellipse cx="196" cy="160" rx="23" ry="14" transform="rotate(-17 196 160)" fill="#0284C7" fill-opacity="0.18" stroke="#0284C7" stroke-width="2"/>
+        <ellipse cx="196" cy="160" rx="11" ry="7" transform="rotate(-17 196 160)" fill="#0284C7" fill-opacity="0.38" stroke="#0284C7" stroke-width="1.6"/>
+        <!-- Y(1)|z2 contours -->
+        <ellipse cx="216" cy="228" rx="23" ry="14" transform="rotate(-17 216 228)" fill="#06B6D4" fill-opacity="0.22" stroke="#06B6D4" stroke-width="2"/>
+        <ellipse cx="216" cy="228" rx="11" ry="7" transform="rotate(-17 216 228)" fill="#06B6D4" fill-opacity="0.42" stroke="#06B6D4" stroke-width="1.6"/>
+        <!-- Optimal Transport Coupling Vectors -->
+        <g stroke="#0C4366" stroke-width="1.9" marker-end="url(#arrDark)">
+          <line x1="186" y1="170" x2="203" y2="215"/>
+          <line x1="198" y1="166" x2="216" y2="215"/>
+          <line x1="210" y1="162" x2="227" y2="213"/>
+        </g>
+      </g>
+
+      <!-- SLICE 3 (z3) -->
+      <g>
+        <line x1="312" y1="272" x2="312" y2="308" stroke="#CBD5E1" stroke-width="1.5" stroke-dasharray="3 3"/>
+        <circle cx="312" cy="308" r="3.5" fill="#0284C7"/>
+        <text x="312" y="324" text-anchor="middle" font-size="11.5" font-weight="600" fill="#0C4366">z₃</text>
+        <polygon points="268,140 356,114 356,258 268,284" fill="url(#slabGrad)" stroke="#0284C7" stroke-width="1.8" stroke-opacity="0.8"/>
+        <!-- Y(0)|z3 contours -->
+        <ellipse cx="308" cy="156" rx="22" ry="13.5" transform="rotate(-17 308 156)" fill="#0284C7" fill-opacity="0.16" stroke="#0284C7" stroke-width="1.8"/>
+        <ellipse cx="308" cy="156" rx="11" ry="6.8" transform="rotate(-17 308 156)" fill="#0284C7" fill-opacity="0.34" stroke="#0284C7" stroke-width="1.5"/>
+        <!-- Y(1)|z3 contours -->
+        <ellipse cx="316" cy="218" rx="22" ry="13.5" transform="rotate(-17 316 218)" fill="#06B6D4" fill-opacity="0.2" stroke="#06B6D4" stroke-width="1.8"/>
+        <ellipse cx="316" cy="218" rx="11" ry="6.8" transform="rotate(-17 316 218)" fill="#06B6D4" fill-opacity="0.4" stroke="#06B6D4" stroke-width="1.5"/>
+        <!-- Optimal Transport Coupling Vectors -->
+        <g stroke="#0C4366" stroke-width="1.8" marker-end="url(#arrDark)">
+          <line x1="298" y1="166" x2="305" y2="205"/>
+          <line x1="310" y1="162" x2="317" y2="205"/>
+          <line x1="322" y1="158" x2="328" y2="203"/>
+        </g>
+      </g>
+    </g>
+
+    <!-- Connecting Integration Arrow -->
+    <g>
+      <line x1="364" y1="194" x2="408" y2="194" stroke="#0284C7" stroke-width="2.4" marker-end="url(#arrSky)"/>
+      <text x="386" y="180" text-anchor="middle" font-size="13" font-weight="700" fill="#0C4366">∫ dP<tspan dy="2.5" font-size="11.5">Z</tspan></text>
+    </g>
+
+    <!-- RIGHT: Asymptotic Bootstrap Inference & Tight 95% CI -->
+    <g>
+      <rect x="416" y="78" width="196" height="258" rx="12" fill="#FFFFFF" fill-opacity="0.94" stroke="#CBD5E1" stroke-width="1.2"/>
+      <text x="514" y="100" text-anchor="middle" font-size="12" font-weight="700" fill="#0A0E17">95% Bootstrap Inference</text>
+
+      <!-- Top Half: Asymptotic Normal / Bootstrap Density -->
+      <line x1="432" y1="190" x2="596" y2="190" stroke="#CBD5E1" stroke-width="1.4"/>
+      <!-- Shaded 95% Central Mass -->
+      <path d="M466 190 L466 176 C484 164 498 122 514 122 C530 122 544 164 562 176 L562 190 Z"
+            fill="#E0F2FE" fill-opacity="0.9"/>
+      <!-- Full Smooth Bell Curve -->
+      <path d="M434 189 C452 188 460 182 468 174 C484 160 498 122 514 122 C530 122 544 160 560 174 C568 182 576 188 594 189"
+            fill="none" stroke="#0284C7" stroke-width="2.6"/>
+
+      <!-- Vertical True COT* Reference Line spanning both panels -->
+      <line x1="523" y1="118" x2="523" y2="306" stroke="#059669" stroke-width="1.8" stroke-dasharray="4 3"/>
+      <text x="546" y="128" font-size="11.5" font-weight="700" fill="#059669">COT*</text>
+
+      <!-- Divider -->
+      <line x1="432" y1="214" x2="596" y2="214" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.7"/>
+
+      <!-- Bottom Half: CI Length Minimization Subject to Coverage -->
+      <!-- Wide Baseline Interval -->
+      <text x="436" y="236" font-size="11.5" fill="#475569">Baseline CI</text>
+      <line x1="444" y1="252" x2="584" y2="252" stroke="#CBD5E1" stroke-width="4" stroke-linecap="round"/>
+      <line x1="444" y1="245" x2="444" y2="259" stroke="#475569" stroke-width="2"/>
+      <line x1="584" y1="245" x2="584" y2="259" stroke="#475569" stroke-width="2"/>
+
+      <!-- Tight Valid 95% Interval -->
+      <text x="436" y="280" font-size="11.5" font-weight="700" fill="#0284C7">Tight 95% CI</text>
+      <rect x="476" y="289" width="84" height="14" rx="7" fill="#E0F2FE"/>
+      <line x1="476" y1="296" x2="560" y2="296" stroke="#0284C7" stroke-width="4" stroke-linecap="round"/>
+      <line x1="476" y1="288" x2="476" y2="304" stroke="#0C4366" stroke-width="2.4"/>
+      <line x1="560" y1="288" x2="560" y2="304" stroke="#0C4366" stroke-width="2.4"/>
+
+      <!-- Covered True COT* Dot -->
+      <circle cx="523" cy="296" r="5" fill="#059669" stroke="#FFFFFF" stroke-width="1.8"/>
+      <text x="514" y="324" text-anchor="middle" font-size="11.5" font-weight="600" fill="#059669">Valid Coverage</text>
+    </g>
+
+    <!-- Footer Bar (y=378) -->
+    <line x1="28" y1="357" x2="612" y2="357" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.75"/>
+    <text x="28" y="378" font-size="12.5" fill="#475569">dY = 2, dZ = 1 · wavelet density · 95% CI</text>
+    <text x="612" y="378" text-anchor="end" font-size="12.5" fill="#475569">Metric <tspan font-weight="700" fill="#0284C7">ci_length_gmean ↓</tspan></text>
+  </g>
+
+  <rect x="0.5" y="0.5" width="639" height="399" rx="16" fill="none" stroke="#CBD5E1" stroke-opacity="0.75"/>
+</svg>

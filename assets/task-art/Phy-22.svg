@@ -1,0 +1,191 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>TTNOpt — Binary Tree Tensor Network Quantics Compression</title>
+  <desc>An exact twenty-two-node binary tree tensor network with center gauge and bond budget chi at most four compressing a twenty-four-leg quantics tensor via two-site structural rewiring.</desc>
+  <defs>
+    <linearGradient id="card-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F7F6FF"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="accent-bar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#4F46E5"/>
+      <stop offset="100%" stop-color="#8B5CF6"/>
+    </linearGradient>
+    <linearGradient id="wave-fill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4F46E5" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#E0E7FF" stop-opacity="0.04"/>
+    </linearGradient>
+    <clipPath id="card-clip">
+      <rect x="0" y="0" width="640" height="400" rx="14"/>
+    </clipPath>
+    <pattern id="dot-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#261E6B" fill-opacity="0.15"/>
+    </pattern>
+    <marker id="arrow-indigo" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#4F46E5"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#card-clip)" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <!-- Base canvas & grid -->
+    <rect x="0" y="0" width="640" height="400" fill="url(#card-bg)"/>
+    <rect x="16" y="54" width="608" height="304" fill="url(#dot-grid)"/>
+    <rect x="0" y="0" width="640" height="3" fill="url(#accent-bar)"/>
+
+    <!-- Header (y=18..54) -->
+    <text x="28" y="36" font-size="18" font-weight="700" fill="#0A0E17" letter-spacing="-0.3">TTNOpt</text>
+    <text x="612" y="36" font-size="12.5" font-weight="500" fill="#475569" text-anchor="end">Binary Tree Tensor Network Compression</text>
+    <line x1="28" y1="53" x2="612" y2="53" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.7"/>
+
+    <!-- LEFT-CENTER HERO: Exact 22-Node, 24-Leg Unrooted Binary TTN -->
+    <text x="232" y="80" font-size="12.5" font-weight="600" fill="#261E6B" text-anchor="middle">Center Gauge · Binary TTN (χ ≤ 4)</text>
+
+    <!-- Highlighted active 2-site rewiring halo on an internal bond -->
+    <ellipse cx="344" cy="180" rx="34" ry="42" transform="rotate(30 344 180)" fill="#E0E7FF" fill-opacity="0.6" stroke="#8B5CF6" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+    <!-- 24 Physical Quantics Leaf Legs (x1..x8 indigo, y1..y8 violet, z1..z8 emerald) -->
+    <g stroke-width="2" stroke-linecap="round">
+      <!-- x bits (leaves 0..7) -->
+      <g stroke="#4F46E5">
+        <line x1="56" y1="264" x2="48" y2="312"/><line x1="56" y1="264" x2="64" y2="312"/>
+        <line x1="88" y1="264" x2="80" y2="312"/><line x1="88" y1="264" x2="96" y2="312"/>
+        <line x1="120" y1="264" x2="112" y2="312"/><line x1="120" y1="264" x2="128" y2="312"/>
+        <line x1="152" y1="264" x2="144" y2="312"/><line x1="152" y1="264" x2="160" y2="312"/>
+      </g>
+      <!-- y bits (leaves 8..15) -->
+      <g stroke="#8B5CF6">
+        <line x1="184" y1="264" x2="176" y2="312"/><line x1="184" y1="264" x2="192" y2="312"/>
+        <line x1="216" y1="264" x2="208" y2="312"/><line x1="216" y1="264" x2="224" y2="312"/>
+        <line x1="248" y1="264" x2="240" y2="312"/><line x1="248" y1="264" x2="256" y2="312"/>
+        <line x1="280" y1="264" x2="272" y2="312"/><line x1="280" y1="264" x2="288" y2="312"/>
+      </g>
+      <!-- z bits (leaves 16..23) -->
+      <g stroke="#059669">
+        <line x1="312" y1="264" x2="304" y2="312"/><line x1="312" y1="264" x2="320" y2="312"/>
+        <line x1="344" y1="264" x2="336" y2="312"/><line x1="344" y1="264" x2="352" y2="312"/>
+        <line x1="376" y1="264" x2="368" y2="312"/><line x1="376" y1="264" x2="384" y2="312"/>
+        <line x1="408" y1="264" x2="400" y2="312"/><line x1="408" y1="264" x2="416" y2="312"/>
+      </g>
+    </g>
+
+    <!-- Auxiliary Bonds (Layer 1 -> Layer 2 -> Layer 3 -> Layer 4 -> Center Gauge Bond) -->
+    <!-- Layer 1 (y=264) to Layer 2 (y=206) -->
+    <g stroke="#4F46E5" stroke-width="2.2" stroke-linecap="round">
+      <line x1="56" y1="264" x2="72" y2="206"/><line x1="88" y1="264" x2="72" y2="206"/>
+      <line x1="120" y1="264" x2="136" y2="206"/><line x1="152" y1="264" x2="136" y2="206"/>
+      <line x1="184" y1="264" x2="200" y2="206"/><line x1="216" y1="264" x2="200" y2="206"/>
+      <line x1="248" y1="264" x2="264" y2="206"/><line x1="280" y1="264" x2="264" y2="206"/>
+      <line x1="312" y1="264" x2="328" y2="206"/><line x1="344" y1="264" x2="328" y2="206"/>
+      <line x1="376" y1="264" x2="392" y2="206"/><line x1="408" y1="264" x2="392" y2="206"/>
+    </g>
+    <!-- Layer 2 (y=206) to Layer 3 (y=152) & Layer 4 (y=106) -->
+    <g stroke="#4F46E5" stroke-width="2.8" stroke-linecap="round">
+      <line x1="72" y1="206" x2="104" y2="152"/>
+      <line x1="136" y1="206" x2="104" y2="152"/>
+      <line x1="328" y1="206" x2="360" y2="152" stroke="#8B5CF6" stroke-width="3.2"/>
+      <line x1="392" y1="206" x2="360" y2="152"/>
+      <!-- Up to Layer 4 top central nodes -->
+      <line x1="104" y1="152" x2="156" y2="106" stroke-width="3.2"/>
+      <line x1="200" y1="206" x2="156" y2="106" stroke-width="2.8"/>
+      <line x1="264" y1="206" x2="308" y2="106" stroke-width="2.8"/>
+      <line x1="360" y1="152" x2="308" y2="106" stroke-width="3.2"/>
+    </g>
+    <!-- Central Orthogonality Gauge Bond (between N4_0 and N4_1) -->
+    <line x1="156" y1="106" x2="308" y2="106" stroke="#059669" stroke-width="3.6" stroke-linecap="round"/>
+
+    <!-- All 22 Degree-3 Internal Tensor Nodes -->
+    <!-- Layer 1: 12 nodes -->
+    <g fill="#FFFFFF" stroke="#4F46E5" stroke-width="2">
+      <circle cx="56" cy="264" r="5"/><circle cx="88" cy="264" r="5"/>
+      <circle cx="120" cy="264" r="5"/><circle cx="152" cy="264" r="5"/>
+      <circle cx="184" cy="264" r="5" stroke="#8B5CF6"/><circle cx="216" cy="264" r="5" stroke="#8B5CF6"/>
+      <circle cx="248" cy="264" r="5" stroke="#8B5CF6"/><circle cx="280" cy="264" r="5" stroke="#8B5CF6"/>
+      <circle cx="312" cy="264" r="5" stroke="#059669"/><circle cx="344" cy="264" r="5" stroke="#059669"/>
+      <circle cx="376" cy="264" r="5" stroke="#059669"/><circle cx="408" cy="264" r="5" stroke="#059669"/>
+    </g>
+    <!-- Layer 2: 6 nodes -->
+    <g fill="#E0E7FF" stroke="#4F46E5" stroke-width="2.2">
+      <circle cx="72" cy="206" r="6.2"/>
+      <circle cx="136" cy="206" r="6.2"/>
+      <circle cx="200" cy="206" r="6.2"/>
+      <circle cx="264" cy="206" r="6.2"/>
+      <circle cx="328" cy="206" r="6.8" fill="#8B5CF6" stroke="#261E6B"/>
+      <circle cx="392" cy="206" r="6.2"/>
+    </g>
+    <!-- Layer 3: 2 nodes -->
+    <g fill="#4F46E5" stroke="#FFFFFF" stroke-width="1.8">
+      <circle cx="104" cy="152" r="7"/>
+      <circle cx="360" cy="152" r="7.5" fill="#8B5CF6" stroke="#261E6B"/>
+    </g>
+    <!-- Layer 4: 2 top central nodes -->
+    <g fill="#261E6B" stroke="#FFFFFF" stroke-width="2">
+      <circle cx="156" cy="106" r="8"/>
+      <circle cx="308" cy="106" r="8"/>
+    </g>
+
+    <!-- Center Gauge Diamond Marker -->
+    <polygon points="232,96 242,106 232,116 222,106" fill="#059669" stroke="#FFFFFF" stroke-width="2"/>
+
+    <!-- Physical bit-group brackets & labels -->
+    <path d="M 46 318 V 322 H 162 V 318" fill="none" stroke="#4F46E5" stroke-width="1.3"/>
+    <text x="104" y="338" font-size="11.5" font-weight="600" fill="#4F46E5" text-anchor="middle">x (8 bits)</text>
+
+    <path d="M 174 318 V 322 H 290 V 318" fill="none" stroke="#8B5CF6" stroke-width="1.3"/>
+    <text x="232" y="338" font-size="11.5" font-weight="600" fill="#8B5CF6" text-anchor="middle">y (8 bits)</text>
+
+    <path d="M 302 318 V 322 H 418 V 318" fill="none" stroke="#059669" stroke-width="1.3"/>
+    <text x="360" y="338" font-size="11.5" font-weight="600" fill="#059669" text-anchor="middle">z (8 bits)</text>
+
+    <!-- RIGHT PANEL: Two Stacked Scientific Inset Cards -->
+    <!-- Top Inset Card: 2-Site Structural Rewiring -->
+    <rect x="444" y="76" width="168" height="126" rx="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+    <text x="528" y="96" font-size="12" font-weight="700" fill="#261E6B" text-anchor="middle">2-Site Rewiring</text>
+
+    <!-- Before: Horizontal pair (a,b)-(c,d) -->
+    <g stroke="#4F46E5" stroke-width="2" stroke-linecap="round">
+      <line x1="462" y1="120" x2="474" y2="142"/>
+      <line x1="462" y1="164" x2="474" y2="142"/>
+      <line x1="474" y1="142" x2="498" y2="142" stroke="#8B5CF6" stroke-width="2.6"/>
+      <line x1="498" y1="142" x2="510" y2="120"/>
+      <line x1="498" y1="142" x2="510" y2="164"/>
+    </g>
+    <circle cx="474" cy="142" r="5" fill="#4F46E5"/>
+    <circle cx="498" cy="142" r="5" fill="#4F46E5"/>
+
+    <!-- Transition arrow -->
+    <line x1="518" y1="142" x2="539" y2="142" stroke="#4F46E5" stroke-width="2.2" marker-end="url(#arrow-indigo)"/>
+
+    <!-- After: Vertical rewired pair (a,c)|(b,d) -->
+    <g stroke="#8B5CF6" stroke-width="2" stroke-linecap="round">
+      <line x1="554" y1="118" x2="574" y2="130"/>
+      <line x1="594" y1="118" x2="574" y2="130"/>
+      <line x1="574" y1="130" x2="574" y2="154" stroke="#059669" stroke-width="2.6"/>
+      <line x1="574" y1="154" x2="554" y2="166"/>
+      <line x1="574" y1="154" x2="594" y2="166"/>
+    </g>
+    <circle cx="574" cy="130" r="5" fill="#8B5CF6"/>
+    <circle cx="574" cy="154" r="5" fill="#8B5CF6"/>
+
+    <text x="528" y="190" font-size="11.5" fill="#475569" text-anchor="middle">SVD Truncation · χ ≤ 4</text>
+
+    <!-- Bottom Inset Card: Quantics State Overlap Fidelity -->
+    <rect x="444" y="214" width="168" height="128" rx="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+    <text x="528" y="234" font-size="12" font-weight="700" fill="#261E6B" text-anchor="middle">Dense State Overlap</text>
+
+    <!-- Baseline centerline -->
+    <line x1="458" y1="278" x2="598" y2="278" stroke="#CBD5E1" stroke-width="1"/>
+    <!-- Filled reconstructed waveform -->
+    <path d="M 458 278 C 468 244 478 244 488 276 C 498 308 508 304 518 266 C 528 240 538 246 548 282 C 558 310 570 302 580 264 C 587 248 593 256 598 276 L 598 278 Z" fill="url(#wave-fill)"/>
+    <!-- Reconstructed TTN curve (indigo) -->
+    <path d="M 458 278 C 468 244 478 244 488 276 C 498 308 508 304 518 266 C 528 240 538 246 548 282 C 558 310 570 302 580 264 C 587 248 593 256 598 276" fill="none" stroke="#4F46E5" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- Target multi-cosine state (dashed obsidian) -->
+    <path d="M 458 278 C 467 240 479 242 488 278 C 497 312 509 306 518 264 C 528 236 539 244 548 284 C 558 313 571 304 580 262 C 587 244 593 254 598 278" fill="none" stroke="#0A0E17" stroke-width="1.4" stroke-dasharray="3 3"/>
+
+    <text x="528" y="330" font-size="11.5" font-weight="700" fill="#059669" text-anchor="middle">|⟨Ψ | φ⟩|² ↑</text>
+
+    <!-- Footer (y=378) -->
+    <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.7"/>
+    <text x="28" y="378" font-size="12.5" fill="#475569">24-Leg Quantics · 22 Nodes · χ ≤ 4</text>
+    <text x="612" y="378" font-size="12.5" fill="#475569" text-anchor="end">Metric: <tspan font-weight="700" fill="#4F46E5">fidelity ↑</tspan></text>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="13.5" fill="none" stroke="#CBD5E1" stroke-width="1"/>
+</svg>

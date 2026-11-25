@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>FrontDoor-NP — Nonparametric Front-Door Causal Inference</title>
+  <desc>Front-door causal DAG routing treatment through a binary mediator around unobserved confounding, paired with extreme-tail weak propensity overlap and the front-door ATE interval.</desc>
+  <defs>
+    <clipPath id="cardClip">
+      <rect width="640" height="400" rx="16"/>
+    </clipPath>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFF6F8"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#E11D48"/>
+      <stop offset="100%" stop-color="#F43F5E"/>
+    </linearGradient>
+    <pattern id="dotGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#6B1028" opacity="0.16"/>
+    </pattern>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M 1 1.5 L 9 5 L 1 8.5 Z" fill="#059669"/>
+    </marker>
+    <marker id="arrowRed" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M 1 1.5 L 9 5 L 1 8.5 Z" fill="#E11D48"/>
+    </marker>
+    <marker id="arrowSlate" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 1 1.5 L 9 5 L 1 8.5 Z" fill="#475569" fill-opacity="0.6"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#cardClip)">
+    <rect width="640" height="400" fill="url(#bgGrad)"/>
+    <rect x="24" y="60" width="592" height="296" fill="url(#dotGrid)"/>
+    <rect x="0" y="0" width="640" height="3" fill="url(#accentGrad)"/>
+  </g>
+  <rect x="0.75" y="0.75" width="638.5" height="398.5" rx="15.5" fill="none" stroke="#CBD5E1" stroke-opacity="0.75" stroke-width="1.5"/>
+
+  <!-- Header -->
+  <text x="28" y="38" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="700" fill="#0A0E17">FrontDoor-NP</text>
+  <text x="612" y="38" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="500" fill="#475569">Nonparametric Front-Door Causal Inference</text>
+  <line x1="28" y1="54" x2="612" y2="54" stroke="#CBD5E1" stroke-opacity="0.6" stroke-width="1"/>
+
+  <!-- Left Hero: Front-Door Causal DAG -->
+  <!-- Subtle front-door path highlight halo -->
+  <rect x="46" y="172" width="324" height="80" rx="40" fill="#059669" fill-opacity="0.06" stroke="#059669" stroke-opacity="0.25" stroke-dasharray="4 4" stroke-width="1.4"/>
+
+  <!-- Confounding backdoor arcs U -> A and U -> Y -->
+  <path d="M 185 116 Q 112 126, 94 180" fill="none" stroke="#E11D48" stroke-width="2.4" stroke-dasharray="6 4" marker-end="url(#arrowRed)"/>
+  <path d="M 231 116 Q 304 126, 322 180" fill="none" stroke="#E11D48" stroke-width="2.4" stroke-dasharray="6 4" marker-end="url(#arrowRed)"/>
+  <text x="208" y="156" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#E11D48">Confounded</text>
+
+  <!-- Observed covariate arrows X -> A, M, Y -->
+  <path d="M 189 312 Q 124 298, 98 244" fill="none" stroke="#475569" stroke-opacity="0.45" stroke-width="1.6" marker-end="url(#arrowSlate)"/>
+  <line x1="208" y1="296" x2="208" y2="246" stroke="#475569" stroke-opacity="0.45" stroke-width="1.6" marker-end="url(#arrowSlate)"/>
+  <path d="M 227 312 Q 292 298, 318 244" fill="none" stroke="#475569" stroke-opacity="0.45" stroke-width="1.6" marker-end="url(#arrowSlate)"/>
+
+  <!-- Front-door mediated causal chain A -> M -> Y -->
+  <line x1="115" y1="212" x2="173" y2="212" stroke="#059669" stroke-width="3.6" marker-end="url(#arrowGreen)"/>
+  <line x1="238" y1="212" x2="296" y2="212" stroke="#059669" stroke-width="3.6" marker-end="url(#arrowGreen)"/>
+
+  <!-- Node U (Unobserved confounder) -->
+  <text x="208" y="80" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#E11D48">Unobserved</text>
+  <circle cx="208" cy="112" r="22" fill="#FFE4E6" stroke="#E11D48" stroke-width="2.4" stroke-dasharray="5 3"/>
+  <text x="208" y="117" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="700" fill="#6B1028">U</text>
+
+  <!-- Node A (Treatment) -->
+  <circle cx="88" cy="212" r="26" fill="#FFFFFF" stroke="#0A0E17" stroke-width="2.8"/>
+  <text x="88" y="217" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="700" fill="#0A0E17">A</text>
+
+  <!-- Node M (Binary Mediator) -->
+  <circle cx="208" cy="212" r="28" fill="#FFFFFF" stroke="#059669" stroke-width="3.2"/>
+  <circle cx="208" cy="212" r="23" fill="#059669" fill-opacity="0.14"/>
+  <text x="208" y="210" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="700" fill="#059669">M</text>
+  <text x="208" y="226" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#059669">{0,1}</text>
+
+  <!-- Node Y (Outcome) -->
+  <circle cx="328" cy="212" r="26" fill="#FFE4E6" stroke="#E11D48" stroke-width="2.8"/>
+  <text x="328" y="217" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="700" fill="#6B1028">Y</text>
+
+  <!-- Node X (Covariates) -->
+  <circle cx="208" cy="318" r="20" fill="#FFFFFF" stroke="#475569" stroke-width="2.2"/>
+  <text x="208" y="323" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13.5" font-weight="700" fill="#475569">X</text>
+
+  <!-- Right Panel: Weak Propensity Overlap & Front-Door ATE -->
+  <rect x="402" y="76" width="210" height="266" rx="12" fill="#FFFFFF" fill-opacity="0.86" stroke="#CBD5E1" stroke-width="1.2"/>
+  <text x="507" y="99" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#0A0E17">Weak Overlap</text>
+
+  <!-- Extreme-tail highlight bands -->
+  <rect x="422" y="114" width="18" height="112" fill="#FFE4E6" fill-opacity="0.7"/>
+  <rect x="574" y="114" width="18" height="112" fill="#FFE4E6" fill-opacity="0.7"/>
+
+  <!-- Propensity curves piling near 0 and 1 -->
+  <path d="M 422 226 C 425 130, 434 118, 448 158 C 464 202, 504 220, 588 225 L 592 226 Z" fill="#E11D48" fill-opacity="0.22" stroke="#E11D48" stroke-width="2.6"/>
+  <path d="M 422 226 C 472 222, 526 208, 560 162 C 574 122, 585 124, 592 226 Z" fill="#059669" fill-opacity="0.20" stroke="#059669" stroke-width="2.6"/>
+
+  <!-- Propensity axis -->
+  <line x1="422" y1="226" x2="592" y2="226" stroke="#475569" stroke-width="1.5"/>
+  <text x="424" y="244" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">0</text>
+  <text x="507" y="244" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#475569">P(A=1 | X)</text>
+  <text x="590" y="244" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">1</text>
+  <text x="464" y="134" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#E11D48">A=0</text>
+  <text x="548" y="134" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#059669">A=1</text>
+
+  <!-- ATE Functional & 95% CI -->
+  <line x1="420" y1="258" x2="594" y2="258" stroke="#CBD5E1" stroke-opacity="0.65" stroke-width="1"/>
+  <text x="507" y="281" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#0A0E17">ATE = ψ(1) − ψ(0)</text>
+  <line x1="511" y1="292" x2="511" y2="318" stroke="#0A0E17" stroke-dasharray="3 2" stroke-width="1.6"/>
+  <line x1="462" y1="305" x2="554" y2="305" stroke="#059669" stroke-width="4" stroke-linecap="round"/>
+  <line x1="462" y1="299" x2="462" y2="311" stroke="#059669" stroke-width="2.2"/>
+  <line x1="554" y1="299" x2="554" y2="311" stroke="#059669" stroke-width="2.2"/>
+  <circle cx="508" cy="305" r="5" fill="#FFFFFF" stroke="#059669" stroke-width="2.8"/>
+  <text x="507" y="332" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="500" fill="#475569">Nominal 95% CI</text>
+
+  <!-- Footer -->
+  <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-opacity="0.6" stroke-width="1"/>
+  <text x="28" y="378" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#475569">Front-door binary mediator · n = 500</text>
+  <text x="612" y="378" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#475569">Target: <tspan font-weight="700" fill="#E11D48">mse ↓</tspan></text>
+</svg>

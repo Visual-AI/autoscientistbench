@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>CoupledPoisson — Solving the Poisson Equation via Coupled Markov Chains</title>
+  <desc>Two coupled AR(1) Markov chains enclose a shaded telescoping Poisson solution difference ribbon until coalescing into one shared trajectory at meeting time tau, aligned with double coupled versus single kernel transition cost.</desc>
+  <defs>
+    <clipPath id="cardClip">
+      <rect width="640" height="400" rx="16"/>
+    </clipPath>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFF6F8"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#E11D48"/>
+      <stop offset="100%" stop-color="#F43F5E"/>
+    </linearGradient>
+    <pattern id="dotGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#6B1028" opacity="0.16"/>
+    </pattern>
+  </defs>
+
+  <g clip-path="url(#cardClip)">
+    <rect width="640" height="400" fill="url(#bgGrad)"/>
+    <rect x="24" y="60" width="592" height="296" fill="url(#dotGrid)"/>
+    <rect x="0" y="0" width="640" height="3" fill="url(#accentGrad)"/>
+  </g>
+  <rect x="0.75" y="0.75" width="638.5" height="398.5" rx="15.5" fill="none" stroke="#CBD5E1" stroke-opacity="0.75" stroke-width="1.5"/>
+
+  <!-- Header -->
+  <text x="28" y="38" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="700" fill="#0A0E17">CoupledPoisson</text>
+  <text x="612" y="38" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="500" fill="#475569">Coupled Chains for Poisson Equation</text>
+  <line x1="28" y1="54" x2="612" y2="54" stroke="#CBD5E1" stroke-opacity="0.6" stroke-width="1"/>
+
+  <!-- Main Coupled Markov Chain Trajectory Canvas -->
+  <rect x="30" y="74" width="582" height="222" rx="12" fill="#FFFFFF" fill-opacity="0.84" stroke="#CBD5E1" stroke-width="1.2"/>
+
+  <!-- Axes and anchor x0 = 0 -->
+  <line x1="66" y1="90" x2="66" y2="282" stroke="#CBD5E1" stroke-width="1.5"/>
+  <line x1="66" y1="186" x2="594" y2="186" stroke="#CBD5E1" stroke-dasharray="4 4" stroke-width="1.4"/>
+  <text x="48" y="190" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#475569">x₀=0</text>
+
+  <!-- Meeting time tau vertical reference -->
+  <line x1="396" y1="102" x2="396" y2="286" stroke="#059669" stroke-dasharray="5 4" stroke-width="1.8"/>
+  <text x="396" y="94" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#059669">Meeting time τ</text>
+
+  <!-- Shaded difference ribbon between X_t and Y_t (telescoping Poisson sum) -->
+  <polygon points="66,118 90,128 114,112 138,136 162,150 186,132 210,154 234,142 258,164 282,156 306,172 330,162 354,176 376,172 396,182 376,186 354,196 330,188 306,204 282,194 258,210 234,198 210,220 186,210 162,234 138,224 114,246 90,236 66,254" fill="#FFE4E6" fill-opacity="0.72"/>
+
+  <!-- Vertical difference sum bars inside ribbon -->
+  <g stroke="#F43F5E" stroke-opacity="0.5" stroke-width="1.6">
+    <line x1="114" y1="114" x2="114" y2="244"/>
+    <line x1="162" y1="152" x2="162" y2="232"/>
+    <line x1="210" y1="156" x2="210" y2="218"/>
+    <line x1="258" y1="166" x2="258" y2="208"/>
+    <line x1="306" y1="174" x2="306" y2="202"/>
+    <line x1="354" y1="178" x2="354" y2="194"/>
+  </g>
+
+  <!-- Upper coupled AR(1) chain X_t -->
+  <polyline points="66,118 90,128 114,112 138,136 162,150 186,132 210,154 234,142 258,164 282,156 306,172 330,162 354,176 376,172 396,182" fill="none" stroke="#E11D48" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="66" cy="118" r="4.5" fill="#E11D48"/>
+
+  <!-- Lower coupled AR(1) chain Y_t -->
+  <polyline points="66,254 90,236 114,246 138,224 162,234 186,210 210,220 234,198 258,210 282,194 306,204 330,188 354,196 376,186 396,182" fill="none" stroke="#6B1028" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="66" cy="254" r="4.5" fill="#6B1028"/>
+
+  <!-- Coalesced single shared chain X_t = Y_t for t >= tau -->
+  <polyline points="396,182 420,164 444,178 468,158 492,174 516,198 540,182 564,164 590,174" fill="none" stroke="#059669" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Coalescence bullseye marker at tau -->
+  <circle cx="396" cy="182" r="12" fill="#059669" fill-opacity="0.18"/>
+  <circle cx="396" cy="182" r="7" fill="#FFFFFF" stroke="#059669" stroke-width="3"/>
+  <circle cx="396" cy="182" r="3" fill="#059669"/>
+
+  <!-- Trajectory labels -->
+  <text x="86" y="102" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#E11D48">X_t</text>
+  <text x="86" y="276" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#6B1028">Y_t</text>
+  <text x="234" y="110" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" fill="#6B1028">ĝ(x) = Σ (X_t − Y_t)</text>
+  <text x="510" y="138" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#059669">X_t = Y_t</text>
+
+  <!-- Bottom Aligned Transition Cost Bar -->
+  <rect x="66" y="308" width="328" height="32" rx="8" fill="#FFE4E6" stroke="#E11D48" stroke-width="1.6"/>
+  <text x="230" y="328" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#6B1028">Coupled kernel · 2× cost</text>
+
+  <rect x="398" y="308" width="194" height="32" rx="8" fill="#059669" fill-opacity="0.12" stroke="#059669" stroke-width="1.6"/>
+  <text x="495" y="328" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#059669">Single kernel · 1× cost</text>
+
+  <!-- Footer -->
+  <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-opacity="0.6" stroke-width="1"/>
+  <text x="28" y="378" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#475569">AR(1) ρ = 0.99 · Var(v̂) × transition cost</text>
+  <text x="612" y="378" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#475569">Target: <tspan font-weight="700" fill="#E11D48">asymptotic_inefficiency ↓</tspan></text>
+</svg>

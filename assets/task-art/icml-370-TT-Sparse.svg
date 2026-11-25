@@ -1,0 +1,247 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>TT-Sparse: Sparse Rule Models via Differentiable Truth Tables</title>
+  <desc>Numeric clinical features are thermometer-encoded into binary bits, passed through saliency-pruned differentiable truth tables, and simplified into sparse interpretable Boolean rules with complexity at most 14.</desc>
+  <defs>
+    <clipPath id="tts-card-clip">
+      <rect x="0" y="0" width="640" height="400" rx="16"/>
+    </clipPath>
+    <linearGradient id="tts-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F7FAFF"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="tts-accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0052FF"/>
+      <stop offset="100%" stop-color="#0EA5E9"/>
+    </linearGradient>
+    <pattern id="tts-dots" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#0A1E5E" opacity="0.15"/>
+    </pattern>
+    <marker id="tts-arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M 1 1.5 L 8.5 5 L 1 8.5 Z" fill="#0052FF"/>
+    </marker>
+    <marker id="tts-arrow-dark" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 1 1.5 L 8.5 5 L 1 8.5 Z" fill="#0A1E5E"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#tts-card-clip)">
+    <rect x="0" y="0" width="640" height="400" fill="url(#tts-bg)"/>
+    <rect x="20" y="58" width="600" height="296" fill="url(#tts-dots)"/>
+    <rect x="0" y="0" width="640" height="3" fill="url(#tts-accent)"/>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="16" fill="none" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- Header -->
+  <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <text x="28" y="38" font-size="18" font-weight="700" fill="#0A0E17">TT-Sparse</text>
+    <text x="612" y="37" text-anchor="end" font-size="12.5" fill="#475569">Differentiable Truth-Table Rules</text>
+    <line x1="28" y1="54" x2="612" y2="54" stroke="#CBD5E1" stroke-width="0.9" opacity="0.75"/>
+  </g>
+
+  <!-- Stage 1: Thermometer Bit Encoding -->
+  <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <text x="102" y="84" text-anchor="middle" font-size="12" font-weight="700" fill="#0A1E5E">Thermometer Bits</text>
+
+    <!-- Row 1: Glucose (5/7 bits) -->
+    <text x="34" y="110" font-size="11.5" font-weight="600" fill="#475569">Glucose</text>
+    <g transform="translate(34 117)">
+      <rect x="0" y="0" width="17" height="16" rx="3.5" fill="#0052FF"/>
+      <rect x="20" y="0" width="17" height="16" rx="3.5" fill="#0052FF"/>
+      <rect x="40" y="0" width="17" height="16" rx="3.5" fill="#0052FF"/>
+      <rect x="60" y="0" width="17" height="16" rx="3.5" fill="#0052FF"/>
+      <rect x="80" y="0" width="17" height="16" rx="3.5" fill="#0052FF"/>
+      <rect x="100" y="0" width="17" height="16" rx="3.5" fill="#DBEAFE" stroke="#CBD5E1" stroke-width="1"/>
+      <rect x="120" y="0" width="17" height="16" rx="3.5" fill="#DBEAFE" stroke="#CBD5E1" stroke-width="1"/>
+    </g>
+
+    <!-- Row 2: BMI (4/7 bits) -->
+    <text x="34" y="162" font-size="11.5" font-weight="600" fill="#475569">BMI</text>
+    <g transform="translate(34 169)">
+      <rect x="0" y="0" width="17" height="16" rx="3.5" fill="#0EA5E9"/>
+      <rect x="20" y="0" width="17" height="16" rx="3.5" fill="#0EA5E9"/>
+      <rect x="40" y="0" width="17" height="16" rx="3.5" fill="#0EA5E9"/>
+      <rect x="60" y="0" width="17" height="16" rx="3.5" fill="#0EA5E9"/>
+      <rect x="80" y="0" width="17" height="16" rx="3.5" fill="#DBEAFE" stroke="#CBD5E1" stroke-width="1"/>
+      <rect x="100" y="0" width="17" height="16" rx="3.5" fill="#DBEAFE" stroke="#CBD5E1" stroke-width="1"/>
+      <rect x="120" y="0" width="17" height="16" rx="3.5" fill="#DBEAFE" stroke="#CBD5E1" stroke-width="1"/>
+    </g>
+
+    <!-- Row 3: Age (2/7 bits) -->
+    <text x="34" y="214" font-size="11.5" font-weight="600" fill="#475569">Age</text>
+    <g transform="translate(34 221)">
+      <rect x="0" y="0" width="17" height="16" rx="3.5" fill="#0052FF"/>
+      <rect x="20" y="0" width="17" height="16" rx="3.5" fill="#0052FF"/>
+      <rect x="40" y="0" width="17" height="16" rx="3.5" fill="#DBEAFE" stroke="#CBD5E1" stroke-width="1"/>
+      <rect x="60" y="0" width="17" height="16" rx="3.5" fill="#DBEAFE" stroke="#CBD5E1" stroke-width="1"/>
+      <rect x="80" y="0" width="17" height="16" rx="3.5" fill="#DBEAFE" stroke="#CBD5E1" stroke-width="1"/>
+      <rect x="100" y="0" width="17" height="16" rx="3.5" fill="#DBEAFE" stroke="#CBD5E1" stroke-width="1"/>
+      <rect x="120" y="0" width="17" height="16" rx="3.5" fill="#DBEAFE" stroke="#CBD5E1" stroke-width="1"/>
+    </g>
+
+    <!-- Row 4: Pedigree (6/7 bits) -->
+    <text x="34" y="266" font-size="11.5" font-weight="600" fill="#475569">Pedigree</text>
+    <g transform="translate(34 273)">
+      <rect x="0" y="0" width="17" height="16" rx="3.5" fill="#0EA5E9"/>
+      <rect x="20" y="0" width="17" height="16" rx="3.5" fill="#0EA5E9"/>
+      <rect x="40" y="0" width="17" height="16" rx="3.5" fill="#0EA5E9"/>
+      <rect x="60" y="0" width="17" height="16" rx="3.5" fill="#0EA5E9"/>
+      <rect x="80" y="0" width="17" height="16" rx="3.5" fill="#0EA5E9"/>
+      <rect x="100" y="0" width="17" height="16" rx="3.5" fill="#0EA5E9"/>
+      <rect x="120" y="0" width="17" height="16" rx="3.5" fill="#DBEAFE" stroke="#CBD5E1" stroke-width="1"/>
+    </g>
+
+    <text x="102" y="330" text-anchor="middle" font-size="11.5" fill="#475569">8 features → thresholds</text>
+  </g>
+
+  <!-- Transition Arrow 1 -->
+  <line x1="178" y1="202" x2="206" y2="202" stroke="#0052FF" stroke-width="2.5" marker-end="url(#tts-arrow-blue)"/>
+
+  <!-- Stage 2: Differentiable Truth Table + Saliency Pruning -->
+  <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <text x="302" y="84" text-anchor="middle" font-size="12" font-weight="700" fill="#0A1E5E">Differentiable Truth Table</text>
+
+    <rect x="214" y="96" width="176" height="208" rx="12" fill="#FFFFFF" stroke="#0052FF" stroke-width="1.8" stroke-opacity="0.45"/>
+
+    <!-- Column headers -->
+    <text x="236" y="114" text-anchor="middle" font-size="11.5" font-weight="700" fill="#475569">b₁</text>
+    <text x="266" y="114" text-anchor="middle" font-size="11.5" font-weight="700" fill="#475569">b₂</text>
+    <text x="296" y="114" text-anchor="middle" font-size="11.5" font-weight="700" fill="#475569">b₃</text>
+    <line x1="318" y1="102" x2="318" y2="296" stroke="#CBD5E1" stroke-width="1.2"/>
+    <text x="352" y="114" text-anchor="middle" font-size="11.5" font-weight="700" fill="#0052FF">LTT</text>
+    <line x1="222" y1="121" x2="382" y2="121" stroke="#CBD5E1" stroke-width="1"/>
+
+    <!-- 8 Truth Table Rows (4 kept active, 4 saliency-pruned) -->
+    <!-- Row 0 (pruned) -->
+    <g opacity="0.32">
+      <circle cx="236" cy="134" r="5" fill="#DBEAFE" stroke="#0A1E5E" stroke-width="1"/>
+      <circle cx="266" cy="134" r="5" fill="#DBEAFE" stroke="#0A1E5E" stroke-width="1"/>
+      <circle cx="296" cy="134" r="5" fill="#DBEAFE" stroke="#0A1E5E" stroke-width="1"/>
+      <rect x="330" y="126" width="44" height="15" rx="4" fill="#CBD5E1"/>
+    </g>
+    <line x1="224" y1="134" x2="380" y2="134" stroke="#E11D48" stroke-width="1.3" opacity="0.6"/>
+
+    <!-- Row 1 (kept, output=1) -->
+    <g>
+      <circle cx="236" cy="156" r="5" fill="#DBEAFE" stroke="#0A1E5E" stroke-width="1.2"/>
+      <circle cx="266" cy="156" r="5" fill="#DBEAFE" stroke="#0A1E5E" stroke-width="1.2"/>
+      <circle cx="296" cy="156" r="5" fill="#0A1E5E"/>
+      <rect x="330" y="148" width="44" height="16" rx="4" fill="#0052FF"/>
+      <text x="352" y="160" text-anchor="middle" font-size="11" font-weight="700" fill="#FFFFFF">1</text>
+    </g>
+
+    <!-- Row 2 (pruned) -->
+    <g opacity="0.32">
+      <circle cx="236" cy="178" r="5" fill="#DBEAFE" stroke="#0A1E5E" stroke-width="1"/>
+      <circle cx="266" cy="178" r="5" fill="#0A1E5E"/>
+      <circle cx="296" cy="178" r="5" fill="#DBEAFE" stroke="#0A1E5E" stroke-width="1"/>
+      <rect x="330" y="170" width="44" height="15" rx="4" fill="#CBD5E1"/>
+    </g>
+    <line x1="224" y1="178" x2="380" y2="178" stroke="#E11D48" stroke-width="1.3" opacity="0.6"/>
+
+    <!-- Row 3 (kept, output=1) -->
+    <g>
+      <circle cx="236" cy="200" r="5" fill="#DBEAFE" stroke="#0A1E5E" stroke-width="1.2"/>
+      <circle cx="266" cy="200" r="5" fill="#0A1E5E"/>
+      <circle cx="296" cy="200" r="5" fill="#0A1E5E"/>
+      <rect x="330" y="192" width="44" height="16" rx="4" fill="#0052FF"/>
+      <text x="352" y="204" text-anchor="middle" font-size="11" font-weight="700" fill="#FFFFFF">1</text>
+    </g>
+
+    <!-- Row 4 (kept, output=0) -->
+    <g>
+      <circle cx="236" cy="222" r="5" fill="#0A1E5E"/>
+      <circle cx="266" cy="222" r="5" fill="#DBEAFE" stroke="#0A1E5E" stroke-width="1.2"/>
+      <circle cx="296" cy="222" r="5" fill="#DBEAFE" stroke="#0A1E5E" stroke-width="1.2"/>
+      <rect x="330" y="214" width="44" height="16" rx="4" fill="#DBEAFE" stroke="#0EA5E9" stroke-width="1.2"/>
+      <text x="352" y="226" text-anchor="middle" font-size="11" font-weight="700" fill="#0A1E5E">0</text>
+    </g>
+
+    <!-- Row 5 (pruned) -->
+    <g opacity="0.32">
+      <circle cx="236" cy="244" r="5" fill="#0A1E5E"/>
+      <circle cx="266" cy="244" r="5" fill="#DBEAFE" stroke="#0A1E5E" stroke-width="1"/>
+      <circle cx="296" cy="244" r="5" fill="#0A1E5E"/>
+      <rect x="330" y="236" width="44" height="15" rx="4" fill="#CBD5E1"/>
+    </g>
+    <line x1="224" y1="244" x2="380" y2="244" stroke="#E11D48" stroke-width="1.3" opacity="0.6"/>
+
+    <!-- Row 6 (kept, output=1) -->
+    <g>
+      <circle cx="236" cy="266" r="5" fill="#0A1E5E"/>
+      <circle cx="266" cy="266" r="5" fill="#0A1E5E"/>
+      <circle cx="296" cy="266" r="5" fill="#DBEAFE" stroke="#0A1E5E" stroke-width="1.2"/>
+      <rect x="330" y="258" width="44" height="16" rx="4" fill="#0052FF"/>
+      <text x="352" y="270" text-anchor="middle" font-size="11" font-weight="700" fill="#FFFFFF">1</text>
+    </g>
+
+    <!-- Row 7 (pruned) -->
+    <g opacity="0.32">
+      <circle cx="236" cy="288" r="5" fill="#0A1E5E"/>
+      <circle cx="266" cy="288" r="5" fill="#0A1E5E"/>
+      <circle cx="296" cy="288" r="5" fill="#0A1E5E"/>
+      <rect x="330" y="280" width="44" height="15" rx="4" fill="#CBD5E1"/>
+    </g>
+    <line x1="224" y1="288" x2="380" y2="288" stroke="#E11D48" stroke-width="1.3" opacity="0.6"/>
+
+    <text x="302" y="330" text-anchor="middle" font-size="11.5" font-weight="600" fill="#E11D48">Saliency pruning</text>
+  </g>
+
+  <!-- Transition Arrow 2 -->
+  <line x1="394" y1="202" x2="420" y2="202" stroke="#0052FF" stroke-width="2.5" marker-end="url(#tts-arrow-blue)"/>
+
+  <!-- Stage 3: Sparse Extracted Boolean Circuit -->
+  <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <text x="518" y="84" text-anchor="middle" font-size="12" font-weight="700" fill="#0A1E5E">Sparse Boolean Rules</text>
+
+    <!-- Literal Pills -->
+    <rect x="426" y="106" width="60" height="26" rx="7" fill="#FFFFFF" stroke="#0A1E5E" stroke-width="1.5"/>
+    <text x="456" y="123" text-anchor="middle" font-size="11.5" font-weight="600" fill="#0A0E17">G &gt; t₁</text>
+
+    <rect x="426" y="148" width="60" height="26" rx="7" fill="#FFFFFF" stroke="#0A1E5E" stroke-width="1.5"/>
+    <text x="456" y="165" text-anchor="middle" font-size="11.5" font-weight="600" fill="#0A0E17">B &gt; t₂</text>
+
+    <rect x="426" y="198" width="60" height="26" rx="7" fill="#FFFFFF" stroke="#0A1E5E" stroke-width="1.5"/>
+    <text x="456" y="215" text-anchor="middle" font-size="11.5" font-weight="600" fill="#0A0E17">A &gt; t₃</text>
+
+    <rect x="426" y="240" width="60" height="26" rx="7" fill="#FFFFFF" stroke="#0A1E5E" stroke-width="1.5"/>
+    <text x="456" y="257" text-anchor="middle" font-size="11.5" font-weight="600" fill="#0A0E17">P &gt; t₄</text>
+
+    <!-- Circuit wires into gates -->
+    <g fill="none" stroke="#0A1E5E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M 486 119 H 504 V 134 H 512"/>
+      <path d="M 486 161 H 504 V 146 H 512"/>
+      <path d="M 486 211 H 504 V 226 H 512"/>
+      <path d="M 486 253 H 504 V 238 H 512"/>
+    </g>
+
+    <!-- Gates -->
+    <circle cx="528" cy="140" r="16" fill="#0052FF"/>
+    <text x="528" y="145.5" text-anchor="middle" font-size="14" font-weight="700" fill="#FFFFFF">&amp;</text>
+
+    <circle cx="528" cy="232" r="16" fill="#0EA5E9"/>
+    <text x="528" y="238" text-anchor="middle" font-size="15" font-weight="700" fill="#FFFFFF">^</text>
+
+    <!-- Wires to Output Risk Score -->
+    <path d="M 544 140 H 562 V 181 H 572" fill="none" stroke="#0052FF" stroke-width="2.4" stroke-linejoin="round"/>
+    <path d="M 544 232 H 562 V 195 H 572" fill="none" stroke="#0EA5E9" stroke-width="2.4" stroke-linejoin="round"/>
+
+    <!-- Continuous Skip Wire -->
+    <path d="M 426 284 H 590 V 210" fill="none" stroke="#475569" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#tts-arrow-dark)"/>
+    <text x="506" y="298" text-anchor="middle" font-size="11" fill="#475569">Linear skip</text>
+
+    <!-- Output Probability Node -->
+    <circle cx="590" cy="188" r="18" fill="#059669"/>
+    <text x="590" y="193.5" text-anchor="middle" font-size="15" font-weight="700" fill="#FFFFFF">σ</text>
+
+    <!-- Complexity Badge -->
+    <rect x="444" y="314" width="148" height="24" rx="12" fill="#DBEAFE"/>
+    <text x="518" y="330" text-anchor="middle" font-size="11.5" font-weight="700" fill="#0A1E5E">Complexity ≤ 14</text>
+  </g>
+
+  <!-- Footer -->
+  <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-width="0.9" opacity="0.75"/>
+    <text x="28" y="380" font-size="12.5" fill="#475569">Target metric: <tspan font-weight="700" fill="#0052FF">auc ↑</tspan></text>
+    <text x="612" y="380" text-anchor="end" font-size="12" fill="#475569">5 rule sets · Mean complexity ≤ 14</text>
+  </g>
+</svg>

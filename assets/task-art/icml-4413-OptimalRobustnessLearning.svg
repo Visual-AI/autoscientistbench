@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>OptRobustPaging: Learning-Augmented Online Cache Paging</title>
+  <desc>An online 16-way set-associative cache eviction policy uses noisy next-arrival predictions to evict distant cache lines while balancing consistency near Belady's offline optimum against worst-case robustness under prediction error.</desc>
+  <defs>
+    <clipPath id="pag-card-clip">
+      <rect x="0" y="0" width="640" height="400" rx="16"/>
+    </clipPath>
+    <linearGradient id="pag-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F7FAFF"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="pag-accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0052FF"/>
+      <stop offset="100%" stop-color="#0EA5E9"/>
+    </linearGradient>
+    <linearGradient id="pag-area" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0052FF" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#059669" stop-opacity="0.03"/>
+    </linearGradient>
+    <pattern id="pag-dots" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#0A1E5E" opacity="0.15"/>
+    </pattern>
+    <marker id="pag-arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 1 1.5 L 8.5 5 L 1 8.5 Z" fill="#0052FF"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#pag-card-clip)">
+    <rect x="0" y="0" width="640" height="400" fill="url(#pag-bg)"/>
+    <rect x="20" y="58" width="600" height="296" fill="url(#pag-dots)"/>
+    <rect x="0" y="0" width="640" height="3" fill="url(#pag-accent)"/>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="16" fill="none" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- Header -->
+  <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <text x="28" y="38" font-size="18" font-weight="700" fill="#0A0E17">OptRobustPaging</text>
+    <text x="612" y="37" text-anchor="end" font-size="12.5" fill="#475569">Learning-Augmented Cache Paging</text>
+    <line x1="28" y1="54" x2="612" y2="54" stroke="#CBD5E1" stroke-width="0.9" opacity="0.75"/>
+  </g>
+
+  <!-- Left Panel: 16-Way Cache Set & Next-Arrival Horizon -->
+  <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <rect x="28" y="72" width="344" height="272" rx="12" fill="#FFFFFF" fill-opacity="0.86" stroke="#CBD5E1" stroke-width="1"/>
+
+    <text x="94" y="94" text-anchor="middle" font-size="12" font-weight="700" fill="#0A1E5E">Cache Set (k = 16)</text>
+    <text x="262" y="94" text-anchor="middle" font-size="11.5" font-weight="600" fill="#475569">Predicted Next Reuse →</text>
+
+    <!-- Incoming Miss Pill -->
+    <rect x="42" y="106" width="102" height="26" rx="7" fill="#0052FF"/>
+    <text x="93" y="123" text-anchor="middle" font-size="11.5" font-weight="700" fill="#FFFFFF">Miss → Load</text>
+    <line x1="93" y1="132" x2="93" y2="144" stroke="#0052FF" stroke-width="2" marker-end="url(#pag-arrow-blue)"/>
+
+    <!-- Vertical "Now" boundary line -->
+    <line x1="156" y1="106" x2="156" y2="312" stroke="#0A0E17" stroke-width="1.8"/>
+    <text x="156" y="328" text-anchor="middle" font-size="11" font-weight="600" fill="#0A0E17">Now</text>
+
+    <!-- Future grid verticals -->
+    <g stroke="#CBD5E1" stroke-width="1" stroke-dasharray="3 3" opacity="0.7">
+      <line x1="216" y1="110" x2="216" y2="310"/>
+      <line x1="276" y1="110" x2="276" y2="310"/>
+      <line x1="336" y1="110" x2="336" y2="310"/>
+    </g>
+
+    <!-- Way 1 -->
+    <rect x="42" y="148" width="102" height="20" rx="5" fill="#DBEAFE" stroke="#0052FF" stroke-width="1.2"/>
+    <text x="93" y="162" text-anchor="middle" font-size="11" font-weight="600" fill="#0A1E5E">Line A</text>
+    <line x1="156" y1="158" x2="206" y2="158" stroke="#0052FF" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="206" cy="158" r="4.5" fill="#0052FF"/>
+
+    <!-- Way 2 -->
+    <rect x="42" y="176" width="102" height="20" rx="5" fill="#DBEAFE" stroke="#0EA5E9" stroke-width="1.2"/>
+    <text x="93" y="190" text-anchor="middle" font-size="11" font-weight="600" fill="#0A1E5E">Line B</text>
+    <rect x="242" y="180" width="32" height="12" rx="4" fill="#0EA5E9" opacity="0.22"/>
+    <line x1="156" y1="186" x2="258" y2="186" stroke="#0EA5E9" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="258" cy="186" r="4.5" fill="#0EA5E9"/>
+
+    <!-- Way 3 -->
+    <rect x="42" y="204" width="102" height="20" rx="5" fill="#DBEAFE" stroke="#0052FF" stroke-width="1.2"/>
+    <text x="93" y="218" text-anchor="middle" font-size="11" font-weight="600" fill="#0A1E5E">Line C</text>
+    <line x1="156" y1="214" x2="186" y2="214" stroke="#0052FF" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="186" cy="214" r="4.5" fill="#0052FF"/>
+
+    <!-- Way 4: Evict Victim (Furthest predicted arrival) -->
+    <rect x="42" y="232" width="102" height="22" rx="5" fill="#E11D48" fill-opacity="0.10" stroke="#E11D48" stroke-width="1.8"/>
+    <text x="93" y="247" text-anchor="middle" font-size="11.5" font-weight="700" fill="#E11D48">Victim v</text>
+    <rect x="316" y="237" width="38" height="12" rx="4" fill="#E11D48" opacity="0.20"/>
+    <line x1="156" y1="243" x2="335" y2="243" stroke="#E11D48" stroke-width="3.2" stroke-linecap="round"/>
+    <circle cx="335" cy="243" r="6" fill="#E11D48"/>
+    <path d="M 332 240 L 338 246 M 338 240 L 332 246" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round"/>
+    <text x="348" y="228" text-anchor="end" font-size="11.5" font-weight="700" fill="#E11D48">Evict</text>
+
+    <!-- Way 5 -->
+    <rect x="42" y="262" width="102" height="20" rx="5" fill="#DBEAFE" stroke="#0EA5E9" stroke-width="1.2"/>
+    <text x="93" y="276" text-anchor="middle" font-size="11" font-weight="600" fill="#0A1E5E">Line D</text>
+    <line x1="156" y1="272" x2="226" y2="272" stroke="#0EA5E9" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="226" cy="272" r="4.5" fill="#0EA5E9"/>
+
+    <!-- Way 6 -->
+    <rect x="42" y="290" width="102" height="20" rx="5" fill="#DBEAFE" stroke="#0052FF" stroke-width="1.2"/>
+    <text x="93" y="304" text-anchor="middle" font-size="11" font-weight="600" fill="#0A1E5E">Line P</text>
+    <rect x="268" y="294" width="28" height="12" rx="4" fill="#0052FF" opacity="0.16"/>
+    <line x1="156" y1="300" x2="282" y2="300" stroke="#0052FF" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="282" cy="300" r="4.5" fill="#0052FF"/>
+
+    <text x="272" y="328" text-anchor="middle" font-size="11" fill="#475569">Noisy horizon (RPB-OM)</text>
+  </g>
+
+  <!-- Right Panel: Consistency vs Robustness Tradeoff -->
+  <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <rect x="392" y="72" width="220" height="272" rx="12" fill="#FFFFFF" fill-opacity="0.88" stroke="#CBD5E1" stroke-width="1"/>
+    <text x="502" y="94" text-anchor="middle" font-size="12" font-weight="700" fill="#0A1E5E">Consistency &amp; Robustness</text>
+
+    <!-- Plot area x=428..598, y=110..292 -->
+    <!-- Belady OPT = 1.0 floor -->
+    <line x1="428" y1="274" x2="598" y2="274" stroke="#059669" stroke-width="1.8" stroke-dasharray="5 4"/>
+    <text x="596" y="266" text-anchor="end" font-size="11" font-weight="700" fill="#059669">Belady OPT (1.0)</text>
+
+    <!-- Online Worst-Case Robustness Ceiling -->
+    <line x1="428" y1="152" x2="598" y2="152" stroke="#475569" stroke-width="1.6" stroke-dasharray="4 4"/>
+    <text x="596" y="145" text-anchor="end" font-size="11" fill="#475569">Robust bound</text>
+
+    <!-- Blind Advice (blows up with error) -->
+    <path d="M 432 264 C 466 250 494 196 528 112" fill="none" stroke="#E11D48" stroke-width="2.2" stroke-dasharray="5 3.5" stroke-linecap="round"/>
+    <text x="506" y="122" text-anchor="end" font-size="11" font-weight="600" fill="#E11D48">Blind advice</text>
+
+    <!-- Shaded Optimal Robust Curve Area -->
+    <path d="M 432 264 C 462 254 486 206 524 184 C 552 169 576 165 596 164 L 596 274 L 432 274 Z" fill="url(#pag-area)"/>
+
+    <!-- Bold Learning-Augmented Robust Curve -->
+    <path d="M 432 264 C 462 254 486 206 524 184 C 552 169 576 165 596 164" fill="none" stroke="#0052FF" stroke-width="3.5" stroke-linecap="round"/>
+    <circle cx="432" cy="264" r="4.5" fill="#059669" stroke="#FFFFFF" stroke-width="1.8"/>
+    <text x="594" y="210" text-anchor="end" font-size="11.5" font-weight="700" fill="#0052FF">Robust policy</text>
+
+    <!-- Axes -->
+    <path d="M 428 108 V 292 H 600" fill="none" stroke="#0A0E17" stroke-width="1.8" stroke-linecap="round"/>
+
+    <text x="410" y="200" transform="rotate(-90 410 200)" text-anchor="middle" font-size="11.5" fill="#475569">Cost ratio</text>
+    <text x="514" y="314" text-anchor="middle" font-size="11.5" font-weight="600" fill="#0A0E17">Prediction error η</text>
+    <text x="514" y="332" text-anchor="middle" font-size="11" fill="#475569">Causal · Zero lookahead</text>
+  </g>
+
+  <!-- Footer -->
+  <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-width="0.9" opacity="0.75"/>
+    <text x="28" y="380" font-size="12.5" fill="#475569">Target metric: <tspan font-weight="700" fill="#0052FF">mean_cost_ratio ↓</tspan></text>
+    <text x="612" y="380" text-anchor="end" font-size="12" fill="#475569">SPEC CPU traces · k = 16 · OPT = 1.0</text>
+  </g>
+</svg>

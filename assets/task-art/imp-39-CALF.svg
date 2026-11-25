@@ -1,0 +1,179 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>CALF: Cross-Modal LLM Alignment for Time Series</title>
+  <desc>PCA-reduced GPT-2 word embeddings align with 96-step temporal tokens via cross-attention, linking a frozen textual GPT-2 branch and a LoRA-adapted temporal GPT-2 branch through intermediate feature alignment and output consistency losses.</desc>
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F7FAFF"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="topBar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0052FF"/>
+      <stop offset="100%" stop-color="#0EA5E9"/>
+    </linearGradient>
+    <linearGradient id="bridgeGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0EA5E9" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#0052FF" stop-opacity="0.22"/>
+    </linearGradient>
+    <pattern id="dotGrid" width="16" height="16" patternUnits="userSpaceOnUse">
+      <circle cx="8" cy="8" r="0.9" fill="#475569" fill-opacity="0.16"/>
+    </pattern>
+    <clipPath id="cardClip">
+      <rect x="0.5" y="0.5" width="639" height="399" rx="14"/>
+    </clipPath>
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 1 1.5 L 8.5 5 L 1 8.5 z" fill="#0052FF"/>
+    </marker>
+    <marker id="arrowCyan" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 1 1.5 L 8.5 5 L 1 8.5 z" fill="#0EA5E9"/>
+    </marker>
+    <marker id="arrowRed" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
+      <path d="M 1 1.5 L 8.5 5 L 1 8.5 z" fill="#E11D48"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#cardClip)">
+    <rect x="0" y="0" width="640" height="400" fill="url(#bgGrad)"/>
+    <rect x="0" y="52" width="640" height="306" fill="url(#dotGrid)"/>
+    <rect x="0" y="0" width="640" height="3.5" fill="url(#topBar)"/>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="14" fill="none" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- Header -->
+  <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <text x="28" y="36" font-size="18" font-weight="700" fill="#0A0E17">CALF</text>
+    <text x="612" y="35" text-anchor="end" font-size="12.5" font-weight="500" fill="#475569">Cross-Modal LLM Alignment</text>
+  </g>
+  <line x1="28" y1="52" x2="612" y2="52" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.7"/>
+
+  <!-- Left Top: PCA Word Embeddings Cloud -->
+  <rect x="28" y="76" width="132" height="100" rx="12" fill="#FFFFFF" stroke="#0EA5E9" stroke-opacity="0.6" stroke-width="1.4"/>
+  <text x="94" y="96" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0A1E5E">PCA Words</text>
+  <g stroke="#0EA5E9" stroke-opacity="0.35" stroke-width="1.2">
+    <line x1="52" y1="124" x2="78" y2="114"/>
+    <line x1="78" y1="114" x2="108" y2="128"/>
+    <line x1="108" y1="128" x2="136" y2="118"/>
+    <line x1="52" y1="124" x2="66" y2="152"/>
+    <line x1="66" y1="152" x2="102" y2="158"/>
+    <line x1="102" y1="158" x2="136" y2="148"/>
+    <line x1="78" y1="114" x2="102" y2="158"/>
+    <line x1="108" y1="128" x2="136" y2="148"/>
+  </g>
+  <g>
+    <circle cx="52" cy="124" r="4.5" fill="#0EA5E9"/>
+    <circle cx="78" cy="114" r="5" fill="#0052FF"/>
+    <circle cx="108" cy="128" r="4.5" fill="#0EA5E9"/>
+    <circle cx="136" cy="118" r="4" fill="#0A1E5E"/>
+    <circle cx="66" cy="152" r="4.5" fill="#0052FF" fill-opacity="0.75"/>
+    <circle cx="102" cy="158" r="5" fill="#0EA5E9"/>
+    <circle cx="136" cy="148" r="4.5" fill="#0052FF"/>
+  </g>
+
+  <!-- Left Bottom: 96-Step Time Series Window -->
+  <rect x="28" y="234" width="132" height="100" rx="12" fill="#FFFFFF" stroke="#0052FF" stroke-opacity="0.55" stroke-width="1.4"/>
+  <text x="94" y="254" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0A1E5E">96-Step Input</text>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M 40 282 C 54 268, 66 292, 82 278 C 98 264, 114 290, 130 276 C 138 270, 144 276, 148 272" stroke="#0052FF" stroke-width="2.5"/>
+    <path d="M 40 302 C 56 312, 70 292, 86 304 C 102 314, 118 294, 134 304 C 142 308, 146 300, 148 302" stroke="#0EA5E9" stroke-width="2"/>
+    <path d="M 40 318 C 56 312, 72 324, 90 316 C 108 308, 124 322, 148 315" stroke="#0A1E5E" stroke-width="1.7" stroke-opacity="0.5"/>
+  </g>
+
+  <!-- Cross-Modal Attention Hub -->
+  <path d="M 160 126 C 186 126, 206 144, 206 168" fill="none" stroke="#0EA5E9" stroke-width="2.2" marker-end="url(#arrowCyan)"/>
+  <path d="M 160 284 C 186 284, 206 268, 206 244" fill="none" stroke="#0052FF" stroke-width="2.2" marker-end="url(#arrowBlue)"/>
+  <!-- Direct temporal pass-through arrow -->
+  <line x1="160" y1="284" x2="258" y2="284" stroke="#0052FF" stroke-width="2.5" marker-end="url(#arrowBlue)"/>
+
+  <polygon points="206,172 242,205 206,238 170,205" fill="#DBEAFE" stroke="#0052FF" stroke-width="2.2"/>
+  <text x="206" y="209" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#0A1E5E">×Attn</text>
+  <!-- Cross-Attn output up to Textual Branch -->
+  <path d="M 242 205 C 252 205, 250 125, 260 125" fill="none" stroke="#0EA5E9" stroke-width="2.2" marker-end="url(#arrowCyan)"/>
+
+  <!-- Upper Rail: Frozen Textual GPT-2 Branch -->
+  <text x="372" y="76" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0EA5E9">Textual Branch · GPT-2</text>
+  <rect x="262" y="86" width="220" height="78" rx="12" fill="#F7FAFF" stroke="#0EA5E9" stroke-width="1.6" stroke-dasharray="5 3.5"/>
+
+  <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0A1E5E" text-anchor="middle">
+    <rect x="276" y="102" width="54" height="46" rx="8" fill="#DBEAFE" stroke="#0EA5E9" stroke-width="2"/>
+    <text x="303" y="129">L1–2</text>
+
+    <rect x="345" y="102" width="54" height="46" rx="8" fill="#DBEAFE" stroke="#0EA5E9" stroke-width="2"/>
+    <text x="372" y="129">L3–4</text>
+
+    <rect x="414" y="102" width="54" height="46" rx="8" fill="#DBEAFE" stroke="#0EA5E9" stroke-width="2"/>
+    <text x="441" y="129">L5–6</text>
+  </g>
+  <g stroke="#0EA5E9" stroke-width="2" marker-end="url(#arrowCyan)">
+    <line x1="330" y1="125" x2="342" y2="125"/>
+    <line x1="399" y1="125" x2="411" y2="125"/>
+  </g>
+
+  <!-- Vertical Feature Alignment Pillars between Branches -->
+  <g>
+    <rect x="296" y="152" width="14" height="82" rx="4" fill="url(#bridgeGrad)"/>
+    <rect x="365" y="152" width="14" height="82" rx="4" fill="url(#bridgeGrad)"/>
+    <rect x="434" y="152" width="14" height="82" rx="4" fill="url(#bridgeGrad)"/>
+  </g>
+  <g stroke="#0052FF" stroke-width="2" stroke-dasharray="4 3" marker-start="url(#arrowCyan)" marker-end="url(#arrowBlue)">
+    <line x1="303" y1="156" x2="303" y2="232"/>
+    <line x1="372" y1="156" x2="372" y2="232"/>
+    <line x1="441" y1="156" x2="441" y2="232"/>
+  </g>
+  <!-- Crisp Mask Pill for Feature Alignment Label -->
+  <rect x="316" y="188" width="112" height="24" rx="12" fill="#FFFFFF" stroke="#0052FF" stroke-width="1.5"/>
+  <text x="372" y="204" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#0052FF">Feature Align</text>
+
+  <!-- Lower Rail: LoRA Temporal GPT-2 Branch -->
+  <rect x="262" y="236" width="220" height="90" rx="12" fill="#FFFFFF" stroke="#0052FF" stroke-width="2"/>
+  <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle">
+    <rect x="276" y="248" width="54" height="44" rx="8" fill="#0052FF" stroke="#0A1E5E" stroke-width="1.2"/>
+    <text x="303" y="274">L1–2</text>
+
+    <rect x="345" y="248" width="54" height="44" rx="8" fill="#0052FF" stroke="#0A1E5E" stroke-width="1.2"/>
+    <text x="372" y="274">L3–4</text>
+
+    <rect x="414" y="248" width="54" height="44" rx="8" fill="#0052FF" stroke="#0A1E5E" stroke-width="1.2"/>
+    <text x="441" y="274">L5–6</text>
+  </g>
+  <g stroke="#0052FF" stroke-width="2" marker-end="url(#arrowBlue)">
+    <line x1="330" y1="270" x2="342" y2="270"/>
+    <line x1="399" y1="270" x2="411" y2="270"/>
+  </g>
+  <!-- LoRA Adapter Bars -->
+  <g>
+    <rect x="282" y="298" width="42" height="18" rx="5" fill="#059669" fill-opacity="0.16" stroke="#059669" stroke-width="1.4"/>
+    <rect x="351" y="298" width="42" height="18" rx="5" fill="#059669" fill-opacity="0.16" stroke="#059669" stroke-width="1.4"/>
+    <rect x="420" y="298" width="42" height="18" rx="5" fill="#059669" fill-opacity="0.16" stroke="#059669" stroke-width="1.4"/>
+  </g>
+  <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#059669" text-anchor="middle">
+    <text x="303" y="311">LoRA</text>
+    <text x="372" y="311">LoRA</text>
+    <text x="441" y="311">LoRA</text>
+  </g>
+  <text x="372" y="344" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0052FF">Temporal Branch · GPT-2 + LoRA</text>
+
+  <!-- Right Side: Output Consistency & Inference Forecast -->
+  <line x1="482" y1="125" x2="531" y2="125" stroke="#0EA5E9" stroke-width="2.2" marker-end="url(#arrowCyan)"/>
+  <circle cx="556" cy="125" r="20" fill="#DBEAFE" stroke="#0EA5E9" stroke-width="2"/>
+  <text x="556" y="129" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="700" fill="#0A1E5E">ŷ<tspan dy="2.5" font-size="11.5">T</tspan></text>
+
+  <!-- Output Consistency Loss Bridge -->
+  <line x1="556" y1="149" x2="556" y2="226" stroke="#E11D48" stroke-width="2.2" stroke-dasharray="4 3" marker-start="url(#arrowRed)" marker-end="url(#arrowRed)"/>
+  <rect x="506" y="176" width="100" height="22" rx="11" fill="#FFFFFF" stroke="#E11D48" stroke-width="1.4"/>
+  <text x="556" y="191" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#E11D48">Output Loss</text>
+
+  <!-- Inference Forecast Output Card -->
+  <line x1="482" y1="280" x2="500" y2="280" stroke="#0052FF" stroke-width="2.5" marker-end="url(#arrowBlue)"/>
+  <rect x="504" y="232" width="108" height="96" rx="12" fill="#FFFFFF" stroke="#059669" stroke-width="2"/>
+  <text x="558" y="252" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#059669">Forecast</text>
+  <path d="M 516 296 L 516 286 C 532 272, 546 294, 564 276 C 578 262, 588 278, 600 266 L 600 296 Z" fill="#059669" fill-opacity="0.14"/>
+  <path d="M 516 286 C 532 272, 546 294, 564 276 C 578 262, 588 278, 600 266" fill="none" stroke="#059669" stroke-width="2.8" stroke-linecap="round"/>
+  <circle cx="600" cy="266" r="3.5" fill="#059669"/>
+  <text x="558" y="317" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#475569">H: 96–720</text>
+
+  <!-- Footer -->
+  <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.7"/>
+  <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5">
+    <text x="28" y="379" fill="#475569">ETTh1 · GPT-2 + LoRA · 4 Horizons</text>
+    <text x="612" y="379" text-anchor="end" fill="#475569">Metric: <tspan font-weight="700" fill="#0052FF">Mean MSE ↓</tspan></text>
+  </g>
+</svg>

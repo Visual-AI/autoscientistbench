@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>Mpemba-RT — Gibbs Permutation and Slow-Mode Nulling</title>
+  <desc>Permuting an initial Gibbs probability multiset across Ising microstates cancels its projection onto the two slowest relaxation modes, accelerating thermalization toward equilibrium via the strong Mpemba effect.</desc>
+  <defs>
+    <linearGradient id="card-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFBF2"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="accent-bar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#D97706"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+    <clipPath id="card-clip">
+      <rect x="0" y="0" width="640" height="400" rx="14"/>
+    </clipPath>
+    <pattern id="dot-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#6E3A05" fill-opacity="0.16"/>
+    </pattern>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#card-clip)" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <!-- Base canvas & grid -->
+    <rect x="0" y="0" width="640" height="400" fill="url(#card-bg)"/>
+    <rect x="16" y="54" width="608" height="304" fill="url(#dot-grid)"/>
+    <rect x="0" y="0" width="640" height="3" fill="url(#accent-bar)"/>
+
+    <!-- Header (y=18..54) -->
+    <text x="28" y="36" font-size="18" font-weight="700" fill="#0A0E17" letter-spacing="-0.3">Mpemba-RT</text>
+    <text x="612" y="36" font-size="12.5" font-weight="500" fill="#475569" text-anchor="end">Gibbs Permutation &amp; Slow-Mode Nulling</text>
+    <line x1="28" y1="53" x2="612" y2="53" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.7"/>
+
+    <!-- LEFT PANEL: Gibbs Multiset Permutation Braid p -> P p -->
+    <text x="154" y="80" font-size="12.5" font-weight="600" fill="#0A0E17" text-anchor="middle">Gibbs Permutation  p → P p</text>
+
+    <!-- Permutation crossing ribbons (exact bijection preserving multiset) -->
+    <g fill="none" stroke-width="2.4" stroke-opacity="0.72" stroke-linecap="round">
+      <!-- 0 (y=114) -> 1 (y=144) -->
+      <path d="M 106 114 C 144 114 164 144 202 144" stroke="#D97706"/>
+      <!-- 1 (y=144) -> 3 (y=204) -->
+      <path d="M 106 144 C 148 144 160 204 202 204" stroke="#F59E0B"/>
+      <!-- 2 (y=174) -> 5 (y=264) -->
+      <path d="M 106 174 C 150 174 158 264 202 264" stroke="#6E3A05" stroke-opacity="0.55"/>
+      <!-- 3 (y=204) -> 0 (y=114) -->
+      <path d="M 106 204 C 152 204 156 114 202 114" stroke="#059669" stroke-opacity="0.78"/>
+      <!-- 4 (y=234) -> 6 (y=294) -->
+      <path d="M 106 234 C 144 234 164 294 202 294" stroke="#D97706" stroke-opacity="0.55"/>
+      <!-- 5 (y=264) -> 4 (y=234) -->
+      <path d="M 106 264 C 144 264 164 234 202 234" stroke="#F59E0B"/>
+      <!-- 6 (y=294) -> 2 (y=174) -->
+      <path d="M 106 294 C 154 294 154 174 202 174" stroke="#059669" stroke-opacity="0.65"/>
+    </g>
+
+    <!-- Initial Gibbs spectrum p (ranked descending, right-aligned to x=102) -->
+    <g>
+      <rect x="48" y="105" width="54" height="18" rx="4" fill="#D97706"/>
+      <rect x="58" y="135" width="44" height="18" rx="4" fill="#F59E0B"/>
+      <rect x="67" y="165" width="35" height="18" rx="4" fill="#6E3A05" fill-opacity="0.78"/>
+      <rect x="75" y="195" width="27" height="18" rx="4" fill="#059669" fill-opacity="0.82"/>
+      <rect x="81" y="225" width="21" height="18" rx="4" fill="#D97706" fill-opacity="0.72"/>
+      <rect x="86" y="255" width="16" height="18" rx="4" fill="#F59E0B" fill-opacity="0.85"/>
+      <rect x="90" y="285" width="12" height="18" rx="4" fill="#059669" fill-opacity="0.68"/>
+    </g>
+
+    <!-- Permuted Gibbs spectrum P p (exact same 7 widths, left-aligned at x=206) -->
+    <g>
+      <rect x="206" y="105" width="27" height="18" rx="4" fill="#059669" fill-opacity="0.82"/>
+      <rect x="206" y="135" width="54" height="18" rx="4" fill="#D97706"/>
+      <rect x="206" y="165" width="12" height="18" rx="4" fill="#059669" fill-opacity="0.68"/>
+      <rect x="206" y="195" width="44" height="18" rx="4" fill="#F59E0B"/>
+      <rect x="206" y="225" width="16" height="18" rx="4" fill="#F59E0B" fill-opacity="0.85"/>
+      <rect x="206" y="255" width="35" height="18" rx="4" fill="#6E3A05" fill-opacity="0.78"/>
+      <rect x="206" y="285" width="21" height="18" rx="4" fill="#D97706" fill-opacity="0.72"/>
+    </g>
+
+    <!-- Column captions -->
+    <text x="75" y="330" font-size="12.5" font-weight="700" fill="#475569" text-anchor="middle">Initial p</text>
+    <text x="154" y="330" font-size="12.5" font-weight="600" fill="#475569" text-anchor="middle">→</text>
+    <text x="233" y="330" font-size="12.5" font-weight="700" fill="#D97706" text-anchor="middle">Permuted P p</text>
+
+    <!-- Vertical section divider -->
+    <line x1="294" y1="70" x2="294" y2="346" stroke="#CBD5E1" stroke-width="1.2" stroke-dasharray="3 5"/>
+
+    <!-- RIGHT-TOP PANEL: 2-Slow-Mode Projection Target (c2, c3) -->
+    <!-- Coordinate axes crossing at origin (462, 144) -->
+    <line x1="340" y1="144" x2="578" y2="144" stroke="#475569" stroke-width="1.5"/>
+    <line x1="462" y1="80" x2="462" y2="206" stroke="#475569" stroke-width="1.5"/>
+    <text x="584" y="148" font-size="13.5" font-weight="600" fill="#475569">c<tspan font-size="11.5" dy="2.5">2</tspan></text>
+    <text x="472" y="82" font-size="13.5" font-weight="600" fill="#475569">c<tspan font-size="11.5" dy="2.5">3</tspan></text>
+
+    <!-- Concentric L1-norm diamonds |c2| + |c3| = C (radii 60, 40, 20) -->
+    <polygon points="462,84 522,144 462,204 402,144" fill="#FEF3C7" fill-opacity="0.28" stroke="#D97706" stroke-width="1.2" stroke-opacity="0.45" stroke-dasharray="4 3"/>
+    <polygon points="462,104 502,144 462,184 422,144" fill="#FEF3C7" fill-opacity="0.42" stroke="#D97706" stroke-width="1.4" stroke-opacity="0.65" stroke-dasharray="4 3"/>
+    <polygon points="462,124 482,144 462,164 442,144" fill="#059669" fill-opacity="0.14" stroke="#059669" stroke-width="1.6"/>
+
+    <!-- Origin bullseye (strong Mpemba target C -> 0) -->
+    <circle cx="462" cy="144" r="10" fill="#059669" fill-opacity="0.22"/>
+    <circle cx="462" cy="144" r="4.8" fill="#059669"/>
+
+    <!-- Unpermuted initial overlap p and optimization arrow into origin -->
+    <path d="M 546 106 Q 510 110 474 137" fill="none" stroke="#059669" stroke-width="2.6" marker-end="url(#arrow-green)"/>
+    <circle cx="550" cy="106" r="5.5" fill="#E11D48" stroke="#FFFFFF" stroke-width="1.8"/>
+    <text x="561" y="110" font-size="12" font-weight="700" fill="#E11D48">p</text>
+
+    <!-- Left-top callout in open air -->
+    <text x="306" y="101" font-size="13" font-weight="700" fill="#059669">|c<tspan font-size="11.5" dy="2.5">2</tspan><tspan dy="-2.5">| + |c</tspan><tspan font-size="11.5" dy="2.5">3</tspan><tspan dy="-2.5">| → 0</tspan></text>
+    <text x="306" y="121" font-size="11.5" fill="#475569">Strong Mpemba</text>
+
+    <!-- RIGHT-BOTTOM PANEL: Strong Mpemba Exponential Relaxation -->
+    <line x1="342" y1="226" x2="342" y2="322" stroke="#475569" stroke-width="1.6"/>
+    <line x1="342" y1="322" x2="596" y2="322" stroke="#475569" stroke-width="1.6"/>
+
+    <!-- Shaded speedup region between slow and fast relaxation -->
+    <path d="M 344 238 Q 432 254 588 271 L 588 320 L 508 318 C 430 296 386 256 344 238 Z" fill="#059669" fill-opacity="0.11"/>
+
+    <!-- Slow unpermuted decay (rate lambda_2) -->
+    <path d="M 344 238 Q 432 254 588 271" fill="none" stroke="#E11D48" stroke-width="2.3" stroke-dasharray="6 4"/>
+    <!-- Fast permuted decay (strong Mpemba speedup) -->
+    <path d="M 344 238 C 386 256 430 296 508 318 L 588 320" fill="none" stroke="#059669" stroke-width="3.1" stroke-linecap="round"/>
+
+    <!-- Plot labels -->
+    <text x="342" y="216" font-size="12.5" font-weight="600" fill="#0A0E17">log D(p<tspan font-size="11.5" dy="2">t</tspan><tspan dy="-2">, π)</tspan></text>
+    <text x="592" y="250" font-size="12.5" font-weight="600" fill="#E11D48" text-anchor="end">Unpermuted (λ<tspan font-size="11.5" dy="2">2</tspan><tspan dy="-2">)</tspan></text>
+    <text x="356" y="311" font-size="11.5" font-weight="700" fill="#059669">Permuted P p</text>
+    <text x="594" y="339" font-size="11.5" font-weight="600" fill="#475569" text-anchor="end">Time t</text>
+
+    <!-- Footer (y=378) -->
+    <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.7"/>
+    <text x="28" y="378" font-size="12.5" fill="#475569">Ising Chain · K = 2 Slow Modes</text>
+    <text x="612" y="378" font-size="12.5" fill="#475569" text-anchor="end">Metric: <tspan font-weight="700" fill="#D97706">median_log10_c ↓</tspan></text>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="13.5" fill="none" stroke="#CBD5E1" stroke-width="1"/>
+</svg>

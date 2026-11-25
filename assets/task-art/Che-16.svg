@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>Monofluoro-BO — Defluorinative Monofluoroalkene Synthesis Yield Prediction</title>
+  <desc>Two substrates react via Pd168-catalyzed defluorinative C-C bond formation to yield a monofluoroalkene, feeding a productivity classifier guarded at F1 &gt;= 0.912 and an all-row percent yield regressor evaluated by R-squared across held-out product scaffolds.</desc>
+  <defs>
+    <clipPath id="monofluoro-card-clip">
+      <rect width="640" height="400" rx="16"/>
+    </clipPath>
+    <linearGradient id="monofluoro-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFF8F3"/>
+      <stop offset="58%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="monofluoro-bar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#EA580C"/>
+      <stop offset="100%" stop-color="#F97316"/>
+    </linearGradient>
+    <pattern id="monofluoro-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#6E2707" fill-opacity="0.15"/>
+    </pattern>
+    <marker id="monofluoro-arrow-ink" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M1 1.5L9 5L1 8.5Z" fill="#0A0E17"/>
+    </marker>
+    <marker id="monofluoro-arrow-orange" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M1 1.5L9 5L1 8.5Z" fill="#EA580C"/>
+    </marker>
+    <marker id="monofluoro-arrow-red" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto">
+      <path d="M1 1.5L9 5L1 8.5Z" fill="#E11D48"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#monofluoro-card-clip)">
+    <rect width="640" height="400" fill="url(#monofluoro-bg)"/>
+    <rect x="28" y="60" width="584" height="294" fill="url(#monofluoro-grid)"/>
+    <rect x="0" y="0" width="640" height="3.5" fill="url(#monofluoro-bar)"/>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="15.5" fill="none" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- Header -->
+  <text x="28" y="37" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="700" fill="#0A0E17">Monofluoro-BO</text>
+  <text x="612" y="37" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#475569">Defluorinative Alkene Yield Prediction</text>
+  <line x1="28" y1="54" x2="612" y2="54" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- Top Hero Band: Defluorinative C-C Coupling Reaction Scheme -->
+  <rect x="34" y="68" width="572" height="118" rx="12" fill="#FFFFFF" fill-opacity="0.88" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- Substrate 1: Gem-Difluoroalkene (Ar-CH=CF2) -->
+  <g stroke="#0A0E17" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <polygon points="88,104 109,116 109,140 88,152 67,140 67,116"/>
+    <circle cx="88" cy="128" r="13" stroke="#6E2707" stroke-width="1.3" stroke-dasharray="3 2.5"/>
+    <line x1="109" y1="128" x2="132" y2="128"/>
+    <!-- C=C double bond -->
+    <line x1="132" y1="125" x2="162" y2="125"/>
+    <line x1="132" y1="131" x2="162" y2="131"/>
+    <!-- Two C-F bonds -->
+    <line x1="162" y1="128" x2="180" y2="108"/>
+    <line x1="162" y1="128" x2="180" y2="148"/>
+  </g>
+  <circle cx="186" cy="102" r="11" fill="#059669" fill-opacity="0.14"/>
+  <text x="186" y="107" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13.5" font-weight="700" fill="#059669">F</text>
+  <circle cx="186" cy="154" r="11" fill="#E11D48" fill-opacity="0.16" stroke="#E11D48" stroke-width="1.2" stroke-dasharray="2.5 2"/>
+  <text x="186" y="159" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13.5" font-weight="700" fill="#E11D48">F</text>
+
+  <!-- Plus sign -->
+  <text x="214" y="134" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="700" fill="#475569">+</text>
+
+  <!-- Substrate 2: Coupling Partner (R-coupling ring) -->
+  <g stroke="#0A0E17" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <line x1="244" y1="128" x2="264" y2="128" stroke="#EA580C" stroke-width="2.8"/>
+    <polygon points="282,107 302,121 294,145 270,145 262,121"/>
+  </g>
+  <circle cx="242" cy="128" r="5.5" fill="#EA580C" stroke="#FFFFFF" stroke-width="1.5"/>
+  <text x="282" y="133" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#6E2707">R</text>
+
+  <!-- Reaction Arrow & Fixed Conditions -->
+  <line x1="318" y1="126" x2="418" y2="126" stroke="#0A0E17" stroke-width="2.6" marker-end="url(#monofluoro-arrow-ink)"/>
+  <text x="368" y="109" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#6E2707">Pd168 · KHCO₃ · 80°C</text>
+  <path d="M348 134 Q368 154 390 144" fill="none" stroke="#E11D48" stroke-width="1.8" stroke-dasharray="3 2.5" marker-end="url(#monofluoro-arrow-red)"/>
+  <text x="368" y="167" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#E11D48">−F⁻</text>
+
+  <!-- Product: Monofluoroalkene (Ar-CH=C(F)-R) -->
+  <!-- Highlighted new C-C bond glow -->
+  <line x1="528" y1="128" x2="554" y2="146" stroke="#FFEDD5" stroke-width="11" stroke-linecap="round"/>
+  <g stroke="#0A0E17" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <polygon points="462,106 481,117 481,139 462,150 443,139 443,117"/>
+    <circle cx="462" cy="128" r="12" stroke="#6E2707" stroke-width="1.3" stroke-dasharray="3 2.5"/>
+    <line x1="481" y1="128" x2="500" y2="128"/>
+    <!-- C=C double bond -->
+    <line x1="500" y1="125" x2="528" y2="125"/>
+    <line x1="500" y1="131" x2="528" y2="131"/>
+    <!-- Retained C-F bond -->
+    <line x1="528" y1="128" x2="546" y2="108"/>
+    <!-- New C-C bond -->
+    <line x1="528" y1="128" x2="554" y2="146" stroke="#EA580C" stroke-width="4.2"/>
+    <!-- Attached R ring -->
+    <polygon points="574,132 592,145 585,167 563,167 556,145"/>
+  </g>
+  <circle cx="552" cy="102" r="11" fill="#059669" fill-opacity="0.16"/>
+  <text x="552" y="107" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13.5" font-weight="700" fill="#059669">F</text>
+  <text x="574" y="156" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#6E2707">R</text>
+  <text x="518" y="176" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#EA580C">New C–C</text>
+
+  <!-- Bottom-Left: Productivity Gate (Zero-Yield vs Active, F1 >= 0.912) -->
+  <text x="92" y="218" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#E11D48">Zero-Yield</text>
+  <text x="218" y="218" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#059669">Active (&gt;0%)</text>
+
+  <!-- Density curves -->
+  <path d="M46 318 C64 318 72 238 88 238 C104 238 118 308 156 318 Z" fill="#E11D48" fill-opacity="0.18"/>
+  <path d="M46 318 C64 318 72 238 88 238 C104 238 118 308 156 318" fill="none" stroke="#E11D48" stroke-width="2.6"/>
+
+  <path d="M126 318 C154 314 182 246 212 246 C242 246 254 312 276 318 Z" fill="#059669" fill-opacity="0.18"/>
+  <path d="M126 318 C154 314 182 246 212 246 C242 246 254 312 276 318" fill="none" stroke="#059669" stroke-width="2.6"/>
+
+  <!-- Gate baseline & decision threshold -->
+  <line x1="44" y1="318" x2="278" y2="318" stroke="#475569" stroke-width="1.6"/>
+  <line x1="144" y1="226" x2="144" y2="324" stroke="#0A0E17" stroke-width="2" stroke-dasharray="5 3"/>
+  <text x="144" y="343" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0A0E17">F1 ≥ 0.912 Gate</text>
+
+  <!-- Connector arrow to yield regression -->
+  <line x1="286" y1="274" x2="324" y2="274" stroke="#EA580C" stroke-width="2.5" marker-end="url(#monofluoro-arrow-orange)"/>
+
+  <!-- Bottom-Right: All-Row Percent Yield Regression -->
+  <text x="480" y="210" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#0A0E17">All-Row Yield (%)</text>
+
+  <!-- Confidence corridor around parity -->
+  <polygon points="366,318 366,304 568,220 594,220 594,238 394,318" fill="#FFEDD5" fill-opacity="0.65"/>
+
+  <!-- Axes -->
+  <line x1="366" y1="222" x2="366" y2="318" stroke="#475569" stroke-width="1.8"/>
+  <line x1="366" y1="318" x2="598" y2="318" stroke="#475569" stroke-width="1.8"/>
+  <line x1="366" y1="318" x2="592" y2="224" stroke="#475569" stroke-width="1.8" stroke-dasharray="5 4"/>
+
+  <!-- Zero-yield cluster at origin -->
+  <g stroke="#FFFFFF" stroke-width="1.3">
+    <circle cx="372" cy="314" r="4.5" fill="#E11D48"/>
+    <circle cx="381" cy="315" r="4.2" fill="#E11D48"/>
+    <circle cx="375" cy="306" r="4.0" fill="#E11D48"/>
+  </g>
+
+  <!-- Active yield predictions -->
+  <g stroke="#FFFFFF" stroke-width="1.4">
+    <circle cx="412" cy="296" r="4.6" fill="#EA580C"/>
+    <circle cx="434" cy="292" r="4.6" fill="#F97316"/>
+    <circle cx="456" cy="276" r="4.8" fill="#EA580C"/>
+    <circle cx="478" cy="272" r="4.6" fill="#059669"/>
+    <circle cx="502" cy="260" r="4.8" fill="#EA580C"/>
+    <circle cx="524" cy="254" r="4.6" fill="#6E2707"/>
+    <circle cx="546" cy="240" r="4.8" fill="#EA580C"/>
+    <circle cx="566" cy="238" r="4.6" fill="#059669"/>
+    <circle cx="584" cy="227" r="4.8" fill="#EA580C"/>
+  </g>
+
+  <text x="546" y="294" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#EA580C">R² Fit</text>
+  <text x="366" y="340" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">0%</text>
+  <text x="480" y="340" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">Observed Yield</text>
+  <text x="596" y="340" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">100%</text>
+
+  <!-- Footer -->
+  <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="28" y="380" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#475569">Product Scaffold Split · Zero-Yield Retained</text>
+  <text x="612" y="380" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#475569">Target: <tspan font-weight="700" fill="#EA580C">R² ↑</tspan></text>
+</svg>

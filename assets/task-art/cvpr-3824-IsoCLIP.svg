@@ -1,0 +1,187 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>IsoCLIP — Decomposing CLIP Projectors for Intra-Modal Alignment</title>
+  <desc>Singular value decomposition of the frozen CLIP ViT-B/32 cross-modal projector removes extreme top and bottom singular directions, yielding an isotropic unit-hypersphere representation for image-to-image retrieval.</desc>
+  <defs>
+    <clipPath id="cardClip">
+      <rect x="0" y="0" width="640" height="400" rx="16"/>
+    </clipPath>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F7FAFF"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0052FF"/>
+      <stop offset="100%" stop-color="#0EA5E9"/>
+    </linearGradient>
+    <linearGradient id="barBlue" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0052FF"/>
+      <stop offset="100%" stop-color="#0EA5E9"/>
+    </linearGradient>
+    <radialGradient id="sphereGrad" cx="38%" cy="32%" r="68%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="55%" stop-color="#DBEAFE" stop-opacity="0.62"/>
+      <stop offset="100%" stop-color="#0EA5E9" stop-opacity="0.22"/>
+    </radialGradient>
+    <pattern id="dotGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#0A1E5E" opacity="0.16"/>
+    </pattern>
+    <marker id="arrBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#0052FF"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#cardClip)">
+    <rect x="0" y="0" width="640" height="400" fill="url(#bgGrad)"/>
+    <rect x="16" y="56" width="608" height="298" fill="url(#dotGrid)"/>
+    <rect x="0" y="0" width="640" height="3.5" fill="url(#accentGrad)"/>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="16" fill="none" stroke="#CBD5E1" stroke-opacity="0.75" stroke-width="1"/>
+
+  <!-- Header -->
+  <text x="28" y="37" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="700" fill="#0A0E17">IsoCLIP</text>
+  <text x="612" y="37" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="500" fill="#475569">Spectral Projector Filtering &amp; Retrieval</text>
+  <line x1="28" y1="53" x2="612" y2="53" stroke="#CBD5E1" stroke-opacity="0.75" stroke-width="1"/>
+
+  <!-- Stage 1: Frozen CLIP ViT-B/32 Image Encoder -->
+  <text x="86" y="79" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="600" fill="#0A0E17">Frozen Encoder</text>
+
+  <!-- Image Patch Grid (3x3 ViT patches) -->
+  <rect x="46" y="102" width="80" height="74" rx="9" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.3"/>
+  <g>
+    <rect x="55" y="111" width="18" height="16" rx="2" fill="#0052FF" fill-opacity="0.20"/>
+    <rect x="77" y="111" width="18" height="16" rx="2" fill="#0EA5E9" fill-opacity="0.45"/>
+    <rect x="99" y="111" width="18" height="16" rx="2" fill="#DBEAFE"/>
+    <rect x="55" y="131" width="18" height="16" rx="2" fill="#0EA5E9" fill-opacity="0.55"/>
+    <rect x="77" y="131" width="18" height="16" rx="2" fill="#0052FF" fill-opacity="0.82"/>
+    <rect x="99" y="131" width="18" height="16" rx="2" fill="#0052FF" fill-opacity="0.38"/>
+    <rect x="55" y="151" width="18" height="16" rx="2" fill="#DBEAFE"/>
+    <rect x="77" y="151" width="18" height="16" rx="2" fill="#0A1E5E" fill-opacity="0.45"/>
+    <rect x="99" y="151" width="18" height="16" rx="2" fill="#0EA5E9" fill-opacity="0.32"/>
+  </g>
+
+  <!-- Short Vertical Arrow -->
+  <line x1="86" y1="180" x2="86" y2="201" stroke="#0052FF" stroke-width="2" marker-end="url(#arrBlue)"/>
+
+  <!-- Frozen ViT-B/32 Block -->
+  <rect x="34" y="208" width="104" height="78" rx="10" fill="#0A1E5E" fill-opacity="0.06" stroke="#0A1E5E" stroke-width="1.8"/>
+  <text x="86" y="234" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#0A1E5E">CLIP</text>
+  <text x="86" y="253" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0052FF">ViT-B/32</text>
+  <text x="86" y="272" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">Fixed Weights</text>
+  <text x="86" y="310" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">Image Features</text>
+
+  <!-- Arrow 1 -->
+  <line x1="142" y1="244" x2="167" y2="244" stroke="#0052FF" stroke-width="2.4" marker-end="url(#arrBlue)"/>
+
+  <!-- Stage 2: Projector SVD Spectral Band-Pass Filter -->
+  <text x="286" y="79" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="600" fill="#0A0E17">Projector SVD (P = UΣVᵀ)</text>
+
+  <!-- Spectrum Card -->
+  <rect x="176" y="102" width="220" height="190" rx="10" fill="#FFFFFF" fill-opacity="0.94" stroke="#CBD5E1" stroke-width="1.3"/>
+
+  <!-- Drop Top-150 Cut Zone -->
+  <rect x="184" y="112" width="52" height="170" rx="4" fill="#E11D48" fill-opacity="0.09"/>
+  <!-- Retained Isotropic Band-Pass Window -->
+  <rect x="236" y="112" width="102" height="170" rx="4" fill="#DBEAFE" fill-opacity="0.58" stroke="#0052FF" stroke-width="1.6"/>
+  <!-- Drop Bottom-50 Cut Zone -->
+  <rect x="338" y="112" width="50" height="170" rx="4" fill="#E11D48" fill-opacity="0.09"/>
+
+  <!-- Cut-off Vertical Dashed Lines -->
+  <line x1="236" y1="112" x2="236" y2="282" stroke="#E11D48" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <line x1="338" y1="112" x2="338" y2="282" stroke="#E11D48" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <!-- Baseline -->
+  <line x1="184" y1="282" x2="388" y2="282" stroke="#0A0E17" stroke-width="1.5"/>
+
+  <!-- 16 Singular Value Spectrum Bars (Decaying Exponentially) -->
+  <!-- Top 4 Dropped Cross-Modal Directions (Rose Muted) -->
+  <g fill="#E11D48" fill-opacity="0.48">
+    <rect x="188" y="126" width="8.5" height="156" rx="2"/>
+    <rect x="200" y="148" width="8.5" height="134" rx="2"/>
+    <rect x="212" y="168" width="8.5" height="114" rx="2"/>
+    <rect x="224" y="185" width="8.5" height="97" rx="2"/>
+  </g>
+  <!-- Middle 8 Retained Isotropic Directions (Vibrant Electric Blue) -->
+  <g fill="url(#barBlue)">
+    <rect x="241" y="198" width="8.5" height="84" rx="2"/>
+    <rect x="253" y="209" width="8.5" height="73" rx="2"/>
+    <rect x="265" y="218" width="8.5" height="64" rx="2"/>
+    <rect x="277" y="226" width="8.5" height="56" rx="2"/>
+    <rect x="289" y="234" width="8.5" height="48" rx="2"/>
+    <rect x="301" y="241" width="8.5" height="41" rx="2"/>
+    <rect x="313" y="247" width="8.5" height="35" rx="2"/>
+    <rect x="325" y="253" width="8.5" height="29" rx="2"/>
+  </g>
+  <!-- Bottom 4 Dropped Noise Directions (Rose Muted) -->
+  <g fill="#E11D48" fill-opacity="0.42">
+    <rect x="342" y="260" width="8.5" height="22" rx="2"/>
+    <rect x="354" y="265" width="8.5" height="17" rx="2"/>
+    <rect x="366" y="270" width="8.5" height="12" rx="2"/>
+    <rect x="378" y="274" width="8.5" height="8" rx="2"/>
+  </g>
+
+  <!-- Retained Band Label in Open Sky Inside Box -->
+  <text x="287" y="138" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#0052FF">Keep Middle</text>
+  <text x="287" y="154" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">Band-Pass</text>
+
+  <!-- Under-Axis Zone Labels -->
+  <text x="210" y="310" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#E11D48">Drop 150</text>
+  <text x="287" y="310" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#0052FF">Isotropic</text>
+  <text x="364" y="310" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#E11D48">Drop 50</text>
+  <text x="286" y="332" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">Singular Spectrum σ₁ ≥ … ≥ σ₅₁₂</text>
+
+  <!-- Arrow 2 -->
+  <line x1="400" y1="202" x2="424" y2="202" stroke="#0052FF" stroke-width="2.4" marker-end="url(#arrBlue)"/>
+
+  <!-- Stage 3: Isotropic Unit Hypersphere Image-to-Image Retrieval -->
+  <text x="518" y="79" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="600" fill="#0A0E17">Isotropic Retrieval</text>
+
+  <!-- 3D Unit Hypersphere -->
+  <circle cx="518" cy="202" r="84" fill="url(#sphereGrad)" stroke="#0052FF" stroke-width="2"/>
+  <!-- Latitude / Longitude Reference Ellipses -->
+  <ellipse cx="518" cy="202" rx="84" ry="26" fill="none" stroke="#0A1E5E" stroke-opacity="0.16" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <ellipse cx="518" cy="202" rx="30" ry="84" fill="none" stroke="#0A1E5E" stroke-opacity="0.15" stroke-width="1.2" stroke-dasharray="4 3"/>
+
+  <!-- Faded Removed Anisotropic Cone Ghost -->
+  <path d="M 518 202 L 458 143 A 84 84 0 0 1 496 121 Z" fill="#E11D48" fill-opacity="0.09" stroke="#E11D48" stroke-opacity="0.45" stroke-width="1.2" stroke-dasharray="3 3"/>
+
+  <!-- Cosine Similarity Arcs from Query to Same-Class Gallery Matches -->
+  <g fill="none" stroke="#059669" stroke-width="2">
+    <path d="M 504 176 Q 528 160 550 164"/>
+    <path d="M 504 176 Q 540 174 568 184"/>
+    <path d="M 504 176 Q 530 192 552 198"/>
+  </g>
+
+  <!-- Well-Separated Other-Class Gallery Clusters -->
+  <circle cx="468" cy="236" r="22" fill="#0EA5E9" fill-opacity="0.12" stroke="#0EA5E9" stroke-opacity="0.45" stroke-width="1.2" stroke-dasharray="3 2"/>
+  <g fill="#0EA5E9" stroke="#FFFFFF" stroke-width="1.5">
+    <circle cx="462" cy="226" r="4.5"/><circle cx="478" cy="238" r="4.5"/><circle cx="460" cy="246" r="4.5"/>
+  </g>
+
+  <circle cx="538" cy="256" r="21" fill="#0A1E5E" fill-opacity="0.09" stroke="#0A1E5E" stroke-opacity="0.4" stroke-width="1.2" stroke-dasharray="3 2"/>
+  <g fill="#0A1E5E" stroke="#FFFFFF" stroke-width="1.5">
+    <circle cx="528" cy="254" r="4.5"/><circle cx="548" cy="248" r="4.5"/><circle cx="540" cy="266" r="4.5"/>
+  </g>
+
+  <!-- Matched Same-Class Gallery Cluster (Emerald) -->
+  <g fill="#059669" stroke="#FFFFFF" stroke-width="1.6">
+    <circle cx="550" cy="164" r="5"/>
+    <circle cx="568" cy="184" r="5"/>
+    <circle cx="552" cy="198" r="5"/>
+  </g>
+
+  <!-- Query Image Feature Node -->
+  <circle cx="504" cy="176" r="11" fill="#0052FF" fill-opacity="0.18"/>
+  <circle cx="504" cy="176" r="6" fill="#0052FF" stroke="#FFFFFF" stroke-width="2"/>
+
+  <!-- Clean Sphere Labels -->
+  <text x="504" y="156" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#0052FF">Query</text>
+  <text x="562" y="218" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#059669">Matches</text>
+
+  <text x="518" y="310" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#0A1E5E">Unit Sphere · Cosine Sim</text>
+  <text x="518" y="330" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">Intra-Modal Alignment</text>
+
+  <!-- Footer -->
+  <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-opacity="0.75" stroke-width="1"/>
+  <text x="28" y="380" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#475569">Target metric: <tspan font-weight="700" fill="#0052FF">retrieval_map ↑</tspan></text>
+  <text x="612" y="380" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">Frozen CLIP ViT-B/32</text>
+</svg>

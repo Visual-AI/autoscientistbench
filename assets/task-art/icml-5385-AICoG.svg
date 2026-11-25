@@ -1,0 +1,191 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>AICoG — Compositional Graph Embeddings via Aitchison Geometry</title>
+  <desc>A sparse residual Cora graph maps nodes via softmax onto an Aitchison compositional simplex and an isometric log-ratio Euclidean latent space to predict held-out cycle-closing links.</desc>
+  <defs>
+    <clipPath id="card-clip">
+      <rect x="0" y="0" width="640" height="400" rx="16"/>
+    </clipPath>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F7FAFF"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="top-bar" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0052FF"/>
+      <stop offset="100%" stop-color="#0EA5E9"/>
+    </linearGradient>
+    <linearGradient id="simplex-face" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#DBEAFE" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#0EA5E9" stop-opacity="0.18"/>
+    </linearGradient>
+    <pattern id="dot-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#0A1E5E" opacity="0.15"/>
+    </pattern>
+    <marker id="arrow-pri" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M 0 1.2 L 8.5 5 L 0 8.8 z" fill="#0052FF"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#card-clip)">
+    <rect x="0" y="0" width="640" height="400" fill="url(#bg-grad)"/>
+    <rect x="0" y="54" width="640" height="304" fill="url(#dot-grid)"/>
+    <rect x="0" y="0" width="640" height="3" fill="url(#top-bar)"/>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="15.5" fill="none" stroke="#CBD5E1" stroke-opacity="0.75" stroke-width="1"/>
+
+  <!-- Header -->
+  <text x="28" y="36" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="700" fill="#0A0E17">AICoG</text>
+  <text x="612" y="35" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="500" fill="#475569">Compositional Graph Embeddings</text>
+  <line x1="28" y1="53" x2="612" y2="53" stroke="#CBD5E1" stroke-opacity="0.7" stroke-width="1"/>
+
+  <!-- Zone 1: Sparse Residual Tree-Like Cora Graph -->
+  <g id="residual-graph">
+    <!-- Subtle halo behind graph -->
+    <circle cx="118" cy="194" r="88" fill="#DBEAFE" fill-opacity="0.28"/>
+    <!-- Observed tree-like residual edges -->
+    <g fill="none" stroke="#475569" stroke-width="2.2" stroke-linecap="round">
+      <line x1="66" y1="130" x2="112" y2="112"/>
+      <line x1="112" y1="112" x2="104" y2="170"/>
+      <line x1="104" y1="170" x2="58" y2="198"/>
+      <line x1="104" y1="170" x2="156" y2="180"/>
+      <line x1="156" y1="180" x2="170" y2="126"/>
+      <line x1="104" y1="170" x2="122" y2="228"/>
+      <line x1="122" y1="228" x2="78" y2="268"/>
+      <line x1="122" y1="228" x2="176" y2="240"/>
+      <line x1="122" y1="228" x2="146" y2="284"/>
+    </g>
+    <!-- Held-out removed edges closing cycles -->
+    <path d="M 112 112 Q 144 92 170 126" fill="none" stroke="#059669" stroke-width="3" stroke-dasharray="6 4" stroke-linecap="round"/>
+    <path d="M 156 180 Q 178 208 176 240" fill="none" stroke="#059669" stroke-width="2.2" stroke-dasharray="5 4" stroke-opacity="0.65" stroke-linecap="round"/>
+    <!-- Distant non-edge dotted indicator -->
+    <path d="M 112 112 Q 68 202 78 268" fill="none" stroke="#E11D48" stroke-width="1.6" stroke-dasharray="3 4" stroke-opacity="0.6"/>
+
+    <!-- Node bias halos -->
+    <circle cx="112" cy="112" r="13.5" fill="#059669" fill-opacity="0.18"/>
+    <circle cx="170" cy="126" r="13.5" fill="#059669" fill-opacity="0.18"/>
+    <circle cx="104" cy="170" r="12" fill="#DBEAFE" fill-opacity="0.8"/>
+    <circle cx="122" cy="228" r="12" fill="#DBEAFE" fill-opacity="0.8"/>
+    <circle cx="78" cy="268" r="11" fill="#E11D48" fill-opacity="0.14"/>
+
+    <!-- Graph nodes -->
+    <g stroke="#FFFFFF" stroke-width="2">
+      <circle cx="66" cy="130" r="5.5" fill="#0EA5E9"/>
+      <circle cx="112" cy="112" r="7.5" fill="#0052FF"/>
+      <circle cx="170" cy="126" r="7.5" fill="#059669"/>
+      <circle cx="104" cy="170" r="7" fill="#0052FF"/>
+      <circle cx="156" cy="180" r="6.5" fill="#0052FF"/>
+      <circle cx="58" cy="198" r="5.5" fill="#0EA5E9"/>
+      <circle cx="122" cy="228" r="7" fill="#0052FF"/>
+      <circle cx="176" cy="240" r="6" fill="#0EA5E9"/>
+      <circle cx="78" cy="268" r="6.5" fill="#E11D48"/>
+      <circle cx="146" cy="284" r="5.5" fill="#0EA5E9"/>
+    </g>
+
+    <!-- Node index tags -->
+    <text x="108" y="96" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0052FF">i</text>
+    <text x="184" y="118" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#059669">j</text>
+    <text x="64" y="274" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#E11D48">k</text>
+
+    <text x="118" y="322" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#0A1E5E">Residual Graph</text>
+    <text x="118" y="340" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="500" fill="#059669">Held-out cycle edge</text>
+  </g>
+
+  <!-- Morphism Arrow 1 -->
+  <line x1="196" y1="192" x2="236" y2="192" stroke="#0052FF" stroke-width="2.4" marker-end="url(#arrow-pri)"/>
+  <text x="216" y="179" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#0052FF">softmax</text>
+
+  <!-- Zone 2: Aitchison Compositional Simplex -->
+  <g id="aitchison-simplex">
+    <!-- 3D Projected Tetrahedron Faces -->
+    <polygon points="326,90 250,268 402,268" fill="url(#simplex-face)"/>
+    <polygon points="326,90 348,224 402,268" fill="#0052FF" fill-opacity="0.09"/>
+    <polygon points="250,268 348,224 402,268" fill="#0A1E5E" fill-opacity="0.06"/>
+
+    <!-- Back interior edges -->
+    <g fill="none" stroke="#0EA5E9" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.7">
+      <line x1="326" y1="90" x2="348" y2="224"/>
+      <line x1="250" y1="268" x2="348" y2="224"/>
+      <line x1="402" y1="268" x2="348" y2="224"/>
+    </g>
+
+    <!-- Curved Aitchison perturbation geodesics -->
+    <g fill="none" stroke="#0EA5E9" stroke-width="1.4" opacity="0.6">
+      <path d="M 274 212 Q 326 172 378 212"/>
+      <path d="M 294 166 Q 326 196 358 166"/>
+      <path d="M 288 268 Q 322 204 326 90"/>
+      <path d="M 364 268 Q 332 204 326 90"/>
+    </g>
+
+    <!-- Outer simplex frame -->
+    <polygon points="326,90 250,268 402,268" fill="none" stroke="#0052FF" stroke-width="2.8" stroke-linejoin="round"/>
+    <!-- Simplex vertices -->
+    <circle cx="326" cy="90" r="3.5" fill="#0A1E5E"/>
+    <circle cx="250" cy="268" r="3.5" fill="#0A1E5E"/>
+    <circle cx="402" cy="268" r="3.5" fill="#0A1E5E"/>
+
+    <!-- Compositional geodesic between linked pair i,j -->
+    <path d="M 308 178 Q 328 164 346 186" fill="none" stroke="#059669" stroke-width="2.6" stroke-linecap="round"/>
+
+    <!-- Background node compositions -->
+    <g fill="#0052FF" opacity="0.65">
+      <circle cx="326" cy="134" r="3.8"/>
+      <circle cx="360" cy="228" r="3.8"/>
+      <circle cx="316" cy="222" r="3.8"/>
+      <circle cx="372" cy="250" r="3.5"/>
+    </g>
+    <!-- Highlighted compositions i, j, k -->
+    <circle cx="308" cy="178" r="6" fill="#0052FF" stroke="#FFFFFF" stroke-width="2"/>
+    <circle cx="346" cy="186" r="6" fill="#059669" stroke="#FFFFFF" stroke-width="2"/>
+    <circle cx="284" cy="244" r="5.5" fill="#E11D48" stroke="#FFFFFF" stroke-width="2"/>
+
+    <text x="326" y="322" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#0A1E5E">Aitchison Simplex</text>
+    <text x="326" y="340" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="500" fill="#475569">K = 9 compositions</text>
+  </g>
+
+  <!-- Morphism Arrow 2 -->
+  <line x1="406" y1="192" x2="446" y2="192" stroke="#0052FF" stroke-width="2.4" marker-end="url(#arrow-pri)"/>
+  <text x="426" y="179" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#0052FF">ILR (V)</text>
+
+  <!-- Zone 3: Isometric Euclidean ILR Space (R^8) -->
+  <g id="ilr-space">
+    <rect x="454" y="90" width="154" height="198" rx="14" fill="#FFFFFF" fill-opacity="0.92" stroke="#CBD5E1" stroke-width="1.3"/>
+    <!-- Orthonormal axes -->
+    <line x1="468" y1="184" x2="594" y2="184" stroke="#CBD5E1" stroke-width="1.2"/>
+    <line x1="526" y1="106" x2="526" y2="274" stroke="#CBD5E1" stroke-width="1.2"/>
+    <line x1="484" y1="234" x2="568" y2="134" stroke="#CBD5E1" stroke-width="1" stroke-dasharray="3 3" opacity="0.7"/>
+
+    <!-- Concentric Euclidean distance contours around z_i -->
+    <circle cx="526" cy="184" r="56" fill="none" stroke="#0EA5E9" stroke-width="1.3" stroke-opacity="0.5"/>
+    <circle cx="526" cy="184" r="32" fill="#059669" fill-opacity="0.11" stroke="#059669" stroke-width="1.8" stroke-dasharray="4 3"/>
+
+    <!-- Distance lines -->
+    <line x1="526" y1="184" x2="548" y2="168" stroke="#059669" stroke-width="2.6" stroke-linecap="round"/>
+    <line x1="526" y1="184" x2="574" y2="244" stroke="#E11D48" stroke-width="1.6" stroke-dasharray="3 3" stroke-opacity="0.75"/>
+
+    <!-- Background embedded nodes -->
+    <g fill="#0052FF" opacity="0.45">
+      <circle cx="508" cy="172" r="3.5"/>
+      <circle cx="490" cy="206" r="3.5"/>
+      <circle cx="542" cy="144" r="3.5"/>
+      <circle cx="486" cy="150" r="3.5"/>
+    </g>
+
+    <!-- Highlighted embeddings z_i, z_j, z_k -->
+    <circle cx="526" cy="184" r="6.5" fill="#0052FF" stroke="#FFFFFF" stroke-width="2"/>
+    <circle cx="548" cy="168" r="6.5" fill="#059669" stroke="#FFFFFF" stroke-width="2"/>
+    <circle cx="574" cy="244" r="5.5" fill="#E11D48" stroke="#FFFFFF" stroke-width="2"/>
+
+    <!-- Labels inside ILR box -->
+    <text x="596" y="110" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#0052FF">ℝ⁸</text>
+    <text x="515" y="203" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0052FF">zᵢ</text>
+    <text x="558" y="164" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#059669">zⱼ</text>
+    <text x="583" y="250" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#E11D48">zₖ</text>
+
+    <text x="531" y="322" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#0A1E5E">ILR Latent Space</text>
+    <text x="531" y="340" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="500" fill="#475569">−‖zᵢ−zⱼ‖₂ + bᵢ + bⱼ</text>
+  </g>
+
+  <!-- Footer -->
+  <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-opacity="0.7" stroke-width="1"/>
+  <text x="28" y="380" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#475569">Cora residual graph · 8D node embedding</text>
+  <text x="612" y="380" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5"><tspan fill="#475569">Target: </tspan><tspan font-weight="700" fill="#0052FF">auc_roc ↑</tspan></text>
+</svg>

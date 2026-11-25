@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>SkewPosterior — Skew-Symmetric Posterior Approximations</title>
+  <desc>An odd skewing factor perturbs the symmetric Laplace approximation via reflected pairs (-z, +z) to capture heavy-tailed asymmetric posteriors and align the approximate mean with HMC.</desc>
+  <defs>
+    <clipPath id="cardClip">
+      <rect x="0" y="0" width="640" height="400" rx="16"/>
+    </clipPath>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFF6F8"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#E11D48"/>
+      <stop offset="100%" stop-color="#F43F5E"/>
+    </linearGradient>
+    <linearGradient id="skewFill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#E11D48" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#FFE4E6" stop-opacity="0.06"/>
+    </linearGradient>
+    <pattern id="dotGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#6B1028" opacity="0.15"/>
+    </pattern>
+    <marker id="arrRose" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#E11D48"/>
+    </marker>
+    <marker id="arrDark" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
+      <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#6B1028"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#cardClip)">
+    <rect x="0" y="0" width="640" height="400" fill="url(#bgGrad)"/>
+    <rect x="16" y="56" width="608" height="298" fill="url(#dotGrid)"/>
+    <rect x="0" y="0" width="640" height="3.5" fill="url(#accentGrad)"/>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="16" fill="none" stroke="#CBD5E1" stroke-opacity="0.75" stroke-width="1"/>
+
+  <!-- Header -->
+  <text x="28" y="37" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="700" fill="#0A0E17">SkewPosterior</text>
+  <text x="612" y="37" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="500" fill="#475569">Asymmetric Perturbation &amp; Mean Bias</text>
+  <line x1="28" y1="53" x2="612" y2="53" stroke="#CBD5E1" stroke-opacity="0.75" stroke-width="1"/>
+
+  <!-- Mode & Mean Vertical Reference Lines -->
+  <line x1="234" y1="92" x2="234" y2="304" stroke="#475569" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <line x1="316" y1="92" x2="316" y2="304" stroke="#059669" stroke-width="2.2"/>
+
+  <!-- Mean Shift Arrow (Bias Reduction) -->
+  <line x1="240" y1="104" x2="308" y2="104" stroke="#E11D48" stroke-width="2.2" marker-end="url(#arrRose)"/>
+  <text x="239" y="84" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" fill="#475569">Laplace μ</text>
+  <text x="311" y="84" text-anchor="start" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#059669">μ (Skew ≈ HMC)</text>
+
+  <!-- Curve 1: Symmetric Laplace Baseline (Centered at mode x=234) -->
+  <path d="M 80 304 C 132 302 172 248 194 188 C 211 142 223 118 234 118 C 245 118 257 142 274 188 C 296 248 336 302 388 304 Z" fill="#CBD5E1" fill-opacity="0.16"/>
+  <path d="M 80 304 C 132 302 172 248 194 188 C 211 142 223 118 234 118 C 245 118 257 142 274 188 C 296 248 336 302 388 304" fill="none" stroke="#475569" stroke-width="2.2" stroke-dasharray="6 4"/>
+
+  <!-- Curve 2: True Heavy-Tailed Asymmetric Posterior (HMC Reference) -->
+  <path d="M 122 304 C 158 300 182 256 202 192 C 216 146 225 122 234 122 C 254 122 278 150 314 194 C 362 250 438 288 570 304 Z" fill="url(#skewFill)"/>
+  <path d="M 122 304 C 158 300 182 256 202 192 C 216 146 225 122 234 122 C 254 122 278 150 314 194 C 362 250 438 288 570 304" fill="none" stroke="#6B1028" stroke-width="2.8" stroke-linecap="round"/>
+
+  <!-- Curve 3: Skew-Symmetric Approximation (Tightly Tracking HMC) -->
+  <path d="M 128 304 C 163 299 186 254 205 190 C 218 146 227 125 237 125 C 257 125 282 153 319 197 C 367 252 440 289 560 304" fill="none" stroke="#E11D48" stroke-width="2.6" stroke-linecap="round"/>
+
+  <!-- Parameter Axis -->
+  <line x1="56" y1="304" x2="594" y2="304" stroke="#0A0E17" stroke-width="1.6"/>
+  <text x="602" y="308" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#0A0E17">βⱼ</text>
+
+  <!-- Antithetic Proposal Pair (-z, +z) Around Mode -->
+  <line x1="182" y1="245" x2="182" y2="304" stroke="#E11D48" stroke-width="1.4" stroke-dasharray="3 3"/>
+  <line x1="286" y1="164" x2="286" y2="304" stroke="#E11D48" stroke-width="1.6" stroke-dasharray="3 3"/>
+  <circle cx="182" cy="245" r="4.8" fill="#FFFFFF" stroke="#E11D48" stroke-width="2.2"/>
+  <circle cx="286" cy="164" r="5.5" fill="#E11D48" stroke="#FFFFFF" stroke-width="2"/>
+
+  <!-- Horizontal Reflection Pairing Chord Inside Density Belly -->
+  <line x1="190" y1="264" x2="278" y2="264" stroke="#6B1028" stroke-width="1.8" marker-start="url(#arrDark)" marker-end="url(#arrDark)"/>
+  <text x="234" y="282" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#6B1028">Reflect ±z</text>
+
+  <!-- Proposal Axis Labels -->
+  <text x="182" y="322" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" fill="#475569">−z</text>
+  <text x="234" y="322" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#475569">MAP mode</text>
+  <text x="286" y="322" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#E11D48">+z</text>
+
+  <!-- Clean Curve Callouts in Open Negative Space -->
+  <text x="116" y="156" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" fill="#475569">Symmetric</text>
+  <text x="116" y="172" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" fill="#475569">Laplace</text>
+
+  <text x="394" y="214" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#E11D48">Skew-Symmetric</text>
+  <text x="394" y="232" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" fill="#6B1028">True Posterior (HMC)</text>
+
+  <!-- Inset Card: Odd Skewing Perturbation Factor 2Π(z) -->
+  <rect x="444" y="84" width="152" height="102" rx="10" fill="#FFFFFF" fill-opacity="0.96" stroke="#CBD5E1" stroke-width="1.3"/>
+  <text x="520" y="102" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#6B1028">Skew Factor Π(z)</text>
+  <!-- Inset Axes -->
+  <line x1="464" y1="142" x2="578" y2="142" stroke="#CBD5E1" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <line x1="521" y1="112" x2="521" y2="170" stroke="#CBD5E1" stroke-width="1.2"/>
+  <!-- Odd Sigmoid Perturbation Curve -->
+  <path d="M 466 164 C 492 163 506 156 521 142 C 536 128 550 121 576 120" fill="none" stroke="#E11D48" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="494" cy="160" r="3.6" fill="#FFFFFF" stroke="#E11D48" stroke-width="1.8"/>
+  <circle cx="548" cy="124" r="4" fill="#E11D48" stroke="#FFFFFF" stroke-width="1.4"/>
+  <text x="466" y="178" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">−z</text>
+  <text x="576" y="178" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#E11D48">+z</text>
+
+  <!-- Footer -->
+  <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-opacity="0.75" stroke-width="1"/>
+  <text x="28" y="380" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#475569">Target metric: <tspan font-weight="700" fill="#E11D48">standardized_bias ↓</tspan></text>
+  <text x="612" y="380" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">Poisson · Student-t(3) Prior</text>
+</svg>

@@ -1,0 +1,185 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>MAP-Gen: Manifold-Aware Normal Perturbations for Surface Diffusion</title>
+  <desc>A triangulated Stanford Bunny surface manifold is lifted along local surface normals into a thin tubular shell so an unconstrained DDPM can reverse-diffuse ambient noise and project samples cleanly back onto the mesh.</desc>
+  <defs>
+    <clipPath id="card-clip">
+      <rect width="640" height="400" rx="16"/>
+    </clipPath>
+    <linearGradient id="bg-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F7FAFF"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <radialGradient id="heat-kernel" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0052FF" stop-opacity="0.34"/>
+      <stop offset="55%" stop-color="#0EA5E9" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#0EA5E9" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="dot-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#0052FF" opacity="0.16"/>
+    </pattern>
+    <marker id="arr-blue" markerWidth="7" markerHeight="7" refX="5.5" refY="3.5" orient="auto">
+      <path d="M0.5 0.5 L6.5 3.5 L0.5 6.5 Z" fill="#0052FF"/>
+    </marker>
+    <marker id="arr-sky" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+      <path d="M0.5 0.5 L5.5 3 L0.5 5.5 Z" fill="#0EA5E9"/>
+    </marker>
+    <marker id="arr-emerald" markerWidth="7" markerHeight="7" refX="5.5" refY="3.5" orient="auto">
+      <path d="M0.5 0.5 L6.5 3.5 L0.5 6.5 Z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#card-clip)">
+    <!-- Plate Background -->
+    <rect width="640" height="400" fill="url(#bg-grad)"/>
+    <rect x="0" y="54" width="640" height="304" fill="url(#dot-grid)"/>
+    <rect x="0" y="0" width="640" height="3" fill="#0052FF"/>
+
+    <!-- Header -->
+    <text x="28" y="36" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="700" fill="#0A0E17">MAP-Gen</text>
+    <text x="612" y="36" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#475569">Manifold-Aware Lifted Surface Diffusion</text>
+    <line x1="28" y1="54" x2="612" y2="54" stroke="#CBD5E1" stroke-width="1"/>
+
+    <!-- Left Card: Triangulated Stanford Bunny Surface Manifold -->
+    <rect x="28" y="70" width="290" height="276" rx="12" fill="#FFFFFF" fill-opacity="0.92" stroke="#CBD5E1" stroke-width="1"/>
+    <text x="42" y="90" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#0A0E17">Bunny Surface Mesh ℳ</text>
+
+    <!-- Soft Ground Shadow + Sculpted Bunny Mesh shifted +14px clear of title -->
+    <g transform="translate(0, 14)">
+    <ellipse cx="182" cy="306" rx="100" ry="11" fill="#0A1E5E" fill-opacity="0.08"/>
+
+    <!-- Faceted Low-Poly Stanford Bunny Mesh -->
+    <g stroke="#FFFFFF" stroke-width="1.15" stroke-linejoin="round">
+      <!-- Front Ear -->
+      <polygon points="106,148 116,114 124,146" fill="#DBEAFE"/>
+      <polygon points="116,114 124,92 132,116" fill="#0EA5E9" fill-opacity="0.45"/>
+      <polygon points="116,114 132,116 124,146" fill="#0EA5E9" fill-opacity="0.65"/>
+
+      <!-- Back Ear -->
+      <polygon points="124,146 144,118 138,158" fill="#0052FF" fill-opacity="0.42"/>
+      <polygon points="144,118 162,96 158,124" fill="#DBEAFE"/>
+      <polygon points="144,118 158,124 138,158" fill="#0EA5E9" fill-opacity="0.52"/>
+
+      <!-- Head & Muzzle -->
+      <polygon points="72,188 92,154 96,176" fill="#DBEAFE"/>
+      <polygon points="72,188 96,176 90,206" fill="#0EA5E9" fill-opacity="0.38"/>
+      <polygon points="92,154 106,148 96,176" fill="#0EA5E9" fill-opacity="0.50"/>
+      <polygon points="106,148 124,146 112,188" fill="#0EA5E9" fill-opacity="0.62"/>
+      <polygon points="106,148 112,188 96,176" fill="#DBEAFE"/>
+      <polygon points="96,176 112,188 90,206" fill="#0052FF" fill-opacity="0.44"/>
+      <polygon points="124,146 138,158 138,180" fill="#0052FF" fill-opacity="0.55"/>
+      <polygon points="124,146 138,180 112,188" fill="#0EA5E9" fill-opacity="0.50"/>
+      <polygon points="90,206 112,188 104,238" fill="#0052FF" fill-opacity="0.54"/>
+      <polygon points="112,188 138,180 146,226" fill="#0052FF" fill-opacity="0.68"/>
+      <polygon points="112,188 146,226 104,238" fill="#0EA5E9" fill-opacity="0.62"/>
+
+      <!-- Arched Back & Torso (Heat-Kernel Density Hotspot) -->
+      <polygon points="138,180 164,178 146,226" fill="#0052FF" fill-opacity="0.72"/>
+      <polygon points="164,178 206,176 188,224" fill="#0052FF" fill-opacity="0.82"/>
+      <polygon points="164,178 188,224 146,226" fill="#0052FF" fill-opacity="0.90"/>
+      <polygon points="206,176 248,198 228,236" fill="#0EA5E9" fill-opacity="0.76"/>
+      <polygon points="206,176 228,236 188,224" fill="#0052FF" fill-opacity="0.76"/>
+      <polygon points="248,198 264,238 228,236" fill="#0EA5E9" fill-opacity="0.62"/>
+
+      <!-- Lower Torso, Paws & Haunch -->
+      <polygon points="104,238 146,226 146,270" fill="#0052FF" fill-opacity="0.64"/>
+      <polygon points="104,238 146,270 98,296" fill="#0A1E5E" fill-opacity="0.72"/>
+      <polygon points="98,296 146,270 114,302" fill="#0A1E5E" fill-opacity="0.82"/>
+      <polygon points="114,302 146,270 168,302" fill="#0A1E5E" fill-opacity="0.76"/>
+      <polygon points="146,226 188,224 196,270" fill="#0052FF" fill-opacity="0.78"/>
+      <polygon points="146,226 196,270 146,270" fill="#0A1E5E" fill-opacity="0.68"/>
+      <polygon points="146,270 196,270 168,302" fill="#0A1E5E" fill-opacity="0.84"/>
+      <polygon points="168,302 196,270 228,302" fill="#0A1E5E" fill-opacity="0.80"/>
+      <polygon points="188,224 228,236 234,270" fill="#0052FF" fill-opacity="0.66"/>
+      <polygon points="188,224 234,270 196,270" fill="#0A1E5E" fill-opacity="0.70"/>
+      <polygon points="196,270 234,270 228,302" fill="#0A1E5E" fill-opacity="0.86"/>
+      <polygon points="228,236 264,238 234,270" fill="#0052FF" fill-opacity="0.58"/>
+      <polygon points="264,238 262,292 234,270" fill="#0A1E5E" fill-opacity="0.74"/>
+      <polygon points="234,270 262,292 228,302" fill="#0A1E5E" fill-opacity="0.88"/>
+
+      <!-- Tail Puff -->
+      <polygon points="264,238 286,246 288,266" fill="#DBEAFE"/>
+      <polygon points="264,238 288,266 262,278" fill="#0EA5E9" fill-opacity="0.56"/>
+    </g>
+
+    <!-- Bunny Outer Contour Hairline -->
+    <path d="M 72 188 L 92 154 L 106 148 L 116 114 L 124 92 L 132 116 L 124 146 L 144 118 L 162 96 L 158 124 L 138 158 L 138 180 L 164 178 L 206 176 L 248 198 L 264 238 L 286 246 L 288 266 L 262 278 L 262 292 L 228 302 L 114 302 L 98 296 L 104 238 L 90 206 Z" fill="none" stroke="#0A1E5E" stroke-width="1.6" stroke-linejoin="round"/>
+
+    <!-- Heat-Kernel Glow & Sample Points on Surface -->
+    <circle cx="182" cy="216" r="46" fill="url(#heat-kernel)"/>
+    <g fill="#FFFFFF" stroke="#0052FF" stroke-width="1.2">
+      <circle cx="164" cy="204" r="2.6"/><circle cx="186" cy="210" r="3"/><circle cx="176" cy="226" r="2.6"/>
+      <circle cx="202" cy="202" r="2.8"/><circle cx="154" cy="218" r="2.4"/>
+    </g>
+
+    <!-- Optical Zoom Loupe on Curved Back -->
+    <circle cx="230" cy="188" r="21" fill="#FFFFFF" fill-opacity="0.22" stroke="#0052FF" stroke-width="2.2" stroke-dasharray="4 3"/>
+    </g>
+
+    <!-- Zoom Callout Rays Bridging from Shifted Loupe (230, 202) to Right Panel -->
+    <path d="M 244 186 L 344 74" stroke="#0052FF" stroke-opacity="0.28" stroke-width="1.4" stroke-dasharray="4 3"/>
+    <path d="M 246 216 L 344 342" stroke="#0052FF" stroke-opacity="0.28" stroke-width="1.4" stroke-dasharray="4 3"/>
+
+    <text x="173" y="337" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">Heat-kernel surface density</text>
+
+    <!-- Right Card: Magnified Normal-Lifted Shell & Reverse DDPM Projection -->
+    <rect x="344" y="70" width="268" height="276" rx="12" fill="#FFFFFF" fill-opacity="0.92" stroke="#0052FF" stroke-opacity="0.35" stroke-width="1.4"/>
+    <text x="358" y="90" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#0A0E17">Normal Lift &amp; Projection</text>
+
+    <!-- Lifted Tubular Shell p_sigma (around curved manifold M) -->
+    <path d="M 362 246 Q 478 176 594 234 L 594 298 Q 478 240 362 310 Z" fill="#DBEAFE" fill-opacity="0.72"/>
+    <path d="M 362 246 Q 478 176 594 234" fill="none" stroke="#0EA5E9" stroke-width="1.6" stroke-dasharray="5 4"/>
+    <path d="M 362 310 Q 478 240 594 298" fill="none" stroke="#0EA5E9" stroke-width="1.6" stroke-dasharray="5 4"/>
+
+    <!-- Curved Manifold Surface M -->
+    <path d="M 362 278 Q 478 208 594 266" fill="none" stroke="#0A1E5E" stroke-width="3.6" stroke-linecap="round"/>
+    <text x="594" y="286" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#0A1E5E">ℳ</text>
+    <text x="364" y="332" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#0052FF">σ-lifted shell</text>
+
+    <!-- Local Surface Normal Perturbation Vectors (+/- sigma n) -->
+    <circle cx="404" cy="257" r="4" fill="#0A1E5E" stroke="#FFFFFF" stroke-width="1.4"/>
+    <line x1="404" y1="252" x2="394" y2="230" stroke="#0EA5E9" stroke-width="2.2" marker-end="url(#arr-sky)"/>
+    <line x1="404" y1="262" x2="414" y2="284" stroke="#0EA5E9" stroke-width="2.2" marker-end="url(#arr-sky)"/>
+    <text x="386" y="220" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#0EA5E9">±σ n</text>
+
+    <!-- Ambient Noise Samples x_T -->
+    <text x="498" y="114" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#475569">Ambient noise (t = T)</text>
+    <g fill="#475569" opacity="0.65">
+      <circle cx="436" cy="128" r="3.5"/>
+      <circle cx="468" cy="126" r="4"/>
+      <circle cx="516" cy="132" r="3.2"/>
+      <circle cx="546" cy="126" r="4"/>
+      <circle cx="580" cy="140" r="3"/>
+    </g>
+
+    <!-- Reverse DDPM Denoising Trajectories into Lifted Shell -->
+    <path d="M 468 130 C 454 154 484 172 478 200" fill="none" stroke="#0052FF" stroke-width="2.4" stroke-dasharray="5 3" marker-end="url(#arr-blue)"/>
+    <path d="M 546 130 C 544 158 524 174 528 206" fill="none" stroke="#0052FF" stroke-width="2.4" stroke-dasharray="5 3" marker-end="url(#arr-blue)"/>
+    <text x="448" y="172" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#0052FF">DDPM</text>
+
+    <!-- Denoised Lifted Points inside Shell -->
+    <circle cx="478" cy="209" r="4.5" fill="#0052FF" stroke="#FFFFFF" stroke-width="1.5"/>
+    <circle cx="528" cy="215" r="4.5" fill="#0052FF" stroke="#FFFFFF" stroke-width="1.5"/>
+
+    <!-- Orthogonal Mesh Projection Arrows (Pi_M) -->
+    <line x1="478" y1="214" x2="478" y2="232" stroke="#059669" stroke-width="2.4" marker-end="url(#arr-emerald)"/>
+    <line x1="528" y1="220" x2="529" y2="236" stroke="#059669" stroke-width="2.4" marker-end="url(#arr-emerald)"/>
+
+    <!-- Projected Surface Samples (Exact on M) & k=5 Coverage Rings -->
+    <circle cx="478" cy="240" r="15" fill="#059669" fill-opacity="0.12" stroke="#059669" stroke-width="1.3" stroke-dasharray="3 2"/>
+    <circle cx="478" cy="240" r="4.5" fill="#059669" stroke="#FFFFFF" stroke-width="1.5"/>
+
+    <circle cx="530" cy="244" r="15" fill="#059669" fill-opacity="0.12" stroke="#059669" stroke-width="1.3" stroke-dasharray="3 2"/>
+    <circle cx="530" cy="244" r="4.5" fill="#059669" stroke="#FFFFFF" stroke-width="1.5"/>
+
+    <text x="602" y="194" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#059669">Project → ℳ</text>
+    <text x="596" y="332" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#059669">COV (k = 5)</text>
+
+    <!-- Footer -->
+    <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-width="1" opacity="0.8"/>
+    <text x="28" y="378" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#475569">Stanford Bunny mesh · σ = 5×10⁻⁴ · JSD/TVD guarded</text>
+    <text x="612" y="378" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5">
+      <tspan fill="#475569">Target: </tspan><tspan font-weight="700" fill="#0052FF">cov ↑</tspan>
+    </text>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="15.5" fill="none" stroke="#CBD5E1" stroke-width="1" opacity="0.75"/>
+</svg>

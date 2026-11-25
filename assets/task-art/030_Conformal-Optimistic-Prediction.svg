@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>OnlineCP — Distribution-Informed Online Conformal Prediction</title>
+  <desc>Sequential time-series prediction interval ribbon adapting causally across a volatility regime shift before outcome revelation, driven by an empirical score CDF and dual-tail quantile gradient descent.</desc>
+  <defs>
+    <clipPath id="card-clip">
+      <rect x="0.5" y="0.5" width="639" height="399" rx="14"/>
+    </clipPath>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F7FAFF"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="accent-bar" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0052FF"/>
+      <stop offset="100%" stop-color="#0EA5E9"/>
+    </linearGradient>
+    <linearGradient id="band-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0EA5E9" stop-opacity="0.22"/>
+      <stop offset="60%" stop-color="#0052FF" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#0052FF" stop-opacity="0.28"/>
+    </linearGradient>
+    <linearGradient id="cdf-fill" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0052FF" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#DBEAFE" stop-opacity="0.06"/>
+    </linearGradient>
+    <pattern id="dot-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1" fill="#475569" fill-opacity="0.16"/>
+    </pattern>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 1 1.5 L 9 5 L 1 8.5 z" fill="#0052FF"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#card-clip)" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <!-- Base luminous plate -->
+    <rect x="0" y="0" width="640" height="400" fill="url(#bg-grad)"/>
+    <rect x="24" y="60" width="592" height="292" fill="url(#dot-grid)"/>
+    <rect x="0" y="0" width="640" height="3.5" fill="url(#accent-bar)"/>
+
+    <!-- Header -->
+    <text x="28" y="36" font-size="18" font-weight="700" fill="#0A0E17" letter-spacing="-0.3">OnlineCP</text>
+    <text x="612" y="35" text-anchor="end" font-size="12.5" font-weight="500" fill="#475569">Distribution-Informed Online Conformal</text>
+    <line x1="28" y1="52" x2="612" y2="52" stroke="#CBD5E1" stroke-opacity="0.6" stroke-width="1"/>
+
+    <!-- LEFT-CENTER CAUSAL TIMELINE PANEL -->
+    <rect x="34" y="70" width="390" height="278" rx="10" fill="#FFFFFF" fill-opacity="0.72" stroke="#CBD5E1" stroke-width="1"/>
+
+    <!-- Burn-in window tint -->
+    <rect x="48" y="96" width="72" height="214" rx="4" fill="#DBEAFE" fill-opacity="0.42"/>
+    <text x="84" y="88" text-anchor="middle" font-size="11.5" font-weight="600" fill="#475569">Burn-in</text>
+
+    <!-- Regime Shift volatility window tint -->
+    <rect x="218" y="96" width="76" height="214" rx="4" fill="#E11D48" fill-opacity="0.05"/>
+    <text x="256" y="88" text-anchor="middle" font-size="11.5" font-weight="600" fill="#E11D48">Regime Shift</text>
+
+    <!-- Plot axes -->
+    <line x1="48" y1="96" x2="48" y2="310" stroke="#475569" stroke-width="1.3"/>
+    <line x1="48" y1="310" x2="412" y2="310" stroke="#475569" stroke-width="1.3"/>
+
+    <!-- Adaptive sequential conformal band -->
+    <path d="M 52 194 L 84 188 L 118 196 L 152 184 L 186 190 L 218 182 L 236 168 L 256 126 L 284 114 L 314 134 L 342 152 L 366 156
+             L 366 236 L 342 238 L 314 252 L 284 282 L 256 272 L 236 238 L 218 228 L 186 234 L 152 228 L 118 242 L 84 234 L 52 242 Z"
+          fill="url(#band-grad)" stroke="#0052FF" stroke-width="2"/>
+
+    <!-- Fixed point forecast stream y_hat_t -->
+    <polyline points="52,218 84,211 118,219 152,206 186,212 218,205 236,202 256,196 284,198 314,193 342,195 366,196"
+              fill="none" stroke="#0A1E5E" stroke-width="2.5" stroke-linejoin="round"/>
+
+    <!-- Realized observations y_t: covered (emerald) -->
+    <g fill="#059669" stroke="#FFFFFF" stroke-width="1.2">
+      <circle cx="62" cy="224" r="3.4"/>
+      <circle cx="78" cy="202" r="3.4"/>
+      <circle cx="98" cy="214" r="3.4"/>
+      <circle cx="116" cy="230" r="3.4"/>
+      <circle cx="136" cy="204" r="3.4"/>
+      <circle cx="154" cy="194" r="3.4"/>
+      <circle cx="172" cy="218" r="3.4"/>
+      <circle cx="192" cy="204" r="3.4"/>
+      <circle cx="212" cy="216" r="3.4"/>
+      <circle cx="276" cy="146" r="3.4"/>
+      <circle cx="296" cy="242" r="3.4"/>
+      <circle cx="316" cy="176" r="3.4"/>
+      <circle cx="334" cy="214" r="3.4"/>
+      <circle cx="352" cy="184" r="3.4"/>
+    </g>
+
+    <!-- Miscoverage spikes at regime shift (crimson) -->
+    <g fill="#E11D48" stroke="#FFFFFF" stroke-width="1.6">
+      <circle cx="234" cy="126" r="4.8"/>
+      <circle cx="254" cy="288" r="4.8"/>
+    </g>
+
+    <!-- Vertical Causal Frontier: commit before y_t revealed -->
+    <line x1="366" y1="94" x2="366" y2="310" stroke="#0A1E5E" stroke-width="2" stroke-dasharray="5,4"/>
+    <text x="366" y="88" text-anchor="middle" font-size="11.5" font-weight="700" fill="#0A1E5E">Commit t</text>
+
+    <!-- Committed interval bracket [L_t, U_t] at step t -->
+    <line x1="382" y1="158" x2="382" y2="234" stroke="#0052FF" stroke-width="3.6" stroke-linecap="round"/>
+    <line x1="375" y1="158" x2="389" y2="158" stroke="#0052FF" stroke-width="2.4" stroke-linecap="round"/>
+    <line x1="375" y1="234" x2="389" y2="234" stroke="#0052FF" stroke-width="2.4" stroke-linecap="round"/>
+    <circle cx="382" cy="196" r="4" fill="#0A1E5E" stroke="#FFFFFF" stroke-width="1.5"/>
+    <!-- Unrevealed future target -->
+    <circle cx="402" cy="182" r="7.5" fill="#F7FAFF" stroke="#475569" stroke-opacity="0.55" stroke-width="1.5" stroke-dasharray="2.5,2"/>
+    <text x="402" y="186" text-anchor="middle" font-size="11" font-weight="700" fill="#475569">?</text>
+
+    <!-- Bottom timeline legend -->
+    <line x1="54" y1="332" x2="72" y2="332" stroke="#0A1E5E" stroke-width="2.5"/>
+    <text x="78" y="336" font-size="11.5" font-weight="500" fill="#475569">ŷ_t</text>
+
+    <circle cx="122" cy="332" r="3.8" fill="#059669"/>
+    <text x="132" y="336" font-size="11.5" font-weight="500" fill="#475569">Covered</text>
+
+    <circle cx="206" cy="332" r="4.2" fill="#E11D48"/>
+    <text x="216" y="336" font-size="11.5" font-weight="500" fill="#475569">Miss</text>
+
+    <line x1="274" y1="326" x2="274" y2="338" stroke="#0052FF" stroke-width="3"/>
+    <text x="284" y="336" font-size="11.5" font-weight="600" fill="#0052FF">[L_t, U_t]</text>
+
+    <!-- RIGHT TOP PANEL: Score Empirical CDF -->
+    <rect x="438" y="70" width="174" height="162" rx="10" fill="#FFFFFF" fill-opacity="0.92" stroke="#CBD5E1" stroke-width="1"/>
+    <text x="525" y="90" text-anchor="middle" font-size="12" font-weight="600" fill="#0A1E5E">Empirical CDF F̂_t(s)</text>
+
+    <!-- CDF axes -->
+    <line x1="468" y1="104" x2="468" y2="204" stroke="#475569" stroke-opacity="0.55" stroke-width="1.2"/>
+    <line x1="468" y1="204" x2="598" y2="204" stroke="#475569" stroke-opacity="0.55" stroke-width="1.2"/>
+
+    <!-- Filled stepped-smooth score CDF curve -->
+    <path d="M 468 204 L 478 202 L 490 194 L 504 176 L 520 152 L 538 134 L 558 122 L 578 115 L 596 112 L 596 204 Z"
+          fill="url(#cdf-fill)"/>
+    <polyline points="468,204 478,202 490,194 504,176 520,152 538,134 558,122 578,115 596,112"
+              fill="none" stroke="#0052FF" stroke-width="2.6" stroke-linejoin="round"/>
+
+    <!-- 1 - alpha = 0.90 quantile line -->
+    <line x1="468" y1="122" x2="558" y2="122" stroke="#059669" stroke-width="1.6" stroke-dasharray="4,3"/>
+    <line x1="558" y1="122" x2="558" y2="204" stroke="#0052FF" stroke-width="1.6" stroke-dasharray="3,2"/>
+    <circle cx="558" cy="122" r="4.2" fill="#059669" stroke="#FFFFFF" stroke-width="1.5"/>
+
+    <text x="463" y="126" text-anchor="end" font-size="10.5" font-weight="700" fill="#059669">.9</text>
+    <text x="558" y="220" text-anchor="middle" font-size="11.5" font-weight="700" fill="#0052FF">r_t*</text>
+
+    <!-- RIGHT BOTTOM PANEL: Dual-Tail Online Update -->
+    <rect x="438" y="244" width="174" height="104" rx="10" fill="#FFFFFF" fill-opacity="0.92" stroke="#CBD5E1" stroke-width="1"/>
+    <text x="525" y="264" text-anchor="middle" font-size="12" font-weight="600" fill="#0A1E5E">Dual-Tail Update</text>
+
+    <rect x="454" y="274" width="142" height="24" rx="6" fill="#DBEAFE" stroke="#0052FF" stroke-opacity="0.35" stroke-width="1"/>
+    <text x="525" y="290" text-anchor="middle" font-size="11.5" font-weight="600" fill="#0A1E5E">Quantile OGD (α/2)</text>
+
+    <line x1="525" y1="298" x2="525" y2="315" stroke="#0052FF" stroke-width="2" marker-end="url(#arrow-blue)"/>
+
+    <text x="525" y="334" text-anchor="middle" font-size="12" font-weight="700" fill="#0052FF">CDF Radius Refine</text>
+
+    <!-- Footer -->
+    <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-opacity="0.6" stroke-width="1"/>
+    <text x="28" y="381" font-size="12" font-weight="500" fill="#475569">90% sequential coverage · α = 0.10</text>
+    <text x="612" y="381" text-anchor="end" font-size="12.5" fill="#475569">Target: <tspan font-weight="700" fill="#0052FF">geomean_width ↓</tspan></text>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="14" fill="none" stroke="#CBD5E1" stroke-opacity="0.75" stroke-width="1"/>
+</svg>

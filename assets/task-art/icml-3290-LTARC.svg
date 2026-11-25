@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>LTARC: Risk-Controlled Treatment Allocation Trees Under Partial Identifiability</title>
+  <desc>An interpretable fast-and-frugal decision tree with at most three threshold splits is selected on a population-versus-treatment risk frontier using 90% upper confidence bounds certified below tolerance tau equals 0.35.</desc>
+  <defs>
+    <clipPath id="card-clip">
+      <rect width="640" height="400" rx="16"/>
+    </clipPath>
+    <linearGradient id="bg-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFF6F8"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <pattern id="dot-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#E11D48" opacity="0.16"/>
+    </pattern>
+    <marker id="arr-crimson" markerWidth="7" markerHeight="7" refX="5.5" refY="3.5" orient="auto">
+      <path d="M0.5 0.5 L6.5 3.5 L0.5 6.5 Z" fill="#E11D48"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#card-clip)">
+    <!-- Plate Background -->
+    <rect width="640" height="400" fill="url(#bg-grad)"/>
+    <rect x="0" y="54" width="640" height="304" fill="url(#dot-grid)"/>
+    <rect x="0" y="0" width="640" height="3" fill="#E11D48"/>
+
+    <!-- Header -->
+    <text x="28" y="36" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="700" fill="#0A0E17">LTARC</text>
+    <text x="612" y="36" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#475569">Risk-Controlled Treatment Trees</text>
+    <line x1="28" y1="54" x2="612" y2="54" stroke="#CBD5E1" stroke-width="1"/>
+
+    <!-- Left Card: Fast-and-Frugal Policy Tree (Staircase Cascade <= 3 splits) -->
+    <rect x="28" y="70" width="256" height="276" rx="12" fill="#FFFFFF" fill-opacity="0.92" stroke="#CBD5E1" stroke-width="1"/>
+    <text x="42" y="90" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#0A0E17">Fast-and-Frugal Tree</text>
+
+    <!-- Tree Branches -->
+    <g stroke="#6B1028" stroke-width="2" fill="none" stroke-linecap="round">
+      <!-- Split 1 -> Leaf 1 & Split 2 -->
+      <path d="M 102 138 L 76 168"/>
+      <path d="M 134 138 L 166 168"/>
+      <!-- Split 2 -> Leaf 2 & Split 3 -->
+      <path d="M 154 198 L 128 228"/>
+      <path d="M 186 198 L 216 228"/>
+      <!-- Split 3 -> Leaf 3 & Leaf 4 -->
+      <path d="M 206 258 L 164 288"/>
+      <path d="M 230 258 L 238 288"/>
+    </g>
+
+    <!-- Split Nodes -->
+    <rect x="74" y="108" width="88" height="30" rx="8" fill="#FFE4E6" stroke="#E11D48" stroke-width="2"/>
+    <text x="118" y="127" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#6B1028">x₁ ≤ c₁</text>
+
+    <rect x="126" y="168" width="88" height="30" rx="8" fill="#FFE4E6" stroke="#E11D48" stroke-width="2"/>
+    <text x="170" y="187" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#6B1028">x₂ ≤ c₂</text>
+
+    <rect x="176" y="228" width="88" height="30" rx="8" fill="#FFE4E6" stroke="#F43F5E" stroke-width="2"/>
+    <text x="220" y="247" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#6B1028">x₃ ≤ c₃</text>
+
+    <!-- Decision Leaf Pills -->
+    <rect x="40" y="169" width="70" height="28" rx="14" fill="#059669" fill-opacity="0.14" stroke="#059669" stroke-width="1.8"/>
+    <text x="75" y="187" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#059669">Treat (1)</text>
+
+    <rect x="86" y="229" width="76" height="28" rx="14" fill="#475569" fill-opacity="0.10" stroke="#475569" stroke-width="1.6"/>
+    <text x="124" y="247" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#475569">Control (0)</text>
+
+    <rect x="122" y="288" width="70" height="26" rx="13" fill="#059669" fill-opacity="0.14" stroke="#059669" stroke-width="1.8"/>
+    <text x="157" y="305" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#059669">Treat (1)</text>
+
+    <rect x="200" y="288" width="74" height="26" rx="13" fill="#475569" fill-opacity="0.10" stroke="#475569" stroke-width="1.6"/>
+    <text x="237" y="305" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#475569">Control (0)</text>
+
+    <text x="156" y="335" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">≤ 3 splits · 40-bin grid</text>
+
+    <!-- Arrow Left -> Right -->
+    <line x1="284" y1="208" x2="298" y2="208" stroke="#E11D48" stroke-width="2.2" marker-end="url(#arr-crimson)"/>
+
+    <!-- Right Card: Certified Risk-Control Frontier -->
+    <rect x="302" y="70" width="310" height="276" rx="12" fill="#FFFFFF" fill-opacity="0.92" stroke="#CBD5E1" stroke-width="1"/>
+    <text x="316" y="90" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#0A0E17">Certified Risk Frontier</text>
+
+    <!-- Safe vs Unsafe Risk Zones divided by tau = 0.35 (x=488) -->
+    <rect x="344" y="108" width="144" height="190" fill="#059669" fill-opacity="0.06"/>
+    <rect x="488" y="108" width="110" height="190" fill="#FFE4E6" fill-opacity="0.72"/>
+
+    <text x="416" y="125" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#059669">Certified ≤ τ</text>
+    <text x="543" y="125" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#E11D48">Unsafe &gt; τ</text>
+
+    <!-- Safety Barrier Line tau = 0.35 -->
+    <line x1="488" y1="108" x2="488" y2="298" stroke="#E11D48" stroke-width="2.6" stroke-dasharray="6 4"/>
+
+    <!-- Plot Axes -->
+    <line x1="344" y1="108" x2="344" y2="298" stroke="#475569" stroke-width="1.6"/>
+    <line x1="344" y1="298" x2="598" y2="298" stroke="#475569" stroke-width="1.6"/>
+
+    <!-- Candidate Policy Frontier Curve -->
+    <path d="M 364 150 C 402 182 446 234 558 274" fill="none" stroke="#6B1028" stroke-opacity="0.32" stroke-width="2.2"/>
+
+    <!-- Candidate 1 (Conservative, Safe) -->
+    <line x1="366" y1="152" x2="404" y2="152" stroke="#475569" stroke-width="2"/>
+    <line x1="404" y1="147" x2="404" y2="157" stroke="#475569" stroke-width="2"/>
+    <circle cx="366" cy="152" r="4.5" fill="#475569" stroke="#FFFFFF" stroke-width="1.5"/>
+
+    <!-- Candidate 2 (Moderate, Safe) -->
+    <line x1="396" y1="180" x2="440" y2="180" stroke="#059669" stroke-width="2"/>
+    <line x1="440" y1="175" x2="440" y2="185" stroke="#059669" stroke-width="2"/>
+    <circle cx="396" cy="180" r="4.5" fill="#059669" stroke="#FFFFFF" stroke-width="1.5"/>
+
+    <!-- Candidate 3: OPTIMAL CERTIFIED POLICY pi* (Lowest Pop Risk with 90% UCB <= tau) -->
+    <circle cx="430" cy="216" r="14" fill="#059669" fill-opacity="0.16"/>
+    <line x1="430" y1="216" x2="480" y2="216" stroke="#059669" stroke-width="2.8"/>
+    <line x1="480" y1="209" x2="480" y2="223" stroke="#059669" stroke-width="2.6"/>
+    <circle cx="430" cy="216" r="5.5" fill="#059669" stroke="#FFFFFF" stroke-width="2"/>
+    <line x1="424" y1="224" x2="404" y2="246" stroke="#059669" stroke-width="1.4"/>
+    <rect x="354" y="246" width="84" height="22" rx="11" fill="#059669"/>
+    <text x="396" y="261" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#FFFFFF">Certified π*</text>
+
+    <!-- Candidate 4 (Empirical < tau, but 90% UCB crosses tau -> Rejected!) -->
+    <line x1="466" y1="244" x2="520" y2="244" stroke="#F43F5E" stroke-width="2.2"/>
+    <line x1="520" y1="239" x2="520" y2="249" stroke="#F43F5E" stroke-width="2.2"/>
+    <circle cx="466" cy="244" r="4.5" fill="#F43F5E" stroke="#FFFFFF" stroke-width="1.5"/>
+
+    <!-- Candidate 5 (High Treatment Risk -> Rejected) -->
+    <line x1="522" y1="268" x2="578" y2="268" stroke="#E11D48" stroke-width="2.2"/>
+    <line x1="578" y1="263" x2="578" y2="273" stroke="#E11D48" stroke-width="2.2"/>
+    <circle cx="522" cy="268" r="4.5" fill="#E11D48" stroke="#FFFFFF" stroke-width="1.5"/>
+
+    <!-- Axis Labels & Legend -->
+    <text x="326" y="203" text-anchor="middle" transform="rotate(-90 326 203)" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">Population Risk ↓</text>
+    <text x="398" y="315" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">Treatment Risk</text>
+    <text x="488" y="315" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#E11D48">τ = 0.35</text>
+
+    <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5">
+      <line x1="348" y1="333" x2="368" y2="333" stroke="#059669" stroke-width="2.5"/>
+      <line x1="368" y1="329" x2="368" y2="337" stroke="#059669" stroke-width="2"/>
+      <text x="374" y="337" fill="#059669" font-weight="600">90% UCB ≤ τ</text>
+
+      <line x1="478" y1="333" x2="498" y2="333" stroke="#E11D48" stroke-width="2.2"/>
+      <line x1="498" y1="329" x2="498" y2="337" stroke="#E11D48" stroke-width="2"/>
+      <text x="504" y="337" fill="#E11D48" font-weight="600">Rejected</text>
+    </g>
+
+    <!-- Footer -->
+    <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-width="1" opacity="0.8"/>
+    <text x="28" y="378" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#475569">STAR cohort · Γ = 1 · 90% finite-sample UCB</text>
+    <text x="612" y="378" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5">
+      <tspan fill="#475569">Target: </tspan><tspan font-weight="700" fill="#E11D48">population_risk ↓</tspan>
+    </text>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="15.5" fill="none" stroke="#CBD5E1" stroke-width="1" opacity="0.75"/>
+</svg>

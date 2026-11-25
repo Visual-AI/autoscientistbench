@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>krepp: Alignment-Free Phylogenetic Read Placement</title>
+  <desc>Short 150 bp reads match k-mers via locality-sensitive hashing and attach to the optimal clade edge of a reference phylogeny under maximum pseudo-likelihood while excluding query genomes.</desc>
+  <defs>
+    <clipPath id="cardClip">
+      <rect x="0" y="0" width="640" height="400" rx="16"/>
+    </clipPath>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F4FBF9"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0D9488"/>
+      <stop offset="100%" stop-color="#10B981"/>
+    </linearGradient>
+    <pattern id="dotGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#0D9488" fill-opacity="0.16"/>
+    </pattern>
+    <marker id="arrowPrimary" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M 1 1.5 L 9 5 L 1 8.5 Z" fill="#0D9488"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#cardClip)" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <!-- Base luminous plate -->
+    <rect x="0" y="0" width="640" height="400" fill="url(#bgGrad)"/>
+    <rect x="0" y="0" width="640" height="3.5" fill="url(#accentGrad)"/>
+    <rect x="20" y="58" width="600" height="298" fill="url(#dotGrid)"/>
+
+    <!-- Header -->
+    <text x="28" y="38" font-size="18" font-weight="700" fill="#0A0E17">krepp</text>
+    <text x="612" y="37" text-anchor="end" font-size="12.5" font-weight="500" fill="#475569">Alignment-Free Phylogenetic Placement</text>
+    <line x1="28" y1="56" x2="612" y2="56" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.75"/>
+
+    <!-- Left panel: 150 bp read + LSH k-mers -->
+    <text x="36" y="88" font-size="12" font-weight="600" fill="#114B46">150 bp query read</text>
+    <rect x="36" y="98" width="148" height="24" rx="6" fill="#FFFFFF" stroke="#0D9488" stroke-width="2"/>
+    <rect x="44" y="103" width="32" height="14" rx="3" fill="#0D9488"/>
+    <rect x="86" y="103" width="34" height="14" rx="3" fill="#10B981"/>
+    <rect x="130" y="103" width="46" height="14" rx="3" fill="#CCFBF1" stroke="#0D9488" stroke-width="1.2"/>
+    <text x="36" y="140" font-size="11.5" fill="#475569">k=29 LSH · dH ≤ 4</text>
+
+    <!-- Hash bucket pills with LSH signature dots -->
+    <g fill="#CCFBF1" stroke="#0D9488" stroke-width="1.2">
+      <rect x="36" y="150" width="42" height="16" rx="4"/>
+      <rect x="84" y="150" width="42" height="16" rx="4"/>
+      <rect x="132" y="150" width="52" height="16" rx="4" fill="#FFFFFF" stroke="#CBD5E1"/>
+    </g>
+    <g fill="#0D9488">
+      <circle cx="46" cy="158" r="2.2"/><circle cx="57" cy="158" r="2.2"/><circle cx="68" cy="158" r="2.2"/>
+      <circle cx="94" cy="158" r="2.2"/><circle cx="105" cy="158" r="2.2"/><circle cx="116" cy="158" r="2.2"/>
+    </g>
+    <g fill="#CBD5E1">
+      <circle cx="145" cy="158" r="2.2"/><circle cx="158" cy="158" r="2.2"/><circle cx="171" cy="158" r="2.2"/>
+    </g>
+    <path d="M 60 122 V 148 M 103 122 V 148 M 154 122 V 148" stroke="#0D9488" stroke-width="1.3" stroke-dasharray="2.5 2.5" opacity="0.7"/>
+
+    <!-- Sweeping placement beam from read to optimal clade edge -->
+    <path d="M 186 110 C 266 94, 344 98, 404 142" fill="none" stroke="#0D9488" stroke-width="2.6" marker-end="url(#arrowPrimary)"/>
+
+    <!-- Left-bottom panel: Pseudo-likelihood LRT curve -->
+    <rect x="36" y="196" width="148" height="140" rx="10" fill="#FFFFFF" fill-opacity="0.92" stroke="#CBD5E1" stroke-width="1"/>
+    <text x="48" y="216" font-size="11.5" font-weight="600" fill="#114B46">Pseudo-likelihood</text>
+    <!-- Shaded LRT 10% tie band -->
+    <rect x="54" y="270" width="116" height="18" fill="#CCFBF1" fill-opacity="0.8"/>
+    <line x1="54" y1="270" x2="170" y2="270" stroke="#0D9488" stroke-width="1.2" stroke-dasharray="3 3"/>
+    <!-- Axes -->
+    <path d="M 54 232 V 306 H 170" fill="none" stroke="#475569" stroke-width="1.4"/>
+    <!-- Negative log-likelihood curve -->
+    <path d="M 60 242 C 74 282, 92 292, 110 286 C 128 280, 148 258, 166 238" fill="none" stroke="#114B46" stroke-width="2.3" stroke-linecap="round"/>
+    <circle cx="100" cy="288" r="4" fill="#059669"/>
+    <circle cx="126" cy="278" r="3.5" fill="#0D9488"/>
+    <text x="110" y="324" text-anchor="middle" font-size="11.5" font-weight="600" fill="#0D9488">LRT tie (10%)</text>
+
+    <!-- Right main panel: Curved reference phylogeny -->
+    <!-- Background dense leaf ticks suggesting 10,575 leaves -->
+    <g stroke="#CBD5E1" stroke-width="1.6" stroke-linecap="round" opacity="0.75">
+      <line x1="556" y1="120" x2="574" y2="120"/>
+      <line x1="556" y1="132" x2="570" y2="132"/>
+      <line x1="556" y1="144" x2="574" y2="144"/>
+      <line x1="556" y1="156" x2="568" y2="156"/>
+      <line x1="556" y1="168" x2="574" y2="168"/>
+      <line x1="556" y1="184" x2="570" y2="184"/>
+      <line x1="556" y1="198" x2="574" y2="198"/>
+      <line x1="556" y1="212" x2="568" y2="212"/>
+      <line x1="556" y1="226" x2="574" y2="226"/>
+      <line x1="556" y1="286" x2="574" y2="286"/>
+      <line x1="556" y1="300" x2="568" y2="300"/>
+      <line x1="556" y1="314" x2="574" y2="314"/>
+      <line x1="556" y1="328" x2="570" y2="328"/>
+    </g>
+    <text x="598" y="106" text-anchor="end" font-size="11.5" font-weight="600" fill="#475569">WoL-v1 tree</text>
+
+    <!-- Highlighted target clade wedge -->
+    <path d="M 366 144 L 548 112 Q 556 144 548 176 Z" fill="#CCFBF1" fill-opacity="0.65"/>
+
+    <!-- Tree backbone curves -->
+    <g fill="none" stroke="#114B46" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+      <!-- Root to primary split -->
+      <path d="M 210 236 H 236"/>
+      <path d="M 236 236 C 270 236, 270 174, 304 174"/>
+      <path d="M 236 236 C 270 236, 270 302, 304 302"/>
+      <!-- Upper clade splits -->
+      <path d="M 304 174 C 340 174, 340 144, 376 144"/>
+      <path d="M 304 174 C 342 174, 342 206, 384 206"/>
+      <!-- Upper-top non-placed sister tip -->
+      <path d="M 376 144 C 424 144, 444 124, 542 124"/>
+      <!-- Upper-mid clade tips -->
+      <path d="M 384 206 C 430 206, 456 196, 542 196"/>
+      <path d="M 384 206 C 430 206, 456 222, 542 222"/>
+      <!-- Lower clade splits -->
+      <path d="M 304 302 C 348 302, 356 286, 404 286"/>
+      <path d="M 404 286 C 450 286, 472 284, 542 284"/>
+      <path d="M 404 286 C 450 286, 472 304, 542 304"/>
+      <path d="M 304 302 C 362 302, 412 328, 542 328"/>
+    </g>
+
+    <!-- Placed edge and descendant tips highlighted -->
+    <path d="M 376 144 C 408 144, 422 158, 454 158" fill="none" stroke="#0D9488" stroke-width="5.5" stroke-linecap="round"/>
+    <path d="M 454 158 C 488 158, 502 146, 542 146" fill="none" stroke="#0D9488" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M 454 158 C 488 158, 502 170, 542 170" fill="none" stroke="#0D9488" stroke-width="2.4" stroke-linecap="round"/>
+
+    <!-- Excluded query branch (dashed rose-red) -->
+    <path d="M 442 218 C 474 218, 492 246, 538 246" fill="none" stroke="#E11D48" stroke-width="2.4" stroke-dasharray="5 4" stroke-linecap="round"/>
+    <g stroke="#E11D48" stroke-width="2.6" stroke-linecap="round">
+      <line x1="538" y1="240" x2="550" y2="252"/>
+      <line x1="550" y1="240" x2="538" y2="252"/>
+    </g>
+    <text x="530" y="270" text-anchor="middle" font-size="11.5" font-weight="600" fill="#E11D48">Excluded query</text>
+
+    <!-- Unit-edge error path along backbone (offset rose trace) -->
+    <path d="M 408 156 C 392 152, 384 150, 372 151 C 344 153, 336 180, 314 181 C 342 183, 348 212, 386 213 C 408 213, 424 217, 438 220" fill="none" stroke="#E11D48" stroke-width="2.2" stroke-dasharray="3.5 3" stroke-linecap="round"/>
+    <circle cx="442" cy="218" r="4.5" fill="#FFFFFF" stroke="#E11D48" stroke-width="2.2"/>
+    <text x="358" y="246" text-anchor="middle" font-size="11.5" font-weight="600" fill="#E11D48">Unit-edge error</text>
+    <line x1="358" y1="232" x2="358" y2="213" stroke="#E11D48" stroke-width="1.3" stroke-dasharray="2 2"/>
+
+    <!-- Internal tree nodes -->
+    <g fill="#114B46">
+      <circle cx="236" cy="236" r="4"/>
+      <circle cx="304" cy="174" r="4"/>
+      <circle cx="304" cy="302" r="4"/>
+      <circle cx="376" cy="144" r="4"/>
+      <circle cx="384" cy="206" r="4"/>
+      <circle cx="404" cy="286" r="3.5"/>
+    </g>
+    <circle cx="454" cy="158" r="4" fill="#0D9488"/>
+
+    <!-- Root node (hollow: root ≠ placed) -->
+    <circle cx="210" cy="236" r="5" fill="#FFFFFF" stroke="#475569" stroke-width="2.2"/>
+    <text x="210" y="256" text-anchor="middle" font-size="11.5" fill="#475569">Root</text>
+
+    <!-- Placed read attachment point -->
+    <circle cx="416" cy="152" r="11" fill="#059669" fill-opacity="0.22"/>
+    <circle cx="416" cy="152" r="5.5" fill="#FFFFFF" stroke="#059669" stroke-width="3"/>
+    <text x="444" y="102" font-size="12" font-weight="700" fill="#059669">Placed edge</text>
+    <line x1="454" y1="108" x2="424" y2="142" stroke="#059669" stroke-width="1.3" stroke-dasharray="2.5 2"/>
+
+    <!-- Footer -->
+    <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.75"/>
+    <text x="28" y="381" font-size="12.5" fill="#475569">Target: <tspan font-weight="700" fill="#0D9488">mean_edge_error ↓</tspan></text>
+    <text x="612" y="381" text-anchor="end" font-size="11.5" fill="#475569">WoL-v1 · 10,575 leaves</text>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="16" fill="none" stroke="#CBD5E1" stroke-width="1"/>
+</svg>

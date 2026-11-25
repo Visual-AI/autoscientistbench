@@ -1,0 +1,211 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>DMFM-IGau: Normalized Inverse-Gaussian Network Mixture Posterior</title>
+  <desc>An undirected stochastic block network partitioned into posterior communities alongside its block probability matrix, inverse-Gaussian weight prior, and occupied versus empty mixture components.</desc>
+  <defs>
+    <clipPath id="plateClip">
+      <rect x="0" y="0" width="640" height="400" rx="14"/>
+    </clipPath>
+    <linearGradient id="plateBg" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0%" stop-color="#F8F6FF"/>
+      <stop offset="55%" stop-color="#F8F6FF" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="topAccent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#3E1B7A"/>
+      <stop offset="45%" stop-color="#7C3AED"/>
+      <stop offset="100%" stop-color="#A855F7"/>
+    </linearGradient>
+    <linearGradient id="igFill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7C3AED" stop-opacity="0.34"/>
+      <stop offset="100%" stop-color="#EDE9FE" stop-opacity="0.16"/>
+    </linearGradient>
+    <pattern id="coordDots" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#7C3AED" opacity="0.16"/>
+    </pattern>
+  </defs>
+
+  <g clip-path="url(#plateClip)">
+    <rect x="0" y="0" width="640" height="400" fill="#FFFFFF"/>
+    <rect x="0" y="0" width="640" height="400" fill="url(#plateBg)"/>
+    <rect x="20" y="58" width="600" height="296" fill="url(#coordDots)"/>
+    <rect x="0" y="0" width="640" height="3" fill="url(#topAccent)"/>
+
+    <!-- Header -->
+    <text x="28" y="38" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="700" fill="#0A0E17">DMFM-IGau</text>
+    <text x="612" y="37" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="500" fill="#475569">Inverse-Gaussian Network Mixture</text>
+    <line x1="28" y1="54" x2="612" y2="54" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.75"/>
+
+    <!-- Left Hero Panel: Stochastic Block Network with Posterior Communities -->
+    <g>
+      <rect x="34" y="70" width="262" height="270" rx="11" fill="#FFFFFF" fill-opacity="0.92" stroke="#CBD5E1" stroke-width="1.2"/>
+      <text x="165" y="92" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#0A0E17">Stochastic Block Network</text>
+
+      <!-- Community Halos -->
+      <ellipse cx="106" cy="160" rx="46" ry="38" fill="#EDE9FE" fill-opacity="0.82" stroke="#3E1B7A" stroke-width="1.5" stroke-dasharray="4 3"/>
+      <ellipse cx="224" cy="164" rx="44" ry="36" fill="#EDE9FE" fill-opacity="0.72" stroke="#7C3AED" stroke-width="1.5" stroke-dasharray="4 3"/>
+      <ellipse cx="165" cy="264" rx="54" ry="34" fill="#EDE9FE" fill-opacity="0.65" stroke="#A855F7" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+      <!-- Sparse inter-community edges -->
+      <g stroke="#CBD5E1" stroke-width="1.6" stroke-dasharray="3.5 3">
+        <line x1="138" y1="154" x2="192" y2="156"/>
+        <line x1="118" y1="186" x2="146" y2="244"/>
+        <line x1="210" y1="188" x2="188" y2="244"/>
+        <line x1="130" y1="176" x2="196" y2="176"/>
+      </g>
+
+      <!-- Dense intra-community edges: Cluster 1 (dark violet) -->
+      <g stroke="#3E1B7A" stroke-width="1.8" stroke-opacity="0.7">
+        <line x1="84" y1="146" x2="112" y2="136"/>
+        <line x1="84" y1="146" x2="82" y2="174"/>
+        <line x1="84" y1="146" x2="114" y2="164"/>
+        <line x1="112" y1="136" x2="136" y2="154"/>
+        <line x1="112" y1="136" x2="114" y2="164"/>
+        <line x1="136" y1="154" x2="114" y2="164"/>
+        <line x1="136" y1="154" x2="118" y2="184"/>
+        <line x1="82" y1="174" x2="118" y2="184"/>
+        <line x1="82" y1="174" x2="114" y2="164"/>
+      </g>
+
+      <!-- Dense intra-community edges: Cluster 2 (primary violet) -->
+      <g stroke="#7C3AED" stroke-width="1.8" stroke-opacity="0.72">
+        <line x1="196" y1="156" x2="224" y2="140"/>
+        <line x1="196" y1="156" x2="210" y2="184"/>
+        <line x1="196" y1="156" x2="230" y2="166"/>
+        <line x1="224" y1="140" x2="252" y2="158"/>
+        <line x1="224" y1="140" x2="230" y2="166"/>
+        <line x1="252" y1="158" x2="238" y2="184"/>
+        <line x1="252" y1="158" x2="230" y2="166"/>
+        <line x1="210" y1="184" x2="238" y2="184"/>
+      </g>
+
+      <!-- Dense intra-community edges: Cluster 3 (secondary violet) -->
+      <g stroke="#A855F7" stroke-width="1.8" stroke-opacity="0.75">
+        <line x1="132" y1="258" x2="154" y2="244"/>
+        <line x1="132" y1="258" x2="144" y2="282"/>
+        <line x1="132" y1="258" x2="168" y2="264"/>
+        <line x1="154" y1="244" x2="188" y2="246"/>
+        <line x1="154" y1="244" x2="168" y2="264"/>
+        <line x1="188" y1="246" x2="202" y2="268"/>
+        <line x1="188" y1="246" x2="168" y2="264"/>
+        <line x1="144" y1="282" x2="178" y2="284"/>
+        <line x1="178" y1="284" x2="202" y2="268"/>
+        <line x1="168" y1="264" x2="178" y2="284"/>
+      </g>
+
+      <!-- Nodes Cluster 1 -->
+      <g fill="#3E1B7A" stroke="#FFFFFF" stroke-width="1.6">
+        <circle cx="84" cy="146" r="5.5"/>
+        <circle cx="112" cy="136" r="5.5"/>
+        <circle cx="136" cy="154" r="5.5"/>
+        <circle cx="114" cy="164" r="5.8"/>
+        <circle cx="82" cy="174" r="5.2"/>
+        <circle cx="118" cy="184" r="5.2"/>
+      </g>
+
+      <!-- Nodes Cluster 2 -->
+      <g fill="#7C3AED" stroke="#FFFFFF" stroke-width="1.6">
+        <circle cx="196" cy="156" r="5.5"/>
+        <circle cx="224" cy="140" r="5.5"/>
+        <circle cx="252" cy="158" r="5.5"/>
+        <circle cx="230" cy="166" r="5.8"/>
+        <circle cx="210" cy="184" r="5.2"/>
+        <circle cx="238" cy="184" r="5.2"/>
+      </g>
+
+      <!-- Nodes Cluster 3 -->
+      <g fill="#A855F7" stroke="#FFFFFF" stroke-width="1.6">
+        <circle cx="132" cy="258" r="5.5"/>
+        <circle cx="154" cy="244" r="5.5"/>
+        <circle cx="188" cy="246" r="5.5"/>
+        <circle cx="168" cy="264" r="5.8"/>
+        <circle cx="144" cy="282" r="5.2"/>
+        <circle cx="178" cy="284" r="5.2"/>
+        <circle cx="202" cy="268" r="5.2"/>
+      </g>
+
+      <!-- Community micro labels outside halos -->
+      <text x="53" y="122" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#3E1B7A">c₁</text>
+      <text x="275" y="124" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#7C3AED">c₂</text>
+      <text x="242" y="294" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#A855F7">c₃</text>
+
+      <text x="165" y="328" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#475569">Aᵢⱼ ~ Bern(Q[cᵢ, cⱼ])</text>
+    </g>
+
+    <!-- Right-Top Left Sub-Card: Block-Diagonal Matrix Q -->
+    <g>
+      <rect x="310" y="70" width="136" height="132" rx="11" fill="#FFFFFF" fill-opacity="0.92" stroke="#CBD5E1" stroke-width="1.2"/>
+      <text x="378" y="90" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0A0E17">Block Matrix Q</text>
+
+      <!-- 6x6 Block-Diagonal Matrix at (336, 102), cell=14px, size=84px -->
+      <g transform="translate(336, 102)">
+        <rect x="0" y="0" width="84" height="84" rx="4" fill="#F8F6FF" stroke="#7C3AED" stroke-width="1.4"/>
+        <!-- Off-diagonal faint entries -->
+        <rect x="28" y="0" width="14" height="14" fill="#EDE9FE"/>
+        <rect x="56" y="14" width="14" height="14" fill="#EDE9FE"/>
+        <rect x="0" y="28" width="14" height="14" fill="#EDE9FE"/>
+        <rect x="70" y="42" width="14" height="14" fill="#EDE9FE"/>
+        <rect x="14" y="56" width="14" height="14" fill="#EDE9FE"/>
+        <rect x="42" y="70" width="14" height="14" fill="#EDE9FE"/>
+
+        <!-- Diagonal Community Block 1 (2x2 dark violet) -->
+        <rect x="0" y="0" width="28" height="28" fill="#3E1B7A" fill-opacity="0.86"/>
+        <!-- Diagonal Community Block 2 (2x2 primary violet) -->
+        <rect x="28" y="28" width="28" height="28" fill="#7C3AED" fill-opacity="0.86"/>
+        <!-- Diagonal Community Block 3 (2x2 secondary violet) -->
+        <rect x="56" y="56" width="28" height="28" fill="#A855F7" fill-opacity="0.86"/>
+
+        <!-- Crisp gridlines -->
+        <path d="M14 0V84M28 0V84M42 0V84M56 0V84M70 0V84M0 14H84M0 28H84M0 42H84M0 56H84M0 70H84" stroke="#FFFFFF" stroke-width="1.2"/>
+        <rect x="0" y="0" width="84" height="84" rx="4" fill="none" stroke="#3E1B7A" stroke-width="1.4"/>
+      </g>
+    </g>
+
+    <!-- Right-Top Right Sub-Card: Inverse-Gaussian Weight Prior -->
+    <g>
+      <rect x="456" y="70" width="156" height="132" rx="11" fill="#FFFFFF" fill-opacity="0.92" stroke="#CBD5E1" stroke-width="1.2"/>
+      <text x="534" y="90" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0A0E17">Inv-Gaussian Prior</text>
+
+      <!-- Axes -->
+      <path d="M472 104 V174 H598" fill="none" stroke="#475569" stroke-width="1.5" stroke-linecap="round"/>
+
+      <!-- Inverse-Gaussian right-skewed density -->
+      <path d="M473 174 C479 170, 483 114, 496 112 C510 110, 524 146, 548 162 C568 171, 584 173, 596 174 Z" fill="url(#igFill)"/>
+      <path d="M473 174 C479 170, 483 114, 496 112 C510 110, 524 146, 548 162 C568 171, 584 173, 596 174" fill="none" stroke="#7C3AED" stroke-width="2.8" stroke-linecap="round"/>
+      <circle cx="496" cy="112" r="3.6" fill="#3E1B7A" stroke="#FFFFFF" stroke-width="1.2"/>
+
+      <text x="534" y="192" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#475569">wₘ ~ IG(α/M, 1)</text>
+    </g>
+
+    <!-- Right-Bottom Card: Dynamic MFM Occupied vs Empty Components -->
+    <g>
+      <rect x="310" y="212" width="302" height="128" rx="11" fill="#FFFFFF" fill-opacity="0.92" stroke="#CBD5E1" stroke-width="1.2"/>
+      <text x="461" y="232" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0A0E17">Normalized Weights (M = k + Mₙₐ)</text>
+
+      <!-- Baseline -->
+      <line x1="330" y1="304" x2="594" y2="304" stroke="#475569" stroke-width="1.5" stroke-linecap="round"/>
+
+      <!-- Occupied k=3 component bars -->
+      <rect x="344" y="246" width="30" height="58" rx="4" fill="#3E1B7A"/>
+      <rect x="384" y="255" width="30" height="49" rx="4" fill="#7C3AED"/>
+      <rect x="424" y="264" width="30" height="40" rx="4" fill="#A855F7"/>
+
+      <!-- Divider between occupied and empty components -->
+      <line x1="472" y1="244" x2="472" y2="310" stroke="#CBD5E1" stroke-width="1.6" stroke-dasharray="4 3"/>
+
+      <!-- Empty M_na=3 hollow dashed component bars -->
+      <rect x="490" y="282" width="26" height="22" rx="4" fill="#EDE9FE" fill-opacity="0.55" stroke="#7C3AED" stroke-width="1.6" stroke-dasharray="4 3"/>
+      <rect x="524" y="286" width="26" height="18" rx="4" fill="#EDE9FE" fill-opacity="0.55" stroke="#7C3AED" stroke-width="1.6" stroke-dasharray="4 3"/>
+      <rect x="558" y="290" width="26" height="14" rx="4" fill="#EDE9FE" fill-opacity="0.55" stroke="#7C3AED" stroke-width="1.6" stroke-dasharray="4 3"/>
+
+      <!-- Labels under bars -->
+      <text x="399" y="324" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#3E1B7A">Occupied k</text>
+      <text x="537" y="324" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#7C3AED">Empty Mₙₐ</text>
+    </g>
+
+    <!-- Footer -->
+    <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.7"/>
+    <text x="28" y="381" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#475569">Target: <tspan font-weight="700" fill="#7C3AED">dARI ↑</tspan></text>
+    <text x="612" y="381" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#475569">50-Node Networks · Posterior Partitions</text>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="13.5" fill="none" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.75"/>
+</svg>

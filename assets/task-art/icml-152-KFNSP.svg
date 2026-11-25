@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>KFNSP — Fair Kernel Null-Space Projection</title>
+  <desc>Iterative fair kernel decomposition projects RKHS features orthogonally off the continuous protected attribute axis onto a fair null-space hyperplane for epsilon-insensitive SVR under HGR, GDP, and PF caps.</desc>
+  <defs>
+    <clipPath id="cardClip">
+      <rect x="0" y="0" width="640" height="400" rx="16"/>
+    </clipPath>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F7FAFF"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0052FF"/>
+      <stop offset="100%" stop-color="#0EA5E9"/>
+    </linearGradient>
+    <linearGradient id="planeGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#DBEAFE" stop-opacity="0.78"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.88"/>
+    </linearGradient>
+    <pattern id="dotGrid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="12" cy="12" r="1.1" fill="#0A1E5E" opacity="0.16"/>
+    </pattern>
+    <marker id="arrPri" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M1,1.5 L9,5 L1,8.5 L3,5 Z" fill="#0052FF"/>
+    </marker>
+    <marker id="arrErr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M1,1.5 L9,5 L1,8.5 L3,5 Z" fill="#E11D48"/>
+    </marker>
+    <marker id="arrSec" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto">
+      <path d="M1,1.5 L9,5 L1,8.5 L3,5 Z" fill="#0EA5E9"/>
+    </marker>
+  </defs>
+
+  <!-- Base Card -->
+  <g clip-path="url(#cardClip)">
+    <rect x="0" y="0" width="640" height="400" fill="url(#bgGrad)"/>
+    <rect x="20" y="60" width="600" height="294" fill="url(#dotGrid)"/>
+    <rect x="0" y="0" width="640" height="3.5" fill="url(#accentGrad)"/>
+  </g>
+  <rect x="0.75" y="0.75" width="638.5" height="398.5" rx="15.25" fill="none" stroke="#CBD5E1" stroke-opacity="0.75" stroke-width="1.5"/>
+
+  <!-- Top Header -->
+  <text x="28" y="38" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="700" fill="#0A0E17" letter-spacing="-0.2">KFNSP</text>
+  <text x="612" y="37" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="500" fill="#475569">Fair Kernel Null-Space Projection</text>
+  <line x1="28" y1="54" x2="612" y2="54" stroke="#CBD5E1" stroke-opacity="0.6" stroke-width="1"/>
+
+  <!-- LEFT-CENTER: 3D Isometric RKHS Orthogonal Null-Space Projection -->
+  <!-- Isometric Fair Null-Space Plane H_perp(p) -->
+  <polygon points="48,256 208,324 366,252 206,188" fill="url(#planeGrad)" stroke="#0052FF" stroke-width="2.2" stroke-linejoin="round"/>
+  <!-- Isometric Grid Lines on Plane -->
+  <g stroke="#0052FF" stroke-opacity="0.18" stroke-width="1.1">
+    <line x1="88" y1="239" x2="248" y2="306"/>
+    <line x1="127" y1="222" x2="287" y2="288"/>
+    <line x1="167" y1="205" x2="327" y2="270"/>
+    <line x1="88" y1="273" x2="246" y2="204"/>
+    <line x1="128" y1="290" x2="286" y2="220"/>
+    <line x1="168" y1="307" x2="326" y2="236"/>
+  </g>
+
+  <!-- Vertical Protected Axis p (continuous racepctblack) -->
+  <line x1="208" y1="256" x2="208" y2="90" stroke="#E11D48" stroke-width="2.8" marker-end="url(#arrErr)"/>
+  <!-- Right-angle Orthogonality Marker at Base -->
+  <path d="M208,240 L223,246 L223,262" fill="none" stroke="#0A1E5E" stroke-width="1.6"/>
+  <circle cx="208" cy="256" r="3.5" fill="#0A1E5E"/>
+  <text x="220" y="96" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#E11D48">Protected p</text>
+
+  <!-- Orthogonal Projection Drop Lines (phi(x) -> H_perp) -->
+  <g stroke="#0EA5E9" stroke-width="1.7" stroke-dasharray="3.5 3">
+    <line x1="112" y1="158" x2="112" y2="250"/>
+    <line x1="148" y1="128" x2="148" y2="228"/>
+    <line x1="176" y1="170" x2="176" y2="276"/>
+    <line x1="250" y1="138" x2="250" y2="230"/>
+    <line x1="286" y1="162" x2="286" y2="262"/>
+    <line x1="316" y1="126" x2="316" y2="240"/>
+  </g>
+
+  <!-- Projected Fair Points on Hyperplane H_perp(p) -->
+  <g fill="#0052FF" stroke="#FFFFFF" stroke-width="1.6">
+    <circle cx="112" cy="256" r="5.5"/>
+    <circle cx="148" cy="234" r="5.5"/>
+    <circle cx="176" cy="282" r="5.5"/>
+    <circle cx="250" cy="236" r="5.5"/>
+    <circle cx="286" cy="268" r="5.5"/>
+    <circle cx="316" cy="246" r="5.5"/>
+  </g>
+
+  <!-- Original Elevated RKHS Points phi(x) tinted with continuous protected attribute -->
+  <g stroke="#E11D48" stroke-width="1.8">
+    <circle cx="112" cy="152" r="5.2" fill="#E11D48" fill-opacity="0.35"/>
+    <circle cx="148" cy="122" r="5.2" fill="#E11D48" fill-opacity="0.65"/>
+    <circle cx="176" cy="164" r="5.2" fill="#E11D48" fill-opacity="0.25"/>
+    <circle cx="250" cy="132" r="5.2" fill="#E11D48" fill-opacity="0.55"/>
+    <circle cx="286" cy="156" r="5.2" fill="#E11D48" fill-opacity="0.3"/>
+    <circle cx="316" cy="120" r="5.2" fill="#E11D48" fill-opacity="0.72"/>
+  </g>
+
+  <!-- Iterative Deflation Arrow & Labels -->
+  <path d="M84,144 C74,168 74,200 84,224" fill="none" stroke="#0052FF" stroke-width="2.2" marker-end="url(#arrPri)"/>
+  <text x="66" y="180" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0052FF">K·Tₘ</text>
+  <text x="66" y="196" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="500" fill="#475569">m=30</text>
+
+  <text x="84" y="102" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" fill="#475569">RKHS ϕ(x)</text>
+  <text x="208" y="344" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0A1E5E">Fair Null-Space H⊥(p)</text>
+
+  <!-- Bridge Arrow to SVR -->
+  <line x1="368" y1="224" x2="398" y2="224" stroke="#0052FF" stroke-width="2.6" marker-end="url(#arrPri)"/>
+
+  <!-- RIGHT PANEL: Fair Kernel SVR Epsilon-Tube & 3 Fairness Caps -->
+  <!-- SVR Card -->
+  <rect x="408" y="76" width="202" height="190" rx="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.4"/>
+  <text x="509" y="98" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" fill="#0A1E5E">Fair Kernel SVR</text>
+
+  <!-- Plot Axes -->
+  <line x1="428" y1="246" x2="594" y2="246" stroke="#CBD5E1" stroke-width="1.5"/>
+  <line x1="428" y1="246" x2="428" y2="112" stroke="#CBD5E1" stroke-width="1.5"/>
+
+  <!-- Epsilon-Insensitive SVR Tube Ribbon -->
+  <path d="M432,212 C472,206 508,162 590,126 L590,158 C508,194 472,238 432,242 Z" fill="#DBEAFE" fill-opacity="0.72"/>
+  <path d="M432,212 C472,206 508,162 590,126" fill="none" stroke="#0EA5E9" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <path d="M432,242 C472,238 508,194 590,158" fill="none" stroke="#0EA5E9" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <!-- Central SVR Regression Curve -->
+  <path d="M432,227 C472,222 508,178 590,142" fill="none" stroke="#0052FF" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Regression Samples + Support Vectors on Rim -->
+  <g fill="#0052FF" fill-opacity="0.78">
+    <circle cx="448" cy="224" r="3.4"/>
+    <circle cx="468" cy="212" r="3.4"/>
+    <circle cx="490" cy="202" r="3.4"/>
+    <circle cx="514" cy="182" r="3.4"/>
+    <circle cx="536" cy="166" r="3.4"/>
+    <circle cx="556" cy="160" r="3.4"/>
+    <circle cx="578" cy="146" r="3.4"/>
+  </g>
+  <!-- Highlighted Support Vectors -->
+  <circle cx="482" cy="196" r="4.8" fill="#FFFFFF" stroke="#0A1E5E" stroke-width="2"/>
+  <circle cx="542" cy="182" r="4.8" fill="#FFFFFF" stroke="#0A1E5E" stroke-width="2"/>
+
+  <text x="562" y="206" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#0EA5E9">±ε tube</text>
+  <text x="576" y="118" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0052FF">ŷ</text>
+
+  <!-- Fairness Constraints Guard Card -->
+  <rect x="408" y="278" width="202" height="68" rx="12" fill="#FFFFFF" stroke="#059669" stroke-opacity="0.55" stroke-width="1.5"/>
+  <text x="422" y="298" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#059669">Fairness Caps Enforced</text>
+  <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" text-anchor="middle">
+    <rect x="420" y="308" width="54" height="26" rx="7" fill="#059669" fill-opacity="0.12" stroke="#059669" stroke-opacity="0.45"/>
+    <text x="447" y="325" fill="#059669">HGR</text>
+    <rect x="482" y="308" width="54" height="26" rx="7" fill="#059669" fill-opacity="0.12" stroke="#059669" stroke-opacity="0.45"/>
+    <text x="509" y="325" fill="#059669">GDP</text>
+    <rect x="544" y="308" width="54" height="26" rx="7" fill="#059669" fill-opacity="0.12" stroke="#059669" stroke-opacity="0.45"/>
+    <text x="571" y="325" fill="#059669">PF</text>
+  </g>
+
+  <!-- Bottom Footer -->
+  <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-opacity="0.6" stroke-width="1"/>
+  <text x="28" y="378" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="500" fill="#475569">RBF kernel · continuous p absent at inference</text>
+  <text x="612" y="378" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5">
+    <tspan fill="#475569" font-weight="500">Target </tspan>
+    <tspan fill="#0052FF" font-weight="700">fair_mae ↓</tspan>
+  </text>
+</svg>

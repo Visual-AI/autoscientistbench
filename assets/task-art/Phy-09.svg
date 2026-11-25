@@ -1,0 +1,211 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>Neural-rFEM — Parametric r-Adaptive Finite Element Meshing</title>
+  <desc>A reusable neural network maps material coefficients s1 and s2 to strictly ordered Q1 r-adaptive tensor mesh nodes on a three-quadrant L-shaped elliptic domain, concentrating elements at the reentrant corner to minimize Ritz-energy error.</desc>
+  <defs>
+    <linearGradient id="card-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F7F6FF"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="accent-bar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#4F46E5"/>
+      <stop offset="100%" stop-color="#8B5CF6"/>
+    </linearGradient>
+    <radialGradient id="singularity-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#E11D48" stop-opacity="0.34"/>
+      <stop offset="55%" stop-color="#8B5CF6" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#8B5CF6" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="card-clip">
+      <rect x="0" y="0" width="640" height="400" rx="14"/>
+    </clipPath>
+    <clipPath id="l-domain-clip">
+      <path d="M 280 80 H 540 V 210 H 410 V 340 H 280 Z"/>
+    </clipPath>
+    <pattern id="dot-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#261E6B" fill-opacity="0.15"/>
+    </pattern>
+    <marker id="arrow-indigo" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#4F46E5"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#card-clip)" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <!-- Base canvas & grid -->
+    <rect x="0" y="0" width="640" height="400" fill="url(#card-bg)"/>
+    <rect x="16" y="54" width="608" height="304" fill="url(#dot-grid)"/>
+    <rect x="0" y="0" width="640" height="3" fill="url(#accent-bar)"/>
+
+    <!-- Header (y=18..54) -->
+    <text x="28" y="36" font-size="18" font-weight="700" fill="#0A0E17" letter-spacing="-0.3">Neural-rFEM</text>
+    <text x="612" y="36" font-size="12.5" font-weight="500" fill="#475569" text-anchor="end">Parametric r-Adaptive Elliptic Meshing</text>
+    <line x1="28" y1="53" x2="612" y2="53" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.7"/>
+
+    <!-- LEFT PANEL: Coefficient-to-Mesh Neural Predictor -->
+    <text x="134" y="88" font-size="12.5" font-weight="600" fill="#261E6B" text-anchor="middle">Coefficient → Mesh MLP</text>
+
+    <!-- Synaptic edges -->
+    <g stroke="#4F46E5" stroke-width="1.3" stroke-opacity="0.28">
+      <!-- Input (56,156) & (56,224) to Hidden 1 (114, 128/168/208/248) -->
+      <line x1="72" y1="156" x2="114" y2="128"/>
+      <line x1="72" y1="156" x2="114" y2="168"/>
+      <line x1="72" y1="156" x2="114" y2="208"/>
+      <line x1="72" y1="156" x2="114" y2="248"/>
+      <line x1="72" y1="224" x2="114" y2="128"/>
+      <line x1="72" y1="224" x2="114" y2="168"/>
+      <line x1="72" y1="224" x2="114" y2="208"/>
+      <line x1="72" y1="224" x2="114" y2="248"/>
+    </g>
+    <g stroke="#8B5CF6" stroke-width="1.3" stroke-opacity="0.28">
+      <!-- Hidden 1 to Hidden 2 (162) -->
+      <line x1="114" y1="128" x2="162" y2="128"/>
+      <line x1="114" y1="128" x2="162" y2="168"/>
+      <line x1="114" y1="128" x2="162" y2="208"/>
+      <line x1="114" y1="168" x2="162" y2="128"/>
+      <line x1="114" y1="168" x2="162" y2="168"/>
+      <line x1="114" y1="168" x2="162" y2="208"/>
+      <line x1="114" y1="168" x2="162" y2="248"/>
+      <line x1="114" y1="208" x2="162" y2="128"/>
+      <line x1="114" y1="208" x2="162" y2="168"/>
+      <line x1="114" y1="208" x2="162" y2="208"/>
+      <line x1="114" y1="208" x2="162" y2="248"/>
+      <line x1="114" y1="248" x2="162" y2="168"/>
+      <line x1="114" y1="248" x2="162" y2="208"/>
+      <line x1="114" y1="248" x2="162" y2="248"/>
+      <!-- Hidden 2 to Output (210, 160/218) -->
+      <line x1="162" y1="128" x2="210" y2="160"/>
+      <line x1="162" y1="168" x2="210" y2="160"/>
+      <line x1="162" y1="208" x2="210" y2="160"/>
+      <line x1="162" y1="248" x2="210" y2="160"/>
+      <line x1="162" y1="128" x2="210" y2="218"/>
+      <line x1="162" y1="168" x2="210" y2="218"/>
+      <line x1="162" y1="208" x2="210" y2="218"/>
+      <line x1="162" y1="248" x2="210" y2="218"/>
+    </g>
+
+    <!-- Input material coefficient nodes -->
+    <circle cx="56" cy="156" r="16" fill="#E0E7FF" stroke="#4F46E5" stroke-width="2.2"/>
+    <text x="56" y="159" font-size="14" font-weight="700" fill="#261E6B" text-anchor="middle">s<tspan font-size="11.5" dy="3">1</tspan></text>
+    <circle cx="56" cy="224" r="16" fill="#E0E7FF" stroke="#8B5CF6" stroke-width="2.2"/>
+    <text x="56" y="227" font-size="14" font-weight="700" fill="#261E6B" text-anchor="middle">s<tspan font-size="11.5" dy="3">2</tspan></text>
+
+    <!-- Hidden layer nodes -->
+    <g fill="#FFFFFF" stroke="#4F46E5" stroke-width="2">
+      <circle cx="114" cy="128" r="6.5"/>
+      <circle cx="114" cy="168" r="6.5"/>
+      <circle cx="114" cy="208" r="6.5"/>
+      <circle cx="114" cy="248" r="6.5"/>
+    </g>
+    <g fill="#FFFFFF" stroke="#8B5CF6" stroke-width="2">
+      <circle cx="162" cy="128" r="6.5"/>
+      <circle cx="162" cy="168" r="6.5"/>
+      <circle cx="162" cy="208" r="6.5"/>
+      <circle cx="162" cy="248" r="6.5"/>
+    </g>
+
+    <!-- Output ordered axis node coordinates -->
+    <circle cx="210" cy="160" r="14.5" fill="#4F46E5"/>
+    <text x="210" y="163" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">x<tspan font-size="11.5" dy="2.5">i</tspan></text>
+    <circle cx="210" cy="218" r="14.5" fill="#8B5CF6"/>
+    <text x="210" y="220" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">y<tspan font-size="11.5" dy="2.5">j</tspan></text>
+
+    <!-- Softmax + cumsum constraint chip -->
+    <rect x="64" y="274" width="140" height="26" rx="13" fill="#E0E7FF" stroke="#4F46E5" stroke-width="1.2"/>
+    <text x="134" y="291" font-size="11.5" font-weight="600" fill="#261E6B" text-anchor="middle">softmax + cumsum</text>
+
+    <!-- PDE formula -->
+    <text x="134" y="330" font-size="12.5" font-weight="600" fill="#475569" text-anchor="middle">−∇·(σ ∇u) = 1</text>
+
+    <!-- Predictor arrow into L-domain mesh -->
+    <line x1="232" y1="189" x2="270" y2="189" stroke="#4F46E5" stroke-width="2.8" marker-end="url(#arrow-indigo)"/>
+
+    <!-- RIGHT HERO: 3-Quadrant L-Shaped Q1 r-Adaptive Tensor Mesh -->
+    <g clip-path="url(#l-domain-clip)">
+      <!-- Three material quadrants: top-left sigma=1, bottom-left sigma=s1, top-right sigma=s2 -->
+      <rect x="280" y="80" width="130" height="130" fill="#E0E7FF" fill-opacity="0.52"/>
+      <rect x="280" y="210" width="130" height="130" fill="#4F46E5" fill-opacity="0.16"/>
+      <rect x="410" y="80" width="130" height="130" fill="#8B5CF6" fill-opacity="0.20"/>
+
+      <!-- Reentrant corner gradient singularity glow -->
+      <circle cx="410" cy="210" r="68" fill="url(#singularity-glow)"/>
+
+      <!-- 10x10 r-adaptive Q1 mesh lines (11 strictly ordered nodes per axis including 0, 0.5, 1) -->
+      <g stroke="#4F46E5" stroke-width="1.25" stroke-opacity="0.72">
+        <!-- Vertical interior lines -->
+        <line x1="321.6" y1="80" x2="321.6" y2="340"/>
+        <line x1="358" y1="80" x2="358" y2="340"/>
+        <line x1="384" y1="80" x2="384" y2="340"/>
+        <line x1="399.6" y1="80" x2="399.6" y2="340"/>
+        <line x1="420.4" y1="80" x2="420.4" y2="210"/>
+        <line x1="436" y1="80" x2="436" y2="210"/>
+        <line x1="462" y1="80" x2="462" y2="210"/>
+        <line x1="498.4" y1="80" x2="498.4" y2="210"/>
+        <!-- Horizontal interior lines -->
+        <line x1="280" y1="121.6" x2="540" y2="121.6"/>
+        <line x1="280" y1="158" x2="540" y2="158"/>
+        <line x1="280" y1="184" x2="540" y2="184"/>
+        <line x1="280" y1="199.6" x2="540" y2="199.6"/>
+        <line x1="280" y1="220.4" x2="410" y2="220.4"/>
+        <line x1="280" y1="236" x2="410" y2="236"/>
+        <line x1="280" y1="262" x2="410" y2="262"/>
+        <line x1="280" y1="298.4" x2="410" y2="298.4"/>
+      </g>
+
+      <!-- Fixed material interface lines at x=0.5 (410) and y=0.5 (210) -->
+      <line x1="410" y1="80" x2="410" y2="210" stroke="#261E6B" stroke-width="2.1"/>
+      <line x1="280" y1="210" x2="410" y2="210" stroke="#261E6B" stroke-width="2.1"/>
+
+      <!-- Clustered node markers around reentrant corner -->
+      <g fill="#261E6B">
+        <circle cx="384" cy="184" r="2.2"/><circle cx="399.6" cy="184" r="2.4"/><circle cx="410" cy="184" r="2.6"/><circle cx="420.4" cy="184" r="2.4"/>
+        <circle cx="384" cy="199.6" r="2.4"/><circle cx="399.6" cy="199.6" r="2.7"/><circle cx="410" cy="199.6" r="2.8"/><circle cx="420.4" cy="199.6" r="2.7"/>
+        <circle cx="384" cy="210" r="2.6"/><circle cx="399.6" cy="210" r="2.8"/>
+        <circle cx="384" cy="220.4" r="2.4"/><circle cx="399.6" cy="220.4" r="2.7"/>
+      </g>
+    </g>
+
+    <!-- Crisp outer L-domain Dirichlet boundary -->
+    <path d="M 280 80 H 540 V 210 H 410 V 340 H 280 Z" fill="none" stroke="#0A0E17" stroke-width="2.8" stroke-linejoin="round"/>
+
+    <!-- Top ruler node dots (showing all 11 ordered x-nodes) -->
+    <g fill="#4F46E5">
+      <circle cx="280" cy="80" r="2.8"/><circle cx="321.6" cy="80" r="2.4"/><circle cx="358" cy="80" r="2.4"/>
+      <circle cx="384" cy="80" r="2.4"/><circle cx="399.6" cy="80" r="2.4"/><circle cx="410" cy="80" r="3.2" fill="#261E6B"/>
+      <circle cx="420.4" cy="80" r="2.4"/><circle cx="436" cy="80" r="2.4"/><circle cx="462" cy="80" r="2.4"/>
+      <circle cx="498.4" cy="80" r="2.4"/><circle cx="540" cy="80" r="2.8"/>
+    </g>
+    <text x="280" y="72" font-size="11.5" fill="#475569" text-anchor="middle">0</text>
+    <text x="410" y="72" font-size="11.5" font-weight="600" fill="#261E6B" text-anchor="middle">0.5</text>
+    <text x="540" y="72" font-size="11.5" fill="#475569" text-anchor="middle">1</text>
+
+    <!-- Quadrant material badges (placed cleanly inside spacious outer corner cells) -->
+    <rect x="287" y="87" width="50" height="24" rx="6" fill="#FFFFFF" fill-opacity="0.9" stroke="#CBD5E1" stroke-width="1"/>
+    <text x="312" y="103" font-size="12.5" font-weight="700" fill="#261E6B" text-anchor="middle">σ = 1</text>
+
+    <rect x="479" y="87" width="54" height="24" rx="6" fill="#FFFFFF" fill-opacity="0.9" stroke="#CBD5E1" stroke-width="1"/>
+    <text x="506" y="102" font-size="12.5" font-weight="700" fill="#261E6B" text-anchor="middle">σ = s<tspan font-size="11.5" dy="2.5">2</tspan></text>
+
+    <rect x="287" y="308" width="54" height="24" rx="6" fill="#FFFFFF" fill-opacity="0.9" stroke="#CBD5E1" stroke-width="1"/>
+    <text x="314" y="323" font-size="12.5" font-weight="700" fill="#261E6B" text-anchor="middle">σ = s<tspan font-size="11.5" dy="2.5">1</tspan></text>
+
+    <!-- Reentrant corner highlight dot & callout into open bottom-right cavity -->
+    <circle cx="410" cy="210" r="5.5" fill="#E11D48" stroke="#FFFFFF" stroke-width="2"/>
+    <line x1="416" y1="216" x2="435" y2="233" stroke="#E11D48" stroke-width="1.6"/>
+    <text x="440" y="238" font-size="12" font-weight="700" fill="#E11D48">Reentrant Corner</text>
+
+    <!-- Ritz Energy Comparison Card cleanly nestled in bottom-right cavity -->
+    <rect x="430" y="252" width="182" height="90" rx="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+    <text x="444" y="272" font-size="12" font-weight="700" fill="#0A0E17">Ritz Energy Error</text>
+    <!-- Uniform vs r-Adaptive bars -->
+    <rect x="444" y="282" width="110" height="8.5" rx="4" fill="#CBD5E1"/>
+    <text x="561" y="290" font-size="11.5" fill="#475569">Unif</text>
+    <rect x="444" y="299" width="48" height="8.5" rx="4" fill="#059669"/>
+    <text x="499" y="307" font-size="11.5" font-weight="700" fill="#059669">rFEM</text>
+    <text x="521" y="328" font-size="13" fill="#475569" text-anchor="middle">√(|J<tspan font-size="11.5" dy="2.5">ref</tspan><tspan font-size="13" dy="-2.5"> − J</tspan><tspan font-size="11.5" dy="2.5">h</tspan><tspan font-size="13" dy="-2.5">| / |J</tspan><tspan font-size="11.5" dy="2.5">ref</tspan><tspan font-size="13" dy="-2.5">|)</tspan></text>
+
+    <!-- Footer (y=378) -->
+    <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.7"/>
+    <text x="28" y="378" font-size="12.5" fill="#475569">L-Domain · Q1 · 11 Nodes/Axis</text>
+    <text x="612" y="378" font-size="12.5" fill="#475569" text-anchor="end">Metric: <tspan font-weight="700" fill="#4F46E5">mean_relative_ritz_error ↓</tspan></text>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="13.5" fill="none" stroke="#CBD5E1" stroke-width="1"/>
+</svg>

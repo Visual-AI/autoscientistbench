@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>ALSE-Treat — Continuous Treatment Average Least Squares Effect</title>
+  <desc>Nonlinear continuous dose-response curves with variance-weighted local slopes pass through GAM and random forest nuisance learners to yield an orthogonalized residual regression slope with 95% Wald cone.</desc>
+  <defs>
+    <clipPath id="cardClip">
+      <rect width="640" height="400" rx="16"/>
+    </clipPath>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFF6F8"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#E11D48"/>
+      <stop offset="100%" stop-color="#F43F5E"/>
+    </linearGradient>
+    <pattern id="dotGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#6B1028" opacity="0.16"/>
+    </pattern>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 1 1.5 L 9 5 L 1 8.5 Z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#cardClip)">
+    <rect width="640" height="400" fill="url(#bgGrad)"/>
+    <rect x="24" y="60" width="592" height="296" fill="url(#dotGrid)"/>
+    <rect x="0" y="0" width="640" height="3" fill="url(#accentGrad)"/>
+  </g>
+  <rect x="0.75" y="0.75" width="638.5" height="398.5" rx="15.5" fill="none" stroke="#CBD5E1" stroke-opacity="0.75" stroke-width="1.5"/>
+
+  <!-- Header -->
+  <text x="28" y="38" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="700" fill="#0A0E17">ALSE-Treat</text>
+  <text x="612" y="38" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="500" fill="#475569">Continuous Treatment Average Derivative</text>
+  <line x1="28" y1="54" x2="612" y2="54" stroke="#CBD5E1" stroke-opacity="0.6" stroke-width="1"/>
+
+  <!-- Left Panel: Dose-Response Curves & Variance-Weighted Local Slopes -->
+  <rect x="30" y="76" width="244" height="266" rx="12" fill="#FFFFFF" fill-opacity="0.82" stroke="#CBD5E1" stroke-width="1.2"/>
+  <text x="152" y="99" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0A0E17">Dose-Response E[Y | A, X]</text>
+
+  <!-- Axes -->
+  <line x1="56" y1="116" x2="56" y2="306" stroke="#475569" stroke-width="1.5"/>
+  <line x1="56" y1="306" x2="258" y2="306" stroke="#475569" stroke-width="1.5"/>
+  <text x="46" y="126" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" fill="#475569">Y</text>
+  <text x="157" y="329" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#475569">Continuous A</text>
+
+  <!-- Conditional treatment variance density weight Var(A|X) -->
+  <path d="M 70 306 C 102 306, 124 268, 156 268 C 188 268, 210 306, 242 306 Z" fill="#FFE4E6" fill-opacity="0.85" stroke="#F43F5E" stroke-opacity="0.5" stroke-width="1.4"/>
+  <text x="156" y="296" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#6B1028">Var(A | X)</text>
+
+  <!-- Multi-strata nonlinear dose-response curves -->
+  <path d="M 66 226 C 110 218, 148 164, 192 142 C 218 130, 236 126, 250 124" fill="none" stroke="#F43F5E" stroke-opacity="0.45" stroke-width="2" stroke-linecap="round"/>
+  <path d="M 66 254 C 110 244, 148 192, 192 170 C 218 158, 236 154, 250 152" fill="none" stroke="#E11D48" stroke-width="3.2" stroke-linecap="round"/>
+  <path d="M 66 278 C 110 268, 148 220, 192 198 C 218 186, 236 182, 250 180" fill="none" stroke="#6B1028" stroke-opacity="0.45" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Local tangent derivative segments along central curve -->
+  <g stroke="#059669" stroke-width="2.6" stroke-linecap="round">
+    <line x1="88" y1="245" x2="124" y2="227"/>
+    <line x1="136" y1="212" x2="176" y2="176"/>
+    <line x1="194" y1="169" x2="230" y2="155"/>
+  </g>
+  <g fill="#059669">
+    <circle cx="106" cy="236" r="3.8"/>
+    <circle cx="156" cy="194" r="4.2"/>
+    <circle cx="212" cy="162" r="3.8"/>
+  </g>
+  <text x="108" y="152" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#059669">Local slopes</text>
+
+  <!-- Center Bridge: Dual Fixed Nuisance Conditions (GAM & Forest) -->
+  <path d="M 274 208 C 282 208, 282 168, 291 168" fill="none" stroke="#475569" stroke-width="1.8"/>
+  <path d="M 274 208 C 282 208, 282 246, 291 246" fill="none" stroke="#475569" stroke-width="1.8"/>
+  <path d="M 368 168 C 376 168, 376 208, 388 208" fill="none" stroke="#059669" stroke-width="2" marker-end="url(#arrowGreen)"/>
+  <path d="M 368 246 C 376 246, 376 208, 388 208" fill="none" stroke="#059669" stroke-width="2"/>
+
+  <!-- GAM Spline Learner Card -->
+  <rect x="292" y="138" width="76" height="60" rx="10" fill="#FFE4E6" fill-opacity="0.72" stroke="#E11D48" stroke-width="2"/>
+  <path d="M 306 169 C 316 146, 326 172, 336 154 C 344 144, 350 156, 356 150" fill="none" stroke="#E11D48" stroke-width="2.4" stroke-linecap="round"/>
+  <text x="330" y="189" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#6B1028">GAM</text>
+
+  <!-- Random Forest Learner Card -->
+  <rect x="292" y="216" width="76" height="60" rx="10" fill="#FFFFFF" stroke="#6B1028" stroke-width="2"/>
+  <g stroke="#6B1028" stroke-width="1.8" stroke-linecap="round">
+    <line x1="330" y1="228" x2="316" y2="239"/>
+    <line x1="330" y1="228" x2="344" y2="239"/>
+    <line x1="316" y1="239" x2="309" y2="249"/>
+    <line x1="316" y1="239" x2="323" y2="249"/>
+    <line x1="344" y1="239" x2="337" y2="249"/>
+    <line x1="344" y1="239" x2="351" y2="249"/>
+  </g>
+  <circle cx="330" cy="228" r="2.8" fill="#6B1028"/>
+  <circle cx="309" cy="249" r="2.5" fill="#E11D48"/>
+  <circle cx="323" cy="249" r="2.5" fill="#059669"/>
+  <circle cx="337" cy="249" r="2.5" fill="#059669"/>
+  <circle cx="351" cy="249" r="2.5" fill="#E11D48"/>
+  <text x="330" y="268" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#0A0E17">Forest</text>
+
+  <!-- Right Panel: Residualized ALSE Slope Psi -->
+  <rect x="392" y="76" width="220" height="266" rx="12" fill="#FFFFFF" fill-opacity="0.86" stroke="#CBD5E1" stroke-width="1.2"/>
+  <text x="502" y="99" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#0A0E17">ALSE Slope Ψ</text>
+
+  <!-- Centered residual axes -->
+  <line x1="502" y1="116" x2="502" y2="306" stroke="#CBD5E1" stroke-width="1.5"/>
+  <line x1="412" y1="212" x2="594" y2="212" stroke="#CBD5E1" stroke-width="1.5"/>
+  <text x="512" y="126" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" fill="#475569">Ỹ</text>
+  <text x="594" y="226" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" fill="#475569">Ã</text>
+
+  <!-- 95% Wald slope confidence cone through origin -->
+  <polygon points="424,280 502,212 580,144 580,168 502,212 424,256" fill="#059669" fill-opacity="0.15"/>
+
+  <!-- Centered residual scatter points -->
+  <g fill="#E11D48" fill-opacity="0.52">
+    <circle cx="432" cy="272" r="3.2"/><circle cx="442" cy="248" r="3.2"/><circle cx="448" cy="264" r="3.2"/>
+    <circle cx="458" cy="236" r="3.2"/><circle cx="464" cy="252" r="3.2"/><circle cx="474" cy="224" r="3.2"/>
+    <circle cx="482" cy="238" r="3.2"/><circle cx="490" cy="216" r="3.2"/><circle cx="496" cy="226" r="3.2"/>
+    <circle cx="508" cy="202" r="3.2"/><circle cx="514" cy="214" r="3.2"/><circle cx="522" cy="188" r="3.2"/>
+    <circle cx="530" cy="202" r="3.2"/><circle cx="538" cy="176" r="3.2"/><circle cx="546" cy="190" r="3.2"/>
+    <circle cx="554" cy="166" r="3.2"/><circle cx="562" cy="178" r="3.2"/><circle cx="572" cy="154" r="3.2"/>
+    <circle cx="468" cy="220" r="3.2"/><circle cx="536" cy="162" r="3.2"/>
+  </g>
+
+  <!-- ALSE regression slope line -->
+  <line x1="424" y1="268" x2="580" y2="156" stroke="#059669" stroke-width="3.4" stroke-linecap="round"/>
+
+  <!-- Slope triangle indicator -->
+  <polyline points="526,195 562,195 562,169" fill="none" stroke="#0A0E17" stroke-width="1.6"/>
+  <text x="578" y="188" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13.5" font-weight="700" fill="#059669">Ψ̂</text>
+
+  <text x="502" y="330" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#475569">Cov(A,Y|X) / Var(A|X)</text>
+
+  <!-- Footer -->
+  <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-opacity="0.6" stroke-width="1"/>
+  <text x="28" y="378" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#475569">GAM &amp; Random Forest · 95% Wald CI</text>
+  <text x="612" y="378" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#475569">Target: <tspan font-weight="700" fill="#E11D48">scaled_mse ↓</tspan></text>
+</svg>

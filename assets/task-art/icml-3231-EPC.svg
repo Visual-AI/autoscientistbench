@@ -1,0 +1,179 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>ePC: Fast Error-Based Predictive Coding for Four-Layer MLP Classification</title>
+  <desc>A four-layer FashionMNIST multilayer perceptron pairs state nodes with local prediction-error units, alternating iterative local error inference with detached Hebbian-like weight updates under cross-entropy supervision.</desc>
+  <defs>
+    <clipPath id="card-clip">
+      <rect width="640" height="400" rx="16"/>
+    </clipPath>
+    <linearGradient id="bg-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F7FAFF"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <pattern id="dot-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#0052FF" opacity="0.16"/>
+    </pattern>
+    <marker id="arr-blue" markerWidth="7" markerHeight="7" refX="5.5" refY="3.5" orient="auto">
+      <path d="M0.5 0.5 L6.5 3.5 L0.5 6.5 Z" fill="#0052FF"/>
+    </marker>
+    <marker id="arr-rose" markerWidth="7" markerHeight="7" refX="5.5" refY="3.5" orient="auto">
+      <path d="M0.5 0.5 L6.5 3.5 L0.5 6.5 Z" fill="#E11D48"/>
+    </marker>
+    <marker id="arr-ink" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+      <path d="M0.5 0.5 L5.5 3 L0.5 5.5 Z" fill="#0A1E5E"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#card-clip)">
+    <!-- Plate Background -->
+    <rect width="640" height="400" fill="url(#bg-grad)"/>
+    <rect x="0" y="54" width="640" height="304" fill="url(#dot-grid)"/>
+    <rect x="0" y="0" width="640" height="3" fill="#0052FF"/>
+
+    <!-- Header -->
+    <text x="28" y="36" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="700" fill="#0A0E17">ePC</text>
+    <text x="612" y="36" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#475569">Error-Based Predictive Coding MLP</text>
+    <line x1="28" y1="54" x2="612" y2="54" stroke="#CBD5E1" stroke-width="1"/>
+
+    <!-- Main Predictive-Coding Circuit Plate -->
+    <rect x="28" y="68" width="584" height="236" rx="12" fill="#FFFFFF" fill-opacity="0.92" stroke="#CBD5E1" stroke-width="1"/>
+
+    <!-- Layer Width Spec Row -->
+    <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#475569" text-anchor="middle">
+      <text x="78" y="88">784 Input</text>
+      <text x="190" y="88">128 · GELU</text>
+      <text x="304" y="88">128 · GELU</text>
+      <text x="418" y="88">128 · GELU</text>
+      <text x="548" y="88">10 · Cross-Entropy</text>
+    </g>
+
+    <!-- Input 28x28 FashionMNIST Garment Frame -->
+    <rect x="46" y="114" width="64" height="64" rx="10" fill="#F7FAFF" stroke="#0A1E5E" stroke-width="2"/>
+    <!-- Subtle pixel grid lines inside input -->
+    <g stroke="#DBEAFE" stroke-width="0.9">
+      <line x1="62" y1="114" x2="62" y2="178"/><line x1="78" y1="114" x2="78" y2="178"/><line x1="94" y1="114" x2="94" y2="178"/>
+      <line x1="46" y1="130" x2="110" y2="130"/><line x1="46" y1="146" x2="110" y2="146"/><line x1="46" y1="162" x2="110" y2="162"/>
+    </g>
+    <!-- Crisp Geometric Garment (T-shirt) Icon -->
+    <path d="M 65 127 L 72 127 Q 78 133 84 127 L 91 127 L 100 137 L 93 145 L 89 141 L 89 166 L 67 166 L 67 141 L 63 145 L 56 137 Z" fill="#0052FF" fill-opacity="0.82" stroke="#0A1E5E" stroke-width="1.4" stroke-linejoin="round"/>
+    <text x="78" y="196" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#0A1E5E">x₀ (28×28)</text>
+
+    <!-- Forward Prediction Wires (Top Row y=146) -->
+    <g stroke="#0052FF" stroke-width="2.8" fill="none">
+      <line x1="110" y1="146" x2="165" y2="146" marker-end="url(#arr-blue)"/>
+      <line x1="210" y1="146" x2="279" y2="146" marker-end="url(#arr-blue)"/>
+      <line x1="324" y1="146" x2="393" y2="146" marker-end="url(#arr-blue)"/>
+      <line x1="438" y1="146" x2="496" y2="146" marker-end="url(#arr-blue)"/>
+    </g>
+
+    <!-- Forward Weight Labels -->
+    <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#0052FF" text-anchor="middle">
+      <text x="139" y="136">W₁</text>
+      <text x="247" y="136">W₂</text>
+      <text x="361" y="136">W₃</text>
+      <text x="468" y="136">W₄</text>
+    </g>
+
+    <!-- Local Error Feedback Wires (Strictly Adjacent Layers: e_{l+1} -> x_l) -->
+    <g fill="none" stroke="#E11D48" stroke-width="2" stroke-dasharray="5 3">
+      <path d="M 288 228 C 254 228 228 196 204 166" marker-end="url(#arr-rose)"/>
+      <path d="M 402 228 C 368 228 342 196 318 166" marker-end="url(#arr-rose)"/>
+      <path d="M 508 228 C 474 228 454 196 432 166" marker-end="url(#arr-rose)"/>
+    </g>
+
+    <!-- Local Hebbian Weight-Update Badges (Adjacent x_l + e_{l+1} -> ΔW) -->
+    <g>
+      <line x1="247" y1="146" x2="247" y2="176" stroke="#059669" stroke-width="1.4" stroke-dasharray="2 2"/>
+      <line x1="247" y1="198" x2="247" y2="210" stroke="#059669" stroke-width="1.4" stroke-dasharray="2 2"/>
+      <rect x="228" y="176" width="38" height="22" rx="11" fill="#059669" fill-opacity="0.12" stroke="#059669" stroke-width="1.6"/>
+      <text x="247" y="191" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#059669">ΔW₂</text>
+
+      <line x1="361" y1="146" x2="361" y2="176" stroke="#059669" stroke-width="1.4" stroke-dasharray="2 2"/>
+      <line x1="361" y1="198" x2="361" y2="210" stroke="#059669" stroke-width="1.4" stroke-dasharray="2 2"/>
+      <rect x="342" y="176" width="38" height="22" rx="11" fill="#059669" fill-opacity="0.12" stroke="#059669" stroke-width="1.6"/>
+      <text x="361" y="191" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#059669">ΔW₃</text>
+
+      <line x1="468" y1="146" x2="468" y2="176" stroke="#059669" stroke-width="1.4" stroke-dasharray="2 2"/>
+      <line x1="468" y1="198" x2="468" y2="210" stroke="#059669" stroke-width="1.4" stroke-dasharray="2 2"/>
+      <rect x="449" y="176" width="38" height="22" rx="11" fill="#059669" fill-opacity="0.12" stroke="#059669" stroke-width="1.6"/>
+      <text x="468" y="191" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#059669">ΔW₄</text>
+    </g>
+
+    <!-- Hidden Layer Columns: Paired State (x_l) & Error (e_l) Nodes -->
+    <!-- Layer 1 (cx=190) -->
+    <line x1="184" y1="166" x2="184" y2="207" stroke="#0A1E5E" stroke-width="1.6" marker-end="url(#arr-ink)"/>
+    <line x1="196" y1="212" x2="196" y2="171" stroke="#E11D48" stroke-width="1.8" stroke-dasharray="3 2" marker-end="url(#arr-rose)"/>
+    <circle cx="190" cy="146" r="22" fill="#DBEAFE"/>
+    <circle cx="190" cy="146" r="16" fill="#0052FF" stroke="#FFFFFF" stroke-width="2"/>
+    <text x="190" y="151" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF">x₁</text>
+    <circle cx="190" cy="228" r="20" fill="#E11D48" fill-opacity="0.12"/>
+    <circle cx="190" cy="228" r="14.5" fill="#FFFFFF" stroke="#E11D48" stroke-width="2.4"/>
+    <text x="190" y="233" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#E11D48">e₁</text>
+
+    <!-- Layer 2 (cx=304) -->
+    <line x1="298" y1="166" x2="298" y2="207" stroke="#0A1E5E" stroke-width="1.6" marker-end="url(#arr-ink)"/>
+    <line x1="310" y1="212" x2="310" y2="171" stroke="#E11D48" stroke-width="1.8" stroke-dasharray="3 2" marker-end="url(#arr-rose)"/>
+    <circle cx="304" cy="146" r="22" fill="#DBEAFE"/>
+    <circle cx="304" cy="146" r="16" fill="#0052FF" stroke="#FFFFFF" stroke-width="2"/>
+    <text x="304" y="151" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF">x₂</text>
+    <circle cx="304" cy="228" r="20" fill="#E11D48" fill-opacity="0.12"/>
+    <circle cx="304" cy="228" r="14.5" fill="#FFFFFF" stroke="#E11D48" stroke-width="2.4"/>
+    <text x="304" y="233" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#E11D48">e₂</text>
+
+    <!-- Layer 3 (cx=418) -->
+    <line x1="412" y1="166" x2="412" y2="207" stroke="#0A1E5E" stroke-width="1.6" marker-end="url(#arr-ink)"/>
+    <line x1="424" y1="212" x2="424" y2="171" stroke="#E11D48" stroke-width="1.8" stroke-dasharray="3 2" marker-end="url(#arr-rose)"/>
+    <circle cx="418" cy="146" r="22" fill="#DBEAFE"/>
+    <circle cx="418" cy="146" r="16" fill="#0052FF" stroke="#FFFFFF" stroke-width="2"/>
+    <text x="418" y="151" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF">x₃</text>
+    <circle cx="418" cy="228" r="20" fill="#E11D48" fill-opacity="0.12"/>
+    <circle cx="418" cy="228" r="14.5" fill="#FFFFFF" stroke="#E11D48" stroke-width="2.4"/>
+    <text x="418" y="233" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#E11D48">e₃</text>
+
+    <!-- Output 10-Class Softmax Bars & Cross-Entropy Error -->
+    <rect x="504" y="114" width="90" height="64" rx="10" fill="#F7FAFF" stroke="#DBEAFE" stroke-width="1.4"/>
+    <g>
+      <rect x="515" y="156" width="9" height="14" rx="2" fill="#CBD5E1"/>
+      <rect x="528" y="148" width="9" height="22" rx="2" fill="#0EA5E9" opacity="0.65"/>
+      <rect x="541" y="124" width="11" height="46" rx="2.5" fill="#059669"/>
+      <rect x="556" y="152" width="9" height="18" rx="2" fill="#0EA5E9" opacity="0.55"/>
+      <rect x="569" y="160" width="9" height="10" rx="2" fill="#CBD5E1"/>
+    </g>
+    <line x1="548" y1="178" x2="548" y2="207" stroke="#0A1E5E" stroke-width="1.6" marker-end="url(#arr-ink)"/>
+
+    <!-- Output Cross-Entropy Node -->
+    <rect x="508" y="212" width="80" height="32" rx="16" fill="#E11D48" fill-opacity="0.12" stroke="#E11D48" stroke-width="2.2"/>
+    <text x="548" y="232" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#E11D48">e₄ · CE</text>
+
+    <!-- Inline Circuit Legend inside Bottom of Circuit Card -->
+    <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">
+      <circle cx="56" cy="284" r="5" fill="#0052FF"/>
+      <text x="68" y="288">State xₗ</text>
+
+      <circle cx="152" cy="284" r="5" fill="#FFFFFF" stroke="#E11D48" stroke-width="2"/>
+      <text x="164" y="288">Local error eₗ</text>
+
+      <rect x="276" y="278" width="14" height="12" rx="6" fill="#059669" fill-opacity="0.16" stroke="#059669" stroke-width="1.4"/>
+      <text x="296" y="288" fill="#059669" font-weight="600">Local ΔWₗ</text>
+
+      <line x1="398" y1="284" x2="422" y2="284" stroke="#E11D48" stroke-width="2" stroke-dasharray="4 3"/>
+      <text x="428" y="288">Local feedback (no BP)</text>
+    </g>
+
+    <!-- Two-Phase Training Strip (y=316..346) -->
+    <rect x="28" y="315" width="276" height="31" rx="10" fill="#FFFFFF" stroke="#E11D48" stroke-opacity="0.45" stroke-width="1.2"/>
+    <text x="166" y="335" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#E11D48">1. Error Inference (min Σ‖eₗ‖² + CE)</text>
+
+    <line x1="306" y1="330" x2="330" y2="330" stroke="#0052FF" stroke-width="2.2" marker-end="url(#arr-blue)"/>
+
+    <rect x="336" y="315" width="276" height="31" rx="10" fill="#FFFFFF" stroke="#059669" stroke-opacity="0.5" stroke-width="1.2"/>
+    <text x="474" y="335" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#059669">2. Local Weight Update (ΔWₗ detached)</text>
+
+    <!-- Footer -->
+    <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-width="1" opacity="0.8"/>
+    <text x="28" y="378" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#475569">FashionMNIST · 784→128³→10 · 5 replicas</text>
+    <text x="612" y="378" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5">
+      <tspan fill="#475569">Target: </tspan><tspan font-weight="700" fill="#0052FF">accuracy ↑</tspan>
+    </text>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="15.5" fill="none" stroke="#CBD5E1" stroke-width="1" opacity="0.75"/>
+</svg>

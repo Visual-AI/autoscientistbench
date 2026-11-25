@@ -1,0 +1,188 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>ETfinder: Fixed-Database Host-Record Screening and Matching</title>
+  <desc>Host RecT genomic neighborhoods, SSB C-terminal LDDEIPF motifs, and 16S RNA clusters pass through a multi-criterion selection sieve and are evaluated by one-to-one species-level record matching.</desc>
+  <defs>
+    <clipPath id="cardClip">
+      <rect x="0" y="0" width="640" height="400" rx="16"/>
+    </clipPath>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F4FBF9"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0D9488"/>
+      <stop offset="100%" stop-color="#10B981"/>
+    </linearGradient>
+    <linearGradient id="sieveGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#F4FBF9" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#CCFBF1" stop-opacity="0.88"/>
+    </linearGradient>
+    <pattern id="dotGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#0D9488" fill-opacity="0.16"/>
+    </pattern>
+    <marker id="arrowPrimary" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M 1 1.5 L 9 5 L 1 8.5 Z" fill="#0D9488"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#cardClip)" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <!-- Base luminous plate -->
+    <rect x="0" y="0" width="640" height="400" fill="url(#bgGrad)"/>
+    <rect x="0" y="0" width="640" height="3.5" fill="url(#accentGrad)"/>
+    <rect x="20" y="58" width="600" height="298" fill="url(#dotGrid)"/>
+
+    <!-- Header -->
+    <text x="28" y="38" font-size="18" font-weight="700" fill="#0A0E17">ETfinder</text>
+    <text x="612" y="37" text-anchor="end" font-size="12.5" font-weight="500" fill="#475569">Host-Record Screening &amp; Matching</text>
+    <line x1="28" y1="56" x2="612" y2="56" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.75"/>
+
+    <!-- Stage 1 Left-Top: Genomic locus (RecE + RecT) -->
+    <rect x="32" y="80" width="178" height="106" rx="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+    <text x="44" y="101" font-size="11.5" font-weight="600" fill="#114B46">Genomic neighborhood</text>
+    <line x1="42" y1="138" x2="200" y2="138" stroke="#475569" stroke-width="2" stroke-linecap="round"/>
+    <!-- RecE partner gene arrow -->
+    <path d="M 46 127 H 92 L 106 138 L 92 149 H 46 Z" fill="#CCFBF1" stroke="#0D9488" stroke-width="1.8" stroke-linejoin="round"/>
+    <text x="72" y="142" text-anchor="middle" font-size="11.5" font-weight="700" fill="#114B46">RecE</text>
+    <!-- RecT gene arrow -->
+    <path d="M 114 127 H 180 L 196 138 L 180 149 H 114 Z" fill="#0D9488" stroke="#114B46" stroke-width="1.5" stroke-linejoin="round"/>
+    <text x="150" y="142" text-anchor="middle" font-size="11.5" font-weight="700" fill="#FFFFFF">RecT</text>
+    <text x="154" y="172" text-anchor="middle" font-size="11.5" fill="#475569">200–700 aa</text>
+
+    <!-- Stage 1 Left-Bottom: Host SSB Motif + 16S RNA clusters -->
+    <rect x="32" y="198" width="178" height="142" rx="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+    <text x="44" y="218" font-size="11.5" font-weight="600" fill="#114B46">Host SSB motif</text>
+    <!-- 7 motif tiles: L D D E I P F -->
+    <g font-size="12" font-weight="700" text-anchor="middle">
+      <rect x="44" y="228" width="20" height="26" rx="4" fill="#CCFBF1" stroke="#0D9488" stroke-width="1.4"/>
+      <text x="54" y="245" fill="#114B46">L</text>
+      <rect x="66" y="228" width="20" height="26" rx="4" fill="#0D9488"/>
+      <text x="76" y="245" fill="#FFFFFF">D</text>
+      <rect x="88" y="228" width="20" height="26" rx="4" fill="#0D9488"/>
+      <text x="98" y="245" fill="#FFFFFF">D</text>
+      <rect x="110" y="228" width="20" height="26" rx="4" fill="#0D9488"/>
+      <text x="120" y="245" fill="#FFFFFF">E</text>
+      <rect x="132" y="228" width="20" height="26" rx="4" fill="#CCFBF1" stroke="#0D9488" stroke-width="1.4"/>
+      <text x="142" y="245" fill="#114B46">I</text>
+      <rect x="154" y="228" width="20" height="26" rx="4" fill="#CCFBF1" stroke="#0D9488" stroke-width="1.4"/>
+      <text x="164" y="245" fill="#114B46">P</text>
+      <rect x="176" y="228" width="20" height="26" rx="4" fill="#CCFBF1" stroke="#0D9488" stroke-width="1.4"/>
+      <text x="186" y="245" fill="#114B46">F</text>
+    </g>
+
+    <line x1="44" y1="266" x2="198" y2="266" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.7"/>
+
+    <!-- Three 16S RNA clusters with representative nodes -->
+    <g>
+      <circle cx="64" cy="298" r="15" fill="#F4FBF9" stroke="#0D9488" stroke-width="1.2" stroke-dasharray="3 2.5"/>
+      <circle cx="57" cy="293" r="2.5" fill="#CBD5E1"/>
+      <circle cx="71" cy="304" r="2.5" fill="#CBD5E1"/>
+      <circle cx="64" cy="298" r="4" fill="#059669"/>
+
+      <circle cx="121" cy="298" r="15" fill="#F4FBF9" stroke="#0D9488" stroke-width="1.2" stroke-dasharray="3 2.5"/>
+      <circle cx="114" cy="303" r="2.5" fill="#CBD5E1"/>
+      <circle cx="128" cy="292" r="2.5" fill="#CBD5E1"/>
+      <circle cx="121" cy="298" r="4" fill="#059669"/>
+
+      <circle cx="178" cy="298" r="15" fill="#F4FBF9" stroke="#0D9488" stroke-width="1.2" stroke-dasharray="3 2.5"/>
+      <circle cx="172" cy="292" r="2.5" fill="#CBD5E1"/>
+      <circle cx="185" cy="303" r="2.5" fill="#CBD5E1"/>
+      <circle cx="178" cy="298" r="4" fill="#059669"/>
+    </g>
+    <text x="121" y="330" text-anchor="middle" font-size="11.5" fill="#475569">16S RNA · 99% id</text>
+
+    <!-- Connector arrows into sieve -->
+    <path d="M 212 152 L 228 164" fill="none" stroke="#0D9488" stroke-width="2" marker-end="url(#arrowPrimary)"/>
+    <path d="M 212 268 L 228 256" fill="none" stroke="#0D9488" stroke-width="2" marker-end="url(#arrowPrimary)"/>
+
+    <!-- Stage 2 Center: Horizontal converging record sieve -->
+    <text x="314" y="96" text-anchor="middle" font-size="12" font-weight="600" fill="#114B46">Record filter funnel</text>
+    <path d="M 234 114 C 294 118, 336 164, 394 174 L 394 244 C 336 254, 294 300, 234 304 Z" fill="url(#sieveGrad)" stroke="#0D9488" stroke-width="2.2" stroke-linejoin="round"/>
+    <!-- Internal filter mesh planes -->
+    <line x1="286" y1="129" x2="286" y2="289" stroke="#0D9488" stroke-width="1.5" stroke-dasharray="4 4"/>
+    <line x1="340" y1="156" x2="340" y2="262" stroke="#0D9488" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+    <!-- Passing record streamlines -->
+    <g fill="none" stroke="#0D9488" stroke-width="1.8" stroke-opacity="0.55">
+      <path d="M 244 150 C 292 156, 338 188, 388 194"/>
+      <path d="M 244 190 C 292 194, 338 202, 388 205"/>
+      <path d="M 244 230 C 292 226, 338 216, 388 215"/>
+      <path d="M 244 268 C 292 260, 338 228, 388 226"/>
+    </g>
+
+    <!-- Record dots inside funnel -->
+    <g>
+      <circle cx="250" cy="150" r="4" fill="#0D9488"/>
+      <circle cx="252" cy="190" r="4" fill="#10B981"/>
+      <circle cx="250" cy="230" r="4" fill="#0D9488"/>
+      <circle cx="252" cy="268" r="4" fill="#10B981"/>
+      <circle cx="268" cy="134" r="3.5" fill="#E11D48" fill-opacity="0.7"/>
+      <circle cx="268" cy="284" r="3.5" fill="#E11D48" fill-opacity="0.7"/>
+      <circle cx="312" cy="176" r="4" fill="#0D9488"/>
+      <circle cx="314" cy="202" r="4" fill="#059669"/>
+      <circle cx="312" cy="232" r="4" fill="#0D9488"/>
+      <circle cx="322" cy="256" r="3.5" fill="#E11D48" fill-opacity="0.7"/>
+      <circle cx="366" cy="194" r="4.5" fill="#059669"/>
+      <circle cx="368" cy="212" r="4.5" fill="#0D9488"/>
+      <circle cx="366" cy="228" r="4.5" fill="#059669"/>
+    </g>
+
+    <!-- Deflected / filtered out trajectories -->
+    <path d="M 272 288 Q 278 308 268 318" fill="none" stroke="#E11D48" stroke-width="1.5" stroke-dasharray="3 2.5" stroke-opacity="0.75"/>
+    <path d="M 326 260 Q 332 288 326 306" fill="none" stroke="#E11D48" stroke-width="1.5" stroke-dasharray="3 2.5" stroke-opacity="0.75"/>
+    <text x="314" y="334" text-anchor="middle" font-size="11.5" font-weight="600" fill="#0D9488">45–182 records</text>
+
+    <!-- Arrow from sieve to matching card -->
+    <path d="M 396 209 H 424" fill="none" stroke="#0D9488" stroke-width="2.6" marker-end="url(#arrowPrimary)"/>
+
+    <!-- Stage 3 Right: 1-to-1 Species-Level Record Matching -->
+    <rect x="432" y="80" width="178" height="260" rx="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+    <text x="468" y="104" text-anchor="middle" font-size="11.5" font-weight="600" fill="#0D9488">Selected</text>
+    <text x="568" y="104" text-anchor="middle" font-size="11.5" font-weight="600" fill="#114B46">Curated</text>
+
+    <!-- Bipartite match lines -->
+    <g fill="none" stroke-linecap="round">
+      <line x1="488" y1="132" x2="556" y2="132" stroke="#059669" stroke-width="2.6"/>
+      <line x1="488" y1="172" x2="556" y2="172" stroke="#059669" stroke-width="2.6"/>
+      <line x1="488" y1="212" x2="556" y2="212" stroke="#059669" stroke-width="2.6"/>
+      <line x1="488" y1="252" x2="556" y2="216" stroke="#E11D48" stroke-width="1.8" stroke-dasharray="4 3.5"/>
+      <line x1="488" y1="292" x2="556" y2="292" stroke="#059669" stroke-width="2.6"/>
+    </g>
+
+    <!-- Left column: Selected assembly ID pills -->
+    <g>
+      <rect x="448" y="123" width="40" height="18" rx="5" fill="#CCFBF1" stroke="#0D9488" stroke-width="1.8"/>
+      <rect x="448" y="163" width="40" height="18" rx="5" fill="#CCFBF1" stroke="#0D9488" stroke-width="1.8"/>
+      <rect x="448" y="203" width="40" height="18" rx="5" fill="#CCFBF1" stroke="#0D9488" stroke-width="1.8"/>
+      <rect x="448" y="243" width="40" height="18" rx="5" fill="#FFFFFF" stroke="#E11D48" stroke-width="1.8"/>
+      <rect x="448" y="283" width="40" height="18" rx="5" fill="#CCFBF1" stroke="#0D9488" stroke-width="1.8"/>
+    </g>
+
+    <!-- Right column: Curated species target nodes -->
+    <g>
+      <circle cx="568" cy="132" r="10" fill="#0D9488"/>
+      <circle cx="568" cy="132" r="3.5" fill="#FFFFFF"/>
+
+      <circle cx="568" cy="172" r="10" fill="#10B981"/>
+      <circle cx="568" cy="172" r="3.5" fill="#FFFFFF"/>
+
+      <circle cx="568" cy="212" r="10" fill="#10B981"/>
+      <circle cx="568" cy="212" r="3.5" fill="#FFFFFF"/>
+
+      <circle cx="568" cy="252" r="10" fill="#FFFFFF" stroke="#475569" stroke-width="1.8" stroke-dasharray="3 2.5"/>
+
+      <circle cx="568" cy="292" r="10" fill="#0D9488"/>
+      <circle cx="568" cy="292" r="3.5" fill="#FFFFFF"/>
+    </g>
+
+    <!-- Repeated-species distinct-record bracket -->
+    <path d="M 584 166 H 590 V 218 H 584" fill="none" stroke="#114B46" stroke-width="1.6" stroke-linecap="round"/>
+
+    <text x="521" y="328" text-anchor="middle" font-size="11.5" font-weight="600" fill="#114B46">1-to-1 species match</text>
+
+    <!-- Footer -->
+    <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.75"/>
+    <text x="28" y="381" font-size="12.5" fill="#475569">Target: <tspan font-weight="700" fill="#0D9488">f1 ↑</tspan></text>
+    <text x="612" y="381" text-anchor="end" font-size="11.5" fill="#475569">R. sphaeroides · fixed DB</text>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="16" fill="none" stroke="#CBD5E1" stroke-width="1"/>
+</svg>

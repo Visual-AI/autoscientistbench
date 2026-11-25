@@ -1,0 +1,182 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>M3SVM: Differentially Private Multiclass Margin SVM</title>
+  <desc>An affine multiclass SVM separates 26 ISOLET classes with linear margin corridors and inter-class pairwise weight regularization while DP-SGD clips per-sample gradients to the L2 unit ball and adds calibrated Gaussian noise under an RDP privacy ledger.</desc>
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F7FAFF"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="topBar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0052FF"/>
+      <stop offset="100%" stop-color="#0EA5E9"/>
+    </linearGradient>
+    <pattern id="dotGrid" width="16" height="16" patternUnits="userSpaceOnUse">
+      <circle cx="8" cy="8" r="0.9" fill="#475569" fill-opacity="0.16"/>
+    </pattern>
+    <clipPath id="cardClip">
+      <rect x="0.5" y="0.5" width="639" height="399" rx="14"/>
+    </clipPath>
+    <clipPath id="svmViewport">
+      <rect x="38" y="104" width="330" height="228" rx="8"/>
+    </clipPath>
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 1 1.5 L 8.5 5 L 1 8.5 z" fill="#0052FF"/>
+    </marker>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 1 1.5 L 8.5 5 L 1 8.5 z" fill="#059669"/>
+    </marker>
+    <marker id="arrowRed" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 1 1.5 L 8.5 5 L 1 8.5 z" fill="#E11D48"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#cardClip)">
+    <rect x="0" y="0" width="640" height="400" fill="url(#bgGrad)"/>
+    <rect x="0" y="52" width="640" height="306" fill="url(#dotGrid)"/>
+    <rect x="0" y="0" width="640" height="3.5" fill="url(#topBar)"/>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="14" fill="none" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- Header -->
+  <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <text x="28" y="36" font-size="18" font-weight="700" fill="#0A0E17">M3SVM</text>
+    <text x="612" y="35" text-anchor="end" font-size="12.5" font-weight="500" fill="#475569">Private Multiclass Margin SVM</text>
+  </g>
+  <line x1="28" y1="52" x2="612" y2="52" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.7"/>
+
+  <!-- Left Hero Panel: Affine Multiclass Hyperplane & Margin Space -->
+  <rect x="28" y="72" width="350" height="270" rx="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <text x="44" y="94" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#0A1E5E">Affine Margins (ℝ<tspan dy="-3" font-size="11.5">617</tspan><tspan dy="3"> → ℝ</tspan><tspan dy="-3" font-size="11.5">26</tspan><tspan dy="3">)</tspan></text>
+
+  <!-- Clipped Geometry Viewport -->
+  <rect x="38" y="104" width="330" height="228" rx="8" fill="#F7FAFF" stroke="#CBD5E1" stroke-width="0.9"/>
+  <g clip-path="url(#svmViewport)">
+    <!-- Shaded Margin Corridors around 3 Affine Decision Rays -->
+    <g stroke="#DBEAFE" stroke-width="26" stroke-linecap="round" stroke-opacity="0.85">
+      <line x1="190" y1="218" x2="112" y2="100"/>
+      <line x1="190" y1="218" x2="372" y2="218"/>
+      <line x1="190" y1="218" x2="112" y2="336"/>
+    </g>
+
+    <!-- Parallel Dashed Margin Boundaries -->
+    <g stroke="#0052FF" stroke-width="1.2" stroke-opacity="0.5" stroke-dasharray="4 3">
+      <line x1="201" y1="211" x2="123" y2="93"/>
+      <line x1="179" y1="225" x2="101" y2="107"/>
+
+      <line x1="190" y1="205" x2="372" y2="205"/>
+      <line x1="190" y1="231" x2="372" y2="231"/>
+
+      <line x1="201" y1="225" x2="123" y2="343"/>
+      <line x1="179" y1="211" x2="101" y2="329"/>
+    </g>
+
+    <!-- Crisp Affine Decision Hyperplanes -->
+    <g stroke="#0A1E5E" stroke-width="2.4" stroke-linecap="round">
+      <line x1="190" y1="218" x2="112" y2="100"/>
+      <line x1="190" y1="218" x2="372" y2="218"/>
+      <line x1="190" y1="218" x2="112" y2="336"/>
+    </g>
+    <circle cx="190" cy="218" r="4" fill="#0A1E5E"/>
+
+    <!-- Top Sector Cluster (Blue) + Support Vector -->
+    <g fill="#0052FF">
+      <circle cx="212" cy="134" r="4.5"/>
+      <circle cx="232" cy="148" r="4.5"/>
+      <circle cx="246" cy="126" r="4.5"/>
+      <circle cx="196" cy="154" r="4.5"/>
+      <circle cx="222" cy="168" r="4.5"/>
+      <circle cx="268" cy="136" r="4.5"/>
+    </g>
+    <circle cx="238" cy="205" r="4.5" fill="#0052FF"/>
+    <circle cx="238" cy="205" r="8.5" fill="none" stroke="#0052FF" stroke-width="1.6"/>
+
+    <!-- Left Sector Cluster (Cyan) + Support Vector -->
+    <g fill="#0EA5E9">
+      <circle cx="72" cy="202" r="4.5"/>
+      <circle cx="94" cy="216" r="4.5"/>
+      <circle cx="78" cy="238" r="4.5"/>
+      <circle cx="110" cy="232" r="4.5"/>
+      <circle cx="62" cy="222" r="4.5"/>
+      <circle cx="102" cy="196" r="4.5"/>
+    </g>
+    <circle cx="136" cy="160" r="4.5" fill="#0EA5E9"/>
+    <circle cx="136" cy="160" r="8.5" fill="none" stroke="#0EA5E9" stroke-width="1.6"/>
+
+    <!-- Bottom-Right Sector Cluster (Emerald) + Support Vector -->
+    <g fill="#059669">
+      <circle cx="206" cy="282" r="4.5"/>
+      <circle cx="230" cy="296" r="4.5"/>
+      <circle cx="250" cy="278" r="4.5"/>
+      <circle cx="218" cy="312" r="4.5"/>
+      <circle cx="266" cy="306" r="4.5"/>
+      <circle cx="190" cy="302" r="4.5"/>
+    </g>
+    <circle cx="238" cy="231" r="4.5" fill="#059669"/>
+    <circle cx="238" cy="231" r="8.5" fill="none" stroke="#059669" stroke-width="1.6"/>
+
+    <!-- Weight Normal Vectors w1 & w2 -->
+    <line x1="190" y1="218" x2="296" y2="146" stroke="#0052FF" stroke-width="2.4" marker-end="url(#arrowBlue)"/>
+    <line x1="190" y1="218" x2="296" y2="290" stroke="#059669" stroke-width="2.4" marker-end="url(#arrowGreen)"/>
+
+    <!-- Pairwise Inter-Class Regularizer Chord ||w1 - w2||^2 -->
+    <line x1="300" y1="146" x2="300" y2="290" stroke="#E11D48" stroke-width="2" stroke-dasharray="4 3"/>
+    <rect x="254" y="205" width="92" height="26" rx="13" fill="#FFFFFF" stroke="#E11D48" stroke-width="1.4"/>
+    <text x="300" y="221" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#E11D48">‖w<tspan dy="2" font-size="11.5">1</tspan><tspan dy="-2"> − w</tspan><tspan dy="2" font-size="11.5">2</tspan><tspan dy="-2">‖²</tspan></text>
+
+    <!-- Margin Label -->
+    <text x="52" y="126" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#0052FF">Margin</text>
+  </g>
+
+  <!-- Right Panel: DP-SGD Gradient Clipping Ball & RDP Ledger -->
+  <rect x="396" y="72" width="216" height="270" rx="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <text x="412" y="93" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#0A1E5E">DP-SGD Clip &amp; Noise</text>
+
+  <!-- L2 Gradient Clipping Ball ||g|| <= 1 -->
+  <circle cx="486" cy="178" r="46" fill="#DBEAFE" fill-opacity="0.55" stroke="#0052FF" stroke-width="2" stroke-dasharray="5 3.5"/>
+  <circle cx="486" cy="178" r="3" fill="#0A1E5E"/>
+  <text x="412" y="236" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#0052FF">‖g‖ ≤ 1</text>
+
+  <!-- Unclipped Raw Gradient Vector -->
+  <line x1="486" y1="178" x2="564" y2="122" stroke="#E11D48" stroke-width="2.2" stroke-dasharray="4 3" marker-end="url(#arrowRed)"/>
+  <text x="574" y="114" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#E11D48">Raw g</text>
+
+  <!-- Clipped Gradient Vector onto Unit Ball Rim -->
+  <line x1="486" y1="178" x2="520" y2="154" stroke="#0052FF" stroke-width="3" marker-end="url(#arrowBlue)"/>
+
+  <!-- Gaussian Perturbation Halo at Clipped Tip -->
+  <circle cx="524" cy="151" r="21" fill="#0EA5E9" fill-opacity="0.2" stroke="#0EA5E9" stroke-width="1.5" stroke-dasharray="3 2.5"/>
+  <line x1="524" y1="151" x2="538" y2="164" stroke="#059669" stroke-width="2.2"/>
+  <circle cx="540" cy="166" r="4.2" fill="#059669" stroke="#FFFFFF" stroke-width="1.3"/>
+  <text x="568" y="198" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#0EA5E9">+<tspan font-style="italic">N</tspan>(0, σ²I)</text>
+
+  <!-- Bottom Strip: RDP Privacy Budget & 10 Independent Runs -->
+  <line x1="412" y1="248" x2="596" y2="248" stroke="#CBD5E1" stroke-width="1"/>
+  <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5">
+    <text x="412" y="268" font-weight="700" fill="#0A1E5E">RDP Ledger</text>
+    <text x="596" y="268" text-anchor="end" font-weight="700" fill="#0052FF">ε ≤ 1.0</text>
+  </g>
+  <rect x="412" y="276" width="184" height="10" rx="5" fill="#DBEAFE"/>
+  <rect x="412" y="276" width="156" height="10" rx="5" fill="#0052FF"/>
+
+  <!-- 10 Independent Runs Mini Bar Chart -->
+  <g fill="#059669">
+    <rect x="412" y="308" width="7" height="16" rx="2" fill-opacity="0.7"/>
+    <rect x="424" y="305" width="7" height="19" rx="2" fill-opacity="0.8"/>
+    <rect x="436" y="309" width="7" height="15" rx="2" fill-opacity="0.7"/>
+    <rect x="448" y="302" width="7" height="22" rx="2"/>
+    <rect x="460" y="306" width="7" height="18" rx="2" fill-opacity="0.85"/>
+    <rect x="472" y="304" width="7" height="20" rx="2" fill-opacity="0.9"/>
+    <rect x="484" y="307" width="7" height="17" rx="2" fill-opacity="0.8"/>
+    <rect x="496" y="303" width="7" height="21" rx="2"/>
+    <rect x="508" y="306" width="7" height="18" rx="2" fill-opacity="0.85"/>
+    <rect x="520" y="305" width="7" height="19" rx="2" fill-opacity="0.9"/>
+  </g>
+  <text x="596" y="320" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#059669">10 Runs</text>
+
+  <!-- Footer -->
+  <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.7"/>
+  <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5">
+    <text x="28" y="379" fill="#475569">ISOLET · 26 Classes · ε ≤ 1, δ = 1e-5</text>
+    <text x="612" y="379" text-anchor="end" fill="#475569">Metric: <tspan font-weight="700" fill="#059669">Mean Accuracy ↑</tspan></text>
+  </g>
+</svg>

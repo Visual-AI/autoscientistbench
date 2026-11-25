@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>ResidenceDiff — Biased First-Exit Membrane Diffusivity Inference</title>
+  <desc>First-exit residence times inside intervals across a POPC lipid bilayer yield a position-dependent water diffusivity profile D(z) that propagates densities through the periodic Smoluchowski equation against unbiased MD to minimize total variation.</desc>
+  <defs>
+    <clipPath id="resdiff-card-clip">
+      <rect width="640" height="400" rx="16"/>
+    </clipPath>
+    <linearGradient id="resdiff-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFF8F3"/>
+      <stop offset="58%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="resdiff-bar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#EA580C"/>
+      <stop offset="100%" stop-color="#F97316"/>
+    </linearGradient>
+    <linearGradient id="resdiff-bilayer" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FFEDD5" stop-opacity="0.55"/>
+      <stop offset="50%" stop-color="#FFEDD5" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#FFEDD5" stop-opacity="0.55"/>
+    </linearGradient>
+    <pattern id="resdiff-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#6E2707" fill-opacity="0.14"/>
+    </pattern>
+  </defs>
+
+  <g clip-path="url(#resdiff-card-clip)">
+    <rect width="640" height="400" fill="url(#resdiff-bg)"/>
+    <rect x="28" y="60" width="584" height="294" fill="url(#resdiff-grid)"/>
+    <rect x="0" y="0" width="640" height="3.5" fill="url(#resdiff-bar)"/>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="15.5" fill="none" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- Header -->
+  <text x="28" y="37" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="700" fill="#0A0E17">ResidenceDiff</text>
+  <text x="612" y="37" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#475569">Biased First-Exit Membrane Diffusivity</text>
+  <line x1="28" y1="54" x2="612" y2="54" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- Structural Background: POPC Lipid Bilayer Cross-Section -->
+  <rect x="196" y="74" width="248" height="256" rx="8" fill="url(#resdiff-bilayer)"/>
+  <line x1="320" y1="74" x2="320" y2="330" stroke="#CBD5E1" stroke-width="1.3" stroke-dasharray="4 4"/>
+
+  <!-- Left leaflet polar heads and hydrophobic tails -->
+  <g stroke="#6E2707" stroke-opacity="0.18" stroke-width="1.4" fill="none">
+    <path d="M205 94 Q236 88 262 96 T310 94 M205 100 Q236 106 262 100 T310 102"/>
+    <path d="M205 128 Q236 122 262 130 T310 128 M205 134 Q236 140 262 134 T310 136"/>
+    <path d="M205 162 Q236 156 262 164 T310 162 M205 168 Q236 174 262 168 T310 170"/>
+    <path d="M205 196 Q236 190 262 198 T310 196 M205 202 Q236 208 262 202 T310 204"/>
+    <path d="M205 230 Q236 224 262 232 T310 230 M205 236 Q236 242 262 236 T310 238"/>
+    <path d="M205 264 Q236 258 262 266 T310 264 M205 270 Q236 276 262 270 T310 272"/>
+    <path d="M205 298 Q236 292 262 300 T310 298 M205 304 Q236 310 262 304 T310 306"/>
+  </g>
+  <!-- Right leaflet polar heads and hydrophobic tails -->
+  <g stroke="#6E2707" stroke-opacity="0.18" stroke-width="1.4" fill="none">
+    <path d="M435 94 Q404 88 378 96 T330 94 M435 100 Q404 106 378 100 T330 102"/>
+    <path d="M435 128 Q404 122 378 130 T330 128 M435 134 Q404 140 378 134 T330 136"/>
+    <path d="M435 162 Q404 156 378 164 T330 162 M435 168 Q404 174 378 168 T330 170"/>
+    <path d="M435 196 Q404 190 378 198 T330 196 M435 202 Q404 208 378 202 T330 204"/>
+    <path d="M435 230 Q404 224 378 232 T330 230 M435 236 Q404 242 378 236 T330 238"/>
+    <path d="M435 264 Q404 258 378 266 T330 264 M435 270 Q404 276 378 270 T330 272"/>
+    <path d="M435 298 Q404 292 378 300 T330 298 M435 304 Q404 310 378 304 T330 306"/>
+  </g>
+  <!-- Headgroup columns -->
+  <g fill="#F97316" fill-opacity="0.28" stroke="#EA580C" stroke-opacity="0.48" stroke-width="1.4">
+    <circle cx="198" cy="97" r="8.5"/><circle cx="198" cy="131" r="8.5"/><circle cx="198" cy="165" r="8.5"/>
+    <circle cx="198" cy="199" r="8.5"/><circle cx="198" cy="233" r="8.5"/><circle cx="198" cy="267" r="8.5"/><circle cx="198" cy="301" r="8.5"/>
+    <circle cx="442" cy="97" r="8.5"/><circle cx="442" cy="131" r="8.5"/><circle cx="442" cy="165" r="8.5"/>
+    <circle cx="442" cy="199" r="8.5"/><circle cx="442" cy="233" r="8.5"/><circle cx="442" cy="267" r="8.5"/><circle cx="442" cy="301" r="8.5"/>
+  </g>
+
+  <!-- Structural region headers -->
+  <text x="114" y="80" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">Bulk Water</text>
+  <text x="320" y="80" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#6E2707">POPC Bilayer</text>
+  <text x="526" y="80" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">Bulk Water</text>
+
+  <!-- Upper Physics Layer: First-Exit Interval, PMF(z), and D(z) -->
+  <line x1="48" y1="206" x2="592" y2="206" stroke="#CBD5E1" stroke-width="1.3"/>
+
+  <!-- Highlighted First-Exit Interval L = 7.5 A -->
+  <rect x="224" y="106" width="52" height="100" fill="#EA580C" fill-opacity="0.11" stroke="#EA580C" stroke-width="1.4" stroke-dasharray="3 3"/>
+  <!-- Stochastic trajectory inside interval exiting at boundary -->
+  <polyline points="248,154 236,146 258,139 235,132 260,124 242,118 276,113" fill="none" stroke="#0A0E17" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="276" cy="113" r="4" fill="#EA580C" stroke="#FFFFFF" stroke-width="1.4"/>
+  <rect x="218" y="88" width="64" height="16" rx="4" fill="#FFFFFF" fill-opacity="0.9"/>
+  <text x="250" y="100" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#EA580C">L = 7.5 Å</text>
+
+  <!-- ABF PMF(z) Barrier Curve -->
+  <path d="M50 202 H164 C206 202 246 128 320 124 C394 128 434 202 476 202 H590" fill="none" stroke="#6E2707" stroke-width="2.2" stroke-dasharray="6 4"/>
+  <text x="360" y="120" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#6E2707">PMF(z)</text>
+
+  <!-- Inferred Position-Dependent Diffusivity D(z) -->
+  <path d="M50 116 H144 C186 116 206 180 246 182 C278 184 294 156 320 156 C346 156 362 184 394 182 C434 180 454 116 496 116 H590" fill="none" stroke="#EA580C" stroke-width="3.2" stroke-linecap="round"/>
+  <text x="114" y="108" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#EA580C">D(z) = L²/12τ</text>
+
+  <!-- Lower Physics Layer: Periodic Smoluchowski Density Propagation -->
+  <line x1="48" y1="330" x2="592" y2="330" stroke="#475569" stroke-width="1.6"/>
+
+  <!-- Shaded TV difference band between MD reference and Smoluchowski prediction -->
+  <path d="M50 330 C130 330 182 322 234 292 C270 270 295 236 320 236 C345 236 370 270 406 292 C458 322 510 330 590 330 C514 330 462 316 414 282 C374 254 348 250 320 250 C292 250 266 254 226 282 C178 316 126 330 50 330 Z" fill="#EA580C" fill-opacity="0.22"/>
+
+  <!-- Early lag pulse (75 ps) -->
+  <path d="M210 330 C258 328 286 286 320 226 C354 286 382 328 430 330" fill="none" stroke="#F97316" stroke-width="1.8" stroke-dasharray="4 3"/>
+
+  <!-- Unbiased MD Reference Density (200 ps) -->
+  <path d="M50 330 C126 330 178 316 226 282 C266 254 292 250 320 250 C348 250 374 254 414 282 C462 316 514 330 590 330" fill="none" stroke="#059669" stroke-width="2.6"/>
+
+  <!-- Smoluchowski Propagated Density (200 ps) -->
+  <path d="M50 330 C130 330 182 322 234 292 C270 270 295 236 320 236 C345 236 370 270 406 292 C458 322 510 330 590 330" fill="none" stroke="#EA580C" stroke-width="2.8"/>
+
+  <!-- Clean non-overlapping labels for lower layer -->
+  <text x="116" y="294" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#059669">MD Reference</text>
+  <line x1="164" y1="292" x2="210" y2="292" stroke="#059669" stroke-width="1.4"/>
+
+  <text x="524" y="294" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#EA580C">Smoluchowski</text>
+  <line x1="472" y1="292" x2="416" y2="296" stroke="#EA580C" stroke-width="1.4"/>
+
+  <text x="394" y="246" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#6E2707">TV</text>
+  <line x1="392" y1="250" x2="376" y2="262" stroke="#6E2707" stroke-width="1.4"/>
+
+  <text x="320" y="346" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">z = 0</text>
+
+  <!-- Footer -->
+  <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="28" y="380" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#475569">ABF First-Exit · 75 &amp; 200 ps Lags</text>
+  <text x="612" y="380" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#475569">Target: <tspan font-weight="700" fill="#EA580C">TV ↓</tspan></text>
+</svg>

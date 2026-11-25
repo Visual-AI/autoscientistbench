@@ -1,0 +1,199 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>EMP — Effective Model Pruning of Frozen FC12</title>
+  <desc>Mask-only binary pruning strips redundant connections from a frozen twelve-layer dense network to maximize weight sparsity while holding cross-entropy loss drift within the 0.1 ceiling.</desc>
+  <defs>
+    <clipPath id="cardClip">
+      <rect x="0" y="0" width="640" height="400" rx="16"/>
+    </clipPath>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F7FAFF"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0052FF"/>
+      <stop offset="100%" stop-color="#0EA5E9"/>
+    </linearGradient>
+    <pattern id="dotGrid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="12" cy="12" r="1.1" fill="#0A1E5E" opacity="0.16"/>
+    </pattern>
+    <marker id="arrOk" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M1,1.5 L9,5 L1,8.5 L3,5 Z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- Base Card -->
+  <g clip-path="url(#cardClip)">
+    <rect x="0" y="0" width="640" height="400" fill="url(#bgGrad)"/>
+    <rect x="20" y="60" width="600" height="294" fill="url(#dotGrid)"/>
+    <rect x="0" y="0" width="640" height="3.5" fill="url(#accentGrad)"/>
+  </g>
+  <rect x="0.75" y="0.75" width="638.5" height="398.5" rx="15.25" fill="none" stroke="#CBD5E1" stroke-opacity="0.75" stroke-width="1.5"/>
+
+  <!-- Top Header -->
+  <text x="28" y="38" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="700" fill="#0A0E17" letter-spacing="-0.2">EMP</text>
+  <text x="612" y="37" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="500" fill="#475569">Loss-Constrained Neural Weight Pruning</text>
+  <line x1="28" y1="54" x2="612" y2="54" stroke="#CBD5E1" stroke-opacity="0.6" stroke-width="1"/>
+
+  <!-- LEFT-CENTER: Tapering Frozen Dense FC12 Network Under Binary Mask -->
+  <rect x="30" y="72" width="348" height="274" rx="12" fill="#FFFFFF" fill-opacity="0.84" stroke="#CBD5E1" stroke-width="1.4"/>
+  <text x="44" y="94" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" fill="#0A1E5E">Frozen Dense FC12</text>
+  <text x="364" y="94" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0052FF">W_pruned = W ⊙ M</text>
+
+  <!-- Tapering Funnel Background Silhouette -->
+  <polygon points="56,118 352,190 352,238 56,310" fill="#DBEAFE" fill-opacity="0.22"/>
+
+  <!-- Pruned / Masked-Out Connections (M = 0, faint dashed) -->
+  <g stroke="#CBD5E1" stroke-width="1.1" stroke-dasharray="3 3" stroke-opacity="0.85">
+    <!-- L1 -> L2 pruned -->
+    <line x1="60" y1="126" x2="118" y2="168"/><line x1="60" y1="126" x2="118" y2="228"/>
+    <line x1="60" y1="156" x2="118" y2="198"/><line x1="60" y1="156" x2="118" y2="258"/>
+    <line x1="60" y1="186" x2="118" y2="138"/><line x1="60" y1="186" x2="118" y2="288"/>
+    <line x1="60" y1="216" x2="118" y2="168"/><line x1="60" y1="216" x2="118" y2="258"/>
+    <line x1="60" y1="246" x2="118" y2="198"/><line x1="60" y1="246" x2="118" y2="288"/>
+    <line x1="60" y1="276" x2="118" y2="228"/><line x1="60" y1="306" x2="118" y2="258"/>
+    <!-- L2 -> L3 pruned -->
+    <line x1="118" y1="138" x2="176" y2="186"/><line x1="118" y1="138" x2="176" y2="246"/>
+    <line x1="118" y1="168" x2="176" y2="216"/><line x1="118" y1="168" x2="176" y2="276"/>
+    <line x1="118" y1="198" x2="176" y2="156"/><line x1="118" y1="198" x2="176" y2="246"/>
+    <line x1="118" y1="228" x2="176" y2="186"/><line x1="118" y1="228" x2="176" y2="276"/>
+    <line x1="118" y1="258" x2="176" y2="216"/><line x1="118" y1="288" x2="176" y2="246"/>
+    <!-- L3 -> L4 pruned -->
+    <line x1="176" y1="156" x2="234" y2="201"/><line x1="176" y1="156" x2="234" y2="261"/>
+    <line x1="176" y1="186" x2="234" y2="231"/><line x1="176" y1="216" x2="234" y2="171"/>
+    <line x1="176" y1="246" x2="234" y2="201"/><line x1="176" y1="276" x2="234" y2="231"/>
+    <!-- L4 -> L5 pruned -->
+    <line x1="234" y1="171" x2="292" y2="216"/><line x1="234" y1="201" x2="292" y2="246"/>
+    <line x1="234" y1="231" x2="292" y2="186"/><line x1="234" y1="261" x2="292" y2="216"/>
+    <!-- L5 -> L6 pruned -->
+    <line x1="292" y1="186" x2="348" y2="230"/><line x1="292" y1="246" x2="348" y2="198"/>
+  </g>
+
+  <!-- Accent Rose Pruned Cuts (M = 0) -->
+  <g stroke="#E11D48" stroke-width="1.3" stroke-dasharray="3 3" stroke-opacity="0.55">
+    <line x1="60" y1="156" x2="118" y2="228"/>
+    <line x1="118" y1="258" x2="176" y2="186"/>
+    <line x1="176" y1="246" x2="234" y2="171"/>
+    <line x1="234" y1="261" x2="292" y2="186"/>
+  </g>
+
+  <!-- Surviving Active Backbone Weights (M = 1, Identical Frozen Values) -->
+  <g stroke="#0052FF" stroke-width="2.5" stroke-linecap="round">
+    <line x1="60" y1="126" x2="118" y2="138"/>
+    <line x1="60" y1="216" x2="118" y2="198"/>
+    <line x1="60" y1="276" x2="118" y2="288"/>
+    <line x1="118" y1="138" x2="176" y2="156"/>
+    <line x1="118" y1="198" x2="176" y2="216"/>
+    <line x1="118" y1="288" x2="176" y2="276"/>
+    <line x1="176" y1="156" x2="234" y2="171"/>
+    <line x1="176" y1="216" x2="234" y2="231"/>
+    <line x1="176" y1="276" x2="234" y2="261"/>
+    <line x1="234" y1="171" x2="292" y2="186"/>
+    <line x1="234" y1="231" x2="292" y2="216"/>
+    <line x1="234" y1="261" x2="292" y2="246"/>
+    <line x1="292" y1="186" x2="348" y2="198"/>
+    <line x1="292" y1="216" x2="348" y2="198"/>
+    <line x1="292" y1="246" x2="348" y2="230"/>
+  </g>
+  <g stroke="#0EA5E9" stroke-width="2" stroke-linecap="round">
+    <line x1="60" y1="186" x2="118" y2="168"/>
+    <line x1="118" y1="168" x2="176" y2="186"/>
+    <line x1="176" y1="186" x2="234" y2="201"/>
+    <line x1="234" y1="201" x2="292" y2="216"/>
+    <line x1="292" y1="216" x2="348" y2="230"/>
+  </g>
+
+  <!-- Neuron Nodes Across Tapering FC12 Layers -->
+  <!-- Col 1 (1000) -->
+  <g stroke="#0052FF" stroke-width="1.8" fill="#FFFFFF">
+    <circle cx="60" cy="126" r="4.5"/><circle cx="60" cy="156" r="4.5" stroke="#CBD5E1"/>
+    <circle cx="60" cy="186" r="4.5" stroke="#0EA5E9"/><circle cx="60" cy="216" r="4.5"/>
+    <circle cx="60" cy="246" r="4.5" stroke="#CBD5E1"/><circle cx="60" cy="276" r="4.5"/>
+    <circle cx="60" cy="306" r="4.5" stroke="#CBD5E1"/>
+  </g>
+  <!-- Col 2 (800) -->
+  <g stroke="#0052FF" stroke-width="1.8" fill="#FFFFFF">
+    <circle cx="118" cy="138" r="4.5"/><circle cx="118" cy="168" r="4.5" stroke="#0EA5E9"/>
+    <circle cx="118" cy="198" r="4.5"/><circle cx="118" cy="228" r="4.5" stroke="#CBD5E1"/>
+    <circle cx="118" cy="258" r="4.5" stroke="#CBD5E1"/><circle cx="118" cy="288" r="4.5"/>
+  </g>
+  <!-- Col 3 (650) -->
+  <g stroke="#0052FF" stroke-width="1.8" fill="#FFFFFF">
+    <circle cx="176" cy="156" r="4.5"/><circle cx="176" cy="186" r="4.5" stroke="#0EA5E9"/>
+    <circle cx="176" cy="216" r="4.5"/><circle cx="176" cy="246" r="4.5" stroke="#CBD5E1"/>
+    <circle cx="176" cy="276" r="4.5"/>
+  </g>
+  <!-- Col 4 (400) -->
+  <g stroke="#0052FF" stroke-width="1.8" fill="#FFFFFF">
+    <circle cx="234" cy="171" r="4.5"/><circle cx="234" cy="201" r="4.5" stroke="#0EA5E9"/>
+    <circle cx="234" cy="231" r="4.5"/><circle cx="234" cy="261" r="4.5"/>
+  </g>
+  <!-- Col 5 (100) -->
+  <g stroke="#0052FF" stroke-width="1.8" fill="#FFFFFF">
+    <circle cx="292" cy="186" r="4.5"/><circle cx="292" cy="216" r="4.5"/><circle cx="292" cy="246" r="4.5"/>
+  </g>
+  <!-- Col 6 (10 outputs) -->
+  <g stroke="#059669" stroke-width="2" fill="#059669" fill-opacity="0.16">
+    <circle cx="348" cy="198" r="5.5"/><circle cx="348" cy="230" r="5.5"/>
+  </g>
+
+  <!-- Inline Mask Legend in Open Upper-Right Funnel Wedge -->
+  <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600">
+    <line x1="238" y1="120" x2="262" y2="120" stroke="#0052FF" stroke-width="2.6" stroke-linecap="round"/>
+    <text x="270" y="124" fill="#0052FF">Kept (M=1)</text>
+    <line x1="238" y1="140" x2="262" y2="140" stroke="#E11D48" stroke-width="1.6" stroke-dasharray="3 3"/>
+    <text x="270" y="144" fill="#475569">Pruned (M=0)</text>
+  </g>
+
+  <!-- Layer Width Labels -->
+  <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="500" fill="#475569" text-anchor="middle">
+    <text x="60" y="334">1000</text>
+    <text x="118" y="334">800</text>
+    <text x="176" y="334">650</text>
+    <text x="234" y="334">400</text>
+    <text x="292" y="334">100</text>
+    <text x="348" y="334" font-weight="700" fill="#059669">10</text>
+  </g>
+
+  <!-- RIGHT PANEL: Sparsity vs Cross-Entropy Drift Guard Curve -->
+  <rect x="392" y="72" width="218" height="274" rx="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.4"/>
+  <text x="501" y="94" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" fill="#0A1E5E">Sparsity–Loss Frontier</text>
+
+  <!-- Safe vs Forbidden Loss Zones -->
+  <rect x="424" y="114" width="168" height="72" fill="#E11D48" fill-opacity="0.07"/>
+  <rect x="424" y="186" width="168" height="114" fill="#059669" fill-opacity="0.06"/>
+
+  <!-- Plot Axes -->
+  <line x1="424" y1="300" x2="594" y2="300" stroke="#CBD5E1" stroke-width="1.6"/>
+  <line x1="424" y1="300" x2="424" y2="112" stroke="#CBD5E1" stroke-width="1.6"/>
+
+  <!-- CE Drift Ceiling Guard Line (|Delta CE| = 0.1) -->
+  <line x1="424" y1="186" x2="592" y2="186" stroke="#E11D48" stroke-width="2.2" stroke-dasharray="5 3.5"/>
+  <text x="432" y="176" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#E11D48">|ΔCE| ≤ 0.1</text>
+
+  <!-- Sparsity vs |Delta CE| Cliff Curve -->
+  <path d="M426,298 C472,296 504,290 526,262 C542,240 548,214 554,186 C560,158 566,136 574,118" fill="none" stroke="#0052FF" stroke-width="3.2" stroke-linecap="round"/>
+
+  <!-- Baseline Sparsity Reference (~40%) & Optimal Safe Frontier Dot -->
+  <circle cx="496" cy="288" r="4.5" fill="#FFFFFF" stroke="#0EA5E9" stroke-width="2.2"/>
+  <line x1="552" y1="191" x2="552" y2="300" stroke="#059669" stroke-width="1.6" stroke-dasharray="3.5 3"/>
+  <circle cx="552" cy="191" r="6.5" fill="#059669" stroke="#FFFFFF" stroke-width="2.2"/>
+
+  <!-- Rightward Max-Sparsity Arrow (clean open green safe zone) -->
+  <line x1="450" y1="226" x2="528" y2="226" stroke="#059669" stroke-width="2.2" marker-end="url(#arrOk)"/>
+  <text x="488" y="216" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#059669">Opt. Mask</text>
+
+  <!-- Axis Labels -->
+  <text x="408" y="210" text-anchor="middle" transform="rotate(-90 408 210)" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#475569">|ΔCE|</text>
+  <text x="428" y="316" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">0%</text>
+  <text x="508" y="316" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">50%</text>
+  <text x="588" y="316" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">90%</text>
+  <text x="509" y="335" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#0A1E5E">Weight Sparsity (%)</text>
+
+  <!-- Bottom Footer -->
+  <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-opacity="0.6" stroke-width="1"/>
+  <text x="28" y="378" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="500" fill="#475569">7.26M weights · frozen CIFAR-10 dense · |ΔCE| ≤ 0.1</text>
+  <text x="612" y="378" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5">
+    <tspan fill="#475569" font-weight="500">Target </tspan>
+    <tspan fill="#0052FF" font-weight="700">sparsity ↑</tspan>
+  </text>
+</svg>

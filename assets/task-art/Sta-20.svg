@@ -1,0 +1,179 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>Lasso-FDR: Estimating False Discovery Rate of Variable Selection</title>
+  <desc>Fixed-X Lasso homotopy coefficient paths separating true signals from null false discoveries feed into a calibrated hFDR estimator closely tracking true FDR across regularization levels.</desc>
+  <defs>
+    <clipPath id="plateClip">
+      <rect x="0" y="0" width="640" height="400" rx="14"/>
+    </clipPath>
+    <linearGradient id="plateBg" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0%" stop-color="#F4FBF9"/>
+      <stop offset="55%" stop-color="#F4FBF9" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="topAccent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#114B46"/>
+      <stop offset="45%" stop-color="#0D9488"/>
+      <stop offset="100%" stop-color="#10B981"/>
+    </linearGradient>
+    <pattern id="coordDots" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#0D9488" opacity="0.16"/>
+    </pattern>
+    <marker id="arrowTeal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 1.2 L8.8 5 L0 8.8 Z" fill="#0D9488"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#plateClip)">
+    <rect x="0" y="0" width="640" height="400" fill="#FFFFFF"/>
+    <rect x="0" y="0" width="640" height="400" fill="url(#plateBg)"/>
+    <rect x="20" y="58" width="600" height="296" fill="url(#coordDots)"/>
+    <rect x="0" y="0" width="640" height="3" fill="url(#topAccent)"/>
+
+    <!-- Header -->
+    <text x="28" y="38" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="700" fill="#0A0E17">Lasso-FDR</text>
+    <text x="612" y="37" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="500" fill="#475569">Variable Selection FDR Estimation</text>
+    <line x1="28" y1="54" x2="612" y2="54" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.75"/>
+
+    <!-- Left-Center Panel: Lasso Homotopy Regularization Path -->
+    <g>
+      <rect x="34" y="70" width="314" height="270" rx="11" fill="#FFFFFF" fill-opacity="0.9" stroke="#CBD5E1" stroke-width="1.2"/>
+      <text x="50" y="92" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#0A0E17">Lasso Homotopy Path</text>
+
+      <!-- Legend inside top-right of panel -->
+      <circle cx="226" cy="88" r="4" fill="#0D9488"/>
+      <text x="235" y="92" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#0D9488">Signal</text>
+      <circle cx="288" cy="88" r="4" fill="#E11D48"/>
+      <text x="297" y="92" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#E11D48">Null</text>
+
+      <!-- Lambda grid hairlines -->
+      <g stroke="#CBD5E1" stroke-width="1" stroke-dasharray="3 3" stroke-opacity="0.85">
+        <line x1="104" y1="108" x2="104" y2="310"/>
+        <line x1="148" y1="108" x2="148" y2="310"/>
+        <line x1="192" y1="108" x2="192" y2="310"/>
+        <line x1="280" y1="108" x2="280" y2="310"/>
+        <line x1="324" y1="108" x2="324" y2="310"/>
+      </g>
+
+      <!-- Highlighted selection slice at lambda* -->
+      <rect x="223" y="108" width="26" height="202" rx="4" fill="#CCFBF1" fill-opacity="0.58"/>
+      <line x1="236" y1="108" x2="236" y2="310" stroke="#0D9488" stroke-width="1.8" stroke-dasharray="5 3"/>
+
+      <!-- Axes and zero baseline -->
+      <line x1="56" y1="108" x2="56" y2="310" stroke="#475569" stroke-width="1.6" stroke-linecap="round"/>
+      <line x1="56" y1="210" x2="334" y2="210" stroke="#475569" stroke-width="1.5" stroke-linecap="round"/>
+      <text x="48" y="120" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" fill="#475569">β̂</text>
+      <text x="48" y="214" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">0</text>
+
+      <!-- True Signal Trajectories -->
+      <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M74 210 L108 178 L154 148 L210 130 L276 121 L332 116" stroke="#114B46" stroke-width="3.2"/>
+        <path d="M100 210 L142 186 L194 166 L256 152 L332 144" stroke="#0D9488" stroke-width="2.8"/>
+        <path d="M88 210 L128 242 L178 274 L244 294 L332 302" stroke="#114B46" stroke-width="3.2"/>
+        <path d="M124 210 L166 234 L218 256 L284 268 L332 275" stroke="#0D9488" stroke-width="2.8"/>
+        <path d="M150 210 L196 192 L252 180 L332 173" stroke="#10B981" stroke-width="2.4"/>
+      </g>
+
+      <!-- Null (False Discovery) Trajectories -->
+      <g fill="none" stroke="#E11D48" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M196 210 L236 198 L286 190 L332 185" stroke-width="2.3"/>
+        <path d="M214 210 L236 220 L276 234 L332 246" stroke-width="2.3"/>
+        <path d="M244 210 L282 202 L332 197" stroke-width="2" stroke-opacity="0.85"/>
+        <path d="M264 210 L300 223 L332 232" stroke-width="2" stroke-opacity="0.85"/>
+        <path d="M284 210 L310 217 L332 221" stroke-width="1.8" stroke-opacity="0.72"/>
+      </g>
+
+      <!-- Active set dots at lambda* (x=236) -->
+      <g stroke="#FFFFFF" stroke-width="1.5">
+        <circle cx="236" cy="126" r="4.2" fill="#114B46"/>
+        <circle cx="236" cy="156" r="4" fill="#0D9488"/>
+        <circle cx="236" cy="183" r="3.8" fill="#10B981"/>
+        <circle cx="236" cy="259" r="4" fill="#0D9488"/>
+        <circle cx="236" cy="291" r="4.2" fill="#114B46"/>
+        <!-- Null false discoveries at lambda* -->
+        <circle cx="236" cy="198" r="4.2" fill="#E11D48"/>
+        <circle cx="236" cy="220" r="4.2" fill="#E11D48"/>
+      </g>
+
+      <!-- Bottom labels -->
+      <text x="58" y="331" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#475569">Decreasing λ →</text>
+      <text x="236" y="328" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0D9488">λ*</text>
+    </g>
+
+    <!-- Connecting Arrow -->
+    <line x1="352" y1="205" x2="380" y2="205" stroke="#0D9488" stroke-width="2.6" marker-end="url(#arrowTeal)"/>
+    <text x="366" y="193" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#114B46">hFDR</text>
+
+    <!-- Right Panel: True FDR vs Estimated hFDR Calibration -->
+    <g>
+      <rect x="386" y="70" width="226" height="270" rx="11" fill="#FFFFFF" fill-opacity="0.9" stroke="#CBD5E1" stroke-width="1.2"/>
+      <text x="499" y="92" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#0A0E17">FDR Calibration</text>
+
+      <!-- Subtle gridlines -->
+      <line x1="422" y1="114" x2="594" y2="114" stroke="#CBD5E1" stroke-width="0.9" stroke-opacity="0.6"/>
+      <line x1="422" y1="204" x2="594" y2="204" stroke="#CBD5E1" stroke-width="0.9" stroke-opacity="0.6"/>
+
+      <!-- Axes -->
+      <path d="M422 110 V294 H596" fill="none" stroke="#475569" stroke-width="1.6" stroke-linecap="round"/>
+      <text x="416" y="118" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">1.0</text>
+      <text x="416" y="208" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">0.5</text>
+      <text x="416" y="298" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">0</text>
+
+      <!-- Realized FDP uncertainty band -->
+      <path d="M426 284 C456 276, 484 252, 512 220 C540 186, 566 150, 590 122 L590 162 C566 190, 540 226, 512 258 C484 282, 456 292, 426 294 Z" fill="#CCFBF1" fill-opacity="0.68"/>
+
+      <!-- Realized FDP scatter points -->
+      <g fill="#E11D48" fill-opacity="0.48">
+        <circle cx="436" cy="288" r="2.6"/>
+        <circle cx="458" cy="276" r="2.6"/>
+        <circle cx="468" cy="284" r="2.6"/>
+        <circle cx="486" cy="256" r="2.6"/>
+        <circle cx="496" cy="268" r="2.6"/>
+        <circle cx="514" cy="226" r="2.6"/>
+        <circle cx="524" cy="244" r="2.6"/>
+        <circle cx="542" cy="192" r="2.6"/>
+        <circle cx="554" cy="214" r="2.6"/>
+        <circle cx="568" cy="158" r="2.6"/>
+        <circle cx="578" cy="176" r="2.6"/>
+        <circle cx="588" cy="134" r="2.6"/>
+      </g>
+
+      <!-- True FDR curve -->
+      <path d="M426 290 C456 284, 484 268, 512 238 C540 206, 566 170, 590 142" fill="none" stroke="#0A0E17" stroke-width="2.6" stroke-linecap="round"/>
+
+      <!-- Estimated hFDR curve tightly tracking true FDR -->
+      <path d="M426 288 C456 281, 484 264, 512 234 C540 202, 566 167, 590 139" fill="none" stroke="#0D9488" stroke-width="3" stroke-dasharray="6 3.5" stroke-linecap="round"/>
+
+      <!-- hFDR grid point markers -->
+      <g fill="#0D9488" stroke="#FFFFFF" stroke-width="1.4">
+        <circle cx="436" cy="286" r="3.6"/>
+        <circle cx="466" cy="275" r="3.6"/>
+        <circle cx="496" cy="251" r="3.6"/>
+        <circle cx="526" cy="219" r="3.6"/>
+        <circle cx="556" cy="180" r="3.6"/>
+        <circle cx="586" cy="143" r="3.8"/>
+      </g>
+
+      <!-- Inline legend in open top-left quadrant -->
+      <line x1="432" y1="126" x2="450" y2="126" stroke="#0A0E17" stroke-width="2.5"/>
+      <text x="456" y="130" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#0A0E17">True FDR</text>
+
+      <line x1="432" y1="146" x2="450" y2="146" stroke="#0D9488" stroke-width="2.6" stroke-dasharray="4 2.5"/>
+      <text x="456" y="150" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#0D9488">Est. hFDR</text>
+
+      <circle cx="441" cy="166" r="3.2" fill="#E11D48" fill-opacity="0.6"/>
+      <text x="456" y="170" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">Realized FDP</text>
+
+      <!-- Bias callout pill in open bottom-right quadrant -->
+      <rect x="524" y="264" width="66" height="22" rx="11" fill="#CCFBF1" stroke="#0D9488" stroke-width="1.2"/>
+      <text x="557" y="279" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#114B46">|Bias| → 0</text>
+
+      <text x="509" y="324" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#475569">λ Grid (10 levels)</text>
+    </g>
+
+    <!-- Footer -->
+    <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.7"/>
+    <text x="28" y="381" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#475569">Target: <tspan font-weight="700" fill="#0D9488">MAD ↓</tspan></text>
+    <text x="612" y="381" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#475569">Fixed-X Lasso · Guarded Bias &amp; SD</text>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="13.5" fill="none" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.75"/>
+</svg>

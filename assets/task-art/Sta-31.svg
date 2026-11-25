@@ -1,0 +1,183 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>SurrogateInf: Post-Integrated Inference with Surrogate-Control Outcomes</title>
+  <desc>A causal confounding graph recovers latent factors from known null surrogate-control binary outcomes to deconfound logit-link direct-effect testing and boost discovery power in a volcano plot.</desc>
+  <defs>
+    <clipPath id="plateClip">
+      <rect x="0" y="0" width="640" height="400" rx="14"/>
+    </clipPath>
+    <linearGradient id="plateBg" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0%" stop-color="#F4FBF9"/>
+      <stop offset="55%" stop-color="#F4FBF9" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="topAccent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#114B46"/>
+      <stop offset="45%" stop-color="#0D9488"/>
+      <stop offset="100%" stop-color="#10B981"/>
+    </linearGradient>
+    <pattern id="coordDots" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#0D9488" opacity="0.16"/>
+    </pattern>
+    <marker id="arrowTeal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 1.2 L8.8 5 L0 8.8 Z" fill="#0D9488"/>
+    </marker>
+    <marker id="arrowRose" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
+      <path d="M0 1.4 L8.6 5 L0 8.6 Z" fill="#E11D48"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#plateClip)">
+    <rect x="0" y="0" width="640" height="400" fill="#FFFFFF"/>
+    <rect x="0" y="0" width="640" height="400" fill="url(#plateBg)"/>
+    <rect x="20" y="58" width="600" height="296" fill="url(#coordDots)"/>
+    <rect x="0" y="0" width="640" height="3" fill="url(#topAccent)"/>
+
+    <!-- Header -->
+    <text x="28" y="38" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="700" fill="#0A0E17">SurrogateInf</text>
+    <text x="612" y="37" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="500" fill="#475569">Surrogate-Control Deconfounded Inference</text>
+    <line x1="28" y1="54" x2="612" y2="54" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.75"/>
+
+    <!-- Left-Center Hero: Causal Surrogate-Control DAG -->
+    <g>
+      <rect x="34" y="70" width="330" height="270" rx="11" fill="#FFFFFF" fill-opacity="0.92" stroke="#CBD5E1" stroke-width="1.2"/>
+      <text x="199" y="92" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#0A0E17">Surrogate-Control Mechanism</text>
+
+      <!-- Causal edges -->
+      <!-- U -> X (confounding) -->
+      <path d="M196 144 C166 150, 140 160, 114 172" fill="none" stroke="#E11D48" stroke-width="2" stroke-dasharray="4.5 3" marker-end="url(#arrowRose)"/>
+      <!-- U -> Y_C (confounder loads on controls) -->
+      <line x1="206" y1="160" x2="132" y2="255" stroke="#E11D48" stroke-width="2.2" marker-end="url(#arrowRose)"/>
+      <!-- U -> Y_test (confounder loads on tested outcomes) -->
+      <line x1="238" y1="160" x2="292" y2="255" stroke="#E11D48" stroke-width="2.2" stroke-dasharray="4.5 3" marker-end="url(#arrowRose)"/>
+
+      <!-- X -/-> Y_C (blocked zero direct effect on controls) -->
+      <line x1="88" y1="208" x2="98" y2="256" stroke="#CBD5E1" stroke-width="2"/>
+      <g stroke="#E11D48" stroke-width="2.6" stroke-linecap="round">
+        <line x1="87" y1="226" x2="99" y2="238"/>
+        <line x1="99" y1="226" x2="87" y2="238"/>
+      </g>
+      <text x="79" y="236" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#475569">β = 0</text>
+
+      <!-- X -> Y_test (target direct logit effect beta_j) -->
+      <path d="M108 193 C156 208, 206 228, 250 256" fill="none" stroke="#0D9488" stroke-width="3.2" stroke-linecap="round" marker-end="url(#arrowTeal)"/>
+      <!-- Crisp pill badge for beta_j directly on path, clear of U arrows -->
+      <rect x="172" y="214" width="60" height="22" rx="11" fill="#FFFFFF" stroke="#0D9488" stroke-width="1.5"/>
+      <text x="202" y="229" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#0D9488">βⱼ (logit)</text>
+
+      <!-- Latent Confounder Node U -->
+      <circle cx="222" cy="140" r="23" fill="#FFFFFF" stroke="#E11D48" stroke-width="2.4" stroke-dasharray="5 3.5"/>
+      <text x="222" y="145" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="700" fill="#E11D48">U</text>
+      <text x="253" y="144" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#E11D48">Latent</text>
+
+      <!-- Observed Covariate Node X -->
+      <circle cx="84" cy="182" r="23" fill="#114B46" stroke="#FFFFFF" stroke-width="2"/>
+      <text x="84" y="187" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="700" fill="#FFFFFF">X</text>
+
+      <!-- Surrogate Controls Box Y_C -->
+      <rect x="48" y="260" width="118" height="54" rx="9" fill="#CCFBF1" fill-opacity="0.78" stroke="#0D9488" stroke-width="2"/>
+      <text x="107" y="279" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#114B46">Controls Y_C</text>
+      <!-- Binary barcode strips -->
+      <g>
+        <rect x="60" y="290" width="11" height="14" rx="2" fill="#0D9488"/>
+        <rect x="74" y="290" width="11" height="14" rx="2" fill="#FFFFFF"/>
+        <rect x="88" y="290" width="11" height="14" rx="2" fill="#0D9488"/>
+        <rect x="102" y="290" width="11" height="14" rx="2" fill="#10B981"/>
+        <rect x="116" y="290" width="11" height="14" rx="2" fill="#FFFFFF"/>
+        <rect x="130" y="290" width="11" height="14" rx="2" fill="#0D9488"/>
+        <rect x="144" y="290" width="11" height="14" rx="2" fill="#FFFFFF"/>
+      </g>
+
+      <!-- Surrogate Embedding Bridge Y_C -> U_hat -> Y_test -->
+      <line x1="168" y1="287" x2="181" y2="287" stroke="#0D9488" stroke-width="2.2" marker-end="url(#arrowTeal)"/>
+      <circle cx="199" cy="287" r="14" fill="#0D9488" stroke="#FFFFFF" stroke-width="1.6"/>
+      <text x="199" y="292" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#FFFFFF">Û</text>
+      <line x1="215" y1="287" x2="228" y2="287" stroke="#0D9488" stroke-width="2.2" marker-end="url(#arrowTeal)"/>
+
+      <!-- Tested Outcomes Box Y_test -->
+      <rect x="232" y="260" width="118" height="54" rx="9" fill="#FFFFFF" stroke="#114B46" stroke-width="2"/>
+      <text x="291" y="279" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0A0E17">Tested Y_test</text>
+      <!-- Binary barcode strips -->
+      <g>
+        <rect x="244" y="290" width="11" height="14" rx="2" fill="#114B46"/>
+        <rect x="258" y="290" width="11" height="14" rx="2" fill="#CCFBF1"/>
+        <rect x="272" y="290" width="11" height="14" rx="2" fill="#10B981"/>
+        <rect x="286" y="290" width="11" height="14" rx="2" fill="#114B46"/>
+        <rect x="300" y="290" width="11" height="14" rx="2" fill="#CCFBF1"/>
+        <rect x="314" y="290" width="11" height="14" rx="2" fill="#0D9488"/>
+        <rect x="328" y="290" width="11" height="14" rx="2" fill="#114B46"/>
+      </g>
+
+      <text x="199" y="331" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#475569">Embed Û from Y_C · Adjust Y_test</text>
+    </g>
+
+    <!-- Right Panel: Deconfounded Volcano Power Plot -->
+    <g>
+      <rect x="380" y="70" width="232" height="270" rx="11" fill="#FFFFFF" fill-opacity="0.92" stroke="#CBD5E1" stroke-width="1.2"/>
+      <text x="496" y="92" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#0A0E17">Deconfounded Signals</text>
+
+      <!-- Axes & center zero effect line -->
+      <path d="M412 108 V296 H598" fill="none" stroke="#475569" stroke-width="1.6" stroke-linecap="round"/>
+      <line x1="505" y1="108" x2="505" y2="296" stroke="#CBD5E1" stroke-width="1.2" stroke-dasharray="4 3"/>
+
+      <!-- Discovery wing soft glow halos -->
+      <ellipse cx="445" cy="172" rx="28" ry="44" transform="rotate(-14 445 172)" fill="#CCFBF1" fill-opacity="0.62"/>
+      <ellipse cx="565" cy="170" rx="28" ry="46" transform="rotate(14 565 170)" fill="#CCFBF1" fill-opacity="0.62"/>
+
+      <!-- Significance threshold line (p = 0.05) -->
+      <line x1="412" y1="230" x2="598" y2="230" stroke="#E11D48" stroke-width="1.8" stroke-dasharray="5 3.5"/>
+      <rect x="476" y="218" width="58" height="19" rx="9" fill="#FFFFFF" stroke="#E11D48" stroke-width="1.2"/>
+      <text x="505" y="231" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#E11D48">p = 0.05</text>
+
+      <!-- Null outcomes below threshold -->
+      <g fill="#475569" fill-opacity="0.42">
+        <circle cx="472" cy="248" r="3"/><circle cx="484" cy="260" r="3"/><circle cx="496" cy="272" r="3"/>
+        <circle cx="505" cy="284" r="3"/><circle cx="514" cy="274" r="3"/><circle cx="526" cy="262" r="3"/>
+        <circle cx="538" cy="248" r="3"/><circle cx="490" cy="282" r="3"/><circle cx="520" cy="284" r="3"/>
+        <circle cx="478" cy="274" r="3"/><circle cx="532" cy="274" r="3"/><circle cx="502" cy="256" r="3"/>
+        <circle cx="512" cy="246" r="3"/><circle cx="496" cy="246" r="3"/><circle cx="464" cy="264" r="3"/>
+        <circle cx="546" cy="264" r="3"/><circle cx="486" cy="290" r="3"/><circle cx="524" cy="290" r="3"/>
+        <circle cx="508" cy="291" r="3"/>
+      </g>
+
+      <!-- Left wing high-power true discoveries -->
+      <g stroke="#FFFFFF" stroke-width="1.3">
+        <circle cx="460" cy="212" r="4.2" fill="#10B981"/>
+        <circle cx="452" cy="194" r="4.4" fill="#0D9488"/>
+        <circle cx="444" cy="176" r="4.6" fill="#0D9488"/>
+        <circle cx="436" cy="158" r="4.6" fill="#114B46"/>
+        <circle cx="428" cy="138" r="4.8" fill="#114B46"/>
+        <circle cx="456" cy="166" r="4.1" fill="#10B981"/>
+        <circle cx="440" cy="192" r="4.1" fill="#0D9488"/>
+        <circle cx="432" cy="174" r="4.2" fill="#0D9488"/>
+      </g>
+
+      <!-- Right wing high-power true discoveries -->
+      <g stroke="#FFFFFF" stroke-width="1.3">
+        <circle cx="550" cy="212" r="4.2" fill="#10B981"/>
+        <circle cx="558" cy="194" r="4.4" fill="#0D9488"/>
+        <circle cx="566" cy="174" r="4.6" fill="#0D9488"/>
+        <circle cx="574" cy="154" r="4.6" fill="#114B46"/>
+        <circle cx="582" cy="134" r="4.8" fill="#114B46"/>
+        <circle cx="554" cy="164" r="4.1" fill="#10B981"/>
+        <circle cx="570" cy="190" r="4.1" fill="#0D9488"/>
+        <circle cx="580" cy="172" r="4.2" fill="#0D9488"/>
+      </g>
+
+      <!-- Clean labels in open central valley & margins -->
+      <text x="418" y="118" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#475569">-log₁₀ p</text>
+      <text x="505" y="156" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#0D9488">Discoveries</text>
+
+      <!-- X axis ticks & title -->
+      <text x="424" y="313" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">−</text>
+      <text x="505" y="313" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">0</text>
+      <text x="586" y="313" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">+</text>
+      <text x="505" y="331" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#475569">Logit Effect β̂ⱼ</text>
+    </g>
+
+    <!-- Footer -->
+    <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.7"/>
+    <text x="28" y="381" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#475569">Target: <tspan font-weight="700" fill="#0D9488">power ↑</tspan></text>
+    <text x="612" y="381" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#475569">Logit Link · Type-I &amp; BH-FDR Guard</text>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="13.5" fill="none" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.75"/>
+</svg>

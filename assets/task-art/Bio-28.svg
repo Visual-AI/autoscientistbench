@@ -1,0 +1,256 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>LI-DTI: Multi-View Drug-Target Interaction Prediction</title>
+  <desc>Seven drug and target side-information similarity networks combine via learned nonnegative weights to predict masked pairs in a 549 by 424 interaction matrix, evaluated by nested precision-recall AUPR.</desc>
+  <defs>
+    <clipPath id="cardClip">
+      <rect x="0" y="0" width="640" height="400" rx="16"/>
+    </clipPath>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F4FBF9"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0D9488"/>
+      <stop offset="100%" stop-color="#10B981"/>
+    </linearGradient>
+    <linearGradient id="prFill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0D9488" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#CCFBF1" stop-opacity="0.18"/>
+    </linearGradient>
+    <pattern id="dotGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#0D9488" fill-opacity="0.16"/>
+    </pattern>
+    <marker id="arrowPrimary" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M 1 1.5 L 9 5 L 1 8.5 Z" fill="#0D9488"/>
+    </marker>
+    <marker id="arrowSecondary" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M 1 1.5 L 9 5 L 1 8.5 Z" fill="#10B981"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#cardClip)" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <!-- Base luminous plate -->
+    <rect x="0" y="0" width="640" height="400" fill="url(#bgGrad)"/>
+    <rect x="0" y="0" width="640" height="3.5" fill="url(#accentGrad)"/>
+    <rect x="20" y="58" width="600" height="298" fill="url(#dotGrid)"/>
+
+    <!-- Header -->
+    <text x="28" y="38" font-size="18" font-weight="700" fill="#0A0E17">LI-DTI</text>
+    <text x="612" y="37" text-anchor="end" font-size="12.5" font-weight="500" fill="#475569">Multi-View Drug–Target Interaction</text>
+    <line x1="28" y1="56" x2="612" y2="56" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.75"/>
+
+    <!-- Left Top Stack: 4 Drug Similarity Views -->
+    <text x="98" y="90" text-anchor="middle" font-size="11.5" font-weight="600" fill="#0D9488">4 drug views</text>
+    <rect x="40" y="100" width="76" height="76" rx="8" fill="#F4FBF9" stroke="#CBD5E1" stroke-width="1.4"/>
+    <rect x="52" y="107" width="76" height="76" rx="8" fill="#CCFBF1" fill-opacity="0.55" stroke="#0D9488" stroke-opacity="0.5" stroke-width="1.4"/>
+    <rect x="64" y="114" width="76" height="76" rx="8" fill="#CCFBF1" stroke="#0D9488" stroke-opacity="0.75" stroke-width="1.5"/>
+    <rect x="76" y="121" width="76" height="76" rx="8" fill="#FFFFFF" stroke="#0D9488" stroke-width="2"/>
+    <!-- Mini 4x4 symmetric drug similarity matrix on front card -->
+    <g>
+      <rect x="86" y="131" width="12" height="12" rx="2" fill="#0D9488"/>
+      <rect x="100" y="131" width="12" height="12" rx="2" fill="#CCFBF1"/>
+      <rect x="114" y="131" width="12" height="12" rx="2" fill="#10B981" fill-opacity="0.55"/>
+      <rect x="128" y="131" width="12" height="12" rx="2" fill="#F4FBF9"/>
+
+      <rect x="86" y="145" width="12" height="12" rx="2" fill="#CCFBF1"/>
+      <rect x="100" y="145" width="12" height="12" rx="2" fill="#0D9488"/>
+      <rect x="114" y="145" width="12" height="12" rx="2" fill="#F4FBF9"/>
+      <rect x="128" y="145" width="12" height="12" rx="2" fill="#CCFBF1"/>
+
+      <rect x="86" y="159" width="12" height="12" rx="2" fill="#10B981" fill-opacity="0.55"/>
+      <rect x="100" y="159" width="12" height="12" rx="2" fill="#F4FBF9"/>
+      <rect x="114" y="159" width="12" height="12" rx="2" fill="#0D9488"/>
+      <rect x="128" y="159" width="12" height="12" rx="2" fill="#10B981" fill-opacity="0.4"/>
+
+      <rect x="86" y="173" width="12" height="12" rx="2" fill="#F4FBF9"/>
+      <rect x="100" y="173" width="12" height="12" rx="2" fill="#CCFBF1"/>
+      <rect x="114" y="173" width="12" height="12" rx="2" fill="#10B981" fill-opacity="0.4"/>
+      <rect x="128" y="173" width="12" height="12" rx="2" fill="#0D9488"/>
+    </g>
+
+    <!-- Left Bottom Stack: 3 Target Similarity Views -->
+    <text x="98" y="222" text-anchor="middle" font-size="11.5" font-weight="600" fill="#114B46">3 target views</text>
+    <rect x="44" y="232" width="76" height="76" rx="8" fill="#F4FBF9" stroke="#CBD5E1" stroke-width="1.4"/>
+    <rect x="58" y="239" width="76" height="76" rx="8" fill="#CCFBF1" stroke="#10B981" stroke-opacity="0.75" stroke-width="1.5"/>
+    <rect x="72" y="246" width="76" height="76" rx="8" fill="#FFFFFF" stroke="#114B46" stroke-width="2"/>
+    <!-- Mini PPI network inside front target card -->
+    <g stroke="#10B981" stroke-width="1.6">
+      <line x1="92" y1="268" x2="128" y2="266"/>
+      <line x1="92" y1="268" x2="108" y2="288"/>
+      <line x1="128" y1="266" x2="108" y2="288"/>
+      <line x1="108" y1="288" x2="90" y2="306"/>
+      <line x1="108" y1="288" x2="132" y2="304"/>
+    </g>
+    <g fill="#114B46">
+      <circle cx="92" cy="268" r="4"/>
+      <circle cx="128" cy="266" r="4"/>
+      <circle cx="108" cy="288" r="4.5" fill="#0D9488"/>
+      <circle cx="90" cy="306" r="4"/>
+      <circle cx="132" cy="304" r="4"/>
+    </g>
+
+    <!-- Weighted combination arrows -->
+    <path d="M 156 160 C 192 160, 198 178, 236 178" fill="none" stroke="#0D9488" stroke-width="2.4" marker-end="url(#arrowPrimary)"/>
+    <path d="M 152 284 C 192 284, 198 228, 236 228" fill="none" stroke="#10B981" stroke-width="2.4" marker-end="url(#arrowSecondary)"/>
+    <text x="196" y="207" text-anchor="middle" font-size="11.5" font-weight="700" fill="#114B46">w ≥ 0</text>
+
+    <!-- Center Masked 549 x 424 Interaction Matrix -->
+    <text x="322" y="92" text-anchor="middle" font-size="11.5" font-weight="600" fill="#114B46">549 × 424 DTI matrix</text>
+    <rect x="242" y="102" width="160" height="190" rx="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+
+    <!-- 6x7 Matrix cells (x=250..394, y=112..280, cell=20, stride=24) -->
+    <!-- Background unoccupied cells -->
+    <g fill="#F4FBF9" stroke="#CBD5E1" stroke-width="0.9">
+      <!-- Row 0 -->
+      <rect x="250" y="112" width="20" height="20" rx="3.5"/>
+      <rect x="274" y="112" width="20" height="20" rx="3.5"/>
+      <rect x="298" y="112" width="20" height="20" rx="3.5"/>
+      <rect x="322" y="112" width="20" height="20" rx="3.5"/>
+      <rect x="346" y="112" width="20" height="20" rx="3.5"/>
+      <rect x="370" y="112" width="20" height="20" rx="3.5"/>
+      <!-- Row 1 -->
+      <rect x="250" y="136" width="20" height="20" rx="3.5"/>
+      <rect x="274" y="136" width="20" height="20" rx="3.5"/>
+      <rect x="298" y="136" width="20" height="20" rx="3.5"/>
+      <rect x="322" y="136" width="20" height="20" rx="3.5"/>
+      <rect x="346" y="136" width="20" height="20" rx="3.5"/>
+      <rect x="370" y="136" width="20" height="20" rx="3.5"/>
+      <!-- Row 2 -->
+      <rect x="250" y="160" width="20" height="20" rx="3.5"/>
+      <rect x="274" y="160" width="20" height="20" rx="3.5"/>
+      <rect x="298" y="160" width="20" height="20" rx="3.5"/>
+      <rect x="322" y="160" width="20" height="20" rx="3.5"/>
+      <rect x="346" y="160" width="20" height="20" rx="3.5"/>
+      <rect x="370" y="160" width="20" height="20" rx="3.5"/>
+      <!-- Row 3 -->
+      <rect x="250" y="184" width="20" height="20" rx="3.5"/>
+      <rect x="274" y="184" width="20" height="20" rx="3.5"/>
+      <rect x="298" y="184" width="20" height="20" rx="3.5"/>
+      <rect x="322" y="184" width="20" height="20" rx="3.5"/>
+      <rect x="346" y="184" width="20" height="20" rx="3.5"/>
+      <rect x="370" y="184" width="20" height="20" rx="3.5"/>
+      <!-- Row 4 -->
+      <rect x="250" y="208" width="20" height="20" rx="3.5"/>
+      <rect x="274" y="208" width="20" height="20" rx="3.5"/>
+      <rect x="298" y="208" width="20" height="20" rx="3.5"/>
+      <rect x="322" y="208" width="20" height="20" rx="3.5"/>
+      <rect x="346" y="208" width="20" height="20" rx="3.5"/>
+      <rect x="370" y="208" width="20" height="20" rx="3.5"/>
+      <!-- Row 5 -->
+      <rect x="250" y="232" width="20" height="20" rx="3.5"/>
+      <rect x="274" y="232" width="20" height="20" rx="3.5"/>
+      <rect x="298" y="232" width="20" height="20" rx="3.5"/>
+      <rect x="322" y="232" width="20" height="20" rx="3.5"/>
+      <rect x="346" y="232" width="20" height="20" rx="3.5"/>
+      <rect x="370" y="232" width="20" height="20" rx="3.5"/>
+      <!-- Row 6 -->
+      <rect x="250" y="256" width="20" height="20" rx="3.5"/>
+      <rect x="274" y="256" width="20" height="20" rx="3.5"/>
+      <rect x="298" y="256" width="20" height="20" rx="3.5"/>
+      <rect x="322" y="256" width="20" height="20" rx="3.5"/>
+      <rect x="346" y="256" width="20" height="20" rx="3.5"/>
+      <rect x="370" y="256" width="20" height="20" rx="3.5"/>
+    </g>
+
+    <!-- Observed positive interactions -->
+    <g>
+      <rect x="250" y="112" width="20" height="20" rx="3.5" fill="#0D9488"/>
+      <rect x="322" y="112" width="20" height="20" rx="3.5" fill="#114B46"/>
+      <rect x="274" y="136" width="20" height="20" rx="3.5" fill="#0D9488"/>
+      <rect x="370" y="136" width="20" height="20" rx="3.5" fill="#0D9488"/>
+      <rect x="250" y="160" width="20" height="20" rx="3.5" fill="#114B46"/>
+      <rect x="346" y="184" width="20" height="20" rx="3.5" fill="#0D9488"/>
+      <rect x="298" y="208" width="20" height="20" rx="3.5" fill="#114B46"/>
+      <rect x="274" y="232" width="20" height="20" rx="3.5" fill="#0D9488"/>
+      <rect x="370" y="256" width="20" height="20" rx="3.5" fill="#114B46"/>
+    </g>
+
+    <!-- Permanently masked / held-out fold cells -->
+    <g>
+      <rect x="298" y="136" width="20" height="20" rx="3.5" fill="#E11D48" fill-opacity="0.12" stroke="#E11D48" stroke-width="1.5" stroke-dasharray="3 2"/>
+      <text x="308" y="150" text-anchor="middle" font-size="11.5" font-weight="700" fill="#E11D48">?</text>
+
+      <rect x="322" y="160" width="20" height="20" rx="3.5" fill="#E11D48" fill-opacity="0.12" stroke="#E11D48" stroke-width="1.5" stroke-dasharray="3 2"/>
+      <text x="332" y="174" text-anchor="middle" font-size="11.5" font-weight="700" fill="#E11D48">?</text>
+
+      <rect x="274" y="184" width="20" height="20" rx="3.5" fill="#E11D48" fill-opacity="0.12" stroke="#E11D48" stroke-width="1.5" stroke-dasharray="3 2"/>
+      <text x="284" y="198" text-anchor="middle" font-size="11.5" font-weight="700" fill="#E11D48">?</text>
+
+      <rect x="346" y="232" width="20" height="20" rx="3.5" fill="#E11D48" fill-opacity="0.12" stroke="#E11D48" stroke-width="1.5" stroke-dasharray="3 2"/>
+      <text x="356" y="246" text-anchor="middle" font-size="11.5" font-weight="700" fill="#E11D48">?</text>
+
+      <rect x="298" y="256" width="20" height="20" rx="3.5" fill="#E11D48" fill-opacity="0.12" stroke="#E11D48" stroke-width="1.5" stroke-dasharray="3 2"/>
+      <text x="308" y="270" text-anchor="middle" font-size="11.5" font-weight="700" fill="#E11D48">?</text>
+    </g>
+
+    <!-- High-score predicted positives -->
+    <g>
+      <rect x="346" y="112" width="20" height="20" rx="3.5" fill="#CCFBF1" stroke="#059669" stroke-width="1.8"/>
+      <circle cx="356" cy="122" r="4" fill="#059669"/>
+
+      <rect x="370" y="208" width="20" height="20" rx="3.5" fill="#CCFBF1" stroke="#059669" stroke-width="1.8"/>
+      <circle cx="380" cy="218" r="4" fill="#059669"/>
+
+      <rect x="250" y="256" width="20" height="20" rx="3.5" fill="#CCFBF1" stroke="#059669" stroke-width="1.8"/>
+      <circle cx="260" cy="266" r="4" fill="#059669"/>
+    </g>
+
+    <!-- Compact Matrix Legend -->
+    <g font-size="11.5" fill="#475569">
+      <rect x="234" y="314" width="11" height="11" rx="2.5" fill="#0D9488"/>
+      <text x="249" y="324">Known</text>
+      <rect x="298" y="314" width="11" height="11" rx="2.5" fill="#E11D48" fill-opacity="0.12" stroke="#E11D48" stroke-width="1.3" stroke-dasharray="2.5 1.5"/>
+      <text x="313" y="324">Masked</text>
+      <rect x="366" y="314" width="11" height="11" rx="2.5" fill="#CCFBF1" stroke="#059669" stroke-width="1.5"/>
+      <text x="381" y="324">Scored</text>
+    </g>
+
+    <!-- Connector arrow to PR panel -->
+    <line x1="406" y1="198" x2="436" y2="198" stroke="#0D9488" stroke-width="2.4" marker-end="url(#arrowPrimary)"/>
+
+    <!-- Right Panel: Trapezoidal Precision-Recall Curve (AUPR) -->
+    <rect x="442" y="80" width="168" height="260" rx="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+    <text x="526" y="102" text-anchor="middle" font-size="11.5" font-weight="600" fill="#114B46">Precision–Recall</text>
+
+    <!-- Faint interior plot grid -->
+    <g stroke="#CBD5E1" stroke-width="0.9" stroke-dasharray="3 3" opacity="0.8">
+      <line x1="474" y1="162" x2="598" y2="162"/>
+      <line x1="474" y1="204" x2="598" y2="204"/>
+      <line x1="474" y1="246" x2="598" y2="246"/>
+      <line x1="515" y1="120" x2="515" y2="286"/>
+      <line x1="556" y1="120" x2="556" y2="286"/>
+    </g>
+
+    <!-- Baseline dashed PR curve -->
+    <path d="M 480 166 L 502 184 L 530 212 L 560 244 L 594 274" fill="none" stroke="#475569" stroke-width="1.6" stroke-dasharray="4 3" stroke-opacity="0.55"/>
+
+    <!-- Shaded AUPR polygon (trapezoidal, starting at first threshold) -->
+    <path d="M 480 286 L 480 132 L 500 140 L 524 156 L 548 182 L 572 218 L 594 264 L 594 286 Z" fill="url(#prFill)"/>
+
+    <!-- Main Precision-Recall curve -->
+    <path d="M 480 132 L 500 140 L 524 156 L 548 182 L 572 218 L 594 264" fill="none" stroke="#0D9488" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <g fill="#0D9488">
+      <circle cx="480" cy="132" r="3"/>
+      <circle cx="500" cy="140" r="3"/>
+      <circle cx="524" cy="156" r="3"/>
+      <circle cx="548" cy="182" r="3"/>
+      <circle cx="572" cy="218" r="3"/>
+      <circle cx="594" cy="264" r="3"/>
+    </g>
+
+    <!-- Axes -->
+    <path d="M 474 118 V 286 H 600" fill="none" stroke="#475569" stroke-width="1.5"/>
+
+    <!-- AUPR callout inside shaded region -->
+    <text x="524" y="254" text-anchor="middle" font-size="14" font-weight="700" fill="#114B46">AUPR</text>
+    <text x="458" y="202" text-anchor="middle" font-size="11.5" fill="#475569" transform="rotate(-90 458 202)">Precision</text>
+    <text x="537" y="305" text-anchor="middle" font-size="11.5" fill="#475569">Recall</text>
+    <text x="526" y="328" text-anchor="middle" font-size="11.5" font-weight="600" fill="#0D9488">10×10 nested folds</text>
+
+    <!-- Footer -->
+    <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.75"/>
+    <text x="28" y="381" font-size="12.5" fill="#475569">Target: <tspan font-weight="700" fill="#0D9488">AUPR ↑</tspan></text>
+    <text x="612" y="381" text-anchor="end" font-size="11.5" fill="#475569">Luo / DTINet · 549 × 424</text>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="16" fill="none" stroke="#CBD5E1" stroke-width="1"/>
+</svg>

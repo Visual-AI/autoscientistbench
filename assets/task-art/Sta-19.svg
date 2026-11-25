@@ -1,0 +1,275 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>DiPMInd: Distance-Profile Mutual Independence Testing</title>
+  <desc>Paired random network and Gaussian vector objects mapped via L1 pairwise distance matrices into empirical distance-profile CDFs for high-power mutual independence testing with empirical type-I control.</desc>
+  <defs>
+    <clipPath id="plateClip">
+      <rect x="0" y="0" width="640" height="400" rx="14"/>
+    </clipPath>
+    <linearGradient id="plateBg" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0%" stop-color="#F4FBF6"/>
+      <stop offset="55%" stop-color="#F4FBF6" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="topAccent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#124724"/>
+      <stop offset="45%" stop-color="#15803D"/>
+      <stop offset="100%" stop-color="#22C55E"/>
+    </linearGradient>
+    <linearGradient id="powerGain" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#22C55E" stop-opacity="0.34"/>
+      <stop offset="100%" stop-color="#DCFCE7" stop-opacity="0.10"/>
+    </linearGradient>
+    <pattern id="coordDots" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#15803D" opacity="0.16"/>
+    </pattern>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 1.2 L8.8 5 L0 8.8 Z" fill="#15803D"/>
+    </marker>
+    <marker id="arrowDark" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
+      <path d="M0 1.5 L8.5 5 L0 8.5 Z" fill="#124724"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#plateClip)">
+    <rect x="0" y="0" width="640" height="400" fill="#FFFFFF"/>
+    <rect x="0" y="0" width="640" height="400" fill="url(#plateBg)"/>
+    <rect x="20" y="58" width="600" height="296" fill="url(#coordDots)"/>
+    <rect x="0" y="0" width="640" height="3" fill="url(#topAccent)"/>
+
+    <!-- Header -->
+    <text x="28" y="38" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="700" fill="#0A0E17">DiPMInd</text>
+    <text x="612" y="37" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="500" fill="#475569">Distance-Profile Independence Test</text>
+    <line x1="28" y1="54" x2="612" y2="54" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.75"/>
+
+    <!-- Column 1: Random Objects (Network X and Vector Y) -->
+    <g>
+      <!-- Network X Card -->
+      <rect x="34" y="70" width="150" height="116" rx="11" fill="#FFFFFF" fill-opacity="0.88" stroke="#CBD5E1" stroke-width="1.2"/>
+      <text x="46" y="89" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#124724">Network X</text>
+      <!-- Preferential-attachment hubs and spokes -->
+      <g stroke="#15803D" stroke-width="1.8" stroke-opacity="0.72" stroke-linecap="round">
+        <line x1="98" y1="132" x2="62" y2="114"/>
+        <line x1="98" y1="132" x2="58" y2="146"/>
+        <line x1="98" y1="132" x2="82" y2="168"/>
+        <line x1="98" y1="132" x2="112" y2="104"/>
+        <line x1="98" y1="132" x2="136" y2="146"/>
+        <line x1="136" y1="146" x2="164" y2="122"/>
+        <line x1="136" y1="146" x2="168" y2="156"/>
+        <line x1="136" y1="146" x2="134" y2="172"/>
+        <line x1="136" y1="146" x2="146" y2="108"/>
+        <line x1="62" y1="114" x2="84" y2="104"/>
+        <line x1="82" y1="168" x2="112" y2="170"/>
+      </g>
+      <!-- Outer nodes -->
+      <g fill="#22C55E" stroke="#FFFFFF" stroke-width="1.5">
+        <circle cx="62" cy="114" r="4.5"/>
+        <circle cx="58" cy="146" r="4.2"/>
+        <circle cx="82" cy="168" r="4.5"/>
+        <circle cx="112" cy="104" r="4.2"/>
+        <circle cx="164" cy="122" r="4.5"/>
+        <circle cx="168" cy="156" r="4.2"/>
+        <circle cx="134" cy="172" r="4.2"/>
+        <circle cx="146" cy="108" r="4"/>
+        <circle cx="84" cy="104" r="3.8"/>
+        <circle cx="112" cy="170" r="3.8"/>
+      </g>
+      <!-- Hub nodes -->
+      <circle cx="98" cy="132" r="7.5" fill="#15803D" stroke="#FFFFFF" stroke-width="2"/>
+      <circle cx="136" cy="146" r="6.2" fill="#124724" stroke="#FFFFFF" stroke-width="1.8"/>
+
+      <!-- Latent coupling rho connector -->
+      <line x1="109" y1="191" x2="109" y2="218" stroke="#124724" stroke-width="1.8" stroke-dasharray="3 2.5"/>
+      <rect x="94" y="195" width="30" height="20" rx="10" fill="#DCFCE7" stroke="#15803D" stroke-width="1.5"/>
+      <text x="109" y="209" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#124724">ρ</text>
+
+      <!-- Gaussian Vector Y Card -->
+      <rect x="34" y="222" width="150" height="118" rx="11" fill="#FFFFFF" fill-opacity="0.88" stroke="#CBD5E1" stroke-width="1.2"/>
+      <text x="46" y="241" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#124724">Vector Y</text>
+      <g transform="translate(110, 290) rotate(-20)">
+        <ellipse cx="0" cy="0" rx="52" ry="26" fill="#DCFCE7" fill-opacity="0.7" stroke="#22C55E" stroke-width="1.6"/>
+        <ellipse cx="0" cy="0" rx="30" ry="14" fill="#22C55E" fill-opacity="0.24" stroke="#15803D" stroke-width="1.6"/>
+      </g>
+      <g fill="#15803D" stroke="#FFFFFF" stroke-width="1">
+        <circle cx="78" cy="300" r="3.6"/>
+        <circle cx="88" cy="292" r="3.8"/>
+        <circle cx="96" cy="301" r="3.4"/>
+        <circle cx="106" cy="288" r="4"/>
+        <circle cx="114" cy="295" r="3.8"/>
+        <circle cx="122" cy="282" r="3.8"/>
+        <circle cx="132" cy="288" r="3.6"/>
+        <circle cx="144" cy="276" r="3.6"/>
+        <circle cx="102" cy="279" r="3.2"/>
+        <circle cx="126" cy="298" r="3.2"/>
+      </g>
+    </g>
+
+    <!-- Connector Column 1 -> Column 2 -->
+    <path d="M186 128 H194 V281 H186" fill="none" stroke="#15803D" stroke-width="2" stroke-opacity="0.75" stroke-linejoin="round"/>
+    <line x1="194" y1="204" x2="218" y2="204" stroke="#15803D" stroke-width="2.4" marker-end="url(#arrowGreen)"/>
+    <text x="208" y="193" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#124724">L₁</text>
+
+    <!-- Column 2: Distance Matrices & Profile CDF -->
+    <g>
+      <rect x="224" y="70" width="182" height="270" rx="11" fill="#FFFFFF" fill-opacity="0.9" stroke="#CBD5E1" stroke-width="1.2"/>
+      <!-- Paired Distance Matrices Dx and Dy -->
+      <!-- Dx 5x5 matrix at (236, 82), cell=13px, total=65px -->
+      <g transform="translate(236, 82)">
+        <rect x="0" y="0" width="65" height="65" rx="4" fill="#DCFCE7" stroke="#15803D" stroke-width="1.5"/>
+        <!-- Symmetric heat cells -->
+        <rect x="13" y="0" width="13" height="13" fill="#22C55E" opacity="0.55"/>
+        <rect x="26" y="0" width="13" height="13" fill="#15803D" opacity="0.75"/>
+        <rect x="39" y="0" width="13" height="13" fill="#22C55E" opacity="0.35"/>
+        <rect x="52" y="0" width="13" height="13" fill="#124724" opacity="0.82"/>
+
+        <rect x="0" y="13" width="13" height="13" fill="#22C55E" opacity="0.55"/>
+        <rect x="26" y="13" width="13" height="13" fill="#15803D" opacity="0.45"/>
+        <rect x="39" y="13" width="13" height="13" fill="#124724" opacity="0.70"/>
+        <rect x="52" y="13" width="13" height="13" fill="#15803D" opacity="0.55"/>
+
+        <rect x="0" y="26" width="13" height="13" fill="#15803D" opacity="0.75"/>
+        <rect x="13" y="26" width="13" height="13" fill="#15803D" opacity="0.45"/>
+        <rect x="39" y="26" width="13" height="13" fill="#22C55E" opacity="0.50"/>
+        <rect x="52" y="26" width="13" height="13" fill="#15803D" opacity="0.85"/>
+
+        <rect x="0" y="39" width="13" height="13" fill="#22C55E" opacity="0.35"/>
+        <rect x="13" y="39" width="13" height="13" fill="#124724" opacity="0.70"/>
+        <rect x="26" y="39" width="13" height="13" fill="#22C55E" opacity="0.50"/>
+        <rect x="52" y="39" width="13" height="13" fill="#22C55E" opacity="0.65"/>
+
+        <rect x="0" y="52" width="13" height="13" fill="#124724" opacity="0.82"/>
+        <rect x="13" y="52" width="13" height="13" fill="#15803D" opacity="0.55"/>
+        <rect x="26" y="52" width="13" height="13" fill="#15803D" opacity="0.85"/>
+        <rect x="39" y="52" width="13" height="13" fill="#22C55E" opacity="0.65"/>
+        <!-- White diagonal -->
+        <g fill="#FFFFFF">
+          <rect x="1" y="1" width="11" height="11"/><rect x="14" y="14" width="11" height="11"/>
+          <rect x="27" y="27" width="11" height="11"/><rect x="40" y="40" width="11" height="11"/>
+          <rect x="53" y="53" width="11" height="11"/>
+        </g>
+        <path d="M13 0V65M26 0V65M39 0V65M52 0V65M0 13H65M0 26H65M0 39H65M0 52H65" stroke="#FFFFFF" stroke-width="1"/>
+      </g>
+      <text x="268" y="164" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#124724">Dₓ</text>
+
+      <!-- Independence test symbol between matrices -->
+      <text x="315" y="119" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#15803D">⊥?</text>
+
+      <!-- Dy 5x5 matrix at (329, 82), cell=13px, total=65px -->
+      <g transform="translate(329, 82)">
+        <rect x="0" y="0" width="65" height="65" rx="4" fill="#DCFCE7" stroke="#124724" stroke-width="1.5"/>
+        <rect x="13" y="0" width="13" height="13" fill="#15803D" opacity="0.65"/>
+        <rect x="26" y="0" width="13" height="13" fill="#124724" opacity="0.82"/>
+        <rect x="39" y="0" width="13" height="13" fill="#22C55E" opacity="0.45"/>
+        <rect x="52" y="0" width="13" height="13" fill="#124724" opacity="0.72"/>
+
+        <rect x="0" y="13" width="13" height="13" fill="#15803D" opacity="0.65"/>
+        <rect x="26" y="13" width="13" height="13" fill="#22C55E" opacity="0.40"/>
+        <rect x="39" y="13" width="13" height="13" fill="#15803D" opacity="0.78"/>
+        <rect x="52" y="13" width="13" height="13" fill="#22C55E" opacity="0.50"/>
+
+        <rect x="0" y="26" width="13" height="13" fill="#124724" opacity="0.82"/>
+        <rect x="13" y="26" width="13" height="13" fill="#22C55E" opacity="0.40"/>
+        <rect x="39" y="26" width="13" height="13" fill="#15803D" opacity="0.60"/>
+        <rect x="52" y="26" width="13" height="13" fill="#124724" opacity="0.88"/>
+
+        <rect x="0" y="39" width="13" height="13" fill="#22C55E" opacity="0.45"/>
+        <rect x="13" y="39" width="13" height="13" fill="#15803D" opacity="0.78"/>
+        <rect x="26" y="39" width="13" height="13" fill="#15803D" opacity="0.60"/>
+        <rect x="52" y="39" width="13" height="13" fill="#15803D" opacity="0.45"/>
+
+        <rect x="0" y="52" width="13" height="13" fill="#124724" opacity="0.72"/>
+        <rect x="13" y="52" width="13" height="13" fill="#22C55E" opacity="0.50"/>
+        <rect x="26" y="52" width="13" height="13" fill="#124724" opacity="0.88"/>
+        <rect x="39" y="52" width="13" height="13" fill="#15803D" opacity="0.45"/>
+        <g fill="#FFFFFF">
+          <rect x="1" y="1" width="11" height="11"/><rect x="14" y="14" width="11" height="11"/>
+          <rect x="27" y="27" width="11" height="11"/><rect x="40" y="40" width="11" height="11"/>
+          <rect x="53" y="53" width="11" height="11"/>
+        </g>
+        <path d="M13 0V65M26 0V65M39 0V65M52 0V65M0 13H65M0 26H65M0 39H65M0 52H65" stroke="#FFFFFF" stroke-width="1"/>
+      </g>
+      <text x="361" y="164" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#124724">Dᵧ</text>
+
+      <!-- Downward connector to Profile CDF -->
+      <line x1="315" y1="168" x2="315" y2="192" stroke="#15803D" stroke-width="2" marker-end="url(#arrowGreen)"/>
+
+      <!-- Distance-Profile CDF Comparison Chart -->
+      <text x="242" y="211" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#124724">Profile CDF</text>
+      <!-- Axes -->
+      <path d="M242 218 V312 H392" fill="none" stroke="#475569" stroke-width="1.6" stroke-linecap="round"/>
+      <!-- Shaded divergence region between joint and product CDF -->
+      <path d="M244 310 C272 292, 294 242, 332 226 C356 218, 376 218, 390 218 C368 228, 344 244, 314 274 C288 298, 266 308, 244 310 Z" fill="#22C55E" fill-opacity="0.26"/>
+      <!-- Individual thin profile curves -->
+      <path d="M244 310 C278 298, 304 252, 342 230 C364 220, 380 219, 390 218" fill="none" stroke="#22C55E" stroke-width="1.3" stroke-opacity="0.55"/>
+      <path d="M244 310 C266 286, 288 238, 326 223 C350 218, 374 218, 390 218" fill="none" stroke="#22C55E" stroke-width="1.3" stroke-opacity="0.55"/>
+      <!-- Null product CDF curve -->
+      <path d="M244 310 C274 306, 298 290, 324 264 C350 238, 372 224, 390 218" fill="none" stroke="#475569" stroke-width="2" stroke-dasharray="5 3.5"/>
+      <!-- Joint observed profile CDF curve -->
+      <path d="M244 310 C272 292, 294 242, 332 226 C356 218, 376 218, 390 218" fill="none" stroke="#15803D" stroke-width="3" stroke-linecap="round"/>
+      <text x="317" y="330" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#475569">prod-AD statistic</text>
+    </g>
+
+    <!-- Connector Column 2 -> Column 3 -->
+    <line x1="410" y1="204" x2="428" y2="204" stroke="#15803D" stroke-width="2.5" marker-end="url(#arrowGreen)"/>
+
+    <!-- Column 3: Power vs Dependence rho with Type-I Guard -->
+    <g>
+      <rect x="434" y="70" width="178" height="270" rx="11" fill="#FFFFFF" fill-opacity="0.9" stroke="#CBD5E1" stroke-width="1.2"/>
+      <text x="523" y="92" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#0A0E17">Empirical Power</text>
+
+      <!-- Subtle gridlines -->
+      <line x1="466" y1="114" x2="594" y2="114" stroke="#CBD5E1" stroke-width="0.9" stroke-opacity="0.6"/>
+      <line x1="466" y1="206" x2="594" y2="206" stroke="#CBD5E1" stroke-width="0.9" stroke-opacity="0.6"/>
+
+      <!-- Axes -->
+      <path d="M466 110 V298 H596" fill="none" stroke="#475569" stroke-width="1.6" stroke-linecap="round"/>
+
+      <!-- Y ticks -->
+      <text x="460" y="118" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">1.0</text>
+      <text x="460" y="210" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">0.5</text>
+      <text x="460" y="302" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">0</text>
+
+      <!-- Type-I error threshold line (alpha = 0.05) -->
+      <rect x="467" y="288" width="128" height="10" fill="#E11D48" fill-opacity="0.10"/>
+      <line x1="466" y1="288" x2="594" y2="288" stroke="#E11D48" stroke-width="1.6" stroke-dasharray="4 3"/>
+      <text x="592" y="282" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#E11D48">α = 0.05</text>
+
+      <!-- Shaded power gain between baseline and DiPMInd -->
+      <path d="M466 288 C488 272, 510 220, 534 170 C556 136, 574 124, 592 119 L592 172 C572 186, 550 218, 526 250 C504 276, 484 286, 466 288 Z" fill="url(#powerGain)"/>
+
+      <!-- Baseline dashed curve -->
+      <path d="M466 288 C486 285, 506 274, 526 250 C548 220, 570 188, 592 172" fill="none" stroke="#475569" stroke-width="2" stroke-dasharray="5 3.5"/>
+
+      <!-- Higher-power DiPMInd curve -->
+      <path d="M466 288 C488 272, 510 220, 534 170 C556 136, 574 124, 592 119" fill="none" stroke="#15803D" stroke-width="3.2" stroke-linecap="round"/>
+
+      <!-- Curve markers -->
+      <g fill="#15803D" stroke="#FFFFFF" stroke-width="1.5">
+        <circle cx="492" cy="259" r="3.8"/>
+        <circle cx="518" cy="204" r="3.8"/>
+        <circle cx="544" cy="154" r="3.8"/>
+        <circle cx="568" cy="129" r="3.8"/>
+        <circle cx="592" cy="119" r="4"/>
+      </g>
+      <!-- Null size control point at rho=0 -->
+      <circle cx="466" cy="288" r="4.5" fill="#E11D48" stroke="#FFFFFF" stroke-width="1.5"/>
+
+      <!-- Gain arrow between curves -->
+      <line x1="544" y1="216" x2="544" y2="170" stroke="#059669" stroke-width="2" marker-end="url(#arrowGreen)"/>
+
+      <!-- Curve label -->
+      <text x="518" y="142" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#15803D">DiPMInd</text>
+
+      <!-- X ticks and axis label -->
+      <text x="466" y="314" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">0</text>
+      <text x="530" y="314" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">0.4</text>
+      <text x="592" y="314" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">0.8</text>
+      <text x="530" y="332" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#475569">Dependence ρ</text>
+    </g>
+
+    <!-- Footer -->
+    <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.7"/>
+    <text x="28" y="381" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#475569">Target: <tspan font-weight="700" fill="#15803D">mean_power ↑</tspan></text>
+    <text x="612" y="381" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#475569">α = 0.05 · Within-Case Permutation</text>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="13.5" fill="none" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.75"/>
+</svg>

@@ -1,0 +1,210 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>WEPP: Wastewater Surveillance Lineage Deconvolution</title>
+  <desc>Observed wastewater allele frequencies are deconvolved across a mutation-annotated RSV-A tree via iterative neighbor refinement and nonnegative convex fitting to estimate true lineage proportions.</desc>
+  <defs>
+    <clipPath id="cardClip">
+      <rect x="0" y="0" width="640" height="400" rx="16"/>
+    </clipPath>
+    <clipPath id="estBarClip">
+      <rect x="468" y="120" width="44" height="174" rx="6"/>
+    </clipPath>
+    <clipPath id="trueBarClip">
+      <rect x="540" y="120" width="44" height="174" rx="6"/>
+    </clipPath>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F4FBF9"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0D9488"/>
+      <stop offset="100%" stop-color="#10B981"/>
+    </linearGradient>
+    <pattern id="dotGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#0D9488" fill-opacity="0.16"/>
+    </pattern>
+    <marker id="arrowPrimary" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M 1 1.5 L 9 5 L 1 8.5 Z" fill="#0D9488"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#cardClip)" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <!-- Base luminous plate -->
+    <rect x="0" y="0" width="640" height="400" fill="url(#bgGrad)"/>
+    <rect x="0" y="0" width="640" height="3.5" fill="url(#accentGrad)"/>
+    <rect x="20" y="58" width="600" height="298" fill="url(#dotGrid)"/>
+
+    <!-- Header -->
+    <text x="28" y="38" font-size="18" font-weight="700" fill="#0A0E17">WEPP</text>
+    <text x="612" y="37" text-anchor="end" font-size="12.5" font-weight="500" fill="#475569">Wastewater Lineage Deconvolution</text>
+    <line x1="28" y1="56" x2="612" y2="56" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.75"/>
+
+    <!-- Panel 1 Left-Top: Observed Allele Frequency Lollipop Spectrum -->
+    <rect x="32" y="80" width="176" height="146" rx="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+    <text x="44" y="100" font-size="11.5" font-weight="600" fill="#114B46">Allele frequencies</text>
+    <line x1="46" y1="198" x2="194" y2="198" stroke="#475569" stroke-width="1.5"/>
+    <!-- 0.5% threshold -->
+    <line x1="46" y1="186" x2="194" y2="186" stroke="#E11D48" stroke-width="1.1" stroke-dasharray="3 3" stroke-opacity="0.75"/>
+
+    <!-- Lollipop stems and heads -->
+    <g stroke-width="2.2" stroke-linecap="round">
+      <line x1="56" y1="198" x2="56" y2="124" stroke="#0D9488"/>
+      <circle cx="56" cy="124" r="4" fill="#0D9488"/>
+
+      <line x1="74" y1="198" x2="74" y2="148" stroke="#10B981"/>
+      <circle cx="74" cy="148" r="4" fill="#10B981"/>
+
+      <line x1="92" y1="198" x2="92" y2="192" stroke="#E11D48"/>
+      <circle cx="92" cy="192" r="2.8" fill="#E11D48"/>
+
+      <line x1="110" y1="198" x2="110" y2="116" stroke="#114B46"/>
+      <circle cx="110" cy="116" r="4" fill="#114B46"/>
+
+      <line x1="128" y1="198" x2="128" y2="160" stroke="#0D9488"/>
+      <circle cx="128" cy="160" r="4" fill="#0D9488"/>
+
+      <line x1="146" y1="198" x2="146" y2="136" stroke="#10B981"/>
+      <circle cx="146" cy="136" r="4" fill="#10B981"/>
+
+      <line x1="164" y1="198" x2="164" y2="191" stroke="#E11D48"/>
+      <circle cx="164" cy="191" r="2.8" fill="#E11D48"/>
+
+      <line x1="182" y1="198" x2="182" y2="168" stroke="#0D9488"/>
+      <circle cx="182" cy="168" r="4" fill="#0D9488"/>
+    </g>
+    <text x="120" y="216" text-anchor="middle" font-size="11.5" fill="#475569">RSV-A variant sites</text>
+
+    <!-- Panel 1 Left-Bottom: Haplotype Barcode & Convex Solver -->
+    <rect x="32" y="236" width="176" height="104" rx="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+    <text x="44" y="256" font-size="11.5" font-weight="600" fill="#114B46">Nonnegative fit</text>
+    <!-- 3x6 Mutation Design Matrix M -->
+    <g>
+      <rect x="46" y="266" width="20" height="10" rx="2.5" fill="#114B46"/>
+      <rect x="70" y="266" width="20" height="10" rx="2.5" fill="#CCFBF1"/>
+      <rect x="94" y="266" width="20" height="10" rx="2.5" fill="#114B46"/>
+      <rect x="118" y="266" width="20" height="10" rx="2.5" fill="#CCFBF1"/>
+      <rect x="142" y="266" width="20" height="10" rx="2.5" fill="#114B46"/>
+      <rect x="166" y="266" width="20" height="10" rx="2.5" fill="#CCFBF1"/>
+
+      <rect x="46" y="280" width="20" height="10" rx="2.5" fill="#CCFBF1"/>
+      <rect x="70" y="280" width="20" height="10" rx="2.5" fill="#0D9488"/>
+      <rect x="94" y="280" width="20" height="10" rx="2.5" fill="#0D9488"/>
+      <rect x="118" y="280" width="20" height="10" rx="2.5" fill="#CCFBF1"/>
+      <rect x="142" y="280" width="20" height="10" rx="2.5" fill="#CCFBF1"/>
+      <rect x="166" y="280" width="20" height="10" rx="2.5" fill="#0D9488"/>
+
+      <rect x="46" y="294" width="20" height="10" rx="2.5" fill="#10B981"/>
+      <rect x="70" y="294" width="20" height="10" rx="2.5" fill="#10B981"/>
+      <rect x="94" y="294" width="20" height="10" rx="2.5" fill="#CCFBF1"/>
+      <rect x="118" y="294" width="20" height="10" rx="2.5" fill="#10B981"/>
+      <rect x="142" y="294" width="20" height="10" rx="2.5" fill="#CCFBF1"/>
+      <rect x="166" y="294" width="20" height="10" rx="2.5" fill="#10B981"/>
+    </g>
+    <text x="120" y="328" text-anchor="middle" font-size="11.5" font-weight="600" fill="#0D9488">min ‖M·w − f‖, w ≥ 0</text>
+
+    <!-- Connector arrow 1 -->
+    <line x1="212" y1="208" x2="232" y2="208" stroke="#0D9488" stroke-width="2.4" marker-end="url(#arrowPrimary)"/>
+
+    <!-- Panel 2 Center: Top-Down Mutation-Annotated Tree -->
+    <text x="324" y="94" text-anchor="middle" font-size="12" font-weight="600" fill="#114B46">Mutation-annotated tree</text>
+
+    <!-- Active haplotype leaf halos -->
+    <circle cx="246" cy="288" r="14" fill="#CCFBF1" fill-opacity="0.8"/>
+    <circle cx="286" cy="288" r="14" fill="#CCFBF1" fill-opacity="0.8"/>
+    <circle cx="364" cy="288" r="14" fill="#CCFBF1" fill-opacity="0.8"/>
+
+    <!-- Tree edges -->
+    <g fill="none" stroke="#114B46" stroke-width="2.3" stroke-linecap="round">
+      <path d="M 324 114 C 324 144, 276 140, 276 170"/>
+      <path d="M 324 114 C 324 144, 372 140, 372 170"/>
+
+      <path d="M 276 170 C 276 198, 256 198, 256 228"/>
+      <path d="M 276 170 C 276 198, 304 198, 304 228"/>
+
+      <path d="M 372 170 C 372 198, 352 198, 352 228"/>
+      <path d="M 372 170 C 372 198, 396 198, 396 228"/>
+
+      <!-- To leaves -->
+      <path d="M 256 228 C 256 254, 246 260, 246 288"/>
+      <path d="M 256 228 C 256 254, 286 260, 286 288" stroke="#0D9488"/>
+      <path d="M 304 228 C 304 256, 324 260, 324 288" stroke="#E11D48" stroke-dasharray="4 3.5" stroke-width="1.8"/>
+      <path d="M 352 228 C 352 254, 364 260, 364 288" stroke="#10B981"/>
+      <path d="M 396 228 C 396 254, 400 260, 400 288" stroke="#059669" stroke-dasharray="4 3.5" stroke-width="1.8"/>
+    </g>
+
+    <!-- Branch mutation tick annotations -->
+    <g>
+      <circle cx="294" cy="144" r="3.2" fill="#0D9488"/>
+      <circle cx="354" cy="144" r="3.2" fill="#10B981"/>
+      <circle cx="264" cy="202" r="3" fill="#0D9488"/>
+      <circle cx="360" cy="202" r="3" fill="#10B981"/>
+      <circle cx="386" cy="202" r="3" fill="#059669"/>
+    </g>
+
+    <!-- Internal tree nodes -->
+    <g fill="#114B46">
+      <circle cx="324" cy="114" r="5"/>
+      <circle cx="276" cy="170" r="4.2"/>
+      <circle cx="372" cy="170" r="4.2"/>
+      <circle cx="256" cy="228" r="3.8"/>
+      <circle cx="304" cy="228" r="3.8"/>
+      <circle cx="352" cy="228" r="3.8"/>
+      <circle cx="396" cy="228" r="3.8"/>
+    </g>
+
+    <!-- Leaf nodes: active, pruned, and iterative neighbor -->
+    <circle cx="246" cy="288" r="6.5" fill="#114B46"/>
+    <circle cx="286" cy="288" r="6.5" fill="#0D9488"/>
+    <!-- Pruned <0.5% leaf -->
+    <circle cx="324" cy="288" r="6.5" fill="#FFFFFF" stroke="#E11D48" stroke-width="1.8"/>
+    <path d="M 321 285 L 327 291 M 327 285 L 321 291" stroke="#E11D48" stroke-width="1.6" stroke-linecap="round"/>
+    <!-- Active & added neighbor -->
+    <circle cx="364" cy="288" r="6.5" fill="#10B981"/>
+    <circle cx="400" cy="288" r="6.5" fill="#FFFFFF" stroke="#059669" stroke-width="2" stroke-dasharray="3 2"/>
+
+    <!-- Iterative neighbor refinement arc -->
+    <path d="M 368 304 Q 382 318 396 304" fill="none" stroke="#059669" stroke-width="1.6" stroke-dasharray="3 2.5"/>
+    <text x="324" y="336" text-anchor="middle" font-size="11.5" font-weight="600" fill="#0D9488">Prune &amp; refine neighbors</text>
+
+    <!-- Connector arrow 2 -->
+    <line x1="416" y1="208" x2="436" y2="208" stroke="#0D9488" stroke-width="2.4" marker-end="url(#arrowPrimary)"/>
+
+    <!-- Panel 3 Right: Twin Stacked Lineage Abundance Columns -->
+    <rect x="442" y="80" width="168" height="260" rx="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+    <text x="526" y="102" text-anchor="middle" font-size="11.5" font-weight="600" fill="#114B46">Lineage proportions</text>
+
+    <!-- Estimated stacked bar -->
+    <g clip-path="url(#estBarClip)">
+      <rect x="468" y="120" width="44" height="80" fill="#114B46"/>
+      <rect x="468" y="200" width="44" height="52" fill="#0D9488"/>
+      <rect x="468" y="252" width="44" height="30" fill="#10B981"/>
+      <rect x="468" y="282" width="44" height="12" fill="#CCFBF1"/>
+    </g>
+    <rect x="468" y="120" width="44" height="174" rx="6" fill="none" stroke="#114B46" stroke-width="1.4"/>
+
+    <!-- Reference true stacked bar -->
+    <g clip-path="url(#trueBarClip)">
+      <rect x="540" y="120" width="44" height="84" fill="#114B46"/>
+      <rect x="540" y="204" width="44" height="48" fill="#0D9488"/>
+      <rect x="540" y="252" width="44" height="29" fill="#10B981"/>
+      <rect x="540" y="281" width="44" height="13" fill="#CCFBF1"/>
+    </g>
+    <rect x="540" y="120" width="44" height="174" rx="6" fill="none" stroke="#114B46" stroke-width="1.4"/>
+
+    <!-- Boundary comparison connectors -->
+    <g stroke="#475569" stroke-width="1.2" stroke-dasharray="3 2.5" opacity="0.75">
+      <line x1="513" y1="200" x2="539" y2="204"/>
+      <line x1="513" y1="252" x2="539" y2="252"/>
+      <line x1="513" y1="282" x2="539" y2="281"/>
+    </g>
+
+    <text x="490" y="312" text-anchor="middle" font-size="11.5" font-weight="700" fill="#0D9488">Est.</text>
+    <text x="562" y="312" text-anchor="middle" font-size="11.5" font-weight="600" fill="#475569">True</text>
+    <text x="526" y="331" text-anchor="middle" font-size="11.5" fill="#475569">Spurious ≤ 2%</text>
+
+    <!-- Footer -->
+    <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.75"/>
+    <text x="28" y="381" font-size="12.5" fill="#475569">Target: <tspan font-weight="700" fill="#0D9488">rmse ↓</tspan></text>
+    <text x="612" y="381" text-anchor="end" font-size="11.5" fill="#475569">RSV-A · MAT + CLARABEL</text>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="16" fill="none" stroke="#CBD5E1" stroke-width="1"/>
+</svg>

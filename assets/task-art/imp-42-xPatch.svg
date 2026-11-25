@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>xPatch: Exponential Dual-Stream Time Series Decomposition</title>
+  <desc>An exponential moving average prism splits a RevIN-normalized 96-step input series into a smooth trend stream modeled by a linear MLP and an oscillating seasonal stream sliced into overlapping patches for depthwise-pointwise CNN fusion across four horizons.</desc>
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F7FAFF"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="topBar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0052FF"/>
+      <stop offset="100%" stop-color="#0EA5E9"/>
+    </linearGradient>
+    <linearGradient id="prismGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#DBEAFE"/>
+      <stop offset="55%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#DBEAFE"/>
+    </linearGradient>
+    <linearGradient id="trendFill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0052FF" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#0052FF" stop-opacity="0.02"/>
+    </linearGradient>
+    <pattern id="dotGrid" width="16" height="16" patternUnits="userSpaceOnUse">
+      <circle cx="8" cy="8" r="0.9" fill="#475569" fill-opacity="0.16"/>
+    </pattern>
+    <clipPath id="cardClip">
+      <rect x="0.5" y="0.5" width="639" height="399" rx="14"/>
+    </clipPath>
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 1 1.5 L 8.5 5 L 1 8.5 z" fill="#0052FF"/>
+    </marker>
+    <marker id="arrowCyan" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 1 1.5 L 8.5 5 L 1 8.5 z" fill="#0EA5E9"/>
+    </marker>
+    <marker id="arrowDark" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 1 1.5 L 8.5 5 L 1 8.5 z" fill="#0A1E5E"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#cardClip)">
+    <rect x="0" y="0" width="640" height="400" fill="url(#bgGrad)"/>
+    <rect x="0" y="52" width="640" height="306" fill="url(#dotGrid)"/>
+    <rect x="0" y="0" width="640" height="3.5" fill="url(#topBar)"/>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="14" fill="none" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- Header -->
+  <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <text x="28" y="36" font-size="18" font-weight="700" fill="#0A0E17">xPatch</text>
+    <text x="612" y="35" text-anchor="end" font-size="12.5" font-weight="500" fill="#475569">Exponential Dual-Stream Patching</text>
+  </g>
+  <line x1="28" y1="52" x2="612" y2="52" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.7"/>
+
+  <!-- Left Input Series Card -->
+  <rect x="28" y="116" width="116" height="178" rx="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <text x="86" y="138" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0A1E5E">Input (96)</text>
+  <line x1="40" y1="226" x2="132" y2="226" stroke="#CBD5E1" stroke-width="1"/>
+  <path d="M 40 218 L 49 194 L 58 212 L 67 178 L 76 198 L 85 166 L 94 192 L 103 162 L 112 184 L 121 154 L 132 174" fill="none" stroke="#0A1E5E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="44" y="250" width="84" height="28" rx="14" fill="#DBEAFE" stroke="#0052FF" stroke-width="1.6"/>
+  <text x="86" y="268" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0052FF">RevIN</text>
+
+  <!-- Arrow to Optical EMA/DEMA Prism -->
+  <line x1="144" y1="205" x2="159" y2="205" stroke="#0A1E5E" stroke-width="2.4" marker-end="url(#arrowDark)"/>
+
+  <!-- EMA / DEMA Optical Diamond Prism -->
+  <polygon points="196,166 232,205 196,244 160,205" fill="url(#prismGrad)" stroke="#0052FF" stroke-width="2.4"/>
+  <line x1="196" y1="166" x2="196" y2="244" stroke="#0052FF" stroke-opacity="0.18" stroke-width="1"/>
+  <text x="196" y="201" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0A1E5E">EMA</text>
+  <text x="196" y="217" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#0052FF">DEMA</text>
+
+  <!-- Bifurcation Arrows from Prism -->
+  <path d="M 214 186 C 228 150, 228 128, 246 128" fill="none" stroke="#0052FF" stroke-width="2.5" marker-end="url(#arrowBlue)"/>
+  <path d="M 214 224 C 228 260, 228 282, 246 282" fill="none" stroke="#0EA5E9" stroke-width="2.5" marker-end="url(#arrowCyan)"/>
+
+  <!-- Upper Stream: Linear Trend Stream -->
+  <rect x="250" y="74" width="218" height="108" rx="12" fill="#FFFFFF" stroke="#0052FF" stroke-opacity="0.55" stroke-width="1.6"/>
+  <text x="266" y="95" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0052FF">Trend · Linear Stream</text>
+
+  <!-- Smooth Trend Curve -->
+  <path d="M 264 166 L 264 156 C 288 152, 306 138, 330 132 C 348 127, 360 120, 374 114 L 374 166 Z" fill="url(#trendFill)"/>
+  <path d="M 264 156 C 288 152, 306 138, 330 132 C 348 127, 360 120, 374 114" fill="none" stroke="#0052FF" stroke-width="3.4" stroke-linecap="round"/>
+
+  <!-- Linear MLP Block -->
+  <rect x="388" y="108" width="68" height="58" rx="9" fill="#DBEAFE" stroke="#0052FF" stroke-width="1.8"/>
+  <text x="422" y="135" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#0A1E5E">MLP</text>
+  <text x="422" y="152" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">AvgPool</text>
+
+  <!-- Lower Stream: Patched Seasonal CNN Stream -->
+  <rect x="250" y="226" width="218" height="114" rx="12" fill="#FFFFFF" stroke="#0EA5E9" stroke-opacity="0.65" stroke-width="1.6"/>
+  <text x="266" y="246" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0EA5E9">Seasonal · Patched CNN</text>
+
+  <!-- Overlapping Patch Windows (P=16, S=8) -->
+  <g stroke-width="1.5">
+    <rect x="262" y="258" width="36" height="52" rx="5" fill="#DBEAFE" fill-opacity="0.45" stroke="#0EA5E9"/>
+    <rect x="286" y="258" width="36" height="52" rx="5" fill="#0EA5E9" fill-opacity="0.16" stroke="#0052FF" stroke-opacity="0.65"/>
+    <rect x="310" y="258" width="36" height="52" rx="5" fill="#DBEAFE" fill-opacity="0.45" stroke="#0EA5E9"/>
+    <rect x="334" y="258" width="36" height="52" rx="5" fill="#0EA5E9" fill-opacity="0.16" stroke="#0052FF" stroke-opacity="0.65"/>
+  </g>
+  <!-- Oscillating Seasonal Signal across Patches -->
+  <path d="M 264 286 L 273 268 L 283 302 L 293 270 L 303 300 L 313 268 L 323 302 L 333 270 L 343 300 L 353 268 L 363 298 L 368 282" fill="none" stroke="#0A1E5E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="316" y="328" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="500" fill="#475569">Patches (16 / 8)</text>
+
+  <!-- Depthwise + Pointwise CNN Block -->
+  <rect x="388" y="258" width="68" height="58" rx="9" fill="#0EA5E9" fill-opacity="0.16" stroke="#0EA5E9" stroke-width="1.8"/>
+  <text x="422" y="284" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0A1E5E">DW+PW</text>
+  <text x="422" y="301" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" fill="#0EA5E9">CNN</text>
+
+  <!-- Convergence to Linear Fusion Node -->
+  <path d="M 468 128 C 488 128, 496 156, 496 184" fill="none" stroke="#0052FF" stroke-width="2.4" marker-end="url(#arrowBlue)"/>
+  <path d="M 468 282 C 488 282, 496 254, 496 226" fill="none" stroke="#0EA5E9" stroke-width="2.4" marker-end="url(#arrowCyan)"/>
+
+  <circle cx="496" cy="205" r="18" fill="#0052FF" stroke="#FFFFFF" stroke-width="2"/>
+  <path d="M 488 205 H 504 M 496 197 V 213" stroke="#FFFFFF" stroke-width="2.8" stroke-linecap="round"/>
+
+  <!-- Output Arrow & Multi-Horizon Forecast Card -->
+  <line x1="514" y1="205" x2="528" y2="205" stroke="#0052FF" stroke-width="2.4" marker-end="url(#arrowBlue)"/>
+
+  <rect x="532" y="96" width="80" height="218" rx="12" fill="#FFFFFF" stroke="#059669" stroke-width="1.8"/>
+  <text x="572" y="118" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#059669">Horizons</text>
+
+  <!-- 4 Progressive Horizon Forecast Strips -->
+  <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" text-anchor="middle">
+    <rect x="542" y="132" width="32" height="32" rx="7" fill="#DBEAFE"/>
+    <text x="558" y="152" fill="#0A1E5E">96</text>
+
+    <rect x="542" y="174" width="42" height="34" rx="7" fill="#0EA5E9" fill-opacity="0.24"/>
+    <text x="563" y="195" fill="#0A1E5E">192</text>
+
+    <rect x="542" y="218" width="51" height="36" rx="7" fill="#0052FF" fill-opacity="0.2"/>
+    <text x="567.5" y="240" fill="#0052FF">336</text>
+
+    <rect x="542" y="264" width="60" height="38" rx="7" fill="#059669" fill-opacity="0.18" stroke="#059669" stroke-width="1.4"/>
+    <text x="572" y="287" fill="#059669">720</text>
+  </g>
+
+  <!-- Footer -->
+  <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.7"/>
+  <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5">
+    <text x="28" y="379" fill="#475569">ETTh1 · 4 Horizons · MAE Guard</text>
+    <text x="612" y="379" text-anchor="end" fill="#475569">Metric: <tspan font-weight="700" fill="#0052FF">Mean MSE ↓</tspan></text>
+  </g>
+</svg>

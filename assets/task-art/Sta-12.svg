@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>Geodesic-DiD — Wasserstein Geodesic Difference-in-Differences</title>
+  <desc>Parallel transport on a curved univariate Wasserstein manifold mapping control trends to the counterfactual distribution, paired with the quantile displacement geodesic to the treated post distribution.</desc>
+  <defs>
+    <clipPath id="cardClip">
+      <rect width="640" height="400" rx="16"/>
+    </clipPath>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F4FAFE"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0284C7"/>
+      <stop offset="100%" stop-color="#06B6D4"/>
+    </linearGradient>
+    <linearGradient id="manifoldGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#E0F2FE" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.55"/>
+    </linearGradient>
+    <pattern id="dotGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#0C4366" opacity="0.16"/>
+    </pattern>
+    <marker id="arrowCyan" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M 1 1.5 L 9 5 L 1 8.5 Z" fill="#06B6D4"/>
+    </marker>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M 1 1.5 L 9 5 L 1 8.5 Z" fill="#059669"/>
+    </marker>
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 1 1.5 L 9 5 L 1 8.5 Z" fill="#0284C7"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#cardClip)">
+    <rect width="640" height="400" fill="url(#bgGrad)"/>
+    <rect x="24" y="60" width="592" height="296" fill="url(#dotGrid)"/>
+    <rect x="0" y="0" width="640" height="3" fill="url(#accentGrad)"/>
+  </g>
+  <rect x="0.75" y="0.75" width="638.5" height="398.5" rx="15.5" fill="none" stroke="#CBD5E1" stroke-opacity="0.75" stroke-width="1.5"/>
+
+  <!-- Header -->
+  <text x="28" y="38" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="700" fill="#0A0E17">Geodesic-DiD</text>
+  <text x="612" y="38" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="500" fill="#475569">Wasserstein Geodesic Treatment Effects</text>
+  <line x1="28" y1="54" x2="612" y2="54" stroke="#CBD5E1" stroke-opacity="0.6" stroke-width="1"/>
+
+  <!-- Left Hero: Curved Wasserstein Manifold -->
+  <path d="M 42 292 C 102 256, 206 268, 316 322 C 334 246, 344 166, 332 94 C 242 74, 146 84, 72 134 C 54 188, 46 240, 42 292 Z" fill="url(#manifoldGrad)" stroke="#0284C7" stroke-opacity="0.38" stroke-width="1.6"/>
+  <!-- Manifold geodesic coordinate mesh -->
+  <g fill="none" stroke="#0284C7" stroke-opacity="0.16" stroke-width="1">
+    <path d="M 58 240 C 128 208, 224 220, 326 268"/>
+    <path d="M 65 186 C 142 156, 236 168, 334 210"/>
+    <path d="M 122 104 C 114 168, 108 226, 102 278"/>
+    <path d="M 192 88 C 186 154, 182 220, 178 278"/>
+    <path d="M 264 86 C 260 156, 256 226, 252 294"/>
+  </g>
+  <text x="188" y="109" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" fill="#0C4366">W₂ Space</text>
+
+  <!-- Group baseline alignment link -->
+  <line x1="104" y1="246" x2="114" y2="184" stroke="#CBD5E1" stroke-dasharray="4 3" stroke-width="1.5"/>
+
+  <!-- Parallel transport geodesic arrows -->
+  <path d="M 122 269 Q 178 279, 230 284" fill="none" stroke="#06B6D4" stroke-width="2.8" marker-end="url(#arrowCyan)"/>
+  <path d="M 136 165 Q 182 173, 217 179" fill="none" stroke="#06B6D4" stroke-width="2.4" stroke-dasharray="6 4" marker-end="url(#arrowCyan)"/>
+  <!-- Focal GATT geodesic -->
+  <path d="M 255 167 Q 274 146, 287 134" fill="none" stroke="#059669" stroke-width="3.8" marker-end="url(#arrowGreen)"/>
+  <text x="242" y="138" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#059669">GATT</text>
+
+  <!-- Node Q_c,pre -->
+  <circle cx="102" cy="266" r="18" fill="#FFFFFF" stroke="#475569" stroke-width="2.2"/>
+  <path d="M 90 272 C 95 272, 98 258, 102 258 C 106 258, 109 272, 114 272" fill="#475569" fill-opacity="0.2" stroke="#475569" stroke-width="1.8"/>
+  <text x="102" y="302" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" fill="#475569">Q_c,pre</text>
+
+  <!-- Node Q_c,post -->
+  <circle cx="252" cy="286" r="18" fill="#FFFFFF" stroke="#06B6D4" stroke-width="2.4"/>
+  <path d="M 240 292 C 246 292, 250 278, 255 278 C 259 278, 261 292, 265 292" fill="#06B6D4" fill-opacity="0.24" stroke="#06B6D4" stroke-width="1.8"/>
+  <text x="252" y="322" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" fill="#0C4366">Q_c,post</text>
+
+  <!-- Node Q_t,pre -->
+  <circle cx="116" cy="162" r="18" fill="#FFFFFF" stroke="#0284C7" stroke-width="2.4"/>
+  <path d="M 104 168 C 109 168, 112 154, 116 154 C 120 154, 123 168, 128 168" fill="#0284C7" fill-opacity="0.22" stroke="#0284C7" stroke-width="1.8"/>
+  <text x="116" y="136" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0284C7">Q_t,pre</text>
+
+  <!-- Node Q_cf (Counterfactual) -->
+  <circle cx="240" cy="182" r="18" fill="#E0F2FE" fill-opacity="0.8" stroke="#0284C7" stroke-width="2.2" stroke-dasharray="4 3"/>
+  <path d="M 228 188 C 234 188, 238 174, 243 174 C 247 174, 249 188, 253 188" fill="#0284C7" fill-opacity="0.2" stroke="#0284C7" stroke-width="1.6"/>
+  <text x="248" y="217" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0284C7">Q_cf</text>
+
+  <!-- Node Q_t,post (Treated Post) -->
+  <circle cx="304" cy="118" r="20" fill="#FFFFFF" stroke="#059669" stroke-width="3"/>
+  <path d="M 291 125 C 298 125, 304 109, 309 109 C 313 109, 315 125, 318 125" fill="#059669" fill-opacity="0.25" stroke="#059669" stroke-width="2"/>
+  <text x="302" y="84" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#059669">Q_t,post</text>
+
+  <!-- Right Hero: Quantile Curve Displacement Map -->
+  <rect x="364" y="76" width="248" height="266" rx="12" fill="#FFFFFF" fill-opacity="0.82" stroke="#CBD5E1" stroke-width="1.2"/>
+  <!-- Axes -->
+  <line x1="400" y1="98" x2="400" y2="310" stroke="#475569" stroke-width="1.5"/>
+  <line x1="400" y1="310" x2="594" y2="310" stroke="#475569" stroke-width="1.5"/>
+  <line x1="400" y1="204" x2="594" y2="204" stroke="#CBD5E1" stroke-dasharray="4 4" stroke-width="1"/>
+  <text x="392" y="112" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">+3</text>
+  <text x="392" y="208" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">0</text>
+  <text x="392" y="302" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">−3</text>
+  <text x="404" y="328" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">0</text>
+  <text x="498" y="328" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#475569">Quantile p</text>
+  <text x="590" y="328" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">1</text>
+
+  <!-- Shaded Wasserstein transport ribbon between Q_cf and Q_t,post -->
+  <path d="M 402 298 C 430 274, 452 222, 478 180 C 504 138, 548 118, 592 108 C 560 128, 538 176, 514 218 C 488 264, 446 290, 402 298 Z" fill="#06B6D4" fill-opacity="0.18"/>
+
+  <!-- Displacement transport arrows -->
+  <line x1="454" y1="274" x2="454" y2="232" stroke="#0284C7" stroke-width="1.8" marker-end="url(#arrowBlue)"/>
+  <line x1="484" y1="252" x2="484" y2="178" stroke="#0284C7" stroke-width="1.8" marker-end="url(#arrowBlue)"/>
+  <line x1="514" y1="214" x2="514" y2="146" stroke="#0284C7" stroke-width="1.8" marker-end="url(#arrowBlue)"/>
+  <line x1="544" y1="164" x2="544" y2="128" stroke="#0284C7" stroke-width="1.8" marker-end="url(#arrowBlue)"/>
+
+  <!-- Quantile curves -->
+  <path d="M 402 298 C 446 290, 488 264, 514 218 C 538 176, 560 128, 592 108" fill="none" stroke="#0284C7" stroke-width="2.8" stroke-dasharray="6 4" stroke-linecap="round"/>
+  <path d="M 402 298 C 430 274, 452 222, 478 180 C 504 138, 548 118, 592 108" fill="none" stroke="#059669" stroke-width="3.4" stroke-linecap="round"/>
+
+  <text x="452" y="132" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#059669">Q_t,post(p)</text>
+  <text x="556" y="250" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0284C7">Q_cf(p)</text>
+
+  <!-- Footer -->
+  <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-opacity="0.6" stroke-width="1"/>
+  <text x="28" y="378" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#475569">Counterfactual transport · 101-pt quantiles</text>
+  <text x="612" y="378" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#475569">Target: <tspan font-weight="700" fill="#0284C7">mean_geodesic_error ↓</tspan></text>
+</svg>

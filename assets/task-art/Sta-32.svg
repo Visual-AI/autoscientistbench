@@ -1,0 +1,190 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>BT-SBM — Bayesian Bradley-Terry Stochastic Block Model</title>
+  <desc>Directed pairwise win counts cluster players into latent skill blocks, summarized via a posterior similarity matrix, minimum variation-of-information partition, and normalized block strength rankings.</desc>
+  <defs>
+    <clipPath id="cardClip">
+      <rect x="0" y="0" width="640" height="400" rx="16"/>
+    </clipPath>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F8F6FF"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#7C3AED"/>
+      <stop offset="100%" stop-color="#A855F7"/>
+    </linearGradient>
+    <pattern id="dotGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#3E1B7A" opacity="0.16"/>
+    </pattern>
+    <marker id="arrDark" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#3E1B7A"/>
+    </marker>
+    <marker id="arrFlow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#7C3AED"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#cardClip)">
+    <rect x="0" y="0" width="640" height="400" fill="url(#bgGrad)"/>
+    <rect x="16" y="56" width="608" height="298" fill="url(#dotGrid)"/>
+    <rect x="0" y="0" width="640" height="3.5" fill="url(#accentGrad)"/>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="16" fill="none" stroke="#CBD5E1" stroke-opacity="0.75" stroke-width="1"/>
+
+  <!-- Header -->
+  <text x="28" y="37" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="700" fill="#0A0E17">BT-SBM</text>
+  <text x="612" y="37" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="500" fill="#475569">Pairwise Win Blocks &amp; Min-VI Partition</text>
+  <line x1="28" y1="53" x2="612" y2="53" stroke="#CBD5E1" stroke-opacity="0.75" stroke-width="1"/>
+
+  <!-- Panel 1: Directed Pairwise Tournament Network -->
+  <text x="142" y="79" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="600" fill="#0A0E17">Pairwise Wins</text>
+
+  <!-- Latent Block Hulls -->
+  <ellipse cx="142" cy="126" rx="82" ry="31" fill="#3E1B7A" fill-opacity="0.08" stroke="#3E1B7A" stroke-opacity="0.45" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <ellipse cx="86" cy="236" rx="54" ry="42" fill="#7C3AED" fill-opacity="0.10" stroke="#7C3AED" stroke-opacity="0.55" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <ellipse cx="198" cy="244" rx="54" ry="42" fill="#A855F7" fill-opacity="0.11" stroke="#A855F7" stroke-opacity="0.55" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <!-- Directed Inter-Block Win Edges -->
+  <g fill="none" stroke="#3E1B7A" stroke-width="2" stroke-opacity="0.82" marker-end="url(#arrDark)">
+    <path d="M 96 138 Q 76 172 68 206"/>
+    <path d="M 137 131 Q 124 168 112 208"/>
+    <path d="M 150 131 Q 168 170 176 214"/>
+    <path d="M 188 138 Q 208 174 216 218"/>
+  </g>
+  <g fill="none" stroke="#7C3AED" stroke-width="2" stroke-opacity="0.85" marker-end="url(#arrDark)">
+    <path d="M 122 224 Q 144 218 164 228"/>
+    <path d="M 100 258 Q 144 274 184 268"/>
+  </g>
+  <!-- Subtle Intra-Block Pairwise Ties -->
+  <g fill="none" stroke="#475569" stroke-width="1.4" stroke-opacity="0.45">
+    <path d="M 109 124 L 132 119"/>
+    <path d="M 154 119 L 177 124"/>
+    <path d="M 76 226 L 84 248"/>
+    <path d="M 186 236 L 196 258"/>
+  </g>
+
+  <!-- Player Nodes -->
+  <g stroke="#FFFFFF" stroke-width="2.2">
+    <!-- Block 1 (Strongest) -->
+    <circle cx="98" cy="126" r="9" fill="#3E1B7A"/>
+    <circle cx="142" cy="117" r="9" fill="#3E1B7A"/>
+    <circle cx="186" cy="126" r="9" fill="#3E1B7A"/>
+    <!-- Block 2 (Medium) -->
+    <circle cx="65" cy="221" r="9" fill="#7C3AED"/>
+    <circle cx="108" cy="223" r="9" fill="#7C3AED"/>
+    <circle cx="87" cy="257" r="9" fill="#7C3AED"/>
+    <!-- Block 3 (Lower) -->
+    <circle cx="177" cy="230" r="9" fill="#A855F7"/>
+    <circle cx="220" cy="234" r="9" fill="#A855F7"/>
+    <circle cx="198" cy="268" r="9" fill="#A855F7"/>
+  </g>
+
+  <!-- Formula & Prior Caption -->
+  <text x="142" y="314" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" fill="#3E1B7A">P(i &gt; j) = λᵢ / (λᵢ + λⱼ)</text>
+  <text x="142" y="334" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">Gnedin Prior (γ = 0.71)</text>
+
+  <!-- Flow Arrow 1 -->
+  <line x1="258" y1="184" x2="280" y2="184" stroke="#7C3AED" stroke-width="2.4" marker-end="url(#arrFlow)"/>
+
+  <!-- Panel 2: Posterior Similarity Matrix & Min-VI Partition -->
+  <text x="369" y="79" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="600" fill="#0A0E17">Posterior Similarity</text>
+
+  <!-- PSM Frame -->
+  <rect x="290" y="102" width="158" height="158" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+
+  <!-- 9x9 Co-Clustering Matrix (cell=16, step=17, origin 293,105) -->
+  <g>
+    <!-- Faint off-diagonal background cells -->
+    <rect x="293" y="105" width="152" height="152" rx="4" fill="#EDE9FE" fill-opacity="0.5"/>
+    <!-- Subtle off-diagonal posterior uncertainty speckles -->
+    <rect x="344" y="122" width="16" height="16" rx="2" fill="#A855F7" fill-opacity="0.24"/>
+    <rect x="310" y="156" width="16" height="16" rx="2" fill="#A855F7" fill-opacity="0.24"/>
+    <rect x="395" y="173" width="16" height="16" rx="2" fill="#A855F7" fill-opacity="0.28"/>
+    <rect x="361" y="207" width="16" height="16" rx="2" fill="#A855F7" fill-opacity="0.28"/>
+    <rect x="378" y="224" width="16" height="16" rx="2" fill="#7C3AED" fill-opacity="0.20"/>
+    <rect x="412" y="190" width="16" height="16" rx="2" fill="#7C3AED" fill-opacity="0.20"/>
+
+    <!-- Diagonal Block 1 (3x3, rows 0-2, cols 0-2) -->
+    <g fill="#3E1B7A">
+      <rect x="293" y="105" width="16" height="16" rx="2" fill-opacity="0.95"/>
+      <rect x="310" y="105" width="16" height="16" rx="2" fill-opacity="0.88"/>
+      <rect x="327" y="105" width="16" height="16" rx="2" fill-opacity="0.82"/>
+      <rect x="293" y="122" width="16" height="16" rx="2" fill-opacity="0.88"/>
+      <rect x="310" y="122" width="16" height="16" rx="2" fill-opacity="0.95"/>
+      <rect x="327" y="122" width="16" height="16" rx="2" fill-opacity="0.86"/>
+      <rect x="293" y="139" width="16" height="16" rx="2" fill-opacity="0.82"/>
+      <rect x="310" y="139" width="16" height="16" rx="2" fill-opacity="0.86"/>
+      <rect x="327" y="139" width="16" height="16" rx="2" fill-opacity="0.95"/>
+    </g>
+
+    <!-- Diagonal Block 2 (3x3, rows 3-5, cols 3-5) -->
+    <g fill="#7C3AED">
+      <rect x="344" y="156" width="16" height="16" rx="2" fill-opacity="0.94"/>
+      <rect x="361" y="156" width="16" height="16" rx="2" fill-opacity="0.82"/>
+      <rect x="378" y="156" width="16" height="16" rx="2" fill-opacity="0.76"/>
+      <rect x="344" y="173" width="16" height="16" rx="2" fill-opacity="0.82"/>
+      <rect x="361" y="173" width="16" height="16" rx="2" fill-opacity="0.94"/>
+      <rect x="378" y="173" width="16" height="16" rx="2" fill-opacity="0.84"/>
+      <rect x="344" y="190" width="16" height="16" rx="2" fill-opacity="0.76"/>
+      <rect x="361" y="190" width="16" height="16" rx="2" fill-opacity="0.84"/>
+      <rect x="378" y="190" width="16" height="16" rx="2" fill-opacity="0.94"/>
+    </g>
+
+    <!-- Diagonal Block 3 (3x3, rows 6-8, cols 6-8) -->
+    <g fill="#A855F7">
+      <rect x="395" y="207" width="16" height="16" rx="2" fill-opacity="0.94"/>
+      <rect x="412" y="207" width="16" height="16" rx="2" fill-opacity="0.80"/>
+      <rect x="429" y="207" width="16" height="16" rx="2" fill-opacity="0.74"/>
+      <rect x="395" y="224" width="16" height="16" rx="2" fill-opacity="0.80"/>
+      <rect x="412" y="224" width="16" height="16" rx="2" fill-opacity="0.94"/>
+      <rect x="429" y="224" width="16" height="16" rx="2" fill-opacity="0.85"/>
+      <rect x="395" y="241" width="16" height="16" rx="2" fill-opacity="0.74"/>
+      <rect x="412" y="241" width="16" height="16" rx="2" fill-opacity="0.85"/>
+      <rect x="429" y="241" width="16" height="16" rx="2" fill-opacity="0.94"/>
+    </g>
+
+    <!-- Min-VI Decision Loss Block Outlines -->
+    <g fill="none" stroke="#059669" stroke-width="2" stroke-dasharray="4 2.5">
+      <rect x="292" y="104" width="52" height="52" rx="4"/>
+      <rect x="343" y="155" width="52" height="52" rx="4"/>
+      <rect x="394" y="206" width="52" height="52" rx="4"/>
+    </g>
+  </g>
+
+  <text x="369" y="286" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#059669">Min-VI Partition</text>
+  <text x="369" y="305" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">Bayes VI Decision Loss</text>
+
+  <!-- Flow Arrow 2 -->
+  <line x1="454" y1="184" x2="474" y2="184" stroke="#7C3AED" stroke-width="2.4" marker-end="url(#arrFlow)"/>
+
+  <!-- Panel 3: Posterior Strength Rankings -->
+  <text x="550" y="79" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="600" fill="#0A0E17">Strength Ranks</text>
+
+  <!-- Axes -->
+  <line x1="504" y1="104" x2="504" y2="306" stroke="#CBD5E1" stroke-width="1.5"/>
+  <line x1="504" y1="306" x2="606" y2="306" stroke="#CBD5E1" stroke-width="1.5"/>
+  <text x="555" y="326" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">Normalized λ</text>
+
+  <!-- Tier 1 Strength Posterior -->
+  <path d="M 556 150 C 568 150 578 116 588 116 C 598 116 602 150 608 150 Z" fill="#3E1B7A" fill-opacity="0.20" stroke="#3E1B7A" stroke-width="2"/>
+  <line x1="504" y1="150" x2="588" y2="150" stroke="#3E1B7A" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="588" cy="150" r="5" fill="#3E1B7A" stroke="#FFFFFF" stroke-width="1.8"/>
+  <text x="496" y="154" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#3E1B7A">λ₁</text>
+
+  <!-- Tier 2 Strength Posterior -->
+  <path d="M 532 216 C 544 216 551 184 561 184 C 571 184 578 216 590 216 Z" fill="#7C3AED" fill-opacity="0.22" stroke="#7C3AED" stroke-width="2"/>
+  <line x1="504" y1="216" x2="561" y2="216" stroke="#7C3AED" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="561" cy="216" r="5" fill="#7C3AED" stroke="#FFFFFF" stroke-width="1.8"/>
+  <text x="496" y="220" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#7C3AED">λ₂</text>
+
+  <!-- Tier 3 Strength Posterior -->
+  <path d="M 510 282 C 519 282 524 252 533 252 C 542 252 548 282 558 282 Z" fill="#A855F7" fill-opacity="0.24" stroke="#A855F7" stroke-width="2"/>
+  <line x1="504" y1="282" x2="533" y2="282" stroke="#A855F7" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="533" cy="282" r="5" fill="#A855F7" stroke="#FFFFFF" stroke-width="1.8"/>
+  <text x="496" y="286" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#A855F7">λ₃</text>
+
+  <!-- Footer -->
+  <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-opacity="0.75" stroke-width="1"/>
+  <text x="28" y="380" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#475569">Target metric: <tspan font-weight="700" fill="#7C3AED">ari_minVI ↑</tspan></text>
+  <text x="612" y="380" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">Spearman Guard ≥ 0.82</text>
+</svg>

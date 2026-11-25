@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>HD-ConfSeq: Higher-Dimensional Confidence Sequences for A/B Stopping</title>
+  <desc>Shrinking multivariate confidence sequences formed by intersecting an axis-aligned bounding box and an lp-ellipsoid clear the null mean threshold and volume tolerance to trigger the earliest valid A/B stopping time.</desc>
+  <defs>
+    <clipPath id="cardClip">
+      <rect x="0" y="0" width="640" height="400" rx="16"/>
+    </clipPath>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F7FAFF"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="accentBar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0052FF"/>
+      <stop offset="100%" stop-color="#0EA5E9"/>
+    </linearGradient>
+    <linearGradient id="lpFill" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#DBEAFE" stop-opacity="0.88"/>
+      <stop offset="100%" stop-color="#0EA5E9" stop-opacity="0.18"/>
+    </linearGradient>
+    <pattern id="dotGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#0A1E5E" fill-opacity="0.15"/>
+    </pattern>
+    <marker id="arrBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M1 1.5 L8.5 5 L1 8.5 Z" fill="#0052FF"/>
+    </marker>
+    <marker id="arrGreen" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M1 1.5 L8.5 5 L1 8.5 Z" fill="#059669"/>
+    </marker>
+    <marker id="arrSlate" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto">
+      <path d="M1 1.5 L8.5 5 L1 8.5 Z" fill="#475569"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#cardClip)" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <!-- Base Plate -->
+    <rect x="0" y="0" width="640" height="400" fill="url(#bgGrad)"/>
+    <rect x="24" y="58" width="592" height="296" fill="url(#dotGrid)"/>
+    <rect x="0" y="0" width="640" height="3" fill="url(#accentBar)"/>
+
+    <!-- Header Zone (y=18..54) -->
+    <text x="28" y="36" font-size="18" font-weight="700" fill="#0A0E17">HD-ConfSeq</text>
+    <text x="612" y="36" text-anchor="end" font-size="12.5" font-weight="500" fill="#475569">Multivariate Confidence Sequences</text>
+    <line x1="28" y1="53" x2="612" y2="53" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.75"/>
+
+    <!-- LEFT HERO PANEL: Projected Shrinking C_bbox ∩ C_lp -->
+    <g>
+      <!-- Coordinate Axes -->
+      <line x1="52" y1="318" x2="348" y2="318" stroke="#475569" stroke-width="1.6" marker-end="url(#arrSlate)"/>
+      <line x1="52" y1="318" x2="52" y2="82" stroke="#475569" stroke-width="1.6" marker-end="url(#arrSlate)"/>
+      <text x="348" y="336" text-anchor="end" font-size="11.5" font-weight="600" fill="#475569">μ₁</text>
+      <text x="41" y="92" text-anchor="end" font-size="11.5" font-weight="600" fill="#475569">μ₂</text>
+
+      <!-- Null Threshold Line μ₁ = 0.5 -->
+      <line x1="154" y1="88" x2="154" y2="318" stroke="#E11D48" stroke-width="2.2" stroke-dasharray="6 5"/>
+      <text x="154" y="79" text-anchor="middle" font-size="12" font-weight="700" fill="#E11D48">μ₁ = 0.5</text>
+
+      <!-- t1 Outer Bounding Box + lp-Superellipse (crosses null) -->
+      <rect x="86" y="102" width="246" height="194" rx="4" fill="none" stroke="#0EA5E9" stroke-width="1.5" stroke-dasharray="5 5" stroke-opacity="0.55"/>
+      <path d="M209 102 C304 102 332 126 332 199 C332 272 304 296 209 296 C114 296 86 272 86 199 C86 126 114 102 209 102 Z"
+            fill="#DBEAFE" fill-opacity="0.28" stroke="#0EA5E9" stroke-width="2" stroke-opacity="0.6"/>
+      <text x="95" y="119" font-size="11.5" font-weight="600" fill="#0EA5E9">t₁</text>
+
+      <!-- t2 Mid Bounding Box + lp-Superellipse (still crosses null) -->
+      <rect x="136" y="130" width="180" height="136" rx="4" fill="none" stroke="#0052FF" stroke-width="1.6" stroke-dasharray="5 4" stroke-opacity="0.65"/>
+      <path d="M226 130 C294 130 316 147 316 198 C316 249 294 266 226 266 C158 266 136 249 136 198 C136 147 158 130 226 130 Z"
+            fill="#DBEAFE" fill-opacity="0.45" stroke="#0052FF" stroke-width="2.2" stroke-opacity="0.72"/>
+      <text x="164" y="152" font-size="11.5" font-weight="600" fill="#0052FF">t₂</text>
+
+      <!-- t* Final Stopped Set: C_bbox ∩ C_lp (clears μ₁ = 0.5!) -->
+      <rect x="198" y="156" width="108" height="78" rx="3" fill="none" stroke="#0A1E5E" stroke-width="2" stroke-dasharray="4 3"/>
+      <path d="M252 156 C294 156 306 167 306 195 C306 223 294 234 252 234 C210 234 198 223 198 195 C198 167 210 156 252 156 Z"
+            fill="url(#lpFill)" stroke="#0052FF" stroke-width="3"/>
+
+      <!-- True Mean μ* -->
+      <circle cx="256" cy="193" r="5.5" fill="#059669" stroke="#FFFFFF" stroke-width="2"/>
+      <text x="267" y="197" font-size="13" font-weight="700" fill="#0A0E17">μ*</text>
+
+      <!-- Separation Margin Callout (> 0.5) -->
+      <line x1="158" y1="286" x2="195" y2="286" stroke="#059669" stroke-width="2.4" marker-end="url(#arrGreen)"/>
+      <line x1="198" y1="238" x2="198" y2="293" stroke="#059669" stroke-width="1.4" stroke-dasharray="3 3"/>
+      <text x="206" y="290" font-size="11.5" font-weight="700" fill="#059669">Clears 0.5</text>
+
+      <!-- Hero Set Label -->
+      <text x="209" y="338" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0052FF">C_bbox ∩ C_lp (t*)</text>
+    </g>
+
+    <!-- RIGHT STACKED PANELS: Dual Stopping Criteria -->
+    <!-- Top Card: Coordinate Significance Bound -->
+    <g>
+      <rect x="378" y="74" width="234" height="128" rx="12" fill="#FFFFFF" fill-opacity="0.92" stroke="#CBD5E1" stroke-width="1.2"/>
+      <text x="392" y="94" font-size="12" font-weight="700" fill="#0A0E17">Coordinate Bound</text>
+      <text x="600" y="94" text-anchor="end" font-size="11.5" font-weight="600" fill="#059669">Significant</text>
+
+      <!-- Null line 0.5 -->
+      <line x1="392" y1="158" x2="598" y2="158" stroke="#E11D48" stroke-width="1.6" stroke-dasharray="5 4"/>
+      <text x="598" y="172" text-anchor="end" font-size="11" font-weight="600" fill="#E11D48">0.5</text>
+
+      <!-- Narrowing Interval Band -->
+      <path d="M396 108 C448 111 516 115 594 120 L594 139 C524 148 468 164 396 190 Z"
+            fill="#DBEAFE" fill-opacity="0.72"/>
+      <path d="M396 108 C448 111 516 115 594 120" fill="none" stroke="#0052FF" stroke-width="2.2"/>
+      <path d="M396 190 C468 164 524 148 594 139" fill="none" stroke="#0052FF" stroke-width="2.5"/>
+
+      <!-- Crossing Stop Marker -->
+      <line x1="502" y1="106" x2="502" y2="190" stroke="#059669" stroke-width="2" stroke-dasharray="4 3"/>
+      <circle cx="502" cy="158" r="4.8" fill="#059669" stroke="#FFFFFF" stroke-width="1.8"/>
+      <text x="510" y="186" font-size="11.5" font-weight="700" fill="#059669">Stop t*</text>
+    </g>
+
+    <!-- Bottom Card: Volume Radius Tolerance -->
+    <g>
+      <rect x="378" y="216" width="234" height="128" rx="12" fill="#FFFFFF" fill-opacity="0.92" stroke="#CBD5E1" stroke-width="1.2"/>
+      <text x="392" y="236" font-size="12" font-weight="700" fill="#0A0E17">Volume Radius</text>
+      <text x="600" y="236" text-anchor="end" font-size="11.5" font-weight="600" fill="#0052FF">Unsubstantial</text>
+
+      <!-- Volume tolerance r = 0.02 -->
+      <line x1="392" y1="304" x2="598" y2="304" stroke="#0A1E5E" stroke-width="1.6" stroke-dasharray="5 4"/>
+      <text x="598" y="298" text-anchor="end" font-size="11" font-weight="600" fill="#0A1E5E">r = 0.02</text>
+
+      <!-- Baseline Sphere CS (slow decay) -->
+      <path d="M396 248 C452 256 518 265 594 274" fill="none" stroke="#CBD5E1" stroke-width="2.2" stroke-dasharray="5 4"/>
+      <text x="588" y="266" text-anchor="end" font-size="10.5" fill="#475569">Sphere CS</text>
+
+      <!-- Tight Intersection CS (fast decay) -->
+      <path d="M396 250 C442 276 488 294 532 304 C558 310 578 314 594 316" fill="none" stroke="#0052FF" stroke-width="2.8"/>
+
+      <!-- Crossing Stop Marker -->
+      <line x1="532" y1="248" x2="532" y2="332" stroke="#0052FF" stroke-width="2" stroke-dasharray="4 3"/>
+      <circle cx="532" cy="304" r="4.8" fill="#0052FF" stroke="#FFFFFF" stroke-width="1.8"/>
+      <text x="524" y="328" text-anchor="end" font-size="11.5" font-weight="700" fill="#0052FF">Stop t*</text>
+      <text x="394" y="332" font-size="11" fill="#475569">Batches t →</text>
+    </g>
+
+    <!-- Footer Bar (y=378) -->
+    <line x1="28" y1="357" x2="612" y2="357" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.75"/>
+    <text x="28" y="378" font-size="12.5" fill="#475569">[0,1]¹⁰ stream · α = 0.05 · horizon 500</text>
+    <text x="612" y="378" text-anchor="end" font-size="12.5" fill="#475569">Metric <tspan font-weight="700" fill="#0052FF">mean_stop_t ↓</tspan></text>
+  </g>
+
+  <rect x="0.5" y="0.5" width="639" height="399" rx="16" fill="none" stroke="#CBD5E1" stroke-opacity="0.75"/>
+</svg>

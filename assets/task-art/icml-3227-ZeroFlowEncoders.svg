@@ -1,0 +1,205 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>ZeroFlow: Zero-Velocity Flow Encoders for Conditional Graph Recovery</title>
+  <desc>A rectified flow drives velocity to zero at midpoint t equals 0.5 when a sparse sigmoid gate selects a variable's Markov blanket, recovering the banded third-order conditional-dependence matrix and edge ROC curve.</desc>
+  <defs>
+    <clipPath id="card-clip">
+      <rect width="640" height="400" rx="16"/>
+    </clipPath>
+    <linearGradient id="bg-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F7FAFF"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="roc-fill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0052FF" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#0052FF" stop-opacity="0.02"/>
+    </linearGradient>
+    <pattern id="dot-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#0052FF" opacity="0.16"/>
+    </pattern>
+    <marker id="arr-blue" markerWidth="7" markerHeight="7" refX="5.5" refY="3.5" orient="auto">
+      <path d="M0.5 0.5 L6.5 3.5 L0.5 6.5 Z" fill="#0052FF"/>
+    </marker>
+    <marker id="arr-sky" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+      <path d="M0.5 0.5 L5.5 3 L0.5 5.5 Z" fill="#0EA5E9"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#card-clip)">
+    <!-- Plate Background -->
+    <rect width="640" height="400" fill="url(#bg-grad)"/>
+    <rect x="0" y="54" width="640" height="304" fill="url(#dot-grid)"/>
+    <rect x="0" y="0" width="640" height="3" fill="#0052FF"/>
+
+    <!-- Header -->
+    <text x="28" y="36" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="700" fill="#0A0E17">ZeroFlow</text>
+    <text x="612" y="36" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#475569">Zero-Velocity Conditional Graph Recovery</text>
+    <line x1="28" y1="54" x2="612" y2="54" stroke="#CBD5E1" stroke-width="1"/>
+
+    <!-- Left Card: Zero-Velocity Rectified Flow (t=0 to t=1) -->
+    <rect x="28" y="70" width="216" height="276" rx="12" fill="#FFFFFF" fill-opacity="0.92" stroke="#CBD5E1" stroke-width="1"/>
+    <text x="42" y="90" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#0A0E17">Zero-Velocity Flow</text>
+
+    <!-- Midpoint Equilibrium Zone (t = 0.5) -->
+    <rect x="122" y="122" width="28" height="176" rx="6" fill="#059669" fill-opacity="0.10"/>
+    <line x1="136" y1="122" x2="136" y2="298" stroke="#059669" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="136" y="114" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#059669">v(0.5) → 0</text>
+
+    <!-- Distribution Envelopes at t=0 and t=1 -->
+    <path d="M 52 132 C 68 156 76 184 76 210 C 76 236 68 264 52 288 Z" fill="#DBEAFE" fill-opacity="0.85" stroke="#0052FF" stroke-opacity="0.4" stroke-width="1.2"/>
+    <path d="M 220 132 C 204 156 196 184 196 210 C 196 236 204 264 220 288 Z" fill="#DBEAFE" fill-opacity="0.85" stroke="#0EA5E9" stroke-opacity="0.5" stroke-width="1.2"/>
+    <line x1="52" y1="126" x2="52" y2="294" stroke="#475569" stroke-width="1.4"/>
+    <line x1="220" y1="126" x2="220" y2="294" stroke="#475569" stroke-width="1.4"/>
+
+    <!-- Penalized Non-Zero Drift Paths (Rose Dashed) -->
+    <path d="M 58 144 C 102 148 168 258 214 268" fill="none" stroke="#E11D48" stroke-opacity="0.55" stroke-width="1.8" stroke-dasharray="4 3"/>
+    <path d="M 58 274 C 106 266 164 156 214 146" fill="none" stroke="#E11D48" stroke-opacity="0.55" stroke-width="1.8" stroke-dasharray="4 3"/>
+
+    <!-- Zero-Velocity Transport Streamlines (Flat through t=0.5) -->
+    <g fill="none" stroke-width="2.4" stroke-linecap="round">
+      <line x1="60" y1="154" x2="208" y2="154" stroke="#0EA5E9" marker-end="url(#arr-sky)"/>
+      <line x1="66" y1="182" x2="206" y2="182" stroke="#0052FF" marker-end="url(#arr-blue)"/>
+      <line x1="70" y1="210" x2="204" y2="210" stroke="#0052FF" marker-end="url(#arr-blue)"/>
+      <line x1="66" y1="238" x2="206" y2="238" stroke="#0052FF" marker-end="url(#arr-blue)"/>
+      <line x1="60" y1="266" x2="208" y2="266" stroke="#0EA5E9" marker-end="url(#arr-sky)"/>
+    </g>
+
+    <!-- Zero-Velocity Midpoint Nodes -->
+    <g fill="#059669" stroke="#FFFFFF" stroke-width="1.5">
+      <circle cx="136" cy="154" r="3.6"/>
+      <circle cx="136" cy="182" r="3.6"/>
+      <circle cx="136" cy="210" r="4"/>
+      <circle cx="136" cy="238" r="3.6"/>
+      <circle cx="136" cy="266" r="3.6"/>
+    </g>
+
+    <!-- Time Labels & Equivalence -->
+    <text x="52" y="314" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">t = 0</text>
+    <text x="136" y="314" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#059669">t = 0.5</text>
+    <text x="220" y="314" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">t = 1</text>
+    <text x="136" y="335" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#0A1E5E">p(X|Y) = p(X|f(Y))</text>
+
+    <!-- Arrow Left -> Center -->
+    <line x1="244" y1="210" x2="256" y2="210" stroke="#0052FF" stroke-width="2.2" marker-end="url(#arr-blue)"/>
+
+    <!-- Center Card: Sparse Sigmoid Gate Encoder -->
+    <rect x="260" y="70" width="142" height="276" rx="12" fill="#FFFFFF" fill-opacity="0.92" stroke="#CBD5E1" stroke-width="1"/>
+    <text x="331" y="90" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#0A0E17">Gate Encoder</text>
+
+    <!-- Markov Blanket Highlight Box around |i-j| <= 3 -->
+    <rect x="272" y="130" width="118" height="140" rx="10" fill="#DBEAFE" fill-opacity="0.45" stroke="#0052FF" stroke-opacity="0.3" stroke-width="1.2" stroke-dasharray="3 3"/>
+
+    <!-- Variable Chain Spine -->
+    <line x1="292" y1="116" x2="292" y2="282" stroke="#CBD5E1" stroke-width="2"/>
+
+    <!-- Gate Rows (9 variables: i-4 .. i+4) -->
+    <!-- Distant closed gate (i-4) -->
+    <circle cx="292" cy="118" r="4.5" fill="#CBD5E1"/>
+    <rect x="308" y="114" width="12" height="7" rx="3.5" fill="#CBD5E1"/>
+
+    <!-- Active Blanket Gates (i-3, i-2, i-1) -->
+    <circle cx="292" cy="140" r="5" fill="#0EA5E9"/>
+    <rect x="308" y="136" width="44" height="7" rx="3.5" fill="#0EA5E9"/>
+
+    <circle cx="292" cy="160" r="5.2" fill="#0052FF"/>
+    <rect x="308" y="156" width="60" height="7" rx="3.5" fill="#0052FF" opacity="0.82"/>
+
+    <circle cx="292" cy="180" r="5.5" fill="#0052FF"/>
+    <rect x="308" y="176" width="72" height="7" rx="3.5" fill="#0052FF"/>
+
+    <!-- Target Variable X_i -->
+    <circle cx="292" cy="200" r="7.5" fill="#0A1E5E" stroke="#FFFFFF" stroke-width="2"/>
+    <text x="310" y="204" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#0A1E5E">Target Xᵢ</text>
+
+    <!-- Active Blanket Gates (i+1, i+2, i+3) -->
+    <circle cx="292" cy="220" r="5.5" fill="#0052FF"/>
+    <rect x="308" y="216" width="72" height="7" rx="3.5" fill="#0052FF"/>
+
+    <circle cx="292" cy="240" r="5.2" fill="#0052FF"/>
+    <rect x="308" y="236" width="58" height="7" rx="3.5" fill="#0052FF" opacity="0.82"/>
+
+    <circle cx="292" cy="260" r="5" fill="#0EA5E9"/>
+    <rect x="308" y="256" width="42" height="7" rx="3.5" fill="#0EA5E9"/>
+
+    <!-- Distant closed gate (i+4) -->
+    <circle cx="292" cy="280" r="4.5" fill="#CBD5E1"/>
+    <rect x="308" y="276" width="10" height="7" rx="3.5" fill="#CBD5E1"/>
+
+    <!-- Gate Pill & Label -->
+    <rect x="272" y="295" width="118" height="24" rx="12" fill="#DBEAFE" stroke="#0052FF" stroke-opacity="0.3" stroke-width="1"/>
+    <text x="331" y="311" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#0A1E5E">y ⊙ σ(gate(m))</text>
+    <text x="331" y="335" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">Markov Blanket</text>
+
+    <!-- Arrow Center -> Right -->
+    <line x1="402" y1="210" x2="414" y2="210" stroke="#0052FF" stroke-width="2.2" marker-end="url(#arr-blue)"/>
+
+    <!-- Right Card: 50x50 Banded Gate Matrix + Mini ROC -->
+    <rect x="418" y="70" width="194" height="276" rx="12" fill="#FFFFFF" fill-opacity="0.92" stroke="#CBD5E1" stroke-width="1"/>
+    <text x="432" y="90" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#0A0E17">Gate Matrix (50×50)</text>
+
+    <!-- 11x11 Stylized Banded Adjacency Matrix (x=449, y=102, cell=12, total=132x132) -->
+    <rect x="449" y="102" width="132" height="132" rx="4" fill="#F7FAFF" stroke="#CBD5E1" stroke-width="1.2"/>
+
+    <!-- Band |i-j|=3 (Sky Blue) -->
+    <g fill="#0EA5E9" opacity="0.58">
+      <rect x="485" y="102" width="12" height="12"/><rect x="497" y="114" width="12" height="12"/><rect x="509" y="126" width="12" height="12"/>
+      <rect x="521" y="138" width="12" height="12"/><rect x="533" y="150" width="12" height="12"/><rect x="545" y="162" width="12" height="12"/>
+      <rect x="557" y="174" width="12" height="12"/><rect x="569" y="186" width="12" height="12"/>
+      <rect x="449" y="138" width="12" height="12"/><rect x="461" y="150" width="12" height="12"/><rect x="473" y="162" width="12" height="12"/>
+      <rect x="485" y="174" width="12" height="12"/><rect x="497" y="186" width="12" height="12"/><rect x="509" y="198" width="12" height="12"/>
+      <rect x="521" y="210" width="12" height="12"/><rect x="533" y="222" width="12" height="12"/>
+    </g>
+
+    <!-- Band |i-j|=2 (Primary Blue) -->
+    <g fill="#0052FF" opacity="0.76">
+      <rect x="473" y="102" width="12" height="12"/><rect x="485" y="114" width="12" height="12"/><rect x="497" y="126" width="12" height="12"/>
+      <rect x="509" y="138" width="12" height="12"/><rect x="521" y="150" width="12" height="12"/><rect x="533" y="162" width="12" height="12"/>
+      <rect x="545" y="174" width="12" height="12"/><rect x="557" y="186" width="12" height="12"/><rect x="569" y="198" width="12" height="12"/>
+      <rect x="449" y="126" width="12" height="12"/><rect x="461" y="138" width="12" height="12"/><rect x="473" y="150" width="12" height="12"/>
+      <rect x="485" y="162" width="12" height="12"/><rect x="497" y="174" width="12" height="12"/><rect x="509" y="186" width="12" height="12"/>
+      <rect x="521" y="198" width="12" height="12"/><rect x="533" y="210" width="12" height="12"/><rect x="545" y="222" width="12" height="12"/>
+    </g>
+
+    <!-- Band |i-j|=1 (Deep Navy-Blue) -->
+    <g fill="#0A1E5E" opacity="0.90">
+      <rect x="461" y="102" width="12" height="12"/><rect x="473" y="114" width="12" height="12"/><rect x="485" y="126" width="12" height="12"/>
+      <rect x="497" y="138" width="12" height="12"/><rect x="509" y="150" width="12" height="12"/><rect x="521" y="162" width="12" height="12"/>
+      <rect x="533" y="174" width="12" height="12"/><rect x="545" y="186" width="12" height="12"/><rect x="557" y="198" width="12" height="12"/>
+      <rect x="569" y="210" width="12" height="12"/>
+      <rect x="449" y="114" width="12" height="12"/><rect x="461" y="126" width="12" height="12"/><rect x="473" y="138" width="12" height="12"/>
+      <rect x="485" y="150" width="12" height="12"/><rect x="497" y="162" width="12" height="12"/><rect x="509" y="174" width="12" height="12"/>
+      <rect x="521" y="186" width="12" height="12"/><rect x="533" y="198" width="12" height="12"/><rect x="545" y="210" width="12" height="12"/>
+      <rect x="557" y="222" width="12" height="12"/>
+    </g>
+
+    <!-- Zeroed Diagonal Cells -->
+    <g fill="#FFFFFF">
+      <rect x="449" y="102" width="12" height="12"/><rect x="461" y="114" width="12" height="12"/><rect x="473" y="126" width="12" height="12"/>
+      <rect x="485" y="138" width="12" height="12"/><rect x="497" y="150" width="12" height="12"/><rect x="509" y="162" width="12" height="12"/>
+      <rect x="521" y="174" width="12" height="12"/><rect x="533" y="186" width="12" height="12"/><rect x="545" y="198" width="12" height="12"/>
+      <rect x="557" y="210" width="12" height="12"/><rect x="569" y="222" width="12" height="12"/>
+    </g>
+    <!-- Subtle Matrix Outer Border -->
+    <rect x="449" y="102" width="132" height="132" rx="4" fill="none" stroke="#CBD5E1" stroke-width="1.2"/>
+
+    <text x="515" y="252" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#0052FF">3rd-Order Band |i−j| ≤ 3</text>
+
+    <!-- Bottom Mini ROC Inset -->
+    <rect x="434" y="266" width="162" height="68" rx="8" fill="#F7FAFF" stroke="#DBEAFE" stroke-width="1"/>
+    <line x1="448" y1="274" x2="448" y2="324" stroke="#475569" stroke-width="1.4"/>
+    <line x1="448" y1="324" x2="508" y2="324" stroke="#475569" stroke-width="1.4"/>
+    <line x1="448" y1="324" x2="508" y2="274" stroke="#CBD5E1" stroke-width="1.2" stroke-dasharray="3 3"/>
+    <path d="M 448 324 C 450 286 462 276 508 274 L 508 324 Z" fill="url(#roc-fill)"/>
+    <path d="M 448 324 C 450 286 462 276 508 274" fill="none" stroke="#0052FF" stroke-width="2.5" stroke-linecap="round"/>
+
+    <text x="520" y="294" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">Full-matrix</text>
+    <text x="520" y="314" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#0052FF">ROC AUC ↑</text>
+
+    <!-- Footer -->
+    <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-width="1" opacity="0.8"/>
+    <text x="28" y="378" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#475569">Nonparanormal 50-var · cubic transform · 10 trials</text>
+    <text x="612" y="378" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5">
+      <tspan fill="#475569">Target: </tspan><tspan font-weight="700" fill="#0052FF">edge_auc ↑</tspan>
+    </text>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="15.5" fill="none" stroke="#CBD5E1" stroke-width="1" opacity="0.75"/>
+</svg>

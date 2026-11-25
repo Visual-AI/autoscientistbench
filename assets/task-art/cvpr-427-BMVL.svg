@@ -1,0 +1,185 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>BMVL — Noisy Multi-View Correspondence Learning</title>
+  <desc>Three heterogeneous views with 50% permuted test-time correspondence pass through cross-view symmetric KL agreement and reliability gates to weight clean views over corrupted views for robust class fusion.</desc>
+  <defs>
+    <clipPath id="cardClip">
+      <rect x="0" y="0" width="640" height="400" rx="16"/>
+    </clipPath>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F7FAFF"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0052FF"/>
+      <stop offset="100%" stop-color="#0EA5E9"/>
+    </linearGradient>
+    <pattern id="dotGrid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="12" cy="12" r="1.1" fill="#0A1E5E" opacity="0.16"/>
+    </pattern>
+    <marker id="arrPri" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M1,1.5 L9,5 L1,8.5 L3,5 Z" fill="#0052FF"/>
+    </marker>
+    <marker id="arrSec" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M1,1.5 L9,5 L1,8.5 L3,5 Z" fill="#0EA5E9"/>
+    </marker>
+    <marker id="arrErr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M1,1.5 L9,5 L1,8.5 L3,5 Z" fill="#E11D48"/>
+    </marker>
+    <marker id="arrOk" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M1,1.5 L9,5 L1,8.5 L3,5 Z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- Base Card -->
+  <g clip-path="url(#cardClip)">
+    <rect x="0" y="0" width="640" height="400" fill="url(#bgGrad)"/>
+    <rect x="20" y="60" width="600" height="294" fill="url(#dotGrid)"/>
+    <rect x="0" y="0" width="640" height="3.5" fill="url(#accentGrad)"/>
+  </g>
+  <rect x="0.75" y="0.75" width="638.5" height="398.5" rx="15.25" fill="none" stroke="#CBD5E1" stroke-opacity="0.75" stroke-width="1.5"/>
+
+  <!-- Top Header -->
+  <text x="28" y="38" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="700" fill="#0A0E17" letter-spacing="-0.2">BMVL</text>
+  <text x="612" y="37" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="500" fill="#475569">Noisy Multi-View Correspondence</text>
+  <line x1="28" y1="54" x2="612" y2="54" stroke="#CBD5E1" stroke-opacity="0.6" stroke-width="1"/>
+
+  <!-- Column Headers -->
+  <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" fill="#0A1E5E" text-anchor="middle">
+    <text x="110" y="80">Multi-View Inputs</text>
+    <text x="292" y="80">Sym-KL Agreement</text>
+    <text x="412" y="80">Router rₘ</text>
+    <text x="556" y="80">Fused Output</text>
+  </g>
+
+  <!-- COLUMN 1: Multi-View Tracks with 50% Corrupted Correspondence -->
+  <!-- Aligned Correspondence Links V1 <-> V2 -->
+  <g stroke="#059669" stroke-width="2.2" stroke-linecap="round">
+    <line x1="88" y1="146" x2="88" y2="174"/>
+    <line x1="126" y1="146" x2="126" y2="174"/>
+    <line x1="164" y1="146" x2="164" y2="174"/>
+  </g>
+
+  <!-- Permuted / Tangled Correspondence Links V2 <-> V3 (Noise eta=50%) -->
+  <g fill="none" stroke="#E11D48" stroke-width="2" stroke-dasharray="4 3" stroke-linecap="round">
+    <path d="M88,228 C88,247 126,245 126,264"/>
+    <path d="M126,228 C126,247 164,245 164,264"/>
+    <path d="M164,228 C164,250 88,242 88,264"/>
+  </g>
+
+  <!-- View 1 Card (Clean) -->
+  <rect x="32" y="96" width="156" height="50" rx="10" fill="#FFFFFF" stroke="#0052FF" stroke-opacity="0.45" stroke-width="1.5"/>
+  <text x="46" y="126" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#0052FF">V₁</text>
+  <circle cx="88" cy="121" r="9.5" fill="#DBEAFE" stroke="#0052FF" stroke-width="2"/>
+  <rect x="117" y="112" width="18" height="18" rx="3.5" fill="#DBEAFE" stroke="#0052FF" stroke-width="2"/>
+  <polygon points="164,111 174,121 164,131 154,121" fill="#DBEAFE" stroke="#0052FF" stroke-width="2"/>
+
+  <!-- View 2 Card (Clean) -->
+  <rect x="32" y="176" width="156" height="50" rx="10" fill="#FFFFFF" stroke="#0EA5E9" stroke-opacity="0.55" stroke-width="1.5"/>
+  <text x="46" y="206" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#0EA5E9">V₂</text>
+  <circle cx="88" cy="201" r="9.5" fill="#DBEAFE" stroke="#0EA5E9" stroke-width="2"/>
+  <rect x="117" y="192" width="18" height="18" rx="3.5" fill="#DBEAFE" stroke="#0EA5E9" stroke-width="2"/>
+  <polygon points="164,191 174,201 164,211 154,201" fill="#DBEAFE" stroke="#0EA5E9" stroke-width="2"/>
+
+  <!-- View 3 Card (Corrupted / Permuted) -->
+  <rect x="32" y="266" width="156" height="50" rx="10" fill="#FFFFFF" stroke="#E11D48" stroke-opacity="0.65" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <text x="46" y="296" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#E11D48">V₃</text>
+  <!-- Permuted order: diamond, circle, square -->
+  <polygon points="88,281 98,291 88,301 78,291" fill="#E11D48" fill-opacity="0.14" stroke="#E11D48" stroke-width="2"/>
+  <circle cx="126" cy="291" r="9.5" fill="#E11D48" fill-opacity="0.14" stroke="#E11D48" stroke-width="2"/>
+  <rect x="155" y="282" width="18" height="18" rx="3.5" fill="#E11D48" fill-opacity="0.14" stroke="#E11D48" stroke-width="2"/>
+
+  <text x="110" y="338" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#E11D48">Permuted views (η = 50%)</text>
+
+  <!-- Feed Arrows: Views -> Per-View Distributions p_m -->
+  <line x1="188" y1="121" x2="232" y2="121" stroke="#0052FF" stroke-width="2.2" marker-end="url(#arrPri)"/>
+  <line x1="188" y1="201" x2="232" y2="201" stroke="#0EA5E9" stroke-width="2.2" marker-end="url(#arrSec)"/>
+  <line x1="188" y1="291" x2="232" y2="291" stroke="#E11D48" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arrErr)"/>
+
+  <!-- COLUMN 2: Per-View Distributions & Pairwise Sym-KL Bonds -->
+  <!-- Pairwise Agreement / Disagreement Bonds -->
+  <!-- p1 <-> p2: Low KL (Strong Vertical Bond) -->
+  <line x1="258" y1="141" x2="258" y2="181" stroke="#059669" stroke-width="3.6" stroke-linecap="round"/>
+  <!-- p2 <-> p3: High KL (Disagreement Vertical Dashed Bond) -->
+  <line x1="258" y1="221" x2="258" y2="271" stroke="#E11D48" stroke-width="2.2" stroke-dasharray="4 3" stroke-linecap="round"/>
+  <!-- p1 <-> p3: Outer High KL Arc -->
+  <path d="M276,128 C326,154 326,258 276,284" fill="none" stroke="#E11D48" stroke-width="1.9" stroke-dasharray="4 3" stroke-opacity="0.82" stroke-linecap="round"/>
+
+  <!-- Distribution Nodes -->
+  <circle cx="258" cy="121" r="20" fill="#FFFFFF" stroke="#0052FF" stroke-width="2.6"/>
+  <text x="258" y="126" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#0A1E5E">p₁</text>
+
+  <circle cx="258" cy="201" r="20" fill="#FFFFFF" stroke="#0EA5E9" stroke-width="2.6"/>
+  <text x="258" y="206" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#0A1E5E">p₂</text>
+
+  <circle cx="258" cy="291" r="20" fill="#FFFFFF" stroke="#E11D48" stroke-width="2.4" stroke-dasharray="4 2.5"/>
+  <text x="258" y="296" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#E11D48">p₃</text>
+
+  <!-- KL Agreement Pills (centered in clear whitespace pockets between x=188 and x=258) -->
+  <rect x="198" y="151" width="50" height="20" rx="10" fill="#FFFFFF" stroke="#059669" stroke-width="1.3"/>
+  <text x="223" y="165" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#059669">Low KL</text>
+
+  <rect x="196" y="236" width="54" height="20" rx="10" fill="#FFFFFF" stroke="#E11D48" stroke-width="1.3"/>
+  <text x="223" y="250" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#E11D48">High KL</text>
+
+  <!-- Connectors from Distributions to Router Bars -->
+  <line x1="278" y1="121" x2="358" y2="121" stroke="#CBD5E1" stroke-width="1.6"/>
+  <line x1="278" y1="201" x2="358" y2="201" stroke="#CBD5E1" stroke-width="1.6"/>
+  <line x1="278" y1="291" x2="358" y2="291" stroke="#CBD5E1" stroke-width="1.6" stroke-dasharray="3 3"/>
+
+  <!-- COLUMN 3: Reliability Gate Cards (r_m in [0,1]) -->
+  <!-- r1 = 0.92 -->
+  <rect x="360" y="99" width="102" height="44" rx="9" fill="#FFFFFF" stroke="#0052FF" stroke-opacity="0.45" stroke-width="1.5"/>
+  <text x="370" y="116" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#0A1E5E">r₁</text>
+  <text x="452" y="116" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#0052FF">0.92</text>
+  <rect x="370" y="124" width="82" height="9" rx="4.5" fill="#DBEAFE"/>
+  <rect x="370" y="124" width="75" height="9" rx="4.5" fill="#0052FF"/>
+
+  <!-- r2 = 0.88 -->
+  <rect x="360" y="179" width="102" height="44" rx="9" fill="#FFFFFF" stroke="#0EA5E9" stroke-opacity="0.55" stroke-width="1.5"/>
+  <text x="370" y="196" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#0A1E5E">r₂</text>
+  <text x="452" y="196" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#0EA5E9">0.88</text>
+  <rect x="370" y="204" width="82" height="9" rx="4.5" fill="#DBEAFE"/>
+  <rect x="370" y="204" width="72" height="9" rx="4.5" fill="#0EA5E9"/>
+
+  <!-- r3 = 0.12 -->
+  <rect x="360" y="269" width="102" height="44" rx="9" fill="#FFFFFF" stroke="#E11D48" stroke-opacity="0.5" stroke-width="1.5"/>
+  <text x="370" y="286" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#E11D48">r₃</text>
+  <text x="452" y="286" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#E11D48">0.12</text>
+  <rect x="370" y="294" width="82" height="9" rx="4.5" fill="#E11D48" fill-opacity="0.14"/>
+  <rect x="370" y="294" width="12" height="9" rx="4.5" fill="#E11D48"/>
+
+  <text x="411" y="338" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="500" fill="#475569">Entropy + KL</text>
+
+  <!-- COLUMN 4: Weighted Fusion Ribbons -> Sum Hub -> Class Spectrum -->
+  <!-- Weighted Ribbons -->
+  <path d="M462,121 C488,121 486,184 504,193" fill="none" stroke="#0052FF" stroke-width="5.5" stroke-opacity="0.82" stroke-linecap="round"/>
+  <path d="M462,201 C480,201 486,201 502,201" fill="none" stroke="#0EA5E9" stroke-width="5" stroke-opacity="0.85" stroke-linecap="round"/>
+  <path d="M462,291 C490,291 488,218 505,210" fill="none" stroke="#E11D48" stroke-width="1.6" stroke-dasharray="4 3" stroke-opacity="0.7" stroke-linecap="round"/>
+
+  <!-- Fusion Sum Hub -->
+  <circle cx="512" cy="201" r="15" fill="#0052FF" stroke="#FFFFFF" stroke-width="2.5"/>
+  <text x="512" y="206" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="700" fill="#FFFFFF">Σ</text>
+  <line x1="527" y1="201" x2="539" y2="201" stroke="#059669" stroke-width="2.2" marker-end="url(#arrOk)"/>
+
+  <!-- Fused Class Probability Peak Card -->
+  <rect x="544" y="106" width="66" height="196" rx="12" fill="#FFFFFF" stroke="#059669" stroke-width="1.8"/>
+  <text x="577" y="130" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="700" fill="#059669">ŷ</text>
+  <!-- Bar chart baseline -->
+  <line x1="554" y1="262" x2="600" y2="262" stroke="#CBD5E1" stroke-width="1.5"/>
+  <rect x="556" y="246" width="7" height="16" rx="2" fill="#DBEAFE"/>
+  <rect x="565" y="236" width="7" height="26" rx="2" fill="#0EA5E9" fill-opacity="0.5"/>
+  <rect x="574" y="152" width="8" height="110" rx="2.5" fill="#059669"/>
+  <rect x="584" y="242" width="7" height="20" rx="2" fill="#0EA5E9" fill-opacity="0.5"/>
+  <rect x="593" y="250" width="6" height="12" rx="2" fill="#DBEAFE"/>
+  <text x="577" y="286" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#0A1E5E">Class</text>
+
+  <text x="556" y="338" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#059669">Σ rₘ zₘ</text>
+
+  <!-- Bottom Footer -->
+  <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-opacity="0.6" stroke-width="1"/>
+  <text x="28" y="378" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="500" fill="#475569">5 multi-view datasets · clean guard ≥ 91.8%</text>
+  <text x="612" y="378" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5">
+    <tspan fill="#475569" font-weight="500">Target </tspan>
+    <tspan fill="#0052FF" font-weight="700">acc_eta50 ↑</tspan>
+  </text>
+</svg>

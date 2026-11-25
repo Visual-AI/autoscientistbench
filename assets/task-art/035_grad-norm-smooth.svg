@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>GradNormSmooth — Gradient-Normalized Newton Optimization</title>
+  <desc>Convex LogSumExp contour landscape with expanding gradient-normalized smoothness trust regions and superlinear Newton iterates, paired with a log-suboptimality convergence cliff crossing 1e-7.</desc>
+  <defs>
+    <clipPath id="card-clip">
+      <rect x="0.5" y="0.5" width="639" height="399" rx="14"/>
+    </clipPath>
+    <clipPath id="contour-clip">
+      <rect x="35" y="71" width="340" height="276" rx="9"/>
+    </clipPath>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F7F6FF"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="accent-bar" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4F46E5"/>
+      <stop offset="100%" stop-color="#8B5CF6"/>
+    </linearGradient>
+    <pattern id="dot-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1" fill="#475569" fill-opacity="0.16"/>
+    </pattern>
+    <marker id="arrow-indigo" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 1 1.5 L 9 5 L 1 8.5 z" fill="#4F46E5"/>
+    </marker>
+    <marker id="arrow-rose" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
+      <path d="M 1 1.5 L 9 5 L 1 8.5 z" fill="#E11D48"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#card-clip)" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <!-- Base luminous plate -->
+    <rect x="0" y="0" width="640" height="400" fill="url(#bg-grad)"/>
+    <rect x="24" y="60" width="592" height="292" fill="url(#dot-grid)"/>
+    <rect x="0" y="0" width="640" height="3.5" fill="url(#accent-bar)"/>
+
+    <!-- Header -->
+    <text x="28" y="36" font-size="18" font-weight="700" fill="#0A0E17" letter-spacing="-0.3">GradNormSmooth</text>
+    <text x="612" y="35" text-anchor="end" font-size="12.5" font-weight="500" fill="#475569">Gradient-Normalized Newton Optimization</text>
+    <line x1="28" y1="52" x2="612" y2="52" stroke="#CBD5E1" stroke-opacity="0.6" stroke-width="1"/>
+
+    <!-- LEFT PANEL: Centered LogSumExp Convex Contours + Adaptive Trust Ellipses -->
+    <rect x="34" y="70" width="342" height="278" rx="10" fill="#FFFFFF" fill-opacity="0.72" stroke="#CBD5E1" stroke-width="1"/>
+    <text x="50" y="92" font-size="12.5" font-weight="600" fill="#261E6B">LogSumExp Contours</text>
+
+    <!-- Nested smooth polyhedral-convex LogSumExp level sets around x* = (284, 152), clipped cleanly to left panel -->
+    <g clip-path="url(#contour-clip)">
+      <ellipse cx="212" cy="204" rx="144" ry="74" transform="rotate(-30 212 204)" fill="#E0E7FF" fill-opacity="0.18" stroke="#8B5CF6" stroke-opacity="0.28" stroke-width="1.2"/>
+      <ellipse cx="232" cy="189" rx="112" ry="57" transform="rotate(-30 232 189)" fill="#E0E7FF" fill-opacity="0.22" stroke="#8B5CF6" stroke-opacity="0.34" stroke-width="1.3"/>
+      <ellipse cx="252" cy="175" rx="80" ry="42" transform="rotate(-30 252 175)" fill="#E0E7FF" fill-opacity="0.26" stroke="#4F46E5" stroke-opacity="0.40" stroke-width="1.4"/>
+      <ellipse cx="269" cy="162" rx="48" ry="26" transform="rotate(-30 269 162)" fill="#E0E7FF" fill-opacity="0.34" stroke="#4F46E5" stroke-opacity="0.52" stroke-width="1.5"/>
+      <ellipse cx="284" cy="152" rx="22" ry="13" transform="rotate(-30 284 152)" fill="#4F46E5" fill-opacity="0.14" stroke="#4F46E5" stroke-opacity="0.65" stroke-width="1.6"/>
+    </g>
+
+    <!-- Expanding Gradient-Normalized Smoothness trust radii -->
+    <ellipse cx="152" cy="244" rx="34" ry="23" transform="rotate(-18 152 244)"
+             fill="#8B5CF6" fill-opacity="0.10" stroke="#8B5CF6" stroke-width="1.6" stroke-dasharray="4,3"/>
+    <ellipse cx="222" cy="192" rx="50" ry="33" transform="rotate(-20 222 192)"
+             fill="#4F46E5" fill-opacity="0.11" stroke="#4F46E5" stroke-width="1.8" stroke-dasharray="5,3"/>
+
+    <!-- Slower comparison trajectory (gradient search) -->
+    <path d="M 80 294 L 136 284 L 190 264 L 236 234 L 266 196 L 280 164"
+          fill="none" stroke="#8B5CF6" stroke-opacity="0.65" stroke-width="2" stroke-dasharray="4,3"/>
+
+    <!-- Rejected candidate step (halves gamma) -->
+    <line x1="152" y1="244" x2="122" y2="196" stroke="#E11D48" stroke-width="1.8" stroke-dasharray="3,2.5" marker-end="url(#arrow-rose)"/>
+    <path d="M 113 185 L 121 193 M 121 185 L 113 193" stroke="#E11D48" stroke-width="2.2" stroke-linecap="round"/>
+    <text x="108" y="176" text-anchor="middle" font-size="11.5" font-weight="700" fill="#E11D48">γ ← γ/2</text>
+
+    <!-- Accepted Function-Search Newton trajectory -->
+    <line x1="80" y1="294" x2="145" y2="249" stroke="#4F46E5" stroke-width="3" marker-end="url(#arrow-indigo)"/>
+    <line x1="152" y1="244" x2="215" y2="197" stroke="#4F46E5" stroke-width="3" marker-end="url(#arrow-indigo)"/>
+    <line x1="222" y1="192" x2="262" y2="166" stroke="#4F46E5" stroke-width="3" marker-end="url(#arrow-indigo)"/>
+    <line x1="268" y1="162" x2="278" y2="156" stroke="#4F46E5" stroke-width="2.6"/>
+
+    <!-- Iterates & Optimum -->
+    <circle cx="80" cy="294" r="5.2" fill="#FFFFFF" stroke="#261E6B" stroke-width="2.4"/>
+    <circle cx="152" cy="244" r="4.6" fill="#4F46E5" stroke="#FFFFFF" stroke-width="1.6"/>
+    <circle cx="222" cy="192" r="4.6" fill="#4F46E5" stroke="#FFFFFF" stroke-width="1.6"/>
+    <circle cx="268" cy="162" r="4.2" fill="#4F46E5" stroke="#FFFFFF" stroke-width="1.5"/>
+    <!-- Emerald optimum beacon x* -->
+    <circle cx="284" cy="152" r="8.5" fill="#059669" fill-opacity="0.2"/>
+    <circle cx="284" cy="152" r="4.8" fill="#059669" stroke="#FFFFFF" stroke-width="1.6"/>
+
+    <!-- Clean labels in left panel -->
+    <text x="80" y="317" text-anchor="middle" font-size="12" font-weight="600" fill="#261E6B">x₀ = 1</text>
+    <text x="304" y="148" font-size="13" font-weight="700" fill="#059669">x*</text>
+    <text x="208" y="132" text-anchor="middle" font-size="11.5" font-weight="600" fill="#4F46E5">Radius γ</text>
+    <line x1="210" y1="138" x2="216" y2="156" stroke="#4F46E5" stroke-width="1.3"/>
+
+    <!-- Regularization formula pill -->
+    <rect x="234" y="312" width="128" height="24" rx="12" fill="#E0E7FF" stroke="#4F46E5" stroke-opacity="0.35" stroke-width="1"/>
+    <text x="298" y="328" text-anchor="middle" font-size="11.5" font-weight="700" fill="#261E6B">λ = ‖g‖_* / γ</text>
+
+    <!-- RIGHT PANEL: Log-Suboptimality Convergence Plot -->
+    <rect x="390" y="70" width="222" height="278" rx="10" fill="#FFFFFF" fill-opacity="0.92" stroke="#CBD5E1" stroke-width="1"/>
+    <text x="501" y="92" text-anchor="middle" font-size="12.5" font-weight="600" fill="#261E6B">Suboptimality f(x_k) − f*</text>
+
+    <!-- Plot axes -->
+    <line x1="428" y1="110" x2="428" y2="306" stroke="#475569" stroke-width="1.3"/>
+    <line x1="428" y1="306" x2="596" y2="306" stroke="#475569" stroke-width="1.3"/>
+
+    <!-- Y-axis log ticks -->
+    <text x="422" y="124" text-anchor="end" font-size="10.5" fill="#475569">10⁰</text>
+    <text x="422" y="196" text-anchor="end" font-size="10.5" fill="#475569">10⁻⁴</text>
+    <text x="422" y="268" text-anchor="end" font-size="10.5" font-weight="700" fill="#059669">10⁻⁷</text>
+
+    <!-- 1e-7 Accuracy Target Threshold -->
+    <line x1="428" y1="264" x2="596" y2="264" stroke="#059669" stroke-width="2" stroke-dasharray="5,4"/>
+
+    <!-- Gradient Search slower curve -->
+    <path d="M 430 120 C 468 130, 512 146, 548 170 C 570 186, 584 206, 594 232"
+          fill="none" stroke="#8B5CF6" stroke-width="2.4" stroke-dasharray="5,3"/>
+
+    <!-- Function Search fast superlinear Newton cliff -->
+    <path d="M 430 120 C 446 138, 460 166, 470 202 C 478 230, 482 252, 490 296"
+          fill="none" stroke="#4F46E5" stroke-width="3.2" stroke-linecap="round"/>
+
+    <!-- Crossing marker at 1e-7 -->
+    <line x1="484" y1="264" x2="484" y2="306" stroke="#059669" stroke-width="1.4" stroke-dasharray="3,2"/>
+    <circle cx="484" cy="264" r="5" fill="#059669" stroke="#FFFFFF" stroke-width="1.8"/>
+
+    <!-- Curve labels (clear separation) -->
+    <text x="546" y="144" text-anchor="middle" font-size="11.5" font-weight="600" fill="#8B5CF6">Grad Search</text>
+    <text x="534" y="232" text-anchor="middle" font-size="11.5" font-weight="700" fill="#4F46E5">Func Search</text>
+    <text x="512" y="332" text-anchor="middle" font-size="11.5" font-weight="500" fill="#475569">Accepted Updates k</text>
+
+    <!-- Footer -->
+    <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-opacity="0.6" stroke-width="1"/>
+    <text x="28" y="381" font-size="12" font-weight="500" fill="#475569">Centered LogSumExp · ≤25 grad · ≤24 solves</text>
+    <text x="612" y="381" text-anchor="end" font-size="12.5" fill="#475569">Target: <tspan font-weight="700" fill="#4F46E5">iterations ↓</tspan></text>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="14" fill="none" stroke="#CBD5E1" stroke-opacity="0.75" stroke-width="1"/>
+</svg>

@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>KAN-AD: Fourier-KAN Time Series Anomaly Detection</title>
+  <desc>Periodic and value-modulated Fourier cosine harmonics feed a residual KAN-Conv network to forecast normal univariate dynamics, exposing point anomalies as residual spikes crossing threshold tau within the k=5 delay window.</desc>
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F7FAFF"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="topBar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0052FF"/>
+      <stop offset="100%" stop-color="#0EA5E9"/>
+    </linearGradient>
+    <linearGradient id="spikeGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#E11D48" stop-opacity="0.32"/>
+      <stop offset="100%" stop-color="#E11D48" stop-opacity="0.03"/>
+    </linearGradient>
+    <pattern id="dotGrid" width="16" height="16" patternUnits="userSpaceOnUse">
+      <circle cx="8" cy="8" r="0.9" fill="#475569" fill-opacity="0.16"/>
+    </pattern>
+    <clipPath id="cardClip">
+      <rect x="0.5" y="0.5" width="639" height="399" rx="14"/>
+    </clipPath>
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 1 1.5 L 8.5 5 L 1 8.5 z" fill="#0052FF"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#cardClip)">
+    <rect x="0" y="0" width="640" height="400" fill="url(#bgGrad)"/>
+    <rect x="0" y="52" width="640" height="306" fill="url(#dotGrid)"/>
+    <rect x="0" y="0" width="640" height="3.5" fill="url(#topBar)"/>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="14" fill="none" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- Header -->
+  <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <text x="28" y="36" font-size="18" font-weight="700" fill="#0A0E17">KAN-AD</text>
+    <text x="612" y="35" text-anchor="end" font-size="12.5" font-weight="500" fill="#475569">Fourier-KAN Anomaly Detection</text>
+  </g>
+  <line x1="28" y1="52" x2="612" y2="52" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.7"/>
+
+  <!-- Top-Left Panel: Fourier-KAN Basis Expansion -->
+  <rect x="28" y="70" width="180" height="134" rx="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <text x="42" y="90" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0A1E5E">Fourier Basis</text>
+
+  <!-- 3 Stacked Harmonic Cosine Basis Waves -->
+  <g fill="none" stroke-linecap="round">
+    <path d="M 42 116 C 58 102, 74 102, 90 116 C 106 130, 122 130, 138 116" stroke="#0EA5E9" stroke-width="2.4"/>
+    <path d="M 42 148 C 50 136, 58 136, 66 148 C 74 160, 82 160, 90 148 C 98 136, 106 136, 114 148 C 122 160, 130 160, 138 148" stroke="#0052FF" stroke-width="2.4"/>
+    <path d="M 42 180 C 52 170, 62 190, 76 174 C 90 158, 104 192, 118 176 C 128 168, 134 182, 138 178" stroke="#0A1E5E" stroke-width="2.2"/>
+  </g>
+  <!-- Residual KAN-Conv Capsule -->
+  <rect x="156" y="100" width="38" height="92" rx="9" fill="#DBEAFE" stroke="#0052FF" stroke-width="1.8"/>
+  <text x="175" y="146" text-anchor="middle" dominant-baseline="central" transform="rotate(-90 175 146)" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#0A1E5E">KAN-Conv</text>
+
+  <!-- Arrow from Basis to Signal Forecast Panel -->
+  <line x1="208" y1="138" x2="222" y2="138" stroke="#0052FF" stroke-width="2.2" marker-end="url(#arrowBlue)"/>
+
+  <!-- Top-Right Panel: Observed Univariate Signal y vs KAN Forecast y_hat -->
+  <rect x="226" y="70" width="386" height="134" rx="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <text x="242" y="90" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0A1E5E">Signal y vs Normal ŷ</text>
+
+  <!-- Synchronized Anomaly Event Vertical Bands (Top Panel) -->
+  <rect x="342" y="100" width="60" height="96" rx="4" fill="#E11D48" fill-opacity="0.1"/>
+  <!-- Early Detection Delay Window (k=5) inside Event 1 -->
+  <rect x="342" y="100" width="22" height="96" rx="3" fill="#059669" fill-opacity="0.18"/>
+  <line x1="364" y1="100" x2="364" y2="196" stroke="#059669" stroke-width="1.2" stroke-dasharray="3 2"/>
+
+  <rect x="492" y="100" width="48" height="96" rx="4" fill="#E11D48" fill-opacity="0.1"/>
+
+  <!-- Smooth KAN Normal Baseline y_hat -->
+  <path d="M 240 154 C 264 134, 288 172, 314 152 C 340 132, 366 172, 392 152 C 418 132, 444 172, 470 152 C 496 132, 522 172, 548 152 C 570 136, 586 162, 600 150" fill="none" stroke="#0052FF" stroke-width="2.6" stroke-linecap="round"/>
+
+  <!-- Observed Signal y (follows baseline, erupts at Event 1 & Event 2) -->
+  <path d="M 240 156 C 264 137, 288 170, 314 153 C 326 144, 336 142, 344 146 L 352 114 L 364 126 L 376 106 L 388 132 L 400 148 C 422 134, 446 171, 470 153 C 480 144, 488 142, 496 146 L 506 188 L 518 172 L 528 190 L 538 156 C 562 140, 584 160, 600 151" fill="none" stroke="#0A1E5E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Highlighted Crimson Outlier Segments -->
+  <path d="M 344 146 L 352 114 L 364 126 L 376 106 L 388 132 L 400 148" fill="none" stroke="#E11D48" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 496 146 L 506 188 L 518 172 L 528 190 L 538 156" fill="none" stroke="#E11D48" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Early Detection Delay Pill cleanly below wave -->
+  <rect x="334" y="176" width="38" height="18" rx="5" fill="#FFFFFF" stroke="#059669" stroke-width="1.2"/>
+  <text x="353" y="189" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#059669">k=5</text>
+
+  <!-- Bottom Full-Width Panel: Residual Anomaly Score Strip |y - y_hat| -->
+  <rect x="28" y="218" width="584" height="126" rx="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <text x="44" y="238" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0A1E5E">Anomaly Score |y − ŷ|</text>
+
+  <!-- Initial 96-pt Context Region Tint -->
+  <rect x="42" y="246" width="96" height="84" rx="4" fill="#DBEAFE" fill-opacity="0.35"/>
+  <text x="90" y="302" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="500" fill="#475569">96-pt Context</text>
+
+  <!-- Synchronized Vertical Event Highlight Columns (Bottom Panel) -->
+  <rect x="342" y="244" width="60" height="86" rx="4" fill="#E11D48" fill-opacity="0.1"/>
+  <rect x="492" y="244" width="48" height="86" rx="4" fill="#E11D48" fill-opacity="0.1"/>
+
+  <!-- Baseline Floor -->
+  <line x1="42" y1="326" x2="598" y2="326" stroke="#CBD5E1" stroke-width="1.3"/>
+
+  <!-- Threshold Sweep Line tau -->
+  <line x1="42" y1="284" x2="598" y2="284" stroke="#0A0E17" stroke-width="1.6" stroke-dasharray="6 4"/>
+  <text x="150" y="276" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#0A0E17">Threshold τ</text>
+
+  <!-- Residual Score Fill for Anomaly Spikes -->
+  <path d="M 342 326 L 348 270 L 360 282 L 372 246 L 386 276 L 402 326 Z" fill="url(#spikeGrad)"/>
+  <path d="M 492 326 L 504 260 L 516 274 L 528 252 L 540 326 Z" fill="url(#spikeGrad)"/>
+
+  <!-- Normal Low Residual Floor -->
+  <path d="M 42 322 L 76 319 L 112 322 L 148 318 L 184 321 L 220 317 L 258 320 L 296 316 L 328 320 L 342 318" fill="none" stroke="#0052FF" stroke-width="2" stroke-linecap="round"/>
+  <path d="M 402 319 L 434 321 L 464 317 L 492 320" fill="none" stroke="#0052FF" stroke-width="2" stroke-linecap="round"/>
+  <path d="M 540 320 L 570 318 L 598 321" fill="none" stroke="#0052FF" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Sharp Crimson Residual Anomaly Spikes above Threshold -->
+  <path d="M 342 318 L 348 270 L 360 282 L 372 246 L 386 276 L 402 319" fill="none" stroke="#E11D48" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 492 320 L 504 260 L 516 274 L 528 252 L 540 320" fill="none" stroke="#E11D48" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="372" cy="246" r="4" fill="#E11D48" stroke="#FFFFFF" stroke-width="1.4"/>
+  <circle cx="528" cy="252" r="4" fill="#E11D48" stroke="#FFFFFF" stroke-width="1.4"/>
+
+  <!-- Clean Event F1 Detection Badges -->
+  <rect x="412" y="246" width="64" height="22" rx="7" fill="#059669" fill-opacity="0.14" stroke="#059669" stroke-width="1.2"/>
+  <text x="444" y="261" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#059669">Event 1</text>
+
+  <rect x="546" y="246" width="58" height="22" rx="7" fill="#059669" fill-opacity="0.14" stroke="#059669" stroke-width="1.2"/>
+  <text x="575" y="261" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#059669">Event 2</text>
+
+  <!-- Footer -->
+  <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.7"/>
+  <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5">
+    <text x="28" y="379" fill="#475569">4 Benchmarks · Delay-F1 Guard (k = 5)</text>
+    <text x="612" y="379" text-anchor="end" fill="#475569">Metric: <tspan font-weight="700" fill="#059669">Avg Event F1 ↑</tspan></text>
+  </g>
+</svg>

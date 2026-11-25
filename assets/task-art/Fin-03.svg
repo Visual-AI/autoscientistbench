@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>BayesNetRecon — Sequential Bayesian Interbank Network Reconstruction</title>
+  <desc>Chronological weekly eMID interbank networks calibrate an empirical Beta prior over Erdos-Renyi edge density, updating via the observed week to forecast next-week expected links before reveal while minimizing mean relative link error.</desc>
+  <defs>
+    <clipPath id="bayesnet-card-clip">
+      <rect width="640" height="400" rx="16"/>
+    </clipPath>
+    <linearGradient id="bayesnet-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F4FAFE"/>
+      <stop offset="58%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="bayesnet-bar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0284C7"/>
+      <stop offset="100%" stop-color="#06B6D4"/>
+    </linearGradient>
+    <linearGradient id="bayesnet-post-fill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0284C7" stop-opacity="0.30"/>
+      <stop offset="100%" stop-color="#E0F2FE" stop-opacity="0.05"/>
+    </linearGradient>
+    <pattern id="bayesnet-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#0C4366" fill-opacity="0.15"/>
+    </pattern>
+    <marker id="bayesnet-arrow-blue" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M1 1.5L9 5L1 8.5Z" fill="#0284C7"/>
+    </marker>
+    <marker id="bayesnet-arrow-dark" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M1 1.5L9 5L1 8.5Z" fill="#0C4366"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#bayesnet-card-clip)">
+    <rect width="640" height="400" fill="url(#bayesnet-bg)"/>
+    <rect x="28" y="60" width="584" height="294" fill="url(#bayesnet-grid)"/>
+    <rect x="0" y="0" width="640" height="3.5" fill="url(#bayesnet-bar)"/>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="15.5" fill="none" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- Header -->
+  <text x="28" y="37" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="700" fill="#0A0E17">BayesNetRecon</text>
+  <text x="612" y="37" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#475569">Sequential Bayesian Interbank Networks</text>
+  <line x1="28" y1="54" x2="612" y2="54" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- Left Half: Isometric Cascading Weekly Interbank Network Slabs -->
+  <text x="132" y="82" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0C4366">Weekly Network Panel</text>
+
+  <!-- Vertical causal time arrow -->
+  <line x1="132" y1="90" x2="132" y2="334" stroke="#CBD5E1" stroke-width="1.8" stroke-dasharray="4 3"/>
+
+  <!-- Slice 1: Week t-1 (History) -->
+  <polygon points="44,132 76,98 214,98 182,132" fill="#FFFFFF" fill-opacity="0.90" stroke="#CBD5E1" stroke-width="1.6"/>
+  <g stroke="#06B6D4" stroke-width="1.5" stroke-opacity="0.72">
+    <line x1="88" y1="110" x2="132" y2="105"/><line x1="132" y1="105" x2="178" y2="112"/>
+    <line x1="88" y1="110" x2="112" y2="124"/><line x1="112" y1="124" x2="156" y2="123"/>
+    <line x1="132" y1="105" x2="156" y2="123"/><line x1="178" y1="112" x2="156" y2="123"/>
+  </g>
+  <g fill="#06B6D4" stroke="#FFFFFF" stroke-width="1.2">
+    <circle cx="88" cy="110" r="4"/><circle cx="132" cy="105" r="4"/><circle cx="178" cy="112" r="4"/>
+    <circle cx="112" cy="124" r="4"/><circle cx="156" cy="123" r="4"/><circle cx="68" cy="122" r="3.5"/>
+  </g>
+  <text x="218" y="116" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">Week t−1</text>
+
+  <!-- Slice 2: Observed Week t (Active Update) -->
+  <polygon points="44,218 76,178 214,178 182,218" fill="#E0F2FE" fill-opacity="0.82" stroke="#0284C7" stroke-width="2.2"/>
+  <g stroke="#0284C7" stroke-width="1.9">
+    <line x1="86" y1="194" x2="130" y2="186"/><line x1="130" y1="186" x2="178" y2="192"/>
+    <line x1="86" y1="194" x2="110" y2="210"/><line x1="110" y1="210" x2="158" y2="208"/>
+    <line x1="130" y1="186" x2="158" y2="208"/><line x1="178" y1="192" x2="158" y2="208"/>
+    <line x1="86" y1="194" x2="158" y2="208"/><line x1="110" y1="210" x2="178" y2="192"/>
+    <line x1="68" y1="208" x2="86" y2="194"/><line x1="68" y1="208" x2="110" y2="210"/>
+  </g>
+  <g fill="#0C4366" stroke="#FFFFFF" stroke-width="1.4">
+    <circle cx="86" cy="194" r="4.5"/><circle cx="130" cy="186" r="4.5"/><circle cx="178" cy="192" r="4.5"/>
+    <circle cx="110" cy="210" r="4.5"/><circle cx="158" cy="208" r="4.5"/><circle cx="68" cy="208" r="4.2"/>
+  </g>
+  <text x="218" y="198" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#0284C7">Observe Lₜ</text>
+
+  <!-- Causal Forecast-Before-Observe Barrier -->
+  <line x1="40" y1="248" x2="262" y2="248" stroke="#0C4366" stroke-width="1.4" stroke-dasharray="5 3"/>
+
+  <!-- Slice 3: Forecast Week t+1 -->
+  <polygon points="44,316 76,276 214,276 182,316" fill="#FFFFFF" fill-opacity="0.82" stroke="#06B6D4" stroke-width="2" stroke-dasharray="6 4"/>
+  <g stroke="#06B6D4" stroke-width="1.6" stroke-dasharray="3 3">
+    <line x1="88" y1="292" x2="132" y2="284"/><line x1="132" y1="284" x2="178" y2="290"/>
+    <line x1="88" y1="292" x2="112" y2="308"/><line x1="112" y1="308" x2="156" y2="306"/>
+    <line x1="132" y1="284" x2="156" y2="306"/><line x1="178" y1="290" x2="156" y2="306"/>
+    <line x1="88" y1="292" x2="178" y2="290"/>
+  </g>
+  <g fill="#FFFFFF" stroke="#0284C7" stroke-width="2">
+    <circle cx="88" cy="292" r="4.2"/><circle cx="132" cy="284" r="4.2"/><circle cx="178" cy="290" r="4.2"/>
+    <circle cx="112" cy="308" r="4.2"/><circle cx="156" cy="306" r="4.2"/><circle cx="68" cy="304" r="3.8"/>
+  </g>
+  <text x="218" y="294" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#06B6D4">Forecast</text>
+  <text x="218" y="309" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">⟨Lₜ₊₁⟩ = Vp̂</text>
+
+  <!-- Curved connector from Observed slice to Posterior Update -->
+  <path d="M214 184 C252 162 270 144 302 144" fill="none" stroke="#0284C7" stroke-width="2.2" marker-end="url(#bayesnet-arrow-blue)"/>
+
+  <!-- Upper-Right Panel: Conjugate Beta Prior -> Posterior Update -->
+  <line x1="316" y1="84" x2="316" y2="180" stroke="#475569" stroke-width="1.6"/>
+  <line x1="316" y1="180" x2="602" y2="180" stroke="#475569" stroke-width="1.6"/>
+
+  <!-- Empirical Beta(alpha, beta) Prior -->
+  <path d="M324 180 C354 178 378 120 410 120 C442 120 468 178 510 180 Z" fill="#06B6D4" fill-opacity="0.16"/>
+  <path d="M324 180 C354 178 378 120 410 120 C442 120 468 178 510 180" fill="none" stroke="#06B6D4" stroke-width="2.4" stroke-dasharray="5 3"/>
+  <text x="378" y="106" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#06B6D4">Beta(α, β)</text>
+
+  <!-- Observed Conjugate Posterior -->
+  <path d="M406 180 C442 178 462 94 488 94 C514 94 532 178 574 180 Z" fill="url(#bayesnet-post-fill)"/>
+  <path d="M406 180 C442 178 462 94 488 94 C514 94 532 178 574 180" fill="none" stroke="#0284C7" stroke-width="3"/>
+  <line x1="488" y1="94" x2="488" y2="180" stroke="#0C4366" stroke-width="1.6" stroke-dasharray="3 2.5"/>
+  <circle cx="488" cy="180" r="4" fill="#0C4366"/>
+  <line x1="422" y1="112" x2="468" y2="112" stroke="#0C4366" stroke-width="1.8" marker-end="url(#bayesnet-arrow-dark)"/>
+  <text x="556" y="106" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0284C7">Posterior p̂</text>
+
+  <text x="459" y="202" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0C4366">p̂ = (α + L) / (α + β + M)</text>
+
+  <!-- Lower-Right Panel: Sequential Weekly Link-Count Forecast -->
+  <line x1="316" y1="226" x2="316" y2="322" stroke="#475569" stroke-width="1.6"/>
+  <line x1="316" y1="322" x2="602" y2="322" stroke="#475569" stroke-width="1.6"/>
+
+  <!-- Relative error residual ticks -->
+  <g stroke="#E11D48" stroke-width="2.2" stroke-linecap="round">
+    <line x1="364" y1="274" x2="364" y2="284"/>
+    <line x1="436" y1="252" x2="436" y2="266"/>
+    <line x1="508" y1="244" x2="508" y2="255"/>
+    <line x1="578" y1="240" x2="578" y2="251"/>
+  </g>
+
+  <!-- Observed L_t series -->
+  <polyline points="330,292 364,274 400,284 436,252 472,268 508,244 544,262 578,240 598,246" fill="none" stroke="#0C4366" stroke-width="2.5" stroke-linejoin="round"/>
+  <!-- Forecast V*p_hat series -->
+  <polyline points="330,295 364,284 400,280 436,266 472,262 508,255 544,258 578,251 598,249" fill="none" stroke="#0284C7" stroke-width="2.2" stroke-dasharray="5 3" stroke-linejoin="round"/>
+  <g fill="#0284C7" stroke="#FFFFFF" stroke-width="1.3">
+    <circle cx="364" cy="284" r="3.8"/><circle cx="436" cy="266" r="3.8"/>
+    <circle cx="508" cy="255" r="3.8"/><circle cx="578" cy="251" r="3.8"/>
+  </g>
+
+  <text x="364" y="236" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#0C4366">Observed L</text>
+  <text x="546" y="308" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#0284C7">Forecast V·p̂</text>
+  <text x="459" y="341" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">Chronological Weeks</text>
+
+  <!-- Footer -->
+  <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="28" y="380" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#475569">eMID Weekly Panel · Forecast-Before-Observe</text>
+  <text x="612" y="380" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#475569">Target: <tspan font-weight="700" fill="#0284C7">REₗ ↓</tspan></text>
+</svg>

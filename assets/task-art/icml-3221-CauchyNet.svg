@@ -1,0 +1,159 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>CauchyNet: Compact Holomorphic Activations for Gap-Filling Regression</title>
+  <desc>An ellipse of complex poles in the complex plane generates a compact 128-parameter rational holomorphic function that smoothly reconstructs a one-dimensional signal across unobserved withheld gaps.</desc>
+  <defs>
+    <clipPath id="card-clip">
+      <rect width="640" height="400" rx="16"/>
+    </clipPath>
+    <linearGradient id="bg-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F7FAFF"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <radialGradient id="ellipse-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0EA5E9" stop-opacity="0.16"/>
+      <stop offset="70%" stop-color="#0052FF" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#0052FF" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="dot-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#0052FF" opacity="0.16"/>
+    </pattern>
+    <marker id="arr-blue" markerWidth="7" markerHeight="7" refX="5.5" refY="3.5" orient="auto">
+      <path d="M0.5 0.5 L6.5 3.5 L0.5 6.5 Z" fill="#0052FF"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#card-clip)">
+    <!-- Plate Background -->
+    <rect width="640" height="400" fill="url(#bg-grad)"/>
+    <rect x="0" y="54" width="640" height="304" fill="url(#dot-grid)"/>
+    <rect x="0" y="0" width="640" height="3" fill="#0052FF"/>
+
+    <!-- Header -->
+    <text x="28" y="36" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="700" fill="#0A0E17">CauchyNet</text>
+    <text x="612" y="36" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#475569">Holomorphic Rational Gap-Filling</text>
+    <line x1="28" y1="54" x2="612" y2="54" stroke="#CBD5E1" stroke-width="1"/>
+
+    <!-- Left Panel: Complex Plane with Elliptical Poles -->
+    <rect x="28" y="70" width="266" height="276" rx="12" fill="#FFFFFF" fill-opacity="0.92" stroke="#CBD5E1" stroke-width="1"/>
+    <text x="42" y="90" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#0A0E17">Complex Plane ℂ</text>
+    <text x="280" y="90" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">r = (2.5, 0.4)</text>
+
+    <!-- Complex Axes -->
+    <line x1="42" y1="200" x2="280" y2="200" stroke="#CBD5E1" stroke-width="1.4"/>
+    <line x1="161" y1="108" x2="161" y2="288" stroke="#CBD5E1" stroke-width="1.4"/>
+    <text x="278" y="192" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">Re</text>
+    <text x="168" y="118" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">Im</text>
+
+    <!-- Concentric Holomorphic Analyticity Region -->
+    <ellipse cx="161" cy="200" rx="108" ry="52" fill="url(#ellipse-glow)"/>
+    <ellipse cx="161" cy="200" rx="74" ry="26" fill="none" stroke="#DBEAFE" stroke-width="1.5"/>
+    <ellipse cx="161" cy="200" rx="100" ry="44" fill="none" stroke="#0052FF" stroke-width="2" stroke-dasharray="4 3"/>
+
+    <!-- Real Domain Segment x in R -->
+    <line x1="92" y1="200" x2="230" y2="200" stroke="#0A1E5E" stroke-width="3.2" stroke-linecap="round"/>
+    <!-- Gap Markers on Real Line -->
+    <line x1="120" y1="200" x2="144" y2="200" stroke="#E11D48" stroke-width="3.6"/>
+    <line x1="178" y1="200" x2="202" y2="200" stroke="#E11D48" stroke-width="3.6"/>
+    <text x="161" y="216" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#0A1E5E">x ∈ ℝ</text>
+
+    <!-- 20 Elliptical Complex Poles (rx=100, ry=44 around 161, 200) -->
+    <g stroke="#FFFFFF" stroke-width="1.3">
+      <circle cx="261.0" cy="200.0" r="4" fill="#0052FF"/>
+      <circle cx="256.1" cy="213.6" r="4" fill="#0EA5E9"/>
+      <circle cx="241.9" cy="225.9" r="4" fill="#0052FF"/>
+      <circle cx="219.8" cy="235.6" r="4" fill="#0EA5E9"/>
+      <circle cx="191.9" cy="241.8" r="4" fill="#0052FF"/>
+      <circle cx="161.0" cy="244.0" r="4" fill="#0EA5E9"/>
+      <circle cx="130.1" cy="241.8" r="4" fill="#0052FF"/>
+      <circle cx="102.2" cy="235.6" r="4" fill="#0EA5E9"/>
+      <circle cx="80.1" cy="225.9" r="4" fill="#0052FF"/>
+      <circle cx="65.9" cy="213.6" r="4" fill="#0EA5E9"/>
+      <circle cx="61.0" cy="200.0" r="4" fill="#0052FF"/>
+      <circle cx="65.9" cy="186.4" r="4" fill="#0EA5E9"/>
+      <circle cx="80.1" cy="174.1" r="4" fill="#0052FF"/>
+      <circle cx="102.2" cy="164.4" r="4" fill="#0EA5E9"/>
+      <circle cx="130.1" cy="158.2" r="4" fill="#0052FF"/>
+      <circle cx="161.0" cy="156.0" r="4" fill="#0EA5E9"/>
+      <circle cx="191.9" cy="158.2" r="4" fill="#0052FF"/>
+      <circle cx="219.8" cy="164.4" r="4" fill="#0EA5E9"/>
+      <circle cx="241.9" cy="174.1" r="4" fill="#0052FF"/>
+      <circle cx="256.1" cy="186.4" r="4" fill="#0EA5E9"/>
+    </g>
+
+    <text x="161" y="140" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#0052FF">64 Complex Poles ζₖ</text>
+
+    <!-- Formula Pill -->
+    <rect x="44" y="304" width="234" height="28" rx="14" fill="#DBEAFE" stroke="#0052FF" stroke-opacity="0.35" stroke-width="1.2"/>
+    <text x="161" y="322" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0A1E5E">f(x) = Re ∑ cₖ / (ζₖ − x)</text>
+
+    <!-- Bridge Arrow Left -> Right -->
+    <line x1="294" y1="200" x2="316" y2="200" stroke="#0052FF" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+    <!-- Right Panel: 1D Gap-Filling Reconstruction -->
+    <rect x="322" y="70" width="290" height="276" rx="12" fill="#FFFFFF" fill-opacity="0.92" stroke="#CBD5E1" stroke-width="1"/>
+    <text x="336" y="90" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#0A0E17">1D Gap-Filling Reconstruction</text>
+
+    <!-- Shaded Withheld Gap Regions -->
+    <rect x="406" y="110" width="48" height="190" fill="#E11D48" fill-opacity="0.09"/>
+    <line x1="406" y1="110" x2="406" y2="300" stroke="#E11D48" stroke-opacity="0.45" stroke-width="1.3" stroke-dasharray="4 3"/>
+    <line x1="454" y1="110" x2="454" y2="300" stroke="#E11D48" stroke-opacity="0.45" stroke-width="1.3" stroke-dasharray="4 3"/>
+    <text x="430" y="126" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#E11D48">Gap</text>
+
+    <rect x="506" y="110" width="48" height="190" fill="#E11D48" fill-opacity="0.09"/>
+    <line x1="506" y1="110" x2="506" y2="300" stroke="#E11D48" stroke-opacity="0.45" stroke-width="1.3" stroke-dasharray="4 3"/>
+    <line x1="554" y1="110" x2="554" y2="300" stroke="#E11D48" stroke-opacity="0.45" stroke-width="1.3" stroke-dasharray="4 3"/>
+    <text x="530" y="126" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#E11D48">Gap</text>
+
+    <!-- Plot Axes -->
+    <line x1="350" y1="110" x2="350" y2="300" stroke="#475569" stroke-width="1.6"/>
+    <line x1="350" y1="300" x2="598" y2="300" stroke="#475569" stroke-width="1.6"/>
+    <text x="342" y="119" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">y</text>
+    <text x="598" y="293" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">x</text>
+
+    <!-- True Latent Curve (Subtle Emerald Dashed behind Fit) -->
+    <path d="M 356 244 C 374 226 390 156 418 158 C 446 160 458 264 486 266 C 514 268 524 146 552 150 C 572 153 582 206 594 218" fill="none" stroke="#059669" stroke-width="4.5" stroke-opacity="0.22" stroke-linecap="round"/>
+
+    <!-- Holomorphic CauchyNet Fitted Curve (Bridges Both Gaps) -->
+    <path d="M 356 244 C 374 226 390 156 418 158 C 446 160 458 264 486 266 C 514 268 524 146 552 150 C 572 153 582 206 594 218" fill="none" stroke="#0052FF" stroke-width="3" stroke-linecap="round"/>
+
+    <!-- Observed Data Points (Strictly Outside Withheld Gaps, Exact on Bezier Curve) -->
+    <g fill="#0A1E5E" stroke="#FFFFFF" stroke-width="1.5">
+      <!-- Left Observed Region x=356..400 -->
+      <circle cx="356.0" cy="244.0" r="4"/>
+      <circle cx="369.3" cy="222.6" r="4"/>
+      <circle cx="383.3" cy="193.5" r="4"/>
+      <circle cx="399.1" cy="168.1" r="4"/>
+      <!-- Middle Observed Region x=458..498 -->
+      <circle cx="458.1" cy="227.7" r="4"/>
+      <circle cx="467.4" cy="248.6" r="4"/>
+      <circle cx="478.0" cy="262.6" r="4"/>
+      <circle cx="486.0" cy="266.0" r="4"/>
+      <circle cx="497.4" cy="259.3" r="4"/>
+      <!-- Right Observed Region x=558..594 -->
+      <circle cx="565.3" cy="160.2" r="4"/>
+      <circle cx="576.0" cy="180.6" r="4"/>
+      <circle cx="585.1" cy="202.7" r="4"/>
+      <circle cx="594.0" cy="218.0" r="4"/>
+    </g>
+
+    <!-- Bottom Legend inside Right Card -->
+    <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">
+      <circle cx="356" cy="326" r="3.8" fill="#0A1E5E"/>
+      <text x="365" y="330">Observed</text>
+
+      <line x1="432" y1="326" x2="452" y2="326" stroke="#0052FF" stroke-width="2.8" stroke-linecap="round"/>
+      <text x="458" y="330" fill="#0052FF" font-weight="600">Holomorphic</text>
+
+      <rect x="538" y="320" width="12" height="12" rx="2" fill="#E11D48" fill-opacity="0.16" stroke="#E11D48" stroke-width="1"/>
+      <text x="555" y="330" fill="#E11D48">Gap</text>
+    </g>
+
+    <!-- Footer -->
+    <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-width="1" opacity="0.8"/>
+    <text x="28" y="378" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#475569">1D gap-filling · ≤ 128 real params · 10 seeds</text>
+    <text x="612" y="378" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5">
+      <tspan fill="#475569">Target: </tspan><tspan font-weight="700" fill="#0052FF">mae ↓</tspan>
+    </text>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="15.5" fill="none" stroke="#CBD5E1" stroke-width="1" opacity="0.75"/>
+</svg>

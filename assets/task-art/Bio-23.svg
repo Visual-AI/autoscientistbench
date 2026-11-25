@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>TARPON: Telomeric VRR Boundary Detection</title>
+  <desc>A human nanopore read transitions from subtelomeric sequence into the variant repeat-rich and GGTTAG telomeric tail, detected by a steep rise in WT+1N repeat density subject to purity and tail-length guards.</desc>
+  <defs>
+    <clipPath id="cardClip">
+      <rect x="0" y="0" width="640" height="400" rx="16"/>
+    </clipPath>
+    <clipPath id="readClip">
+      <rect x="44" y="102" width="552" height="28" rx="14"/>
+    </clipPath>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F4FBF9"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0D9488"/>
+      <stop offset="100%" stop-color="#10B981"/>
+    </linearGradient>
+    <linearGradient id="curveArea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0D9488" stop-opacity="0.24"/>
+      <stop offset="100%" stop-color="#0D9488" stop-opacity="0.02"/>
+    </linearGradient>
+    <pattern id="dotGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#0D9488" fill-opacity="0.16"/>
+    </pattern>
+  </defs>
+
+  <g clip-path="url(#cardClip)" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <!-- Base luminous plate -->
+    <rect x="0" y="0" width="640" height="400" fill="url(#bgGrad)"/>
+    <rect x="0" y="0" width="640" height="3.5" fill="url(#accentGrad)"/>
+    <rect x="20" y="58" width="600" height="298" fill="url(#dotGrid)"/>
+
+    <!-- Header -->
+    <text x="28" y="38" font-size="18" font-weight="700" fill="#0A0E17">TARPON</text>
+    <text x="612" y="37" text-anchor="end" font-size="12.5" font-weight="500" fill="#475569">Telomeric VRR Boundary Detection</text>
+    <line x1="28" y1="56" x2="612" y2="56" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.75"/>
+
+    <!-- Top Read Anatomy Labels -->
+    <text x="128" y="91" text-anchor="middle" font-size="11.5" font-weight="600" fill="#475569">Subtelomere</text>
+    <polygon points="226,95 220,86 232,86" fill="#114B46"/>
+    <text x="238" y="88" font-size="12" font-weight="700" fill="#114B46">VRR start</text>
+    <text x="470" y="91" text-anchor="middle" font-size="11.5" font-weight="600" fill="#0D9488">Canonical telomere</text>
+
+    <!-- Human Nanopore Read Ribbon -->
+    <g clip-path="url(#readClip)">
+      <!-- Subtelomere region -->
+      <rect x="44" y="102" width="182" height="28" fill="#FFFFFF"/>
+      <g stroke="#CBD5E1" stroke-width="1.5">
+        <line x1="72" y1="102" x2="72" y2="130"/>
+        <line x1="106" y1="102" x2="106" y2="130"/>
+        <line x1="142" y1="102" x2="142" y2="130"/>
+        <line x1="180" y1="102" x2="180" y2="130"/>
+        <line x1="208" y1="102" x2="208" y2="130"/>
+      </g>
+      <!-- VRR (variant repeat-rich) transition zone -->
+      <rect x="226" y="102" width="118" height="28" fill="#CCFBF1"/>
+      <rect x="234" y="106" width="14" height="20" rx="3" fill="#0D9488"/>
+      <rect x="254" y="106" width="12" height="20" rx="3" fill="#10B981"/>
+      <rect x="272" y="106" width="8" height="20" rx="2" fill="#E11D48" fill-opacity="0.8"/>
+      <rect x="286" y="106" width="16" height="20" rx="3" fill="#0D9488"/>
+      <rect x="308" y="106" width="8" height="20" rx="2" fill="#E11D48" fill-opacity="0.8"/>
+      <rect x="322" y="106" width="16" height="20" rx="3" fill="#10B981"/>
+      <!-- Canonical GGTTAG telomere tail -->
+      <rect x="344" y="102" width="252" height="28" fill="#0D9488"/>
+      <text x="470" y="120" text-anchor="middle" font-size="12" font-weight="700" letter-spacing="1.2" fill="#FFFFFF">GGTTAG · GGTTAG · GGTTAG</text>
+    </g>
+    <rect x="44" y="102" width="552" height="28" rx="14" fill="none" stroke="#114B46" stroke-width="2"/>
+
+    <!-- Continuous VRR Start vertical boundary line -->
+    <line x1="226" y1="102" x2="226" y2="322" stroke="#114B46" stroke-width="1.8" stroke-dasharray="5 4"/>
+
+    <!-- Lower-Left Plot: Sliding-Window WT+1N Density Profile -->
+    <text x="66" y="162" font-size="11.5" font-weight="600" fill="#114B46">WT+1N repeat density</text>
+
+    <!-- Retained telomeric tail shading -->
+    <rect x="226" y="172" width="224" height="146" fill="#CCFBF1" fill-opacity="0.34"/>
+
+    <!-- Threshold guides -->
+    <line x1="66" y1="178" x2="450" y2="178" stroke="#059669" stroke-width="1.3" stroke-dasharray="3.5 3"/>
+    <text x="58" y="182" text-anchor="end" font-size="11.5" font-weight="600" fill="#059669">97%</text>
+
+    <line x1="66" y1="232" x2="450" y2="232" stroke="#0D9488" stroke-width="1.2" stroke-dasharray="4 4" stroke-opacity="0.7"/>
+    <text x="58" y="236" text-anchor="end" font-size="11.5" fill="#475569">60%</text>
+
+    <text x="58" y="322" text-anchor="end" font-size="11.5" fill="#475569">0%</text>
+
+    <!-- Plot axes -->
+    <path d="M 66 168 V 318 H 454" fill="none" stroke="#475569" stroke-width="1.6"/>
+
+    <!-- Area under retained WT+1N curve -->
+    <path d="M 68 318 L 68 312 L 96 310 L 126 313 L 156 308 L 184 311 L 204 303 C 216 294, 222 256, 232 222 C 242 192, 260 180, 288 177 L 332 176 L 378 178 L 414 175 L 446 176 L 446 318 Z" fill="url(#curveArea)"/>
+
+    <!-- Rejected low-purity read trace -->
+    <path d="M 68 314 L 130 313 L 186 309 C 216 304, 240 280, 274 264 C 314 248, 356 266, 398 254 L 434 260" fill="none" stroke="#E11D48" stroke-width="2" stroke-dasharray="5 4" stroke-linecap="round"/>
+    <g stroke="#E11D48" stroke-width="2.2" stroke-linecap="round">
+      <line x1="436" y1="255" x2="446" y2="265"/>
+      <line x1="446" y1="255" x2="436" y2="265"/>
+    </g>
+    <text x="386" y="282" text-anchor="middle" font-size="11.5" font-weight="600" fill="#E11D48">Low purity</text>
+
+    <!-- Retained WT+1N step-transition curve -->
+    <path d="M 68 312 L 96 310 L 126 313 L 156 308 L 184 311 L 204 303 C 216 294, 222 256, 232 222 C 242 192, 260 180, 288 177 L 332 176 L 378 178 L 414 175 L 446 176" fill="none" stroke="#0D9488" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Detected VRR boundary inflection dot -->
+    <circle cx="226" cy="242" r="10" fill="#059669" fill-opacity="0.22"/>
+    <circle cx="226" cy="242" r="5" fill="#FFFFFF" stroke="#059669" stroke-width="2.8"/>
+
+    <text x="260" y="341" text-anchor="middle" font-size="11.5" fill="#475569">Nanopore read coordinate</text>
+
+    <!-- Lower-Right Composition & Tail-Length Guard Card -->
+    <rect x="474" y="156" width="134" height="184" rx="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+    <text x="541" y="176" text-anchor="middle" font-size="11.5" font-weight="600" fill="#114B46">Retention guards</text>
+
+    <!-- Circular Purity Ring Gauge -->
+    <circle cx="541" cy="228" r="34" fill="none" stroke="#CCFBF1" stroke-width="7.5"/>
+    <circle cx="541" cy="228" r="34" fill="none" stroke="#059669" stroke-width="7.5" stroke-dasharray="206 10" stroke-linecap="round" transform="rotate(-90 541 228)"/>
+    <text x="541" y="226" text-anchor="middle" font-size="13.5" font-weight="700" fill="#114B46">≥ 97%</text>
+    <text x="541" y="241" text-anchor="middle" font-size="11.5" fill="#475569">WT+1N</text>
+
+    <line x1="490" y1="278" x2="592" y2="278" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.7"/>
+
+    <!-- Tail length guard pill -->
+    <rect x="486" y="292" width="110" height="32" rx="8" fill="#F4FBF9" stroke="#0D9488" stroke-width="1.5"/>
+    <text x="541" y="312" text-anchor="middle" font-size="11.5" font-weight="600" fill="#114B46">Tail ≥ 1,000 bp</text>
+
+    <!-- Footer -->
+    <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.75"/>
+    <text x="28" y="381" font-size="12.5" fill="#475569">Target: <tspan font-weight="700" fill="#0D9488">identification_rate ↑</tspan></text>
+    <text x="612" y="381" text-anchor="end" font-size="11.5" fill="#475569">Human nanopore · GGTTAG</text>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="16" fill="none" stroke="#CBD5E1" stroke-width="1"/>
+</svg>

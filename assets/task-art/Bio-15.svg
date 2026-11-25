@@ -1,0 +1,203 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>SpatialProteomics: Multiplexed Fluorescence Tissue Cell Phenotyping</title>
+  <desc>Fifty-six multiplexed fluorescence image channels are aggregated over fixed Cellpose tissue core segmentations to classify every quality-controlled cell into seven major lymphoma and stromal cell types.</desc>
+  <defs>
+    <clipPath id="cardClip">
+      <rect x="0" y="0" width="640" height="400" rx="16"/>
+    </clipPath>
+    <clipPath id="coreClip">
+      <circle cx="326" cy="206" r="102"/>
+    </clipPath>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F4FBF9"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="accentBar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0D9488"/>
+      <stop offset="100%" stop-color="#10B981"/>
+    </linearGradient>
+    <pattern id="dotGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#114B46" fill-opacity="0.15"/>
+    </pattern>
+    <marker id="arrTeal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M1 1.5 L8.5 5 L1 8.5 Z" fill="#0D9488"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#cardClip)" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif">
+    <!-- Base Plate -->
+    <rect x="0" y="0" width="640" height="400" fill="url(#bgGrad)"/>
+    <rect x="24" y="58" width="592" height="296" fill="url(#dotGrid)"/>
+    <rect x="0" y="0" width="640" height="3" fill="url(#accentBar)"/>
+
+    <!-- Header Zone (y=18..54) -->
+    <text x="28" y="36" font-size="18" font-weight="700" fill="#0A0E17">SpatialProteomics</text>
+    <text x="612" y="36" text-anchor="end" font-size="12.5" font-weight="500" fill="#475569">Multiplexed Tissue Cell Phenotyping</text>
+    <line x1="28" y1="53" x2="612" y2="53" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.75"/>
+
+    <!-- LEFT: 56-Channel Multiplexed Fluorescence Stack -->
+    <g>
+      <text x="108" y="86" text-anchor="middle" font-size="12" font-weight="700" fill="#0A0E17">56-Ch Image Stack</text>
+
+      <!-- Isometric Fluorescence Channel Plates (Bottom to Top) -->
+      <!-- Layer 5: Stromal / CD90 -->
+      <polygon points="108,236 172,260 108,284 44,260" fill="#FFFFFF" fill-opacity="0.92" stroke="#475569" stroke-width="1.8"/>
+      <circle cx="84" cy="260" r="4" fill="#CBD5E1"/><circle cx="132" cy="262" r="4.5" fill="#475569" fill-opacity="0.65"/>
+
+      <!-- Layer 4: Endothelial / CD31 -->
+      <polygon points="108,204 172,228 108,252 44,228" fill="#FFFFFF" fill-opacity="0.9" stroke="#E11D48" stroke-width="1.8"/>
+      <circle cx="122" cy="228" r="4.5" fill="#E11D48" fill-opacity="0.8"/>
+      <circle cx="136" cy="233" r="4" fill="#E11D48" fill-opacity="0.65"/>
+
+      <!-- Layer 3: Macrophage / CD68 -->
+      <polygon points="108,172 172,196 108,220 44,196" fill="#FFFFFF" fill-opacity="0.9" stroke="#114B46" stroke-width="1.8"/>
+      <circle cx="92" cy="194" r="4.5" fill="#114B46" fill-opacity="0.85"/>
+      <circle cx="116" cy="202" r="4" fill="#114B46" fill-opacity="0.7"/>
+
+      <!-- Layer 2: T cell / CD3 -->
+      <polygon points="108,140 172,164 108,188 44,164" fill="#FFFFFF" fill-opacity="0.9" stroke="#10B981" stroke-width="1.9"/>
+      <circle cx="88" cy="162" r="4.5" fill="#10B981"/>
+      <circle cx="126" cy="159" r="4.5" fill="#10B981"/>
+      <circle cx="108" cy="174" r="4" fill="#10B981" fill-opacity="0.8"/>
+
+      <!-- Layer 1: B cell / PAX5 (Top) -->
+      <polygon points="108,108 172,132 108,156 44,132" fill="#CCFBF1" fill-opacity="0.75" stroke="#0D9488" stroke-width="2.2"/>
+      <circle cx="108" cy="132" r="6" fill="#0D9488"/>
+      <circle cx="94" cy="130" r="4.5" fill="#0D9488" fill-opacity="0.85"/>
+      <circle cx="122" cy="134" r="4.5" fill="#0D9488" fill-opacity="0.85"/>
+
+      <text x="108" y="310" text-anchor="middle" font-size="11.5" font-weight="600" fill="#0D9488">arcsinh + quantile</text>
+      <text x="108" y="328" text-anchor="middle" font-size="11.5" fill="#475569">per-cell mean</text>
+    </g>
+
+    <!-- Connector Arrow -->
+    <line x1="180" y1="206" x2="210" y2="206" stroke="#0D9488" stroke-width="2.4" marker-end="url(#arrTeal)"/>
+
+    <!-- CENTER HERO: Segmented Lymphoma Tissue Core Mosaic (19 Gapless Cells) -->
+    <g>
+      <text x="326" y="86" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0A0E17">Segmented Tissue Core</text>
+
+      <!-- Outer Subtle QC Halo -->
+      <circle cx="326" cy="206" r="109" fill="none" stroke="#0D9488" stroke-width="1.4" stroke-dasharray="4 4" stroke-opacity="0.45"/>
+
+      <!-- Clipped Organic Polygonal Cell Tessellation (shifted x=-4 to center at 326) -->
+      <g clip-path="url(#coreClip)" stroke="#FFFFFF" stroke-width="2.4" stroke-linejoin="round">
+        <!-- Ring 2-3 Outer Cells (12 cells) -->
+        <!-- Cell 7: T cell -->
+        <polygon points="328,138 328,88 380,98 362,148" fill="#10B981"/>
+        <!-- Cell 8: Dendritic -->
+        <polygon points="362,148 380,98 426,134 390,174" fill="#CCFBF1"/>
+        <!-- Cell 9: T cell -->
+        <polygon points="390,174 426,134 442,198 392,208" fill="#10B981"/>
+        <!-- Cell 10: Endothelial micro-vessel -->
+        <polygon points="392,208 442,198 432,260 384,244" fill="#E11D48"/>
+        <!-- Cell 11: Endothelial micro-vessel -->
+        <polygon points="384,244 432,260 388,308 354,268" fill="#E11D48"/>
+        <!-- Cell 12: Stromal -->
+        <polygon points="354,268 388,308 320,324 320,274" fill="#CBD5E1"/>
+        <!-- Cell 13: Myeloid -->
+        <polygon points="320,274 320,324 260,308 286,262" fill="#059669"/>
+        <!-- Cell 14: Dendritic -->
+        <polygon points="286,262 260,308 220,262 262,236" fill="#CCFBF1"/>
+        <!-- Cell 15: Macrophage -->
+        <polygon points="262,236 220,262 208,198 260,200" fill="#114B46"/>
+        <!-- Cell 16: Stromal -->
+        <polygon points="260,200 208,198 222,134 268,166" fill="#CBD5E1"/>
+        <!-- Cell 17: Myeloid -->
+        <polygon points="268,166 222,134 270,96 294,142" fill="#059669"/>
+        <!-- Cell 18: T cell -->
+        <polygon points="294,142 270,96 328,88 328,138" fill="#10B981"/>
+
+        <!-- Ring 1-2 Mid Follicle Cells (6 cells) -->
+        <!-- Cell 1: B cell -->
+        <polygon points="328,172 328,138 362,148 390,174 356,188" fill="#0D9488"/>
+        <!-- Cell 2: B cell -->
+        <polygon points="356,188 390,174 392,208 384,244 354,220" fill="#0D9488"/>
+        <!-- Cell 3: T cell -->
+        <polygon points="354,220 384,244 354,268 320,274 324,236" fill="#10B981"/>
+        <!-- Cell 4: B cell -->
+        <polygon points="324,236 320,274 286,262 262,236 296,220" fill="#0D9488"/>
+        <!-- Cell 5: B cell -->
+        <polygon points="296,220 262,236 260,200 268,166 298,188" fill="#0D9488"/>
+        <!-- Cell 6: Macrophage -->
+        <polygon points="298,188 268,166 294,142 328,138 328,172" fill="#114B46"/>
+
+        <!-- Central Cell 0: B cell -->
+        <polygon points="328,172 356,188 354,220 324,236 296,220 298,188" fill="#0D9488"/>
+
+        <!-- Subtle Microscopy Cell Nuclei Accents -->
+        <g stroke="none">
+          <circle cx="326" cy="204" r="6" fill="#FFFFFF" fill-opacity="0.28"/>
+          <circle cx="352" cy="166" r="5" fill="#FFFFFF" fill-opacity="0.25"/>
+          <circle cx="374" cy="212" r="5" fill="#FFFFFF" fill-opacity="0.25"/>
+          <circle cx="298" cy="248" r="5" fill="#FFFFFF" fill-opacity="0.25"/>
+          <circle cx="278" cy="198" r="5" fill="#FFFFFF" fill-opacity="0.25"/>
+          <circle cx="304" cy="164" r="5" fill="#FFFFFF" fill-opacity="0.24"/>
+          <circle cx="348" cy="248" r="5" fill="#FFFFFF" fill-opacity="0.26"/>
+          <circle cx="390" cy="148" r="4.5" fill="#0D9488" fill-opacity="0.55"/>
+          <circle cx="264" cy="264" r="4.5" fill="#0D9488" fill-opacity="0.55"/>
+          <circle cx="406" cy="232" r="4.5" fill="#FFFFFF" fill-opacity="0.32"/>
+          <circle cx="384" cy="272" r="4.5" fill="#FFFFFF" fill-opacity="0.32"/>
+          <circle cx="344" cy="292" r="4.5" fill="#475569" fill-opacity="0.45"/>
+          <circle cx="242" cy="176" r="4.5" fill="#475569" fill-opacity="0.45"/>
+        </g>
+      </g>
+
+      <!-- Crisp Tissue Core Bezel -->
+      <circle cx="326" cy="206" r="102.5" fill="none" stroke="#114B46" stroke-width="2.4"/>
+      <text x="326" y="334" text-anchor="middle" font-size="11.5" font-weight="600" fill="#475569">Fixed Cellpose QC Mask</text>
+    </g>
+
+    <!-- RIGHT: 7-Class Marker Consensus Panel -->
+    <g>
+      <rect x="452" y="80" width="160" height="256" rx="12" fill="#FFFFFF" fill-opacity="0.95" stroke="#CBD5E1" stroke-width="1.2"/>
+      <text x="532" y="102" text-anchor="middle" font-size="12" font-weight="700" fill="#0A0E17">7 Consensus Types</text>
+      <line x1="464" y1="112" x2="600" y2="112" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.65"/>
+
+      <!-- 7 Clean Spaced Phenotype Rows (y step = 30) -->
+      <g font-size="11.5">
+        <!-- 1. B cell -->
+        <rect x="464" y="123" width="13" height="13" rx="3.5" fill="#0D9488"/>
+        <text x="484" y="134" font-weight="600" fill="#0A0E17">B cell</text>
+        <text x="600" y="134" text-anchor="end" font-size="11" fill="#475569">PAX5</text>
+
+        <!-- 2. T cell -->
+        <rect x="464" y="153" width="13" height="13" rx="3.5" fill="#10B981"/>
+        <text x="484" y="164" font-weight="600" fill="#0A0E17">T cell</text>
+        <text x="600" y="164" text-anchor="end" font-size="11" fill="#475569">CD3</text>
+
+        <!-- 3. Myeloid -->
+        <rect x="464" y="183" width="13" height="13" rx="3.5" fill="#059669"/>
+        <text x="484" y="194" font-weight="600" fill="#0A0E17">Myeloid</text>
+        <text x="600" y="194" text-anchor="end" font-size="11" fill="#475569">CD11b</text>
+
+        <!-- 4. Dendritic -->
+        <rect x="464" y="213" width="13" height="13" rx="3.5" fill="#CCFBF1" stroke="#0D9488" stroke-width="1.2"/>
+        <text x="484" y="224" font-weight="600" fill="#0A0E17">Dendritic</text>
+        <text x="600" y="224" text-anchor="end" font-size="11" fill="#475569">CD11c</text>
+
+        <!-- 5. Macrophage -->
+        <rect x="464" y="243" width="13" height="13" rx="3.5" fill="#114B46"/>
+        <text x="484" y="254" font-weight="600" fill="#0A0E17">Macrophage</text>
+        <text x="600" y="254" text-anchor="end" font-size="11" fill="#475569">CD68</text>
+
+        <!-- 6. Stromal -->
+        <rect x="464" y="273" width="13" height="13" rx="3.5" fill="#CBD5E1" stroke="#475569" stroke-width="1"/>
+        <text x="484" y="284" font-weight="600" fill="#0A0E17">Stromal</text>
+        <text x="600" y="284" text-anchor="end" font-size="11" fill="#475569">CD90</text>
+
+        <!-- 7. Endothelial -->
+        <rect x="464" y="303" width="13" height="13" rx="3.5" fill="#E11D48"/>
+        <text x="484" y="314" font-weight="600" fill="#0A0E17">Endothelial</text>
+        <text x="600" y="314" text-anchor="end" font-size="11" fill="#475569">CD31</text>
+      </g>
+    </g>
+
+    <!-- Footer Bar (y=378) -->
+    <line x1="28" y1="357" x2="612" y2="357" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.75"/>
+    <text x="28" y="378" font-size="12.5" fill="#475569">56 fluorescence channels · 7 cell types</text>
+    <text x="612" y="378" text-anchor="end" font-size="12.5" fill="#475569">Metric <tspan font-weight="700" fill="#0D9488">pooled_kappa ↑</tspan></text>
+  </g>
+
+  <rect x="0.5" y="0.5" width="639" height="399" rx="16" fill="none" stroke="#CBD5E1" stroke-opacity="0.75"/>
+</svg>

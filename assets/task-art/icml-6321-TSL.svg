@@ -1,0 +1,199 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>TSL — Low-Separation-Rank Interpretable Regression</title>
+  <desc>Four rank-one tensor products of univariate feature functions multiply across raw California housing coordinates and sum into interpretable median house-value predictions capped at 500k USD.</desc>
+  <defs>
+    <clipPath id="card-clip">
+      <rect x="0" y="0" width="640" height="400" rx="16"/>
+    </clipPath>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F7FAFF"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="top-bar" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0052FF"/>
+      <stop offset="100%" stop-color="#0EA5E9"/>
+    </linearGradient>
+    <pattern id="dot-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#0A1E5E" opacity="0.15"/>
+    </pattern>
+    <marker id="arrow-pri" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M 0 1.2 L 8.5 5 L 0 8.8 z" fill="#0052FF"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#card-clip)">
+    <rect x="0" y="0" width="640" height="400" fill="url(#bg-grad)"/>
+    <rect x="0" y="54" width="640" height="304" fill="url(#dot-grid)"/>
+    <rect x="0" y="0" width="640" height="3" fill="url(#top-bar)"/>
+  </g>
+  <rect x="0.5" y="0.5" width="639" height="399" rx="15.5" fill="none" stroke="#CBD5E1" stroke-opacity="0.75" stroke-width="1"/>
+
+  <!-- Header -->
+  <text x="28" y="36" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="700" fill="#0A0E17">TSL</text>
+  <text x="612" y="35" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="500" fill="#475569">Low-Rank Separable Regression</text>
+  <line x1="28" y1="53" x2="612" y2="53" stroke="#CBD5E1" stroke-opacity="0.7" stroke-width="1"/>
+
+  <!-- Column Feature Headers -->
+  <g text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#0A1E5E">
+    <text x="89" y="80">Lon (x₁)</text>
+    <text x="175" y="80">Lat (x₂)</text>
+    <text x="261" y="80">Age (x₃)</text>
+    <text x="367" y="80">Income (x₈)</text>
+  </g>
+
+  <!-- Row Labels (r=1..4) -->
+  <g text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#475569">
+    <text x="39" y="116">r₁</text>
+    <text x="39" y="172">r₂</text>
+    <text x="39" y="228">r₃</text>
+    <text x="39" y="284">r₄</text>
+  </g>
+
+  <!-- Zone 1: 4 Rank-One Rows of Univariate Factor Functions -->
+  <g id="factor-matrix">
+    <!-- Row 1 (Primary main effects) -->
+    <g>
+      <rect x="56" y="90" width="66" height="44" rx="7" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.1"/>
+      <polyline points="62,102 76,102 76,114 94,114 94,124 116,124" fill="none" stroke="#CBD5E1" stroke-width="1.4"/>
+      <path d="M 62 100 C 74 101 82 115 96 121 C 105 125 112 126 116 126" fill="none" stroke="#0052FF" stroke-width="2.6" stroke-linecap="round"/>
+
+      <text x="132" y="116" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#0052FF">×</text>
+
+      <rect x="142" y="90" width="66" height="44" rx="7" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.1"/>
+      <polyline points="148,124 162,124 162,104 176,104 176,118 190,118 190,108 202,108" fill="none" stroke="#CBD5E1" stroke-width="1.4"/>
+      <path d="M 148 124 C 156 124 160 100 169 101 C 176 102 178 120 186 119 C 193 118 196 104 202 106" fill="none" stroke="#0052FF" stroke-width="2.6" stroke-linecap="round"/>
+
+      <text x="218" y="116" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#0052FF">×</text>
+
+      <rect x="228" y="90" width="66" height="44" rx="7" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.1"/>
+      <path d="M 234 118 Q 261 124 288 102" fill="none" stroke="#0052FF" stroke-width="2.6" stroke-linecap="round"/>
+
+      <text x="314" y="116" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#475569">×··×</text>
+
+      <rect x="334" y="90" width="66" height="44" rx="7" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.1"/>
+      <polyline points="340,126 356,126 356,114 374,114 374,102 394,102" fill="none" stroke="#CBD5E1" stroke-width="1.4"/>
+      <path d="M 340 127 C 354 125 368 108 380 101 C 386 98 391 98 394 98" fill="none" stroke="#0052FF" stroke-width="2.6" stroke-linecap="round"/>
+    </g>
+
+    <!-- Row 2 (Secondary cyan interaction rank) -->
+    <g>
+      <rect x="56" y="146" width="66" height="44" rx="7" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.1"/>
+      <path d="M 62 180 C 76 160 94 154 116 172" fill="none" stroke="#0EA5E9" stroke-width="2.5" stroke-linecap="round"/>
+
+      <text x="132" y="172" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#0EA5E9">×</text>
+
+      <rect x="142" y="146" width="66" height="44" rx="7" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.1"/>
+      <path d="M 148 160 C 166 158 182 182 202 178" fill="none" stroke="#0EA5E9" stroke-width="2.5" stroke-linecap="round"/>
+
+      <text x="218" y="172" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#0EA5E9">×</text>
+
+      <rect x="228" y="146" width="66" height="44" rx="7" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.1"/>
+      <path d="M 234 178 C 248 156 270 156 288 176" fill="none" stroke="#0EA5E9" stroke-width="2.5" stroke-linecap="round"/>
+
+      <text x="314" y="172" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#475569">×··×</text>
+
+      <rect x="334" y="146" width="66" height="44" rx="7" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.1"/>
+      <path d="M 340 162 C 358 178 378 178 394 156" fill="none" stroke="#0EA5E9" stroke-width="2.5" stroke-linecap="round"/>
+    </g>
+
+    <!-- Row 3 (Deep blue interaction rank) -->
+    <g>
+      <rect x="56" y="202" width="66" height="44" rx="7" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.1"/>
+      <path d="M 62 232 C 78 230 88 210 100 212 C 108 214 112 226 116 228" fill="none" stroke="#0A1E5E" stroke-width="2.4" stroke-linecap="round"/>
+
+      <text x="132" y="228" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#0A1E5E">×</text>
+
+      <rect x="142" y="202" width="66" height="44" rx="7" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.1"/>
+      <path d="M 148 236 C 168 232 184 214 202 212" fill="none" stroke="#0A1E5E" stroke-width="2.4" stroke-linecap="round"/>
+
+      <text x="218" y="228" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#0A1E5E">×</text>
+
+      <rect x="228" y="202" width="66" height="44" rx="7" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.1"/>
+      <path d="M 234 214 C 254 216 266 236 288 234" fill="none" stroke="#0A1E5E" stroke-width="2.4" stroke-linecap="round"/>
+
+      <text x="314" y="228" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#475569">×··×</text>
+
+      <rect x="334" y="202" width="66" height="44" rx="7" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.1"/>
+      <path d="M 340 236 Q 366 212 394 220" fill="none" stroke="#0A1E5E" stroke-width="2.4" stroke-linecap="round"/>
+    </g>
+
+    <!-- Row 4 (Emerald fine residual rank) -->
+    <g>
+      <rect x="56" y="258" width="66" height="44" rx="7" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.1"/>
+      <path d="M 62 288 C 76 286 84 268 116 270" fill="none" stroke="#059669" stroke-width="2.4" stroke-linecap="round"/>
+
+      <text x="132" y="284" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#059669">×</text>
+
+      <rect x="142" y="258" width="66" height="44" rx="7" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.1"/>
+      <path d="M 148 272 Q 175 294 202 272" fill="none" stroke="#059669" stroke-width="2.4" stroke-linecap="round"/>
+
+      <text x="218" y="284" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#059669">×</text>
+
+      <rect x="228" y="258" width="66" height="44" rx="7" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.1"/>
+      <path d="M 234 290 C 254 282 268 270 288 268" fill="none" stroke="#059669" stroke-width="2.4" stroke-linecap="round"/>
+
+      <text x="314" y="284" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#475569">×··×</text>
+
+      <rect x="334" y="258" width="66" height="44" rx="7" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.1"/>
+      <path d="M 340 292 C 358 290 374 274 394 268" fill="none" stroke="#059669" stroke-width="2.4" stroke-linecap="round"/>
+    </g>
+
+    <text x="228" y="336" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#0A1E5E">ŷ(x) = Σᵣ₌₁⁴ ∏ⱼ₌₁⁸ fᵣ,ⱼ(xⱼ)</text>
+  </g>
+
+  <!-- Convergence Ribbons into Rank-4 Summation Hub -->
+  <g fill="none" stroke-width="2.2" stroke-linecap="round">
+    <path d="M 402 112 C 428 112 426 184 446 188" stroke="#0052FF"/>
+    <path d="M 402 168 C 424 168 426 192 444 194" stroke="#0EA5E9"/>
+    <path d="M 402 224 C 424 224 426 200 444 198" stroke="#0A1E5E"/>
+    <path d="M 402 280 C 428 280 426 208 446 204" stroke="#059669"/>
+  </g>
+
+  <!-- Bold Summation Hub -->
+  <circle cx="454" cy="196" r="28" fill="#DBEAFE" fill-opacity="0.7"/>
+  <circle cx="454" cy="196" r="20" fill="#0052FF" stroke="#FFFFFF" stroke-width="2.2"/>
+  <text x="454" y="203" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="20" font-weight="700" fill="#FFFFFF">Σ</text>
+
+  <!-- Arrow from Sum Hub to Parity Plot -->
+  <line x1="476" y1="196" x2="493" y2="196" stroke="#0052FF" stroke-width="2.4" marker-end="url(#arrow-pri)"/>
+
+  <!-- Zone 2: Housing Value Parity Plot with $500k Censoring Cap -->
+  <g id="parity-plot">
+    <rect x="498" y="106" width="114" height="182" rx="11" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+
+    <!-- Plot axes -->
+    <line x1="512" y1="256" x2="600" y2="256" stroke="#475569" stroke-width="1.3"/>
+    <line x1="512" y1="138" x2="512" y2="256" stroke="#475569" stroke-width="1.3"/>
+
+    <!-- Upper censoring ceiling at $500k -->
+    <line x1="512" y1="148" x2="600" y2="148" stroke="#E11D48" stroke-width="1.6" stroke-dasharray="4 3"/>
+    <text x="556" y="132" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#E11D48">$500k cap</text>
+
+    <!-- Ideal y = y_hat diagonal -->
+    <line x1="514" y1="254" x2="594" y2="148" stroke="#059669" stroke-width="2.2" stroke-linecap="round"/>
+
+    <!-- Predicted vs actual housing scatter points -->
+    <g fill="#0052FF" opacity="0.78">
+      <circle cx="522" cy="244" r="2.8"/><circle cx="528" cy="236" r="2.8"/><circle cx="534" cy="224" r="2.8"/>
+      <circle cx="538" cy="229" r="2.8"/><circle cx="545" cy="212" r="2.8"/><circle cx="550" cy="204" r="2.8"/>
+      <circle cx="556" cy="208" r="2.8"/><circle cx="562" cy="192" r="2.8"/><circle cx="568" cy="182" r="2.8"/>
+      <circle cx="574" cy="176" r="2.8"/><circle cx="580" cy="166" r="2.8"/><circle cx="586" cy="158" r="2.8"/>
+    </g>
+    <g fill="#0EA5E9" opacity="0.78">
+      <circle cx="526" cy="248" r="2.6"/><circle cx="542" cy="219" r="2.6"/><circle cx="554" cy="196" r="2.6"/>
+      <circle cx="566" cy="190" r="2.6"/><circle cx="578" cy="172" r="2.6"/>
+    </g>
+    <!-- Censored points along $500k cap -->
+    <g fill="#E11D48" opacity="0.85">
+      <circle cx="584" cy="148" r="2.7"/><circle cx="591" cy="148" r="2.7"/><circle cx="596" cy="148" r="2.7"/>
+    </g>
+
+    <text x="555" y="276" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#475569">USD Parity</text>
+    <text x="555" y="336" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#0A1E5E">Rank ≤ 4 Fit</text>
+  </g>
+
+  <!-- Footer -->
+  <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-opacity="0.7" stroke-width="1"/>
+  <text x="28" y="380" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#475569">California housing · 4 separable univariate products</text>
+  <text x="612" y="380" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5"><tspan fill="#475569">Target: </tspan><tspan font-weight="700" fill="#0052FF">rmse ↓</tspan></text>
+</svg>

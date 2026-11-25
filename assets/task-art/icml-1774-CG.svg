@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>CalibGuidance — Calibrated Test-Time Bayesian Posterior Guidance</title>
+  <desc>Calibrated gradient-free Bayesian guidance steers prior particles along Euler trajectories into the four multimodal SLCP posterior lobes while preserving task-agnostic C2ST quality across four companion families.</desc>
+  <defs>
+    <clipPath id="cardClip">
+      <rect x="0" y="0" width="640" height="400" rx="16"/>
+    </clipPath>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFBF2"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#D97706"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+    <pattern id="dotGrid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="12" cy="12" r="1.1" fill="#6E3A05" opacity="0.16"/>
+    </pattern>
+    <marker id="arrAmb" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M1,1.5 L9,5 L1,8.5 L3,5 Z" fill="#D97706"/>
+    </marker>
+    <marker id="arrErr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M1,1.5 L9,5 L1,8.5 L3,5 Z" fill="#E11D48"/>
+    </marker>
+  </defs>
+
+  <!-- Base Card -->
+  <g clip-path="url(#cardClip)">
+    <rect x="0" y="0" width="640" height="400" fill="url(#bgGrad)"/>
+    <rect x="20" y="60" width="600" height="294" fill="url(#dotGrid)"/>
+    <rect x="0" y="0" width="640" height="3.5" fill="url(#accentGrad)"/>
+  </g>
+  <rect x="0.75" y="0.75" width="638.5" height="398.5" rx="15.25" fill="none" stroke="#CBD5E1" stroke-opacity="0.75" stroke-width="1.5"/>
+
+  <!-- Top Header -->
+  <text x="28" y="38" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="700" fill="#0A0E17" letter-spacing="-0.2">CalibGuidance</text>
+  <text x="612" y="37" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="500" fill="#475569">Calibrated Bayesian Posterior Guidance</text>
+  <line x1="28" y1="54" x2="612" y2="54" stroke="#CBD5E1" stroke-opacity="0.6" stroke-width="1"/>
+
+  <!-- LEFT-CENTER FOCAL FIELD: SLCP Multimodal Posterior & Guidance Trajectories -->
+  <rect x="30" y="72" width="414" height="274" rx="12" fill="#FFFFFF" fill-opacity="0.76" stroke="#CBD5E1" stroke-width="1.3"/>
+
+  <!-- Prior Density Contour p(theta) -->
+  <ellipse cx="92" cy="208" rx="40" ry="76" fill="#FEF3C7" fill-opacity="0.58" stroke="#D97706" stroke-opacity="0.55" stroke-width="1.8" stroke-dasharray="5 4"/>
+  <ellipse cx="92" cy="208" rx="24" ry="48" fill="#FEF3C7" fill-opacity="0.65" stroke="#F59E0B" stroke-opacity="0.45" stroke-width="1.2"/>
+  <text x="92" y="114" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" fill="#6E3A05">Prior p(θ)</text>
+
+  <!-- Four Symmetric Multimodal SLCP Posterior Lobes -->
+  <!-- Top-Left Lobe -->
+  <g transform="rotate(-26 312 154)">
+    <ellipse cx="312" cy="154" rx="34" ry="19" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1.4"/>
+    <ellipse cx="312" cy="154" rx="22" ry="12" fill="#F59E0B" fill-opacity="0.32" stroke="#D97706" stroke-width="1.6"/>
+    <ellipse cx="312" cy="154" rx="11" ry="6" fill="#D97706" fill-opacity="0.58"/>
+  </g>
+  <!-- Top-Right Lobe -->
+  <g transform="rotate(26 392 154)">
+    <ellipse cx="392" cy="154" rx="34" ry="19" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1.4"/>
+    <ellipse cx="392" cy="154" rx="22" ry="12" fill="#F59E0B" fill-opacity="0.32" stroke="#D97706" stroke-width="1.6"/>
+    <ellipse cx="392" cy="154" rx="11" ry="6" fill="#D97706" fill-opacity="0.58"/>
+  </g>
+  <!-- Bottom-Left Lobe -->
+  <g transform="rotate(26 312 254)">
+    <ellipse cx="312" cy="254" rx="34" ry="19" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1.4"/>
+    <ellipse cx="312" cy="254" rx="22" ry="12" fill="#F59E0B" fill-opacity="0.32" stroke="#D97706" stroke-width="1.6"/>
+    <ellipse cx="312" cy="254" rx="11" ry="6" fill="#D97706" fill-opacity="0.58"/>
+  </g>
+  <!-- Bottom-Right Lobe -->
+  <g transform="rotate(-26 392 254)">
+    <ellipse cx="392" cy="254" rx="34" ry="19" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1.4"/>
+    <ellipse cx="392" cy="254" rx="22" ry="12" fill="#F59E0B" fill-opacity="0.32" stroke="#D97706" stroke-width="1.6"/>
+    <ellipse cx="392" cy="254" rx="11" ry="6" fill="#D97706" fill-opacity="0.58"/>
+  </g>
+
+  <text x="352" y="102" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#6E3A05">SLCP Posterior</text>
+
+  <!-- Uncalibrated Drifting Trajectory (Error Contrast) -->
+  <path d="M104,158 C154,122 204,108 264,116" fill="none" stroke="#E11D48" stroke-width="2" stroke-dasharray="5 3.5" marker-end="url(#arrErr)"/>
+  <text x="196" y="102" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#E11D48">Uncalibrated</text>
+
+  <!-- Local Candidate Estimation Halo at Mid-Trajectory -->
+  <circle cx="206" cy="204" r="24" fill="#FEF3C7" fill-opacity="0.45" stroke="#F59E0B" stroke-width="1.3" stroke-dasharray="3 3"/>
+  <g fill="#D97706" fill-opacity="0.55">
+    <circle cx="196" cy="194" r="2.2"/><circle cx="216" cy="192" r="2.2"/>
+    <circle cx="220" cy="212" r="2.2"/><circle cx="192" cy="214" r="2.2"/>
+    <circle cx="208" cy="186" r="2.2"/><circle cx="204" cy="222" r="2.2"/>
+  </g>
+
+  <!-- Calibrated Guidance Euler Trajectories (t = 0 -> 1) -->
+  <g fill="none" stroke="#D97706" stroke-width="2.5" stroke-linecap="round">
+    <path d="M100,174 C168,166 226,154 294,154" marker-end="url(#arrAmb)"/>
+    <path d="M106,196 C192,196 280,206 376,162" marker-end="url(#arrAmb)"/>
+    <path d="M106,220 C176,226 232,248 294,254" marker-end="url(#arrAmb)"/>
+    <path d="M98,248 C186,274 282,292 378,262" marker-end="url(#arrAmb)"/>
+  </g>
+
+  <!-- Starting Prior Particles & Converged Posterior Samples -->
+  <g fill="#F59E0B" stroke="#FFFFFF" stroke-width="1.3">
+    <circle cx="100" cy="174" r="4"/>
+    <circle cx="106" cy="196" r="4"/>
+    <circle cx="106" cy="220" r="4"/>
+    <circle cx="98" cy="248" r="4"/>
+  </g>
+  <g fill="#6E3A05">
+    <circle cx="308" cy="152" r="2.6"/><circle cx="316" cy="156" r="2.6"/><circle cx="310" cy="159" r="2.3"/>
+    <circle cx="388" cy="152" r="2.6"/><circle cx="396" cy="156" r="2.6"/><circle cx="391" cy="149" r="2.3"/>
+    <circle cx="308" cy="252" r="2.6"/><circle cx="316" cy="256" r="2.6"/><circle cx="313" cy="250" r="2.3"/>
+    <circle cx="388" cy="252" r="2.6"/><circle cx="396" cy="256" r="2.6"/><circle cx="392" cy="259" r="2.3"/>
+  </g>
+
+  <!-- Time Axis Bar -->
+  <line x1="68" y1="318" x2="404" y2="318" stroke="#CBD5E1" stroke-width="1.6"/>
+  <line x1="68" y1="313" x2="68" y2="323" stroke="#6E3A05" stroke-width="1.6"/>
+  <line x1="404" y1="313" x2="404" y2="323" stroke="#6E3A05" stroke-width="1.6"/>
+  <text x="68" y="337" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#475569">t = 0</text>
+  <text x="236" y="337" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#D97706">Calibrated Euler Flow</text>
+  <text x="404" y="337" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#475569">t = 1</text>
+
+  <!-- RIGHT PANEL TOP: 4 Companion Families Mini-Gallery -->
+  <rect x="456" y="72" width="154" height="156" rx="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.4"/>
+  <text x="533" y="93" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#6E3A05">4 Companion Tasks</text>
+
+  <!-- Mini Tile 1: Gaussian Linear -->
+  <rect x="467" y="103" width="60" height="52" rx="7" fill="#FFFBF2" stroke="#CBD5E1" stroke-width="1"/>
+  <g transform="rotate(-32 497 129)">
+    <ellipse cx="497" cy="129" rx="18" ry="9" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5"/>
+    <ellipse cx="497" cy="129" rx="9" ry="4.5" fill="#D97706" fill-opacity="0.45"/>
+  </g>
+  <!-- Mini Tile 2: Uniform-Prior Linear -->
+  <rect x="539" y="103" width="60" height="52" rx="7" fill="#FFFBF2" stroke="#CBD5E1" stroke-width="1"/>
+  <rect x="551" y="114" width="36" height="30" rx="3" fill="none" stroke="#6E3A05" stroke-opacity="0.45" stroke-dasharray="3 2"/>
+  <ellipse cx="569" cy="129" rx="14" ry="10" fill="#F59E0B" fill-opacity="0.35" stroke="#D97706" stroke-width="1.5"/>
+
+  <!-- Mini Tile 3: Gaussian Mixture -->
+  <rect x="467" y="164" width="60" height="52" rx="7" fill="#FFFBF2" stroke="#CBD5E1" stroke-width="1"/>
+  <circle cx="485" cy="190" r="10" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5"/>
+  <circle cx="485" cy="190" r="4" fill="#D97706" fill-opacity="0.65"/>
+  <circle cx="509" cy="190" r="10" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5"/>
+  <circle cx="509" cy="190" r="4" fill="#D97706" fill-opacity="0.65"/>
+
+  <!-- Mini Tile 4: Two Moons -->
+  <rect x="539" y="164" width="60" height="52" rx="7" fill="#FFFBF2" stroke="#CBD5E1" stroke-width="1"/>
+  <path d="M551,188 C553,174 571,174 575,185" fill="none" stroke="#D97706" stroke-width="4.5" stroke-linecap="round"/>
+  <path d="M563,193 C567,204 585,204 587,190" fill="none" stroke="#F59E0B" stroke-width="4.5" stroke-linecap="round"/>
+
+  <!-- RIGHT PANEL BOTTOM: C2ST Classifier Equilibrium -->
+  <rect x="456" y="240" width="154" height="106" rx="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.4"/>
+  <text x="533" y="260" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#6E3A05">C2ST Density Match</text>
+
+  <!-- Overlapping Reference vs Guided Distributions -->
+  <line x1="470" y1="316" x2="596" y2="316" stroke="#CBD5E1" stroke-width="1.4"/>
+  <path d="M474,316 C496,316 508,274 531,274 C554,274 566,316 592,316 Z" fill="#F59E0B" fill-opacity="0.28" stroke="#D97706" stroke-width="2.2"/>
+  <path d="M476,316 C500,316 512,276 535,276 C558,276 570,316 594,316" fill="none" stroke="#059669" stroke-width="2.2" stroke-dasharray="4 3"/>
+  <line x1="533" y1="268" x2="533" y2="318" stroke="#059669" stroke-width="1.5" stroke-opacity="0.7"/>
+  <text x="533" y="336" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#059669">C2ST → 0.50</text>
+
+  <!-- Bottom Footer -->
+  <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-opacity="0.6" stroke-width="1"/>
+  <text x="28" y="378" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="500" fill="#475569">10k samples · ≤100k likelihood evals · 5 SBI families</text>
+  <text x="612" y="378" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5">
+    <tspan fill="#475569" font-weight="500">Target </tspan>
+    <tspan fill="#D97706" font-weight="700">c2st ↓</tspan>
+  </text>
+</svg>

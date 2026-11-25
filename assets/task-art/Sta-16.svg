@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <title>Chatterjee-BC — Bias Correction for Graph-Based Correlation</title>
+  <desc>Directed 1-nearest-neighbor graph in covariate space colored by response rank, paired with dimensional bias correction curves showing raw 1-NN attenuation lifted back to the true dependence functional with 95% intervals.</desc>
+  <defs>
+    <clipPath id="cardClip">
+      <rect width="640" height="400" rx="16"/>
+    </clipPath>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F8F6FF"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#7C3AED"/>
+      <stop offset="100%" stop-color="#A855F7"/>
+    </linearGradient>
+    <linearGradient id="rankScale" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#EDE9FE"/>
+      <stop offset="50%" stop-color="#A855F7"/>
+      <stop offset="100%" stop-color="#3E1B7A"/>
+    </linearGradient>
+    <pattern id="dotGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#3E1B7A" opacity="0.16"/>
+    </pattern>
+    <marker id="arrowViolet" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 1 1.5 L 9 5 L 1 8.5 Z" fill="#7C3AED"/>
+    </marker>
+  </defs>
+
+  <g clip-path="url(#cardClip)">
+    <rect width="640" height="400" fill="url(#bgGrad)"/>
+    <rect x="24" y="60" width="592" height="296" fill="url(#dotGrid)"/>
+    <rect x="0" y="0" width="640" height="3" fill="url(#accentGrad)"/>
+  </g>
+  <rect x="0.75" y="0.75" width="638.5" height="398.5" rx="15.5" fill="none" stroke="#CBD5E1" stroke-opacity="0.75" stroke-width="1.5"/>
+
+  <!-- Header -->
+  <text x="28" y="38" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="700" fill="#0A0E17">Chatterjee-BC</text>
+  <text x="612" y="38" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="500" fill="#475569">Graph-Based Dependence Bias Correction</text>
+  <line x1="28" y1="54" x2="612" y2="54" stroke="#CBD5E1" stroke-opacity="0.6" stroke-width="1"/>
+
+  <!-- Left Hero: Directed 1-Nearest-Neighbor Graph in X -->
+  <rect x="30" y="76" width="278" height="266" rx="12" fill="#FFFFFF" fill-opacity="0.82" stroke="#CBD5E1" stroke-width="1.2"/>
+  <text x="169" y="99" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" font-weight="700" fill="#3E1B7A">1-NN Graph in X</text>
+
+  <!-- Nearest-neighbor empty-ball radius halo around focal X_i (156, 210) to X_N(i) (204, 184) -->
+  <circle cx="156" cy="210" r="54.6" fill="#EDE9FE" fill-opacity="0.48" stroke="#A855F7" stroke-width="1.8" stroke-dasharray="5 4"/>
+
+  <!-- Geometrically exact 1-NN directed arrows -->
+  <g stroke="#7C3AED" stroke-width="2" fill="none">
+    <!-- P1(78,266) <-> P2(106,246) -->
+    <line x1="85" y1="261" x2="99" y2="251" marker-end="url(#arrowViolet)"/>
+    <!-- P3(68,212) <-> P4(84,176) -->
+    <line x1="72" y1="203" x2="80" y2="185" marker-end="url(#arrowViolet)"/>
+    <!-- P5(122,138) <-> P6(158,128) -->
+    <line x1="131" y1="135" x2="148" y2="131" marker-end="url(#arrowViolet)"/>
+    <!-- Focal pair P7(156,210) -> P8(204,184) -->
+    <line x1="164" y1="206" x2="195" y2="189" stroke-width="2.8" marker-end="url(#arrowViolet)"/>
+    <!-- P9(200,260) <-> P10(242,248) -->
+    <line x1="209" y1="257" x2="232" y2="251" marker-end="url(#arrowViolet)"/>
+    <!-- P11(254,146) <-> P12(274,178) -->
+    <line x1="259" y1="154" x2="269" y2="169" marker-end="url(#arrowViolet)"/>
+  </g>
+
+  <!-- Graph nodes colored smoothly by Y rank (low on bottom-left, high on top-right) -->
+  <circle cx="78" cy="266" r="7.5" fill="#EDE9FE" stroke="#7C3AED" stroke-width="2"/>
+  <circle cx="106" cy="246" r="7.5" fill="#EDE9FE" stroke="#7C3AED" stroke-width="2"/>
+  <circle cx="68" cy="212" r="7.5" fill="#EDE9FE" stroke="#7C3AED" stroke-width="2"/>
+  <circle cx="84" cy="176" r="7.5" fill="#A855F7" fill-opacity="0.45" stroke="#7C3AED" stroke-width="2"/>
+  <circle cx="122" cy="138" r="8" fill="#A855F7" fill-opacity="0.7" stroke="#7C3AED" stroke-width="2"/>
+  <circle cx="158" cy="128" r="8" fill="#A855F7" stroke="#3E1B7A" stroke-width="2"/>
+  <!-- Focal pair nodes -->
+  <circle cx="156" cy="210" r="8.5" fill="#7C3AED" stroke="#3E1B7A" stroke-width="2.4"/>
+  <circle cx="204" cy="184" r="8.5" fill="#7C3AED" stroke="#3E1B7A" stroke-width="2.4"/>
+  <!-- High rank nodes -->
+  <circle cx="200" cy="260" r="7.5" fill="#A855F7" fill-opacity="0.65" stroke="#7C3AED" stroke-width="2"/>
+  <circle cx="242" cy="248" r="8" fill="#7C3AED" stroke="#3E1B7A" stroke-width="2"/>
+  <circle cx="254" cy="146" r="8.5" fill="#3E1B7A" stroke="#0A0E17" stroke-width="1.8"/>
+  <circle cx="274" cy="178" r="8.5" fill="#3E1B7A" stroke="#0A0E17" stroke-width="1.8"/>
+
+  <!-- Focal pair labels -->
+  <text x="148" y="232" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#3E1B7A">X_i</text>
+  <text x="234" y="190" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#3E1B7A">X_N(i)</text>
+
+  <!-- Rank scale legend -->
+  <text x="104" y="324" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569">Y rank</text>
+  <rect x="112" y="315" width="112" height="9" rx="4.5" fill="url(#rankScale)" stroke="#CBD5E1" stroke-width="0.8"/>
+  <text x="234" y="324" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="600" fill="#3E1B7A">High</text>
+
+  <!-- Right Hero: Dimensional Bias Correction Curve -->
+  <rect x="328" y="76" width="284" height="266" rx="12" fill="#FFFFFF" fill-opacity="0.86" stroke="#CBD5E1" stroke-width="1.2"/>
+  <!-- Axes -->
+  <line x1="364" y1="104" x2="364" y2="302" stroke="#475569" stroke-width="1.5"/>
+  <line x1="364" y1="302" x2="594" y2="302" stroke="#475569" stroke-width="1.5"/>
+  <text x="364" y="96" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#3E1B7A">T(Y, X)</text>
+  <!-- Dimension ticks -->
+  <g font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#475569" text-anchor="middle">
+    <text x="386" y="322">d=2</text>
+    <text x="434" y="322">4</text>
+    <text x="482" y="322">6</text>
+    <text x="530" y="322">8</text>
+    <text x="578" y="322">10</text>
+  </g>
+
+  <!-- Downward finite-sample bias gap shading -->
+  <path d="M 386 142 L 578 142 L 578 274 C 546 256, 514 234, 482 212 C 450 190, 418 172, 386 158 Z" fill="#E11D48" fill-opacity="0.10"/>
+
+  <!-- True Chatterjee dependence horizontal reference -->
+  <line x1="364" y1="142" x2="594" y2="142" stroke="#059669" stroke-width="2.2" stroke-dasharray="6 4"/>
+  <text x="590" y="114" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" font-weight="700" fill="#059669">True T(Y, X)</text>
+
+  <!-- Raw 1-NN attenuated curve -->
+  <path d="M 386 158 C 418 172, 450 190, 482 212 C 514 234, 546 256, 578 274" fill="none" stroke="#E11D48" stroke-width="2.8" stroke-linecap="round"/>
+  <g fill="#FFFFFF" stroke="#E11D48" stroke-width="2.2">
+    <circle cx="386" cy="158" r="4"/>
+    <circle cx="434" cy="182" r="4"/>
+    <circle cx="482" cy="212" r="4"/>
+    <circle cx="530" cy="245" r="4"/>
+    <circle cx="578" cy="274" r="4"/>
+  </g>
+  <text x="444" y="274" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" fill="#E11D48">Raw 1-NN</text>
+
+  <!-- Upward bias-correction lift arrow at d=8 -->
+  <line x1="530" y1="238" x2="530" y2="170" stroke="#7C3AED" stroke-width="2.4" marker-end="url(#arrowViolet)"/>
+  <text x="564" y="212" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#7C3AED">− Biaŝ</text>
+
+  <!-- 95% Bootstrap CI error bars for Bias-Corrected estimator -->
+  <g stroke="#7C3AED" stroke-width="1.8" stroke-linecap="round">
+    <line x1="386" y1="133" x2="386" y2="153"/><line x1="381" y1="133" x2="391" y2="133"/><line x1="381" y1="153" x2="391" y2="153"/>
+    <line x1="434" y1="129" x2="434" y2="153"/><line x1="429" y1="129" x2="439" y2="129"/><line x1="429" y1="153" x2="439" y2="153"/>
+    <line x1="482" y1="129" x2="482" y2="159"/><line x1="477" y1="129" x2="487" y2="129"/><line x1="477" y1="159" x2="487" y2="159"/>
+    <line x1="530" y1="125" x2="530" y2="161"/><line x1="525" y1="125" x2="535" y2="125"/><line x1="525" y1="161" x2="535" y2="161"/>
+    <line x1="578" y1="124" x2="578" y2="166"/><line x1="573" y1="124" x2="583" y2="124"/><line x1="573" y1="166" x2="583" y2="166"/>
+  </g>
+  <!-- Bias-Corrected estimator curve -->
+  <path d="M 386 143 L 434 141 L 482 144 L 530 143 L 578 145" fill="none" stroke="#7C3AED" stroke-width="3" stroke-linejoin="round"/>
+  <g fill="#7C3AED">
+    <circle cx="386" cy="143" r="4.2"/>
+    <circle cx="434" cy="141" r="4.2"/>
+    <circle cx="482" cy="144" r="4.2"/>
+    <circle cx="530" cy="143" r="4.2"/>
+    <circle cx="578" cy="145" r="4.2"/>
+  </g>
+  <text x="448" y="114" text-anchor="middle" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#7C3AED">Bias-corrected</text>
+
+  <!-- Footer -->
+  <line x1="28" y1="358" x2="612" y2="358" stroke="#CBD5E1" stroke-opacity="0.6" stroke-width="1"/>
+  <text x="28" y="378" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#475569">Nearest-neighbor rank dependence · 95% CI</text>
+  <text x="612" y="378" text-anchor="end" font-family="Geist, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#475569">Target: <tspan font-weight="700" fill="#7C3AED">mean_rmse ↓</tspan></text>
+</svg>
