@@ -333,65 +333,475 @@
         <div class="section-header">
           <div>
             <h2 id="protocol-title">Evaluation protocol</h2>
-            <p class="section-lead">How improvement scores, pass criteria, and isolated hidden-test verification work across all 104 tasks.</p>
+            <p class="section-lead">Visual guide to our two benchmark metrics and the isolated four-stage hidden-test evaluation pipeline.</p>
           </div>
         </div>
 
-        <div class="protocol-grid">
-          <aside class="protocol-toc" aria-label="Protocol sections">
-            <a href="#protocol-score">Improvement scoring</a>
-            <a href="#protocol-pass">Pass criteria</a>
-            <a href="#protocol-flow">Evaluation pipeline</a>
-          </aside>
+        <div class="protocol-metrics-grid">
+          <!-- Diagram 1: Improvement Score -->
+          <article id="protocol-score" class="protocol-plate">
+            <div class="plate-header">
+              <h3>Improvement score</h3>
+              <p>Normalizes each task from the reproduced baseline (0%) to the calibrated target ceiling (100%), then averages across all N tasks in the selected collection.</p>
+            </div>
 
-          <div class="protocol-body">
-            <article id="protocol-score" class="protocol-block">
-              <h3>Relative improvement toward the target ceiling</h3>
-              <p>For each task, let xi denote the candidate's evaluated metric, baseline denote the reproduced reference implementation, and target_ceiling denote the calibrated upper anchor used to normalize progress across heterogeneous metrics.</p>
-              <div class="formula-strip">
-                <strong>Task score = (xi - baseline) / (target_ceiling - baseline) × 100%</strong>
-              </div>
-              <p>Under this normalization, the baseline maps to <strong>0%</strong> and the target ceiling maps to <strong>100%</strong>. The ratio handles both higher-is-better and lower-is-better metrics uniformly without an extra sign factor. <span id="score-policy">Negative task scores are clipped to 0% before aggregation, while solutions that surpass the target ceiling remain uncapped above 100%.</span></p>
-              <div class="formula-strip">
-                <strong>Collection score = sum of task scores / N</strong>
-              </div>
-              <p>Overall leaderboard scores average across all <strong>104</strong> benchmark tasks. When viewing a single scientific discipline or the discipline matrix, scores average over that discipline's exact task count N, placing every field on the same 0% to 100% scale. Confirmed agent failures contribute 0% rather than omitting failed tasks.</p>
-            </article>
+            <figure class="plate-figure">
+              <svg class="protocol-svg" viewBox="0 0 600 328" role="img" aria-labelledby="fig-score-title fig-score-desc">
+                <title id="fig-score-title">Improvement score normalization scale and aggregation formula</title>
+                <desc id="fig-score-desc">A continuous ruler showing negative progress below baseline clipped to 0 percent, progress between baseline and target ceiling normalized linearly from 0 to 100 percent, and uncapped progress above 100 percent, followed by the fraction formula and collection average over N tasks.</desc>
+                <defs>
+                  <pattern id="proto-hatch-rose" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                    <line x1="0" y1="0" x2="0" y2="7" stroke="#FDA4AF" stroke-width="1.2" opacity="0.55"/>
+                  </pattern>
+                  <linearGradient id="proto-cobalt-zone" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stop-color="#EEF4FF" stop-opacity="0.72"/>
+                    <stop offset="100%" stop-color="#DBEAFE" stop-opacity="0.92"/>
+                  </linearGradient>
+                  <linearGradient id="proto-cobalt-bar" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stop-color="#0052FF"/>
+                    <stop offset="100%" stop-color="#3B82F6"/>
+                  </linearGradient>
+                  <linearGradient id="proto-emerald-zone" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stop-color="#ECFDF5" stop-opacity="0.95"/>
+                    <stop offset="100%" stop-color="#ECFDF5" stop-opacity="0.18"/>
+                  </linearGradient>
+                  <marker id="proto-arr-rose" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                    <path d="M1 1.5 L8.5 5 L1 8.5" fill="none" stroke="#BE123C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  </marker>
+                  <marker id="proto-arr-emerald" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+                    <path d="M1 1.5 L8.5 5 L1 8.5" fill="none" stroke="#059669" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  </marker>
+                  <marker id="proto-arr-slate" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                    <path d="M1 1.5 L8.5 5 L1 8.5" fill="none" stroke="#475569" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  </marker>
+                </defs>
 
-            <article id="protocol-pass" class="protocol-block">
-              <h3>Beating the baseline beyond seed noise</h3>
-              <p>Alongside the continuous improvement score, each task evaluates a strict binary pass verdict governed by its optimization direction, minimum gain margin, and cross-seed baseline variance.</p>
-              <div class="formula-strip stacked">
-                <span>gain = direction × (candidate - baseline) / max(|baseline|, 10⁻¹²)</span>
-                <span>threshold = max(task_delta, 2 × baseline_std / max(|baseline|, 10⁻¹²))</span>
-                <strong>PASS when gain ≥ threshold and the submission satisfies all task constraints.</strong>
-              </div>
-              <p>Here direction is +1 for higher-is-better metrics and -1 for lower-is-better metrics. Submissions that produce invalid output formats, return nonfinite metrics, exceed replay limits, or touch frozen evaluation files cannot earn a pass.</p>
-            </article>
+                <!-- Top canvas subtle frame -->
+                <rect x="0" y="0" width="600" height="328" fill="#FAFBFD"/>
 
-            <article id="protocol-flow" class="protocol-block">
-              <h3>From grounded workspace to hidden-test replay</h3>
-              <ol class="pipeline-steps">
-                <li>
-                  <strong>1. Grounded research workspace</strong>
-                  <p>Each agent starts inside an executable environment containing the paper context, pinned baseline repository, permitted training and validation splits, and read-only validation scripts.</p>
-                </li>
-                <li>
-                  <strong>2. Long-horizon autonomous optimization</strong>
-                  <p>Within its wall-clock budget, the agent diagnoses bottlenecks, formulates methodological improvements, edits permitted source files, manages dependencies, and validates iteratively.</p>
-                </li>
-                <li>
-                  <strong>3. Clean code patch submission</strong>
-                  <p>Rather than exporting pre-trained weights, the agent submits a self-contained git patch relative to the baseline commit alongside its locked software environment.</p>
-                </li>
-                <li>
-                  <strong>4. Isolated hidden-test verification</strong>
-                  <p>An independent judge rebuilds the environment from scratch, retrains across fixed evaluation seeds, runs inference on held-out test data, and records the final score and pass verdict.</p>
-                </li>
-              </ol>
-            </article>
-          </div>
+                <!-- Zone 1: Below baseline (clipped to 0%) -->
+                <rect x="26" y="46" width="126" height="72" rx="6" fill="#FFF1F2"/>
+                <rect x="26" y="46" width="126" height="72" rx="6" fill="url(#proto-hatch-rose)"/>
+                <text x="89" y="34" text-anchor="middle" font-size="11.5" font-weight="600" fill="#BE123C">Below baseline</text>
+                <circle cx="72" cy="118" r="4" fill="#E11D48"/>
+                <path d="M74 111 C88 86, 124 86, 146 108" fill="none" stroke="#BE123C" stroke-width="1.6" stroke-dasharray="3.5 3" marker-end="url(#proto-arr-rose)"/>
+                <rect x="48" y="65" width="84" height="20" rx="4" fill="#FFFFFF" fill-opacity="0.92"/>
+                <text x="90" y="79" text-anchor="middle" font-size="10.8" font-weight="620" fill="#BE123C">Clipped to 0%</text>
+
+                <!-- Zone 2: Normalized 0% to 100% progress band -->
+                <rect x="152" y="46" width="296" height="72" fill="url(#proto-cobalt-zone)"/>
+
+                <!-- Zone 3: Uncapped > 100% region -->
+                <rect x="448" y="46" width="126" height="72" rx="6" fill="url(#proto-emerald-zone)"/>
+                <text x="511" y="34" text-anchor="middle" font-size="11.5" font-weight="600" fill="#047857">Uncapped</text>
+                <text x="511" y="79" text-anchor="middle" font-size="13" font-weight="700" fill="#047857">&gt; 100%</text>
+                <text x="511" y="96" text-anchor="middle" font-size="10.5" font-weight="500" fill="#059669">retained as earned</text>
+
+                <!-- Axis track -->
+                <line x1="26" y1="118" x2="448" y2="118" stroke="#CBD5E1" stroke-width="2.5" stroke-linecap="round"/>
+                <line x1="448" y1="118" x2="562" y2="118" stroke="#059669" stroke-width="2.2" stroke-linecap="round" marker-end="url(#proto-arr-emerald)"/>
+
+                <!-- Active progress bar from Baseline (152) to Candidate xi (344) -->
+                <rect x="152" y="114" width="192" height="8" rx="4" fill="url(#proto-cobalt-bar)"/>
+
+                <!-- Numerator measurement span (xi - baseline) -->
+                <line x1="154" y1="95" x2="342" y2="95" stroke="#0052FF" stroke-width="1.2"/>
+                <line x1="154" y1="90" x2="154" y2="100" stroke="#0052FF" stroke-width="1.2"/>
+                <line x1="342" y1="90" x2="342" y2="100" stroke="#0052FF" stroke-width="1.2"/>
+                <text x="248" y="88" text-anchor="middle" font-size="11" font-weight="620" fill="#003ECC">xi − baseline</text>
+
+                <!-- Baseline anchor (0%) -->
+                <line x1="152" y1="42" x2="152" y2="136" stroke="#334155" stroke-width="2"/>
+                <circle cx="152" cy="118" r="5.5" fill="#FFFFFF" stroke="#334155" stroke-width="2.4"/>
+                <text x="152" y="152" text-anchor="middle" font-size="12" font-weight="650" fill="#0A0E17">Baseline</text>
+                <text x="152" y="167" text-anchor="middle" font-size="11.5" font-weight="600" fill="#525E70">0%</text>
+
+                <!-- Target ceiling anchor (100%) -->
+                <line x1="448" y1="42" x2="448" y2="136" stroke="#0052FF" stroke-width="1.8" stroke-dasharray="4 3"/>
+                <circle cx="448" cy="118" r="5.5" fill="#EEF4FF" stroke="#0052FF" stroke-width="2.4"/>
+                <text x="448" y="152" text-anchor="middle" font-size="12" font-weight="650" fill="#0052FF">Target ceiling</text>
+                <text x="448" y="167" text-anchor="middle" font-size="11.5" font-weight="600" fill="#0052FF">100%</text>
+
+                <!-- Candidate marker xi -->
+                <line x1="344" y1="74" x2="344" y2="108" stroke="#0052FF" stroke-width="1.4"/>
+                <circle cx="344" cy="118" r="10.5" fill="#0052FF" opacity="0.14"/>
+                <circle cx="344" cy="118" r="5.5" fill="#0052FF" stroke="#FFFFFF" stroke-width="2"/>
+                <rect x="284" y="50" width="120" height="24" rx="6" fill="#FFFFFF" stroke="#0052FF" stroke-width="1.3"/>
+                <text x="344" y="66" text-anchor="middle" font-size="11.5" font-weight="650" fill="#0052FF">Candidate xi (65%)</text>
+
+                <!-- Denominator measurement span (target_ceiling - baseline) -->
+                <path d="M154 176 L154 184 L446 184 L446 176" fill="none" stroke="#94A3B8" stroke-width="1.3"/>
+                <text x="300" y="199" text-anchor="middle" font-size="11" font-weight="550" fill="#525E70">target_ceiling − baseline (full 100% span)</text>
+
+                <!-- Horizontal divider -->
+                <line x1="20" y1="216" x2="580" y2="216" stroke="#E2E7F0" stroke-width="1"/>
+
+                <!-- Bottom Left: Typeset Fraction Formula -->
+                <text x="24" y="275" font-size="12.5" font-weight="650" fill="#0A0E17">Task score =</text>
+                <text x="184" y="259" text-anchor="middle" font-size="12" font-weight="650" fill="#0052FF">xi − baseline</text>
+                <line x1="112" y1="270" x2="256" y2="270" stroke="#0A0E17" stroke-width="1.5"/>
+                <text x="184" y="287" text-anchor="middle" font-size="11.5" font-weight="550" fill="#374151">target_ceiling − baseline</text>
+                <text x="266" y="275" font-size="12.5" font-weight="650" fill="#0A0E17">× 100%</text>
+                <text x="24" y="311" font-size="10.5" fill="#64748B">Handles ↑ higher and ↓ lower metrics uniformly</text>
+
+                <!-- Vertical divider -->
+                <line x1="330" y1="228" x2="330" y2="314" stroke="#E2E7F0" stroke-width="1"/>
+
+                <!-- Bottom Right: Collection Mean Aggregation -->
+                <text x="346" y="242" font-size="12" font-weight="650" fill="#0A0E17">Collection score = Σ / N</text>
+
+                <rect x="346" y="253" width="32" height="28" rx="5" fill="#EEF4FF" stroke="#93C5FD" stroke-width="1.2"/>
+                <text x="362" y="271" text-anchor="middle" font-size="10.5" font-weight="650" fill="#003ECC">74%</text>
+
+                <rect x="383" y="253" width="36" height="28" rx="5" fill="#ECFDF5" stroke="#6EE7B7" stroke-width="1.2"/>
+                <text x="401" y="271" text-anchor="middle" font-size="10.5" font-weight="650" fill="#047857">112%</text>
+
+                <rect x="424" y="253" width="28" height="28" rx="5" fill="#FFF1F2" stroke="#FDA4AF" stroke-width="1.2"/>
+                <text x="438" y="271" text-anchor="middle" font-size="10.5" font-weight="650" fill="#BE123C">0%</text>
+
+                <text x="462" y="271" text-anchor="middle" font-size="12" font-weight="600" fill="#94A3B8">…</text>
+
+                <rect x="472" y="253" width="30" height="28" rx="5" fill="#EEF4FF" stroke="#93C5FD" stroke-width="1.2"/>
+                <text x="487" y="271" text-anchor="middle" font-size="10.5" font-weight="650" fill="#003ECC">48%</text>
+
+                <line x1="506" y1="267" x2="522" y2="267" stroke="#475569" stroke-width="1.5" marker-end="url(#proto-arr-slate)"/>
+
+                <rect x="526" y="251" width="52" height="32" rx="7" fill="#0052FF"/>
+                <text x="552" y="271" text-anchor="middle" font-size="11.5" font-weight="650" fill="#FFFFFF">Mean</text>
+
+                <text x="346" y="299" font-size="10.5" fill="#64748B">N = 104 overall, or discipline count N</text>
+                <text x="346" y="314" font-size="10.5" fill="#64748B">Confirmed agent failures contribute 0%</text>
+              </svg>
+            </figure>
+
+            <p class="plate-note"><span id="score-policy">Negative task scores are clipped to 0% before aggregation, while solutions that surpass the target ceiling remain uncapped above 100%.</span> Confirmed agent failures score 0% rather than dropping from the denominator.</p>
+          </article>
+
+          <!-- Diagram 2: Pass Criteria -->
+          <article id="protocol-pass" class="protocol-plate">
+            <div class="plate-header">
+              <h3>Pass criteria</h3>
+              <p>A binary verdict requiring statistically meaningful gain beyond both the task margin and twice the baseline's cross-seed standard deviation.</p>
+            </div>
+
+            <figure class="plate-figure">
+              <svg class="protocol-svg" viewBox="0 0 600 328" role="img" aria-labelledby="fig-pass-title fig-pass-desc">
+                <title id="fig-pass-title">Pass criteria noise floor, decision threshold, and dual-gate verification</title>
+                <desc id="fig-pass-desc">A statistical gain plot centered at the baseline showing its cross-seed variance bell curve, the 2-sigma noise floor, the pass threshold defined as max of task delta and 2-sigma relative variance, and the dual AND gates combining normalized gain with contract validity to grant a pass.</desc>
+                <defs>
+                  <linearGradient id="proto-pass-amber" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#F59E0B" stop-opacity="0.28"/>
+                    <stop offset="100%" stop-color="#F59E0B" stop-opacity="0.06"/>
+                  </linearGradient>
+                  <linearGradient id="proto-pass-slate" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#94A3B8" stop-opacity="0.22"/>
+                    <stop offset="100%" stop-color="#94A3B8" stop-opacity="0.04"/>
+                  </linearGradient>
+                  <linearGradient id="proto-pass-green" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stop-color="#ECFDF5" stop-opacity="0.96"/>
+                    <stop offset="100%" stop-color="#ECFDF5" stop-opacity="0.22"/>
+                  </linearGradient>
+                  <marker id="proto-arr-pass" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+                    <path d="M1 1.5 L8.5 5 L1 8.5" fill="none" stroke="#059669" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  </marker>
+                </defs>
+
+                <rect x="0" y="0" width="600" height="328" fill="#FAFBFD"/>
+
+                <!-- Pass shaded zone to the right of decision boundary (x = 348) -->
+                <rect x="348" y="42" width="226" height="108" rx="6" fill="url(#proto-pass-green)"/>
+
+                <!-- Left half of baseline Gaussian bell curve (x = 32..140, centered at 140) -->
+                <path d="M32 150 C60 149, 76 140, 94 106 C108 78, 122 62, 140 62 L140 150 Z" fill="url(#proto-pass-slate)"/>
+                <!-- Right half of baseline Gaussian bell curve (0 to +2σ noise floor, x = 140..248) -->
+                <path d="M140 62 C158 62, 172 78, 186 106 C204 140, 220 149, 248 150 L140 150 Z" fill="url(#proto-pass-amber)"/>
+                <!-- Bell curve outline -->
+                <path d="M32 150 C60 149, 76 140, 94 106 C108 78, 122 62, 140 62 C158 62, 172 78, 186 106 C204 140, 220 149, 248 150" fill="none" stroke="#64748B" stroke-width="1.6"/>
+                <path d="M140 62 C158 62, 172 78, 186 106 C204 140, 220 149, 248 150" fill="none" stroke="#D97706" stroke-width="1.9"/>
+
+                <text x="140" y="44" text-anchor="middle" font-size="11" font-weight="600" fill="#525E70">Baseline cross-seed variance (σ)</text>
+
+                <!-- Horizontal Gain Axis -->
+                <line x1="28" y1="150" x2="564" y2="150" stroke="#CBD5E1" stroke-width="2.2" stroke-linecap="round" marker-end="url(#proto-arr-pass)"/>
+                <text x="572" y="170" text-anchor="end" font-size="10.8" font-weight="600" fill="#525E70">Normalized gain →</text>
+
+                <!-- Baseline vertical line (0) -->
+                <line x1="140" y1="54" x2="140" y2="156" stroke="#334155" stroke-width="1.8"/>
+                <text x="140" y="170" text-anchor="middle" font-size="11.5" font-weight="650" fill="#0A0E17">0 (baseline)</text>
+
+                <!-- 2σ noise floor vertical marker -->
+                <line x1="248" y1="106" x2="248" y2="156" stroke="#D97706" stroke-width="1.6" stroke-dasharray="3.5 3"/>
+                <text x="248" y="170" text-anchor="middle" font-size="11" font-weight="620" fill="#B45309">2σ / |base|</text>
+
+                <!-- Pass threshold decision wall -->
+                <line x1="348" y1="38" x2="348" y2="156" stroke="#059669" stroke-width="2.3"/>
+                <rect x="296" y="14" width="104" height="22" rx="5" fill="#ECFDF5" stroke="#059669" stroke-width="1.2"/>
+                <text x="348" y="29" text-anchor="middle" font-size="11" font-weight="650" fill="#047857">Pass threshold</text>
+                <text x="348" y="170" text-anchor="middle" font-size="11.2" font-weight="650" fill="#047857">max(δ, 2σ_rel)</text>
+
+                <!-- Example Candidate A: inside noise / below threshold -->
+                <line x1="214" y1="86" x2="214" y2="144" stroke="#E11D48" stroke-width="1.2" stroke-dasharray="3 2.5"/>
+                <circle cx="214" cy="150" r="5" fill="#E11D48" stroke="#FFFFFF" stroke-width="1.8"/>
+                <rect x="176" y="64" width="90" height="22" rx="5" fill="#FFFFFF" stroke="#FDA4AF" stroke-width="1.1"/>
+                <text x="221" y="79" text-anchor="middle" font-size="10.5" font-weight="620" fill="#BE123C">Noise / Fail</text>
+
+                <!-- Example Candidate B: clearly passes -->
+                <line x1="464" y1="92" x2="464" y2="141" stroke="#059669" stroke-width="1.5"/>
+                <circle cx="464" cy="150" r="10" fill="#059669" opacity="0.16"/>
+                <circle cx="464" cy="150" r="5.5" fill="#059669" stroke="#FFFFFF" stroke-width="2"/>
+                <rect x="402" y="64" width="124" height="26" rx="6" fill="#FFFFFF" stroke="#059669" stroke-width="1.3"/>
+                <text x="464" y="81" text-anchor="middle" font-size="11.2" font-weight="650" fill="#047857">PASS (gain ≥ thresh)</text>
+
+                <!-- Required clearance bracket -->
+                <path d="M142 180 L142 187 L346 187 L346 180" fill="none" stroke="#94A3B8" stroke-width="1.2"/>
+                <text x="244" y="202" text-anchor="middle" font-size="10.8" font-weight="550" fill="#525E70">Required improvement clearance</text>
+
+                <!-- Horizontal divider -->
+                <line x1="20" y1="216" x2="580" y2="216" stroke="#E2E7F0" stroke-width="1"/>
+
+                <!-- Bottom Dual-Gate AND Logic -->
+                <!-- Gate 1 -->
+                <rect x="20" y="230" width="226" height="80" rx="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+                <text x="34" y="250" font-size="11.5" font-weight="650" fill="#0A0E17">1. Normalized gain gate</text>
+                <text x="34" y="271" font-size="10.8" font-weight="600" fill="#0052FF">gain = dir × (xi − base) / |base|</text>
+                <text x="34" y="293" font-size="10.8" font-weight="550" fill="#374151">gain ≥ max(δ_task, 2σ / |base|)</text>
+
+                <!-- AND connector -->
+                <circle cx="262" cy="270" r="12" fill="#EEF4FF" stroke="#93C5FD" stroke-width="1.2"/>
+                <text x="262" y="274" text-anchor="middle" font-size="12" font-weight="700" fill="#0052FF">&amp;</text>
+
+                <!-- Gate 2 -->
+                <rect x="278" y="230" width="202" height="80" rx="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+                <text x="292" y="250" font-size="11.5" font-weight="650" fill="#0A0E17">2. Contract integrity gate</text>
+                <text x="292" y="271" font-size="10.8" font-weight="500" fill="#374151">✓ Valid output &amp; finite metric</text>
+                <text x="292" y="293" font-size="10.8" font-weight="500" fill="#374151">✓ Budget &amp; frozen files intact</text>
+
+                <!-- Arrow to PASS -->
+                <line x1="484" y1="270" x2="506" y2="270" stroke="#059669" stroke-width="1.8" marker-end="url(#proto-arr-pass)"/>
+
+                <!-- PASS verdict badge -->
+                <rect x="510" y="244" width="70" height="52" rx="10" fill="#059669"/>
+                <text x="545" y="275" text-anchor="middle" font-size="13" font-weight="700" fill="#FFFFFF">PASS</text>
+              </svg>
+            </figure>
+
+            <p class="plate-note">Direction is +1 for higher-is-better metrics and -1 for lower-is-better metrics (denominator floored at 10⁻¹²). Submissions failing any contract check never pass.</p>
+          </article>
         </div>
+
+        <!-- Diagram 3: Full-Width Architectural Evaluation Pipeline -->
+        <article id="protocol-flow" class="protocol-plate protocol-pipeline-plate">
+          <div class="plate-header plate-header-row">
+            <div>
+              <h3>Evaluation pipeline</h3>
+              <p>From grounded paper workspace to isolated hidden-test replay across an air-gapped patch boundary.</p>
+            </div>
+            <div class="pipeline-legend" aria-hidden="true">
+              <span><i class="swatch-agent"></i>Agent sandbox</span>
+              <span><i class="swatch-firewall"></i>Isolation boundary</span>
+              <span><i class="swatch-judge"></i>Independent judge</span>
+            </div>
+          </div>
+
+          <figure class="plate-figure pipeline-svg-scroll">
+            <svg class="protocol-svg pipeline-svg" viewBox="0 0 1280 310" role="img" aria-labelledby="fig-pipe-title fig-pipe-desc">
+              <title id="fig-pipe-title">Four-stage isolated evaluation pipeline</title>
+              <desc id="fig-pipe-desc">An architectural flow diagram showing the Agent execution sandbox containing Stage 1 Grounded workspace and Stage 2 Autonomous optimization, crossing an air-gapped Isolation boundary via Stage 3 Clean git patch with no pre-trained weights, into the Independent judge sandbox for Stage 4 Isolated hidden-test verification that rebuilds, retrains across fixed seeds, and scores on held-out test data.</desc>
+              <defs>
+                <marker id="pipe-arr-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+                  <path d="M1 1.5 L8.5 5 L1 8.5" fill="none" stroke="#0052FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </marker>
+                <marker id="pipe-arr-slate" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+                  <path d="M1 1.5 L8.5 5 L1 8.5" fill="none" stroke="#475569" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </marker>
+                <marker id="pipe-arr-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+                  <path d="M1 1.5 L8.5 5 L1 8.5" fill="none" stroke="#059669" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </marker>
+                <filter id="pipe-shadow" x="-8%" y="-8%" width="116%" height="120%">
+                  <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#0A0E17" flood-opacity="0.08"/>
+                </filter>
+              </defs>
+
+              <rect x="0" y="0" width="1280" height="310" fill="#FAFBFD"/>
+
+              <!-- Environment Enclosures (Base Layer) -->
+              <rect x="18" y="18" width="612" height="274" rx="16" fill="#F4F7FF" stroke="#C7D9FF" stroke-width="1.5"/>
+              <circle cx="38" cy="39" r="4.5" fill="#0052FF"/>
+              <text x="50" y="43" font-size="12.5" font-weight="650" fill="#003ECC">Agent execution sandbox</text>
+              <text x="610" y="43" text-anchor="end" font-size="11.5" font-weight="500" fill="#525E70">Train &amp; validation only · Hidden test inaccessible</text>
+
+              <rect x="860" y="18" width="402" height="274" rx="16" fill="#F1FBF6" stroke="#A7F3D0" stroke-width="1.5"/>
+              <circle cx="880" cy="39" r="4.5" fill="#059669"/>
+              <text x="892" y="43" font-size="12.5" font-weight="650" fill="#047857">Independent judge sandbox</text>
+              <text x="1244" y="43" text-anchor="end" font-size="11.5" font-weight="500" fill="#059669">Clean hidden replay</text>
+
+              <!-- Isolation Firewall -->
+              <line x1="745" y1="42" x2="745" y2="296" stroke="#E11D48" stroke-width="2" stroke-dasharray="6 5"/>
+              <rect x="673" y="16" width="144" height="24" rx="12" fill="#FFF1F2" stroke="#FDA4AF" stroke-width="1.2"/>
+              <text x="745" y="32" text-anchor="middle" font-size="11.2" font-weight="650" fill="#BE123C">Isolation boundary</text>
+
+              <!-- Stage 1: Grounded Workspace -->
+              <g class="pipeline-stage-node" data-stage="1">
+                <rect class="stage-card" x="38" y="60" width="262" height="214" rx="12" fill="#FFFFFF" stroke="#D6E2F7" stroke-width="1.3"/>
+                <text x="56" y="87" font-size="13.5" font-weight="660" fill="#0A0E17">1. Grounded workspace</text>
+
+                <!-- Paper + Pinned Repo box -->
+                <rect x="56" y="102" width="108" height="78" rx="8" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.1"/>
+                <rect x="69" y="113" width="26" height="32" rx="3" fill="#FFFFFF" stroke="#94A3B8" stroke-width="1.2"/>
+                <line x1="74" y1="121" x2="90" y2="121" stroke="#0052FF" stroke-width="1.8" stroke-linecap="round"/>
+                <line x1="74" y1="128" x2="88" y2="128" stroke="#94A3B8" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="74" y1="135" x2="85" y2="135" stroke="#CBD5E1" stroke-width="1.5" stroke-linecap="round"/>
+                <!-- Git commit node glyph -->
+                <circle cx="117" cy="121" r="3.5" fill="#0052FF"/>
+                <line x1="117" y1="125" x2="117" y2="139" stroke="#94A3B8" stroke-width="1.5"/>
+                <circle cx="117" cy="141" r="3.5" fill="#FFFFFF" stroke="#475569" stroke-width="1.6"/>
+                <path d="M117 132 C128 132, 134 128, 134 122" fill="none" stroke="#0052FF" stroke-width="1.4"/>
+                <circle cx="134" cy="120" r="3" fill="#3B82F6"/>
+                <text x="110" y="166" text-anchor="middle" font-size="10.8" font-weight="600" fill="#334155">Paper &amp; repo</text>
+
+                <!-- Data Split box -->
+                <rect x="174" y="102" width="108" height="78" rx="8" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.1"/>
+                <rect x="183" y="112" width="90" height="24" rx="5" fill="#ECFDF5" stroke="#6EE7B7" stroke-width="1"/>
+                <text x="228" y="128" text-anchor="middle" font-size="10.5" font-weight="620" fill="#047857">Train / Val</text>
+                <rect x="183" y="144" width="90" height="24" rx="5" fill="#FFF1F2" stroke="#FDA4AF" stroke-width="1" stroke-dasharray="3 2"/>
+                <text x="228" y="160" text-anchor="middle" font-size="10.2" font-weight="600" fill="#BE123C">Test locked</text>
+
+                <!-- Validation contract strip -->
+                <rect x="56" y="192" width="226" height="64" rx="8" fill="#EEF4FF" stroke="#C7D9FF" stroke-width="1.1"/>
+                <text x="70" y="215" font-size="11.5" font-weight="650" fill="#003ECC">Read-only validation harness</text>
+                <text x="70" y="234" font-size="10.8" fill="#525E70">Metric contract · pinned baseline</text>
+                <text x="70" y="248" font-size="10.5" fill="#525E70">Executable runtime environment</text>
+              </g>
+
+              <!-- Arrow 1 -> 2 -->
+              <line x1="304" y1="168" x2="340" y2="168" stroke="#0052FF" stroke-width="2" marker-end="url(#pipe-arr-blue)"/>
+
+              <!-- Stage 2: Autonomous Optimization Loop -->
+              <g class="pipeline-stage-node" data-stage="2">
+                <rect class="stage-card" x="346" y="60" width="264" height="214" rx="12" fill="#FFFFFF" stroke="#D6E2F7" stroke-width="1.3"/>
+                <text x="364" y="87" font-size="13.5" font-weight="660" fill="#0A0E17">2. Autonomous optimization</text>
+
+                <!-- Cyclic orbit -->
+                <circle cx="478" cy="170" r="50" fill="none" stroke="#93C5FD" stroke-width="2" stroke-dasharray="5 4"/>
+                <!-- Subtle cycle arrows on orbit -->
+                <path d="M518 134 L524 142 L514 143" fill="none" stroke="#0052FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M514 206 L505 212 L507 202" fill="none" stroke="#0052FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M438 204 L433 195 L443 195" fill="none" stroke="#0052FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M442 134 L451 128 L449 138" fill="none" stroke="#0052FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+
+                <!-- Center budget cue -->
+                <text x="478" y="167" text-anchor="middle" font-size="10.5" font-weight="620" fill="#334155">Wall-clock</text>
+                <text x="478" y="181" text-anchor="middle" font-size="10.5" font-weight="550" fill="#64748B">budget</text>
+
+                <!-- 4 Loop nodes -->
+                <rect x="437" y="106" width="82" height="24" rx="12" fill="#EEF4FF" stroke="#0052FF" stroke-width="1.2"/>
+                <text x="478" y="122" text-anchor="middle" font-size="11" font-weight="650" fill="#003ECC">Diagnose</text>
+
+                <rect x="515" y="158" width="84" height="24" rx="12" fill="#FFFFFF" stroke="#94A3B8" stroke-width="1.2"/>
+                <text x="557" y="174" text-anchor="middle" font-size="11" font-weight="600" fill="#0A0E17">Edit code</text>
+
+                <rect x="437" y="210" width="82" height="24" rx="12" fill="#ECFDF5" stroke="#059669" stroke-width="1.2"/>
+                <text x="478" y="226" text-anchor="middle" font-size="11" font-weight="650" fill="#047857">Validate</text>
+
+                <rect x="357" y="158" width="86" height="24" rx="12" fill="#FFFFFF" stroke="#94A3B8" stroke-width="1.2"/>
+                <text x="400" y="174" text-anchor="middle" font-size="11" font-weight="600" fill="#0A0E17">Hypothesize</text>
+
+                <text x="478" y="259" text-anchor="middle" font-size="10.8" fill="#525E70">Iterative experiments within permitted files</text>
+              </g>
+
+              <!-- Arrow 2 -> 3 -->
+              <line x1="612" y1="168" x2="651" y2="168" stroke="#475569" stroke-width="2" marker-end="url(#pipe-arr-slate)"/>
+
+              <!-- Stage 3: Clean Git Patch Bridge -->
+              <g class="pipeline-stage-node" data-stage="3" filter="url(#pipe-shadow)">
+                <rect class="stage-card" x="656" y="60" width="178" height="214" rx="12" fill="#FFFFFF" stroke="#0A0E17" stroke-width="1.5"/>
+                <text x="745" y="87" text-anchor="middle" font-size="13.5" font-weight="660" fill="#0A0E17">3. Clean git patch</text>
+
+                <!-- Mini code diff plate -->
+                <rect x="672" y="102" width="146" height="86" rx="8" fill="#0F172A"/>
+                <text x="684" y="122" font-size="10.2" font-weight="550" fill="#94A3B8">diff --git a/method.py</text>
+                <text x="684" y="140" font-size="10.8" font-weight="550" fill="#FDA4AF">− baseline_solver()</text>
+                <text x="684" y="158" font-size="10.8" font-weight="600" fill="#6EE7B7">+ improved_solver()</text>
+                <text x="684" y="176" font-size="10.5" font-weight="550" fill="#93C5FD">+ locked env spec</text>
+
+                <!-- No weights policy callout -->
+                <rect x="672" y="200" width="146" height="56" rx="8" fill="#FFF1F2" stroke="#FECDD3" stroke-width="1.1"/>
+                <text x="745" y="222" text-anchor="middle" font-size="11.2" font-weight="650" fill="#BE123C">Code patch only</text>
+                <text x="745" y="241" text-anchor="middle" font-size="10.5" font-weight="500" fill="#9F1239">No exported weights</text>
+              </g>
+
+              <!-- Arrow 3 -> 4 (rendered cleanly ABOVE judge enclosure!) -->
+              <line x1="836" y1="168" x2="874" y2="168" stroke="#059669" stroke-width="2" marker-end="url(#pipe-arr-green)"/>
+
+              <!-- Stage 4: Isolated Hidden-Test Verification -->
+              <g class="pipeline-stage-node" data-stage="4">
+                <rect class="stage-card" x="880" y="60" width="364" height="214" rx="12" fill="#FFFFFF" stroke="#BDE8D3" stroke-width="1.3"/>
+                <text x="898" y="87" font-size="13.5" font-weight="660" fill="#0A0E17">4. Isolated hidden-test verification</text>
+
+                <!-- Substep A: Rebuild -->
+                <rect x="898" y="104" width="94" height="114" rx="9" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.1"/>
+                <rect x="927" y="118" width="36" height="28" rx="5" fill="#EEF4FF" stroke="#0052FF" stroke-width="1.4"/>
+                <path d="M937 132 L943 138 L954 126" fill="none" stroke="#0052FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                <text x="945" y="168" text-anchor="middle" font-size="12" font-weight="650" fill="#0A0E17">Rebuild</text>
+                <text x="945" y="186" text-anchor="middle" font-size="10.5" fill="#525E70">Clean image</text>
+                <text x="945" y="201" text-anchor="middle" font-size="10.5" fill="#525E70">+ apply patch</text>
+
+                <!-- Mini arrow A -> B -->
+                <line x1="995" y1="161" x2="1012" y2="161" stroke="#475569" stroke-width="1.6" marker-end="url(#pipe-arr-slate)"/>
+
+                <!-- Substep B: Multi-seed Retrain -->
+                <rect x="1016" y="104" width="102" height="114" rx="9" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.1"/>
+                <!-- 3 Seed tracks -->
+                <text x="1028" y="124" font-size="9.5" font-weight="650" fill="#525E70">s₁</text>
+                <rect x="1042" y="117" width="62" height="7" rx="3.5" fill="#DBEAFE"/>
+                <rect x="1042" y="117" width="54" height="7" rx="3.5" fill="#0052FF"/>
+                <text x="1028" y="137" font-size="9.5" font-weight="650" fill="#525E70">s₂</text>
+                <rect x="1042" y="130" width="62" height="7" rx="3.5" fill="#CCFBF1"/>
+                <rect x="1042" y="130" width="58" height="7" rx="3.5" fill="#0D9488"/>
+                <text x="1028" y="150" font-size="9.5" font-weight="650" fill="#525E70">s₃</text>
+                <rect x="1042" y="143" width="62" height="7" rx="3.5" fill="#D1FAE5"/>
+                <rect x="1042" y="143" width="50" height="7" rx="3.5" fill="#059669"/>
+                <text x="1067" y="168" text-anchor="middle" font-size="12" font-weight="650" fill="#0A0E17">Retrain</text>
+                <text x="1067" y="186" text-anchor="middle" font-size="10.5" fill="#525E70">Fixed seeds</text>
+                <text x="1067" y="201" text-anchor="middle" font-size="10.5" fill="#525E70">from scratch</text>
+
+                <!-- Mini arrow B -> C -->
+                <line x1="1121" y1="161" x2="1136" y2="161" stroke="#059669" stroke-width="1.6" marker-end="url(#pipe-arr-green)"/>
+
+                <!-- Substep C: Held-out Test Score -->
+                <rect x="1140" y="104" width="86" height="114" rx="9" fill="#ECFDF5" stroke="#6EE7B7" stroke-width="1.2"/>
+                <circle cx="1183" cy="132" r="15" fill="#059669"/>
+                <path d="M1176 132 L1181 137 L1191 127" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                <text x="1183" y="168" text-anchor="middle" font-size="12" font-weight="650" fill="#047857">Score</text>
+                <text x="1183" y="186" text-anchor="middle" font-size="10.5" fill="#047857">Held-out</text>
+                <text x="1183" y="201" text-anchor="middle" font-size="10.5" fill="#047857">test split</text>
+
+                <!-- Output ribbon -->
+                <rect x="898" y="230" width="328" height="28" rx="7" fill="#ECFDF5" stroke="#A7F3D0" stroke-width="1.1"/>
+                <text x="1062" y="248" text-anchor="middle" font-size="11" font-weight="620" fill="#047857">Outputs verified Improvement score (%) &amp; Pass verdict</text>
+              </g>
+            </svg>
+          </figure>
+
+          <ol class="pipeline-caption-rail">
+            <li data-stage="1">
+              <strong>1. Grounded research workspace</strong>
+              <p>Starts from the paper context, pinned baseline commit, permitted train/validation data, and read-only validation scripts.</p>
+            </li>
+            <li data-stage="2">
+              <strong>2. Long-horizon optimization</strong>
+              <p>Within its wall-clock budget, the agent diagnoses bottlenecks, invents methods, edits permitted files, and validates iteratively.</p>
+            </li>
+            <li data-stage="3">
+              <strong>3. Clean code patch submission</strong>
+              <p>Exports a self-contained git diff and locked software environment rather than pre-trained weights.</p>
+            </li>
+            <li data-stage="4">
+              <strong>4. Isolated hidden-test replay</strong>
+              <p>An independent judge rebuilds from scratch, retrains across fixed seeds, and scores on held-out test data.</p>
+            </li>
+          </ol>
+        </article>
       </div>
     </section>
   </main>

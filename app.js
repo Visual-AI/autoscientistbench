@@ -767,6 +767,7 @@ function renderLeaderboard() {
    Interactive 3D Archival Paper Observatory (Gliding Auto-Play)
    ============================================================ */
 function filteredPapers() {
+  if (!state.data) return [];
   return state.data.tasks.filter((t) => state.paperDomain === 'all' || t.domain === state.paperDomain);
 }
 
