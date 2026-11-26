@@ -33,17 +33,20 @@ const DOMAIN_PALETTE = {
 };
 
 const MODEL_GRADIENTS = {
+  gpt6astra: ['#047857', '#10b981'],
   gpt61sol: ['#059669', '#34d399'],
   kimi31: ['#1d4ed8', '#60a5fa'],
   deepseek41: ['#0284c7', '#38bdf8'],
   gpt6luna: ['#0d9488', '#5eead4'],
   qwen38flash: ['#4f46e5', '#818cf8'],
   qwen3827b: ['#6366f1', '#a5b4fc'],
+  seed21turbo: ['#0891b2', '#22d3ee'],
   qwen36935: ['#7c3aed', '#c4b5fd'],
   qwen359b: ['#64748b', '#cbd5e1'],
 };
 
 const MODEL_EFFORT_FALLBACK = {
+  gpt6astra: 'xhigh',
   gpt61sol: 'xhigh',
   gpt6luna: 'xhigh',
   deepseek41: 'max',
@@ -59,6 +62,7 @@ const PROVIDER_SWATCHES = {
   Moonshot: '#1d4ed8',
   DeepSeek: '#0284c7',
   Qwen: '#4f46e5',
+  'ByteDance Seed': '#0891b2',
 };
 
 const state = {
@@ -134,7 +138,7 @@ function logo(model, className = '') {
   return `<img class="${className}" src="assets/${esc(model.logo)}.svg" alt="${esc(model.provider)}" width="20" height="20">`;
 }
 
-// Strictly expose ONLY the 8 published leaderboard models across the entire website
+// Expose explicitly published leaderboard models across the website.
 function publishedModels() {
   return state.data.models
     .filter((model) => model.publication === 'results')
@@ -371,7 +375,8 @@ function renderAtlas() {
 
   if (focusModel) {
     const sum = summarize(focusModel, state.data.tasks, state.data.tasks.length);
-    $('#atlas-headline').textContent = `${focusModel.name} (${modelEffort(focusModel)}): ${percentage(sum.score)} improvement score (${sum.passed} / ${state.data.totalTasks} passed)`;
+    const effort = modelEffort(focusModel);
+    $('#atlas-headline').textContent = `${focusModel.name}${effort ? ` (${effort})` : ''}: ${percentage(sum.score)} improvement score (${sum.passed} / ${state.data.totalTasks} passed)`;
     $('#atlas-caption').textContent =
       state.atlasMode === 'heatmap'
         ? 'Each tile displays this model\'s improvement score (%) relative to baseline (0) and target ceiling (100).'
@@ -490,12 +495,14 @@ function renderFrontierPlot(models) {
   const xTicks = Array.from({ length: xTickCount + 1 }, (_, i) => Math.round((totalTasks * i) / xTickCount));
 
   const labelOffsets = {
-    gpt61sol: { dx: -16, dy: 4, anchor: 'end' },
+    gpt6astra: { dx: -16, dy: -19, anchor: 'end' },
+    gpt61sol: { dx: -16, dy: 17, anchor: 'end' },
     kimi31: { dx: -16, dy: -6, anchor: 'end' },
     deepseek41: { dx: 16, dy: 4, anchor: 'start' },
     gpt6luna: { dx: 16, dy: 14, anchor: 'start' },
     qwen38flash: { dx: -16, dy: 5, anchor: 'end' },
     qwen3827b: { dx: -16, dy: -8, anchor: 'end' },
+    seed21turbo: { dx: 16, dy: 6, anchor: 'start' },
     qwen36935: { dx: 16, dy: 4, anchor: 'start' },
     qwen359b: { dx: 16, dy: -12, anchor: 'start' },
   };
@@ -529,11 +536,12 @@ function renderFrontierPlot(models) {
       const cy = yPos(model.score);
       const [gTop] = modelGradient(model);
       const offset = labelOffsets[model.id] || { dx: 16, dy: 4, anchor: 'start' };
-      return `<g class="frontier-point" data-model="${esc(model.id)}" data-frontier-model="${esc(model.id)}" tabindex="0" role="button" aria-label="${esc(model.name)} (${esc(modelEffort(model))}): ${percentage(model.score)} score, ${model.passed} passed">
+      const effort = modelEffort(model);
+      return `<g class="frontier-point" data-model="${esc(model.id)}" data-frontier-model="${esc(model.id)}" tabindex="0" role="button" aria-label="${esc(model.name)}${effort ? ` (${esc(effort)})` : ''}: ${percentage(model.score)} score, ${model.passed} passed">
         <circle class="ring" cx="${cx}" cy="${cy}" r="10" fill="${gTop}" fill-opacity="0.16" stroke="${gTop}" stroke-width="2"/>
         <circle cx="${cx}" cy="${cy}" r="4.5" fill="${gTop}"/>
         <text x="${cx + offset.dx}" y="${cy + offset.dy}" text-anchor="${offset.anchor}" fill="#0a0e17" font-size="13.5" font-weight="600">${esc(model.name)}</text>
-        <text x="${cx + offset.dx}" y="${cy + offset.dy + 15}" text-anchor="${offset.anchor}" fill="#525e70" font-size="12">${percentage(model.score)} · ${model.passed}/${totalTasks} · ${esc(modelEffort(model))}</text>
+        <text x="${cx + offset.dx}" y="${cy + offset.dy + 15}" text-anchor="${offset.anchor}" fill="#525e70" font-size="12">${percentage(model.score)} · ${model.passed}/${totalTasks}${effort ? ` · ${esc(effort)}` : ''}</text>
       </g>`;
     })
     .join('');
@@ -571,6 +579,7 @@ function renderDisciplineMatrix(models) {
 
   const bodyRows = models
     .map((model) => {
+      const effort = modelEffort(model);
       const cells = domains
         .map((domain) => {
           const domainTasks = state.data.tasks.filter((t) => t.domain === domain.id);
@@ -581,8 +590,8 @@ function renderDisciplineMatrix(models) {
             data-matrix-cell="${esc(model.id)}:${esc(domain.id)}"
             data-model="${esc(model.id)}"
             style="--cell-bg:${colors.bg};--cell-ink:${colors.ink}"
-            title="${esc(model.name)} (${esc(modelEffort(model))}) in ${esc(domain.name)}: ${percentage(mean.score)} mean (${mean.passed}/${domainTasks.length} passed)">
-            ${percent(mean.score)}
+            title="${esc(model.name)}${effort ? ` (${esc(effort)})` : ''} in ${esc(domain.name)}: ${percentage(mean.score)}${mean.scorePartial ? '*' : ''} mean (${mean.passed}/${domainTasks.length} passed, ${mean.scoreCoverage}/${domainTasks.length} scored)">
+            ${percent(mean.score)}${mean.scorePartial ? '*' : ''}
           </td>`;
         })
         .join('');
@@ -593,12 +602,12 @@ function renderDisciplineMatrix(models) {
         <td class="matrix-model-cell">
           <button type="button" class="matrix-model-btn" data-model="${esc(model.id)}">
             ${logo(model)}
-            <span>${esc(model.name)} <small style="font-weight:450;color:#6b7688">${esc(modelEffort(model))}</small></span>
+            <span>${esc(model.name)}${effort ? ` <small style="font-weight:450;color:#6b7688">${esc(effort)}</small>` : ''}</span>
           </button>
         </td>
         ${cells}
         <td class="matrix-cell matrix-overall" data-model="${esc(model.id)}" style="--cell-bg:${overallColors.bg};--cell-ink:${overallColors.ink}">
-          ${percent(overall.score)}
+          ${percent(overall.score)}${overall.scorePartial ? '*' : ''}
         </td>
       </tr>`;
     })
@@ -673,7 +682,7 @@ function renderChart(models) {
         const geom = scoreGeometry(model.score, scale);
         const [gradTop, gradBottom] = modelGradient(model);
         const effort = modelEffort(model);
-        return `<button type="button" class="bar-column" data-model="${esc(model.id)}" aria-label="${esc(model.name)} (${esc(effort)}): ${percentage(model.score)} improvement score" style="--grad-top:${gradTop};--grad-bottom:${gradBottom};--height:${geom.size}%;--bottom:${geom.start}%">
+        return `<button type="button" class="bar-column" data-model="${esc(model.id)}" aria-label="${esc(model.name)}${effort ? ` (${esc(effort)})` : ''}: ${percentage(model.score)} improvement score" style="--grad-top:${gradTop};--grad-bottom:${gradBottom};--height:${geom.size}%;--bottom:${geom.start}%">
           <span class="bar-space">
             <span class="bar-fill">
               <span class="bar-value">${percent(model.score)}${model.scorePartial ? '*' : ''}</span>
@@ -682,7 +691,7 @@ function renderChart(models) {
           <span class="bar-label">
             ${logo(model)}
             <span class="bar-name">${esc(model.short)}</span>
-            <span class="bar-effort">${esc(effort)}</span>
+            ${effort ? `<span class="bar-effort">${esc(effort)}</span>` : ''}
           </span>
         </button>`;
       })
@@ -696,7 +705,7 @@ function renderChart(models) {
         const [gradTop, gradBottom] = modelGradient(model);
         const effort = modelEffort(model);
         return `<button type="button" class="row-bar" data-model="${esc(model.id)}" style="--grad-top:${gradTop};--grad-bottom:${gradBottom};--start:${geom.start}%;--width:${geom.size}%;--ref:${refPct}%">
-          <span class="row-bar-label">${logo(model)}<span>${esc(model.name)} <small style="font-weight:450;color:#6b7688">${esc(effort)}</small></span></span>
+          <span class="row-bar-label">${logo(model)}<span>${esc(model.name)}${effort ? ` <small style="font-weight:450;color:#6b7688">${esc(effort)}</small>` : ''}</span></span>
           <span class="row-track"><i></i><span class="row-ref-mark"></span></span>
           <span class="row-bar-stats"><strong>${percentage(model.score)}${model.scorePartial ? '*' : ''}</strong><span>${model.passed}/${total}</span></span>
         </button>`;
@@ -718,8 +727,9 @@ function renderLeaderboard() {
   const total = selectedTasks().length;
   const maxBar = Math.max(50, ...models.map((m) => m.score || 0));
 
+  const hasPartial = models.some((m) => m.scorePartial);
   $('#ranking-count').textContent = `${models.length} model${models.length === 1 ? '' : 's'}`;
-  $('#score-note').textContent = `Improvement score = sum of task scores / ${total} (${state.domain === 'all' ? 'all active tasks' : 'tasks in selected discipline'}).${state.data.metric.clipNegative ? ' Negative task scores are clipped to 0.' : ''}`;
+  $('#score-note').textContent = `Improvement score = sum of task scores / ${total} (${state.domain === 'all' ? 'all active tasks' : 'tasks in selected discipline'}).${state.data.metric.clipNegative ? ' Negative task scores are clipped to 0.' : ''}${hasPartial ? ' * Indicates an unresolved task; full denominator is retained.' : ''}`;
   $('#no-models').hidden = Boolean(models.length);
 
   $('#rankings-body').innerHTML = sorted
@@ -735,7 +745,7 @@ function renderLeaderboard() {
             <div class="model-meta">
               <div class="model-name-line">
                 <button type="button" class="model-name" data-model="${esc(model.id)}">${esc(model.name)}</button>
-                <span class="model-effort">${esc(effort)}</span>
+                ${effort ? `<span class="model-effort">${esc(effort)}</span>` : ''}
               </div>
               <span class="model-sub">${esc(model.provider)}</span>
             </div>
@@ -1050,7 +1060,7 @@ function renderTasks() {
         const ticks = meta.spectrum
           .map(
             (item) =>
-              `<span class="spectrum-tick ${item.passed ? 'passed' : 'failed'}" title="${esc(item.model.name)} (${esc(modelEffort(item.model))}): ${item.passed ? 'Passed' : 'Did not pass'} (${percentage(item.score)})"></span>`
+              `<span class="spectrum-tick ${item.passed ? 'passed' : 'failed'}" title="${esc(item.model.name)}${modelEffort(item.model) ? ` (${esc(modelEffort(item.model))})` : ''}: ${item.passed ? 'Passed' : 'Did not pass'} (${percentage(item.score)})"></span>`
           )
           .join('');
         return `<button type="button" class="task-row" data-task="${esc(task.id)}" style="--d-color:${color}">
@@ -1141,8 +1151,9 @@ function showModel(id, open = true) {
       <h2 id="dialog-title">${esc(model.name)}</h2>
     </div>
     <div class="dialog-sub">
-      <span>${esc(model.provider)} · ${esc(model.harness)} · Reasoning effort: ${esc(effort)}</span>
+      <span>${esc(model.provider)} · ${esc(model.harness)}${effort ? ` · Reasoning effort: ${esc(effort)}` : ''}</span>
     </div>
+    ${model.note ? `<p class="dialog-note">${esc(model.note)}</p>` : ''}
 
     <div class="dialog-metrics">
       <div>
@@ -1154,7 +1165,7 @@ function showModel(id, open = true) {
         <span>Tasks passed</span>
       </div>
       <div>
-        <strong>${esc(effort)}</strong>
+        <strong>${esc(effort || '-')}</strong>
         <span>Reasoning effort</span>
       </div>
     </div>
@@ -1194,7 +1205,7 @@ function showModel(id, open = true) {
     }
 
     <p class="dialog-note">
-      Overall improvement score averages task scores over all ${model.total} tasks. ${state.data.metric.clipNegative ? 'Negative task scores are clipped to 0 before aggregation. ' : ''}Target ceiling anchors synchronized ${esc(referenceImportDate())}.
+      Overall improvement score averages task scores over all ${model.total} tasks${model.scorePartial ? ` (${model.scoreCoverage}/${model.total} resolved; unresolved tasks contribute 0 while retaining the full denominator)` : ''}. ${state.data.metric.clipNegative ? 'Negative task scores are clipped to 0 before aggregation. ' : ''}Target ceiling anchors synchronized ${esc(referenceImportDate())}.
     </p>
   `;
 
@@ -1213,7 +1224,7 @@ function showTask(id, open = true) {
   $('#dialog-context').textContent = `${domain.name} · ${lbl.displayCode}`;
 
   const statusText = (cell) =>
-    cell.relativeScoreStatus === 'user_zero'
+    cell.relativeScoreStatus === 'user_zero' || cell.relativeScoreStatus === 'infra_zero'
       ? 'Score 0'
       : cell.passed
       ? 'Passed'
@@ -1223,7 +1234,7 @@ function showTask(id, open = true) {
       ? 'Agent failure'
       : 'Not passed';
 
-  // Strictly show ONLY the 8 published leaderboard models
+  // Show the explicitly published leaderboard models.
   const orderedModels = publishedModels();
 
   $('#dialog-content').innerHTML = `
@@ -1275,8 +1286,9 @@ function showTask(id, open = true) {
           .map((model) => {
             const cell = task.cells[model.id];
             const cls = cell.passed ? 'result-pass' : 'result-fail';
+            const effort = modelEffort(model);
             return `<tr>
-              <td><button type="button" class="model-name" data-model="${esc(model.id)}" style="font-size:inherit">${esc(model.name)}</button> <span class="model-effort">${esc(modelEffort(model))}</span></td>
+              <td><button type="button" class="model-name" data-model="${esc(model.id)}" style="font-size:inherit">${esc(model.name)}</button>${effort ? ` <span class="model-effort">${esc(effort)}</span>` : ''}</td>
               <td class="numeric">${fmt(cell.metric)}</td>
               <td class="numeric">${percentage(cell.relativeScore)}</td>
               <td class="numeric ${cls}">${statusText(cell)}</td>
@@ -1285,6 +1297,9 @@ function showTask(id, open = true) {
           .join('')}
       </tbody>
     </table>
+
+    ${orderedModels.filter((model) => task.cells[model.id].supplemental).map((model) =>
+      `<p class="dialog-note"><strong>${esc(model.name)}:</strong> ${esc(task.cells[model.id].note)}</p>`).join('')}
 
     <p class="dialog-note">
       Formula: (xi - baseline) / (target_ceiling - baseline) × 100%. Target ceilings synchronized ${esc(referenceImportDate())}. ${state.data.metric.clipNegative ? 'Negative task scores are clipped to 0.' : 'Negative task scores are retained.'} Scores above 100% are uncapped.
@@ -1323,7 +1338,10 @@ function renderAll() {
   });
 
   $('#atlas-model').innerHTML = `<option value="all">All models (improvement score)</option>${results
-    .map((m) => `<option value="${esc(m.id)}">${esc(m.name)} · ${esc(modelEffort(m))} (${percentage(m.score)})</option>`)
+    .map((m) => {
+      const effort = modelEffort(m);
+      return `<option value="${esc(m.id)}">${esc(m.name)}${effort ? ` · ${esc(effort)}` : ''} (${percentage(m.score)})</option>`;
+    })
     .join('')}`;
   $('#atlas-model').value = state.atlasModel;
 
@@ -1627,8 +1645,9 @@ document.addEventListener('pointerover', (event) => {
     const model = rankedModels().find((m) => m.id === point.dataset.frontierModel);
     if (!model) return;
     const [color] = modelGradient(model);
+    const effort = modelEffort(model);
     const html = `
-      <div class="tooltip-domain" style="--d-color:${color}"><i></i>${esc(model.provider)} · ${esc(model.harness)} · ${esc(modelEffort(model))}</div>
+      <div class="tooltip-domain" style="--d-color:${color}"><i></i>${esc(model.provider)} · ${esc(model.harness)}${effort ? ` · ${esc(effort)}` : ''}</div>
       <div class="tooltip-title">${esc(model.name)}</div>
       <div class="tooltip-grid">
         <div><span>Improvement score</span><strong>${percentage(model.score)}</strong></div>
