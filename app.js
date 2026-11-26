@@ -35,6 +35,7 @@ const DOMAIN_PALETTE = {
 const MODEL_GRADIENTS = {
   gpt6astra: ['#047857', '#10b981'],
   gpt61sol: ['#059669', '#34d399'],
+  gemini4: ['#3b82f6', '#a855f7'],
   kimi31: ['#1d4ed8', '#60a5fa'],
   deepseek41: ['#0284c7', '#38bdf8'],
   gpt6luna: ['#0d9488', '#5eead4'],
@@ -48,6 +49,7 @@ const MODEL_GRADIENTS = {
 const MODEL_EFFORT_FALLBACK = {
   gpt6astra: 'xhigh',
   gpt61sol: 'xhigh',
+  gemini4: 'high',
   gpt6luna: 'xhigh',
   deepseek41: 'max',
   qwen38flash: 'xhigh',
@@ -59,6 +61,7 @@ const MODEL_EFFORT_FALLBACK = {
 
 const PROVIDER_SWATCHES = {
   OpenAI: '#059669',
+  Google: '#4285f4',
   Moonshot: '#1d4ed8',
   DeepSeek: '#0284c7',
   Qwen: '#4f46e5',
@@ -495,8 +498,9 @@ function renderFrontierPlot(models) {
   const xTicks = Array.from({ length: xTickCount + 1 }, (_, i) => Math.round((totalTasks * i) / xTickCount));
 
   const labelOffsets = {
-    gpt6astra: { dx: -16, dy: -19, anchor: 'end' },
-    gpt61sol: { dx: -16, dy: 17, anchor: 'end' },
+    gpt6astra: { dx: -16, dy: -14, anchor: 'end' },
+    gpt61sol: { dx: 16, dy: 14, anchor: 'start' },
+    gemini4: { dx: -16, dy: 4, anchor: 'end' },
     kimi31: { dx: -16, dy: -6, anchor: 'end' },
     deepseek41: { dx: 16, dy: 4, anchor: 'start' },
     gpt6luna: { dx: 16, dy: 14, anchor: 'start' },
@@ -1298,7 +1302,7 @@ function showTask(id, open = true) {
       </tbody>
     </table>
 
-    ${orderedModels.filter((model) => task.cells[model.id].supplemental).map((model) =>
+    ${orderedModels.filter((model) => task.cells[model.id].note).map((model) =>
       `<p class="dialog-note"><strong>${esc(model.name)}:</strong> ${esc(task.cells[model.id].note)}</p>`).join('')}
 
     <p class="dialog-note">
