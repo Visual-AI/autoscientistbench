@@ -1,0 +1,8 @@
+{
+  "protocol": "private-forecast-v2",
+  "task_id": "icml-811-ReNF",
+  "family": "renf",
+  "cpus": 8,
+  "max_lookback": 720,
+  "pretrained_resource": false
+}

@@ -1,0 +1,210 @@
+{
+  "pid": "099_CALF",
+  "class": "A",
+  "title": "CALF: Aligning LLMs for Time Series Forecasting via Cross-modal Fine-Tuning",
+  "metric": {
+    "name": "mse",
+    "higher_is_better": false,
+    "delta": 0.002,
+    "aggregate": "mean"
+  },
+  "cpus": 64,
+  "memory_gb": 120,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.json",
+    "val_labels": "data/val/evaluation",
+    "test_input": "test/input.json",
+    "test_labels": "test/evaluation",
+    "input_format": "private_forecast_descriptor_json",
+    "output_format": "policy_artifact_zip"
+  },
+  "split": {
+    "type": "std3",
+    "decision": "ETTh1 standard chronological split, train [0,8640), validation [8640,11520), test [11520,14400); each evaluation window has exactly 96 preceding rows; every 8th of the 2881-H windows at H=96,192,336,720. No split RNG."
+  },
+  "baseline": {
+    "train_min": 53.55,
+    "eval_min": 0.5,
+    "val": {
+      "mse": 1.1323946890279606
+    },
+    "paper_ref": "Table 1 ETTh1 four-horizon average; reproduced seed 2021 MSE 0.442362017929554.",
+    "measured_s": {
+      "train": [
+        3025.17,
+        3212.94,
+        2967.87
+      ],
+      "predict": [
+        13.25,
+        12.99,
+        12.89
+      ]
+    },
+    "timing_scope": "legacy protocol estimates retained for operational budgeting; not a measured v2 reference"
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:a9972d4d30c83e2abbd6b6607646b100b3674538bda4902f72b61113caa62668"
+  },
+  "env": {
+    "python": "3.9",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple",
+      "https://download.pytorch.org/whl/cpu"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "33db87f409f7cc566b8e83e4083c5a142b3cb4b2",
+    "adapt_commit": "87d60b753def2ce11d5de41dfcb73dd1f071d4d3",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "protocol_version": "private-policy-v2",
+  "leakage_repair": {
+    "status": "protocol_smoke_pass",
+    "scope": "cross_window_future_observation_leakage",
+    "outer_harness_changed": false,
+    "original_instances_preserved": true,
+    "full_performance_validated": false,
+    "reference_status": "requires_rebuild_after_protocol_change",
+    "smoke_report": "audits/20261101_quality/repairs/forecast_smoke/099_CALF.json",
+    "original_environment_import": "timeout_180s_single_cpu",
+    "original_model_component_smoke": true,
+    "original_model_smoke_environment": "compatible Python 3.11.2 / torch 2.9.1+cpu; not original environment certification",
+    "prediction_budget_s": 90
+  },
+  "leakage_remediation": {
+    "status": "smoke_verified",
+    "outer_harness_changed": false,
+    "full_training_or_evaluation_run": false,
+    "evidence": [
+      "audits/20261101_preserve_experiment/099_CALF.json",
+      "audits/20261101_preserve_experiment/imp-39-CALF-protocol-smoke.json",
+      "audits/20261101_preserve_experiment/imp-39-CALF-model-smoke.json",
+      "audits/20261101_preserve_experiment/imp-39-CALF-native-import.json",
+      "audits/20261101_preserve_experiment/imp-39-CALF-native-lock.json",
+      "audits/20261101_preserve_experiment/imp-39-CALF-contract-checks.json"
+    ],
+    "full_evaluation_ready": false,
+    "scope": "Original experiment constraints and 90-second total inference budget restored",
+    "native_environment_certified": false,
+    "superseded_by": "audits/20261101_method_freedom/099_CALF.json",
+    "evidence_is_historical": true
+  },
+  "experiment_preservation": {
+    "source_and_train_statistics_unchanged": true,
+    "original_prediction_budget_s": 90,
+    "artifact_setup_timed_separately": true,
+    "all_original_windows_retained": true,
+    "original_algorithm_editability_retained": true,
+    "native_package_pins_match": true,
+    "native_environment_execution_verified": false,
+    "full_scale_throughput_verified": false,
+    "report": "audits/20261101_preserve_experiment/099_CALF.json"
+  },
+  "method_freedom": {
+    "report": "audits/20261101_method_freedom/099_CALF.json",
+    "full_training_or_evaluation_run": false,
+    "superseded_by": "research_contract",
+    "scope_superseded_by": "audits/20261101_research_contract/099_CALF.json"
+  },
+  "method_freedom_review": {
+    "report": "audits/20261101_research_contract/099_CALF.json",
+    "allowed_changes": [
+      "Everything around the GPT-2 backbone may change: alignment and token construction, the fine-tuning scheme, internal feature representation, training surrogate, optimizer, regularizer and training procedure, within the specified input and data-provenance constraints and the rules on constants. The evaluated prediction target and loss formula remain fixed.",
+      "A submission whose only change is new values for other existing settings of `code/bench_run.py` or `code/run.py` (`--batch_size`, `--lradj`, `--train_epochs`, `--patience`, `--n_heads`, `--d_ff`, `--dropout`, `--gpt_layers`, `--r`, `--lora_alpha`, `--lora_dropout`, `--cos`, `--task_w`, `--feature_loss`, `--output_loss`) does not count as a method improvement (patch audit)."
+    ],
+    "fixed_contract": [
+      "Forecast all seven ETTh1 variables at the four fixed horizons from each 96-observation window.",
+      "The original split, every 8th of the 2881-H windows at each H in 96/192/336/720, all seven channels and 96-step context remain fixed.",
+      "The float64 training standardization and equal-horizon mean MSE are fixed; MAE is diagnostic.",
+      "The supplied pre-trained GPT-2 layers stay as the forecaster's backbone and are fine-tuned for the time-series input (patch audit). The supplied PCA word embeddings are a permitted method input.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access.",
+      "For a submission that keeps the CALF model, the supervised loss stays `--task_loss l1`: switching this existing flag does not count as a method change.",
+      "For a submission that keeps the CALF model, the loss weights `--feature_w 0.01` and `--output_w 1.0`, the learning rate `--learning_rate 0.0005` and the schedule `--tmax 20` stay as supplied, so that a gain comes from the method and not from a constant."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/099_CALF.json",
+    "status": "scope_defined",
+    "forbidden_substitutions": [
+      "Do not replace or drop the GPT-2 backbone, change observations/targets, add external data or pretrained resources, use cross-window information, or alter horizons, standardization or the MSE objective.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Forecast all seven ETTh1 variables at the four fixed horizons from each 96-observation window.",
+    "fixed_research_objects": [
+      "The original split, every 8th of the 2881-H windows at each H in 96/192/336/720, all seven channels and 96-step context remain fixed.",
+      "The float64 training standardization and equal-horizon mean MSE are fixed; MAE is diagnostic.",
+      "The supplied pre-trained GPT-2 layers stay as the forecaster's backbone and are fine-tuned for the time-series input (patch audit). The supplied PCA word embeddings are a permitted method input.",
+      "For a submission that keeps the CALF model, the supervised loss stays `--task_loss l1`: switching this existing flag does not count as a method change.",
+      "For a submission that keeps the CALF model, the loss weights `--feature_w 0.01` and `--output_w 1.0`, the learning rate `--learning_rate 0.0005` and the schedule `--tmax 20` stay as supplied, so that a gain comes from the method and not from a constant."
+    ],
+    "editable_components": [
+      "Everything around the GPT-2 backbone may change: alignment and token construction, the fine-tuning scheme, internal feature representation, training surrogate, optimizer, regularizer and training procedure, within the specified input and data-provenance constraints and the rules on constants. The evaluated prediction target and loss formula remain fixed.",
+      "A submission whose only change is new values for other existing settings of `code/bench_run.py` or `code/run.py` (`--batch_size`, `--lradj`, `--train_epochs`, `--patience`, `--n_heads`, `--d_ff`, `--dropout`, `--gpt_layers`, `--r`, `--lora_alpha`, `--lora_dropout`, `--cos`, `--task_w`, `--feature_loss`, `--output_loss`) does not count as a method improvement (patch audit)."
+    ],
+    "forbidden_substitutions": [
+      "Do not replace or drop the GPT-2 backbone, change observations/targets, add external data or pretrained resources, use cross-window information, or alter horizons, standardization or the MSE objective.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "path": "tasks/099_CALF/BRIEF.md",
+        "finding": "The curated score rule explicitly fixes seq_len=96 and four-horizon ETTh1 MSE with no model-specific metric constraint."
+      },
+      {
+        "path": "tasks/099_CALF/agent/bench/scorer.py",
+        "finding": "Existing scorer retains the stated target formula, aggregation and validity controls."
+      },
+      {
+        "path": "tasks/099_CALF/agent/bench/legacy_metric.py",
+        "finding": "Reviewed the original per-window target standardization, horizon aggregation and task-specific validity conditions; all remain unchanged."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/099_CALF.json"
+  },
+  "research_contract_review": {
+    "status": "scope_defined",
+    "report": "audits/20261101_research_contract/099_CALF.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 3
+}

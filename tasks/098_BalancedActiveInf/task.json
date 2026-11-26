@@ -1,0 +1,213 @@
+{
+  "pid": "098_BalancedActiveInf",
+  "class": "A",
+  "title": "Balanced Active Inference",
+  "metric": {
+    "name": "mean_ci_width",
+    "higher_is_better": false,
+    "delta": 0.005,
+    "aggregate": "mean"
+  },
+  "cpus": 8,
+  "memory_gb": 32,
+  "budget_hours_default": 24,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input",
+    "val_labels": "data/val/evaluation",
+    "test_input": "test/input",
+    "test_labels": "test/evaluation",
+    "input_format": "public_prediction_episode_directory",
+    "output_format": "policy_artifact_zip",
+    "protocol_version": "private-active-label-v2"
+  },
+  "split": {
+    "type": "online",
+    "decision": "Original fixed train/test half split, random_state=0; original prediction arrays and populations retained. Per-draw private queries are authenticated; statistical design and RNG method compliance require code review."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 0.5,
+    "val": {
+      "mean_ci_width": 0.20001208780788665
+    },
+    "paper_ref": "Historical width 0.32885292395276605; paper 0.3316. No new full reference; realized mean count 869.06 on test; the guard is <=870 since 2026-11-03.",
+    "timing_scope": "legacy protocol estimates retained for operational budgeting; not a measured v2 reference",
+    "measured_s": {
+      "train": [
+        2.52
+      ],
+      "predict": [
+        0.26
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      0
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:b7a043d16794d6837711b07ca5b2cadd831d91e91864dc52d25e1bf1dabf66c6"
+  },
+  "env": {
+    "mode": "snapshot",
+    "snapshot": "runtime/runtime.json",
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "build_cap_s": 1800
+  },
+  "adapt": {
+    "base_commit": "681d29c3832cad06f946618b987b157ab892b057",
+    "adapt_commit": "2821ad0a1d4b782169b94bc02526cf2041a43001",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "conversion": {
+    "full_data_ready": true,
+    "source_commit": "fcf65ff28371044a6bb48134eddf1f203c9c6997",
+    "data_checks": "judge/verification/data_checks.json",
+    "runtime_provenance": "judge/verification/runtime_checks.json",
+    "scorer_checks": "judge/verification/scorer_checks.json",
+    "smoke_report": "judge/verification/smoke.json",
+    "label_access_enforcement": "private_rpc",
+    "smoke_score_eligible": false,
+    "method_parity": "judge/verification/method_parity.json",
+    "patch_audit_required": [
+      "Statistical validity of arbitrary sampling designs/inclusion probabilities and CI estimators",
+      "Candidate RNG and independent-draw method compliance"
+    ]
+  },
+  "smoke": {
+    "input": "judge/verification/smoke_inputs/input",
+    "labels": "judge/verification/smoke_inputs/evaluation"
+  },
+  "leakage_repair": {
+    "status": "protocol_smoke_pass",
+    "outer_harness_changed": false,
+    "original_instances_preserved": true,
+    "full_performance_validated": false,
+    "reference_status": "requires_rebuild_after_protocol_change",
+    "smoke_report": "audits/20261101_preserve_experiment/098_BalancedActiveInf.json",
+    "original_method_smoke": true,
+    "exact_snapshot_runtime": true
+  },
+  "protocol_version": "private-policy-v2",
+  "leakage_remediation": {
+    "status": "smoke_verified",
+    "outer_harness_changed": false,
+    "full_training_or_evaluation_run": false,
+    "evidence": [
+      "audits/20261101_preserve_experiment/098_BalancedActiveInf.json",
+      "tasks/098_BalancedActiveInf/judge/verification/preserve_experiment/smoke.json",
+      "tasks/098_BalancedActiveInf/judge/verification/preserve_experiment/data_integrity.json"
+    ],
+    "full_evaluation_ready": false,
+    "scope": "Experiment-preserving private query execution",
+    "method_audit_required": true,
+    "superseded_by": "method_freedom_review",
+    "historical_policy_record": "judge/legacy_protocol/pre_method_freedom/task_policy.json"
+  },
+  "experiment_preservation": {
+    "report": "audits/20261101_preserve_experiment/098_BalancedActiveInf.json",
+    "full_evaluation_ready": false,
+    "original_baseline_two_draws_exact": true,
+    "original_data_hashes_match": true,
+    "custom_sampling": "Multiple and adaptive within-draw calls supported; independent draw-local RNG; arbitrary old monolithic bitwise trajectories not certified",
+    "method_audit_required": true,
+    "formal_throughput_verified": false,
+    "superseded_by": "method_freedom_review",
+    "historical_policy_record": "judge/legacy_protocol/pre_method_freedom/task_policy.json"
+  },
+  "method_freedom_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/098_BalancedActiveInf.json",
+    "candidate_method_replacement_allowed": true,
+    "frozen_data_metric_and_information_boundary": true,
+    "full_training_or_evaluation_run": false,
+    "allowed_changes": [
+      "Sampling designs, adaptive legal query allocation, auxiliary estimation models/losses, design-weighted inference, variance estimation and interval construction may change.",
+      "Cube sampling is an optional valid-design helper; replacement methods must truthfully describe their design probabilities and honor the same label oracle.",
+      "When retaining the supplied cube-active pipeline, changing only tau=0.5 or confidence=0.9, or an equivalent constant rescaling of the interval width, does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Estimate the fixed Bike finite-population mean using frozen upstream prediction arrays and a limited number of actively queried labels, minimizing valid 90% interval width.",
+      "The finite populations/mean-cnt estimand and supplied hash-identical prediction, uncertainty and error-prediction arrays are fixed inputs, including outputs of the upstream XGBoost model.",
+      "10000 independent draws, actual query mean<=870, final design sum(pi)<=869, strictly positive final inclusion probabilities, strict 90% coverage>=.89 and mean width remain fixed.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/098_BalancedActiveInf.json",
+    "forbidden_substitutions": [
+      "Do not replace/retrain upstream frozen predictions, alter the finite population or target, reveal unqueried labels, forge selected sets/probabilities or retain labels across draws.",
+      "No hidden population-mean lookup, additional input features/datasets or relaxed query/coverage constraints.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Estimate the fixed Bike finite-population mean using frozen upstream prediction arrays and a limited number of actively queried labels, minimizing valid 90% interval width.",
+    "fixed_research_objects": [
+      "The finite populations/mean-cnt estimand and supplied hash-identical prediction, uncertainty and error-prediction arrays are fixed inputs, including outputs of the upstream XGBoost model.",
+      "10000 independent draws, actual query mean<=870, final design sum(pi)<=869, strictly positive final inclusion probabilities, strict 90% coverage>=.89 and mean width remain fixed."
+    ],
+    "editable_components": [
+      "Sampling designs, adaptive legal query allocation, auxiliary estimation models/losses, design-weighted inference, variance estimation and interval construction may change.",
+      "Cube sampling is an optional valid-design helper; replacement methods must truthfully describe their design probabilities and honor the same label oracle.",
+      "When retaining the supplied cube-active pipeline, changing only tau=0.5 or confidence=0.9, or an equivalent constant rescaling of the interval width, does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "Do not replace/retrain upstream frozen predictions, alter the finite population or target, reveal unqueried labels, forge selected sets/probabilities or retain labels across draws.",
+      "No hidden population-mean lookup, additional input features/datasets or relaxed query/coverage constraints.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "path": "agent/paper/paper.txt",
+        "section": "Table 1 Bike active-inference experiment",
+        "finding": "Studies label selection and finite-population inference using prediction-assisted inputs under a fixed labeling budget."
+      },
+      {
+        "path": "convert/tasks_merlin.json",
+        "section": "imp-104 task_metric and score_rule",
+        "finding": "Explicitly requires frozen XGBoost predictions hash-identical to baseline and a fixed population mean."
+      },
+      {
+        "path": "agent/bench/env.py",
+        "finding": "Exposes frozen arrays and actual label queries through the private oracle."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/098_BalancedActiveInf.json"
+  },
+  "research_contract_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/098_BalancedActiveInf.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

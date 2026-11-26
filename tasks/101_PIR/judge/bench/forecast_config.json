@@ -1,0 +1,8 @@
+{
+  "protocol": "private-forecast-v2",
+  "task_id": "imp-64-PIR",
+  "family": "multi_horizon",
+  "cpus": 16,
+  "max_lookback": 96,
+  "pretrained_resource": false
+}

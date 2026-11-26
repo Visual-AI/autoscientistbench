@@ -1,0 +1,93 @@
+{
+  "task": "073_AsymP-GDA",
+  "created": "2026-11-02T10:36:50+0000",
+  "seeds": [
+    1
+  ],
+  "cpus": 16,
+  "adapt_commit": "5d39a91a3f62e1719856c730951f031ba3a23451",
+  "sandbox": true,
+  "budget_s": 21600.0,
+  "test": {
+    "per_seed": [
+      0.0009196147294729395
+    ],
+    "mean": 0.0009196147294729395,
+    "std": 0.0,
+    "n": 1
+  },
+  "val": {
+    "per_seed": [
+      0.0013944858519354675
+    ],
+    "mean": 0.0013944858519354675,
+    "std": 0.0,
+    "n": 1
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "nashconv": 0.0009196147294729395,
+        "guards_ok": true,
+        "per_instance": [
+          0.0009196147294729395
+        ],
+        "updates": [
+          1000000.0
+        ],
+        "traversals": [
+          2000000
+        ],
+        "trusted_oracle": true,
+        "protocol_version": 2,
+        "verification_scope": "full",
+        "solve_wall_s": 1397.449358375743,
+        "artifact_load_s": 1.0384848695248365,
+        "worker_cpus": 16,
+        "concurrent_runs": 2
+      },
+      "val": {
+        "nashconv": 0.0013944858519354675,
+        "guards_ok": true,
+        "per_instance": [
+          0.0013944858519354675
+        ],
+        "updates": [
+          1000000.0
+        ],
+        "traversals": [
+          2000000
+        ],
+        "trusted_oracle": true,
+        "protocol_version": 2,
+        "verification_scope": "full",
+        "solve_wall_s": 1144.3118274696171,
+        "artifact_load_s": 1.1017363667488098,
+        "worker_cpus": 16,
+        "concurrent_runs": 2
+      },
+      "timing": {
+        "train_s": 0.32,
+        "predict_s": 1.07,
+        "score_s": 1400.28,
+        "predict_val_s": 1.27
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      0.32
+    ],
+    "predict_s": [
+      1.07
+    ],
+    "build_s": 22.8
+  },
+  "hashes": {
+    "env_lock": "dcaebd2c40df402a41db2129c7715e772ed56f3f10449f99de43d5df5aeb0288",
+    "scorer": "648217bb4d9dddd3f3b7b112bc41b62df5d5bdb444e51d026802fb3a56b551a1",
+    "validate": "b15342baace49b3332c68b5399b62eb05abcb33ef5ad0bc1f492b7e04f2d46a5",
+    "test_labels": null,
+    "adapt_patch": "d672c6dfa3edaac2d69b4cc297663b6eb0a8c44ab6986b02a68a31d1a86c5aa6"
+  }
+}

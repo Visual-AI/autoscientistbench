@@ -1,0 +1,175 @@
+{
+  "task": "025_QUED",
+  "created": "2026-11-02T10:48:30+0000",
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "cpus": 16,
+  "adapt_commit": "55d97935691c5ad9748e946c3df23d6dab34d967",
+  "sandbox": true,
+  "budget_s": 21600.0,
+  "test": {
+    "per_seed": [
+      0.4142358809453089,
+      0.41467585604861085,
+      0.41604606320708004
+    ],
+    "mean": 0.41498593340033324,
+    "std": 0.000770844095022299,
+    "n": 3
+  },
+  "val": {
+    "per_seed": [
+      0.4543094380378723,
+      0.4513621847295761,
+      0.4519874703655243
+    ],
+    "mean": 0.45255303104432426,
+    "std": 0.0012679299867288248,
+    "n": 3
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "mae": 0.4142358809453089,
+        "rmse": 0.5855945849502849,
+        "coverage_ok": true,
+        "n": 2273,
+        "protocol": "private-policy-v2",
+        "evaluation": "formal",
+        "authorized_training_rows": 4000,
+        "fixed_descriptor_columns": 39553,
+        "private_replay_ok": true,
+        "policy_elapsed_s": 2879.2259695753455,
+        "fit_elapsed_s": 2873.791900217533,
+        "predict_elapsed_s": 5.434069357812405,
+        "fit_predict_separated": true,
+        "training_provenance": "isolated training features and labels; all-row method compliance also requires patch audit"
+      },
+      "val": {
+        "mae": 0.4543094380378723,
+        "rmse": 0.6213892662503823,
+        "coverage_ok": true,
+        "n": 1000,
+        "protocol": "private-policy-v2",
+        "evaluation": "development",
+        "authorized_training_rows": 4000,
+        "fixed_descriptor_columns": 39553,
+        "private_replay_ok": true,
+        "policy_elapsed_s": 2061.591283775866,
+        "fit_elapsed_s": 2058.6214381828904,
+        "predict_elapsed_s": 2.9698455929756165,
+        "fit_predict_separated": true,
+        "training_provenance": "isolated training features and labels; all-row method compliance also requires patch audit"
+      },
+      "timing": {
+        "train_s": 1.77,
+        "predict_s": 0.12,
+        "score_s": 2879.92,
+        "predict_val_s": 0.17
+      }
+    },
+    "2": {
+      "test": {
+        "mae": 0.41467585604861085,
+        "rmse": 0.5875735846618994,
+        "coverage_ok": true,
+        "n": 2273,
+        "protocol": "private-policy-v2",
+        "evaluation": "formal",
+        "authorized_training_rows": 4000,
+        "fixed_descriptor_columns": 39553,
+        "private_replay_ok": true,
+        "policy_elapsed_s": 1942.6522838324308,
+        "fit_elapsed_s": 1938.2812640368938,
+        "predict_elapsed_s": 4.371019795536995,
+        "fit_predict_separated": true,
+        "training_provenance": "isolated training features and labels; all-row method compliance also requires patch audit"
+      },
+      "val": {
+        "mae": 0.4513621847295761,
+        "rmse": 0.6162215266539717,
+        "coverage_ok": true,
+        "n": 1000,
+        "protocol": "private-policy-v2",
+        "evaluation": "development",
+        "authorized_training_rows": 4000,
+        "fixed_descriptor_columns": 39553,
+        "private_replay_ok": true,
+        "policy_elapsed_s": 2210.337556220591,
+        "fit_elapsed_s": 2206.81705750525,
+        "predict_elapsed_s": 3.520498715341091,
+        "fit_predict_separated": true,
+        "training_provenance": "isolated training features and labels; all-row method compliance also requires patch audit"
+      },
+      "timing": {
+        "train_s": 1.77,
+        "predict_s": 0.11,
+        "score_s": 1943.4,
+        "predict_val_s": 0.11
+      }
+    },
+    "3": {
+      "test": {
+        "mae": 0.41604606320708004,
+        "rmse": 0.587496529136771,
+        "coverage_ok": true,
+        "n": 2273,
+        "protocol": "private-policy-v2",
+        "evaluation": "formal",
+        "authorized_training_rows": 4000,
+        "fixed_descriptor_columns": 39553,
+        "private_replay_ok": true,
+        "policy_elapsed_s": 2453.141986094415,
+        "fit_elapsed_s": 2447.9175255149603,
+        "predict_elapsed_s": 5.224460579454899,
+        "fit_predict_separated": true,
+        "training_provenance": "isolated training features and labels; all-row method compliance also requires patch audit"
+      },
+      "val": {
+        "mae": 0.4519874703655243,
+        "rmse": 0.6167425867204311,
+        "coverage_ok": true,
+        "n": 1000,
+        "protocol": "private-policy-v2",
+        "evaluation": "development",
+        "authorized_training_rows": 4000,
+        "fixed_descriptor_columns": 39553,
+        "private_replay_ok": true,
+        "policy_elapsed_s": 1995.4457577839494,
+        "fit_elapsed_s": 1992.1256222501397,
+        "predict_elapsed_s": 3.320135533809662,
+        "fit_predict_separated": true,
+        "training_provenance": "isolated training features and labels; all-row method compliance also requires patch audit"
+      },
+      "timing": {
+        "train_s": 2.07,
+        "predict_s": 0.16,
+        "score_s": 2453.93,
+        "predict_val_s": 0.16
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      1.77,
+      1.77,
+      2.07
+    ],
+    "predict_s": [
+      0.12,
+      0.11,
+      0.16
+    ],
+    "build_s": 1.99
+  },
+  "hashes": {
+    "env_lock": "85786ae3b5ac4d4a1145822c638d64d47f5d34f876c6fd4c2aff603432e58ae2",
+    "scorer": "59fec1d4d8f68b11929cf2fdf29f1ec9bf8bf4b139c512912092bb9b385d0f41",
+    "validate": "46a4f1a8ab8c4c159e179c7bdaa74f919e1f50457dc0203a11e7abb35fe01e6a",
+    "test_labels": null,
+    "adapt_patch": "2d18642c990e0b3c0914cbf4c04cb80d0214d809e9ae30233553320c501b557a"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "python": "/usr/bin/python3",
+  "mounts": [
+    {
+      "source": "runtime/julia.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-41_parametric_MP/tools/julia-1.10.5",
+      "name": "julia",
+      "format": "tar",
+      "sha256": "3bc9672479da7f3ea47d6d582fa957317df4f983808e34aeee569b5c706d873b"
+    },
+    {
+      "source": "runtime/depot.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-41_parametric_MP/.julia",
+      "name": "depot",
+      "format": "tar",
+      "sha256": "a52d4547cc420407521f409470d4e6aa93a5362f231d477c3ae33ebc44182df1"
+    }
+  ],
+  "env": {
+    "PATH": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-41_parametric_MP/tools/julia-1.10.5/bin:/usr/local/bin:/usr/bin:/bin",
+    "JULIA_DEPOT_PATH": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-41_parametric_MP/.julia",
+    "JULIA_PROJECT": "/ws/code",
+    "JULIA_PKG_OFFLINE": "true"
+  }
+}

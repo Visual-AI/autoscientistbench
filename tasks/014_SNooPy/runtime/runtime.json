@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "python": "/usr/bin/python3",
+  "mounts": [
+    {
+      "source": "runtime/python.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Bio-05_SNooPy/.venv",
+      "format": "tar",
+      "name": "python",
+      "sha256": "edb6f1cc0eeaa7faac0fb6660ccec5108dfe6407dcc8a2fa64026ccfffa84418"
+    },
+    {
+      "source": "runtime/biotools.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Bio-05_SNooPy/.mamba/envs/biotools",
+      "format": "tar",
+      "name": "biotools",
+      "sha256": "6336e36ea991f32a8172db3c8b8ae2e2c8fb2c9b8f42c4bb1fd9488c2dafa111"
+    }
+  ],
+  "env": {
+    "PATH": "/opt/arb/runtime/python/bin:/opt/arb/runtime/biotools/bin:/usr/local/bin:/usr/bin:/bin",
+    "MPLBACKEND": "Agg"
+  }
+}

@@ -1,0 +1,188 @@
+{
+  "pid": "025_QUED",
+  "class": "A",
+  "title": "Assessing the performance of quantum-mechanical descriptors in physicochemical and biological property prediction",
+  "metric": {
+    "name": "mae",
+    "higher_is_better": false,
+    "delta": 0.005,
+    "aggregate": "mean"
+  },
+  "cpus": 16,
+  "memory_gb": 32,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.json",
+    "val_labels": "data/val/replay",
+    "test_input": "test/input.json",
+    "test_labels": "test/replay",
+    "input_format": "json",
+    "output_format": "private-policy-v2"
+  },
+  "split": {
+    "type": "train_derived_val",
+    "decision": "Retain the original 2273 test rows and the existing deterministic 4000 train / 1000 validation partition within the original 5000-row XGB training pool (RandomState seed 20261101). Both development and formal replay fit only those same 4000 training rows; validation is excluded from all fits. No KRR rows substituted."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 0.5,
+    "val": {
+      "mae": 0.45255303104432426
+    },
+    "paper_ref": "Table 3 XGBoost BOB+DQM LD50 paper MAE 0.400; historical loaded-model score is operator provenance only.",
+    "measured_s": {
+      "train": [
+        1.77,
+        1.77,
+        2.07
+      ],
+      "predict": [
+        0.12,
+        0.11,
+        0.16
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:902f4bf00c333b8f91561f7a5450b81989c1970cc5d6a9d91027a5a36a72b902"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple"
+    ],
+    "build_cap_s": 5400,
+    "mode": "snapshot",
+    "snapshot": "runtime/runtime.json"
+  },
+  "adapt": {
+    "base_commit": "bef70ef77601d1b5f42de22f29cc69ad1976408a",
+    "adapt_commit": "55d97935691c5ad9748e946c3df23d6dab34d967",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "method_freedom_review": {
+    "status": "implemented_smoke_verified",
+    "report": "audits/20261101_research_contract/025_QUED.json",
+    "full_training_or_evaluation": false,
+    "allowed_changes": [
+      "regression estimator, training surrogate loss, optimization and internal descriptor processing",
+      "computational implementation within the same fixed molecular-property prediction problem"
+    ],
+    "fixed_contract": [
+      "Predict acute toxicity in log10(mol/kg) from the designated lowest-energy DFTB3+MBD descriptor observations, minimizing all-molecule MAE with RMSE diagnostics.",
+      "all original 7273 lowest-energy conformers and the fixed raw 39340-column BOB plus 213-column DQM descriptor definition",
+      "original XGB test partition unchanged; fixed 4000 training / 1000 validation division within the original 5000-row training pool; final fits use the 4000 training rows only",
+      "acute-toxicity endpoint in log10(mol/kg), complete-population MAE and separate RMSE diagnostic",
+      "development 4000/1000 split exclusively within original training; evaluation labels isolated during fresh replay",
+      "Supplied data, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/025_QUED.json",
+    "forbidden_substitutions": [
+      "substituting the incompatible KRR data partition, a different conformer/descriptor source or another biological endpoint",
+      "using pretrained evaluation models, omitted observations or changing the evaluation population",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract",
+    "conversion_report": "audits/20261101_remaining_six_conversion/025_QUED.json",
+    "full_evaluation_ready": false
+  },
+  "research_contract": {
+    "objective": "Predict acute toxicity in log10(mol/kg) from the designated lowest-energy DFTB3+MBD descriptor observations, minimizing all-molecule MAE with RMSE diagnostics.",
+    "fixed_research_objects": [
+      "all original 7273 lowest-energy conformers and the fixed raw 39340-column BOB plus 213-column DQM descriptor definition",
+      "original XGB test partition unchanged; fixed 4000 training / 1000 validation division within the original 5000-row training pool; final fits use the 4000 training rows only",
+      "acute-toxicity endpoint in log10(mol/kg), complete-population MAE and separate RMSE diagnostic",
+      "development 4000/1000 split exclusively within original training; evaluation labels isolated during fresh replay"
+    ],
+    "editable_components": [
+      "regression estimator, training surrogate loss, optimization and internal descriptor processing",
+      "computational implementation within the same fixed molecular-property prediction problem"
+    ],
+    "forbidden_substitutions": [
+      "substituting the incompatible KRR data partition, a different conformer/descriptor source or another biological endpoint",
+      "using pretrained evaluation models, omitted observations or changing the evaluation population",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "source": "../../ex-papers-science/Che-06_QUED/paper/paper.txt",
+        "lines": "23-28;151-158",
+        "finding": "XGBoost uses fixed training population and remaining test molecules; Table 3 selects BOB+DQM acute toxicity."
+      },
+      {
+        "source": "tasks/025_QUED/judge/verification/source_audit.json",
+        "finding": "Selected stored XGB split is exactly5000/2273, with no validation rows; KRR validation is incompatible."
+      },
+      {
+        "source": "audits/20261101_remaining_six_conversion/025_QUED.json",
+        "finding": "User-authorized fresh fitting and train-derived development; final original scientific population retained."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/025_QUED.json"
+  },
+  "research_contract_review": {
+    "status": "implemented_smoke_verified",
+    "report": "audits/20261101_research_contract/025_QUED.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification.",
+    "conversion_report": "audits/20261101_remaining_six_conversion/025_QUED.json",
+    "full_evaluation_ready": false
+  },
+  "protocol_version": "private-policy-v2",
+  "conversion": {
+    "report": "audits/20261102_validation_training/report.md",
+    "full_data_ready": true,
+    "root_delivery_check": "audits/20261101_remaining_six_conversion/delivery_checks.json"
+  },
+  "leakage_remediation": {
+    "status": "smoke_verified",
+    "outer_harness_changed": false,
+    "full_training_or_evaluation_run": false,
+    "evidence": [
+      "audits/20261101_remaining_six_conversion/Che-06_smoke.json",
+      "audits/20261101_remaining_six_conversion/Che-06_integrity.json"
+    ],
+    "git_metadata_scrub": "audits/20261101_remaining_six_conversion/git_metadata_scrub/025_QUED.json"
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "validation_policy_review": {
+    "status": "implemented_bounded_checks",
+    "reason": "Formal replay now fits exactly the same 4000 training rows as development, excluding all 1000 validation rows.",
+    "report": "audits/20261102_validation_training/report.md",
+    "full_training_or_evaluation": false
+  },
+  "agent_budget_hours": 2
+}

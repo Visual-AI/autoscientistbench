@@ -1,0 +1,77 @@
+{
+  "task": "037_Axion-FOPT",
+  "created": "2026-11-02T08:12:19+0000",
+  "seeds": [
+    1
+  ],
+  "cpus": 16,
+  "adapt_commit": "aec118531b1f51f0fb337db4f82ad0454eaca147",
+  "sandbox": true,
+  "budget_s": 21600.0,
+  "test": {
+    "per_seed": [
+      0.18799663599556352
+    ],
+    "mean": 0.18799663599556352,
+    "std": 0.0,
+    "n": 1
+  },
+  "val": {
+    "per_seed": [
+      0.1163004565875834
+    ],
+    "mean": 0.1163004565875834,
+    "std": 0.0,
+    "n": 1
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "log_rmse": 0.18799663599556352,
+        "raw_score": 0.18799663599556352,
+        "global_fitted_scalars": 7,
+        "physical_checks": {
+          "sensible": true,
+          "high_h_floor": true,
+          "monotonic_h": true,
+          "low_h_slope": -0.4999998225968775
+        },
+        "certificate_verified": true
+      },
+      "val": {
+        "log_rmse": 0.1163004565875834,
+        "raw_score": 0.1163004565875834,
+        "global_fitted_scalars": 7,
+        "physical_checks": {
+          "sensible": true,
+          "high_h_floor": true,
+          "monotonic_h": true,
+          "low_h_slope": -0.4999998225968775
+        },
+        "certificate_verified": true
+      },
+      "timing": {
+        "train_s": 153.48,
+        "predict_s": 44.74,
+        "score_s": 51.91,
+        "predict_val_s": 37.28
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      153.48
+    ],
+    "predict_s": [
+      44.74
+    ],
+    "build_s": 3.1
+  },
+  "hashes": {
+    "env_lock": "6afb83d59515deb526c4879fe45c151289c53c8b2bd6c073dfcd3702132e51ac",
+    "scorer": "16a068376440133d6da83479b9034795f07262302223c02fda66bf76986bacb4",
+    "validate": "4bd2db635909a5917beff1e25725a2f01a8d3690b488faa064169b6af24196f1",
+    "test_labels": "e6d5ac7f5bcd934689594992442a325be37bdc6b41ddf17a44269ef7667fc9c3",
+    "adapt_patch": "d135d00c66829e258b8327a04199f257240bf989efd81c287f1f6a6838b32af1"
+  }
+}

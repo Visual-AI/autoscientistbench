@@ -1,0 +1,160 @@
+{
+  "pid": "018_ETfinder",
+  "class": "C",
+  "title": "ETfinder fixed-database host-record benchmark",
+  "metric": {
+    "name": "f1",
+    "higher_is_better": true,
+    "delta": 0.005,
+    "aggregate": "mean"
+  },
+  "cpus": 16,
+  "memory_gb": 80,
+  "budget_hours_default": 24,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.json",
+    "val_labels": "data/val/labels.json",
+    "test_input": "test/input.json",
+    "test_labels": "test/labels.json"
+  },
+  "split": {
+    "type": "training_free",
+    "decision": "Identity-group population split,20%validation80%hidden; full candidate pool and global45..182 count guard retained, per-population one-to-one F1."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 66.17,
+    "val": {
+      "f1": 0.5217391304347826
+    },
+    "paper_ref": "Historical full91-host F1=0.4245810055865922; split scores not directly comparable and no new reference run.",
+    "measured_s": {
+      "train": [
+        0.11
+      ],
+      "predict": [
+        3969.94
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:9c922ef19e61f9c295f487ad42eecd7e8845efe67b009e37b3bc6360faa8cc80"
+  },
+  "env": {
+    "mode": "snapshot",
+    "snapshot": "runtime/runtime.json",
+    "python": "3.10",
+    "lock": "code/env.lock"
+  },
+  "adapt": {
+    "base_commit": "d282066f40548383f34e8320ea9444f62906d8d0",
+    "adapt_commit": "aeaa2b4b0eac5a63d67093eec135d5280a9ebedb",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "smoke": {
+    "input": "judge/verification/fixture/input.json",
+    "labels": "judge/verification/fixture/labels.json"
+  },
+  "conversion": {
+    "full_data_ready": true,
+    "source_commit": "1970c00c929ba1fb6c78e22e631a73533ec97778",
+    "smoke_report": "judge/verification/smoke.json",
+    "data_integrity": "judge/verification/data_checks.json"
+  },
+  "method_freedom_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/018_ETfinder.json",
+    "full_training_or_evaluation": false,
+    "allowed_changes": [
+      "computational ranking, selection and statistical analysis of the existing records",
+      "implementation and internal representations without changing the biological observations",
+      "When retaining the supplied funnel, changing only the motif LDDEIPF, the RecT length bounds 200 and 700, the three RecE-partner Pfam entries, the host RNA clustering identity 0.99 or its coverage 0.9 does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Analyze the existing fixed database and select observed records for comparison with the curated species-level record-matching target.",
+      "existing database, supplied observations, taxonomy/matching semantics and allowed record-ID universe",
+      "record-level species F1, identity-group split and candidate-count validity range",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/018_ETfinder.json",
+    "forbidden_substitutions": [
+      "adding or modifying biological sequences, replacing the database or redefining taxonomic matches",
+      "external reconstruction of curated answers, cached selections or collapsing record-level denominators",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract"
+  },
+  "research_contract": {
+    "objective": "Analyze the existing fixed database and select observed records for comparison with the curated species-level record-matching target.",
+    "fixed_research_objects": [
+      "existing database, supplied observations, taxonomy/matching semantics and allowed record-ID universe",
+      "record-level species F1, identity-group split and candidate-count validity range"
+    ],
+    "editable_components": [
+      "computational ranking, selection and statistical analysis of the existing records",
+      "implementation and internal representations without changing the biological observations",
+      "When retaining the supplied funnel, changing only the motif LDDEIPF, the RecT length bounds 200 and 700, the three RecE-partner Pfam entries, the host RNA clustering identity 0.99 or its coverage 0.9 does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "adding or modifying biological sequences, replacing the database or redefining taxonomic matches",
+      "external reconstruction of curated answers, cached selections or collapsing record-level denominators",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "source": "tasks/018_ETfinder/agent/README.md",
+        "section": "Goal,Data,Metric and baseline",
+        "finding": "Analyze the existing fixed database and select observed records for comparison with the curated species-level record-matching target."
+      },
+      {
+        "source": "tasks/018_ETfinder/agent/bench/scorer.py",
+        "section": "trusted score and guards",
+        "finding": "The fixed evaluation target is existing database, supplied observations, taxonomy/matching semantics and allowed record-ID universe; record-level species F1, identity-group split and candidate-count validity range"
+      },
+      {
+        "source": "audits/20261101_method_freedom/018_ETfinder.json",
+        "section": "prior task-specific scorer/interface audit",
+        "finding": "Reuse the prior actual evaluator review while narrowing the blanket permission to the present task-specific objects."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/018_ETfinder.json"
+  },
+  "research_contract_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/018_ETfinder.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 3
+}

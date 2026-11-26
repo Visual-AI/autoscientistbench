@@ -1,0 +1,83 @@
+{
+  "task": "090_CLMCP",
+  "created": "2026-11-02T08:21:40+0000",
+  "seeds": [
+    1
+  ],
+  "cpus": 8,
+  "adapt_commit": "2625bce8cccf0b6d407f38758a5cb6095ad46734",
+  "sandbox": true,
+  "budget_s": 21600.0,
+  "test": {
+    "per_seed": [
+      9061.12335431509
+    ],
+    "mean": 9061.12335431509,
+    "std": 0.0,
+    "n": 1
+  },
+  "val": {
+    "per_seed": [
+      1992.3608585454524
+    ],
+    "mean": 1992.3608585454524,
+    "std": 0.0,
+    "n": 1
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "cumulative_regret": 9061.12335431509,
+        "per_episode": {
+          "f366b80ed9964423": 9061.12335431509
+        },
+        "valid": true,
+        "causality_guard_ok": true,
+        "protocol": "private-policy-v2",
+        "policy_elapsed_s": 1.1163210794329643,
+        "prediction_elapsed_s": 1.1608507949858904,
+        "artifact_prepare_s": 0.2135785911232233,
+        "worker_count": 1,
+        "cpus_per_worker": 1
+      },
+      "val": {
+        "cumulative_regret": 1992.3608585454524,
+        "per_episode": {
+          "f66ab97963219cef": 0.035357221927184705,
+          "26f7490e5f482508": 0.3730201968658675,
+          "3ad053a9f0c98bf6": 5976.6741982175645
+        },
+        "valid": true,
+        "causality_guard_ok": true,
+        "protocol": "private-policy-v2",
+        "policy_elapsed_s": 3.8058857806026936,
+        "prediction_elapsed_s": 1.4060504361987114,
+        "artifact_prepare_s": 0.20294810645282269,
+        "worker_count": 3,
+        "cpus_per_worker": 1
+      },
+      "timing": {
+        "train_s": 0.57,
+        "predict_s": 0.52,
+        "score_s": 1.91,
+        "predict_val_s": 0.52
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      0.57
+    ],
+    "predict_s": [
+      0.52
+    ],
+    "build_s": 2.5
+  },
+  "hashes": {
+    "env_lock": "7242524339a9388141e1383e79b66ac2fd4b82276448eae06b8fa428192ccd1f",
+    "scorer": "fdf63b8de028348296c9ed9cee7714eee5264e31df26778821956d2df7aaf2a4",
+    "validate": "3208582f08478578a115add6ea086b76873b6cfacf8caf638c1701817b926802",
+    "test_labels": null,
+    "adapt_patch": "1326f45e2a7d1e37436c25b546aa379adb5f0837f4dc75e81855ffa6cdd7a1ca"
+  }
+}

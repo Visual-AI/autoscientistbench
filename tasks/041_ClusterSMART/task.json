@@ -1,0 +1,180 @@
+{
+  "pid": "041_ClusterSMART",
+  "class": "D",
+  "title": "Longitudinal inference for clustered SMARTs",
+  "metric": {
+    "name": "power",
+    "higher_is_better": true,
+    "delta": 0.005,
+    "aggregate": "mean"
+  },
+  "cpus": 32,
+  "memory_gb": 144,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input",
+    "val_labels": "data/val/labels.csv",
+    "test_input": "test/input",
+    "test_labels": "test/labels.csv",
+    "input_format": "directory+rds",
+    "output_format": "csv"
+  },
+  "split": {
+    "type": "synthetic",
+    "decision": "Independently seeded observed datasets: 600 val + 2400 test replications per environment, retaining source reproduction total 3000; separate truth labels. Smoke is separate."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 6.39,
+    "val": {
+      "power": 0.9079166666666666
+    },
+    "paper_ref": "Table 7b; historical reproduction power 0.9074, paper 0.9075; not a new protocol reference.",
+    "measured_s": {
+      "train": [
+        0.06,
+        0.06,
+        0.06
+      ],
+      "predict": [
+        383.37,
+        348.57,
+        343.72
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "reference_hash": "sha256:0ab90391b3909b7a0ada9bf26017a119c13cd739f62e7b1f02a60d1c380e255c"
+  },
+  "env": {
+    "mode": "snapshot",
+    "snapshot": "runtime/runtime.json",
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [],
+    "build_cap_s": 1800
+  },
+  "adapt": {
+    "base_commit": "c25df1882deb624215e217dc6f31b7fda0a9f68b",
+    "adapt_commit": "aa36d8e5e5dc668d4965455aa4e18a39479a75d0",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "verification": {
+    "full_reference": "not_run",
+    "full_materialization": "complete",
+    "smoke": "passed",
+    "sandbox": true,
+    "static_lint_errors": 0,
+    "full_data_ready": true
+  },
+  "smoke": {
+    "input": "judge/verification/smoke_fixture/input",
+    "labels": "judge/verification/smoke_fixture/labels.csv",
+    "env": {}
+  },
+  "conversion": {
+    "full_data_ready": true
+  },
+  "method_freedom_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/041_ClusterSMART.json",
+    "candidate_method_replacement_allowed": true,
+    "frozen_data_metric_and_information_boundary": true,
+    "full_training_or_evaluation_run": false,
+    "allowed_changes": [
+      "Working outcome/covariance models, weighting, nuisance fitting losses, estimation algorithms and interval construction may change for the same contrast.",
+      "Three-level fitting iterations and covariance parameterizations are baseline methods; the task does not ask to approximate a fixed Bayesian posterior.",
+      "When retaining the supplied multilayer fitting and inference routines, changing only max_iter=100, the convergence threshold 1e-5 or alpha=0.05 does not count as a method improvement.",
+      "Switching only the existing `var_homo_over_time` or `correlation_structure` entries of `fit_settings`, or multiplying interval widths by a constant, also does not count."
+    ],
+    "fixed_contract": [
+      "Improve power of valid intervals for the fixed end-of-study (1,1) versus (-1,-1) adaptive-intervention contrast in clustered SMART studies.",
+      "The intervention regimes, contrast, outcome time, SMART randomization/cluster structure and four Table-7b environments define the research question.",
+      "All supplied study observations, per-environment coverage floors, strict zero exclusion/inclusion and equal mean power remain fixed.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/041_ClusterSMART.json",
+    "forbidden_substitutions": [
+      "Do not switch to another treatment/time contrast or predictive accuracy, change randomization structure or intervention definitions, or use oracle effects/hidden outcomes.",
+      "No case replacement, cross-study outcome pooling or changed coverage/power arithmetic.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Interval endpoints must come from the stated inference method and the current study's estimated uncertainty. Do not clip intervals at zero, use the known sign of the effect, or move point estimates to force rejection of zero. Patch audit enforces this rule; alternative confidence-interval methods remain permitted."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Improve power of valid intervals for the fixed end-of-study (1,1) versus (-1,-1) adaptive-intervention contrast in clustered SMART studies.",
+    "fixed_research_objects": [
+      "The intervention regimes, contrast, outcome time, SMART randomization/cluster structure and four Table-7b environments define the research question.",
+      "All supplied study observations, per-environment coverage floors, strict zero exclusion/inclusion and equal mean power remain fixed."
+    ],
+    "editable_components": [
+      "Working outcome/covariance models, weighting, nuisance fitting losses, estimation algorithms and interval construction may change for the same contrast.",
+      "Three-level fitting iterations and covariance parameterizations are baseline methods; the task does not ask to approximate a fixed Bayesian posterior.",
+      "When retaining the supplied multilayer fitting and inference routines, changing only max_iter=100, the convergence threshold 1e-5 or alpha=0.05 does not count as a method improvement.",
+      "Switching only the existing `var_homo_over_time` or `correlation_structure` entries of `fit_settings`, or multiplying interval widths by a constant, also does not count."
+    ],
+    "forbidden_substitutions": [
+      "Do not switch to another treatment/time contrast or predictive accuracy, change randomization structure or intervention definitions, or use oracle effects/hidden outcomes.",
+      "No case replacement, cross-study outcome pooling or changed coverage/power arithmetic.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Interval endpoints must come from the stated inference method and the current study's estimated uncertainty. Do not clip intervals at zero, use the known sign of the effect, or move point estimates to force rejection of zero. Patch audit enforces this rule; alternative confidence-interval methods remain permitted."
+    ],
+    "evidence": [
+      {
+        "path": "agent/paper/paper.txt",
+        "section": "Section 8.2, Table 7b",
+        "finding": "Power study compares methods for the same end-of-study cAI contrast across four effect environments."
+      },
+      {
+        "path": "agent/bench/scorer.py",
+        "finding": "Scores strict CI exclusion/inclusion for the selected fixed contrast."
+      },
+      {
+        "path": "convert/tasks_merlin.json",
+        "section": "041_ClusterSMART task_metric/score_rule",
+        "finding": "Longitudinal estimator is the selected baseline, while causal contrast and four environments are the scientific targets."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/041_ClusterSMART.json"
+  },
+  "research_contract_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/041_ClusterSMART.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

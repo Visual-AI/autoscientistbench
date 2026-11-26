@@ -1,0 +1,198 @@
+{
+  "pid": "097_ReNF",
+  "class": "A",
+  "title": "ReNF: Rethinking the Design of Neural Long-Term Time Series Forecasters",
+  "metric": {
+    "name": "mse",
+    "higher_is_better": false,
+    "delta": 0.002,
+    "aggregate": "mean"
+  },
+  "cpus": 8,
+  "memory_gb": 16,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.json",
+    "val_labels": "data/val/evaluation",
+    "test_input": "test/input.json",
+    "test_labels": "test/evaluation",
+    "input_format": "private_forecast_descriptor_json",
+    "output_format": "policy_artifact_zip"
+  },
+  "split": {
+    "type": "std3",
+    "decision": "ETTh1 standard chronological split: train [0,8640), val [8640,11520), test [11520,14400). All 2785 horizon-96 windows in each evaluation split (test drop_last=False). Full prior history supplied, limit 720 steps enforced by truncation probe; baseline uses 512. No random split."
+  },
+  "baseline": {
+    "train_min": 2.97,
+    "eval_min": 0.5,
+    "val": {
+      "mse": 0.6947337805985181
+    },
+    "paper_ref": "Table 1 / Table 6 ETTh1 horizon 96; source main_table/final_1 MSE 0.3508497178554535; manifest 0.35085.",
+    "measured_s": {
+      "train": [
+        154.03,
+        172.23,
+        178.2
+      ],
+      "predict": [
+        2.97,
+        2.97,
+        2.97
+      ]
+    },
+    "timing_scope": "legacy protocol estimates retained for operational budgeting; not a measured v2 reference"
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:8be9cb1b993c62e7bfa1d8308eb803fecf50e110fd856f93a08a00aa12195d4c"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple",
+      "https://download.pytorch.org/whl/cpu"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "6971b4cd1d8ec78045fe241997b4a0a73b0b9bfc",
+    "adapt_commit": "957ab705a8fda950944da96eddd4c0a9f1312669",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "protocol_version": "private-policy-v2",
+  "leakage_repair": {
+    "status": "protocol_smoke_pass",
+    "scope": "cross_window_future_observation_leakage",
+    "outer_harness_changed": false,
+    "original_instances_preserved": true,
+    "full_performance_validated": false,
+    "reference_status": "requires_rebuild_after_protocol_change",
+    "smoke_report": "audits/20261101_quality/repairs/forecast_smoke/097_ReNF.json",
+    "original_environment_import": "timed_out_45s",
+    "original_model_component_smoke": true
+  },
+  "leakage_remediation": {
+    "status": "smoke_verified",
+    "outer_harness_changed": false,
+    "full_training_or_evaluation_run": false,
+    "evidence": [
+      "audits/20261101_preserve_experiment/097_ReNF.json",
+      "tasks/097_ReNF/judge/verification/preserve_experiment/protocol_smoke.json",
+      "tasks/097_ReNF/judge/verification/preserve_experiment/model_smoke.json",
+      "tasks/097_ReNF/judge/verification/preserve_experiment/native_model_smoke.json"
+    ],
+    "full_evaluation_ready": false,
+    "superseded_by": "audits/20261101_method_freedom/097_ReNF.json",
+    "evidence_is_historical": true
+  },
+  "experiment_preservation": {
+    "report": "audits/20261101_preserve_experiment/097_ReNF.json",
+    "original_prediction_budget_s": 60,
+    "artifact_setup_separately_timed": true,
+    "native_environment_single_window_forward_passed": true,
+    "native_lock_versions_match_after_pep440_normalization": true,
+    "native_full_training_verified": false,
+    "full_scale_throughput_verified": false,
+    "method_and_seed_semantics_require_review": true,
+    "historical_checkpoint_not_a_new_reference": true
+  },
+  "method_freedom": {
+    "report": "audits/20261101_method_freedom/097_ReNF.json",
+    "full_training_or_evaluation_run": false,
+    "superseded_by": "research_contract",
+    "scope_superseded_by": "audits/20261101_research_contract/097_ReNF.json"
+  },
+  "method_freedom_review": {
+    "report": "audits/20261101_research_contract/097_ReNF.json",
+    "allowed_changes": [
+      "The entire forecaster, internal feature representation, training surrogate, optimizer, regularizer and training procedure may change within the specified input and data-provenance constraints. The evaluated prediction target and loss formula remain fixed.",
+      "When retaining the supplied ReNF training pipeline, changing only learning_rate=0.0006, gamma=0.3, StepLR step_size=2, r_ema=0.996, alpha_freq=0, seq_len=512, d_layers=3, d_ff=2048, batch_size=128, train_epochs=10 or patience=3 does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Forecast all seven ETTh1 variables for horizon 96 from the allowed history of each window.",
+      "The original chronological split, all 2785 evaluation windows, seven channels, horizon 96 and maximum 720-step lookback remain fixed.",
+      "Training-standardized multivariate MSE is the fixed objective; MAE remains diagnostic.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/097_ReNF.json",
+    "status": "scope_defined",
+    "forbidden_substitutions": [
+      "Do not change the time series/targets, access earlier than the allowed history or other windows, change standardization, or substitute a different horizon/metric.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Forecast all seven ETTh1 variables for horizon 96 from the allowed history of each window.",
+    "fixed_research_objects": [
+      "The original chronological split, all 2785 evaluation windows, seven channels, horizon 96 and maximum 720-step lookback remain fixed.",
+      "Training-standardized multivariate MSE is the fixed objective; MAE remains diagnostic."
+    ],
+    "editable_components": [
+      "The entire forecaster, internal feature representation, training surrogate, optimizer, regularizer and training procedure may change within the specified input and data-provenance constraints. The evaluated prediction target and loss formula remain fixed.",
+      "When retaining the supplied ReNF training pipeline, changing only learning_rate=0.0006, gamma=0.3, StepLR step_size=2, r_ema=0.996, alpha_freq=0, seq_len=512, d_layers=3, d_ff=2048, batch_size=128, train_epochs=10 or patience=3 does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "Do not change the time series/targets, access earlier than the allowed history or other windows, change standardization, or substitute a different horizon/metric.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "path": "tasks/097_ReNF/BRIEF.md",
+        "finding": "The score rule fixes horizon 96, features M, the standard split and seq_len<=720; ReNF is the supplied baseline architecture."
+      },
+      {
+        "path": "tasks/097_ReNF/agent/bench/scorer.py",
+        "finding": "Existing scorer retains the stated target formula, aggregation and validity controls."
+      },
+      {
+        "path": "tasks/097_ReNF/agent/bench/legacy_metric.py",
+        "finding": "Reviewed the original per-window target standardization, horizon aggregation and task-specific validity conditions; all remain unchanged."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/097_ReNF.json"
+  },
+  "research_contract_review": {
+    "status": "scope_defined",
+    "report": "audits/20261101_research_contract/097_ReNF.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

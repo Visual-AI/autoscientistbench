@@ -1,0 +1,11 @@
+{
+  "type": "codex",
+  "auth": "subscription",
+  "model": "gpt-5.5",
+  "reasoning_effort": "high",
+  "codex_home": "~/.codex",
+  "auth_sync_back": true,
+  "allow_hosts": ["chatgpt.com", "*.chatgpt.com", "auth.openai.com", "api.openai.com", "*.openai.com"],
+  "extra_config": [],
+  "_doc": "ChatGPT subscription login: run `codex login` on the operator machine first; auth.json is copied into the sandbox HOME. Extend allow_hosts if proxy.log shows denied CONNECTs."
+}

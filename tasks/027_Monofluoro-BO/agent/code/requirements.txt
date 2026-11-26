@@ -1,0 +1,9 @@
+numpy
+pandas
+scikit-learn
+scipy
+matplotlib
+xgboost
+rdkit
+openpyxl>=3.1
+tqdm>=4.66

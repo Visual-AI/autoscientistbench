@@ -1,0 +1,127 @@
+{
+  "task": "057_BT-SBM",
+  "created": "2026-11-02T08:05:32+0000",
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "cpus": 12,
+  "adapt_commit": "371a73e755f74c6a54e9874307d9cac8c626d4f8",
+  "sandbox": true,
+  "budget_s": 21600.0,
+  "test": {
+    "per_seed": [
+      0.809621841743931,
+      0.7941831201791119,
+      0.805623518074854
+    ],
+    "mean": 0.8031428266659656,
+    "std": 0.006542369768853006,
+    "n": 3
+  },
+  "val": {
+    "per_seed": [
+      0.7890071638924673,
+      0.7906369628818805,
+      0.7931700222555239
+    ],
+    "mean": 0.7909380496766238,
+    "std": 0.0017127633386225679,
+    "n": 3
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "ari_minVI": 0.809621841743931,
+        "raw_mean_ari": 0.809621841743931,
+        "mean_spearman": 0.8738139453590009,
+        "median_fit_time_s": 36.99299999999999,
+        "ranking_guard": true,
+        "n_datasets": 90
+      },
+      "val": {
+        "ari_minVI": 0.7890071638924673,
+        "raw_mean_ari": 0.7890071638924673,
+        "mean_spearman": 0.8459812015072122,
+        "median_fit_time_s": 36.972999999999985,
+        "ranking_guard": true,
+        "n_datasets": 90
+      },
+      "timing": {
+        "train_s": 6.07,
+        "predict_s": 469.68,
+        "score_s": 0.14,
+        "predict_val_s": 467.02
+      }
+    },
+    "2": {
+      "test": {
+        "ari_minVI": 0.7941831201791119,
+        "raw_mean_ari": 0.7941831201791119,
+        "mean_spearman": 0.8736350172259505,
+        "median_fit_time_s": 36.9315,
+        "ranking_guard": true,
+        "n_datasets": 90
+      },
+      "val": {
+        "ari_minVI": 0.7906369628818805,
+        "raw_mean_ari": 0.7906369628818805,
+        "mean_spearman": 0.8457471806653882,
+        "median_fit_time_s": 36.90599999999998,
+        "ranking_guard": true,
+        "n_datasets": 90
+      },
+      "timing": {
+        "train_s": 6.27,
+        "predict_s": 469.06,
+        "score_s": 0.13,
+        "predict_val_s": 466.17
+      }
+    },
+    "3": {
+      "test": {
+        "ari_minVI": 0.805623518074854,
+        "raw_mean_ari": 0.805623518074854,
+        "mean_spearman": 0.8736700146682504,
+        "median_fit_time_s": 37.00050000000002,
+        "ranking_guard": true,
+        "n_datasets": 90
+      },
+      "val": {
+        "ari_minVI": 0.7931700222555239,
+        "raw_mean_ari": 0.7931700222555239,
+        "mean_spearman": 0.8453448407643068,
+        "median_fit_time_s": 37.093000000000025,
+        "ranking_guard": true,
+        "n_datasets": 90
+      },
+      "timing": {
+        "train_s": 6.12,
+        "predict_s": 468.83,
+        "score_s": 0.13,
+        "predict_val_s": 469.32
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      6.07,
+      6.27,
+      6.12
+    ],
+    "predict_s": [
+      469.68,
+      469.06,
+      468.83
+    ],
+    "build_s": 5.37
+  },
+  "hashes": {
+    "env_lock": "13db1fff12bf2e8ddbcac722fba1dff61d3bce448df1228e9238f3269eef7b6f",
+    "scorer": "1a9473ce5626dcf3e4aa4799662d0b81a6b7ad27c5e5af94503b3780fd49d71e",
+    "validate": "2fa39fbb857e4870b17462c6e4eb05972bd8d0d49a692334f86c9d564c491850",
+    "test_labels": "c9b06c085fdab0293f683198bb85d16f711f1161689927113650f973006634ca",
+    "adapt_patch": "935081309a04eb2bd68e931fe24e79995d546bbdcc4eb24ac836b742dd6ffa9c"
+  }
+}

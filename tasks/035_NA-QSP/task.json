@@ -1,0 +1,142 @@
+{
+  "pid": "035_NA-QSP",
+  "class": "A",
+  "title": "Non-Abelian Quantum Signal Processing: A Composite Pulse for Fast Analytic Control",
+  "metric": {
+    "name": "hybrid_infidelity",
+    "higher_is_better": false,
+    "delta": 1e-05,
+    "aggregate": "mean"
+  },
+  "cpus": 8,
+  "memory_gb": 16,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.csv",
+    "val_labels": "data/val/labels.csv",
+    "test_input": "test/input.csv",
+    "test_labels": "test/labels.csv"
+  },
+  "split": {
+    "type": "none",
+    "decision": "Variant B design task. Public validation is the paper instance. Hidden continuous (alpha, theta_t) instances add nonorthogonal-branch difficulty; independently drawn with secrets and materialized by make_data.py. Fixed pi/4 CD budget; per-instance max over three input states, mean over instances. No fitted model or dataset split."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 0.5,
+    "val": {
+      "hybrid_infidelity": 0.002983169219097581
+    },
+    "paper_ref": "Table II 0.003; three-input reproduced GCR 0.0029831692190980252 at alpha=2, theta_t=pi/2",
+    "measured_s": {
+      "train": [
+        0.22
+      ],
+      "predict": [
+        0.22
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 1e-06,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:db98921be620c1dd5571208cfaccf89947fc4f0c9b06fbaee5a19977f176ce64"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "298f15adf98fcb5973146fa0f818293a5827d5f7",
+    "adapt_commit": "f88b0534d82cd207afe4bc092290a560c04c69b3",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "method_freedom_review": {
+    "status": "scope_clarified",
+    "report": "audits/20261101_research_contract/035_NA-QSP.json",
+    "full_training_or_evaluation": false,
+    "allowed_changes": [
+      "Pulse sequence, gate count, allowed axes/angles/amplitudes within the fixed gate set and amplitude budget.",
+      "Analytical designs, optimization, reusable learned design policies, search and implementation; two-gate GCR is a baseline."
+    ],
+    "fixed_contract": [
+      "Minimize hybrid infidelity of the specified sign-controlled qubit rotation under the fixed conditional-displacement amplitude budget.",
+      "Supplied coherent amplitude/angle; oscillator/qubit conventions, both coherent branches, even-cat input and prescribed targets.",
+      "CD and unconditional qubit-rotation gate set, unit axes, total absolute CD amplitude <=pi/4 and Delta=1.",
+      "400/600 cutoff convergence test, worst-of-three-input infidelity and mean across instances.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/035_NA-QSP.json",
+    "forbidden_substitutions": [
+      "Change target transformation, coherent/cat inputs, physical simulator, gate set or amplitude budget.",
+      "Replace fixed cutoff/fidelity with an easier evaluation or submit fabricated states/scores instead of pulses.",
+      "Use stored per-instance solutions, withheld-collection access or ID-dependent answers.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract"
+  },
+  "research_contract": {
+    "objective": "Minimize hybrid infidelity of the specified sign-controlled qubit rotation under the fixed conditional-displacement amplitude budget.",
+    "fixed_research_objects": [
+      "Supplied coherent amplitude/angle; oscillator/qubit conventions, both coherent branches, even-cat input and prescribed targets.",
+      "CD and unconditional qubit-rotation gate set, unit axes, total absolute CD amplitude <=pi/4 and Delta=1.",
+      "400/600 cutoff convergence test, worst-of-three-input infidelity and mean across instances."
+    ],
+    "editable_components": [
+      "Pulse sequence, gate count, allowed axes/angles/amplitudes within the fixed gate set and amplitude budget.",
+      "Analytical designs, optimization, reusable learned design policies, search and implementation; two-gate GCR is a baseline."
+    ],
+    "forbidden_substitutions": [
+      "Change target transformation, coherent/cat inputs, physical simulator, gate set or amplitude budget.",
+      "Replace fixed cutoff/fidelity with an easier evaluation or submit fabricated states/scores instead of pulses.",
+      "Use stored per-instance solutions, withheld-collection access or ID-dependent answers.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      "BRIEF.md: physical task_metric/score_rule and judge-simulated design decision.",
+      "agent/bench/pulse_core.py: fixed simulator, gate-budget and cutoff checks.",
+      "agent/bench/io_spec.md: prescribed inputs/targets and pulse-only submissions."
+    ],
+    "review_report": "audits/20261101_research_contract/035_NA-QSP.json"
+  },
+  "research_contract_review": {
+    "status": "scope_clarified",
+    "report": "audits/20261101_research_contract/035_NA-QSP.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

@@ -1,0 +1,196 @@
+{
+  "pid": "079_LTARC",
+  "class": "A",
+  "title": "Learning Treatment Allocations with Risk Control Under Partial Identifiability",
+  "metric": {
+    "name": "population_risk",
+    "higher_is_better": false,
+    "delta": 0.025,
+    "aggregate": "mean"
+  },
+  "cpus": 8,
+  "memory_gb": 8,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/request.json",
+    "val_labels": "data/val/cohort.npz",
+    "test_input": "test/request.json",
+    "test_labels": "test/cohort.npz",
+    "input_format": "json",
+    "output_format": "private-policy-v2"
+  },
+  "split": {
+    "type": "std3",
+    "decision": "Original 100 repetitions, seed 10603+i, retain 2109 learning / 1054 certification / 1055 evaluation rows from 4218 preprocessed STAR students. All real rows remain private. Fresh fit and certification sandboxes per repetition; immutable FFT candidates before certification. Public validation is the real International Stroke Trial data of the paper's Appendix A.5, disjoint from STAR and public including labels: 18298 patients, 53 covariate columns encoding the paper's 23 covariates, 40 repetitions with seed 10603+i and 9149/4574/4575 rows, tau=.225, gamma=1, propensity=.5. Its score is a guide to method progress, not an estimate of STAR performance."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 0.5,
+    "val": {
+      "population_risk": 0.23536612021857922
+    },
+    "paper_ref": "Released 40-bin STAR configuration; no fresh converted reference measured.",
+    "runtime_note": "Fitting executes during private score replay; no full runtime measurement.",
+    "measured_s": {
+      "train": [
+        0.26
+      ],
+      "predict": [
+        0.31
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 1e-06,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:bc9170f3499dee50e344bad1cde4cc2ed4965eeb8a49d4ccad0241ab0362764b"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "b713546bd3d577f6d726fe800bdb62a4fcd5c85c",
+    "adapt_commit": "58de851828b3f1503e4bf6ad69f76c6280bb6f09",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "method_freedom": {
+    "report": "audits/20261101_method_freedom/079_LTARC.json",
+    "full_training_or_evaluation_run": false,
+    "scope_superseded_by": "audits/20261101_research_contract/079_LTARC.json",
+    "conversion_report": "audits/20261101_remaining_six_conversion/079_LTARC.json"
+  },
+  "method_freedom_review": {
+    "report": "audits/20261101_research_contract/079_LTARC.json",
+    "allowed_changes": [
+      "Search over the same policy class, auxiliary policy-learning loss, optimizers, lookahead/search strategy and valid risk certification methods may change.",
+      "The baseline greedy tree builder and lambda search grid do not fix the solver; training-derived split thresholds must retain the selected feature/class definition.",
+      "Changing only `lookahead`, `lambda_range` or `lambda_n` in `code/adapter.py` does not count as a method change (patch audit)."
+    ],
+    "fixed_contract": [
+      "Minimize certified STAR population risk at tau=.35 within the original interpretable fast-and-frugal policy class.",
+      "The STAR outcomes/treatment meaning, original preprocessed covariates, policy-learning/certification/evaluation roles and 100-replication aggregation remain fixed.",
+      "One fast-and-frugal policy per replication, at most three single-variable split conditions and the selected 40-bin threshold grid define the scientific policy class.",
+      "Gamma1, propensity.5, released inverse-propensity population/treatment-risk estimators, coverage>=.90 and mean treatment risk<=.35 remain fixed, including the recorded zero-loss edge cases.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access.",
+      "The tree search objective keeps its penalty of 0.02 per split (`loss_i + 0.02 * n` in `method/create_fft_constraint.py`): do not change, tune, schedule or remove it, and do not offset it by rescaling the loss it is added to.",
+      "Any search or auxiliary loss that generates candidate trees keeps the same 0.02 per split in its objective; committing trees from an objective without it counts as removing the penalty (patch audit).",
+      "The certification confidence stays at 90% (`self.delta = 0.1` in `code/method/weights_p_bound.py`); a replacement bound must hold at that level (patch audit)."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/079_LTARC.json",
+    "status": "reviewed_scope_implemented_smoke_verified",
+    "forbidden_substitutions": [
+      "Do not substitute unrestricted neural policies, forests, deeper rules, oblique conditions or another threshold grid, change causal estimands/propensities, or use alternative outcome labels.",
+      "No fitting on certification/evaluation outcomes, cross-repetition state, external STAR data or release of overlapping real development records.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false,
+    "certification_validity": "Selection among precommitted candidates enforced; statistical validity of replacement certification methods remains subject to method review."
+  },
+  "research_contract": {
+    "objective": "Minimize certified STAR population risk at tau=.35 within the original interpretable fast-and-frugal policy class.",
+    "fixed_research_objects": [
+      "The STAR outcomes/treatment meaning, original preprocessed covariates, policy-learning/certification/evaluation roles and 100-replication aggregation remain fixed.",
+      "One fast-and-frugal policy per replication, at most three single-variable split conditions and the selected 40-bin threshold grid define the scientific policy class.",
+      "Gamma1, propensity.5, released inverse-propensity population/treatment-risk estimators, coverage>=.90 and mean treatment risk<=.35 remain fixed, including the recorded zero-loss edge cases.",
+      "The tree search objective keeps its penalty of 0.02 per split (`loss_i + 0.02 * n` in `method/create_fft_constraint.py`): do not change, tune, schedule or remove it, and do not offset it by rescaling the loss it is added to.",
+      "Any search or auxiliary loss that generates candidate trees keeps the same 0.02 per split in its objective; committing trees from an objective without it counts as removing the penalty (patch audit).",
+      "The certification confidence stays at 90% (`self.delta = 0.1` in `code/method/weights_p_bound.py`); a replacement bound must hold at that level (patch audit)."
+    ],
+    "editable_components": [
+      "Search over the same policy class, auxiliary policy-learning loss, optimizers, lookahead/search strategy and valid risk certification methods may change.",
+      "The baseline greedy tree builder and lambda search grid do not fix the solver; training-derived split thresholds must retain the selected feature/class definition.",
+      "Changing only `lookahead`, `lambda_range` or `lambda_n` in `code/adapter.py` does not count as a method change (patch audit)."
+    ],
+    "forbidden_substitutions": [
+      "Do not substitute unrestricted neural policies, forests, deeper rules, oblique conditions or another threshold grid, change causal estimands/propensities, or use alternative outcome labels.",
+      "No fitting on certification/evaluation outcomes, cross-repetition state, external STAR data or release of overlapping real development records.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "section": "Eq2, Section5 and AppendixA.1",
+        "finding": "Research optimization is over interpretable policies; experiments select fast-and-frugal trees with single-variable gridded conditions, while greedy fitting is a method."
+      },
+      {
+        "section": "commands_star, lines29-44",
+        "finding": "Selected STAR configuration fixes n_splits3, n_bins40 and 100 independent partition experiments."
+      },
+      {
+        "section": "create_test_criterias/train_policy",
+        "finding": "Defines original single-feature quantile threshold grid and maximum split depth."
+      },
+      {
+        "path": "convert/tasks_merlin.json",
+        "section": "079_LTARC task_metric",
+        "finding": "Selected user-decision metric explicitly refers to the released 40-bin STAR configuration."
+      },
+      {
+        "path": "agent/bench/scorer.py",
+        "finding": "Audited statistical metric exists but CSV-only validity cannot enforce policy structure or information isolation."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/079_LTARC.json"
+  },
+  "research_contract_review": {
+    "status": "reviewed_scope_implemented_smoke_verified",
+    "report": "audits/20261101_research_contract/079_LTARC.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification.",
+    "conversion_report": "audits/20261101_remaining_six_conversion/079_LTARC.json"
+  },
+  "protocol_version": "private-policy-v2",
+  "conversion": {
+    "report": "audits/20261101_remaining_six_conversion/079_LTARC.json",
+    "smoke_report": "audits/20261101_remaining_six_conversion/icml-3290-LTARC_smoke.json",
+    "full_data_ready": true,
+    "root_delivery_check": "audits/20261101_remaining_six_conversion/delivery_checks.json"
+  },
+  "leakage_remediation": {
+    "status": "smoke_verified",
+    "outer_harness_changed": false,
+    "private_execution": "Fresh fit and certification sandboxes for every repetition; only learning rows can create tree candidates; only existing candidate index can be selected; evaluation decisions reconstructed by trusted scorer. Empty resources, redacted errors.",
+    "source_history": "Fresh method-only sanitized snapshot, no upstream Git objects/data/results.",
+    "full_training_or_evaluation_run": false,
+    "evidence": [
+      "audits/20261101_remaining_six_conversion/icml-3290-LTARC_smoke.json",
+      "audits/20261101_remaining_six_conversion/icml-3290-LTARC_source_audit.json",
+      "audits/20261101_remaining_six_conversion/icml-3290-LTARC_materialization.json"
+    ]
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

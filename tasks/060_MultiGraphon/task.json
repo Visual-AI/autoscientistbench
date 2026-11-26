@@ -1,0 +1,160 @@
+{
+  "pid": "060_MultiGraphon",
+  "class": "A",
+  "title": "Low-Complexity and Consistent Graphon Estimation from Multiple Networks",
+  "metric": {
+    "name": "mise",
+    "higher_is_better": false,
+    "delta": 0.03,
+    "aggregate": "mean"
+  },
+  "cpus": 8,
+  "memory_gb": 8,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.npz",
+    "val_labels": "data/val/truth.npz",
+    "test_input": "test/input.npz",
+    "test_labels": "test/truth.npz",
+    "input_format": "npz",
+    "output_format": "npz"
+  },
+  "split": {
+    "type": "synthetic",
+    "decision": "Synthetic: observations only, opaque shuffled ids. Each collection has M=200, n uniform integers 10..100. No reusable training; train directory empty. Validation 3 trials per graphon with public master seed 20261030; held-out evaluation preserves 20 independent trials per graphon, drawn with secrets and recorded privately. Paper ids 1..11,13; frozen generator; per-instance fitting in predict.",
+    "val_seeds": [
+      20261030
+    ]
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 0.5,
+    "val": {
+      "mise": 14.91276117294389
+    },
+    "paper_ref": "Table 1 JGS, 12 reproducible graphons: paper 15.0383; reproduction 14.9146; lower bound 0",
+    "measured_s": {
+      "train": [
+        1.62
+      ],
+      "predict": [
+        11.63
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 1e-06,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:9f4f4362d4a408e09325c1293b446ad2d26e7e2835606e2b9fce156fdcb3fd82"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "b6af1306c78868b5bf81de4d7b845c1e7d91b450",
+    "adapt_commit": "a3a21a9dacbaef46dc3f8c350ef4173b9b8ccd03",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "legacy_baseline_val": {
+    "mise": 14.91276117294389
+  },
+  "method_freedom_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/060_MultiGraphon.json",
+    "candidate_method_replacement_allowed": true,
+    "frozen_data_metric_and_information_boundary": true,
+    "full_training_or_evaluation_run": false,
+    "allowed_changes": [
+      "Graphon estimation models, auxiliary losses, degree/order estimators, block count/smoothing and numerical methods may change, yielding the required step-function representation.",
+      "The JGS automatic block rule and estimator are baseline methods; the score does not compare a fixed Bayesian posterior.",
+      "When retaining the supplied JGS estimator, changing only smoothing=False or k=None does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Estimate the graphon of each fixed collection of observed networks, minimizing its original degree-sorted step-function off-diagonal L2 error.",
+      "The latent graphon target, observed collection of 200 undirected networks, twelve selected designs and per-collection inference boundary remain fixed.",
+      "Symmetric probability step-matrix output, degree-sort convention, equal-width expansion to the 1000-grid, off-diagonal L2 times 1000 and equal graphon aggregation remain fixed.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/060_MultiGraphon.json",
+    "forbidden_substitutions": [
+      "Do not redefine the target as a resized image or alternative graph metric, replace the fixed degree-sorted loss, or classify graphon identity then return a memorized reference function.",
+      "No true latent positions, external/simulated collections, cross-collection fitting or hidden labels/seed lookup.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Estimate the graphon of each fixed collection of observed networks, minimizing its original degree-sorted step-function off-diagonal L2 error.",
+    "fixed_research_objects": [
+      "The latent graphon target, observed collection of 200 undirected networks, twelve selected designs and per-collection inference boundary remain fixed.",
+      "Symmetric probability step-matrix output, degree-sort convention, equal-width expansion to the 1000-grid, off-diagonal L2 times 1000 and equal graphon aggregation remain fixed."
+    ],
+    "editable_components": [
+      "Graphon estimation models, auxiliary losses, degree/order estimators, block count/smoothing and numerical methods may change, yielding the required step-function representation.",
+      "The JGS automatic block rule and estimator are baseline methods; the score does not compare a fixed Bayesian posterior.",
+      "When retaining the supplied JGS estimator, changing only smoothing=False or k=None does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "Do not redefine the target as a resized image or alternative graph metric, replace the fixed degree-sorted loss, or classify graphon identity then return a memorized reference function.",
+      "No true latent positions, external/simulated collections, cross-collection fitting or hidden labels/seed lookup.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "section": "Section 4.1 / Table 1",
+        "finding": "Scientific task is graphon estimation from network collections; JGS is compared against other estimators."
+      },
+      {
+        "path": "agent/bench/scorer.py",
+        "finding": "Preserves the selected reproduction step-function degree-sort metric, distinct from interpolated-image notebook metric."
+      },
+      {
+        "path": "agent/bench/io_spec.md",
+        "finding": "Estimates may vary block count while preserving probability-matrix format."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/060_MultiGraphon.json"
+  },
+  "research_contract_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/060_MultiGraphon.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

@@ -1,0 +1,170 @@
+{
+  "pid": "029_DOCKMIND",
+  "class": "A",
+  "title": "DOCKMIND: bounded six-parameter fit of virtual-screening hit rates",
+  "metric": {
+    "name": "mse",
+    "higher_is_better": false,
+    "delta": 0.01,
+    "aggregate": "mean"
+  },
+  "cpus": 16,
+  "memory_gb": 8,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.csv",
+    "val_labels": "data/val/labels.csv",
+    "test_input": "test/input.csv",
+    "test_labels": "test/labels.csv",
+    "input_format": "csv",
+    "output_format": "csv"
+  },
+  "split": {
+    "type": "in_sample",
+    "decision": "Binding fixed-instance optimization decision (2026-10-29): refit and score all 93 published points (AmpC 36, D4 24, Sigma2 33); train/val/test deliberately overlap; val is a public diagnostic mirror, not a holdout. Each score averages independent fits with literal seeds 0–4. Outer judge seeds 1,2,3 repeat the fixed estimator, changing execution order only. No hidden data or instance seeds exist."
+  },
+  "baseline": {
+    "train_min": 11.99,
+    "eval_min": 0.5,
+    "val": {
+      "mse": 0.0013872167540065763
+    },
+    "paper_ref": "Published rounded parameters: MSE 0.0013570679439159435; reproduced five-fit mean 0.0013872167540065763.",
+    "measured_s": {
+      "train": [
+        715.17,
+        715.45,
+        719.12
+      ],
+      "predict": [
+        2.22,
+        2.17,
+        2.22
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 1e-10,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:22d8d66c8d548d28880c4e900f3d3138bd21e23259b6f66049e2630d141f7fb9"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "b9464d4fac943ff9cb8bdebb1add8e828f1e34a7",
+    "adapt_commit": "e2d97a66579921440b2e5c7c73c3261af4f99ceb",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "method_freedom_previous_baseline_val": {
+    "mse": 0.0013872167540065763
+  },
+  "method_freedom_review": {
+    "full_evaluation_ready": false,
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/029_DOCKMIND.json",
+    "full_training_or_evaluation": false,
+    "allowed_changes": [
+      "the optimizer, parameterization, search strategy, numerical fitting procedure and implementation",
+      "surrogate objectives or approximations used internally to find better feasible parameters, while final scoring uses the original MSE and forward model",
+      "When retaining the supplied DEAP GA, changing only generations=100, population_size=5000, cxpb=0.4, mutpb=0.4, cxBlend alpha=0.5, mutGaussian sigma=1 or indpb=0.2, or tournament size=3 does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Fit the fixed bounded six-parameter DOCKMIND statistical model to the93 published observations, minimizing the original target-balanced five-fit MSE.",
+      "the bivariate-normal docking-score/affinity model plus Gaussian artifact component and its six published parameter bounds",
+      "one parameter vector per target and run, fixed HitRateModel numerical forward map, all93 observations and original definitions",
+      "equal weighting of AmpC,D4,Sigma2 and literal fit seeds0..4; fixed-instance in-sample evaluation",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/029_DOCKMIND.json",
+    "forbidden_substitutions": [
+      "replacing the statistical research model with a free predictor, interpolation table or one parameter set per observation",
+      "changing parameter bounds, hit definitions, target weights or five-run averaging",
+      "submitting measured hit rates directly or reusing published fitted answers instead of recomputing a solution",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Parameters found during development must be recomputed by the submitted code, not hard-coded."
+    ],
+    "scope_source": "research_contract"
+  },
+  "research_contract": {
+    "objective": "Fit the fixed bounded six-parameter DOCKMIND statistical model to the93 published observations, minimizing the original target-balanced five-fit MSE.",
+    "fixed_research_objects": [
+      "the bivariate-normal docking-score/affinity model plus Gaussian artifact component and its six published parameter bounds",
+      "one parameter vector per target and run, fixed HitRateModel numerical forward map, all93 observations and original definitions",
+      "equal weighting of AmpC,D4,Sigma2 and literal fit seeds0..4; fixed-instance in-sample evaluation"
+    ],
+    "editable_components": [
+      "the optimizer, parameterization, search strategy, numerical fitting procedure and implementation",
+      "surrogate objectives or approximations used internally to find better feasible parameters, while final scoring uses the original MSE and forward model",
+      "When retaining the supplied DEAP GA, changing only generations=100, population_size=5000, cxpb=0.4, mutpb=0.4, cxBlend alpha=0.5, mutGaussian sigma=1 or indpb=0.2, or tournament size=3 does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "replacing the statistical research model with a free predictor, interpolation table or one parameter set per observation",
+      "changing parameter bounds, hit definitions, target weights or five-run averaging",
+      "submitting measured hit rates directly or reusing published fitted answers instead of recomputing a solution",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Parameters found during development must be recomputed by the submitted code, not hard-coded."
+    ],
+    "evidence": [
+      {
+        "source": "../../ex-papers-science/Che-22_DOCKMIND/paper/paper.txt",
+        "lines": "95-151;234-307",
+        "finding": "The interpretable distribution and artifact component are the research model; the six free parameters fit many observations to study scoring accuracy and library composition."
+      },
+      {
+        "source": "tasks/029_DOCKMIND/BRIEF.md",
+        "lines": "27-29;33",
+        "finding": "The metric and score rule explicitly require bounded six-parameter HitRateModel reconstruction; the fixed-instance all93-point experiment is an earlier user decision."
+      },
+      {
+        "source": "tasks/029_DOCKMIND/agent/bench/hit_rate_model.py",
+        "symbol": "HitRateModel.get_pprop_hr",
+        "finding": "The retained trusted numerical map implements the original model independently of candidate code."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/029_DOCKMIND.json"
+  },
+  "research_contract_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/029_DOCKMIND.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

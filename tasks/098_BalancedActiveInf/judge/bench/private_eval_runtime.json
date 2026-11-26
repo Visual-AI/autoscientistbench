@@ -1,0 +1,17 @@
+{
+  "mounts": [
+    "/mnt/bn/pistis/changbin.zhang/code/RealPapers/baseline-repro/papers/imp-104-BalancedActiveInf/.venv",
+    "/mnt/bn/pistis/changbin.zhang/code/RealPapers/baseline-repro/papers/imp-104-BalancedActiveInf/data/r-env",
+    "/mnt/bn/pistis/changbin.zhang/code/RealPapers/baseline-repro/papers/imp-104-BalancedActiveInf/.repro/opt30/R-library",
+    "/opt/arb/runtime/python",
+    "/opt/arb/runtime/r",
+    "/opt/arb/runtime/r-library"
+  ],
+  "env": {
+    "PATH": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/baseline-repro/papers/imp-104-BalancedActiveInf/.venv/bin:/mnt/bn/pistis/changbin.zhang/code/RealPapers/baseline-repro/papers/imp-104-BalancedActiveInf/data/r-env/bin:/usr/local/bin:/usr/bin:/bin",
+    "VIRTUAL_ENV": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/baseline-repro/papers/imp-104-BalancedActiveInf/.venv",
+    "R_HOME": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/baseline-repro/papers/imp-104-BalancedActiveInf/data/r-env/lib/R",
+    "R_LIBS_USER": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/baseline-repro/papers/imp-104-BalancedActiveInf/.repro/opt30/R-library",
+    "LD_LIBRARY_PATH": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/baseline-repro/papers/imp-104-BalancedActiveInf/data/r-env/lib"
+  }
+}

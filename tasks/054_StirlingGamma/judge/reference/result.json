@@ -1,0 +1,133 @@
+{
+  "task": "054_StirlingGamma",
+  "created": "2026-11-02T06:16:10+0000",
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "cpus": 8,
+  "adapt_commit": "0889caacf89504af424b5058d7326d728fc9ab97",
+  "sandbox": true,
+  "budget_s": 21600.0,
+  "test": {
+    "per_seed": [
+      0.6702816666666666,
+      0.6645266666666667,
+      0.6656216666666667
+    ],
+    "mean": 0.6668099999999999,
+    "std": 0.00249520985534722,
+    "n": 3
+  },
+  "val": {
+    "per_seed": [
+      0.657015,
+      0.6536683333333334,
+      0.6552566666666667
+    ],
+    "mean": 0.6553133333333334,
+    "std": 0.0013668583876363298,
+    "n": 3
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "posterior_probability": 0.6702816666666666,
+        "cell_means": {
+          "2": 0.8621800000000001,
+          "4": 0.646145,
+          "6": 0.50252
+        },
+        "cell_floor_guard_passed": true
+      },
+      "val": {
+        "posterior_probability": 0.657015,
+        "cell_means": {
+          "2": 0.8674799999999999,
+          "4": 0.608195,
+          "6": 0.49537000000000003
+        },
+        "cell_floor_guard_passed": true
+      },
+      "timing": {
+        "train_s": 11.73,
+        "predict_s": 34.17,
+        "score_s": 0.13,
+        "predict_val_s": 35.62
+      }
+    },
+    "2": {
+      "test": {
+        "posterior_probability": 0.6645266666666667,
+        "cell_means": {
+          "2": 0.86211,
+          "4": 0.64673,
+          "6": 0.48474000000000006
+        },
+        "cell_floor_guard_passed": true
+      },
+      "val": {
+        "posterior_probability": 0.6536683333333334,
+        "cell_means": {
+          "2": 0.867605,
+          "4": 0.6089450000000001,
+          "6": 0.48445499999999997
+        },
+        "cell_floor_guard_passed": true
+      },
+      "timing": {
+        "train_s": 11.29,
+        "predict_s": 34.07,
+        "score_s": 0.14,
+        "predict_val_s": 33.82
+      }
+    },
+    "3": {
+      "test": {
+        "posterior_probability": 0.6656216666666667,
+        "cell_means": {
+          "2": 0.8605550000000001,
+          "4": 0.641885,
+          "6": 0.494425
+        },
+        "cell_floor_guard_passed": true
+      },
+      "val": {
+        "posterior_probability": 0.6552566666666667,
+        "cell_means": {
+          "2": 0.8686999999999999,
+          "4": 0.60653,
+          "6": 0.49054000000000003
+        },
+        "cell_floor_guard_passed": true
+      },
+      "timing": {
+        "train_s": 11.43,
+        "predict_s": 34.88,
+        "score_s": 0.13,
+        "predict_val_s": 34.28
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      11.73,
+      11.29,
+      11.43
+    ],
+    "predict_s": [
+      34.17,
+      34.07,
+      34.88
+    ],
+    "build_s": 4.45
+  },
+  "hashes": {
+    "env_lock": "7899f1696b27dc8e4b612b5be68a9262613ee289cfe413699556605d82e0373d",
+    "scorer": "3cb4648a8b98d0632d98de0186040357d28cf14efa76edd33cfe6f04fcf91d83",
+    "validate": "f7c56a06f28e48f040ed5c7916e06ead754305c4c22eefc945b8f3bfc7a1367d",
+    "test_labels": "1a12666c2714fe5a93f08831b9bb527aa38dad62e592498f9035ee404668a5a7",
+    "adapt_patch": "73d1f7ab8382435712b30d40d5a6097c5fb4f451be46f3558c090bf498b41401"
+  }
+}

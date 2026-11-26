@@ -1,0 +1,6 @@
+rbt4-psfd (1).pdf
+__pycache__/
+tmp/
+.DS_Store
+__pycache__/
+*.pyc

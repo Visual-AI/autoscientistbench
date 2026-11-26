@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "python": "/opt/arb/runtime/python/bin/python",
+  "mounts": [
+    {
+      "source": "runtime/python.tar",
+      "target": "/opt/arb/runtime/python",
+      "format": "tar",
+      "name": "python",
+      "sha256": "5cc92147c5c1f13e91ca39db1edfef6e514612ad032f59230b5d7486ba179999"
+    }
+  ],
+  "env": {
+    "PATH": "/opt/arb/runtime/python/bin:/usr/bin:/bin"
+  }
+}

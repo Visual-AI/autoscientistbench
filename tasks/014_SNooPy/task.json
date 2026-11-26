@@ -1,0 +1,170 @@
+{
+  "pid": "014_SNooPy",
+  "class": "A",
+  "title": "SNooPy: long-read metagenomic variant calling",
+  "metric": {
+    "name": "snp_f1",
+    "higher_is_better": true,
+    "delta": 0.005,
+    "aggregate": "mean"
+  },
+  "cpus": 32,
+  "memory_gb": 144,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input",
+    "val_labels": "data/val/labels",
+    "test_input": "test/input",
+    "test_labels": "test/labels"
+  },
+  "split": {
+    "type": "training_free",
+    "decision": "All existing fixed-data assembly contigs partitioned by sha256(014_SNooPy:20261031:contig) mod 5, remainder 0 public validation; remaining contigs hidden. No resimulation, all mapped observations retained, simulator IDs removed."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 6.47,
+    "val": {
+      "snp_f1": 0.8679218230805231
+    },
+    "paper_ref": "Fig. 3(ii); source reproduction reports whole-data SNP F1 0.8812296754266596, 425 s on 32 CPUs. No converted full reference measured.",
+    "measured_s": {
+      "train": [
+        0.06
+      ],
+      "predict": [
+        387.93
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:c50d930cd426771352aa8fc83584db752511bfc1ebda2a02533e6ddade684306"
+  },
+  "env": {
+    "python": "3.11",
+    "mode": "snapshot",
+    "snapshot": "runtime/runtime.json",
+    "lock": "code/env.lock",
+    "index": [],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "645a39fe16e7ee514ec6a84b44a6819d2b911f5b",
+    "adapt_commit": "d1dcd1d984ee83fefa83cd6f7e45afe162f0c70a",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "smoke": {
+    "input": "judge/verification/fixture/input",
+    "labels": "judge/verification/fixture/labels",
+    "env": {}
+  },
+  "conversion": {
+    "full_data_ready": true,
+    "source_commit": "645a39fe16e7ee514ec6a84b44a6819d2b911f5b",
+    "smoke_report": "judge/verification/smoke.json",
+    "data_integrity": "judge/verification/data_integrity.json",
+    "isolation_report": "judge/verification/isolation.json",
+    "guard_report": "judge/verification/guard_checks.json"
+  },
+  "method_freedom_review": {
+    "full_evaluation_ready": false,
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/014_SNooPy.json",
+    "full_training_or_evaluation": false,
+    "allowed_changes": [
+      "variant-calling algorithms, statistical estimators, filtering and learned computational components using only permitted observations",
+      "training surrogates and equivalent indexing/data-loading implementations"
+    ],
+    "fixed_contract": [
+      "Call SNPs from the existing fixed assembly and noisy long-read alignments, maximizing the original position-count SNP F1.",
+      "supplied assembly, mapped observations, contig partition and fixed truth-comparison semantics",
+      "VCF/contig coordinates, complete calling protocol and original precision/recall definitions",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/014_SNooPy.json",
+    "forbidden_substitutions": [
+      "Implement the calling step in code/: do not run bcftools, minipileup or another existing variant caller from the runtime to produce or filter calls.",
+      "Do not build in this dataset's number of strains, their abundances, its coverage or its error rate, as constants or as allele-fraction rules derived from them; estimate any such quantity from the input at prediction time.",
+      "Do not submit a patch whose only change is new values for existing thresholds or constants of the caller.",
+      "changing the biological reference or observed reads/alignments, generating replacement observations or redefining a true variant",
+      "substituting known call tables or removing difficult contigs from scoring",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract"
+  },
+  "research_contract": {
+    "objective": "Call SNPs from the existing fixed assembly and noisy long-read alignments, maximizing the original position-count SNP F1.",
+    "fixed_research_objects": [
+      "supplied assembly, mapped observations, contig partition and fixed truth-comparison semantics",
+      "VCF/contig coordinates, complete calling protocol and original precision/recall definitions"
+    ],
+    "editable_components": [
+      "variant-calling algorithms, statistical estimators, filtering and learned computational components using only permitted observations",
+      "training surrogates and equivalent indexing/data-loading implementations"
+    ],
+    "forbidden_substitutions": [
+      "Implement the calling step in code/: do not run bcftools, minipileup or another existing variant caller from the runtime to produce or filter calls.",
+      "Do not build in this dataset's number of strains, their abundances, its coverage or its error rate, as constants or as allele-fraction rules derived from them; estimate any such quantity from the input at prediction time.",
+      "Do not submit a patch whose only change is new values for existing thresholds or constants of the caller.",
+      "changing the biological reference or observed reads/alignments, generating replacement observations or redefining a true variant",
+      "substituting known call tables or removing difficult contigs from scoring",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "source": "tasks/014_SNooPy/agent/README.md",
+        "section": "Goal,Data,Metric and baseline",
+        "finding": "Call SNPs from the existing fixed assembly and noisy long-read alignments, maximizing the original position-count SNP F1."
+      },
+      {
+        "source": "tasks/014_SNooPy/agent/bench/scorer.py",
+        "section": "trusted score and guards",
+        "finding": "The fixed evaluation target is supplied assembly, mapped observations, contig partition and fixed truth-comparison semantics; VCF/contig coordinates, complete calling protocol and original precision/recall definitions"
+      },
+      {
+        "source": "audits/20261101_method_freedom/014_SNooPy.json",
+        "section": "prior task-specific scorer/interface audit",
+        "finding": "Reuse the prior actual evaluator review while narrowing the blanket permission to the present task-specific objects."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/014_SNooPy.json"
+  },
+  "research_contract_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/014_SNooPy.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

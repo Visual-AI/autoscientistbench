@@ -1,0 +1,38 @@
+# Python / OS
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.DS_Store
+
+# Runtime outputs
+runs/
+results/
+.tmp/
+
+# Fetched large assets (hosted on Hugging Face; download via `python3 -m bench fetch`)
+tasks/*/agent/data/
+tasks/*/judge/test/
+tasks/*/runtime/*.tar
+tasks/*/runtime/*.tar.gz
+
+# Generated fixtures / local conversion artifacts
+tasks/toy-ridge/
+tasks/*/.convert/
+
+# Keep lightweight 052_AnisoBivFunc deterministic generation metadata & manifests tracked in git
+!tasks/052_AnisoBivFunc/agent/data/
+!tasks/052_AnisoBivFunc/agent/data/train/
+!tasks/052_AnisoBivFunc/agent/data/train/**
+!tasks/052_AnisoBivFunc/agent/data/val/
+!tasks/052_AnisoBivFunc/agent/data/val/labels.json
+!tasks/052_AnisoBivFunc/agent/data/val/input/
+!tasks/052_AnisoBivFunc/agent/data/val/input/manifest.csv
+!tasks/052_AnisoBivFunc/judge/test/
+!tasks/052_AnisoBivFunc/judge/test/labels.json
+!tasks/052_AnisoBivFunc/judge/test/input/
+!tasks/052_AnisoBivFunc/judge/test/input/manifest.csv
+tasks/052_AnisoBivFunc/agent/data/val/input/*.bin
+tasks/052_AnisoBivFunc/agent/data/val/input/*.partial
+tasks/052_AnisoBivFunc/judge/test/input/*.bin
+tasks/052_AnisoBivFunc/judge/test/input/*.partial

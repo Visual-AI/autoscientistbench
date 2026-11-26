@@ -1,0 +1,3585 @@
+{
+  "schema_version": 1,
+  "benchmark": "AutoScientistBench",
+  "hf_repo_default": "allencbzhang/AutoScientistBench",
+  "part_size_bytes": 16106127360,
+  "generated_utc": "2026-11-27T03:52:27.303249+00:00",
+  "summary": {
+    "total_tasks": 104,
+    "hf_data_tasks": 103,
+    "local_generated_tasks": [
+      "052_AnisoBivFunc"
+    ],
+    "snapshot_runtime_tasks": 29,
+    "total_data_bytes": 123687761920,
+    "total_test_bytes": 31415541760,
+    "total_runtime_bytes": 31052156928,
+    "total_hf_bytes": 186155460608,
+    "total_hf_files": 268
+  },
+  "tasks": {
+    "001_InertialGenome": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 301155626,
+        "file_count": 4,
+        "parts": [
+          {
+            "path": "data/001_InertialGenome/agent_data.tar",
+            "bytes": 301168640,
+            "sha256": "fb0fdcfc3096f6ab3b807308bef162043082b46086978c4e686a50fb97b73567"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 42080208,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/001_InertialGenome/judge_test.tar",
+            "bytes": 42086400,
+            "sha256": "a00993610dc427b6474f829763fe77df861b843dacf3ea9e95f40c0f67e9ccac"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "002_CLEAR": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 14213272,
+        "file_count": 3,
+        "parts": [
+          {
+            "path": "data/002_CLEAR/agent_data.tar",
+            "bytes": 14223360,
+            "sha256": "0737f3eb6c4914ca29da8170e9e2d10c661bb448a40cbd5a706a7d72557a236c"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 4417537,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/002_CLEAR/judge_test.tar",
+            "bytes": 4423680,
+            "sha256": "99e6f7216911897e2940f2fbbb53bdcb040dcf47a61071e6bfd4c86f424a3515"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "003_OnlineCP": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 48545,
+        "file_count": 3,
+        "parts": [
+          {
+            "path": "data/003_OnlineCP/agent_data.tar",
+            "bytes": 61440,
+            "sha256": "bfd4e421aefb2359e672331c16beaf7ce42be55be36bbbcab509e4d97dd695bd"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 472982,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/003_OnlineCP/judge_test.tar",
+            "bytes": 481280,
+            "sha256": "5be87160434fd1bb2e1a64e1aabdcada7e39f6a648c114d5bde1d8ef66aa8806"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "004_GradNormSmooth": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 24051764,
+        "file_count": 6,
+        "parts": [
+          {
+            "path": "data/004_GradNormSmooth/agent_data.tar",
+            "bytes": 24074240,
+            "sha256": "773969da8773131c0990de921d25408190ec5c173484d28a8bc69eaef7ec99dc"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 40082694,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/004_GradNormSmooth/judge_test.tar",
+            "bytes": 40089600,
+            "sha256": "a46fb43fed11f450a38893aa5e270f3f723fa8a368ec7e7a4bb8ea0893c50a49"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "005_HSG-12M": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 52067993,
+        "file_count": 4,
+        "parts": [
+          {
+            "path": "data/005_HSG-12M/agent_data.tar",
+            "bytes": 52080640,
+            "sha256": "71e4e65033b66e4634142f543ecf17d53081219be396e3697c088ef2cc7607ab"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 5806712,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/005_HSG-12M/judge_test.tar",
+            "bytes": 5816320,
+            "sha256": "d1d73de5542ecb1df6c33f9b40ac1203910c898e2a3a2b0ee50f3c5d1619ea70"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "006_ResCP": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 29793902,
+        "file_count": 17,
+        "parts": [
+          {
+            "path": "data/006_ResCP/agent_data.tar",
+            "bytes": 29829120,
+            "sha256": "2a428183aa9a17c5666e01c9f4932fb78a51327458cd623ef8bdd2464c566758"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 26979340,
+        "file_count": 3,
+        "parts": [
+          {
+            "path": "data/006_ResCP/judge_test.tar",
+            "bytes": 26992640,
+            "sha256": "7e669c5e0e0e063df97eb239350e54d21b1395e83fd2452617411854c4b71446"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "007_PairwiseScore": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 19596112,
+        "file_count": 4,
+        "parts": [
+          {
+            "path": "data/007_PairwiseScore/agent_data.tar",
+            "bytes": 19609600,
+            "sha256": "2f98db2d84d0045cf875f9cd38da75b545ac4899d2deb5e6e912b03ff08781c3"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 97988360,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/007_PairwiseScore/judge_test.tar",
+            "bytes": 97996800,
+            "sha256": "93daea642fa6534aa8b16efa1a7bfbafffd33d35a82c7bce0752c4a637b71250"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "008_Tensor-ScaledGD": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 1511909363,
+        "file_count": 7,
+        "parts": [
+          {
+            "path": "data/008_Tensor-ScaledGD/agent_data.tar",
+            "bytes": 887644160,
+            "sha256": "5d760650193cf9880096621c1b3f457b8a65b02a19e738ceb0b3e4da0aad2320"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 887658086,
+        "file_count": 5,
+        "parts": [
+          {
+            "path": "data/008_Tensor-ScaledGD/judge_test.tar",
+            "bytes": 887674880,
+            "sha256": "068f0a86f68265ea61db4da6620f5009eec36cb6258cc3ac99f7e72f9afce7e2"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "009_HD-ConfSeq": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 19841162,
+        "file_count": 3,
+        "parts": [
+          {
+            "path": "data/009_HD-ConfSeq/agent_data.tar",
+            "bytes": 19855360,
+            "sha256": "cbecb5215d16283ade51da88941c70a70dd9cb99acbe47788e8714a9dfc629ed"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 19842927,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/009_HD-ConfSeq/judge_test.tar",
+            "bytes": 19855360,
+            "sha256": "7b3fd186e1fb17eb1ec68fe1bc7a20a465f50dda12c30410008dccfb8220f111"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "010_Platonic-fMRI": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar_multipart",
+        "source_bytes": 32436637965,
+        "file_count": 25,
+        "parts": [
+          {
+            "path": "data/010_Platonic-fMRI/agent_data.tar.part00",
+            "bytes": 16106127360,
+            "sha256": "a0ce203d2af7e4c044ef3392364a6127346ce700451536a70ba6a44f58313a0e"
+          },
+          {
+            "path": "data/010_Platonic-fMRI/agent_data.tar.part01",
+            "bytes": 16106127360,
+            "sha256": "3d33e26e21b38f0cacea6f9ae60da57d187d0943c5e3b25ef98dde35faddc08c"
+          },
+          {
+            "path": "data/010_Platonic-fMRI/agent_data.tar.part02",
+            "bytes": 224440320,
+            "sha256": "a2dfe58516e837f58f2f6dabf27a7e51c5cb88672f4b0d6713bec4fe62f87e5b"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 2097961182,
+        "file_count": 9,
+        "parts": [
+          {
+            "path": "data/010_Platonic-fMRI/judge_test.tar",
+            "bytes": 2097981440,
+            "sha256": "395992aafcf0b85e1a0b775bff64e185747d9d195ba2af042f09fe183ccdcd39"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "011_Tera-GP": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 225169111,
+        "file_count": 8,
+        "parts": [
+          {
+            "path": "data/011_Tera-GP/agent_data.tar",
+            "bytes": 225187840,
+            "sha256": "4dbe0e824574ab899f031dec79e50e524b20d7ddb7ffda2d2b70c22245b6b901"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 43940338,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/011_Tera-GP/judge_test.tar",
+            "bytes": 43950080,
+            "sha256": "1724f811d38dd7ac5edd283bd2f045ddc5bab10d13a49e594dd9df3439f33c2e"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "012_CausalOT": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 14524035,
+        "file_count": 3,
+        "parts": [
+          {
+            "path": "data/012_CausalOT/agent_data.tar",
+            "bytes": 14540800,
+            "sha256": "2b1a26d4ebf21594062c8bbc229e46bfa8c410837be1f6e3d5c0fa9b8f8ff76b"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 29047878,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/012_CausalOT/judge_test.tar",
+            "bytes": 29061120,
+            "sha256": "d6720e2cb7e187e749a79efeb02a7f3684ad0be767c1469fd01671b67e3ecd01"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "013_ThousandWorlds": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 1558256206,
+        "file_count": 8,
+        "parts": [
+          {
+            "path": "data/013_ThousandWorlds/agent_data.tar",
+            "bytes": 1558282240,
+            "sha256": "551da78e167dd604af1cd05e9134e200080449efd6064d5130d07fc12286c074"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 132313566,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/013_ThousandWorlds/judge_test.tar",
+            "bytes": 132321280,
+            "sha256": "0fd621ca2ef53fed284b99b699683e06750cc3f802a6c9fb46b4686eb9b03bc2"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "014_SNooPy": {
+      "env_mode": "snapshot",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 70059719,
+        "file_count": 9,
+        "parts": [
+          {
+            "path": "data/014_SNooPy/agent_data.tar",
+            "bytes": 70092800,
+            "sha256": "a7c8f5742e480113d43e34a26a5f3dfecfd8de4fbec499a7333f0946e97d2be0"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 384128253,
+        "file_count": 8,
+        "parts": [
+          {
+            "path": "data/014_SNooPy/judge_test.tar",
+            "bytes": 384153600,
+            "sha256": "3d9771c578e7e1718f751bb2e7b67fe44e3015a006f2f413cfeda6ec06764391"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": [
+        {
+          "name": "python",
+          "target_path": "runtime/python.tar",
+          "hf_path": "runtimes/014_SNooPy/python.tar",
+          "bytes": 483911680,
+          "sha256": "edb6f1cc0eeaa7faac0fb6660ccec5108dfe6407dcc8a2fa64026ccfffa84418"
+        },
+        {
+          "name": "biotools",
+          "target_path": "runtime/biotools.tar",
+          "hf_path": "runtimes/014_SNooPy/biotools.tar",
+          "bytes": 1010800640,
+          "sha256": "6336e36ea991f32a8172db3c8b8ae2e2c8fb2c9b8f42c4bb1fd9488c2dafa111"
+        }
+      ]
+    },
+    "015_LexicMap": {
+      "env_mode": "snapshot",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 104990260,
+        "file_count": 13,
+        "parts": [
+          {
+            "path": "data/015_LexicMap/agent_data.tar",
+            "bytes": 105021440,
+            "sha256": "aa675ea59dbb13431293c78d7c66d571a828941eef73f5a7bc6afc1f4dc9bb76"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 479725623,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/015_LexicMap/judge_test.tar",
+            "bytes": 479733760,
+            "sha256": "5a988eab8555705c294d8a1b6385a97caf5ef22b5db7eefcb7ad855d82e09111"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": [
+        {
+          "name": "go",
+          "target_path": "runtime/go.tar",
+          "hf_path": "runtimes/015_LexicMap/go.tar",
+          "bytes": 256942080,
+          "sha256": "8667b645faf647d16cd5fd0cfde77c58cd8a6fc5cd7520176606b74f94971a61"
+        },
+        {
+          "name": "modules",
+          "target_path": "runtime/modules.tar",
+          "hf_path": "runtimes/015_LexicMap/modules.tar",
+          "bytes": 291409920,
+          "sha256": "8597c02026c1ccb9c926118e4b4d9494401899cb217e900162fe76e59b8d6f82"
+        }
+      ]
+    },
+    "016_SpatialProteomics": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 2598028864,
+        "file_count": 22,
+        "parts": [
+          {
+            "path": "data/016_SpatialProteomics/agent_data.tar",
+            "bytes": 2598082560,
+            "sha256": "3c4e1e1b8fe9b3695a2454c988a53c9408589288b98f056a3d71779fc3ad06b0"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 2543052172,
+        "file_count": 21,
+        "parts": [
+          {
+            "path": "data/016_SpatialProteomics/judge_test.tar",
+            "bytes": 2543093760,
+            "sha256": "2c90be499260e643c4f577ac1b2e57f96fe5d1534e0bbde5c856caf5ee3c8029"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "017_krepp": {
+      "env_mode": "snapshot",
+      "data": {
+        "mode": "hf_tar_multipart",
+        "source_bytes": 55073399998,
+        "file_count": 45,
+        "parts": [
+          {
+            "path": "data/017_krepp/agent_data.tar.part00",
+            "bytes": 16106127360,
+            "sha256": "2cf9dfe8a1005335502e0199f51fe17d0f5b83f59dda10f641756cf2c6ba2124"
+          },
+          {
+            "path": "data/017_krepp/agent_data.tar.part01",
+            "bytes": 16106127360,
+            "sha256": "0addca2da50b272b824d93d41a9dc7a482d2f4c9dd6a4a820e75258d3ebac45a"
+          },
+          {
+            "path": "data/017_krepp/agent_data.tar.part02",
+            "bytes": 16106127360,
+            "sha256": "0d31c7be278edf56726a603856458f214fae08520fe26ed86fcbb6ebd072c50a"
+          },
+          {
+            "path": "data/017_krepp/agent_data.tar.part03",
+            "bytes": 6755112960,
+            "sha256": "4677a4497237250066c2182227dc678512832f8725b462316a00aba8a8ad9a9b"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 89478931,
+        "file_count": 3,
+        "parts": [
+          {
+            "path": "data/017_krepp/judge_test.tar",
+            "bytes": 89487360,
+            "sha256": "e339efefc3fd7ace678a9d4daafcb063c245141f4af2c8060cc6ef4a8042323b"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": [
+        {
+          "name": "python-env",
+          "target_path": "runtime/python-env.tar",
+          "hf_path": "runtimes/017_krepp/python-env.tar",
+          "bytes": 107130880,
+          "sha256": "bad3b4f1117ca710bf8defb83751be0a21b95fb4d69e3301847854a96340b90a"
+        },
+        {
+          "name": "python-base",
+          "target_path": "runtime/python-base.tar",
+          "hf_path": "runtimes/017_krepp/python-base.tar",
+          "bytes": 106649600,
+          "sha256": "b4f6bff59be9fcb3a6fb2376285176b0220aabc9d6e20d718e91b833d3b4d236"
+        },
+        {
+          "name": "boost",
+          "target_path": "runtime/boost.tar",
+          "hf_path": "runtimes/017_krepp/boost.tar",
+          "bytes": 122880,
+          "sha256": "b19963b37f68bfda20bbd0b6239dc785725318772c26959941a9f6e0d46e4f56"
+        },
+        {
+          "name": "toolchain",
+          "target_path": "runtime/toolchain.tar",
+          "hf_path": "runtimes/017_krepp/toolchain.tar",
+          "bytes": 296427520,
+          "sha256": "5a338e6b418257c297582c02743bc2026296be0733fb3e526779f169bd390b00"
+        },
+        {
+          "name": "headers",
+          "target_path": "runtime/headers.tar",
+          "hf_path": "runtimes/017_krepp/headers.tar",
+          "bytes": 2099200,
+          "sha256": "ce80b65cd5e19e1e31a149366d45e94b89d1ee2d56f601ca96aa037be677aa2f"
+        }
+      ]
+    },
+    "018_ETfinder": {
+      "env_mode": "snapshot",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 1203783597,
+        "file_count": 178,
+        "parts": [
+          {
+            "path": "data/018_ETfinder/agent_data.tar",
+            "bytes": 1204111360,
+            "sha256": "a73ea269c0213a01efa06c55db63c5ceb97c99e25636032486daecefaa5026b7"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 8967836,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/018_ETfinder/judge_test.tar",
+            "bytes": 8980480,
+            "sha256": "df5f1b7218d2f7a8b10dbd96497eaba85cd73a2c6574fe4ceee26432044160ad"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": [
+        {
+          "name": "bio",
+          "target_path": "runtime/bio.tar",
+          "hf_path": "runtimes/018_ETfinder/bio.tar",
+          "bytes": 76339200,
+          "sha256": "c11fd6a1a0e1608ca2912e2ff5ad8d20d0eb9a9e03fe69bb875be65235b46ea3"
+        },
+        {
+          "name": "venv",
+          "target_path": "runtime/venv.tar",
+          "hf_path": "runtimes/018_ETfinder/venv.tar",
+          "bytes": 83793920,
+          "sha256": "5617f3e1b1045da12f4a29560608d7aa6edcb953a232c3488de3d0eb6f08f53e"
+        },
+        {
+          "name": "python",
+          "target_path": "runtime/python.tar",
+          "hf_path": "runtimes/018_ETfinder/python.tar",
+          "bytes": 82780160,
+          "sha256": "34693ad620df6c508e808993d993eb1197bce068e60b0e118eb523b60cafc9b6"
+        },
+        {
+          "name": "iqtree",
+          "target_path": "runtime/iqtree.tar",
+          "hf_path": "runtimes/018_ETfinder/iqtree.tar",
+          "bytes": 42311680,
+          "sha256": "a5acae01e878548a186900f46eacdf84b087a4527bc30e9b1ec8dc3d5b42efe0"
+        }
+      ]
+    },
+    "019_MultiContextSeeds": {
+      "env_mode": "snapshot",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 3340318120,
+        "file_count": 6,
+        "parts": [
+          {
+            "path": "data/019_MultiContextSeeds/agent_data.tar",
+            "bytes": 3340339200,
+            "sha256": "bd49e8090ef51a3ac2087755837a679ae039826fda5f894cae9bb66d83da8886"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 184629195,
+        "file_count": 4,
+        "parts": [
+          {
+            "path": "data/019_MultiContextSeeds/judge_test.tar",
+            "bytes": 184647680,
+            "sha256": "ca84aa27a8348835edbd14c0a3b94eb3b7bea744a906390a647c3278ff8c9475"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": [
+        {
+          "name": "compiler",
+          "target_path": "runtime/compiler.tar",
+          "hf_path": "runtimes/019_MultiContextSeeds/compiler.tar",
+          "bytes": 1106124800,
+          "sha256": "c977f4f3a37a179f95852f26074c0aa741ab06627eed13bdb62aa07900680f6b"
+        }
+      ]
+    },
+    "020_ALPINE": {
+      "env_mode": "snapshot",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 102434770,
+        "file_count": 11,
+        "parts": [
+          {
+            "path": "data/020_ALPINE/agent_data.tar",
+            "bytes": 102461440,
+            "sha256": "4fb80dda464fa91edb00b6642846d26b5d9b587f10076073373e7b900e1159db"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 409798554,
+        "file_count": 10,
+        "parts": [
+          {
+            "path": "data/020_ALPINE/judge_test.tar",
+            "bytes": 409825280,
+            "sha256": "98d4b7fa59d3b1bdcd0ab0c900ae63259b34070b21dbb1aabbdf9d2516003816"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": [
+        {
+          "name": "alpine",
+          "target_path": "runtime/alpine.tar",
+          "hf_path": "runtimes/020_ALPINE/alpine.tar",
+          "bytes": 1438515200,
+          "sha256": "becc6c05b56f90b81933cc9e173af071b553702b23d237cfe6f0f10a54395f11"
+        },
+        {
+          "name": "cwl",
+          "target_path": "runtime/cwl.tar",
+          "hf_path": "runtimes/020_ALPINE/cwl.tar",
+          "bytes": 75909120,
+          "sha256": "b1a10e3d51df82739427cccd67f80e144fb1462e4252f0636b3b2e7d432f82e3"
+        },
+        {
+          "name": "old_minimap",
+          "target_path": "runtime/old_minimap.tar",
+          "hf_path": "runtimes/020_ALPINE/old_minimap.tar",
+          "bytes": 890880,
+          "sha256": "ca2285a0b5e71cdb437ffabb07be7828cb57c899840891af1ca370aa8effb8d1"
+        }
+      ]
+    },
+    "021_TARPON": {
+      "env_mode": "snapshot",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 107424883,
+        "file_count": 4,
+        "parts": [
+          {
+            "path": "data/021_TARPON/agent_data.tar",
+            "bytes": 107438080,
+            "sha256": "1ba1da7fd5d93e68a097782a1ca87ebfbe4b8ccc707d2b0067824600f81ca23a"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 272860828,
+        "file_count": 4,
+        "parts": [
+          {
+            "path": "data/021_TARPON/judge_test.tar",
+            "bytes": 272875520,
+            "sha256": "ad88b616b656f20f14ddd20a4360eaa8e81f95b12c571a13f52111f6ebbf8ca7"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": [
+        {
+          "name": "python",
+          "target_path": "runtime/python.tar",
+          "hf_path": "runtimes/021_TARPON/python.tar",
+          "bytes": 258539520,
+          "sha256": "1822fce06440b2310f0c85a60ccedd589d9fd6eee9f743d91f81c9332d8a60ac"
+        }
+      ]
+    },
+    "022_WEPP": {
+      "env_mode": "snapshot",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 833280205,
+        "file_count": 16,
+        "parts": [
+          {
+            "path": "data/022_WEPP/agent_data.tar",
+            "bytes": 833331200,
+            "sha256": "c549cf11802b2f931b34b9cb1f7ffbf9b425c1c4a187f498322ebae060c57c0d"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 416556690,
+        "file_count": 8,
+        "parts": [
+          {
+            "path": "data/022_WEPP/judge_test.tar",
+            "bytes": 416583680,
+            "sha256": "92adf8cc796dfda24727a4c5c6c8a3e581d3b5120c773bcf85e1e12c9386bc01"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": [
+        {
+          "name": "python",
+          "target_path": "runtime/python.tar",
+          "hf_path": "runtimes/022_WEPP/python.tar",
+          "bytes": 760207360,
+          "sha256": "97e06db3e06ac4ab5ebdeeddc8fc2fdc3207af6a82a59a95184d79dbaa15cab5"
+        },
+        {
+          "name": "native",
+          "target_path": "runtime/native.tar",
+          "hf_path": "runtimes/022_WEPP/native.tar",
+          "bytes": 1027860480,
+          "sha256": "01e67e5eced2dc40a998fbdda74c207fb36872a03040886edb501a183576fc50"
+        },
+        {
+          "name": "tools",
+          "target_path": "runtime/tools.tar",
+          "hf_path": "runtimes/022_WEPP/tools.tar",
+          "bytes": 41175040,
+          "sha256": "dd3e646b79625bf58b3442ae7390b8d5d7eb06e8d6a4ddd0aa6c8cab19145bde"
+        },
+        {
+          "name": "tbb_headers",
+          "target_path": "runtime/tbb_headers.tar",
+          "hf_path": "runtimes/022_WEPP/tbb_headers.tar",
+          "bytes": 1495040,
+          "sha256": "a9df58a14df240d3e0b80d62b0830150ef88caabcf615fd86989c3d7fc7a525e"
+        }
+      ]
+    },
+    "023_LI-DTI": {
+      "env_mode": "snapshot",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 9623285,
+        "file_count": 4,
+        "parts": [
+          {
+            "path": "data/023_LI-DTI/agent_data.tar",
+            "bytes": 9635840,
+            "sha256": "ee29399c086632941d4485fe95c90d7af01cb2947a074fbe846b4acd2282f134"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 11275980,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/023_LI-DTI/judge_test.tar",
+            "bytes": 11284480,
+            "sha256": "3d9d127fabd4aaf860f71011ba4beed31f785c63f36cb067797df85999236f85"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": [
+        {
+          "name": "octave",
+          "target_path": "runtime/octave.tar",
+          "hf_path": "runtimes/023_LI-DTI/octave.tar",
+          "bytes": 2551664640,
+          "sha256": "f149c8b9db0a7d2ab8af5fe06c89263e646b06434c61eaa1c58d9ee16a543ad2"
+        },
+        {
+          "name": "octave-packages",
+          "target_path": "runtime/octave-packages.tar",
+          "hf_path": "runtimes/023_LI-DTI/octave-packages.tar",
+          "bytes": 12011520,
+          "sha256": "69abb863e8e87d18000de334b168b7b24d573bc3d0af84c98fba1a9d15325e8a"
+        },
+        {
+          "name": "octave-config",
+          "target_path": "runtime/octave-config.tar",
+          "hf_path": "runtimes/023_LI-DTI/octave-config.tar",
+          "bytes": 10240,
+          "sha256": "bef477524d57d76341afc1823a4e4e7dc09f3f9db80712307ce6ed887c5344fe"
+        }
+      ]
+    },
+    "024_SpatialIsoform": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 81124881,
+        "file_count": 4,
+        "parts": [
+          {
+            "path": "data/024_SpatialIsoform/agent_data.tar",
+            "bytes": 81141760,
+            "sha256": "05ddcb72d0ead6766e4e7951a5825e59c5ff8fa7d0eb3307b29040499dda8667"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 188858303,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/024_SpatialIsoform/judge_test.tar",
+            "bytes": 188866560,
+            "sha256": "e32dc44fd5f2dd85753c3126c04001b8390074bdd28c5808f870f99ed652f488"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "025_QUED": {
+      "env_mode": "snapshot",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 69340004,
+        "file_count": 11,
+        "parts": [
+          {
+            "path": "data/025_QUED/agent_data.tar",
+            "bytes": 34703360,
+            "sha256": "a70a16b0caa8aa1b41d5bad111c69d4da0d6f944b42d964bc431daccf3cba9cb"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 41343043,
+        "file_count": 6,
+        "parts": [
+          {
+            "path": "data/025_QUED/judge_test.tar",
+            "bytes": 41359360,
+            "sha256": "551cb1eb3f4195a525d55be3e1035b9778bec3d2a8179ebb731e8716ef51cc6e"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": [
+        {
+          "name": "python",
+          "target_path": "runtime/python.tar",
+          "hf_path": "runtimes/025_QUED/python.tar",
+          "bytes": 593397760,
+          "sha256": "5cc92147c5c1f13e91ca39db1edfef6e514612ad032f59230b5d7486ba179999"
+        }
+      ]
+    },
+    "026_ChemSpaceViz": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 380682,
+        "file_count": 3,
+        "parts": [
+          {
+            "path": "data/026_ChemSpaceViz/agent_data.tar",
+            "bytes": 399360,
+            "sha256": "c0bd9d9ccccedcb4604f8d69712b47dd6fa7e27067c965f661208b4ca2424cf8"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 253788,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/026_ChemSpaceViz/judge_test.tar",
+            "bytes": 266240,
+            "sha256": "83fd58453540c229b5f49d994a4578812942a5257224a077d0e7acb59accc94e"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "027_Monofluoro-BO": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 94482,
+        "file_count": 4,
+        "parts": [
+          {
+            "path": "data/027_Monofluoro-BO/agent_data.tar",
+            "bytes": 112640,
+            "sha256": "d2ca92650867faaf46688d93e05de2f5e05935bb4663b59326bdfb1d1ad505ae"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 22292,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/027_Monofluoro-BO/judge_test.tar",
+            "bytes": 30720,
+            "sha256": "6a37f976f3304cb71a02c49b9157f91e9afc9e55863bdeae0e7aeb850370e2db"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "028_ResidenceDiff": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 742434630,
+        "file_count": 16,
+        "parts": [
+          {
+            "path": "data/028_ResidenceDiff/agent_data.tar",
+            "bytes": 742471680,
+            "sha256": "c9753a1bbfe004816de3b3a4ba1059f2ad5776a082acb3c29934d4201b4c81a4"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 154834,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/028_ResidenceDiff/judge_test.tar",
+            "bytes": 163840,
+            "sha256": "fe47ca038a22323062f2621cd551aa14c4948fdd6946600af06cf2694a3d7fd2"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "029_DOCKMIND": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 45692,
+        "file_count": 3,
+        "parts": [
+          {
+            "path": "data/029_DOCKMIND/agent_data.tar",
+            "bytes": 61440,
+            "sha256": "54e6830cc10cf5935171866b8d9aa05cd975f1b8a90517f7e8a825b99ff8d6ce"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 39388,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/029_DOCKMIND/judge_test.tar",
+            "bytes": 51200,
+            "sha256": "27ca160045ff65d0ff9041b892312974b06ec40685b5109bd1b4fe91953e8a54"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "030_BayesNetRecon": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 64707,
+        "file_count": 7,
+        "parts": [
+          {
+            "path": "data/030_BayesNetRecon/agent_data.tar",
+            "bytes": 92160,
+            "sha256": "5776bd90c3e8078593ba55c33dc50c0a3c499ba14ef1885d42779e9ebe71d09d"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 28512,
+        "file_count": 3,
+        "parts": [
+          {
+            "path": "data/030_BayesNetRecon/judge_test.tar",
+            "bytes": 40960,
+            "sha256": "c8705cb973a6d7a3a19e730256c35bb0e9557f36c1740c54aabe7436d29c8f13"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "031_CAST": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 9024686,
+        "file_count": 6,
+        "parts": [
+          {
+            "path": "data/031_CAST/agent_data.tar",
+            "bytes": 9041920,
+            "sha256": "893815472166c5a50c0a4457d016d217bd84e374c57b1a93e6ae70075f52178e"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 14666715,
+        "file_count": 3,
+        "parts": [
+          {
+            "path": "data/031_CAST/judge_test.tar",
+            "bytes": 14684160,
+            "sha256": "bb7e1415fad88e013480253f16c0abfad24abcb23558be3387d06289a71420d7"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "032_CILR-TS": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 341367,
+        "file_count": 3,
+        "parts": [
+          {
+            "path": "data/032_CILR-TS/agent_data.tar",
+            "bytes": 358400,
+            "sha256": "48b7f679f358349960345f876405437bc238e4145ae14192641973427a8198e1"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 1132224,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/032_CILR-TS/judge_test.tar",
+            "bytes": 1136640,
+            "sha256": "1c38cb52d1bcc7a563c4897a4dd0732a61eca76c56d31f1d95599246ccd64450"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "033_AlphaEPO": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 10280,
+        "file_count": 4,
+        "parts": [
+          {
+            "path": "data/033_AlphaEPO/agent_data.tar",
+            "bytes": 30720,
+            "sha256": "2a621d0efe13fe507c82ae431305613a913224b9f252687dc8ee1333f42c654a"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 8085,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/033_AlphaEPO/judge_test.tar",
+            "bytes": 20480,
+            "sha256": "8026496e00a70dd796f2dd71274fe336312688e56d27d100b4713daa323a8dac"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "034_Neural-rFEM": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 27977,
+        "file_count": 4,
+        "parts": [
+          {
+            "path": "data/034_Neural-rFEM/agent_data.tar",
+            "bytes": 40960,
+            "sha256": "29ccde63cba4c8892bcf36a6bda52d6d369c8120674931e6342e114a706eb90a"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 12081,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/034_Neural-rFEM/judge_test.tar",
+            "bytes": 20480,
+            "sha256": "cd149db6e6048faa1452378886a5f6987fb41bbd5f3b3e56c46e67a585837e5a"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "035_NA-QSP": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 158,
+        "file_count": 3,
+        "parts": [
+          {
+            "path": "data/035_NA-QSP/agent_data.tar",
+            "bytes": 10240,
+            "sha256": "f41f2b1b820dff2741af7cbec16e8f69ccaef18aa17e951044a791cc24d2023d"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 922,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/035_NA-QSP/judge_test.tar",
+            "bytes": 10240,
+            "sha256": "ae0070926ac78e7414944fcecb3b053f8b34ce06bad353e59a39670a6d96f2f0"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "036_Mpemba-RT": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 58739,
+        "file_count": 4,
+        "parts": [
+          {
+            "path": "data/036_Mpemba-RT/agent_data.tar",
+            "bytes": 71680,
+            "sha256": "beecc4ee7026379a24ca01525f50698259caee55a10256755c2158cc171cbf05"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 116503,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/036_Mpemba-RT/judge_test.tar",
+            "bytes": 122880,
+            "sha256": "3008c3821f8461d6717de6241daa70d21a1a647070d5bb9168d903aaaa530e24"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "037_Axion-FOPT": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 147289,
+        "file_count": 3,
+        "parts": [
+          {
+            "path": "data/037_Axion-FOPT/agent_data.tar",
+            "bytes": 163840,
+            "sha256": "eb4cbfc7863f8106d29e79dfc6b3dd486ae84dce0befdf78d894fa97a6ddb856"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 57565,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/037_Axion-FOPT/judge_test.tar",
+            "bytes": 71680,
+            "sha256": "5b7474532b15439810a07b7b0b2b6f2b19a09e0fc27824c17f22fda59edaf60c"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "038_SuperIsing": {
+      "env_mode": "snapshot",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 300,
+        "file_count": 3,
+        "parts": [
+          {
+            "path": "data/038_SuperIsing/agent_data.tar",
+            "bytes": 10240,
+            "sha256": "6dc537943d0bb8caf8fd4af576c4cd627f29263c2d9d821dbd532fae7af25ad2"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 185,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/038_SuperIsing/judge_test.tar",
+            "bytes": 10240,
+            "sha256": "0649718db8452db5a31d6167898c12f5515dfae7a149b4b5dbb5a581a658cfec"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": [
+        {
+          "name": "julia",
+          "target_path": "runtime/julia.tar",
+          "hf_path": "runtimes/038_SuperIsing/julia.tar",
+          "bytes": 1022904320,
+          "sha256": "9304bcffdc567bb01df0f6104e405accb2088a0a97bbd5eb1430f1f78e8c7dca"
+        },
+        {
+          "name": "depot",
+          "target_path": "runtime/depot.tar",
+          "hf_path": "runtimes/038_SuperIsing/depot.tar",
+          "bytes": 10864640,
+          "sha256": "ceb46629898619c01fcfe355c2a86f68070f6855490cd650b1b64091725feb4d"
+        },
+        {
+          "name": "python",
+          "target_path": "runtime/python.tar",
+          "hf_path": "runtimes/038_SuperIsing/python.tar",
+          "bytes": 388413440,
+          "sha256": "47a9a3f7237c63f90c5dfabeb7518cc00c369dd47db6fbae1235d034ea846ee5"
+        }
+      ]
+    },
+    "039_TTNOpt": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 536873069,
+        "file_count": 3,
+        "parts": [
+          {
+            "path": "data/039_TTNOpt/agent_data.tar",
+            "bytes": 536883200,
+            "sha256": "fb8a7a1b25dd7d4028aa3a3af740027cc207f6954b9eae36558b3be5560d1d8f"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 536872936,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/039_TTNOpt/judge_test.tar",
+            "bytes": 536883200,
+            "sha256": "36ee2112a76a449cf5e723d0c00a13ebfb4f6291190c82c1e96880a017231343"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "040_HD-MissLin": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 57791741,
+        "file_count": 3,
+        "parts": [
+          {
+            "path": "data/040_HD-MissLin/agent_data.tar",
+            "bytes": 57804800,
+            "sha256": "01ec525f0958a09dfb60484d22494b69aef51ec03a3623e952cac31243f5d09e"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 231134216,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/040_HD-MissLin/judge_test.tar",
+            "bytes": 231147520,
+            "sha256": "7a8030f7862822c4bfbc391d56cd4a1be2f536489e96f50b6d85bb2e0425db11"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "041_ClusterSMART": {
+      "env_mode": "snapshot",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 27430399,
+        "file_count": 123,
+        "parts": [
+          {
+            "path": "data/041_ClusterSMART/agent_data.tar",
+            "bytes": 27658240,
+            "sha256": "ca03ce737e516708f4b965714065745b672af31daaac250bd2f84bf86b992051"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 109720371,
+        "file_count": 482,
+        "parts": [
+          {
+            "path": "data/041_ClusterSMART/judge_test.tar",
+            "bytes": 110581760,
+            "sha256": "79e8e95b432c05c497bb88091ebbc1efa200d0fa340d6a198f537023972fcc4e"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": [
+        {
+          "name": "r",
+          "target_path": "runtime/r.tar",
+          "hf_path": "runtimes/041_ClusterSMART/r.tar",
+          "bytes": 505712640,
+          "sha256": "56a40d7efa733272b1bd67d0596538dda82005734bb8765cb74d272fb4c46daa"
+        }
+      ]
+    },
+    "042_FrontDoor-NP": {
+      "env_mode": "snapshot",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 34032930,
+        "file_count": 3,
+        "parts": [
+          {
+            "path": "data/042_FrontDoor-NP/agent_data.tar",
+            "bytes": 34048000,
+            "sha256": "db5747e5c5aec71408775c45dbfc4e2ee97831bd4de64b45f53d999efc5c1222"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 34529696,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/042_FrontDoor-NP/judge_test.tar",
+            "bytes": 34539520,
+            "sha256": "84c914a5bb923bf9c1da2397742697f66e4d2af2e4052fd3007e8c4d8360fe16"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": [
+        {
+          "name": "r",
+          "target_path": "runtime/r.tar",
+          "hf_path": "runtimes/042_FrontDoor-NP/r.tar",
+          "bytes": 2090772480,
+          "sha256": "81ce6ebcd799580e38e086d8c9ebc3f5257b04a7c4004c7063fb2b170ad6f077"
+        },
+        {
+          "name": "Rlib",
+          "target_path": "runtime/Rlib.tar",
+          "hf_path": "runtimes/042_FrontDoor-NP/Rlib.tar",
+          "bytes": 27351040,
+          "sha256": "58a884720c98762d5f77f2e4463d94e9777906466cbb9362aa7c0e33c63d63a4"
+        }
+      ]
+    },
+    "043_Geodesic-DiD": {
+      "env_mode": "snapshot",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 23423800,
+        "file_count": 504,
+        "parts": [
+          {
+            "path": "data/043_Geodesic-DiD/agent_data.tar",
+            "bytes": 24360960,
+            "sha256": "90df22801733f1540b18bcf28a7a395857248e746d70b62f685cecf059c10b0e"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 23425161,
+        "file_count": 503,
+        "parts": [
+          {
+            "path": "data/043_Geodesic-DiD/judge_test.tar",
+            "bytes": 24360960,
+            "sha256": "fad5dae3734cc24adb5209ef17748c53644655965de2d7d570aa0c1f445a4b93"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": [
+        {
+          "name": "R",
+          "target_path": "runtime/r.tar",
+          "hf_path": "runtimes/043_Geodesic-DiD/r.tar",
+          "bytes": 1512714240,
+          "sha256": "5729c32d714d51c6525f779c8ba95a48b9886209674c94425a7f19b2697c7742"
+        }
+      ]
+    },
+    "044_TAVIE-SSG": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 28273839,
+        "file_count": 4,
+        "parts": [
+          {
+            "path": "data/044_TAVIE-SSG/agent_data.tar",
+            "bytes": 28293120,
+            "sha256": "bf7b117bf7ce74954cd9785ce69d80e740dd30c4016564bdf631bfa64996a68a"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 28294511,
+        "file_count": 3,
+        "parts": [
+          {
+            "path": "data/044_TAVIE-SSG/judge_test.tar",
+            "bytes": 28303360,
+            "sha256": "66c7acafe434d44b8da5d6c9be02a53db529d91fc0f448fb954adf0616b049d9"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "045_PRS-Bridge": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 11339467340,
+        "file_count": 3472,
+        "parts": [
+          {
+            "path": "data/045_PRS-Bridge/agent_data.tar",
+            "bytes": 11345807360,
+            "sha256": "3038aad804648062b035b3eed0795d41af92814a3d8b834b09268ca26b70b577"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 4113001100,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/045_PRS-Bridge/judge_test.tar",
+            "bytes": 4113008640,
+            "sha256": "3cf1cfd20d357a53aae49c242586d5ab2f8152d4afc766362554b426fa4119b7"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "046_Chatterjee-BC": {
+      "env_mode": "snapshot",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 2522542902,
+        "file_count": 78,
+        "parts": [
+          {
+            "path": "data/046_Chatterjee-BC/agent_data.tar",
+            "bytes": 2522695680,
+            "sha256": "8a7361103a5ab5054f1a06877b68a5c173b2972551c68ca5d06ba1b5083058db"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 2522542829,
+        "file_count": 77,
+        "parts": [
+          {
+            "path": "data/046_Chatterjee-BC/judge_test.tar",
+            "bytes": 2522685440,
+            "sha256": "1c218cda95e0e52064f36d2086a4f6ba2d724eb29866316f18e9a4b5e55ce543"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": [
+        {
+          "name": "r",
+          "target_path": "runtime/r.tar",
+          "hf_path": "runtimes/046_Chatterjee-BC/r.tar",
+          "bytes": 1420544000,
+          "sha256": "ea9419a8c6464f99e62889375f899afe6a27437c9f4b9be8caefe27610b419e7"
+        }
+      ]
+    },
+    "047_CoupledPoisson": {
+      "env_mode": "snapshot",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 128707,
+        "file_count": 3,
+        "parts": [
+          {
+            "path": "data/047_CoupledPoisson/agent_data.tar",
+            "bytes": 143360,
+            "sha256": "0d9c7360a9adcb27dfa00780a98feee91489a2188cab42bca329cecf01ed9cb2"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 128532,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/047_CoupledPoisson/judge_test.tar",
+            "bytes": 133120,
+            "sha256": "d768c5d8b7a7a2160f7f3ddc25122c715696d887ac058054c83f08a6aa04551d"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": [
+        {
+          "name": "r",
+          "target_path": "runtime/r.tar",
+          "hf_path": "runtimes/047_CoupledPoisson/r.tar",
+          "bytes": 257945600,
+          "sha256": "0eb54c61ebff8da8d68819ca06e561c21289b6db64e4250ee1cc3da981133e1e"
+        }
+      ]
+    },
+    "048_ALSE-Treat": {
+      "env_mode": "snapshot",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 28917712,
+        "file_count": 4,
+        "parts": [
+          {
+            "path": "data/048_ALSE-Treat/agent_data.tar",
+            "bytes": 28938240,
+            "sha256": "7afa6864b2c0146405355675b6d037ca4461bd4a17dde630f42aeb6c73e560a6"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 28918512,
+        "file_count": 3,
+        "parts": [
+          {
+            "path": "data/048_ALSE-Treat/judge_test.tar",
+            "bytes": 28928000,
+            "sha256": "32bc017735c728063efcf43bfb193cfebd9edb362263d64b66999419885565dd"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": [
+        {
+          "name": "r",
+          "target_path": "runtime/r.tar",
+          "hf_path": "runtimes/048_ALSE-Treat/r.tar",
+          "bytes": 191293440,
+          "sha256": "9f5d2341208b1f86d274cc5f391362b90094d8da9c38d73e779bde265235f35c"
+        }
+      ]
+    },
+    "049_DiPMInd": {
+      "env_mode": "snapshot",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 385688342,
+        "file_count": 2403,
+        "parts": [
+          {
+            "path": "data/049_DiPMInd/agent_data.tar",
+            "bytes": 389969920,
+            "sha256": "11fb292cec025cfb9ffa5198c3614830e87253f5bb44f9f69e386ec918a6a4f7"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 385688179,
+        "file_count": 2402,
+        "parts": [
+          {
+            "path": "data/049_DiPMInd/judge_test.tar",
+            "bytes": 389959680,
+            "sha256": "1d3a97260402984600a7bfe588b3182626bd51e21c24ffefdff737666bc91eec"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": [
+        {
+          "name": "r",
+          "target_path": "runtime/r.tar",
+          "hf_path": "runtimes/049_DiPMInd/r.tar",
+          "bytes": 212490240,
+          "sha256": "20eff0a7fb22d964b2cd22c7ae2ad9eadfa8491eb883d221d928d8d57817f96e"
+        }
+      ]
+    },
+    "050_Lasso-FDR": {
+      "env_mode": "snapshot",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 5053867198,
+        "file_count": 963,
+        "parts": [
+          {
+            "path": "data/050_Lasso-FDR/agent_data.tar",
+            "bytes": 5055610880,
+            "sha256": "9cac9c2740d0646d9099be4dcdf1dbe1f3766b58428711da64d39ae0eccef411"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 5053867040,
+        "file_count": 962,
+        "parts": [
+          {
+            "path": "data/050_Lasso-FDR/judge_test.tar",
+            "bytes": 5055610880,
+            "sha256": "c311e6b0101fa91b10cdf894c69362949d19a466faee4bc88393c82065dfd6e3"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": [
+        {
+          "name": "r",
+          "target_path": "runtime/r.tar",
+          "hf_path": "runtimes/050_Lasso-FDR/r.tar",
+          "bytes": 1447147520,
+          "sha256": "a06a3c0d60e36e8c07b91c94bc194555c93ec5326fa2c088f4630b5c5e9bfe53"
+        },
+        {
+          "name": "hfdr",
+          "target_path": "runtime/hfdr.tar",
+          "hf_path": "runtimes/050_Lasso-FDR/hfdr.tar",
+          "bytes": 174080,
+          "sha256": "6e6072287cc5efb1e4ba288d270c8a9ab5a8200206ae92f432b23c26ab4bdc63"
+        }
+      ]
+    },
+    "051_SpectralSpatial": {
+      "env_mode": "snapshot",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 2634719,
+        "file_count": 62,
+        "parts": [
+          {
+            "path": "data/051_SpectralSpatial/agent_data.tar",
+            "bytes": 2754560,
+            "sha256": "f759552ae28e911888bb6ea7326fc322d38a2b808e3e388e478f293e23b9097e"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 2639178,
+        "file_count": 62,
+        "parts": [
+          {
+            "path": "data/051_SpectralSpatial/judge_test.tar",
+            "bytes": 2764800,
+            "sha256": "52e4ea1e4a001c54d94edb26edcd4c75374c6af43e38598365dbbaaef2c1e500"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": [
+        {
+          "name": "r",
+          "target_path": "runtime/r.tar",
+          "hf_path": "runtimes/051_SpectralSpatial/r.tar",
+          "bytes": 1585029120,
+          "sha256": "934af4c5a3cbac36575a1313df08cfb2934bbaa97fb96a3fe4d3d0ece6b92466"
+        },
+        {
+          "name": "rlib",
+          "target_path": "runtime/rlib.tar",
+          "hf_path": "runtimes/051_SpectralSpatial/rlib.tar",
+          "bytes": 10240,
+          "sha256": "84ff92691f909a05b224e1c56abb4864f01b4f8e3c854e4bb4c7baf1d3f6d652"
+        }
+      ]
+    },
+    "052_AnisoBivFunc": {
+      "env_mode": "snapshot",
+      "data": {
+        "mode": "local_generator",
+        "generator": "scripts/generate_052_AnisoBivFunc.py",
+        "split": "val",
+        "target_dir": "agent/data",
+        "generated_bytes": 76812000000,
+        "note": "Deterministically generated locally (~5-10 min on 12 CPUs) using runtime/r.tar and judge/generation/plan.csv."
+      },
+      "test": {
+        "mode": "local_generator",
+        "generator": "scripts/generate_052_AnisoBivFunc.py",
+        "split": "test",
+        "target_dir": "judge/test",
+        "generated_bytes": 76812000000,
+        "note": "Deterministically generated locally (~5-10 min on 12 CPUs) using runtime/r.tar and judge/generation/plan.csv."
+      },
+      "runtimes": [
+        {
+          "name": "r",
+          "target_path": "runtime/r.tar",
+          "hf_path": "runtimes/052_AnisoBivFunc/r.tar",
+          "bytes": 196526080,
+          "sha256": "60aef5f8a2e020974c51896a5aa568d135d9f414608e612f9dd7fbeeccbd8da4"
+        }
+      ]
+    },
+    "053_DMFM-IGau": {
+      "env_mode": "snapshot",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 277325,
+        "file_count": 3,
+        "parts": [
+          {
+            "path": "data/053_DMFM-IGau/agent_data.tar",
+            "bytes": 286720,
+            "sha256": "be70c4ce75b656723ab36dbdd1a006d340fd993b06a116b99c4270a582220719"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 277277,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/053_DMFM-IGau/judge_test.tar",
+            "bytes": 286720,
+            "sha256": "7501b0db7a71b31a157d1a34e84d1e7ab25888f45d6d3df9494182fa34b1ce51"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": [
+        {
+          "name": "r",
+          "target_path": "runtime/r.tar",
+          "hf_path": "runtimes/053_DMFM-IGau/r.tar",
+          "bytes": 192727040,
+          "sha256": "89b3597c74458d443f0688407f19c19ee4015d89753e3ed45d8076399cc3df25"
+        },
+        {
+          "name": "rlib",
+          "target_path": "runtime/rlib.tar",
+          "hf_path": "runtimes/053_DMFM-IGau/rlib.tar",
+          "bytes": 1126400,
+          "sha256": "cba31f3fe1e15b85fa36e52beb49676b74399b14d08bf0b97bd56f3c8395541d"
+        }
+      ]
+    },
+    "054_StirlingGamma": {
+      "env_mode": "snapshot",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 1265515,
+        "file_count": 3,
+        "parts": [
+          {
+            "path": "data/054_StirlingGamma/agent_data.tar",
+            "bytes": 1280000,
+            "sha256": "f6714b6925f5bd9da6ec9ac8ee64d07d9782f436997da60999526a376cc2ae5c"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 1258928,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/054_StirlingGamma/judge_test.tar",
+            "bytes": 1269760,
+            "sha256": "df516c062ae6953017700ef66836977f58fe17c5d7e16e1257e004d366eb61d9"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": [
+        {
+          "name": "r",
+          "target_path": "runtime/r.tar",
+          "hf_path": "runtimes/054_StirlingGamma/r.tar",
+          "bytes": 1639972864,
+          "sha256": "11b9261e67a29cc6d6288a3596a46d4134fc3bcdd60fde15fde33328a9a4249b"
+        },
+        {
+          "name": "rlib",
+          "target_path": "runtime/rlib.tar",
+          "hf_path": "runtimes/054_StirlingGamma/rlib.tar",
+          "bytes": 153600,
+          "sha256": "fb6b544a008df0779308c306e7f43c272c14ba5cfebaac3a34abed64799693ae"
+        }
+      ]
+    },
+    "055_SVGD-EM": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 12256464,
+        "file_count": 4,
+        "parts": [
+          {
+            "path": "data/055_SVGD-EM/agent_data.tar",
+            "bytes": 12277760,
+            "sha256": "d544e7ee036629c50288c07cd98db6394be96f9602c9044026362a80804d272c"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 12822828,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/055_SVGD-EM/judge_test.tar",
+            "bytes": 12830720,
+            "sha256": "a212ddfc8b06401b84e41eb62a2d26d88b33c6a8aa5c724e00f2e0e713991148"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "056_SurrogateInf": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 856656,
+        "file_count": 3,
+        "parts": [
+          {
+            "path": "data/056_SurrogateInf/agent_data.tar",
+            "bytes": 870400,
+            "sha256": "3efffe7ca02d676a230a6383d7c5209ab460bacb39c0aeaeb30cc50a4390e3d1"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 2133933,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/056_SurrogateInf/judge_test.tar",
+            "bytes": 2140160,
+            "sha256": "f364f930eae2104817fde0d5ab84aca6592bf5a9d7ee37aa95f701054702f03f"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "057_BT-SBM": {
+      "env_mode": "snapshot",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 2211804,
+        "file_count": 3,
+        "parts": [
+          {
+            "path": "data/057_BT-SBM/agent_data.tar",
+            "bytes": 2222080,
+            "sha256": "5c9137b0363150d73c71070160a7a72394f7ca1e07f4d6b02679dccd57af2df4"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 2211844,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/057_BT-SBM/judge_test.tar",
+            "bytes": 2222080,
+            "sha256": "b45ab6cdfda20097c5482497d7229cbaf52aeb35836dbeb6a63226474f8212d3"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": [
+        {
+          "name": "r",
+          "target_path": "runtime/r.tar",
+          "hf_path": "runtimes/057_BT-SBM/r.tar",
+          "bytes": 1749063680,
+          "sha256": "146c7a01c55d56d8b0384ea049cda921d421adce0ff5d8085774c6cbd9c1d6ce"
+        },
+        {
+          "name": "rlib",
+          "target_path": "runtime/rlib.tar",
+          "hf_path": "runtimes/057_BT-SBM/rlib.tar",
+          "bytes": 2097152,
+          "sha256": "186c88ac7d9618610044e4c7c76fc6cd3f71836a915a964c1d371852baecd963"
+        },
+        {
+          "name": "metric-rlib",
+          "target_path": "runtime/metric-rlib.tar",
+          "hf_path": "runtimes/057_BT-SBM/metric-rlib.tar",
+          "bytes": 2097152,
+          "sha256": "1e3702f9f01297359a5f0fb5cba02f11b704fcb9bb8b96f59a7274531eff0a71"
+        }
+      ]
+    },
+    "058_AnytimeMC": {
+      "env_mode": "snapshot",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 803689,
+        "file_count": 5,
+        "parts": [
+          {
+            "path": "data/058_AnytimeMC/agent_data.tar",
+            "bytes": 819200,
+            "sha256": "f5f32c28309056bbdbbd1636ee85fd547707c674c5ae667f7e02c51fb2e6edd4"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 803622,
+        "file_count": 4,
+        "parts": [
+          {
+            "path": "data/058_AnytimeMC/judge_test.tar",
+            "bytes": 819200,
+            "sha256": "12f4d3ec9a04c24f53d87c1f5a91feb2ff049cc5dea9d315b8699aba5811635f"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": [
+        {
+          "name": "r",
+          "target_path": "runtime/r.tar",
+          "hf_path": "runtimes/058_AnytimeMC/r.tar",
+          "bytes": 210268160,
+          "sha256": "a14c3eed1e68400b41805696552522d47175888406c8569e325373720aaf4d21"
+        }
+      ]
+    },
+    "059_RandBetting": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 150791516,
+        "file_count": 4,
+        "parts": [
+          {
+            "path": "data/059_RandBetting/agent_data.tar",
+            "bytes": 150804480,
+            "sha256": "33283734b8336fdc6bcd53a82cf7d7b9eeac2ac72d575ffdf93ab45c80960cde"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 793618999,
+        "file_count": 3,
+        "parts": [
+          {
+            "path": "data/059_RandBetting/judge_test.tar",
+            "bytes": 793630720,
+            "sha256": "2b1671b47e942ca78d77b713154411a43d7c2dabac2f2b40f3dac4d560c9b3c3"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "060_MultiGraphon": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 45881865,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/060_MultiGraphon/agent_data.tar",
+            "bytes": 45895680,
+            "sha256": "343dcfe7281a91b33293f2c79f598c9347ec8dc8c880af26c351a7a0fbc9fe6b"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 69128179,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/060_MultiGraphon/judge_test.tar",
+            "bytes": 69140480,
+            "sha256": "6310d5e2d015d971eb2c9095d7a5ef11f4042b1c2314194d91bb828b4316c577"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "061_DP-FRT": {
+      "env_mode": "snapshot",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 4781918,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/061_DP-FRT/agent_data.tar",
+            "bytes": 4792320,
+            "sha256": "567ea1605f68bdb8f01617b9f729f0dc50bc254682766652ee23c05be4d3bd4e"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 4781916,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/061_DP-FRT/judge_test.tar",
+            "bytes": 4792320,
+            "sha256": "bcc32255ebc965e668664b4b17e8c040f4773756574d397f0ca1d03fb7df5c42"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": [
+        {
+          "name": "r",
+          "target_path": "runtime/r.tar",
+          "hf_path": "runtimes/061_DP-FRT/r.tar",
+          "bytes": 287242240,
+          "sha256": "038f9826448f48b8712f19bd3885e0af6789e406bcaa9d93c320fc7031b0a18f"
+        }
+      ]
+    },
+    "062_SkewPosterior": {
+      "env_mode": "snapshot",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 3505167,
+        "file_count": 3,
+        "parts": [
+          {
+            "path": "data/062_SkewPosterior/agent_data.tar",
+            "bytes": 3522560,
+            "sha256": "77a667aca89b75a23cffe27d777d6f6a29ee82fe8833d115b9540a62e9928507"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 3505093,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/062_SkewPosterior/judge_test.tar",
+            "bytes": 3512320,
+            "sha256": "b2116732dab9d874d15d1756ada6126b761063b18684957f261f836206aa08d4"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": [
+        {
+          "name": "r",
+          "target_path": "runtime/r.tar",
+          "hf_path": "runtimes/062_SkewPosterior/r.tar",
+          "bytes": 2098708480,
+          "sha256": "9cbcbe3cfe2224039d34e01192ccfbae47415e20977a2c71970904846698dd98"
+        }
+      ]
+    },
+    "063_MartingalePost": {
+      "env_mode": "snapshot",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 51429496,
+        "file_count": 5,
+        "parts": [
+          {
+            "path": "data/063_MartingalePost/agent_data.tar",
+            "bytes": 51445760,
+            "sha256": "dbde4b3a33db79f531154f2f3202cc51f164aa3a2acda4dbb6b0f5aaaeb45ecd"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 51429496,
+        "file_count": 5,
+        "parts": [
+          {
+            "path": "data/063_MartingalePost/judge_test.tar",
+            "bytes": 51445760,
+            "sha256": "546cf4546b963dfa2060c97e9bf59c524d4213056ea7160c6fb987fbe7000a43"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": [
+        {
+          "name": "julia",
+          "target_path": "runtime/julia.tar",
+          "hf_path": "runtimes/063_MartingalePost/julia.tar",
+          "bytes": 624701440,
+          "sha256": "3bc9672479da7f3ea47d6d582fa957317df4f983808e34aeee569b5c706d873b"
+        },
+        {
+          "name": "depot",
+          "target_path": "runtime/depot.tar",
+          "hf_path": "runtimes/063_MartingalePost/depot.tar",
+          "bytes": 11776000,
+          "sha256": "a52d4547cc420407521f409470d4e6aa93a5362f231d477c3ae33ebc44182df1"
+        }
+      ]
+    },
+    "064_IsoCLIP": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 434472743,
+        "file_count": 4,
+        "parts": [
+          {
+            "path": "data/064_IsoCLIP/agent_data.tar",
+            "bytes": 434493440,
+            "sha256": "d253d86e8fd6e58da3b7ddfd6cec708c72da9c88ba175ec53ee5788e42bd0992"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 4713858318,
+        "file_count": 10,
+        "parts": [
+          {
+            "path": "data/064_IsoCLIP/judge_test.tar",
+            "bytes": 4713881600,
+            "sha256": "c7471fe8d718a3a1080682ef6502f984286a562112fdca804d351bd1dee1d280"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "065_BMVL": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 1954779,
+        "file_count": 4,
+        "parts": [
+          {
+            "path": "data/065_BMVL/agent_data.tar",
+            "bytes": 1976320,
+            "sha256": "6c9717a9cc7c3fa3bb9565da93a913f55993fee34a92b834067a21116762b065"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 31427674,
+        "file_count": 7,
+        "parts": [
+          {
+            "path": "data/065_BMVL/judge_test.tar",
+            "bytes": 31447040,
+            "sha256": "6569da71ee0fe6151163b2fbb719d1b0b5f4af8f9e341b6ce11992c927127748"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "066_KFNSP": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 2947167,
+        "file_count": 3,
+        "parts": [
+          {
+            "path": "data/066_KFNSP/agent_data.tar",
+            "bytes": 2959360,
+            "sha256": "bb0dc25ac59bfe7b03f0e7d4ab125c54fb1afdc53de0147d7d5a3471f9d8c8e4"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 762668,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/066_KFNSP/judge_test.tar",
+            "bytes": 768000,
+            "sha256": "e61387e43a675d224ededb7ca93b4061fb1134e07e9d766be7035dda398525fc"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "067_CalibGuidance": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 263041625,
+        "file_count": 68,
+        "parts": [
+          {
+            "path": "data/067_CalibGuidance/agent_data.tar",
+            "bytes": 263208960,
+            "sha256": "58904f5ae7905b6eb13160afe6b9205c9c57eba39f9b1f995fb63591efa5353d"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 11667666,
+        "file_count": 51,
+        "parts": [
+          {
+            "path": "data/067_CalibGuidance/judge_test.tar",
+            "bytes": 11765760,
+            "sha256": "b96eabc9d67bb09258fa62fff7baf7005d8b110931037be68b18bfaac8ac4e51"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "068_TransCluster": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 214198624,
+        "file_count": 3,
+        "parts": [
+          {
+            "path": "data/068_TransCluster/agent_data.tar",
+            "bytes": 214210560,
+            "sha256": "592f01498d1bdbcf51c676094df97ee7c5767814e4e0d6b58b35527b7b3f05e7"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 214198342,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/068_TransCluster/judge_test.tar",
+            "bytes": 214210560,
+            "sha256": "2df1e2daa76e3aa6658fb5d24330cdda8e7094d627c7abea7be7eed241570d02"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "069_CLARITree": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 3862566,
+        "file_count": 8,
+        "parts": [
+          {
+            "path": "data/069_CLARITree/agent_data.tar",
+            "bytes": 3891200,
+            "sha256": "66f90f9bd39765f6c9cae760184c6443c0f4ec4948f7dc54cfe05a9dc010110c"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 12267490,
+        "file_count": 7,
+        "parts": [
+          {
+            "path": "data/069_CLARITree/judge_test.tar",
+            "bytes": 12288000,
+            "sha256": "cce72d8409e99be4847afac0aae8d2c39a3fd609832618b06decbc83153be3e3"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "070_CtrlConsist": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 31025476,
+        "file_count": 3,
+        "parts": [
+          {
+            "path": "data/070_CtrlConsist/agent_data.tar",
+            "bytes": 31037440,
+            "sha256": "8c69af26ca95e51f627d697daf9ac8440cefb39a8b9461876d1de2ac80a87635"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 31024802,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/070_CtrlConsist/judge_test.tar",
+            "bytes": 31037440,
+            "sha256": "a9464845666260d96e6441472093c20a97f3067d971f8e54c54ec55e802a171b"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "071_OT-DRO": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 262052,
+        "file_count": 4,
+        "parts": [
+          {
+            "path": "data/071_OT-DRO/agent_data.tar",
+            "bytes": 276480,
+            "sha256": "22d3471469a741d986f4bd9c1b26958827ad8254c285351ee8d3baef0bd302c7"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 113954,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/071_OT-DRO/judge_test.tar",
+            "bytes": 122880,
+            "sha256": "32f9cd0d5177afae3f89aaa482ab83bf3773a0990722752428b905faddfd08e7"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "072_EMP": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 1101898042,
+        "file_count": 6,
+        "parts": [
+          {
+            "path": "data/072_EMP/agent_data.tar",
+            "bytes": 1101916160,
+            "sha256": "0ef923b79189f155db52ce450c029e38ac8d190189aa32172786ae96b6bf29a9"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 246002754,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/072_EMP/judge_test.tar",
+            "bytes": 246016000,
+            "sha256": "609db51e48079ca0adc31bf53df86d941398b145a93152f39a06068061fe9368"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "073_AsymP-GDA": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 291150,
+        "file_count": 5,
+        "parts": [
+          {
+            "path": "data/073_AsymP-GDA/agent_data.tar",
+            "bytes": 307200,
+            "sha256": "3ea6490f1c57baacc2855264117b14702a61692188c6be2d49981b2ac741c138"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 490464,
+        "file_count": 4,
+        "parts": [
+          {
+            "path": "data/073_AsymP-GDA/judge_test.tar",
+            "bytes": 501760,
+            "sha256": "e75e19f21a24adef3119f95a4e862d4c0049baca2da226c876ff37c998b8655b"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "074_DMGC": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 50295,
+        "file_count": 3,
+        "parts": [
+          {
+            "path": "data/074_DMGC/agent_data.tar",
+            "bytes": 61440,
+            "sha256": "be7ce6f31b4318797b08a4ac21b5e7359efb920e33125bb6a6e13c25091df12b"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 9000,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/074_DMGC/judge_test.tar",
+            "bytes": 20480,
+            "sha256": "f9054b88db0dc6fc66f21bb9bff3bc024fd7c414f490abd2a14200831c229c1c"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "075_DISSOLVR": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 340893,
+        "file_count": 3,
+        "parts": [
+          {
+            "path": "data/075_DISSOLVR/agent_data.tar",
+            "bytes": 358400,
+            "sha256": "42d8dc5ecd0b566be9ee5e42ab84789f17889528891ba3d1dc39bee7abcf3bb7"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 41409,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/075_DISSOLVR/judge_test.tar",
+            "bytes": 51200,
+            "sha256": "9d407a496744b50dbb4c91f515eb832f07c18317c53c1ef590b6cf0b94afc8b2"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "076_CauchyNet": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 15731,
+        "file_count": 3,
+        "parts": [
+          {
+            "path": "data/076_CauchyNet/agent_data.tar",
+            "bytes": 30720,
+            "sha256": "e470d060f0818c2ec03c83021947283b7f041b73a8587087ac74ed4d95240f91"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 9167,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/076_CauchyNet/judge_test.tar",
+            "bytes": 20480,
+            "sha256": "ef11e606c6707b68eae1e93057864f10fd8ff47be87de844ab44a1846ade26ca"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "077_ZeroFlow": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 5460813,
+        "file_count": 4,
+        "parts": [
+          {
+            "path": "data/077_ZeroFlow/agent_data.tar",
+            "bytes": 5478400,
+            "sha256": "f7c3c0f22c24d0786a98c1ad69146245eccab500c4d2f7eed747cbedc21f3c8d"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 3896814,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/077_ZeroFlow/judge_test.tar",
+            "bytes": 3901440,
+            "sha256": "ffd61d530004076e3c7647a547a361ea1f6fa1d1d4bc571ae137dd18d0081696"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "078_ePC": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 26637120,
+        "file_count": 3,
+        "parts": [
+          {
+            "path": "data/078_ePC/agent_data.tar",
+            "bytes": 26654720,
+            "sha256": "7fa7a49ef27cbca623846f4b284fd3ec5de76ec064df64e3e94fd84be92ef8cd"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 4507660,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/078_ePC/judge_test.tar",
+            "bytes": 4515840,
+            "sha256": "292212b5849be331a3fbc633d8691e69aa40ffe406b14a72f82366c721940824"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "079_LTARC": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 543919,
+        "file_count": 3,
+        "parts": [
+          {
+            "path": "data/079_LTARC/agent_data.tar",
+            "bytes": 563200,
+            "sha256": "787a4d4528d1df23882acaba980afb766dee607527ac91ec0eadbbff7a9ccd94"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 134754,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/079_LTARC/judge_test.tar",
+            "bytes": 143360,
+            "sha256": "64a6e646dc427c393853fc46089c5f7a76adb682e62eb7175ec4f06592b2e692"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "080_MAP-Gen": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 5010679,
+        "file_count": 4,
+        "parts": [
+          {
+            "path": "data/080_MAP-Gen/agent_data.tar",
+            "bytes": 5027840,
+            "sha256": "b5c85c391ce6e80e7b15cf1e13ed7711b738792fa1daad8c53be5acbc0c8a0d8"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 1402134,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/080_MAP-Gen/judge_test.tar",
+            "bytes": 1413120,
+            "sha256": "b0f1e60e04ef2e7d3a602c0b4f92f2ac875e852a3b043eda0db49e07c4d1c451"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "081_CompArb": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 666105,
+        "file_count": 5,
+        "parts": [
+          {
+            "path": "data/081_CompArb/agent_data.tar",
+            "bytes": 686080,
+            "sha256": "38d1b64813c7e9d55665f3ca19ff4bd74be4376a6997d33f4b0fa98abbf4a8cc"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 272732,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/081_CompArb/judge_test.tar",
+            "bytes": 286720,
+            "sha256": "f98e6dcb63a675d383698e76186cc3cb46f3b12155d9d2bb007b297d86fa2385"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "082_FedSVP": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 2225491,
+        "file_count": 5,
+        "parts": [
+          {
+            "path": "data/082_FedSVP/agent_data.tar",
+            "bytes": 2242560,
+            "sha256": "e5bddd26cc924a5bcd00e7ced04370b4b35ecfa297b3893f15b39362f84dbaf0"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 7818503,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/082_FedSVP/judge_test.tar",
+            "bytes": 7823360,
+            "sha256": "d71d6fab8637116cd021eb320e0cd8f0c1deadd40725ac27290a05003eaf1060"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "083_TT-Sparse": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 64669,
+        "file_count": 4,
+        "parts": [
+          {
+            "path": "data/083_TT-Sparse/agent_data.tar",
+            "bytes": 81920,
+            "sha256": "265726ce7e421c00c5614354cff56f12ee7fa7ffc34d5c61d5292cb2dc020a4a"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 16720,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/083_TT-Sparse/judge_test.tar",
+            "bytes": 30720,
+            "sha256": "daac0848e6e01cfbf604c091eb3d908def0845a04d3359754daf680c09442b99"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "084_BRIDGE": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 107081,
+        "file_count": 5,
+        "parts": [
+          {
+            "path": "data/084_BRIDGE/agent_data.tar",
+            "bytes": 122880,
+            "sha256": "6fbacc906c0fa6ae4f392d95e221a7d6762e9ce31ff3fb977c4e0121d8fa1e30"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 1045403,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/084_BRIDGE/judge_test.tar",
+            "bytes": 1054720,
+            "sha256": "65896ec909e96e671552f94557544b4019dd0f966dccd32defa9b2ea77e7a5e0"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "085_UBM": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 320396787,
+        "file_count": 3,
+        "parts": [
+          {
+            "path": "data/085_UBM/agent_data.tar",
+            "bytes": 320409600,
+            "sha256": "6cff56f392663140813c021d15efe8775b89fb41985f2c159cd37e5928cb7af1"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 3204088585,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/085_UBM/judge_test.tar",
+            "bytes": 3204096000,
+            "sha256": "dd82719b58d5b702858cbb9600c566ef0744a5463fb612bac84dbcaf44fbff82"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "086_OptRobustPaging": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 22713029,
+        "file_count": 11,
+        "parts": [
+          {
+            "path": "data/086_OptRobustPaging/agent_data.tar",
+            "bytes": 22743040,
+            "sha256": "e32a6c4bec5f2b749c88b8cdec01de424cbe3cb10df7f4eba7f8633bb3ed11e7"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 4600966,
+        "file_count": 7,
+        "parts": [
+          {
+            "path": "data/086_OptRobustPaging/judge_test.tar",
+            "bytes": 4618240,
+            "sha256": "c0973268f069317367c157dd04a50afbad04c55ab4eed2f629e4c74b06ddfe3e"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "087_BFM-SWM": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 45442021,
+        "file_count": 12,
+        "parts": [
+          {
+            "path": "data/087_BFM-SWM/agent_data.tar",
+            "bytes": 45475840,
+            "sha256": "1c70982d013b283e60d7d6ccc9ed4d4e1a957959a386b5e30db0b822df1fc30c"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 76332746,
+        "file_count": 10,
+        "parts": [
+          {
+            "path": "data/087_BFM-SWM/judge_test.tar",
+            "bytes": 76359680,
+            "sha256": "aa59fe2788ea74ddd799101dce17e93f63a2183377e938563a06577f33f9f1d3"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "088_DistTransformers": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 241903,
+        "file_count": 4,
+        "parts": [
+          {
+            "path": "data/088_DistTransformers/agent_data.tar",
+            "bytes": 256000,
+            "sha256": "34e56c53d1db0bed3f165014828aa03fd50c299b11efd24d3b4f9dfb05306b1a"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 1188554,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/088_DistTransformers/judge_test.tar",
+            "bytes": 1198080,
+            "sha256": "e869e53eac5c42c3576ec56cbaff7cf9cacd459f9b3c0e19c2e2ed784bde09fe"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "089_AICoG": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 36213,
+        "file_count": 4,
+        "parts": [
+          {
+            "path": "data/089_AICoG/agent_data.tar",
+            "bytes": 51200,
+            "sha256": "8a625a6e5ae1222254f368bf97e28ba8a57391fdc9867cb655e27e485adf875a"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 110484,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/089_AICoG/judge_test.tar",
+            "bytes": 122880,
+            "sha256": "7b502bdb95bda44c01259d27eb01e90a52cbb6503da402e86febc99c12a100ba"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "090_CLMCP": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 3173257,
+        "file_count": 6,
+        "parts": [
+          {
+            "path": "data/090_CLMCP/agent_data.tar",
+            "bytes": 3194880,
+            "sha256": "7204ea8870ff086791bbefa6352cf6a9efb14602d6f7ee38b04a3e398304480e"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 567038,
+        "file_count": 3,
+        "parts": [
+          {
+            "path": "data/090_CLMCP/judge_test.tar",
+            "bytes": 583680,
+            "sha256": "70beb6f03646fbcd8e17af1622f31d97dfaf6ac8f03fb6645aa2437d7bb45117"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "091_EOC-Dropout": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 61529716,
+        "file_count": 3,
+        "parts": [
+          {
+            "path": "data/091_EOC-Dropout/agent_data.tar",
+            "bytes": 61542400,
+            "sha256": "c039d625507280825445e33d21669b93a4f280138468c1f507710bcfdeb7ffb1"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 61560988,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/091_EOC-Dropout/judge_test.tar",
+            "bytes": 61573120,
+            "sha256": "ca8c4c1157f7560afdab3e0eb6ad0b6eb38545746f06fd544974159fa0f3747d"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "092_SENDAI": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 1624390,
+        "file_count": 4,
+        "parts": [
+          {
+            "path": "data/092_SENDAI/agent_data.tar",
+            "bytes": 1638400,
+            "sha256": "883bd2fcc0aeede295861ad32b066c0dbae3df059980eae970427022328104f4"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 1150450,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/092_SENDAI/judge_test.tar",
+            "bytes": 1157120,
+            "sha256": "87ff085659520c0ba20930d27dc7aa5a188351643748f43ce99ca9349fb809cd"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "093_FedQueue": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 9967856,
+        "file_count": 3,
+        "parts": [
+          {
+            "path": "data/093_FedQueue/agent_data.tar",
+            "bytes": 9984000,
+            "sha256": "706dc33a9b279a6f0d7ae1e6f8bcaa196bd1f7b24987727d00ba0dd750d17e02"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 1670201,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/093_FedQueue/judge_test.tar",
+            "bytes": 1679360,
+            "sha256": "3d7d05484733faf9dca449bc09f103954b70871fb61ac94c160038de94805bbc"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "094_CLASP": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 6702236,
+        "file_count": 5,
+        "parts": [
+          {
+            "path": "data/094_CLASP/agent_data.tar",
+            "bytes": 6717440,
+            "sha256": "68906142e6afa52af3824f08c13ef2453f15198122bdf9b1f243a8268fac4933"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 6707754,
+        "file_count": 4,
+        "parts": [
+          {
+            "path": "data/094_CLASP/judge_test.tar",
+            "bytes": 6717440,
+            "sha256": "1988dbcef9a0608eec1e3dd77a80b267f40bf087527e494d10578dba2a51a94b"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "095_TSL": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 2082573,
+        "file_count": 3,
+        "parts": [
+          {
+            "path": "data/095_TSL/agent_data.tar",
+            "bytes": 2099200,
+            "sha256": "dc947e5f9bb7e61f541bb04436b8c35f3e5ff02f147d87b04e71027de645fa6c"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 542077,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/095_TSL/judge_test.tar",
+            "bytes": 552960,
+            "sha256": "bf0a7923f8993fbe4f1afb49c503380cb993dea1f03452cef67cbb7c00ce154a"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "096_RobustDueling": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 1544348,
+        "file_count": 5,
+        "parts": [
+          {
+            "path": "data/096_RobustDueling/agent_data.tar",
+            "bytes": 1566720,
+            "sha256": "72ba90592391b6a98a3c4a345d3f7e70b54486880fca021154fa3a1a75307ff4"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 1545447,
+        "file_count": 4,
+        "parts": [
+          {
+            "path": "data/096_RobustDueling/judge_test.tar",
+            "bytes": 1556480,
+            "sha256": "26450d0f117bc8fbe4199be71dccff850f33c9c6cbc045ec734424584442dc81"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "097_ReNF": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 2086555,
+        "file_count": 5,
+        "parts": [
+          {
+            "path": "data/097_ReNF/agent_data.tar",
+            "bytes": 2109440,
+            "sha256": "5555b3e520c17e785e13bb0fada3644ae1336b248673358dee336088a4a876e5"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 430167,
+        "file_count": 3,
+        "parts": [
+          {
+            "path": "data/097_ReNF/judge_test.tar",
+            "bytes": 440320,
+            "sha256": "aa36b4cb5e12ec69735c3b025480afc62e5991469d3124df7233dd757d28fcb2"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "098_BalancedActiveInf": {
+      "env_mode": "snapshot",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 281415,
+        "file_count": 7,
+        "parts": [
+          {
+            "path": "data/098_BalancedActiveInf/agent_data.tar",
+            "bytes": 307200,
+            "sha256": "b21f1f82778343ddfe178ff32a57d3f195f6df06789fe50b90d8879e3162ec9e"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 280856,
+        "file_count": 6,
+        "parts": [
+          {
+            "path": "data/098_BalancedActiveInf/judge_test.tar",
+            "bytes": 296960,
+            "sha256": "e1c7d9bfb6b92a5f8cd69155dd1c03e8959f44f9c253b32741791a8a2b063eef"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": [
+        {
+          "name": "python",
+          "target_path": "runtime/python.tar",
+          "hf_path": "runtimes/098_BalancedActiveInf/python.tar",
+          "bytes": 1238272000,
+          "sha256": "29e77076579a3bdbc27d7eeecd6de252bbe545399e6c1f363de28b0c534bbd49"
+        },
+        {
+          "name": "r",
+          "target_path": "runtime/r.tar",
+          "hf_path": "runtimes/098_BalancedActiveInf/r.tar",
+          "bytes": 1408030720,
+          "sha256": "815666e5c7faa8ca39d9a48ec90ce6337fc12ba595c6d6539a509508959b12a6"
+        },
+        {
+          "name": "r-library",
+          "target_path": "runtime/r-library.tar",
+          "hf_path": "runtimes/098_BalancedActiveInf/r-library.tar",
+          "bytes": 7505920,
+          "sha256": "c6f338dbfaafc9eadc75ac5984385fa6df05f5a3d1059486e7a609520d7d1733"
+        }
+      ]
+    },
+    "099_CALF": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 555990489,
+        "file_count": 8,
+        "parts": [
+          {
+            "path": "data/099_CALF/agent_data.tar",
+            "bytes": 556021760,
+            "sha256": "628556f8ea7a0d0859d5a2d359854ea7f0b4359e60f884e0254f86e1bcd70837"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 3738263,
+        "file_count": 3,
+        "parts": [
+          {
+            "path": "data/099_CALF/judge_test.tar",
+            "bytes": 3747840,
+            "sha256": "a6cf9afc645ca8eb8be8bb64617e9e5fa5a2101da5d9a9670a6c971eb21a8c03"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "100_xPatch": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 1526208,
+        "file_count": 5,
+        "parts": [
+          {
+            "path": "data/100_xPatch/agent_data.tar",
+            "bytes": 1546240,
+            "sha256": "d40279cef78f9d44269daed8631b2d7af6e17578843b805792a7244c7ab50934"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 371488,
+        "file_count": 3,
+        "parts": [
+          {
+            "path": "data/100_xPatch/judge_test.tar",
+            "bytes": 389120,
+            "sha256": "5ec7adeb2754ae4c2b3b864e0bd0665d301d45bb1e88e37b636d149564211a1b"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "101_PIR": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 5616019,
+        "file_count": 5,
+        "parts": [
+          {
+            "path": "data/101_PIR/agent_data.tar",
+            "bytes": 5632000,
+            "sha256": "c1790f9c34746cbbfb059fe6a267772564bbbd587349e3ad47f80afc64273563"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 3749332,
+        "file_count": 3,
+        "parts": [
+          {
+            "path": "data/101_PIR/judge_test.tar",
+            "bytes": 3758080,
+            "sha256": "ea4372f9ac445c8db202c2c5c946e818a8d413931d8b1b94155b624fee2dd97c"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "102_KAN-AD": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 169042072,
+        "file_count": 4,
+        "parts": [
+          {
+            "path": "data/102_KAN-AD/agent_data.tar",
+            "bytes": 169062400,
+            "sha256": "9b0af2f687eccb25c308ed5ef88ceda681ea975c67a13074043ad471fb94283a"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 236289100,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/102_KAN-AD/judge_test.tar",
+            "bytes": 236298240,
+            "sha256": "c18891242fa73c14c71e3cefbfe5a7f0a45e517af4368677a9b7886b16a7be5c"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "103_CertUnlearn": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 154803241,
+        "file_count": 4,
+        "parts": [
+          {
+            "path": "data/103_CertUnlearn/agent_data.tar",
+            "bytes": 154818560,
+            "sha256": "1a5c31477f7e710698bba6904b1b4455b2887a76298b9753236f411004ffd7ef"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 31361491,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/103_CertUnlearn/judge_test.tar",
+            "bytes": 31375360,
+            "sha256": "55d9de83b8ab0d3bf7b14ef9d64164740f80382f5e1612cd6096e0208a87ad95"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    },
+    "104_M3SVM": {
+      "env_mode": "venv",
+      "data": {
+        "mode": "hf_tar",
+        "source_bytes": 1833463,
+        "file_count": 3,
+        "parts": [
+          {
+            "path": "data/104_M3SVM/agent_data.tar",
+            "bytes": 1843200,
+            "sha256": "ac8993f8e0dd55501af9848a9ce593754179fbe46c164949da507ae6db0b1b24"
+          }
+        ],
+        "target_dir": "agent/data"
+      },
+      "test": {
+        "mode": "hf_tar",
+        "source_bytes": 461112,
+        "file_count": 2,
+        "parts": [
+          {
+            "path": "data/104_M3SVM/judge_test.tar",
+            "bytes": 471040,
+            "sha256": "24d956662658eafc95013f61a79fd90d756d5dd1821077f3d86da040668bae9a"
+          }
+        ],
+        "target_dir": "judge/test"
+      },
+      "runtimes": []
+    }
+  }
+}

@@ -1,0 +1,176 @@
+{
+  "pid": "078_ePC",
+  "class": "A",
+  "title": "ePC: Fast and Deep Predictive Coding in Digital Simulation",
+  "metric": {
+    "name": "accuracy",
+    "higher_is_better": true,
+    "delta": 0.003,
+    "aggregate": "mean"
+  },
+  "cpus": 16,
+  "memory_gb": 16,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.npz",
+    "val_labels": "data/val/labels.csv",
+    "test_input": "test/input.npz",
+    "test_labels": "test/labels.csv",
+    "input_format": "npz",
+    "output_format": "csv"
+  },
+  "split": {
+    "type": "train_test",
+    "decision": "Official training data stratified 80/20 using train_test_split(random_state=20261030): train 48000, val 12000; sorted original row ids. Original scored evaluation rows held by judge, verified against archived split indices and predictions. Each BENCH_SEED runs five replica slots 0..4, actual RNG seeds 5*(BENCH_SEED-1)+slot (mod 2**32); reference [1,2,3]."
+  },
+  "baseline": {
+    "train_min": 1.57,
+    "eval_min": 0.5,
+    "val": {
+      "accuracy": 88.24
+    },
+    "paper_ref": "Table 1 MLP/FashionMNIST/CE/ePC; reproduced 87.58413461538461 percent, five seeds 0..4; benchmark trains on 80 percent of original training data.",
+    "measured_s": {
+      "train": [
+        92.96,
+        94.41,
+        92.66
+      ],
+      "predict": [
+        6.32,
+        6.37,
+        6.27
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:e6dcb3e64c140abf693cbb452c43267956b02a566c925831e001937fb5fa1772"
+  },
+  "env": {
+    "python": "3.10",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple",
+      "https://download.pytorch.org/whl/cpu"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "f538dda733905f1f65e238a07cb6948dd7fc4964",
+    "adapt_commit": "e92aa8f732770bc75e4677458cbf4a8bb992f056",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "method_freedom_previous_baseline_val": {
+    "accuracy": 88.24
+  },
+  "method_freedom_review": {
+    "full_evaluation_ready": false,
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/078_ePC.json",
+    "full_training_or_evaluation": false,
+    "allowed_changes": [
+      "local error/state inference solvers, convergence criteria and nondegenerate PC variants",
+      "local weight-update optimization, learning rates, initialization, batch scheduling, training duration and lawful development selection",
+      "equivalent implementations of the fixed predictor and runtime efficiency",
+      "When retaining the supplied ePC pipeline, changing only iters=4, e_lr=0.003, w_lr=5e-5, batch_size=64 or max_epochs=14 does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Improve predictive-coding learning of the specified four-layer FashionMNIST MLP with a cross-entropy classification objective, scored by mean accuracy of five independent replicas.",
+      "784→128→128→128→10 feed-forward MLP, three GELU hidden activations and a linear output,134794 parameters",
+      "predictive-coding inference and local weight-learning paradigm with cross-entropy output objective",
+      "canonical float32 image normalization and flattening, supplied data/splits, five independent replicas and seed mapping",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/078_ePC.json",
+    "forbidden_substitutions": [
+      "replacing the specified network with a CNN, a different architecture or feature map, or exceeding its parameter budget",
+      "replacing predictive-coding learning with direct end-to-end backpropagation, including a disguised exact-BP limiting construction",
+      "changing the CE research cell to MSE/another output objective or replacing five-member accuracy with ensemble accuracy",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract"
+  },
+  "research_contract": {
+    "objective": "Improve predictive-coding learning of the specified four-layer FashionMNIST MLP with a cross-entropy classification objective, scored by mean accuracy of five independent replicas.",
+    "fixed_research_objects": [
+      "784→128→128→128→10 feed-forward MLP, three GELU hidden activations and a linear output,134794 parameters",
+      "predictive-coding inference and local weight-learning paradigm with cross-entropy output objective",
+      "canonical float32 image normalization and flattening, supplied data/splits, five independent replicas and seed mapping"
+    ],
+    "editable_components": [
+      "local error/state inference solvers, convergence criteria and nondegenerate PC variants",
+      "local weight-update optimization, learning rates, initialization, batch scheduling, training duration and lawful development selection",
+      "equivalent implementations of the fixed predictor and runtime efficiency",
+      "When retaining the supplied ePC pipeline, changing only iters=4, e_lr=0.003, w_lr=5e-5, batch_size=64 or max_epochs=14 does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "replacing the specified network with a CNN, a different architecture or feature map, or exceeding its parameter budget",
+      "replacing predictive-coding learning with direct end-to-end backpropagation, including a disguised exact-BP limiting construction",
+      "changing the CE research cell to MSE/another output objective or replacing five-member accuracy with ensemble accuracy",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "source": "../papers/078_ePC/paper/paper.txt",
+        "lines": "544-569;1491-1565;1785-1815",
+        "finding": "Table1 treats architecture,loss and learning paradigm as separate experiment cells; AppendixC.3 explicitly warns against PC settings that reduce to ordinary BP; AppendixE describes inference/weight hyperparameter search."
+      },
+      {
+        "source": "tasks/078_ePC/BRIEF.md",
+        "lines": "27-29",
+        "finding": "The selected task is MLP/FashionMNIST/CE with predictive-coding training and134794-parameter baseline structure, not unrestricted classification."
+      },
+      {
+        "source": "tasks/078_ePC/agent/code/pc_e.py",
+        "symbols": "E;E_local;training_step",
+        "finding": "The source distinguishes error inference from detached local weight updates; using the global error energy to update weights is explicitly identified as backprop."
+      },
+      {
+        "source": "tasks/078_ePC/agent/code/get_arch.py",
+        "symbol": "get_architecture",
+        "finding": "The research predictor has three128-wide GELU hidden layers and a linear CE output."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/078_ePC.json"
+  },
+  "research_contract_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/078_ePC.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

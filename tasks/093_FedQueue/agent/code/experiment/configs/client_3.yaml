@@ -1,0 +1,25 @@
+# FedQueue controlled experiment - client 3 of 4 (non-IID MNIST, Dirichlet alpha=0.5)
+client_id: "Client3"
+
+train_configs:
+  device: "cpu"
+  logging_output_dirname: "./logs"
+  logging_output_filename: "client_3"
+
+data_configs:
+  dataset_path: "./experiment/dataset_mnist.py"
+  dataset_name: "get_mnist"
+  dataset_kwargs:
+    num_clients: 4
+    client_id: 2
+    partition_strategy: "dirichlet_noniid"
+    data_root: "./data/mnist"
+    alpha: 0.5
+    seed: 42
+
+comm_configs:
+  grpc_configs:
+    server_uri: "localhost:50055"
+    max_message_size: 10485760
+    use_ssl: False
+    trusted: True

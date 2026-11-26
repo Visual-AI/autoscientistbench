@@ -1,0 +1,165 @@
+{
+  "pid": "043_Geodesic-DiD",
+  "title": "Geodesic difference-in-differences",
+  "class": "D",
+  "metric": {
+    "name": "mean_geodesic_error",
+    "higher_is_better": false,
+    "delta": 0.005,
+    "aggregate": "mean"
+  },
+  "cpus": 16,
+  "memory_gb": 80,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input",
+    "val_labels": "data/val/labels",
+    "test_input": "test/input",
+    "test_labels": "test/labels",
+    "input_format": "directory",
+    "output_format": "csv"
+  },
+  "split": {
+    "type": "synthetic",
+    "decision": "Independent operator-materialized validation and hidden-test simulation streams; each contains 500 replications at n=1000. Quantile observations stored losslessly as truncated-normal distribution descriptors. No simulation seed in input."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 0.5,
+    "val": {
+      "mean_geodesic_error": 0.09536434825034541
+    },
+    "paper_ref": "Figure 2 univariate Wasserstein n=1000; historical reproduction 0.12467381, paper derived mean 0.11794972. These paper values use the authors' proxy curves; the task's population curves were corrected on 2026-11-05.",
+    "measured_s": {
+      "train": [
+        0.11,
+        0.12,
+        0.12
+      ],
+      "predict": [
+        23.96,
+        23.78,
+        25.83
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "reference_hash": "sha256:466399467be021abd05a253dccbb707dbb49f0a190464183bcf80cf916c87c22"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "mode": "snapshot",
+    "snapshot": "runtime/runtime.json"
+  },
+  "adapt": {
+    "base_commit": "6c7237af41226a2d68071c1f54d6e65339297fcb",
+    "adapt_commit": "6b188ce719e0281cde7683c611b608095a74b0e4",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "conversion": {
+    "full_reference_recomputed": false,
+    "sandbox_verified": true,
+    "full_data_ready": true
+  },
+  "smoke": {
+    "input": "judge/verification/smoke_input",
+    "labels": "judge/verification/smoke_labels",
+    "env": {}
+  },
+  "method_freedom_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/043_Geodesic-DiD.json",
+    "candidate_method_replacement_allowed": true,
+    "frozen_data_metric_and_information_boundary": true,
+    "full_training_or_evaluation_run": false,
+    "allowed_changes": [
+      "Distribution regression, nuisance modeling, fitting losses, transport estimation and numerical solvers may change while estimating the same geodesic GATT.",
+      "The baseline gdd implementation is replaceable; internal representations must map back to the same quantile outputs."
+    ],
+    "fixed_contract": [
+      "Estimate the fixed univariate Wasserstein geodesic average treatment effect on treated distributions (GATT), minimizing the original geodesic error.",
+      "The distribution-valued DiD/GATT estimand, univariate Wasserstein geometry, fixed counterfactual/transport definition and quantile coordinate/support convention remain fixed.",
+      "All n=1000 observed units, 101-point outcome representation, 500 replications and frozen geodesic-distance metric remain fixed.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/043_Geodesic-DiD.json",
+    "forbidden_substitutions": [
+      "Do not replace distribution-valued GATT with a scalar mean effect or alter Wasserstein/reference transport geometry, quantile support or evaluated units.",
+      "No hidden potential outcomes, population transport constants, extra data or metric changes.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Estimate the fixed univariate Wasserstein geodesic average treatment effect on treated distributions (GATT), minimizing the original geodesic error.",
+    "fixed_research_objects": [
+      "The distribution-valued DiD/GATT estimand, univariate Wasserstein geometry, fixed counterfactual/transport definition and quantile coordinate/support convention remain fixed.",
+      "All n=1000 observed units, 101-point outcome representation, 500 replications and frozen geodesic-distance metric remain fixed."
+    ],
+    "editable_components": [
+      "Distribution regression, nuisance modeling, fitting losses, transport estimation and numerical solvers may change while estimating the same geodesic GATT.",
+      "The baseline gdd implementation is replaceable; internal representations must map back to the same quantile outputs."
+    ],
+    "forbidden_substitutions": [
+      "Do not replace distribution-valued GATT with a scalar mean effect or alter Wasserstein/reference transport geometry, quantile support or evaluated units.",
+      "No hidden potential outcomes, population transport constants, extra data or metric changes.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "path": "agent/paper/paper.txt",
+        "section": "Section 5, Figure 2 univariate panel",
+        "finding": "Defines geodesic DiD GATT and its Wasserstein estimation error."
+      },
+      {
+        "path": "agent/bench/io_spec.md",
+        "finding": "Preserves original quantile-map representation and endpoints."
+      },
+      {
+        "path": "agent/bench/scorer.py",
+        "finding": "Frozen scoring computes the specified geodesic comparison."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/043_Geodesic-DiD.json"
+  },
+  "research_contract_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/043_Geodesic-DiD.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

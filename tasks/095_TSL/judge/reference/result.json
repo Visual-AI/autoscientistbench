@@ -1,0 +1,97 @@
+{
+  "task": "095_TSL",
+  "created": "2026-11-02T09:14:55+0000",
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "cpus": 4,
+  "adapt_commit": "941a9930766710c8e698637c1946e9132adefc57",
+  "sandbox": true,
+  "budget_s": 21600.0,
+  "test": {
+    "per_seed": [
+      53893.06582327196,
+      53783.3316666131,
+      55789.8042258447
+    ],
+    "mean": 54488.73390524325,
+    "std": 921.0857291431946,
+    "n": 3
+  },
+  "val": {
+    "per_seed": [
+      54011.2024864895,
+      54409.469006723135,
+      55217.817172412484
+    ],
+    "mean": 54546.1628885417,
+    "std": 501.99180807806545,
+    "n": 3
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "rmse": 53893.06582327196
+      },
+      "val": {
+        "rmse": 54011.2024864895
+      },
+      "timing": {
+        "train_s": 18.7,
+        "predict_s": 2.47,
+        "score_s": 0.34,
+        "predict_val_s": 2.87
+      }
+    },
+    "2": {
+      "test": {
+        "rmse": 53783.3316666131
+      },
+      "val": {
+        "rmse": 54409.469006723135
+      },
+      "timing": {
+        "train_s": 19.15,
+        "predict_s": 2.72,
+        "score_s": 0.34,
+        "predict_val_s": 2.47
+      }
+    },
+    "3": {
+      "test": {
+        "rmse": 55789.8042258447
+      },
+      "val": {
+        "rmse": 55217.817172412484
+      },
+      "timing": {
+        "train_s": 18.6,
+        "predict_s": 2.42,
+        "score_s": 0.34,
+        "predict_val_s": 2.52
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      18.7,
+      19.15,
+      18.6
+    ],
+    "predict_s": [
+      2.47,
+      2.72,
+      2.42
+    ],
+    "build_s": 2.6
+  },
+  "hashes": {
+    "env_lock": "497775d0b9cdcff2f8003657a12293d814e770c54804da483d3299a35131a2fc",
+    "scorer": "05deb6831fbbf1cdc024df77b0e00c4fc840fcd256dc16593dab5d42bd768144",
+    "validate": "a45cf27a79a7b3543798cf0f0ddc5f086ae955db70e363f159a2d623149d47a7",
+    "test_labels": "cb4b54dd420af1e618dd0bd5d393787410186dcece96cb60cd2d7c9645f8f9fa",
+    "adapt_patch": "9d77cd6071270fc70a10bb917d70f9394444ef3c6e5aecff5ee66c4ce594854c"
+  }
+}

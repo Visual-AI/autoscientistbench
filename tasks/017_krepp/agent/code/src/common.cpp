@@ -1,0 +1,53 @@
+#include "common.hpp"
+
+uint32_t num_threads = 1;
+bool use_mmap = true;
+bool verbose = false;
+std::string leave_out_ref = "";
+std::string invocation = "";
+thread_local std::random_device rd;
+thread_local std::mt19937 gen;
+uint32_t seed = 0;
+
+const unsigned char seq_nt4_table[128] = { // Table to change "ACGTN" to 01234
+  4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+  4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+  4, 0, 4, 1, 4, 4, 4, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+  4, 0, 4, 1, 4, 4, 4, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4};
+
+const uint64_t nt4_lr_table[4] = {0, 1, 4294967296, 4294967297};
+
+const uint64_t nt4_bp_table[4] = {0, 1, 2, 3};
+
+static error_handler_t& error_handler()
+{
+  static error_handler_t handler;
+  return handler;
+}
+
+void set_error_handler(error_handler_t handler) { error_handler() = std::move(handler); }
+
+void set_num_threads(uint32_t nthreads)
+{
+  num_threads = nthreads > 0 ? nthreads : 1;
+#if !defined(_OPENMP) || _WOPENMP != 1
+  if (num_threads > 1) {
+    warn_msg("No OpenMP support, so --num-threads is ignored; rebuild against an OpenMP runtime to use it.");
+  }
+#endif
+}
+
+[[noreturn]] void error_exit(const std::string& msg, int code)
+{
+  const error_handler_t& handler = error_handler();
+  if (handler) {
+    handler(msg, code);
+    std::cerr << "[ERROR] error handler returned instead of throwing or exiting; original error (" << code << "): " << msg
+              << std::endl;
+    std::abort();
+  }
+  std::cerr << "[ERROR] " << msg << std::endl;
+  std::exit(code);
+}
+
+inline void warn_msg(const std::string& msg) { std::cerr << "[WARNING] " << msg << std::endl; }

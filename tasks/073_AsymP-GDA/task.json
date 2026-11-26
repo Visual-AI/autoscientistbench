@@ -1,0 +1,197 @@
+{
+  "pid": "073_AsymP-GDA",
+  "class": "A",
+  "title": "Asymmetric Perturbation in Solving Bilinear Saddle-Point Optimization",
+  "metric": {
+    "name": "nashconv",
+    "higher_is_better": false,
+    "delta": 0.001,
+    "aggregate": "mean"
+  },
+  "cpus": 16,
+  "memory_gb": 8,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.json",
+    "val_labels": "data/val/labels",
+    "test_input": "test/input.json",
+    "test_labels": "test/labels",
+    "input_format": "private-policy-v2-manifest",
+    "output_format": "private-policy-v2-artifact"
+  },
+  "split": {
+    "type": "synthetic",
+    "decision": "User decision 2026-10-29: original Leduc for validation; one independently secret-seeded terminal-payoff perturbation for hidden evaluation (zero-sum, unchanged tree, multiplicative factors uniform [0.95,1.05]). No training instances. Both instances independently solved at prediction time. Hidden construction metadata only in operator records. Protocol v2 preserves the original game files privately and interprets a bounded declarative graph IR. Only trusted oracle traversals execute on the game; combined update counts are authoritative."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 0.5,
+    "val": {
+      "nashconv": 0.0013944858519354675
+    },
+    "paper_ref": "Figure 4 Leduc; reproduced rounded NashConv 0.0013945 after 1000000 combined updates; paper has no tabulated scalar.",
+    "reference_status": "invalidated_by_private_policy_v2",
+    "timing_scope": "legacy protocol estimates retained for operational budgeting; not a measured v2 reference",
+    "measured_s": {
+      "train": [
+        0.32
+      ],
+      "predict": [
+        1.07
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 1e-06,
+    "parity_abs_tol": 0.0,
+    "scientific_memory_note": "Original configured 8 GB retained. Execution adds an 8 GiB per-process address-space safeguard (or lower operator cap); aggregate physical-memory equivalence is not certified.",
+    "reference_hash": "sha256:b7fce87ac4b64a70a391fd3cfb334d8619d5f42c39c18585438a5bfbe09735f4"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "e0e12357f780b58e82a1f9e609a8d79423a6cb58",
+    "adapt_commit": "5d39a91a3f62e1719856c730951f031ba3a23451",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "protocol_version": "private-policy-v2",
+  "conversion": {
+    "reason": "Task-side numeric API compatibility corrections. Original game, metric and update budget retained."
+  },
+  "smoke": {
+    "input": "judge/verification/private_smoke/input.json",
+    "labels": "judge/verification/private_smoke/labels"
+  },
+  "leakage_remediation": {
+    "status": "smoke_verified",
+    "outer_harness_changed": false,
+    "full_training_or_evaluation_run": false,
+    "evidence": [
+      "audits/20261101_preserve_experiment/073_AsymP-GDA.json",
+      "tasks/073_AsymP-GDA/judge/verification/preserve_smoke.json",
+      "tasks/073_AsymP-GDA/judge/verification/experiment_contract.json"
+    ],
+    "full_evaluation_ready": false,
+    "declared_interpreter_verified": false,
+    "installed_lock_versions_match": true,
+    "fresh_lock_install": false,
+    "verification_scope": "Two original asymmetric runs x 2 sweeps, three nondefault numeric graph families, shared graph/process counts, one-core isolated train/predict/scorer, fresh clone. No full reference.",
+    "superseded_by": "audits/20261101_method_freedom/073_AsymP-GDA.json",
+    "evidence_is_historical": true
+  },
+  "experiment_preservation": {
+    "original_input_metric_update_budget_retained": true,
+    "numeric_api_compatibility": "verified for recorded default and nondefault cases; not exhaustive arbitrary native graph programs",
+    "scientific_predict_wall_cap_s": 3327,
+    "full_scale_runtime_verified": false,
+    "aggregate_physical_memory_equivalence_verified": false,
+    "declared_interpreter_verified": false,
+    "evidence": [
+      "judge/verification/experiment_contract.json",
+      "judge/verification/preserve_smoke.json",
+      "judge/verification/preserve_packaging.json"
+    ]
+  },
+  "method_freedom": {
+    "report": "audits/20261101_method_freedom/073_AsymP-GDA.json",
+    "full_training_or_evaluation_run": false,
+    "scope_superseded_by": "audits/20261101_research_contract/073_AsymP-GDA.json"
+  },
+  "method_freedom_review": {
+    "report": "audits/20261101_research_contract/073_AsymP-GDA.json",
+    "allowed_changes": [
+      "Game solvers, auxiliary regularizers, numeric graph structure, permitted stochastic updates, optimizers, regularizer schedules and hyperparameters other than the step size may change within the verified graph interface.",
+      "The baseline asymmetric DGDA formulas and mu are methods, not mandatory target games; eta stays fixed at 0.1; generic adaptation to counted updates and declared-policy snapshots is permitted."
+    ],
+    "fixed_contract": [
+      "Improve last-iterate equilibrium approximation for the fixed Leduc zero-sum game and the fixed hidden payoff-perturbed instance, using the counted solver interface.",
+      "The original information-set/action tree, legal strategy simplexes, actual zero-sum payoffs and frozen hidden instance remain fixed; computational regularization does not redefine these game targets.",
+      "The original NashConv, final current policies combined as player1 from run0 and player2 from run1, and aggregate limit of 1000000 sweeps / 2000000 counted single-player traversals remain fixed.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/073_AsymP-GDA.json",
+    "status": "repaired_scope_with_limits",
+    "forbidden_substitutions": [
+      "The step size is fixed at eta=0.1 for every player and sweep: do not change, tune, schedule or adapt it, and do not emulate another step size by rescaling gradients, payoffs or updates.",
+      "Do not modify game payoffs/information sets, report an equilibrium for an easier game, replace NashConv or use an earlier/best/averaged strategy instead of the required final current strategy.",
+      "No hidden game/perturbation/seed lookup, uncounted utility reads, raw private graph exports, forged counters or state sharing between independent run workers.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Improve last-iterate equilibrium approximation for the fixed Leduc zero-sum game and the fixed hidden payoff-perturbed instance, using the counted solver interface.",
+    "fixed_research_objects": [
+      "The original information-set/action tree, legal strategy simplexes, actual zero-sum payoffs and frozen hidden instance remain fixed; computational regularization does not redefine these game targets.",
+      "The original NashConv, final current policies combined as player1 from run0 and player2 from run1, and aggregate limit of 1000000 sweeps / 2000000 counted single-player traversals remain fixed."
+    ],
+    "editable_components": [
+      "Game solvers, auxiliary regularizers, numeric graph structure, permitted stochastic updates, optimizers, regularizer schedules and hyperparameters other than the step size may change within the verified graph interface.",
+      "The baseline asymmetric DGDA formulas and mu are methods, not mandatory target games; eta stays fixed at 0.1; generic adaptation to counted updates and declared-policy snapshots is permitted."
+    ],
+    "forbidden_substitutions": [
+      "The step size is fixed at eta=0.1 for every player and sweep: do not change, tune, schedule or adapt it, and do not emulate another step size by rescaling gradients, payoffs or updates.",
+      "Do not modify game payoffs/information sets, report an equilibrium for an easier game, replace NashConv or use an earlier/best/averaged strategy instead of the required final current strategy.",
+      "No hidden game/perturbation/seed lookup, uncounted utility reads, raw private graph exports, forged counters or state sharing between independent run workers.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "section": "Extensive-form game experiments, lines854-889",
+        "finding": "Compares multiple solvers by original-game NashConv of the last strategy and aggregates cost across two player runs."
+      },
+      {
+        "path": "agent/bench/private_score.py",
+        "finding": "Enforces full combined budget, isolates runs, uses latest trusted strategy records and sends them to the unchanged original-game scorer."
+      },
+      {
+        "path": "agent/bench/io_spec.md",
+        "finding": "Graph interface allows solver replacement but only counted traversals and declared-policy reads."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/073_AsymP-GDA.json"
+  },
+  "research_contract_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/073_AsymP-GDA.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

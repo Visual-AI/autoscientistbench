@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "mounts": [
+    {
+      "source": "runtime/r.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-09_three_lvl_cSMART_sim_study/.Renv",
+      "format": "tar",
+      "name": "r",
+      "sha256": "56a40d7efa733272b1bd67d0596538dda82005734bb8765cb74d272fb4c46daa"
+    }
+  ],
+  "env": {
+    "R_HOME": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-09_three_lvl_cSMART_sim_study/.Renv/lib/R",
+    "R_LIBS_USER": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-09_three_lvl_cSMART_sim_study/.Renv/lib/R/library",
+    "LD_LIBRARY_PATH": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-09_three_lvl_cSMART_sim_study/.Renv/lib",
+    "PATH": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-09_three_lvl_cSMART_sim_study/.Renv/bin:/usr/local/bin:/usr/bin:/bin"
+  },
+  "python": "/usr/bin/python3"
+}

@@ -1,0 +1,1335 @@
+{
+  "task": "020_ALPINE",
+  "created": "2026-11-02T06:58:12+0000",
+  "seeds": [
+    1
+  ],
+  "cpus": 16,
+  "adapt_commit": "fb6d9e7205921e732ee2da8be21d3bdad1210b50",
+  "sandbox": true,
+  "budget_s": 21600.0,
+  "test": {
+    "per_seed": [
+      86.945
+    ],
+    "mean": 86.945,
+    "std": 0.0,
+    "n": 1
+  },
+  "val": {
+    "per_seed": [
+      87.38499999999999
+    ],
+    "mean": 87.38499999999999,
+    "std": 0.0,
+    "n": 1
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "f1": 86.945,
+        "unconstrained_f1": 86.945,
+        "constraints_pass": true,
+        "guards": {
+          "hifi_trac": {
+            "integration": true,
+            "total": true
+          },
+          "hifi_trbc": {
+            "integration": true,
+            "total": true
+          },
+          "ont_trac": {
+            "integration": true,
+            "total": true
+          },
+          "ont_trbc": {
+            "integration": true,
+            "total": true
+          }
+        },
+        "pools": {
+          "hifi_trac": {
+            "pools_rows": [
+              {
+                "row_label": "HDR",
+                "group": "trac_cd19_hdr",
+                "klass": "HDR-CD19",
+                "reads": 4000,
+                "tp": 3724,
+                "fp": 0,
+                "fn": 276,
+                "precision": 100.0,
+                "recall": 93.1,
+                "f1": 96.43
+              },
+              {
+                "row_label": "ITR",
+                "group": "trac_cd19_itr",
+                "klass": "Non-HDR-with-ITR-CD19",
+                "reads": 8000,
+                "tp": 7999,
+                "fp": 0,
+                "fn": 1,
+                "precision": 100.0,
+                "recall": 99.99,
+                "f1": 99.99
+              },
+              {
+                "row_label": "Truncated HDR",
+                "group": "trac_cd19_truncated_hdr",
+                "klass": "Non-HDR-without-ITR-CD19",
+                "reads": 4000,
+                "tp": 3926,
+                "fp": 277,
+                "fn": 74,
+                "precision": 93.41,
+                "recall": 98.15,
+                "f1": 95.72
+              },
+              {
+                "row_label": "Cross-Target-HDR",
+                "group": "trac_cd22_hdr",
+                "klass": "HDR-CD22",
+                "reads": 4000,
+                "tp": 3885,
+                "fp": 0,
+                "fn": 115,
+                "precision": 100.0,
+                "recall": 97.12,
+                "f1": 98.54
+              },
+              {
+                "row_label": "Cross-Target-ITR",
+                "group": "trac_cd22_itr",
+                "klass": "Non-HDR-with-ITR-CD22",
+                "reads": 4000,
+                "tp": 4000,
+                "fp": 0,
+                "fn": 0,
+                "precision": 100.0,
+                "recall": 100.0,
+                "f1": 100.0
+              },
+              {
+                "row_label": "Wild type",
+                "group": "trac_wt",
+                "klass": "Unmodified",
+                "reads": 4000,
+                "tp": 3582,
+                "fp": 376,
+                "fn": 418,
+                "precision": 90.5,
+                "recall": 89.55,
+                "f1": 90.02
+              },
+              {
+                "row_label": "SNP",
+                "group": "trac_snp",
+                "klass": "Unmodified-with-SNP",
+                "reads": 4000,
+                "tp": 3575,
+                "fp": 16,
+                "fn": 425,
+                "precision": 99.55,
+                "recall": 89.38,
+                "f1": 94.19
+              },
+              {
+                "row_label": "large DEL",
+                "group": "trac_del_large",
+                "klass": "DEL-large",
+                "reads": 4000,
+                "tp": 3956,
+                "fp": 63,
+                "fn": 44,
+                "precision": 98.43,
+                "recall": 98.9,
+                "f1": 98.67
+              },
+              {
+                "row_label": "small DEL",
+                "group": "trac_del_small",
+                "klass": "DEL-small",
+                "reads": 4000,
+                "tp": 3934,
+                "fp": 445,
+                "fn": 66,
+                "precision": 89.84,
+                "recall": 98.35,
+                "f1": 93.9
+              },
+              {
+                "row_label": "large INS",
+                "group": "trac_ins_large",
+                "klass": "INS-large",
+                "reads": 4000,
+                "tp": 3816,
+                "fp": 139,
+                "fn": 184,
+                "precision": 96.49,
+                "recall": 95.4,
+                "f1": 95.94
+              },
+              {
+                "row_label": "small INS",
+                "group": "trac_ins_small",
+                "klass": "INS-small",
+                "reads": 4000,
+                "tp": 3735,
+                "fp": 434,
+                "fn": 265,
+                "precision": 89.59,
+                "recall": 93.38,
+                "f1": 91.44
+              }
+            ],
+            "unclassified_other_fp": 118,
+            "integration": {
+              "tp": 23534,
+              "fp": 277,
+              "fn": 466,
+              "precision": 98.84,
+              "recall": 98.06,
+              "f1": 98.45
+            },
+            "total": {
+              "reads": 48000,
+              "tp": 46132,
+              "fp": 1868,
+              "fn": 1868,
+              "precision": 96.11,
+              "recall": 96.11,
+              "f1": 96.11
+            }
+          },
+          "hifi_trbc": {
+            "pools_rows": [
+              {
+                "row_label": "HDR",
+                "group": "trbc_cd22_hdr",
+                "klass": "HDR-CD22",
+                "reads": 4000,
+                "tp": 3912,
+                "fp": 0,
+                "fn": 88,
+                "precision": 100.0,
+                "recall": 97.8,
+                "f1": 98.89
+              },
+              {
+                "row_label": "ITR",
+                "group": "trbc_cd22_itr",
+                "klass": "Non-HDR-with-ITR-CD22",
+                "reads": 8000,
+                "tp": 7999,
+                "fp": 0,
+                "fn": 1,
+                "precision": 100.0,
+                "recall": 99.99,
+                "f1": 99.99
+              },
+              {
+                "row_label": "Truncated HDR",
+                "group": "trbc_cd22_truncated_hdr",
+                "klass": "Non-HDR-without-ITR-CD22",
+                "reads": 4000,
+                "tp": 4000,
+                "fp": 89,
+                "fn": 0,
+                "precision": 97.82,
+                "recall": 100.0,
+                "f1": 98.9
+              },
+              {
+                "row_label": "Cross-Target-HDR",
+                "group": "trbc_cd19_hdr",
+                "klass": "HDR-CD19",
+                "reads": 4000,
+                "tp": 3904,
+                "fp": 0,
+                "fn": 96,
+                "precision": 100.0,
+                "recall": 97.6,
+                "f1": 98.79
+              },
+              {
+                "row_label": "Cross-Target-ITR",
+                "group": "trbc_cd19_itr",
+                "klass": "Non-HDR-with-ITR-CD19",
+                "reads": 4000,
+                "tp": 4000,
+                "fp": 0,
+                "fn": 0,
+                "precision": 100.0,
+                "recall": 100.0,
+                "f1": 100.0
+              },
+              {
+                "row_label": "Wild type",
+                "group": "trbc_wt",
+                "klass": "Unmodified",
+                "reads": 4000,
+                "tp": 3408,
+                "fp": 456,
+                "fn": 592,
+                "precision": 88.2,
+                "recall": 85.2,
+                "f1": 86.67
+              },
+              {
+                "row_label": "SNP",
+                "group": "trbc_snp",
+                "klass": "Unmodified-with-SNP",
+                "reads": 4000,
+                "tp": 3350,
+                "fp": 26,
+                "fn": 650,
+                "precision": 99.23,
+                "recall": 83.75,
+                "f1": 90.84
+              },
+              {
+                "row_label": "large DEL",
+                "group": "trbc_del_large",
+                "klass": "DEL-large",
+                "reads": 4000,
+                "tp": 3938,
+                "fp": 79,
+                "fn": 62,
+                "precision": 98.03,
+                "recall": 98.45,
+                "f1": 98.24
+              },
+              {
+                "row_label": "small DEL",
+                "group": "trbc_del_small",
+                "klass": "DEL-small",
+                "reads": 4000,
+                "tp": 3917,
+                "fp": 937,
+                "fn": 83,
+                "precision": 80.7,
+                "recall": 97.92,
+                "f1": 88.48
+              },
+              {
+                "row_label": "large INS",
+                "group": "trbc_ins_large",
+                "klass": "INS-large",
+                "reads": 4000,
+                "tp": 3761,
+                "fp": 34,
+                "fn": 239,
+                "precision": 99.1,
+                "recall": 94.03,
+                "f1": 96.5
+              },
+              {
+                "row_label": "small INS",
+                "group": "trbc_ins_small",
+                "klass": "INS-small",
+                "reads": 4000,
+                "tp": 3706,
+                "fp": 380,
+                "fn": 294,
+                "precision": 90.7,
+                "recall": 92.65,
+                "f1": 91.66
+              }
+            ],
+            "unclassified_other_fp": 104,
+            "integration": {
+              "tp": 23815,
+              "fp": 89,
+              "fn": 185,
+              "precision": 99.63,
+              "recall": 99.23,
+              "f1": 99.43
+            },
+            "total": {
+              "reads": 48000,
+              "tp": 45895,
+              "fp": 2105,
+              "fn": 2105,
+              "precision": 95.61,
+              "recall": 95.61,
+              "f1": 95.61
+            }
+          },
+          "ont_trac": {
+            "pools_rows": [
+              {
+                "row_label": "HDR",
+                "group": "trac_cd19_hdr",
+                "klass": "HDR-CD19",
+                "reads": 4000,
+                "tp": 3999,
+                "fp": 58,
+                "fn": 1,
+                "precision": 98.57,
+                "recall": 99.97,
+                "f1": 99.27
+              },
+              {
+                "row_label": "ITR",
+                "group": "trac_cd19_itr",
+                "klass": "Non-HDR-with-ITR-CD19",
+                "reads": 8000,
+                "tp": 7910,
+                "fp": 0,
+                "fn": 90,
+                "precision": 100.0,
+                "recall": 98.88,
+                "f1": 99.43
+              },
+              {
+                "row_label": "Truncated HDR",
+                "group": "trac_cd19_truncated_hdr",
+                "klass": "Non-HDR-without-ITR-CD19",
+                "reads": 4000,
+                "tp": 3993,
+                "fp": 33,
+                "fn": 7,
+                "precision": 99.18,
+                "recall": 99.83,
+                "f1": 99.5
+              },
+              {
+                "row_label": "Cross-Target-HDR",
+                "group": "trac_cd22_hdr",
+                "klass": "HDR-CD22",
+                "reads": 4000,
+                "tp": 3995,
+                "fp": 0,
+                "fn": 5,
+                "precision": 100.0,
+                "recall": 99.88,
+                "f1": 99.94
+              },
+              {
+                "row_label": "Cross-Target-ITR",
+                "group": "trac_cd22_itr",
+                "klass": "Non-HDR-with-ITR-CD22",
+                "reads": 4000,
+                "tp": 4000,
+                "fp": 0,
+                "fn": 0,
+                "precision": 100.0,
+                "recall": 100.0,
+                "f1": 100.0
+              },
+              {
+                "row_label": "Wild type",
+                "group": "trac_wt",
+                "klass": "Unmodified",
+                "reads": 4000,
+                "tp": 886,
+                "fp": 108,
+                "fn": 3114,
+                "precision": 89.13,
+                "recall": 22.15,
+                "f1": 35.48
+              },
+              {
+                "row_label": "SNP",
+                "group": "trac_snp",
+                "klass": "Unmodified-with-SNP",
+                "reads": 4000,
+                "tp": 1842,
+                "fp": 1079,
+                "fn": 2158,
+                "precision": 63.06,
+                "recall": 46.05,
+                "f1": 53.23
+              },
+              {
+                "row_label": "large DEL",
+                "group": "trac_del_large",
+                "klass": "DEL-large",
+                "reads": 4000,
+                "tp": 3792,
+                "fp": 72,
+                "fn": 208,
+                "precision": 98.14,
+                "recall": 94.8,
+                "f1": 96.44
+              },
+              {
+                "row_label": "small DEL",
+                "group": "trac_del_small",
+                "klass": "DEL-small",
+                "reads": 4000,
+                "tp": 3921,
+                "fp": 3225,
+                "fn": 79,
+                "precision": 54.87,
+                "recall": 98.03,
+                "f1": 70.36
+              },
+              {
+                "row_label": "large INS",
+                "group": "trac_ins_large",
+                "klass": "INS-large",
+                "reads": 4000,
+                "tp": 3768,
+                "fp": 63,
+                "fn": 232,
+                "precision": 98.36,
+                "recall": 94.2,
+                "f1": 96.23
+              },
+              {
+                "row_label": "small INS",
+                "group": "trac_ins_small",
+                "klass": "INS-small",
+                "reads": 4000,
+                "tp": 3689,
+                "fp": 1515,
+                "fn": 311,
+                "precision": 70.89,
+                "recall": 92.22,
+                "f1": 80.16
+              }
+            ],
+            "unclassified_other_fp": 52,
+            "integration": {
+              "tp": 23897,
+              "fp": 91,
+              "fn": 103,
+              "precision": 99.62,
+              "recall": 99.57,
+              "f1": 99.6
+            },
+            "total": {
+              "reads": 48000,
+              "tp": 41795,
+              "fp": 6205,
+              "fn": 6205,
+              "precision": 87.07,
+              "recall": 87.07,
+              "f1": 87.07
+            }
+          },
+          "ont_trbc": {
+            "pools_rows": [
+              {
+                "row_label": "HDR",
+                "group": "trbc_cd22_hdr",
+                "klass": "HDR-CD22",
+                "reads": 4000,
+                "tp": 3999,
+                "fp": 62,
+                "fn": 1,
+                "precision": 98.47,
+                "recall": 99.97,
+                "f1": 99.22
+              },
+              {
+                "row_label": "ITR",
+                "group": "trbc_cd22_itr",
+                "klass": "Non-HDR-with-ITR-CD22",
+                "reads": 8000,
+                "tp": 7915,
+                "fp": 0,
+                "fn": 85,
+                "precision": 100.0,
+                "recall": 98.94,
+                "f1": 99.47
+              },
+              {
+                "row_label": "Truncated HDR",
+                "group": "trbc_cd22_truncated_hdr",
+                "klass": "Non-HDR-without-ITR-CD22",
+                "reads": 4000,
+                "tp": 3998,
+                "fp": 24,
+                "fn": 2,
+                "precision": 99.4,
+                "recall": 99.95,
+                "f1": 99.68
+              },
+              {
+                "row_label": "Cross-Target-HDR",
+                "group": "trbc_cd19_hdr",
+                "klass": "HDR-CD19",
+                "reads": 4000,
+                "tp": 3997,
+                "fp": 0,
+                "fn": 3,
+                "precision": 100.0,
+                "recall": 99.92,
+                "f1": 99.96
+              },
+              {
+                "row_label": "Cross-Target-ITR",
+                "group": "trbc_cd19_itr",
+                "klass": "Non-HDR-with-ITR-CD19",
+                "reads": 4000,
+                "tp": 4000,
+                "fp": 0,
+                "fn": 0,
+                "precision": 100.0,
+                "recall": 100.0,
+                "f1": 100.0
+              },
+              {
+                "row_label": "Wild type",
+                "group": "trbc_wt",
+                "klass": "Unmodified",
+                "reads": 4000,
+                "tp": 876,
+                "fp": 142,
+                "fn": 3124,
+                "precision": 86.05,
+                "recall": 21.9,
+                "f1": 34.91
+              },
+              {
+                "row_label": "SNP",
+                "group": "trbc_snp",
+                "klass": "Unmodified-with-SNP",
+                "reads": 4000,
+                "tp": 1749,
+                "fp": 1008,
+                "fn": 2251,
+                "precision": 63.44,
+                "recall": 43.73,
+                "f1": 51.77
+              },
+              {
+                "row_label": "large DEL",
+                "group": "trbc_del_large",
+                "klass": "DEL-large",
+                "reads": 4000,
+                "tp": 3808,
+                "fp": 66,
+                "fn": 192,
+                "precision": 98.3,
+                "recall": 95.2,
+                "f1": 96.72
+              },
+              {
+                "row_label": "small DEL",
+                "group": "trbc_del_small",
+                "klass": "DEL-small",
+                "reads": 4000,
+                "tp": 3916,
+                "fp": 3616,
+                "fn": 84,
+                "precision": 51.99,
+                "recall": 97.9,
+                "f1": 67.92
+              },
+              {
+                "row_label": "large INS",
+                "group": "trbc_ins_large",
+                "klass": "INS-large",
+                "reads": 4000,
+                "tp": 3729,
+                "fp": 40,
+                "fn": 271,
+                "precision": 98.94,
+                "recall": 93.22,
+                "f1": 96.0
+              },
+              {
+                "row_label": "small INS",
+                "group": "trbc_ins_small",
+                "klass": "INS-small",
+                "reads": 4000,
+                "tp": 3686,
+                "fp": 1312,
+                "fn": 314,
+                "precision": 73.75,
+                "recall": 92.15,
+                "f1": 81.93
+              }
+            ],
+            "unclassified_other_fp": 57,
+            "integration": {
+              "tp": 23909,
+              "fp": 86,
+              "fn": 91,
+              "precision": 99.64,
+              "recall": 99.62,
+              "f1": 99.63
+            },
+            "total": {
+              "reads": 48000,
+              "tp": 41673,
+              "fp": 6327,
+              "fn": 6327,
+              "precision": 86.82,
+              "recall": 86.82,
+              "f1": 86.82
+            }
+          }
+        }
+      },
+      "val": {
+        "f1": 87.38499999999999,
+        "unconstrained_f1": 87.38499999999999,
+        "constraints_pass": true,
+        "guards": {
+          "hifi_trac": {
+            "integration": true,
+            "total": true
+          },
+          "hifi_trbc": {
+            "integration": true,
+            "total": true
+          },
+          "ont_trac": {
+            "integration": true,
+            "total": true
+          },
+          "ont_trbc": {
+            "integration": true,
+            "total": true
+          }
+        },
+        "pools": {
+          "hifi_trac": {
+            "pools_rows": [
+              {
+                "row_label": "HDR",
+                "group": "trac_cd19_hdr",
+                "klass": "HDR-CD19",
+                "reads": 1000,
+                "tp": 934,
+                "fp": 0,
+                "fn": 66,
+                "precision": 100.0,
+                "recall": 93.4,
+                "f1": 96.59
+              },
+              {
+                "row_label": "ITR",
+                "group": "trac_cd19_itr",
+                "klass": "Non-HDR-with-ITR-CD19",
+                "reads": 2000,
+                "tp": 2000,
+                "fp": 0,
+                "fn": 0,
+                "precision": 100.0,
+                "recall": 100.0,
+                "f1": 100.0
+              },
+              {
+                "row_label": "Truncated HDR",
+                "group": "trac_cd19_truncated_hdr",
+                "klass": "Non-HDR-without-ITR-CD19",
+                "reads": 1000,
+                "tp": 974,
+                "fp": 66,
+                "fn": 26,
+                "precision": 93.65,
+                "recall": 97.4,
+                "f1": 95.49
+              },
+              {
+                "row_label": "Cross-Target-HDR",
+                "group": "trac_cd22_hdr",
+                "klass": "HDR-CD22",
+                "reads": 1000,
+                "tp": 975,
+                "fp": 0,
+                "fn": 25,
+                "precision": 100.0,
+                "recall": 97.5,
+                "f1": 98.73
+              },
+              {
+                "row_label": "Cross-Target-ITR",
+                "group": "trac_cd22_itr",
+                "klass": "Non-HDR-with-ITR-CD22",
+                "reads": 1000,
+                "tp": 1000,
+                "fp": 0,
+                "fn": 0,
+                "precision": 100.0,
+                "recall": 100.0,
+                "f1": 100.0
+              },
+              {
+                "row_label": "Wild type",
+                "group": "trac_wt",
+                "klass": "Unmodified",
+                "reads": 1000,
+                "tp": 890,
+                "fp": 89,
+                "fn": 110,
+                "precision": 90.91,
+                "recall": 89.0,
+                "f1": 89.94
+              },
+              {
+                "row_label": "SNP",
+                "group": "trac_snp",
+                "klass": "Unmodified-with-SNP",
+                "reads": 1000,
+                "tp": 885,
+                "fp": 5,
+                "fn": 115,
+                "precision": 99.44,
+                "recall": 88.5,
+                "f1": 93.65
+              },
+              {
+                "row_label": "large DEL",
+                "group": "trac_del_large",
+                "klass": "DEL-large",
+                "reads": 1000,
+                "tp": 993,
+                "fp": 24,
+                "fn": 7,
+                "precision": 97.64,
+                "recall": 99.3,
+                "f1": 98.46
+              },
+              {
+                "row_label": "small DEL",
+                "group": "trac_del_small",
+                "klass": "DEL-small",
+                "reads": 1000,
+                "tp": 976,
+                "fp": 120,
+                "fn": 24,
+                "precision": 89.05,
+                "recall": 97.6,
+                "f1": 93.13
+              },
+              {
+                "row_label": "large INS",
+                "group": "trac_ins_large",
+                "klass": "INS-large",
+                "reads": 1000,
+                "tp": 958,
+                "fp": 44,
+                "fn": 42,
+                "precision": 95.61,
+                "recall": 95.8,
+                "f1": 95.7
+              },
+              {
+                "row_label": "small INS",
+                "group": "trac_ins_small",
+                "klass": "INS-small",
+                "reads": 1000,
+                "tp": 932,
+                "fp": 109,
+                "fn": 68,
+                "precision": 89.53,
+                "recall": 93.2,
+                "f1": 91.33
+              }
+            ],
+            "unclassified_other_fp": 26,
+            "integration": {
+              "tp": 5883,
+              "fp": 66,
+              "fn": 117,
+              "precision": 98.89,
+              "recall": 98.05,
+              "f1": 98.47
+            },
+            "total": {
+              "reads": 12000,
+              "tp": 11517,
+              "fp": 483,
+              "fn": 483,
+              "precision": 95.97,
+              "recall": 95.97,
+              "f1": 95.97
+            }
+          },
+          "hifi_trbc": {
+            "pools_rows": [
+              {
+                "row_label": "HDR",
+                "group": "trbc_cd22_hdr",
+                "klass": "HDR-CD22",
+                "reads": 1000,
+                "tp": 985,
+                "fp": 0,
+                "fn": 15,
+                "precision": 100.0,
+                "recall": 98.5,
+                "f1": 99.24
+              },
+              {
+                "row_label": "ITR",
+                "group": "trbc_cd22_itr",
+                "klass": "Non-HDR-with-ITR-CD22",
+                "reads": 2000,
+                "tp": 2000,
+                "fp": 0,
+                "fn": 0,
+                "precision": 100.0,
+                "recall": 100.0,
+                "f1": 100.0
+              },
+              {
+                "row_label": "Truncated HDR",
+                "group": "trbc_cd22_truncated_hdr",
+                "klass": "Non-HDR-without-ITR-CD22",
+                "reads": 1000,
+                "tp": 1000,
+                "fp": 15,
+                "fn": 0,
+                "precision": 98.52,
+                "recall": 100.0,
+                "f1": 99.26
+              },
+              {
+                "row_label": "Cross-Target-HDR",
+                "group": "trbc_cd19_hdr",
+                "klass": "HDR-CD19",
+                "reads": 1000,
+                "tp": 968,
+                "fp": 0,
+                "fn": 32,
+                "precision": 100.0,
+                "recall": 96.8,
+                "f1": 98.37
+              },
+              {
+                "row_label": "Cross-Target-ITR",
+                "group": "trbc_cd19_itr",
+                "klass": "Non-HDR-with-ITR-CD19",
+                "reads": 1000,
+                "tp": 1000,
+                "fp": 0,
+                "fn": 0,
+                "precision": 100.0,
+                "recall": 100.0,
+                "f1": 100.0
+              },
+              {
+                "row_label": "Wild type",
+                "group": "trbc_wt",
+                "klass": "Unmodified",
+                "reads": 1000,
+                "tp": 843,
+                "fp": 106,
+                "fn": 157,
+                "precision": 88.83,
+                "recall": 84.3,
+                "f1": 86.51
+              },
+              {
+                "row_label": "SNP",
+                "group": "trbc_snp",
+                "klass": "Unmodified-with-SNP",
+                "reads": 1000,
+                "tp": 843,
+                "fp": 5,
+                "fn": 157,
+                "precision": 99.41,
+                "recall": 84.3,
+                "f1": 91.23
+              },
+              {
+                "row_label": "large DEL",
+                "group": "trbc_del_large",
+                "klass": "DEL-large",
+                "reads": 1000,
+                "tp": 992,
+                "fp": 17,
+                "fn": 8,
+                "precision": 98.32,
+                "recall": 99.2,
+                "f1": 98.76
+              },
+              {
+                "row_label": "small DEL",
+                "group": "trbc_del_small",
+                "klass": "DEL-small",
+                "reads": 1000,
+                "tp": 982,
+                "fp": 238,
+                "fn": 18,
+                "precision": 80.49,
+                "recall": 98.2,
+                "f1": 88.47
+              },
+              {
+                "row_label": "large INS",
+                "group": "trbc_ins_large",
+                "klass": "INS-large",
+                "reads": 1000,
+                "tp": 949,
+                "fp": 8,
+                "fn": 51,
+                "precision": 99.16,
+                "recall": 94.9,
+                "f1": 96.99
+              },
+              {
+                "row_label": "small INS",
+                "group": "trbc_ins_small",
+                "klass": "INS-small",
+                "reads": 1000,
+                "tp": 927,
+                "fp": 90,
+                "fn": 73,
+                "precision": 91.15,
+                "recall": 92.7,
+                "f1": 91.92
+              }
+            ],
+            "unclassified_other_fp": 32,
+            "integration": {
+              "tp": 5953,
+              "fp": 15,
+              "fn": 47,
+              "precision": 99.75,
+              "recall": 99.22,
+              "f1": 99.48
+            },
+            "total": {
+              "reads": 12000,
+              "tp": 11489,
+              "fp": 511,
+              "fn": 511,
+              "precision": 95.74,
+              "recall": 95.74,
+              "f1": 95.74
+            }
+          },
+          "ont_trac": {
+            "pools_rows": [
+              {
+                "row_label": "HDR",
+                "group": "trac_cd19_hdr",
+                "klass": "HDR-CD19",
+                "reads": 1000,
+                "tp": 1000,
+                "fp": 8,
+                "fn": 0,
+                "precision": 99.21,
+                "recall": 100.0,
+                "f1": 99.6
+              },
+              {
+                "row_label": "ITR",
+                "group": "trac_cd19_itr",
+                "klass": "Non-HDR-with-ITR-CD19",
+                "reads": 2000,
+                "tp": 1984,
+                "fp": 0,
+                "fn": 16,
+                "precision": 100.0,
+                "recall": 99.2,
+                "f1": 99.6
+              },
+              {
+                "row_label": "Truncated HDR",
+                "group": "trac_cd19_truncated_hdr",
+                "klass": "Non-HDR-without-ITR-CD19",
+                "reads": 1000,
+                "tp": 1000,
+                "fp": 8,
+                "fn": 0,
+                "precision": 99.21,
+                "recall": 100.0,
+                "f1": 99.6
+              },
+              {
+                "row_label": "Cross-Target-HDR",
+                "group": "trac_cd22_hdr",
+                "klass": "HDR-CD22",
+                "reads": 1000,
+                "tp": 997,
+                "fp": 0,
+                "fn": 3,
+                "precision": 100.0,
+                "recall": 99.7,
+                "f1": 99.85
+              },
+              {
+                "row_label": "Cross-Target-ITR",
+                "group": "trac_cd22_itr",
+                "klass": "Non-HDR-with-ITR-CD22",
+                "reads": 1000,
+                "tp": 1000,
+                "fp": 0,
+                "fn": 0,
+                "precision": 100.0,
+                "recall": 100.0,
+                "f1": 100.0
+              },
+              {
+                "row_label": "Wild type",
+                "group": "trac_wt",
+                "klass": "Unmodified",
+                "reads": 1000,
+                "tp": 225,
+                "fp": 21,
+                "fn": 775,
+                "precision": 91.46,
+                "recall": 22.5,
+                "f1": 36.12
+              },
+              {
+                "row_label": "SNP",
+                "group": "trac_snp",
+                "klass": "Unmodified-with-SNP",
+                "reads": 1000,
+                "tp": 478,
+                "fp": 239,
+                "fn": 522,
+                "precision": 66.67,
+                "recall": 47.8,
+                "f1": 55.68
+              },
+              {
+                "row_label": "large DEL",
+                "group": "trac_del_large",
+                "klass": "DEL-large",
+                "reads": 1000,
+                "tp": 961,
+                "fp": 25,
+                "fn": 39,
+                "precision": 97.46,
+                "recall": 96.1,
+                "f1": 96.78
+              },
+              {
+                "row_label": "small DEL",
+                "group": "trac_del_small",
+                "klass": "DEL-small",
+                "reads": 1000,
+                "tp": 971,
+                "fp": 786,
+                "fn": 29,
+                "precision": 55.26,
+                "recall": 97.1,
+                "f1": 70.44
+              },
+              {
+                "row_label": "large INS",
+                "group": "trac_ins_large",
+                "klass": "INS-large",
+                "reads": 1000,
+                "tp": 952,
+                "fp": 13,
+                "fn": 48,
+                "precision": 98.65,
+                "recall": 95.2,
+                "f1": 96.9
+              },
+              {
+                "row_label": "small INS",
+                "group": "trac_ins_small",
+                "klass": "INS-small",
+                "reads": 1000,
+                "tp": 935,
+                "fp": 381,
+                "fn": 65,
+                "precision": 71.05,
+                "recall": 93.5,
+                "f1": 80.74
+              }
+            ],
+            "unclassified_other_fp": 16,
+            "integration": {
+              "tp": 5981,
+              "fp": 16,
+              "fn": 19,
+              "precision": 99.73,
+              "recall": 99.68,
+              "f1": 99.71
+            },
+            "total": {
+              "reads": 12000,
+              "tp": 10503,
+              "fp": 1497,
+              "fn": 1497,
+              "precision": 87.53,
+              "recall": 87.53,
+              "f1": 87.53
+            }
+          },
+          "ont_trbc": {
+            "pools_rows": [
+              {
+                "row_label": "HDR",
+                "group": "trbc_cd22_hdr",
+                "klass": "HDR-CD22",
+                "reads": 1000,
+                "tp": 1000,
+                "fp": 17,
+                "fn": 0,
+                "precision": 98.33,
+                "recall": 100.0,
+                "f1": 99.16
+              },
+              {
+                "row_label": "ITR",
+                "group": "trbc_cd22_itr",
+                "klass": "Non-HDR-with-ITR-CD22",
+                "reads": 2000,
+                "tp": 1978,
+                "fp": 0,
+                "fn": 22,
+                "precision": 100.0,
+                "recall": 98.9,
+                "f1": 99.45
+              },
+              {
+                "row_label": "Truncated HDR",
+                "group": "trbc_cd22_truncated_hdr",
+                "klass": "Non-HDR-without-ITR-CD22",
+                "reads": 1000,
+                "tp": 1000,
+                "fp": 5,
+                "fn": 0,
+                "precision": 99.5,
+                "recall": 100.0,
+                "f1": 99.75
+              },
+              {
+                "row_label": "Cross-Target-HDR",
+                "group": "trbc_cd19_hdr",
+                "klass": "HDR-CD19",
+                "reads": 1000,
+                "tp": 998,
+                "fp": 0,
+                "fn": 2,
+                "precision": 100.0,
+                "recall": 99.8,
+                "f1": 99.9
+              },
+              {
+                "row_label": "Cross-Target-ITR",
+                "group": "trbc_cd19_itr",
+                "klass": "Non-HDR-with-ITR-CD19",
+                "reads": 1000,
+                "tp": 1000,
+                "fp": 0,
+                "fn": 0,
+                "precision": 100.0,
+                "recall": 100.0,
+                "f1": 100.0
+              },
+              {
+                "row_label": "Wild type",
+                "group": "trbc_wt",
+                "klass": "Unmodified",
+                "reads": 1000,
+                "tp": 250,
+                "fp": 36,
+                "fn": 750,
+                "precision": 87.41,
+                "recall": 25.0,
+                "f1": 38.88
+              },
+              {
+                "row_label": "SNP",
+                "group": "trbc_snp",
+                "klass": "Unmodified-with-SNP",
+                "reads": 1000,
+                "tp": 469,
+                "fp": 251,
+                "fn": 531,
+                "precision": 65.14,
+                "recall": 46.9,
+                "f1": 54.53
+              },
+              {
+                "row_label": "large DEL",
+                "group": "trbc_del_large",
+                "klass": "DEL-large",
+                "reads": 1000,
+                "tp": 937,
+                "fp": 21,
+                "fn": 63,
+                "precision": 97.81,
+                "recall": 93.7,
+                "f1": 95.71
+              },
+              {
+                "row_label": "small DEL",
+                "group": "trbc_del_small",
+                "klass": "DEL-small",
+                "reads": 1000,
+                "tp": 974,
+                "fp": 864,
+                "fn": 26,
+                "precision": 52.99,
+                "recall": 97.4,
+                "f1": 68.64
+              },
+              {
+                "row_label": "large INS",
+                "group": "trbc_ins_large",
+                "klass": "INS-large",
+                "reads": 1000,
+                "tp": 939,
+                "fp": 11,
+                "fn": 61,
+                "precision": 98.84,
+                "recall": 93.9,
+                "f1": 96.31
+              },
+              {
+                "row_label": "small INS",
+                "group": "trbc_ins_small",
+                "klass": "INS-small",
+                "reads": 1000,
+                "tp": 924,
+                "fp": 307,
+                "fn": 76,
+                "precision": 75.06,
+                "recall": 92.4,
+                "f1": 82.83
+              }
+            ],
+            "unclassified_other_fp": 19,
+            "integration": {
+              "tp": 5976,
+              "fp": 22,
+              "fn": 24,
+              "precision": 99.63,
+              "recall": 99.6,
+              "f1": 99.62
+            },
+            "total": {
+              "reads": 12000,
+              "tp": 10469,
+              "fp": 1531,
+              "fn": 1531,
+              "precision": 87.24,
+              "recall": 87.24,
+              "f1": 87.24
+            }
+          }
+        }
+      },
+      "timing": {
+        "train_s": 0.31,
+        "predict_s": 479.27,
+        "score_s": 0.65,
+        "predict_val_s": 145.72
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      0.31
+    ],
+    "predict_s": [
+      479.27
+    ],
+    "build_s": 7.28
+  },
+  "hashes": {
+    "env_lock": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "scorer": "ec683b7438cb648a9ea8d850c457d98ade4a0ac90a55f2404851dccd0428292c",
+    "validate": "f177f5007ceccca081072dc58818c494cbdacf49438637eeacb67e0387fa1e6e",
+    "test_labels": "ba4a21a9fc0706d41873ca83e18e3939a4ec0f9c8ab0634716d128f09ab8f5cc",
+    "adapt_patch": "0977664708e2111f3af7e0497190f15f662ae648c538d43092a27a889a387ffb"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "python": "/usr/bin/python3",
+  "mounts": [
+    {
+      "source": "runtime/r.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-18_alse/.mamba/envs/rep",
+      "format": "tar",
+      "name": "r",
+      "sha256": "9f5d2341208b1f86d274cc5f391362b90094d8da9c38d73e779bde265235f35c"
+    }
+  ],
+  "env": {
+    "PATH": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-18_alse/.mamba/envs/rep/bin:/usr/local/bin:/usr/bin:/bin",
+    "R_HOME": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-18_alse/.mamba/envs/rep/lib/R",
+    "R_LIBS_USER": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-18_alse/.mamba/envs/rep/lib/R/library",
+    "R_LIBS_SITE": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-18_alse/.mamba/envs/rep/lib/R/library",
+    "LD_LIBRARY_PATH": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-18_alse/.mamba/envs/rep/lib"
+  },
+  "description": "Independent copied R runtime, original model packages and native dependency closure; no compiler/cache, source data or results."
+}

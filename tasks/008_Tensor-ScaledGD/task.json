@@ -1,0 +1,207 @@
+{
+  "pid": "008_Tensor-ScaledGD",
+  "class": "A",
+  "title": "Guaranteed Nonconvex Low-Rank Tensor Estimation via Scaled Gradient Descent",
+  "metric": {
+    "name": "scaledgd_iterations",
+    "higher_is_better": false,
+    "delta": 0.01,
+    "aggregate": "mean"
+  },
+  "cpus": 128,
+  "memory_gb": 64,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/request.json",
+    "val_labels": "data/val/evaluation",
+    "test_input": "test/request.json",
+    "test_labels": "test/evaluation",
+    "input_format": "private_policy_request_json",
+    "output_format": "private_policy_v2_zip"
+  },
+  "split": {
+    "type": "synthetic",
+    "decision": "32 public development cells; 32 public validation cells; 32 hidden independently seeded cells. Instance seeds and truths stay in scorer-only evaluation data. Candidate policies receive only whitelisted observations; the paired regression operator remains shared."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 0.5,
+    "val": {
+      "scaledgd_iterations": 7568.0
+    },
+    "paper_ref": "Figure 1; total ScaledGD updates to 1e-6; published iteration counts digitized, no paper aggregate",
+    "measured_s": {
+      "train": [
+        10.83
+      ],
+      "predict": [
+        1.07
+      ]
+    },
+    "timing_scope": "legacy protocol estimates retained for operational budgeting; not a measured v2 reference"
+  },
+  "judge": {
+    "seeds": [
+      1
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 1e-06,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:c88fffc36fe98c9c4e74a7f84e8826defef0ffd6d0f1c6ec4bdf1d17feb22780"
+  },
+  "env": {
+    "python": "3.11.18",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "1f91d135962c85e24c27008eeebc66dc94aec256",
+    "adapt_commit": "4be30274ce1cfa3b9836db4edf8f3ebe890b56ef",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "legacy_baseline_val": {
+    "scaledgd_iterations": 7568.0
+  },
+  "protocol_version": "private-policy-v2",
+  "leakage_remediation": {
+    "status": "smoke_verified",
+    "outer_harness_changed": false,
+    "full_training_or_evaluation_run": false,
+    "evidence": [
+      "tasks/008_Tensor-ScaledGD/judge/verification/preserve_experiment_smoke.json"
+    ],
+    "full_evaluation_ready": false,
+    "scope": "Task-side private evaluation with trusted preparation replay and restored original solver scheduling.",
+    "limitations": [
+      "Worker startup, RPC and observation-isolation overhead remain within replay time, so exact original wall-clock comparability is not established.",
+      "Declared Python 3.11.18 differs from smoke Python 3.11.2; locked NumPy/SciPy versions match.",
+      "Every actual algorithm update and legal diagnostic use still require source review."
+    ],
+    "superseded_by": "audits/20261101_method_freedom/008_Tensor-ScaledGD.json",
+    "evidence_is_historical": true
+  },
+  "experiment_preservation": {
+    "original_dataset_and_generator_changed": false,
+    "original_solver_space_retained": true,
+    "original_regression_interleaving_restored": true,
+    "trusted_train_replay": true,
+    "scientific_wall_limit_s": 1532,
+    "replayed_train_cap_s": 120,
+    "replayed_predict_cap_s": 1470,
+    "timing_boundary": "trusted preparation + observation generation + both solver trajectories + original compressed NPZ serialization",
+    "timing_limitations": "Worker launch, RPC and observation-isolation overhead remain included. Tiny runtime fixture does not measure full archive extraction or full-scale performance.",
+    "method_audit_required": [
+      "Every actual solver update is reported to the error oracle.",
+      "Solver and diagnostic use obey original method rules."
+    ],
+    "full_reference_run": false,
+    "evidence": [
+      "judge/verification/preserve_experiment_smoke.json",
+      "../../audits/20261101_preserve_experiment/008_Tensor-ScaledGD.json"
+    ]
+  },
+  "method_freedom": {
+    "report": "audits/20261101_method_freedom/008_Tensor-ScaledGD.json",
+    "full_training_or_evaluation_run": false,
+    "scope_superseded_by": "audits/20261101_research_contract/008_Tensor-ScaledGD.json"
+  },
+  "method_freedom_review": {
+    "report": "audits/20261101_research_contract/008_Tensor-ScaledGD.json",
+    "allowed_changes": [
+      "numerical tensor-recovery solver, lawful initialization computed from allowed inputs, preconditioning, training/optimization surrogates and hyperparameters",
+      "implementation and optimizer while honestly reporting all internal solver updates; ScaledGD is the primary slot name"
+    ],
+    "fixed_contract": [
+      "Recover the fixed low-rank tensors in all 32 inverse-problem cells with as few fully reported updates as possible, reaching the original relative Frobenius error threshold.",
+      "four inverse-problem families, DFT/DCT transforms, dimensions/ranks/condition numbers, original observations and supplied initial-factor inputs",
+      "paired regression operator/observations across its cells, private target tensors and permitted error-oracle feedback",
+      "relative Frobenius error<=1e-6, all 32 cells, complete initial/update reporting, at most 1000 records and original first-reaching-index aggregation",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/008_Tensor-ScaledGD.json",
+    "status": "reviewed_scope_with_existing_reference_limit",
+    "forbidden_substitutions": [
+      "In the regression batch, a cell's iterates may use only the shared operator and that cell's own `y`, initial factors and oracle errors; nothing derived from another cell may enter them.",
+      "Oracle errors may be used only to decide when to stop a trajectory, and the `GD` slot may carry only a vanilla GD trajectory; neither may choose a step, hyperparameter, direction or iterate.",
+      "An update may apply the forward operator and its adjoint at most once, and the initialization may apply them at most once plus one t-SVD; anything more counts as further updates and must be reported.",
+      "substituting an easier target tensor, forward operator, transform, rank/dimension or instance collection",
+      "omitting internal updates, falsifying convergence curves, recovering hidden target/generator state or using unpermitted oracle access",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Recover the fixed low-rank tensors in all 32 inverse-problem cells with as few fully reported updates as possible, reaching the original relative Frobenius error threshold.",
+    "fixed_research_objects": [
+      "four inverse-problem families, DFT/DCT transforms, dimensions/ranks/condition numbers, original observations and supplied initial-factor inputs",
+      "paired regression operator/observations across its cells, private target tensors and permitted error-oracle feedback",
+      "relative Frobenius error<=1e-6, all 32 cells, complete initial/update reporting, at most 1000 records and original first-reaching-index aggregation"
+    ],
+    "editable_components": [
+      "numerical tensor-recovery solver, lawful initialization computed from allowed inputs, preconditioning, training/optimization surrogates and hyperparameters",
+      "implementation and optimizer while honestly reporting all internal solver updates; ScaledGD is the primary slot name"
+    ],
+    "forbidden_substitutions": [
+      "In the regression batch, a cell's iterates may use only the shared operator and that cell's own `y`, initial factors and oracle errors; nothing derived from another cell may enter them.",
+      "Oracle errors may be used only to decide when to stop a trajectory, and the `GD` slot may carry only a vanilla GD trajectory; neither may choose a step, hyperparameter, direction or iterate.",
+      "An update may apply the forward operator and its adjoint at most once, and the initialization may apply them at most once plus one t-SVD; anything more counts as further updates and must be reported.",
+      "substituting an easier target tensor, forward operator, transform, rank/dimension or instance collection",
+      "omitting internal updates, falsifying convergence curves, recovering hidden target/generator state or using unpermitted oracle access",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "source": "tasks/008_Tensor-ScaledGD/BRIEF.md",
+        "section": "original experiment/score_rule/user decision,lines 26-33",
+        "finding": "Figure1 studies recovery of fixed inverse problems; the latest scope permits alternative solution algorithms while preserving scientific instances, oracle feedback, error target and complete iteration accounting."
+      },
+      {
+        "source": "tasks/008_Tensor-ScaledGD/agent/bench/scorer.py",
+        "section": "trusted numerical scoring and guard call path",
+        "finding": "The declared research target agrees with the actual scorer and its frozen helpers."
+      },
+      {
+        "source": "audits/20261101_method_freedom/008_Tensor-ScaledGD.json",
+        "section": "earlier evaluator/interface audit",
+        "finding": "Prior runtime/information-boundary work is preserved; unconditional method language is replaced by the task-specific scope."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/008_Tensor-ScaledGD.json"
+  },
+  "research_contract_review": {
+    "status": "reviewed_scope_with_existing_reference_limit",
+    "report": "audits/20261101_research_contract/008_Tensor-ScaledGD.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

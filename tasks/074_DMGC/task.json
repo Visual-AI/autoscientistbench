@@ -1,0 +1,161 @@
+{
+  "pid": "074_DMGC",
+  "class": "A",
+  "title": "Deep Multi-view Graph Clustering via Attribute-aware Bidirectional Structural Refinement and Pseudo-label Guided Multi-level Fusion",
+  "metric": {
+    "name": "acc",
+    "higher_is_better": true,
+    "delta": 0.02,
+    "aggregate": "mean"
+  },
+  "cpus": 32,
+  "memory_gb": 16,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.csv",
+    "val_labels": "data/val/labels.csv",
+    "test_input": "test/input.csv",
+    "test_labels": "test/labels.csv",
+    "input_format": "csv",
+    "output_format": "csv"
+  },
+  "split": {
+    "type": "transductive",
+    "decision": "Transductive full graph with 251 nodes and 1703 features. Uniform random 20% (floor=50) labels public; 201 labels private. Full graph input for every call; scoring masks are carried only in labels. Secret sampling seed recorded only in operator notes. Epoch selection uses full-graph embedding silhouette, no truth labels. Five independent runs per outer seed; outer seeds 1,2,3."
+  },
+  "baseline": {
+    "train_min": 2.65,
+    "eval_min": 0.5,
+    "val": {
+      "acc": 0.556
+    },
+    "paper_ref": "Wisconsin poster ACC 0.801; reproduction all-label epoch selection mean ACC 0.752191235059761. Protocol changed to hidden labels and unsupervised selection.",
+    "measured_s": {
+      "train": [
+        147.93,
+        158.93,
+        144.81
+      ],
+      "predict": [
+        3.29,
+        3.48,
+        3.28
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:838d81b01f0bea62b40108705a81bbeef478979df0e502442dc81ca85dfd5e20"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple",
+      "https://download.pytorch.org/whl/cpu"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "0feb06b898722141db71ca5b71322d7fd83c391f",
+    "adapt_commit": "2c989b1eb61ba934e8e1bfc14ededba3505e21c4",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "method_freedom_review": {
+    "status": "reviewed_scope_with_existing_blocker",
+    "report": "audits/20261101_research_contract/074_DMGC.json",
+    "full_training_or_evaluation": false,
+    "allowed_changes": [
+      "unsupervised graph-clustering architectures, internal graph representations, surrogate losses and optimization",
+      "unlabeled checkpoint selection and inference, including replacement of the APGC model",
+      "When retaining the supplied APGC pipeline, changing only T0=1300, lr=0.0005, weight_decay=0.00001, patience=1000, sigma=0.01, beta_up0=0.4, beta_low0=-0.2, hidden_dim=256 or latent_dim=32 does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Cluster the fixed Wisconsin graph into five groups without fitting to truth labels, maximizing five-run Hungarian-matched accuracy subject to macro-F1 validity.",
+      "supplied full graph, node attributes, node identities and independent label masks",
+      "unsupervised fitting/checkpoint selection, five-cluster output per run, five independent runs and original ACC/F1 scoring",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/074_DMGC.json",
+    "forbidden_substitutions": [
+      "changing observed graph/attributes or task labels, turning the task into supervised node classification or label-guided checkpoint selection",
+      "changing the cluster count, evaluation masks, Hungarian matching or duplicating one fit across independent runs",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract"
+  },
+  "research_contract": {
+    "objective": "Cluster the fixed Wisconsin graph into five groups without fitting to truth labels, maximizing five-run Hungarian-matched accuracy subject to macro-F1 validity.",
+    "fixed_research_objects": [
+      "supplied full graph, node attributes, node identities and independent label masks",
+      "unsupervised fitting/checkpoint selection, five-cluster output per run, five independent runs and original ACC/F1 scoring"
+    ],
+    "editable_components": [
+      "unsupervised graph-clustering architectures, internal graph representations, surrogate losses and optimization",
+      "unlabeled checkpoint selection and inference, including replacement of the APGC model",
+      "When retaining the supplied APGC pipeline, changing only T0=1300, lr=0.0005, weight_decay=0.00001, patience=1000, sigma=0.01, beta_up0=0.4, beta_low0=-0.2, hidden_dim=256 or latent_dim=32 does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "changing observed graph/attributes or task labels, turning the task into supervised node classification or label-guided checkpoint selection",
+      "changing the cluster count, evaluation masks, Hungarian matching or duplicating one fit across independent runs",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "source": "tasks/074_DMGC/agent/README.md",
+        "section": "Goal,Data,Metric and baseline",
+        "finding": "Cluster the fixed Wisconsin graph into five groups without fitting to truth labels, maximizing five-run Hungarian-matched accuracy subject to macro-F1 validity."
+      },
+      {
+        "source": "tasks/074_DMGC/agent/bench/scorer.py",
+        "section": "trusted score and guards",
+        "finding": "The fixed evaluation target is supplied full graph, node attributes, node identities and independent label masks; unsupervised fitting/checkpoint selection, five-cluster output per run, five independent runs and original ACC/F1 scoring"
+      },
+      {
+        "source": "audits/20261101_method_freedom/074_DMGC.json",
+        "section": "prior task-specific scorer/interface audit",
+        "finding": "Reuse the prior actual evaluator review while narrowing the blanket permission to the present task-specific objects."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/074_DMGC.json"
+  },
+  "research_contract_review": {
+    "status": "reviewed_scope_with_existing_blocker",
+    "report": "audits/20261101_research_contract/074_DMGC.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

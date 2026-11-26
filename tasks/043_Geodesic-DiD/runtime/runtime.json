@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "mounts": [
+    {
+      "source": "runtime/r.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-12_geodesic-did/env/R",
+      "format": "tar",
+      "name": "R",
+      "sha256": "5729c32d714d51c6525f779c8ba95a48b9886209674c94425a7f19b2697c7742"
+    }
+  ],
+  "env": {
+    "PATH": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-12_geodesic-did/env/R/bin:/usr/local/bin:/usr/bin:/bin",
+    "R_HOME": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-12_geodesic-did/env/R/lib/R",
+    "R_LIBS_USER": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-12_geodesic-did/env/R/lib/R/library",
+    "LD_LIBRARY_PATH": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-12_geodesic-did/env/R/lib"
+  },
+  "python": "/usr/bin/python3",
+  "description": "Independent copy of existing R 4.5.3 prefix; no access to original source/data/results required."
+}

@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "python": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Bio-25_WEPP/.venv/bin/python",
+  "mounts": [
+    {
+      "name": "python",
+      "source": "runtime/python.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Bio-25_WEPP/.venv",
+      "format": "tar",
+      "sha256": "97e06db3e06ac4ab5ebdeeddc8fc2fdc3207af6a82a59a95184d79dbaa15cab5"
+    },
+    {
+      "name": "native",
+      "source": "runtime/native.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Bio-25_WEPP/.mamba/envs/wepp",
+      "format": "tar",
+      "sha256": "01e67e5eced2dc40a998fbdda74c207fb36872a03040886edb501a183576fc50"
+    },
+    {
+      "name": "tools",
+      "source": "runtime/tools.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Bio-25_WEPP/tools",
+      "format": "tar",
+      "sha256": "dd3e646b79625bf58b3442ae7390b8d5d7eb06e8d6a4ddd0aa6c8cab19145bde"
+    },
+    {
+      "name": "tbb_headers",
+      "source": "runtime/tbb_headers.tar",
+      "target": "/opt/arb/wepp-tbb",
+      "format": "tar",
+      "sha256": "a9df58a14df240d3e0b80d62b0830150ef88caabcf615fd86989c3d7fc7a525e"
+    }
+  ],
+  "env": {
+    "PATH": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Bio-25_WEPP/.venv/bin:/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Bio-25_WEPP/tools/bin:/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Bio-25_WEPP/.mamba/envs/wepp/bin:/usr/local/bin:/usr/bin:/bin",
+    "WEPP_NATIVE_PREFIX": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Bio-25_WEPP/.mamba/envs/wepp",
+    "WEPP_TOOLS_PREFIX": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Bio-25_WEPP/tools",
+    "CONDA_PREFIX": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Bio-25_WEPP/.mamba/envs/wepp",
+    "MPICH_CC": "/usr/bin/gcc",
+    "MPICH_CXX": "/usr/bin/g++",
+    "WEPP_TBB_PREFIX": "/opt/arb/wepp-tbb"
+  }
+}

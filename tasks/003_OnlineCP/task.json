@@ -1,0 +1,173 @@
+{
+  "pid": "003_OnlineCP",
+  "class": "A",
+  "title": "Distribution-informed Online Conformal Prediction",
+  "metric": {
+    "name": "geomean_width",
+    "higher_is_better": false,
+    "delta": 0.001,
+    "aggregate": "mean"
+  },
+  "cpus": 8,
+  "memory_gb": 4,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/request.json",
+    "val_labels": "data/val/replay",
+    "test_input": "test/request.json",
+    "test_labels": "test/replay"
+  },
+  "split": {
+    "type": "online",
+    "decision": "Preserve the complete original Table-2 experiment privately: all four real series x Prophet/AR/Theta released forecast streams, with each original burn+1 scored slice. Public development is clearly synthetic and contains no original observations. Fresh private-policy-v2 workers commit intervals before outcome feedback and never share cell state."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 0.5,
+    "val": {
+      "geomean_width": 1.2021421949292328
+    },
+    "paper_ref": "Table 2. Synthetic development is a plumbing diagnostic, not a replacement for the complete real experiment.",
+    "measured_s": {
+      "train": [
+        0.21
+      ],
+      "predict": [
+        0.26
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 1e-06,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:12583c0fd3b89e4a0917a53edc74084903641826f9d2a4cf62a7e7ff52457ce9"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "38e241adf7121709cee712d3b9a8bf282adf7aa3",
+    "adapt_commit": "2c5cced68072d27d437b71a4053387412a0b7266",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "method_freedom": {
+    "report": "audits/20261101_method_freedom/003_OnlineCP.json",
+    "full_training_or_evaluation_run": false,
+    "superseded_by": "research_contract",
+    "scope_superseded_by": "audits/20261101_research_contract/003_OnlineCP.json",
+    "conversion_report": "audits/20261101_remaining_six_conversion/003_OnlineCP.json"
+  },
+  "method_freedom_review": {
+    "report": "audits/20261101_research_contract/003_OnlineCP.json",
+    "allowed_changes": [
+      "Interval construction, online adaptation, calibration state, training surrogate and hyperparameters may change within the same forecast/feedback problem."
+    ],
+    "fixed_contract": [
+      "Improve sequential prediction intervals around the fixed released point-forecast streams.",
+      "The four real series and released Prophet, AR and Theta point forecasts are fixed research objects.",
+      "The twelve-cell geometric mean of post-burn-in widths and coverage bound 0.9 - 2*sqrt(0.09/n_eval) remain fixed.",
+      "Intervals must be committed before outcomes are revealed, using only permitted past feedback.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/003_OnlineCP.json",
+    "status": "reviewed_scope_implemented_smoke_verified",
+    "forbidden_substitutions": [
+      "Keep the nominal miscoverage at 10% at every step: do not raise the target to use the gap between 0.9 and the coverage guard, and do not give up coverage on chosen steps, such as the end of the timeline or volatile periods, using `n`, `t` or a running miss count.",
+      "Build each endpoint from the supplied forecast plus a radius updated from past scores. Do not predict `y` or the signed residual from revealed outcomes to recentre the interval, including last-value, online AR and seasonal predictors.",
+      "Do not replace the point forecasters, read future outcomes, exchange state across episodes, or change coverage, aggregation or feedback rules.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false,
+    "conversion_report": "audits/20261101_remaining_six_conversion/003_OnlineCP.json"
+  },
+  "research_contract": {
+    "objective": "Improve sequential prediction intervals around the fixed released point-forecast streams.",
+    "fixed_research_objects": [
+      "The four real series and released Prophet, AR and Theta point forecasts are fixed research objects.",
+      "The twelve-cell geometric mean of post-burn-in widths and coverage bound 0.9 - 2*sqrt(0.09/n_eval) remain fixed.",
+      "Intervals must be committed before outcomes are revealed, using only permitted past feedback."
+    ],
+    "editable_components": [
+      "Interval construction, online adaptation, calibration state, training surrogate and hyperparameters may change within the same forecast/feedback problem."
+    ],
+    "forbidden_substitutions": [
+      "Keep the nominal miscoverage at 10% at every step: do not raise the target to use the gap between 0.9 and the coverage guard, and do not give up coverage on chosen steps, such as the end of the timeline or volatile periods, using `n`, `t` or a running miss count.",
+      "Build each endpoint from the supplied forecast plus a radius updated from past scores. Do not predict `y` or the signed residual from revealed outcomes to recentre the interval, including last-value, online AR and seasonal predictors.",
+      "Do not replace the point forecasters, read future outcomes, exchange state across episodes, or change coverage, aggregation or feedback rules.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "path": "tasks/003_OnlineCP/BRIEF.md",
+        "finding": "The experiment studies online intervals around fixed Prophet/AR/Theta forecasts, not unrestricted point forecasting."
+      },
+      {
+        "path": "tasks/003_OnlineCP/agent/bench/scorer.py",
+        "finding": "Existing scorer retains the stated target formula, aggregation and validity controls."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/003_OnlineCP.json"
+  },
+  "research_contract_review": {
+    "status": "reviewed_scope_implemented_smoke_verified",
+    "report": "audits/20261101_research_contract/003_OnlineCP.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification.",
+    "conversion_report": "audits/20261101_remaining_six_conversion/003_OnlineCP.json"
+  },
+  "protocol_version": "private-policy-v2",
+  "conversion": {
+    "report": "audits/20261101_remaining_six_conversion/003_OnlineCP.json",
+    "smoke_report": "audits/20261101_remaining_six_conversion/030_Conformal-Optimistic-Prediction_smoke.json",
+    "full_data_ready": true,
+    "root_delivery_check": "audits/20261101_remaining_six_conversion/delivery_checks.json"
+  },
+  "leakage_remediation": {
+    "status": "smoke_verified",
+    "outer_harness_changed": false,
+    "private_execution": "Fresh isolated worker per complete cell; current forecast only; commit bounds before outcome feedback; read-only shared state, fresh output/tmp, no network, fixed redacted failure records.",
+    "source_history": "Fresh original-commit method-only export; no upstream data or Git objects.",
+    "full_training_or_evaluation_run": false,
+    "evidence": [
+      "audits/20261101_remaining_six_conversion/003_OnlineCP.json",
+      "audits/20261101_remaining_six_conversion/030_Conformal-Optimistic-Prediction_smoke.json"
+    ],
+    "git_metadata_scrub": "audits/20261101_remaining_six_conversion/git_metadata_scrub/003_OnlineCP.json"
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

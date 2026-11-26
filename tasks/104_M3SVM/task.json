@@ -1,0 +1,170 @@
+{
+  "pid": "104_M3SVM",
+  "class": "A",
+  "title": "Multi-Class Support Vector Machine with Differential Privacy",
+  "metric": {
+    "name": "mean_accuracy",
+    "higher_is_better": true,
+    "delta": 0.052,
+    "aggregate": "mean"
+  },
+  "cpus": 8,
+  "memory_gb": 16,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.npz",
+    "val_labels": "data/val/labels.npz",
+    "test_input": "test/input.npz",
+    "test_labels": "test/labels.npz",
+    "input_format": "npz",
+    "output_format": "csv"
+  },
+  "split": {
+    "type": "train_test",
+    "decision": "One archived paper partition is privately selected and fixed for all ten independent fits to prevent cross-run leakage. Validation: stratified 20% of the remaining training partition, random_state=20261029; train 998, val 250. Ten independently seeded fits per BENCH_SEED; baseline uses train only. Original row IDs, sorted; no scaling. Hidden selection details are operator-only."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 0.5,
+    "val": {
+      "mean_accuracy": 0.4354666666666667
+    },
+    "paper_ref": "Table 2 ISOLET PMSVM-AGP epsilon=1",
+    "measured_s": {
+      "train": [
+        10.43,
+        9.93,
+        10.28
+      ],
+      "predict": [
+        4.27,
+        4.22,
+        4.37
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.004921214735038711,
+    "reference_hash": "sha256:f9a831361818a61d96eb82c4b3c2cbee945183589c62e2266161a8ec3102dd64"
+  },
+  "env": {
+    "python": "3.10.19",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple",
+      "https://download.pytorch.org/whl/cpu"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "4e01f0f58b6cca6f90a6322cb780213a7096f0d0",
+    "adapt_commit": "cbdcce4f8a0d058bc1b64091ec2ec2e7db7deac7",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "legacy_baseline_val": {
+    "mean_accuracy": 0.4354666666666667
+  },
+  "method_freedom_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/104_M3SVM.json",
+    "candidate_method_replacement_allowed": true,
+    "frozen_data_metric_and_information_boundary": true,
+    "full_training_or_evaluation_run": false,
+    "allowed_changes": [
+      "Private mechanism, privacy accountant representation supported by trusted formulas, solver, optimizer, learning schedule, iterations and equivalent reparameterization may change.",
+      "Auxiliary numerical surrogates must solve the same SVM objective; all private data access, sensitivity, noise and composition require truthful accounting.",
+      "When retaining the supplied Adam/Opacus pipeline, changing only lr=0.005, epochs=30, batch_size=128 or max_grad_norm=1 does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Improve private optimization of the selected affine multiclass SVM on ISOLET under epsilon<=1 and delta=1e-5, retaining its margin objective and ten independent-run accuracy metric.",
+      "The raw-feature affine map R^617 to R^26, class argmax rule and selected Regularized_loss (multiclass hinge plus .001/1560 times the ordered pairwise squared weight-distance sum) are the research object.",
+      "Only the supplied training partition fits weights; fixed validation may guide selection. The ten independent fits, original input/label space, per-run DP guarantee, mean accuracy and acceptance rule remain fixed.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/104_M3SVM.json",
+    "forbidden_substitutions": [
+      "Do not replace the affine SVM with nonlinear features, neural classification, an ensemble prediction, cross-entropy target or another regularized objective.",
+      "No merging validation into the fitted training population, hidden examples/labels, prediction-time fitting, fabricated ledgers or self-reported final epsilon.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Improve private optimization of the selected affine multiclass SVM on ISOLET under epsilon<=1 and delta=1e-5, retaining its margin objective and ten independent-run accuracy metric.",
+    "fixed_research_objects": [
+      "The raw-feature affine map R^617 to R^26, class argmax rule and selected Regularized_loss (multiclass hinge plus .001/1560 times the ordered pairwise squared weight-distance sum) are the research object.",
+      "Only the supplied training partition fits weights; fixed validation may guide selection. The ten independent fits, original input/label space, per-run DP guarantee, mean accuracy and acceptance rule remain fixed."
+    ],
+    "editable_components": [
+      "Private mechanism, privacy accountant representation supported by trusted formulas, solver, optimizer, learning schedule, iterations and equivalent reparameterization may change.",
+      "Auxiliary numerical surrogates must solve the same SVM objective; all private data access, sensitivity, noise and composition require truthful accounting.",
+      "When retaining the supplied Adam/Opacus pipeline, changing only lr=0.005, epochs=30, batch_size=128 or max_grad_norm=1 does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "Do not replace the affine SVM with nonlinear features, neural classification, an ensemble prediction, cross-entropy target or another regularized objective.",
+      "No merging validation into the fitted training population, hidden examples/labels, prediction-time fitting, fabricated ledgers or self-reported final epsilon.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "section": "Sections 2.3/3/5.1, especially lines 221-243 and 642-657",
+        "finding": "M3-SVM has the margin objective; a same-architecture cross-entropy Linear model is a distinct comparator."
+      },
+      {
+        "path": "convert/tasks_merlin.json",
+        "section": "104_M3SVM task_metric and score_rule",
+        "finding": "Selected task explicitly requires an affine 617-to-26 DP classifier trained only on the training split."
+      },
+      {
+        "path": "agent/code/main-opacus.py",
+        "section": "Regularized_loss and fit",
+        "finding": "Fixes released hinge-plus-pairwise-weight objective and its normalization; Adam/Opacus are numerical/private mechanisms."
+      },
+      {
+        "path": "agent/bench/check_model.py",
+        "finding": "Restored executable affine certificate reconstruction while retaining flexible trusted mechanism ledger."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/104_M3SVM.json"
+  },
+  "research_contract_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/104_M3SVM.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

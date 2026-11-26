@@ -1,0 +1,13 @@
+{
+  "mounts": [
+    "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-33_MC-testing-by-betting/.mamba/envs/r",
+    "/opt/arb/runtime/r"
+  ],
+  "env": {
+    "PATH": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-33_MC-testing-by-betting/.mamba/envs/r/bin:/usr/local/bin:/usr/bin:/bin",
+    "R_HOME": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-33_MC-testing-by-betting/.mamba/envs/r/lib/R",
+    "R_LIBS_USER": "/nonexistent",
+    "LD_LIBRARY_PATH": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-33_MC-testing-by-betting/.mamba/envs/r/lib:/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-33_MC-testing-by-betting/.mamba/envs/r/lib/R/lib",
+    "LANG": "C.UTF-8"
+  }
+}

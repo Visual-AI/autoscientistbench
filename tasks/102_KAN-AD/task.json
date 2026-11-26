@@ -1,0 +1,161 @@
+{
+  "pid": "102_KAN-AD",
+  "class": "A",
+  "title": "KAN-AD: Time Series Anomaly Detection with Kolmogorov-Arnold Networks",
+  "metric": {
+    "name": "avg_f1e",
+    "higher_is_better": true,
+    "delta": 0.002,
+    "aggregate": "mean"
+  },
+  "cpus": 64,
+  "memory_gb": 128,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.npz",
+    "val_labels": "data/val/labels.npz",
+    "test_input": "test/input.npz",
+    "test_labels": "test/labels.npz",
+    "input_format": "npz",
+    "output_format": "npz"
+  },
+  "split": {
+    "type": "std3",
+    "decision": "std3: each original training series split chronologically at N-floor(0.2*N); prefix for fitting and suffix for validation, each differenced separately. Original evaluation series retained by judge. No random split seed. Raw float64 arrays are bit-equal to source. All 457 curves retained: 8,440,253 fitting points, 2,110,003 validation points, 14,760,632 evaluation points. Opaque IDs and order use a private secrets mapping; no source curve names exposed. UCR validation has no positive events: empty dataset contributes zero with explicit diagnostics."
+  },
+  "baseline": {
+    "train_min": 14.16,
+    "eval_min": 0.92,
+    "val": {
+      "avg_f1e": 0.6320795945928905
+    },
+    "paper_ref": "Table 2 KAN-AD Avg F1e, five trials; primary mean 0.7819265 in the curated reproduction.",
+    "measured_s": {
+      "train": [
+        843.91,
+        849.74,
+        840.48
+      ],
+      "predict": [
+        55.32,
+        52.24,
+        55.19
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:f7e4494dab09d6b6208454b0ba95e308cfd1e1d5fcf4c9a9ecc63290b3182b41"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple",
+      "https://download.pytorch.org/whl/cpu"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "8b04df4643cceca1031bc855d2296625ef553d9c",
+    "adapt_commit": "64b544eb2da2db7cef7c728e17b7c659628ac404",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "method_freedom_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/102_KAN-AD.json",
+    "full_training_or_evaluation": false,
+    "allowed_changes": [
+      "anomaly-detection architectures, forecasting/reconstruction/discriminative estimators, derived features and training surrogate losses",
+      "optimization on the training data and model selection using validation",
+      "When retaining the supplied KAN-AD forecasting pipeline, changing only order=2, batch_size=1024, epochs=100, lr=0.01, StepLR step_size=5 or gamma=0.75, or early-stopping patience=3 or delta=0.0001 does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Detect anomalies in the four supplied univariate time-series datasets, maximizing five-trial dataset-macro event F1 while retaining the original delay-F1 guard.",
+      "raw series, split-local segments, anomaly labels and four-dataset population",
+      "96-point score alignment/context, continuous anomaly-score outputs, original EasyTSAD margins/ties/threshold-sweep rules and independent five-fit aggregation",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/102_KAN-AD.json",
+    "forbidden_substitutions": [
+      "replacing the anomaly target with value forecasting, changing event/point labels, score alignment or dataset denominator",
+      "using evaluator threshold sweeps for candidate test-label selection, prepending another split history or duplicating fitted trials",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract"
+  },
+  "research_contract": {
+    "objective": "Detect anomalies in the four supplied univariate time-series datasets, maximizing five-trial dataset-macro event F1 while retaining the original delay-F1 guard.",
+    "fixed_research_objects": [
+      "raw series, split-local segments, anomaly labels and four-dataset population",
+      "96-point score alignment/context, continuous anomaly-score outputs, original EasyTSAD margins/ties/threshold-sweep rules and independent five-fit aggregation"
+    ],
+    "editable_components": [
+      "anomaly-detection architectures, forecasting/reconstruction/discriminative estimators, derived features and training surrogate losses",
+      "optimization on the training data and model selection using validation",
+      "When retaining the supplied KAN-AD forecasting pipeline, changing only order=2, batch_size=1024, epochs=100, lr=0.01, StepLR step_size=5 or gamma=0.75, or early-stopping patience=3 or delta=0.0001 does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "replacing the anomaly target with value forecasting, changing event/point labels, score alignment or dataset denominator",
+      "using evaluator threshold sweeps for candidate test-label selection, prepending another split history or duplicating fitted trials",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "source": "tasks/102_KAN-AD/agent/README.md",
+        "section": "Goal,Data,Metric and baseline",
+        "finding": "Detect anomalies in the four supplied univariate time-series datasets, maximizing five-trial dataset-macro event F1 while retaining the original delay-F1 guard."
+      },
+      {
+        "source": "tasks/102_KAN-AD/agent/bench/scorer.py",
+        "section": "trusted score and guards",
+        "finding": "The fixed evaluation target is raw series, split-local segments, anomaly labels and four-dataset population; 96-point score alignment/context, continuous anomaly-score outputs, original EasyTSAD margins/ties/threshold-sweep rules and independent five-fit aggregation"
+      },
+      {
+        "source": "audits/20261101_method_freedom/102_KAN-AD.json",
+        "section": "prior task-specific scorer/interface audit",
+        "finding": "Reuse the prior actual evaluator review while narrowing the blanket permission to the present task-specific objects."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/102_KAN-AD.json"
+  },
+  "research_contract_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/102_KAN-AD.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

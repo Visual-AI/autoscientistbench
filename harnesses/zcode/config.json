@@ -1,0 +1,13 @@
+{
+  "type": "zcode",
+  "model": "glm-5.3-flash",
+  "provider_name": "bigmodel",
+  "api_key_env": "BIGMODEL_API_KEY",
+  "allow_hosts": [
+    "open.bigmodel.cn"
+  ],
+  "disallowed_tools": [
+    "AskUserQuestion"
+  ],
+  "_doc": "ZCode CLI harness. Configure ~/.zcode/cli/config.json or pass --set base_url=... and BIGMODEL_API_KEY."
+}

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+n="${ET_THREADS:-12}"; args=("$@"); out=(); i=0
+while [ $i -lt ${#args[@]} ]; do
+  case "${args[$i]}" in
+    --thread) out+=("--thread" "$n"); i=$((i+2));;
+    *) out+=("${args[$i]}"); i=$((i+1));;
+  esac
+done
+exec "$ET_BIO_PREFIX/bin/mafft" "${out[@]}"

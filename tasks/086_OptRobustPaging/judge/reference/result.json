@@ -1,0 +1,391 @@
+{
+  "task": "086_OptRobustPaging",
+  "created": "2026-11-03T11:27:15+0000",
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "cpus": 4,
+  "adapt_commit": "e77846ce6d8c72e0dc7b43e891a3760ba6a63925",
+  "sandbox": true,
+  "budget_s": 43200.0,
+  "test": {
+    "per_seed": [
+      1.3020690695189838,
+      1.3012914537880542,
+      1.3014240706212012
+    ],
+    "mean": 1.3015948646427464,
+    "std": 0.0003396562032349556,
+    "n": 3
+  },
+  "val": {
+    "per_seed": [
+      1.13564927698424,
+      1.1355751527662505,
+      1.13564927698424
+    ],
+    "mean": 1.1356245689115767,
+    "std": 3.494249146028306e-05,
+    "n": 3
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "mean_cost_ratio": 1.3020690695189838,
+        "mean_hit_ratio": 0.2287694518182466,
+        "per_trace": [
+          {
+            "id": "T1",
+            "accesses": 20960,
+            "misses": 7167,
+            "opt_misses": 4022,
+            "cost_ratio": 1.7819492789656888,
+            "hit_ratio": 0.6580629770992367,
+            "policy_elapsed_s": 1.7701032049953938,
+            "rpc_calls": 6145
+          },
+          {
+            "id": "T2",
+            "accesses": 97760,
+            "misses": 94597,
+            "opt_misses": 73486,
+            "cost_ratio": 1.2872792096453747,
+            "hit_ratio": 0.03235474631751223,
+            "policy_elapsed_s": 12.388675638474524,
+            "rpc_calls": 93575
+          },
+          {
+            "id": "T3",
+            "accesses": 69600,
+            "misses": 69126,
+            "opt_misses": 68640,
+            "cost_ratio": 1.0070804195804195,
+            "hit_ratio": 0.0068103448275862455,
+            "policy_elapsed_s": 23.204533690586686,
+            "rpc_calls": 68104
+          },
+          {
+            "id": "T4",
+            "accesses": 8640,
+            "misses": 4865,
+            "opt_misses": 3725,
+            "cost_ratio": 1.3060402684563759,
+            "hit_ratio": 0.4369212962962963,
+            "policy_elapsed_s": 1.318451639264822,
+            "rpc_calls": 3843
+          },
+          {
+            "id": "T5",
+            "accesses": 90432,
+            "misses": 89555,
+            "opt_misses": 79393,
+            "cost_ratio": 1.1279961709470607,
+            "hit_ratio": 0.009697894550601549,
+            "policy_elapsed_s": 20.800265775993466,
+            "rpc_calls": 88533
+          }
+        ],
+        "trusted_replay": true,
+        "protocol": "private-policy-v2",
+        "worker_pool_size": 4,
+        "opt_elapsed_s": 0.3626736830919981,
+        "artifact_prepare_s": 0.22976066078990698,
+        "scorer_elapsed_s": 23.865695415996015
+      },
+      "val": {
+        "mean_cost_ratio": 1.13564927698424,
+        "mean_hit_ratio": 0.22954553060227878,
+        "per_trace": [
+          {
+            "id": "V1",
+            "accesses": 41088,
+            "misses": 17892,
+            "opt_misses": 14399,
+            "cost_ratio": 1.242586290714633,
+            "hit_ratio": 0.5645443925233644,
+            "policy_elapsed_s": 3.370526235550642,
+            "rpc_calls": 16870
+          },
+          {
+            "id": "V2",
+            "accesses": 89504,
+            "misses": 81660,
+            "opt_misses": 71302,
+            "cost_ratio": 1.1452694174076463,
+            "hit_ratio": 0.08763854129424387,
+            "policy_elapsed_s": 12.535180878825486,
+            "rpc_calls": 80638
+          },
+          {
+            "id": "V3",
+            "accesses": 71296,
+            "misses": 68697,
+            "opt_misses": 67410,
+            "cost_ratio": 1.0190921228304406,
+            "hit_ratio": 0.03645365798922806,
+            "policy_elapsed_s": 20.045727837830782,
+            "rpc_calls": 67675
+          }
+        ],
+        "trusted_replay": true,
+        "protocol": "private-policy-v2",
+        "worker_pool_size": 3,
+        "opt_elapsed_s": 0.2428902555257082,
+        "artifact_prepare_s": 0.21820786781609058,
+        "scorer_elapsed_s": 20.566165924072266
+      },
+      "timing": {
+        "train_s": 0.21,
+        "predict_s": 0.51,
+        "score_s": 24.34,
+        "predict_val_s": 0.61
+      }
+    },
+    "2": {
+      "test": {
+        "mean_cost_ratio": 1.3012914537880542,
+        "mean_hit_ratio": 0.22902143089656155,
+        "per_trace": [
+          {
+            "id": "T1",
+            "accesses": 20960,
+            "misses": 7160,
+            "opt_misses": 4022,
+            "cost_ratio": 1.7802088513177523,
+            "hit_ratio": 0.6583969465648856,
+            "policy_elapsed_s": 1.718298421241343,
+            "rpc_calls": 6138
+          },
+          {
+            "id": "T2",
+            "accesses": 97760,
+            "misses": 94597,
+            "opt_misses": 73486,
+            "cost_ratio": 1.2872792096453747,
+            "hit_ratio": 0.03235474631751223,
+            "policy_elapsed_s": 12.637054543942213,
+            "rpc_calls": 93575
+          },
+          {
+            "id": "T3",
+            "accesses": 69600,
+            "misses": 69126,
+            "opt_misses": 68640,
+            "cost_ratio": 1.0070804195804195,
+            "hit_ratio": 0.0068103448275862455,
+            "policy_elapsed_s": 22.752808516845107,
+            "rpc_calls": 68104
+          },
+          {
+            "id": "T4",
+            "accesses": 8640,
+            "misses": 4857,
+            "opt_misses": 3725,
+            "cost_ratio": 1.3038926174496643,
+            "hit_ratio": 0.4378472222222223,
+            "policy_elapsed_s": 1.2673250371590257,
+            "rpc_calls": 3835
+          },
+          {
+            "id": "T5",
+            "accesses": 90432,
+            "misses": 89555,
+            "opt_misses": 79393,
+            "cost_ratio": 1.1279961709470607,
+            "hit_ratio": 0.009697894550601549,
+            "policy_elapsed_s": 20.396918618120253,
+            "rpc_calls": 88533
+          }
+        ],
+        "trusted_replay": true,
+        "protocol": "private-policy-v2",
+        "worker_pool_size": 4,
+        "opt_elapsed_s": 0.359307543374598,
+        "artifact_prepare_s": 0.22163098957389593,
+        "scorer_elapsed_s": 23.400360165163875
+      },
+      "val": {
+        "mean_cost_ratio": 1.1355751527662505,
+        "mean_hit_ratio": 0.2295735928368492,
+        "per_trace": [
+          {
+            "id": "V1",
+            "accesses": 41088,
+            "misses": 17889,
+            "opt_misses": 14399,
+            "cost_ratio": 1.2423779429127022,
+            "hit_ratio": 0.564617406542056,
+            "policy_elapsed_s": 3.1703143371269107,
+            "rpc_calls": 16867
+          },
+          {
+            "id": "V2",
+            "accesses": 89504,
+            "misses": 81659,
+            "opt_misses": 71302,
+            "cost_ratio": 1.1452553925556086,
+            "hit_ratio": 0.08764971397926347,
+            "policy_elapsed_s": 12.134611053392291,
+            "rpc_calls": 80637
+          },
+          {
+            "id": "V3",
+            "accesses": 71296,
+            "misses": 68697,
+            "opt_misses": 67410,
+            "cost_ratio": 1.0190921228304406,
+            "hit_ratio": 0.03645365798922806,
+            "policy_elapsed_s": 19.696275441907346,
+            "rpc_calls": 67675
+          }
+        ],
+        "trusted_replay": true,
+        "protocol": "private-policy-v2",
+        "worker_pool_size": 3,
+        "opt_elapsed_s": 0.2479639919474721,
+        "artifact_prepare_s": 0.22195615153759718,
+        "scorer_elapsed_s": 20.22569986898452
+      },
+      "timing": {
+        "train_s": 0.21,
+        "predict_s": 0.52,
+        "score_s": 23.88,
+        "predict_val_s": 0.51
+      }
+    },
+    "3": {
+      "test": {
+        "mean_cost_ratio": 1.3014240706212012,
+        "mean_hit_ratio": 0.228882103062869,
+        "per_trace": [
+          {
+            "id": "T1",
+            "accesses": 20960,
+            "misses": 7153,
+            "opt_misses": 4022,
+            "cost_ratio": 1.778468423669816,
+            "hit_ratio": 0.6587309160305344,
+            "policy_elapsed_s": 1.718056152574718,
+            "rpc_calls": 6131
+          },
+          {
+            "id": "T2",
+            "accesses": 97760,
+            "misses": 94597,
+            "opt_misses": 73486,
+            "cost_ratio": 1.2872792096453747,
+            "hit_ratio": 0.03235474631751223,
+            "policy_elapsed_s": 12.188291238620877,
+            "rpc_calls": 93575
+          },
+          {
+            "id": "T3",
+            "accesses": 69600,
+            "misses": 69126,
+            "opt_misses": 68640,
+            "cost_ratio": 1.0070804195804195,
+            "hit_ratio": 0.0068103448275862455,
+            "policy_elapsed_s": 22.45325979217887,
+            "rpc_calls": 68104
+          },
+          {
+            "id": "T4",
+            "accesses": 8640,
+            "misses": 4866,
+            "opt_misses": 3725,
+            "cost_ratio": 1.3063087248322147,
+            "hit_ratio": 0.43680555555555556,
+            "policy_elapsed_s": 1.2174973199144006,
+            "rpc_calls": 3844
+          },
+          {
+            "id": "T5",
+            "accesses": 90432,
+            "misses": 89554,
+            "opt_misses": 79393,
+            "cost_ratio": 1.127983575378182,
+            "hit_ratio": 0.009708952583156405,
+            "policy_elapsed_s": 20.548408600501716,
+            "rpc_calls": 88532
+          }
+        ],
+        "trusted_replay": true,
+        "protocol": "private-policy-v2",
+        "worker_pool_size": 4,
+        "opt_elapsed_s": 0.36045798379927874,
+        "artifact_prepare_s": 0.22333803959190845,
+        "scorer_elapsed_s": 23.11420262698084
+      },
+      "val": {
+        "mean_cost_ratio": 1.13564927698424,
+        "mean_hit_ratio": 0.22954553060227878,
+        "per_trace": [
+          {
+            "id": "V1",
+            "accesses": 41088,
+            "misses": 17892,
+            "opt_misses": 14399,
+            "cost_ratio": 1.242586290714633,
+            "hit_ratio": 0.5645443925233644,
+            "policy_elapsed_s": 3.3711799094453454,
+            "rpc_calls": 16870
+          },
+          {
+            "id": "V2",
+            "accesses": 89504,
+            "misses": 81660,
+            "opt_misses": 71302,
+            "cost_ratio": 1.1452694174076463,
+            "hit_ratio": 0.08763854129424387,
+            "policy_elapsed_s": 12.085603991523385,
+            "rpc_calls": 80638
+          },
+          {
+            "id": "V3",
+            "accesses": 71296,
+            "misses": 68697,
+            "opt_misses": 67410,
+            "cost_ratio": 1.0190921228304406,
+            "hit_ratio": 0.03645365798922806,
+            "policy_elapsed_s": 19.597677187994123,
+            "rpc_calls": 67675
+          }
+        ],
+        "trusted_replay": true,
+        "protocol": "private-policy-v2",
+        "worker_pool_size": 3,
+        "opt_elapsed_s": 0.24181088898330927,
+        "artifact_prepare_s": 0.22022366151213646,
+        "scorer_elapsed_s": 20.11986901704222
+      },
+      "timing": {
+        "train_s": 0.21,
+        "predict_s": 0.52,
+        "score_s": 23.59,
+        "predict_val_s": 0.52
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      0.21,
+      0.21,
+      0.21
+    ],
+    "predict_s": [
+      0.51,
+      0.52,
+      0.52
+    ],
+    "build_s": 2.3
+  },
+  "hashes": {
+    "env_lock": "5e7cb66d2a3374454132a5ff73596f40061357a52fe40d3f100840077d8cc547",
+    "scorer": "b09a4ff81415661e3cb7b27b927632a06b02143e1be3512042c4b98448645d22",
+    "validate": "97bbaed7225c117c2ff6018bc042fd5bcc4e53e0a9f311a43ab8623639dcb9c7",
+    "test_labels": null,
+    "adapt_patch": "ccaad7c2b68d3345edd7a7b6eb2de4818139231dd963c15556b840d22021ae73"
+  }
+}

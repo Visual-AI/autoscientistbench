@@ -1,0 +1,6 @@
+{
+  "type": "kimi",
+  "model": "kimi-code/k3.1-pro",
+  "auth_sync_back": true,
+  "_doc": "Uses the local Kimi Code login and native CLI. Override --model with an alias from ~/.kimi-code/config.toml. reasoning_effort defaults to the local setting when supported, otherwise the selected model's default."
+}

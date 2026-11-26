@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "python": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Bio-18_ETfinder/.venv/bin/python",
+  "mounts": [
+    {
+      "name": "bio",
+      "source": "runtime/bio.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Bio-18_ETfinder/envs/bio",
+      "format": "tar",
+      "sha256": "c11fd6a1a0e1608ca2912e2ff5ad8d20d0eb9a9e03fe69bb875be65235b46ea3"
+    },
+    {
+      "name": "venv",
+      "source": "runtime/venv.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Bio-18_ETfinder/.venv",
+      "format": "tar",
+      "sha256": "5617f3e1b1045da12f4a29560608d7aa6edcb953a232c3488de3d0eb6f08f53e"
+    },
+    {
+      "name": "python",
+      "source": "runtime/python.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Bio-18_ETfinder/.uv-python/cpython-3.10.22-linux-x86_64-gnu",
+      "format": "tar",
+      "sha256": "34693ad620df6c508e808993d993eb1197bce068e60b0e118eb523b60cafc9b6"
+    },
+    {
+      "name": "python_home",
+      "source": "runtime/python.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Bio-18_ETfinder/.uv-python/cpython-3.10-linux-x86_64-gnu",
+      "format": "tar",
+      "sha256": "34693ad620df6c508e808993d993eb1197bce068e60b0e118eb523b60cafc9b6"
+    },
+    {
+      "name": "iqtree",
+      "source": "runtime/iqtree.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Bio-18_ETfinder/envs/iqtree3",
+      "format": "tar",
+      "sha256": "a5acae01e878548a186900f46eacdf84b087a4527bc30e9b1ec8dc3d5b42efe0"
+    }
+  ],
+  "env": {
+    "PATH": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Bio-18_ETfinder/.venv/bin:/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Bio-18_ETfinder/envs/bio/bin:/usr/local/bin:/usr/bin:/bin",
+    "ET_BIO_PREFIX": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Bio-18_ETfinder/envs/bio",
+    "ET_IQTREE3": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Bio-18_ETfinder/envs/iqtree3/bin/iqtree3"
+  }
+}

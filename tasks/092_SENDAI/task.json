@@ -1,0 +1,175 @@
+{
+  "pid": "092_SENDAI",
+  "class": "A",
+  "title": "SENDAI: A Hierarchical Sparse-measurement, EfficieNt Data AssImilation Framework",
+  "metric": {
+    "name": "ssim",
+    "higher_is_better": true,
+    "delta": 0.025,
+    "aggregate": "mean"
+  },
+  "cpus": 128,
+  "memory_gb": 32,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.npz",
+    "val_labels": "data/val/labels.npz",
+    "test_input": "test/input.npz",
+    "test_labels": "test/labels.npz",
+    "input_format": "npz",
+    "output_format": "npz"
+  },
+  "split": {
+    "type": "in_sample",
+    "decision": "User decision: 15 full-field frames public validation, 60 full-field frames hidden evaluation. Fixed physical sensor network drawn once with official random strategy, seed 42. Only its 64 pixel observations are public in real-season adaptation; simulation full fields remain public. Frame membership and opaque IDs generated privately. Original sparse temporal adaptation window unchanged. Each scoring unit comprises three independent fits, with three outer BENCH_SEED replicates to measure variability."
+  },
+  "baseline": {
+    "train_min": 35.17,
+    "eval_min": 0.5,
+    "val": {
+      "ssim": 0.4950054538438997
+    },
+    "paper_ref": "Table 2 Tarim Basin, Full DA+HF SSIM: paper 0.4777; manifest three-run reproduction 0.5028094. Benchmark changes full-field visibility and freezes the physical sensor network.",
+    "measured_s": {
+      "train": [
+        2095.55,
+        2110.13,
+        2098.47
+      ],
+      "predict": [
+        8.28,
+        8.58,
+        8.48
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:3d219a0d9cfe8d7e62014790eb274a39411c84e9d432847fa574eea7744ba8b9"
+  },
+  "env": {
+    "python": "3.11.18",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple",
+      "https://download.pytorch.org/whl/cpu"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "689d80e32ab12cec2f66419b7c91c89e21ae46a5",
+    "adapt_commit": "1d7b4ea9ecd6eb95beb567b275860322ca0b4750",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "deployment": {
+    "operator_launcher": "safe_bench.py",
+    "require_code_only_harness_source_mount": true,
+    "automatic_probe_hook": false
+  },
+  "method_freedom_previous_baseline_val": {
+    "ssim": 0.4913682611188854
+  },
+  "method_freedom_review": {
+    "full_evaluation_ready": false,
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/092_SENDAI.json",
+    "full_training_or_evaluation": false,
+    "allowed_changes": [
+      "data-assimilation/reconstruction estimators, network architecture, learned simulation representations and surrogate losses",
+      "optimization and sparse-observation adaptation without fitting real-period full-field validation labels",
+      "When retaining the supplied SENDAI pipeline, changing only LR=1e-4, SHRED_EPOCHS=800, SHRED_PATIENCE=30, DASHRED_EPOCHS=1500, DASHRED_PATIENCE=50, BATCH_SIZE=16, MAX_TARGET_FREQ=16, HF_WARMUP=100, lambda_smooth=0.1 or the PEEL_CONFIG values target_k=3, epochs=500, lambda_sparse=0.05, finetune_epochs=200 and finetune_lambda=0.005 does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Reconstruct the supplied64x64 NDVI physical fields from the fixed sparse sensor network and simulated-season prior, maximizing three-fit mean SSIM under RMSE and observation limits.",
+      "observed simulation fields, real sparse measurements, fixed physical sensor locations and withheld full-field targets",
+      "per-window information boundary, at most64 sensors and5 lags including zero-use methods, three independent fits and original SSIM/RMSE rules",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/092_SENDAI.json",
+    "forbidden_substitutions": [
+      "replacing the physical fields/sensor network with easier observations, adding sensors/history or fitting to held-out real full fields",
+      "stitching windows, changing target range/SSIM/RMSE definitions or substituting an ensemble for three scored fits",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract"
+  },
+  "research_contract": {
+    "objective": "Reconstruct the supplied64x64 NDVI physical fields from the fixed sparse sensor network and simulated-season prior, maximizing three-fit mean SSIM under RMSE and observation limits.",
+    "fixed_research_objects": [
+      "observed simulation fields, real sparse measurements, fixed physical sensor locations and withheld full-field targets",
+      "per-window information boundary, at most64 sensors and5 lags including zero-use methods, three independent fits and original SSIM/RMSE rules"
+    ],
+    "editable_components": [
+      "data-assimilation/reconstruction estimators, network architecture, learned simulation representations and surrogate losses",
+      "optimization and sparse-observation adaptation without fitting real-period full-field validation labels",
+      "When retaining the supplied SENDAI pipeline, changing only LR=1e-4, SHRED_EPOCHS=800, SHRED_PATIENCE=30, DASHRED_EPOCHS=1500, DASHRED_PATIENCE=50, BATCH_SIZE=16, MAX_TARGET_FREQ=16, HF_WARMUP=100, lambda_smooth=0.1 or the PEEL_CONFIG values target_k=3, epochs=500, lambda_sparse=0.05, finetune_epochs=200 and finetune_lambda=0.005 does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "replacing the physical fields/sensor network with easier observations, adding sensors/history or fitting to held-out real full fields",
+      "stitching windows, changing target range/SSIM/RMSE definitions or substituting an ensemble for three scored fits",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "source": "tasks/092_SENDAI/agent/README.md",
+        "section": "Goal,Data,Metric and baseline",
+        "finding": "Reconstruct the supplied64x64 NDVI physical fields from the fixed sparse sensor network and simulated-season prior, maximizing three-fit mean SSIM under RMSE and observation limits."
+      },
+      {
+        "source": "tasks/092_SENDAI/agent/bench/scorer.py",
+        "section": "trusted score and guards",
+        "finding": "The fixed evaluation target is observed simulation fields, real sparse measurements, fixed physical sensor locations and withheld full-field targets; per-window information boundary, at most64 sensors and5 lags including zero-use methods, three independent fits and original SSIM/RMSE rules"
+      },
+      {
+        "source": "audits/20261101_method_freedom/092_SENDAI.json",
+        "section": "prior task-specific scorer/interface audit",
+        "finding": "Reuse the prior actual evaluator review while narrowing the blanket permission to the present task-specific objects."
+      },
+      {
+        "source": "tasks/092_SENDAI/BRIEF.md",
+        "section": "26-33",
+        "finding": "The scientific constraint is sparse-observation field reconstruction with <=64x5 inputs and fixed accuracy guards; original neural modules are an estimator, not a required physical law."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/092_SENDAI.json"
+  },
+  "research_contract_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/092_SENDAI.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 3
+}

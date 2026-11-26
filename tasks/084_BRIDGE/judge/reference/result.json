@@ -1,0 +1,121 @@
+{
+  "task": "084_BRIDGE",
+  "created": "2026-11-02T07:51:10+0000",
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "cpus": 8,
+  "adapt_commit": "1c47b3cf4738dd45b5201fe64e19b27075a9763c",
+  "sandbox": true,
+  "budget_s": 21600.0,
+  "test": {
+    "per_seed": [
+      40.8,
+      41.8,
+      41.199999999999996
+    ],
+    "mean": 41.26666666666666,
+    "std": 0.41096093353126517,
+    "n": 3
+  },
+  "val": {
+    "per_seed": [
+      50.0,
+      67.85714285714286,
+      50.0
+    ],
+    "mean": 55.952380952380956,
+    "std": 8.417937871268425,
+    "n": 3
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "bucket_accuracy": 40.8,
+        "accuracy_percent": 40.8,
+        "macro_f1": 0.28251435526977325,
+        "weighted_kappa": 0.22886617557270073,
+        "quality_guards_pass": true
+      },
+      "val": {
+        "bucket_accuracy": 50.0,
+        "accuracy_percent": 50.0,
+        "macro_f1": 0.45098039215686275,
+        "weighted_kappa": 0.5022222222222221,
+        "quality_guards_pass": true
+      },
+      "timing": {
+        "train_s": 17.19,
+        "predict_s": 18.54,
+        "score_s": 3.42,
+        "predict_val_s": 17.24
+      }
+    },
+    "2": {
+      "test": {
+        "bucket_accuracy": 41.8,
+        "accuracy_percent": 41.8,
+        "macro_f1": 0.28937092172118495,
+        "weighted_kappa": 0.23621802286160987,
+        "quality_guards_pass": true
+      },
+      "val": {
+        "bucket_accuracy": 67.85714285714286,
+        "accuracy_percent": 67.85714285714286,
+        "macro_f1": 0.6203216374269005,
+        "weighted_kappa": 0.5955555555555555,
+        "quality_guards_pass": true
+      },
+      "timing": {
+        "train_s": 18.89,
+        "predict_s": 18.94,
+        "score_s": 3.29,
+        "predict_val_s": 16.94
+      }
+    },
+    "3": {
+      "test": {
+        "bucket_accuracy": 41.199999999999996,
+        "accuracy_percent": 41.199999999999996,
+        "macro_f1": 0.2802562334439669,
+        "weighted_kappa": 0.22899460897009705,
+        "quality_guards_pass": true
+      },
+      "val": {
+        "bucket_accuracy": 50.0,
+        "accuracy_percent": 50.0,
+        "macro_f1": 0.39186507936507936,
+        "weighted_kappa": 0.4473684210526315,
+        "quality_guards_pass": true
+      },
+      "timing": {
+        "train_s": 17.09,
+        "predict_s": 26.0,
+        "score_s": 3.29,
+        "predict_val_s": 16.79
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      17.19,
+      18.89,
+      17.09
+    ],
+    "predict_s": [
+      18.54,
+      18.94,
+      26.0
+    ],
+    "build_s": 9.1
+  },
+  "hashes": {
+    "env_lock": "c17ab02ca6bf7e0ab7483c569f16f0ebaf42f9198f2a42ebf27c60b98d09c367",
+    "scorer": "e780d38612fb58dd03742681ae5c59f35b0958b2a60187fa93b62a1b57f7e123",
+    "validate": "fa336912160588100fe428a94ba21f46d13a85251cbcb1c32a2f269242805cb8",
+    "test_labels": "529bb723a66d04ba5457eb35313b5df2134261840999a724499d7700a0d7f1d6",
+    "adapt_patch": "5a8f77629f9b47423bd3047a14cb0826537d4e37bca3cbc86fe2680dc5f75583"
+  }
+}

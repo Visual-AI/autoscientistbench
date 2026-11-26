@@ -1,0 +1,805 @@
+{
+  "task": "048_ALSE-Treat",
+  "created": "2026-11-03T08:00:06+0000",
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "cpus": 36,
+  "adapt_commit": "4b9a45c228bd24ef92c5f026672493df23c648d0",
+  "sandbox": true,
+  "budget_s": 86400.0,
+  "test": {
+    "per_seed": [
+      3.6636720289294615,
+      3.6737009603491035,
+      3.68187133856141
+    ],
+    "mean": 3.673081442613325,
+    "std": 0.00744274006167945,
+    "n": 3
+  },
+  "val": {
+    "per_seed": [
+      3.4531347190776924,
+      3.461968162918595,
+      3.447354659953415
+    ],
+    "mean": 3.454152513983234,
+    "std": 0.006009190021993756,
+    "n": 3
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "scaled_mse": 3.6636720289294615,
+        "unconstrained_scaled_mse": 3.6636720289294615,
+        "pooled_coverage": 0.9296875,
+        "minimum_cell_coverage": 0.85,
+        "coverage_pass": true,
+        "cells": [
+          {
+            "n": 500,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 2.767178877842155,
+            "coverage": 0.95
+          },
+          {
+            "n": 500,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 2.664245248993679,
+            "coverage": 1.0
+          },
+          {
+            "n": 1000,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 3.171154608577957,
+            "coverage": 0.95
+          },
+          {
+            "n": 1000,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 3.9554710351393987,
+            "coverage": 0.9
+          },
+          {
+            "n": 1500,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 5.263885492091243,
+            "coverage": 0.85
+          },
+          {
+            "n": 1500,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 5.970987056324343,
+            "coverage": 0.9
+          },
+          {
+            "n": 2000,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 3.631702523571753,
+            "coverage": 0.9
+          },
+          {
+            "n": 2000,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 3.607646324886835,
+            "coverage": 0.925
+          },
+          {
+            "n": 2500,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 4.478751143207928,
+            "coverage": 0.9
+          },
+          {
+            "n": 2500,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 5.069180868886287,
+            "coverage": 0.9
+          },
+          {
+            "n": 3000,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 2.4594609210762557,
+            "coverage": 0.975
+          },
+          {
+            "n": 3000,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 3.04005767060616,
+            "coverage": 0.95
+          },
+          {
+            "n": 3500,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 1.8989821239454507,
+            "coverage": 0.975
+          },
+          {
+            "n": 3500,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 2.7141754848013333,
+            "coverage": 1.0
+          },
+          {
+            "n": 4000,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 3.6037564005247282,
+            "coverage": 0.925
+          },
+          {
+            "n": 4000,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 4.32211668239588,
+            "coverage": 0.875
+          }
+        ]
+      },
+      "val": {
+        "scaled_mse": 3.4531347190776924,
+        "unconstrained_scaled_mse": 3.4531347190776924,
+        "pooled_coverage": 0.9390625,
+        "minimum_cell_coverage": 0.85,
+        "coverage_pass": true,
+        "cells": [
+          {
+            "n": 500,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 2.81101754173745,
+            "coverage": 0.95
+          },
+          {
+            "n": 500,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 3.604939980860865,
+            "coverage": 0.9
+          },
+          {
+            "n": 1000,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 2.6250447797272494,
+            "coverage": 0.925
+          },
+          {
+            "n": 1000,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 3.3424233072414156,
+            "coverage": 0.925
+          },
+          {
+            "n": 1500,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 3.786185973603005,
+            "coverage": 0.925
+          },
+          {
+            "n": 1500,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 5.248793251515688,
+            "coverage": 0.95
+          },
+          {
+            "n": 2000,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 3.964704371673869,
+            "coverage": 0.925
+          },
+          {
+            "n": 2000,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 5.684602197026585,
+            "coverage": 0.85
+          },
+          {
+            "n": 2500,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 2.3000713125373538,
+            "coverage": 0.975
+          },
+          {
+            "n": 2500,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 3.0788459939000203,
+            "coverage": 0.95
+          },
+          {
+            "n": 3000,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 3.256458678130406,
+            "coverage": 0.95
+          },
+          {
+            "n": 3000,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 3.9980426532147098,
+            "coverage": 0.925
+          },
+          {
+            "n": 3500,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 2.4615654692517257,
+            "coverage": 1.0
+          },
+          {
+            "n": 3500,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 2.7413436305037413,
+            "coverage": 0.95
+          },
+          {
+            "n": 4000,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 2.5271100168750436,
+            "coverage": 0.975
+          },
+          {
+            "n": 4000,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 3.8190063474439526,
+            "coverage": 0.95
+          }
+        ]
+      },
+      "timing": {
+        "train_s": 0.06,
+        "predict_s": 894.57,
+        "score_s": 0.13,
+        "predict_val_s": 890.36
+      }
+    },
+    "2": {
+      "test": {
+        "scaled_mse": 3.6737009603491035,
+        "unconstrained_scaled_mse": 3.6737009603491035,
+        "pooled_coverage": 0.9265625,
+        "minimum_cell_coverage": 0.85,
+        "coverage_pass": true,
+        "cells": [
+          {
+            "n": 500,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 2.767178877842155,
+            "coverage": 0.95
+          },
+          {
+            "n": 500,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 2.6605048964251807,
+            "coverage": 1.0
+          },
+          {
+            "n": 1000,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 3.171154608577957,
+            "coverage": 0.95
+          },
+          {
+            "n": 1000,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 3.812095973212011,
+            "coverage": 0.9
+          },
+          {
+            "n": 1500,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 5.263885492091243,
+            "coverage": 0.85
+          },
+          {
+            "n": 1500,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 6.112040382887087,
+            "coverage": 0.875
+          },
+          {
+            "n": 2000,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 3.631702523571753,
+            "coverage": 0.9
+          },
+          {
+            "n": 2000,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 3.8047526864080927,
+            "coverage": 0.925
+          },
+          {
+            "n": 2500,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 4.478751143207928,
+            "coverage": 0.9
+          },
+          {
+            "n": 2500,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 5.0505518874913164,
+            "coverage": 0.875
+          },
+          {
+            "n": 3000,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 2.4594609210762557,
+            "coverage": 0.975
+          },
+          {
+            "n": 3000,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 3.04565665568749,
+            "coverage": 0.95
+          },
+          {
+            "n": 3500,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 1.8989821239454507,
+            "coverage": 0.975
+          },
+          {
+            "n": 3500,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 2.5893131784406926,
+            "coverage": 1.0
+          },
+          {
+            "n": 4000,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 3.6037564005247282,
+            "coverage": 0.925
+          },
+          {
+            "n": 4000,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 4.429427614196316,
+            "coverage": 0.875
+          }
+        ]
+      },
+      "val": {
+        "scaled_mse": 3.461968162918595,
+        "unconstrained_scaled_mse": 3.461968162918595,
+        "pooled_coverage": 0.9375,
+        "minimum_cell_coverage": 0.85,
+        "coverage_pass": true,
+        "cells": [
+          {
+            "n": 500,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 2.81101754173745,
+            "coverage": 0.95
+          },
+          {
+            "n": 500,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 3.619588272275295,
+            "coverage": 0.9
+          },
+          {
+            "n": 1000,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 2.6250447797272494,
+            "coverage": 0.925
+          },
+          {
+            "n": 1000,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 3.3271677412198954,
+            "coverage": 0.925
+          },
+          {
+            "n": 1500,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 3.786185973603005,
+            "coverage": 0.925
+          },
+          {
+            "n": 1500,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 5.3355991968955685,
+            "coverage": 0.925
+          },
+          {
+            "n": 2000,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 3.964704371673869,
+            "coverage": 0.925
+          },
+          {
+            "n": 2000,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 5.660905895967878,
+            "coverage": 0.85
+          },
+          {
+            "n": 2500,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 2.3000713125373538,
+            "coverage": 0.975
+          },
+          {
+            "n": 2500,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 3.124734869718693,
+            "coverage": 0.95
+          },
+          {
+            "n": 3000,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 3.256458678130406,
+            "coverage": 0.95
+          },
+          {
+            "n": 3000,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 3.9871176082950894,
+            "coverage": 0.925
+          },
+          {
+            "n": 3500,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 2.4615654692517257,
+            "coverage": 1.0
+          },
+          {
+            "n": 3500,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 2.8231946604201132,
+            "coverage": 0.95
+          },
+          {
+            "n": 4000,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 2.5271100168750436,
+            "coverage": 0.975
+          },
+          {
+            "n": 4000,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 3.7810242183688905,
+            "coverage": 0.95
+          }
+        ]
+      },
+      "timing": {
+        "train_s": 0.06,
+        "predict_s": 894.35,
+        "score_s": 0.13,
+        "predict_val_s": 896.83
+      }
+    },
+    "3": {
+      "test": {
+        "scaled_mse": 3.68187133856141,
+        "unconstrained_scaled_mse": 3.68187133856141,
+        "pooled_coverage": 0.928125,
+        "minimum_cell_coverage": 0.85,
+        "coverage_pass": true,
+        "cells": [
+          {
+            "n": 500,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 2.767178877842155,
+            "coverage": 0.95
+          },
+          {
+            "n": 500,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 2.695926152711059,
+            "coverage": 1.0
+          },
+          {
+            "n": 1000,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 3.171154608577957,
+            "coverage": 0.95
+          },
+          {
+            "n": 1000,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 3.8248749515751994,
+            "coverage": 0.9
+          },
+          {
+            "n": 1500,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 5.263885492091243,
+            "coverage": 0.85
+          },
+          {
+            "n": 1500,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 6.150947937710571,
+            "coverage": 0.875
+          },
+          {
+            "n": 2000,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 3.631702523571753,
+            "coverage": 0.9
+          },
+          {
+            "n": 2000,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 3.64694984339645,
+            "coverage": 0.925
+          },
+          {
+            "n": 2500,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 4.478751143207928,
+            "coverage": 0.9
+          },
+          {
+            "n": 2500,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 5.167307595772993,
+            "coverage": 0.875
+          },
+          {
+            "n": 3000,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 2.4594609210762557,
+            "coverage": 0.975
+          },
+          {
+            "n": 3000,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 3.052447545831007,
+            "coverage": 0.975
+          },
+          {
+            "n": 3500,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 1.8989821239454507,
+            "coverage": 0.975
+          },
+          {
+            "n": 3500,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 2.6535337673764934,
+            "coverage": 1.0
+          },
+          {
+            "n": 4000,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 3.6037564005247282,
+            "coverage": 0.925
+          },
+          {
+            "n": 4000,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 4.443081531771323,
+            "coverage": 0.875
+          }
+        ]
+      },
+      "val": {
+        "scaled_mse": 3.447354659953415,
+        "unconstrained_scaled_mse": 3.447354659953415,
+        "pooled_coverage": 0.9390625,
+        "minimum_cell_coverage": 0.85,
+        "coverage_pass": true,
+        "cells": [
+          {
+            "n": 500,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 2.81101754173745,
+            "coverage": 0.95
+          },
+          {
+            "n": 500,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 3.588879749313287,
+            "coverage": 0.9
+          },
+          {
+            "n": 1000,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 2.6250447797272494,
+            "coverage": 0.925
+          },
+          {
+            "n": 1000,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 3.2460837207203497,
+            "coverage": 0.925
+          },
+          {
+            "n": 1500,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 3.786185973603005,
+            "coverage": 0.925
+          },
+          {
+            "n": 1500,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 5.097622322897965,
+            "coverage": 0.95
+          },
+          {
+            "n": 2000,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 3.964704371673869,
+            "coverage": 0.925
+          },
+          {
+            "n": 2000,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 5.61124846611617,
+            "coverage": 0.85
+          },
+          {
+            "n": 2500,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 2.3000713125373538,
+            "coverage": 0.975
+          },
+          {
+            "n": 2500,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 3.0813231944549573,
+            "coverage": 0.95
+          },
+          {
+            "n": 3000,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 3.256458678130406,
+            "coverage": 0.95
+          },
+          {
+            "n": 3000,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 4.107511165683385,
+            "coverage": 0.925
+          },
+          {
+            "n": 3500,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 2.4615654692517257,
+            "coverage": 1.0
+          },
+          {
+            "n": 3500,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 2.77920407809264,
+            "coverage": 0.95
+          },
+          {
+            "n": 4000,
+            "learner": "gam",
+            "datasets": 40,
+            "scaled_mse": 2.5271100168750436,
+            "coverage": 0.975
+          },
+          {
+            "n": 4000,
+            "learner": "ranger",
+            "datasets": 40,
+            "scaled_mse": 3.913643718439782,
+            "coverage": 0.95
+          }
+        ]
+      },
+      "timing": {
+        "train_s": 0.06,
+        "predict_s": 895.25,
+        "score_s": 0.12,
+        "predict_val_s": 891.92
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      0.06,
+      0.06,
+      0.06
+    ],
+    "predict_s": [
+      894.57,
+      894.35,
+      895.25
+    ],
+    "build_s": 0.58
+  },
+  "hashes": {
+    "env_lock": "6bac63713f14a91289af868e61414dac30cb772432bdf951aece57e12e85bff3",
+    "scorer": "fefc2b65455c9fc6b2cc706e9e4c85984a2cf5c347352c45a83612604e430f74",
+    "validate": "f615bd9cc2d505a14003aff4a9b83f46e1c4dfa7e1965059c75820f0bca1f511",
+    "test_labels": "df7052183fa2093a7e7ed8a73ec4adab176deba13e525989c7066214cbc926e1",
+    "adapt_patch": "f6c0efa012ea65c5f4265f60bfa88643ab63fa188b0e4e9af9cca4696052a62b"
+  }
+}

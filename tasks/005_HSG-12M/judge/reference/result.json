@@ -1,0 +1,181 @@
+{
+  "task": "005_HSG-12M",
+  "created": "2026-11-02T05:33:48+0000",
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "cpus": 128,
+  "adapt_commit": "9f75f77f351a0dd194ab81bcf01c122d9b04971f",
+  "sandbox": true,
+  "budget_s": 21600.0,
+  "test": {
+    "per_seed": [
+      0.8579119496855346,
+      0.8481006289308176,
+      0.8493081761006289
+    ],
+    "mean": 0.8517735849056605,
+    "std": 0.004368385221866335,
+    "n": 3
+  },
+  "val": {
+    "per_seed": [
+      0.8583073362181745,
+      0.8484955217872597,
+      0.8487471067726678
+    ],
+    "mean": 0.8518499882593673,
+    "std": 0.004567189562305865,
+    "n": 3
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "accuracy": 0.8579119496855346,
+        "accuracy_unguarded": 0.8579119496855346,
+        "correct": 17051,
+        "n": 19875,
+        "guard_ok": true,
+        "guards": {
+          "parameters": true,
+          "steps": true,
+          "epochs": true
+        },
+        "parameters": 703080,
+        "steps": 1000,
+        "epochs": 72,
+        "score_rule_worst": 0,
+        "model_sha256": "609ac73d3a295d86aa8c11b114db6adcb87b19fd06d241d76b2e613394994f14"
+      },
+      "val": {
+        "accuracy": 0.8583073362181745,
+        "accuracy_unguarded": 0.8583073362181745,
+        "correct": 17058,
+        "n": 19874,
+        "guard_ok": true,
+        "guards": {
+          "parameters": true,
+          "steps": true,
+          "epochs": true
+        },
+        "parameters": 703080,
+        "steps": 1000,
+        "epochs": 72,
+        "score_rule_worst": 0,
+        "model_sha256": "609ac73d3a295d86aa8c11b114db6adcb87b19fd06d241d76b2e613394994f14"
+      },
+      "timing": {
+        "train_s": 753.28,
+        "predict_s": 10.08,
+        "score_s": 0.25,
+        "predict_val_s": 9.63
+      }
+    },
+    "2": {
+      "test": {
+        "accuracy": 0.8481006289308176,
+        "accuracy_unguarded": 0.8481006289308176,
+        "correct": 16856,
+        "n": 19875,
+        "guard_ok": true,
+        "guards": {
+          "parameters": true,
+          "steps": true,
+          "epochs": true
+        },
+        "parameters": 703080,
+        "steps": 1000,
+        "epochs": 72,
+        "score_rule_worst": 0,
+        "model_sha256": "9a76b8dcfd5aaf6b9214316bd963bdda0732d7a4382073fad40c59945e36676b"
+      },
+      "val": {
+        "accuracy": 0.8484955217872597,
+        "accuracy_unguarded": 0.8484955217872597,
+        "correct": 16863,
+        "n": 19874,
+        "guard_ok": true,
+        "guards": {
+          "parameters": true,
+          "steps": true,
+          "epochs": true
+        },
+        "parameters": 703080,
+        "steps": 1000,
+        "epochs": 72,
+        "score_rule_worst": 0,
+        "model_sha256": "9a76b8dcfd5aaf6b9214316bd963bdda0732d7a4382073fad40c59945e36676b"
+      },
+      "timing": {
+        "train_s": 767.29,
+        "predict_s": 9.63,
+        "score_s": 0.26,
+        "predict_val_s": 9.48
+      }
+    },
+    "3": {
+      "test": {
+        "accuracy": 0.8493081761006289,
+        "accuracy_unguarded": 0.8493081761006289,
+        "correct": 16880,
+        "n": 19875,
+        "guard_ok": true,
+        "guards": {
+          "parameters": true,
+          "steps": true,
+          "epochs": true
+        },
+        "parameters": 703080,
+        "steps": 1000,
+        "epochs": 72,
+        "score_rule_worst": 0,
+        "model_sha256": "3912a342123faa65ac675836dce6623bb06b2600d3f246915f508c86e42f3a73"
+      },
+      "val": {
+        "accuracy": 0.8487471067726678,
+        "accuracy_unguarded": 0.8487471067726678,
+        "correct": 16868,
+        "n": 19874,
+        "guard_ok": true,
+        "guards": {
+          "parameters": true,
+          "steps": true,
+          "epochs": true
+        },
+        "parameters": 703080,
+        "steps": 1000,
+        "epochs": 72,
+        "score_rule_worst": 0,
+        "model_sha256": "3912a342123faa65ac675836dce6623bb06b2600d3f246915f508c86e42f3a73"
+      },
+      "timing": {
+        "train_s": 758.33,
+        "predict_s": 9.69,
+        "score_s": 0.25,
+        "predict_val_s": 9.58
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      753.28,
+      767.29,
+      758.33
+    ],
+    "predict_s": [
+      10.08,
+      9.63,
+      9.69
+    ],
+    "build_s": 6.8
+  },
+  "hashes": {
+    "env_lock": "5be77f0f14a8d6089d04f14016be792d37310d8e7ecd505ffc383e96c5b6933a",
+    "scorer": "0036922abb7aa1a4c10e825c111bd57d702a3df16738ddabe1d4940eb89e12b9",
+    "validate": "f17797531aa70681ce3bc5cc87d2e75d7acbb55b3f053edee86b5b250ef12eb5",
+    "test_labels": "ec51904c72719bda049feb116e6d99054a755fff385e800685ef4203074f7a72",
+    "adapt_patch": "a6822550604673a76ab70ba8539a9ec7adbfa5748595c3579ed5fbaf48aefb67"
+  }
+}

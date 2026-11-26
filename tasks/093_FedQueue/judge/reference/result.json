@@ -1,0 +1,205 @@
+{
+  "task": "093_FedQueue",
+  "created": "2026-11-02T12:09:11+0000",
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "cpus": 16,
+  "adapt_commit": "9485954e00d4007bd707296e85832c77001adfe7",
+  "sandbox": true,
+  "budget_s": 21600.0,
+  "test": {
+    "per_seed": [
+      87.52,
+      77.21,
+      80.33,
+      86.3,
+      93.71
+    ],
+    "mean": 85.014,
+    "std": 5.7688217167806455,
+    "n": 5
+  },
+  "val": {
+    "per_seed": [
+      86.875,
+      77.85,
+      80.65,
+      86.14166666666667,
+      93.14166666666667
+    ],
+    "mean": 84.93166666666666,
+    "std": 5.31276607176839,
+    "n": 5
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "accuracy": 87.52,
+        "manifest_score": 87.52,
+        "guard_pass": true,
+        "guard_reasons": [],
+        "total_local_steps": 12851,
+        "baseline_local_steps": 14244.8,
+        "step_limit": 17093.76,
+        "selected_round": 49
+      },
+      "val": {
+        "accuracy": 86.875,
+        "manifest_score": 86.875,
+        "guard_pass": true,
+        "guard_reasons": [],
+        "total_local_steps": 12851,
+        "baseline_local_steps": 14244.8,
+        "step_limit": 17093.76,
+        "selected_round": 49
+      },
+      "timing": {
+        "train_s": 1026.2,
+        "predict_s": 10.83,
+        "score_s": 0.52,
+        "predict_val_s": 11.13
+      }
+    },
+    "2": {
+      "test": {
+        "accuracy": 77.21,
+        "manifest_score": 77.21,
+        "guard_pass": true,
+        "guard_reasons": [],
+        "total_local_steps": 13380,
+        "baseline_local_steps": 14244.8,
+        "step_limit": 17093.76,
+        "selected_round": 44
+      },
+      "val": {
+        "accuracy": 77.85,
+        "manifest_score": 77.85,
+        "guard_pass": true,
+        "guard_reasons": [],
+        "total_local_steps": 13380,
+        "baseline_local_steps": 14244.8,
+        "step_limit": 17093.76,
+        "selected_round": 44
+      },
+      "timing": {
+        "train_s": 1052.31,
+        "predict_s": 10.84,
+        "score_s": 0.51,
+        "predict_val_s": 10.98
+      }
+    },
+    "3": {
+      "test": {
+        "accuracy": 80.33,
+        "manifest_score": 80.33,
+        "guard_pass": true,
+        "guard_reasons": [],
+        "total_local_steps": 13106,
+        "baseline_local_steps": 14244.8,
+        "step_limit": 17093.76,
+        "selected_round": 23
+      },
+      "val": {
+        "accuracy": 80.65,
+        "manifest_score": 80.65,
+        "guard_pass": true,
+        "guard_reasons": [],
+        "total_local_steps": 13106,
+        "baseline_local_steps": 14244.8,
+        "step_limit": 17093.76,
+        "selected_round": 23
+      },
+      "timing": {
+        "train_s": 946.59,
+        "predict_s": 10.13,
+        "score_s": 0.48,
+        "predict_val_s": 11.64
+      }
+    },
+    "4": {
+      "test": {
+        "accuracy": 86.3,
+        "manifest_score": 86.3,
+        "guard_pass": true,
+        "guard_reasons": [],
+        "total_local_steps": 13359,
+        "baseline_local_steps": 14244.8,
+        "step_limit": 17093.76,
+        "selected_round": 48
+      },
+      "val": {
+        "accuracy": 86.14166666666667,
+        "manifest_score": 86.14166666666667,
+        "guard_pass": true,
+        "guard_reasons": [],
+        "total_local_steps": 13359,
+        "baseline_local_steps": 14244.8,
+        "step_limit": 17093.76,
+        "selected_round": 48
+      },
+      "timing": {
+        "train_s": 1040.28,
+        "predict_s": 10.88,
+        "score_s": 0.52,
+        "predict_val_s": 10.98
+      }
+    },
+    "5": {
+      "test": {
+        "accuracy": 93.71,
+        "manifest_score": 93.71,
+        "guard_pass": true,
+        "guard_reasons": [],
+        "total_local_steps": 13336,
+        "baseline_local_steps": 14244.8,
+        "step_limit": 17093.76,
+        "selected_round": 33
+      },
+      "val": {
+        "accuracy": 93.14166666666667,
+        "manifest_score": 93.14166666666667,
+        "guard_pass": true,
+        "guard_reasons": [],
+        "total_local_steps": 13336,
+        "baseline_local_steps": 14244.8,
+        "step_limit": 17093.76,
+        "selected_round": 33
+      },
+      "timing": {
+        "train_s": 1065.21,
+        "predict_s": 11.08,
+        "score_s": 0.53,
+        "predict_val_s": 11.33
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      1026.2,
+      1052.31,
+      946.59,
+      1040.28,
+      1065.21
+    ],
+    "predict_s": [
+      10.83,
+      10.84,
+      10.13,
+      10.88,
+      11.08
+    ],
+    "build_s": 10.6
+  },
+  "hashes": {
+    "env_lock": "a5c9ed08341ba8797a6974544ba05425a5c1abdc0f243e2b0fae5d7f40fa600e",
+    "scorer": "08105bf16285c30f9b583763b7c1dcf1b5c096ecec7aae4df8ecaa3de65ed807",
+    "validate": "50d389de307ccbb5b441d4c041f7567b807e68b1d5fdee725b6ddc5b614d6477",
+    "test_labels": "a3e2cddef374fac22ec8f085a1256a87afb7ced9041da3d2c8bdb16b699e038f",
+    "adapt_patch": "20dc83f9e4d0c3f4a07cb60c8a54ca2bdc22012d35811b412368ac30331f392e"
+  }
+}

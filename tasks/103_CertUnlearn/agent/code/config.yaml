@@ -1,0 +1,59 @@
+# PRIMARY PABI (Gradient Clipping) config for the paper's Table 2 metric.
+# Hyper-parameters (lambda=50, C1=10, eta=0.01, C0=20 -> 11 noisy steps, sigma~0.257)
+# and the 50-epoch budget match the released code/budget_curve_runs/pabi-cifar/*.yaml
+# configs (the runs behind Table 2 / Figure 1). Only the initial-model checkpoint path
+# was changed (the authors' logs/iep18hnq/ckpt is not published).
+dataset:
+  name: cifar10
+  input_shape:
+  - 32
+  - 32
+  - 3
+  root: ./data
+  batch_size: 128
+  num_workers: 4
+  val_split: 0.1
+  forget_split: 0.1
+  seed: 142
+model:
+  name: tiny_net_cifar
+  n_classes: 10
+training:
+  epochs: 100
+  optim: SGD
+  max_lr: 0.1
+  momentum: 0
+  weight_decay: 0.0005
+  lr_schedule: onecycle
+  pretrained: ./logs/base100/ckpt
+unlearning:
+  epochs: 50
+  optim: SGD
+  momentum: 0
+  weight_decay: 50
+  lr_schedule: constant
+  noise_schedule: constant
+  max_lr: 0.01
+  init_model_clip: 20
+  init_model_clip_type: clip
+  init_sigma: 0
+  algorithm: iteration
+  delta: 1.0e-05
+  iteration:
+    epsilon_renyi_target: 1
+    grad_clip: 10
+    calc_intermediate_eps_renyi: false
+post_unlearning:
+  optim: SGD
+  momentum: 0
+  weight_decay: 0.0005
+  lr_schedule: onecycle
+  max_lr: 0.1
+  post_unlearn_clip: false
+wandb:
+  project: unlearning-dp-f3
+  entity: unlearning-dynamics
+  log_dir: ./wandb_logs
+secure_rng: false
+save_every: 1
+global_seed: 1234

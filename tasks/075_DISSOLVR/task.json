@@ -1,0 +1,175 @@
+{
+  "pid": "075_DISSOLVR",
+  "class": "A",
+  "title": "DISSOLVR: An Interpretable and Fast Framework for Aqueous and Organic Solubility Prediction",
+  "metric": {
+    "name": "rmse",
+    "higher_is_better": false,
+    "delta": 0.005,
+    "aggregate": "mean"
+  },
+  "cpus": 16,
+  "memory_gb": 16,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.csv",
+    "val_labels": "data/val/labels.csv",
+    "test_input": "test/input.csv",
+    "test_labels": "test/labels.csv",
+    "input_format": "csv",
+    "output_format": "csv"
+  },
+  "split": {
+    "type": "train_test",
+    "decision": "Validation: approximately 20% of released training rows, whole Bemis-Murcko scaffold groups, fixed shuffle seed 20261030, greedy closest to target. Exact released evaluation split retained privately. IDs are original curated-table row numbers. Materialized train=5984, val=1496; disjoint scaffolds; empty scaffold remains a single group."
+  },
+  "baseline": {
+    "train_min": 5.14,
+    "eval_min": 0.5,
+    "val": {
+      "rmse": 0.9261715700795582
+    },
+    "paper_ref": "Curated manifest baseline 0.81629; historical code measurement, not a verified paper claim.",
+    "measured_s": {
+      "train": [
+        308.3,
+        308.3,
+        307.36
+      ],
+      "predict": [
+        11.83,
+        11.88,
+        11.93
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0005684307914693476,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:9dc4c7fa141a82734329302801f23378173f84934412840f1024cdc4f3e8a34b"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "2162458a570843aa84f21a5bf00bc72ff4142315",
+    "adapt_commit": "2163cb8ca0d6011b3fe3f0e6a6fb62f037d0cab0",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "pre_method_freedom_baseline_val": {
+    "rmse": 0.9261715700795582
+  },
+  "leakage_remediation": {
+    "full_evaluation_ready": false,
+    "superseded_by": "audits/20261101_method_freedom/075_DISSOLVR.json",
+    "evidence_is_historical": true
+  },
+  "method_freedom": {
+    "report": "audits/20261101_method_freedom/075_DISSOLVR.json",
+    "full_training_or_evaluation_run": false,
+    "scope_superseded_by": "audits/20261101_research_contract/075_DISSOLVR.json"
+  },
+  "method_freedom_review": {
+    "report": "audits/20261101_research_contract/075_DISSOLVR.json",
+    "allowed_changes": [
+      "explicit, named molecular descriptors computed from supplied SMILES, regressors on those descriptors, training surrogate loss and optimizer",
+      "feature processing, model-selection procedure and hyperparameters using only permitted fitting labels"
+    ],
+    "fixed_contract": [
+      "Predict aqueous solubility in log10(mol/L) from the supplied molecular SMILES, minimizing the mean of five independent model RMSEs.",
+      "released SMILES and solubility observations, fixed scaffold development split and original evaluation partition",
+      "only train.csv labels for fitting, development labels for selection, no fitting during prediction and five independent supplied-seed models",
+      "original logS units and mean of five separate all-row RMSEs",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/075_DISSOLVR.json",
+    "status": "reviewed_and_corrected",
+    "forbidden_substitutions": [
+      "Each prediction column must come from one regressor fit with its one supplied seed; averaging several independently seeded fits inside a column counts as substituting ensemble RMSE.",
+      "Do not replace explicit descriptors with a learned or hashed molecular representation, such as a graph neural network, SMILES model, pretrained embedding or hashed fingerprint. Changing the molecules, solubility target/units or split, fitting on validation labels or prediction batches",
+      "substituting ensemble RMSE, duplicating one fitted model across seed slots, external data or row-ID answer lookup",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Predict aqueous solubility in log10(mol/L) from the supplied molecular SMILES, minimizing the mean of five independent model RMSEs.",
+    "fixed_research_objects": [
+      "released SMILES and solubility observations, fixed scaffold development split and original evaluation partition",
+      "only train.csv labels for fitting, development labels for selection, no fitting during prediction and five independent supplied-seed models",
+      "original logS units and mean of five separate all-row RMSEs"
+    ],
+    "editable_components": [
+      "explicit, named molecular descriptors computed from supplied SMILES, regressors on those descriptors, training surrogate loss and optimizer",
+      "feature processing, model-selection procedure and hyperparameters using only permitted fitting labels"
+    ],
+    "forbidden_substitutions": [
+      "Each prediction column must come from one regressor fit with its one supplied seed; averaging several independently seeded fits inside a column counts as substituting ensemble RMSE.",
+      "Do not replace explicit descriptors with a learned or hashed molecular representation, such as a graph neural network, SMILES model, pretrained embedding or hashed fingerprint. Changing the molecules, solubility target/units or split, fitting on validation labels or prediction batches",
+      "substituting ensemble RMSE, duplicating one fitted model across seed slots, external data or row-ID answer lookup",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "source": "tasks/075_DISSOLVR/BRIEF.md",
+        "section": "original experiment/score_rule/user decision,lines 26-33",
+        "finding": "The task is molecular logS prediction with explicit train-only fitting and five-model scoring. The released descriptors and CatBoost are baseline methods, not fixed scientific objects."
+      },
+      {
+        "source": "tasks/075_DISSOLVR/agent/bench/scorer.py",
+        "section": "trusted numerical scoring and guard call path",
+        "finding": "The declared research target agrees with the actual scorer and its frozen helpers."
+      },
+      {
+        "source": "audits/20261101_method_freedom/075_DISSOLVR.json",
+        "section": "earlier evaluator/interface audit",
+        "finding": "Prior runtime/information-boundary work is preserved; unconditional method language is replaced by the task-specific scope."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/075_DISSOLVR.json"
+  },
+  "research_contract_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/075_DISSOLVR.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

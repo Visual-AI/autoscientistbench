@@ -1,0 +1,169 @@
+{
+  "pid": "065_BMVL",
+  "class": "A",
+  "title": "Bootstrapping Multi-view Learning for Test-time Noisy Correspondence",
+  "metric": {
+    "name": "acc_eta50",
+    "higher_is_better": true,
+    "delta": 0.005,
+    "aggregate": "mean"
+  },
+  "cpus": 32,
+  "memory_gb": 32,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.json",
+    "val_labels": "data/val/private/manifest.json",
+    "test_input": "test/input.json",
+    "test_labels": "test/private/manifest.json",
+    "input_format": "json request",
+    "output_format": "private-policy-v2 stored ZIP"
+  },
+  "split": {
+    "type": "train_test",
+    "decision": "Preserve all five original datasets and seeds 0-9, original stratified 80:20 partition order and global min-max preprocessing. Real data remain private. A fresh isolated fitting process receives only one original training fold; its opaque output is privately replayed in separate clean/noisy inference processes. No cross-fold or cross-condition writable state. Public development is the real CCV dataset from the paper's Table 2, seeds 0 to 4, which shares no rows with the scored population; no validation carve changes the scientific population."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 0.5,
+    "val": {
+      "acc_eta50": 52.396
+    },
+    "paper_ref": "Table 1 five datasets, seeds 0-9, 200 epochs. Original reproduction acc_eta50=88.8404, acc_eta0=92.2982 are historical provenance only.",
+    "measured_s": {
+      "train": [
+        0.21
+      ],
+      "predict": [
+        0.26
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1
+    ],
+    "val_judge": false,
+    "parity_rel_tol": 0.01,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:03ede126cacaaef5de85d93e20b36d40b34ac38b972bb6367b0c84cb6244ee23"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple",
+      "https://download.pytorch.org/whl/cpu"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "d48970f43339ee88f46afc0d45103bfdc25bcfc5",
+    "adapt_commit": "d78c20c63c3c21efb34b37ad1a1298abd95b18d7",
+    "patch": "judge/reference/adapt.patch",
+    "source": "operator sanitized source export; provenance in NOTES.md"
+  },
+  "method_freedom": {
+    "report": "audits/20261101_method_freedom/065_BMVL.json",
+    "full_training_or_evaluation_run": false,
+    "superseded_by": "research_contract",
+    "scope_superseded_by": "audits/20261101_research_contract/065_BMVL.json"
+  },
+  "method_freedom_review": {
+    "report": "audits/20261101_research_contract/065_BMVL.json",
+    "allowed_changes": [
+      "The multi-view learning model, representation, training surrogate, optimizer, hyperparameters and training schedule may change within the fixed noisy-correspondence classification problem.",
+      "When retaining the supplied BML pipeline, changing only epochs=200, batch_size=2048, learning_rate=0.002, cosine eta_min=1e-8, augment_ratio=0.5, lambda_w=1, feat_dim=128, eps=1e-8 or dropout=0.5 does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Learn classification from the fixed multi-view datasets with noisy view correspondences.",
+      "The intended five datasets, released correspondence corruption, ten original seed-specific splits and 50%/0% noise evaluation conditions define the research problem.",
+      "The intended objective is equal-dataset mean accuracy at 50% noise, subject to mean accuracy at 0% noise at least 91.80.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/065_BMVL.json",
+    "status": "scope_defined_private_isolation_implemented",
+    "forbidden_substitutions": [
+      "Do not replace the datasets or noisy correspondence problem, provide clean alignment that is not an allowed input, change accuracy aggregation/guard, or treat the placeholder CSV/MSE evaluator as the research metric.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Supplied features were min-max normalized once before partitioning; this is part of the fixed observations, not a fitted step available to candidates."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Learn classification from the fixed multi-view datasets with noisy view correspondences.",
+    "fixed_research_objects": [
+      "The intended five datasets, released correspondence corruption, ten original seed-specific splits and 50%/0% noise evaluation conditions define the research problem.",
+      "The intended objective is equal-dataset mean accuracy at 50% noise, subject to mean accuracy at 0% noise at least 91.80."
+    ],
+    "editable_components": [
+      "The multi-view learning model, representation, training surrogate, optimizer, hyperparameters and training schedule may change within the fixed noisy-correspondence classification problem.",
+      "When retaining the supplied BML pipeline, changing only epochs=200, batch_size=2048, learning_rate=0.002, cosine eta_min=1e-8, augment_ratio=0.5, lambda_w=1, feat_dim=128, eps=1e-8 or dropout=0.5 does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "Do not replace the datasets or noisy correspondence problem, provide clean alignment that is not an allowed input, change accuracy aggregation/guard, or treat the placeholder CSV/MSE evaluator as the research metric.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Supplied features were min-max normalized once before partitioning; this is part of the fixed observations, not a fitted step available to candidates."
+    ],
+    "evidence": [
+      {
+        "path": "tasks/065_BMVL/BRIEF.md",
+        "finding": "The metric and score rule define five-dataset accuracy at 50% noisy correspondences with the clean-condition accuracy guard."
+      },
+      {
+        "path": "tasks/065_BMVL/agent/README.md",
+        "finding": "Private per-fold fitting and condition-isolated inference preserve original overlapping splits without disclosing other-fold targets or clean alignment; public development is the real CCV dataset, disjoint from the scored population."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/065_BMVL.json"
+  },
+  "research_contract_review": {
+    "status": "scope_defined_private_isolation_implemented",
+    "report": "audits/20261101_research_contract/065_BMVL.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "protocol_version": "private-policy-v2",
+  "conversion": {
+    "audit": "audits/20261101_remaining_six_conversion/065_BMVL.json",
+    "full_data_ready": true,
+    "report": "audits/20261101_remaining_six_conversion/065_BMVL.json",
+    "root_delivery_check": "audits/20261101_remaining_six_conversion/delivery_checks.json"
+  },
+  "leakage_remediation": {
+    "status": "smoke_verified",
+    "outer_harness_changed": false,
+    "full_training_or_evaluation_run": false,
+    "evidence": [
+      "audits/20261101_remaining_six_conversion/065_BMVL/smoke.json",
+      "tasks/065_BMVL/judge/audit/materialization.json"
+    ]
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

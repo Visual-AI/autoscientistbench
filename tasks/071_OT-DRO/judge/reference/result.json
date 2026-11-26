@@ -1,0 +1,91 @@
+{
+  "task": "071_OT-DRO",
+  "created": "2026-11-03T07:26:03+0000",
+  "seeds": [
+    1
+  ],
+  "cpus": 8,
+  "adapt_commit": "af8c2db90b895bad60fab101698f64a8752781bf",
+  "sandbox": true,
+  "budget_s": 43200.0,
+  "test": {
+    "per_seed": [
+      28.09928830333872
+    ],
+    "mean": 28.09928830333872,
+    "std": 0.0,
+    "n": 1
+  },
+  "val": {
+    "per_seed": [
+      29.747543926630016
+    ],
+    "mean": 29.747543926630016,
+    "std": 0.0,
+    "n": 1
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "e_oos": 28.09928830333872,
+        "e_oos_raw": 28.09928830333872,
+        "n_instances": 30,
+        "guards_ok": true,
+        "decision_violations": 0,
+        "max_decision_dw": 6.853146296337265e-05,
+        "bootstrap_exceedance": 0.3383333333333333,
+        "bootstrap_exceedance_max": 0.3883333333333333,
+        "exceedance_ok": true,
+        "coverage_rate": 0.3,
+        "coverage_min": 0.25,
+        "coverage_ok": true,
+        "baseline_exceedance": 0.3383333333333333,
+        "baseline_coverage_rate": 0.3,
+        "thresholds_from": "baseline on these instances",
+        "noise_floor": 22.45124834393249,
+        "baseline_e_oos": 28.09928830333872
+      },
+      "val": {
+        "e_oos": 29.747543926630016,
+        "e_oos_raw": 29.747543926630016,
+        "n_instances": 20,
+        "guards_ok": true,
+        "decision_violations": 0,
+        "max_decision_dw": 3.221965014299499e-05,
+        "bootstrap_exceedance": 0.37249999999999994,
+        "bootstrap_exceedance_max": 0.42249999999999993,
+        "exceedance_ok": true,
+        "coverage_rate": 0.2,
+        "coverage_min": 0.15000000000000002,
+        "coverage_ok": true,
+        "baseline_exceedance": 0.37249999999999994,
+        "baseline_coverage_rate": 0.2,
+        "thresholds_from": "baseline on these instances",
+        "noise_floor": 22.451248343932498,
+        "baseline_e_oos": 29.747543926630016
+      },
+      "timing": {
+        "train_s": 0.52,
+        "predict_s": 1569.45,
+        "score_s": 6.4,
+        "predict_val_s": 322.77
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      0.52
+    ],
+    "predict_s": [
+      1569.45
+    ],
+    "build_s": 3.6
+  },
+  "hashes": {
+    "env_lock": "8a8ddfe00c69ff2c98942c63a85050467d6a22495b154f859c3205d9ef360719",
+    "scorer": "009b2cd053f01564c339efe8140381ccec63af4c91aa4ab160ce3f16b1bb7b65",
+    "validate": "f5493499076593dec09cd7b62aa811c06fdb3525fd807534d5ae6cf272f7ef7b",
+    "test_labels": "78e6faa857f72b1c84421b2616842f536f951493c5e8a11ecb90e1b2e2f09019",
+    "adapt_patch": "2c28070216b66c4e0871f520928c4ef6e3a422e78a9f8375c66d3a935bb145c9"
+  }
+}

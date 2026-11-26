@@ -1,0 +1,139 @@
+{
+  "task": "019_MultiContextSeeds",
+  "created": "2026-11-02T06:57:09+0000",
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "cpus": 12,
+  "adapt_commit": "bac299e2ab0f44b546e84e1322a2989911386e62",
+  "sandbox": true,
+  "budget_s": 21600.0,
+  "test": {
+    "per_seed": [
+      85.0746,
+      85.0746,
+      85.0746
+    ],
+    "mean": 85.0746,
+    "std": 0.0,
+    "n": 3
+  },
+  "val": {
+    "per_seed": [
+      92.4397,
+      92.4397,
+      92.4397
+    ],
+    "mean": 92.4397,
+    "std": 0.0,
+    "n": 3
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "score": 85.0746,
+        "mapping_accuracy_pct": 85.0746,
+        "mapping_time_s_tool_reported": 13.9,
+        "constraints_ok": true,
+        "reads": 1000000,
+        "correct": 850746,
+        "protocol": "full",
+        "runtime_provenance": "candidate tool report; timer and execution authenticity require patch audit"
+      },
+      "val": {
+        "score": 92.4397,
+        "mapping_accuracy_pct": 92.4397,
+        "mapping_time_s_tool_reported": 6.5,
+        "constraints_ok": true,
+        "reads": 1000000,
+        "correct": 924397,
+        "protocol": "full",
+        "runtime_provenance": "candidate tool report; timer and execution authenticity require patch audit"
+      },
+      "timing": {
+        "train_s": 10.75,
+        "predict_s": 56.22,
+        "score_s": 4.48,
+        "predict_val_s": 54.21
+      }
+    },
+    "2": {
+      "test": {
+        "score": 85.0746,
+        "mapping_accuracy_pct": 85.0746,
+        "mapping_time_s_tool_reported": 14.1,
+        "constraints_ok": true,
+        "reads": 1000000,
+        "correct": 850746,
+        "protocol": "full",
+        "runtime_provenance": "candidate tool report; timer and execution authenticity require patch audit"
+      },
+      "val": {
+        "score": 92.4397,
+        "mapping_accuracy_pct": 92.4397,
+        "mapping_time_s_tool_reported": 6.3,
+        "constraints_ok": true,
+        "reads": 1000000,
+        "correct": 924397,
+        "protocol": "full",
+        "runtime_provenance": "candidate tool report; timer and execution authenticity require patch audit"
+      },
+      "timing": {
+        "train_s": 10.85,
+        "predict_s": 56.27,
+        "score_s": 4.37,
+        "predict_val_s": 47.59
+      }
+    },
+    "3": {
+      "test": {
+        "score": 85.0746,
+        "mapping_accuracy_pct": 85.0746,
+        "mapping_time_s_tool_reported": 14.0,
+        "constraints_ok": true,
+        "reads": 1000000,
+        "correct": 850746,
+        "protocol": "full",
+        "runtime_provenance": "candidate tool report; timer and execution authenticity require patch audit"
+      },
+      "val": {
+        "score": 92.4397,
+        "mapping_accuracy_pct": 92.4397,
+        "mapping_time_s_tool_reported": 6.3,
+        "constraints_ok": true,
+        "reads": 1000000,
+        "correct": 924397,
+        "protocol": "full",
+        "runtime_provenance": "candidate tool report; timer and execution authenticity require patch audit"
+      },
+      "timing": {
+        "train_s": 10.65,
+        "predict_s": 56.81,
+        "score_s": 4.19,
+        "predict_val_s": 47.86
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      10.75,
+      10.85,
+      10.65
+    ],
+    "predict_s": [
+      56.22,
+      56.27,
+      56.81
+    ],
+    "build_s": 2.61
+  },
+  "hashes": {
+    "env_lock": "14b4981a7193ddec8c0e387bf4b8d36ae30de132dd1420e8d70a4016cf1448d8",
+    "scorer": "d36cc57b081ce85ce7464255fb2f2f7944258a7d547cb7bf4e90795bac3799af",
+    "validate": "dca2d901069bc9130a5cf62900aa9689a6c18a64c337f7076af478b255c5607c",
+    "test_labels": null,
+    "adapt_patch": "fe0f20ecc8afa3d12aca3e7b94dcc2f7d69565799da1786a9012b69b8d267b56"
+  }
+}

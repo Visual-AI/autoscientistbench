@@ -1,0 +1,151 @@
+{
+  "task": "097_ReNF",
+  "created": "2026-11-03T10:29:33+0000",
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "cpus": 8,
+  "adapt_commit": "957ab705a8fda950944da96eddd4c0a9f1312669",
+  "sandbox": true,
+  "budget_s": 86400.0,
+  "test": {
+    "per_seed": [
+      0.3506823804097031,
+      0.3506932554018791,
+      0.3505372041878794
+    ],
+    "mean": 0.3506376133331539,
+    "std": 7.113866133483424e-05,
+    "n": 3
+  },
+  "val": {
+    "per_seed": [
+      0.6954731133819695,
+      0.6951864982212136,
+      0.6935417301923713
+    ],
+    "mean": 0.6947337805985181,
+    "std": 0.0008509896946849126,
+    "n": 3
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "mse": 0.3506823804097031,
+        "guard_ok": true,
+        "mae": 0.3831811702745521,
+        "protocol": "private-forecast-v2",
+        "evaluation_windows": 2785,
+        "isolation": "fresh_worker_per_window",
+        "original_metric_preserved": true,
+        "prediction_wall_s": 1350.1320969816297,
+        "worker_pool_size": 8,
+        "artifact_setup_s": 3.9432903956621885
+      },
+      "val": {
+        "mse": 0.6954731133819695,
+        "guard_ok": true,
+        "mae": 0.559064687553852,
+        "protocol": "private-forecast-v2",
+        "evaluation_windows": 2785,
+        "isolation": "fresh_worker_per_window",
+        "original_metric_preserved": true,
+        "prediction_wall_s": 1350.9245056789368,
+        "worker_pool_size": 8,
+        "artifact_setup_s": 3.737261611968279
+      },
+      "timing": {
+        "train_s": 154.03,
+        "predict_s": 2.97,
+        "score_s": 1354.83,
+        "predict_val_s": 2.92
+      }
+    },
+    "2": {
+      "test": {
+        "mse": 0.3506932554018791,
+        "guard_ok": true,
+        "mae": 0.38318258007035283,
+        "protocol": "private-forecast-v2",
+        "evaluation_windows": 2785,
+        "isolation": "fresh_worker_per_window",
+        "original_metric_preserved": true,
+        "prediction_wall_s": 1353.3294185753912,
+        "worker_pool_size": 8,
+        "artifact_setup_s": 3.81911401450634
+      },
+      "val": {
+        "mse": 0.6951864982212136,
+        "guard_ok": true,
+        "mae": 0.5589681131483382,
+        "protocol": "private-forecast-v2",
+        "evaluation_windows": 2785,
+        "isolation": "fresh_worker_per_window",
+        "original_metric_preserved": true,
+        "prediction_wall_s": 1349.3016240149736,
+        "worker_pool_size": 8,
+        "artifact_setup_s": 3.7187061440199614
+      },
+      "timing": {
+        "train_s": 172.23,
+        "predict_s": 2.97,
+        "score_s": 1357.9,
+        "predict_val_s": 2.92
+      }
+    },
+    "3": {
+      "test": {
+        "mse": 0.3505372041878794,
+        "guard_ok": true,
+        "mae": 0.3829970832272058,
+        "protocol": "private-forecast-v2",
+        "evaluation_windows": 2785,
+        "isolation": "fresh_worker_per_window",
+        "original_metric_preserved": true,
+        "prediction_wall_s": 1351.6308513972908,
+        "worker_pool_size": 8,
+        "artifact_setup_s": 3.809474591165781
+      },
+      "val": {
+        "mse": 0.6935417301923713,
+        "guard_ok": true,
+        "mae": 0.5584199005968439,
+        "protocol": "private-forecast-v2",
+        "evaluation_windows": 2785,
+        "isolation": "fresh_worker_per_window",
+        "original_metric_preserved": true,
+        "prediction_wall_s": 1348.571591278538,
+        "worker_pool_size": 8,
+        "artifact_setup_s": 3.766150252893567
+      },
+      "timing": {
+        "train_s": 178.2,
+        "predict_s": 2.97,
+        "score_s": 1356.19,
+        "predict_val_s": 2.97
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      154.03,
+      172.23,
+      178.2
+    ],
+    "predict_s": [
+      2.97,
+      2.97,
+      2.97
+    ],
+    "build_s": 7.7
+  },
+  "hashes": {
+    "env_lock": "4ce23dd6175a20a7aedffa5484faf3b1e104860b09ee61373e4846c148c4e7e9",
+    "scorer": "54c2c776ab87764e8717cf2f51e6f8ef022d5027c0943a31c9b43c6cd1468642",
+    "validate": "f8cdf79c0879d473c1b7969a112b99d94928d6c08831e07a14cac73849be39a4",
+    "test_labels": null,
+    "adapt_patch": "dea7e8e94e67b9692088f47292dc5c161f3b479f7bbf72331f2168821d6c3102"
+  }
+}

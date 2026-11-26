@@ -1,0 +1,8 @@
+{
+  "protocol": "private-forecast-v2",
+  "task_id": "imp-42-xPatch",
+  "family": "multi_horizon",
+  "cpus": 8,
+  "max_lookback": 96,
+  "pretrained_resource": false
+}

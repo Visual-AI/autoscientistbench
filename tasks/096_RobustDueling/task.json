@@ -1,0 +1,240 @@
+{
+  "pid": "096_RobustDueling",
+  "class": "A",
+  "title": "Robust Linear Dueling Bandits with Post-serving Context under Unknown Delays and Adversarial Corruptions",
+  "metric": {
+    "name": "cumulative_regret",
+    "higher_is_better": false,
+    "delta": 0.05,
+    "aggregate": "mean"
+  },
+  "cpus": 8,
+  "memory_gb": 16,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.json",
+    "val_labels": "data/val/labels",
+    "test_input": "test/input.json",
+    "test_labels": "test/labels",
+    "input_format": "private-policy-v2-manifest",
+    "output_format": "private-policy-v2-artifact"
+  },
+  "split": {
+    "type": "online",
+    "decision": "Online Figure 2(b): T=2000, d=10, e=20, K=10, sinusoidal map, Gaussian delays N(100,100^2), C=25. Public validation master 20261030: 10 episodes; hidden test master from secrets: 10 disjoint episodes, one group. No offline training. The original 10 fixed seeds are retained only for archival metric verification; secret holdout replaces public evaluation seeds to prevent leakage. Separate instance/noise/algorithm streams. Protocol v2 preserves every generated episode but hides all test seeds and future state in the private labels directory. Candidate policies run in per-episode sandbox workers; trusted RPC enforces causal access and counts."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 0.5,
+    "val": {
+      "cumulative_regret": 9608.374583721097
+    },
+    "paper_ref": "Figure 2(b); operational reproduction 9364.691823109459. New hidden episodes and separated RNG streams; see operator notes.",
+    "reference_status": "invalidated_by_private_policy_v2",
+    "timing_scope": "legacy protocol estimates retained for operational budgeting; not a measured v2 reference",
+    "measured_s": {
+      "train": [
+        0.31,
+        0.31,
+        0.31
+      ],
+      "predict": [
+        2.88,
+        2.77,
+        2.88
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:241f2b4629f001132aca25b56d4d550d499fc14ad96cc7160ad47c75b7cadc00"
+  },
+  "env": {
+    "python": "3.10",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple",
+      "https://download.pytorch.org/whl/cpu"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "cbcd87ef3455e5d10087fd523a17d4597870f8f2",
+    "adapt_commit": "bd8ee33ad5046059956bf3895474e060f9db4196",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "protocol_version": "private-policy-v2",
+  "conversion": {
+    "reason": "Experiment-preserving private-policy-v2 repair verified on one original validation episode; full reference and full throughput were not requested."
+  },
+  "smoke": {
+    "input": "judge/verification/private_smoke/input.json",
+    "labels": "judge/verification/private_smoke/labels"
+  },
+  "leakage_remediation": {
+    "status": "smoke_verified",
+    "outer_harness_changed": false,
+    "full_training_or_evaluation_run": false,
+    "evidence": [
+      "audits/20261101_preserve_experiment/096_RobustDueling.json",
+      "audits/20261101_preserve_experiment/icml-741-RobustLinearDueling_preflight.json",
+      "audits/20261101_preserve_experiment/icml-741-RobustLinearDueling_runtime.json",
+      "audits/20261101_preserve_experiment/icml-741-RobustLinearDueling_timing.json",
+      "audits/20261101_preserve_experiment/icml-741-RobustLinearDueling_resources.json"
+    ],
+    "full_evaluation_ready": false,
+    "scope": "experiment-preserving task-side repair",
+    "verification_scope": "One original validation episode with all 2000 rounds, original RCDP-UCB updates and per-call equality against the archived causal environment; final allocation extension checked separately by tiny dispatch.",
+    "declared_interpreter_verified": true,
+    "installed_lock_versions_match": true,
+    "fresh_lock_install": false,
+    "method_semantics_review_required": true,
+    "formal_throughput_measured": false,
+    "superseded_by": "audits/20261101_method_freedom/096_RobustDueling.json",
+    "evidence_is_historical": true
+  },
+  "experiment_preservation": {
+    "full_evaluation_ready": false,
+    "outer_harness_changed": false,
+    "original_train_wall_cap_s": 120,
+    "original_predict_wall_cap_s": 68,
+    "cpus": 8,
+    "memory_gb": 16,
+    "prediction_timing_scope": "Original input parsing + all causal workers and model reads + original complete CSV serialization. Artifact export/preparation/cleanup and original scoring remain separately timed. All episodes share one deadline.",
+    "infrastructure_caps_s": {
+      "artifact_export": 900,
+      "scorer_process": 1800
+    },
+    "formal_algorithm_seeds": [
+      1,
+      2,
+      3
+    ],
+    "episodes_per_split": 10,
+    "horizon": 2000,
+    "d": 10,
+    "e": 20,
+    "K": 10,
+    "corruption_budget": 25,
+    "allowed_method_scope": "Method, features, model, loss, hyperparameters and training procedure remain editable under the original causal and fresh-state rules. Optional episode_cpus=1..8 enables intra-episode parallelism; requests >1 run episodes sequentially to preserve the archived concurrent-worker numerical-thread restriction.",
+    "method_semantics_review_required": true,
+    "formal_throughput_measured": false,
+    "full_process_tree_memory_measured": false,
+    "declared_interpreter_verified": true,
+    "installed_lock_versions_match": true,
+    "fresh_lock_install": false,
+    "evidence": [
+      "audits/20261101_preserve_experiment/icml-741-RobustLinearDueling_preflight.json",
+      "audits/20261101_preserve_experiment/icml-741-RobustLinearDueling_runtime.json",
+      "audits/20261101_preserve_experiment/icml-741-RobustLinearDueling_timing.json",
+      "audits/20261101_preserve_experiment/icml-741-RobustLinearDueling_resources.json"
+    ],
+    "operator_report": "audits/20261101_preserve_experiment/096_RobustDueling.json"
+  },
+  "method_freedom": {
+    "report": "audits/20261101_method_freedom/096_RobustDueling.json",
+    "full_training_or_evaluation_run": false,
+    "scope_superseded_by": "audits/20261101_research_contract/096_RobustDueling.json"
+  },
+  "method_freedom_review": {
+    "report": "audits/20261101_research_contract/096_RobustDueling.json",
+    "allowed_changes": [
+      "Any dueling algorithm, internal preference/utility estimators, feature engineering, predictors of post-serving contexts, auxiliary losses, optimizers and hyperparameters may change.",
+      "Transforms computed from legally revealed inputs and public problem structure are valid methods, including nonlinear features; the supplied linear RCDP-UCB learner is not a required candidate architecture. Estimating utility parameters from released feedback is permitted.",
+      "When retaining the supplied RCDP-UCB pipeline, changing only lambda_reg=1.0, alpha=0.1, C=25, Lambda=10000, mu_tau=100, kappa=0.25, the mapping Adam lr=1e-3 or the mapping epochs=2 does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Minimize cumulative dueling regret in the fixed contextual utility environment with delayed corrupted preferences and the original pre/post-serving feedback order.",
+      "The original T2000/d10/e20/K10 contexts and utility law, sinusoidal environment feature mapping, private parameter draws, Gaussian delay process and corruption budget25 remain fixed.",
+      "get_context reveals current pre-serving contexts; serve commits the arm pair and returns selected post-serving contexts; advance reveals only due delayed feedback. The10+10 episode split, independent fresh state and mean cumulative regret remain fixed.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/096_RobustDueling.json",
+    "status": "repaired_scope_with_limits",
+    "forbidden_substitutions": [
+      "Do not substitute an easier utility law, context distribution, uncorrupted/instantaneous feedback channel or different regret definition.",
+      "Do not obtain true utility coefficients through private seed/state lookup, access unreleased outcomes/future contexts, query the service early, forge actions/regret or carry evaluation-fitted state between episodes.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Replacing the learned post-serving map with its generating closed form `y=[cos(x), sin(x)]` does not count as a method improvement, even though structural transforms are otherwise allowed."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Minimize cumulative dueling regret in the fixed contextual utility environment with delayed corrupted preferences and the original pre/post-serving feedback order.",
+    "fixed_research_objects": [
+      "The original T2000/d10/e20/K10 contexts and utility law, sinusoidal environment feature mapping, private parameter draws, Gaussian delay process and corruption budget25 remain fixed.",
+      "get_context reveals current pre-serving contexts; serve commits the arm pair and returns selected post-serving contexts; advance reveals only due delayed feedback. The10+10 episode split, independent fresh state and mean cumulative regret remain fixed."
+    ],
+    "editable_components": [
+      "Any dueling algorithm, internal preference/utility estimators, feature engineering, predictors of post-serving contexts, auxiliary losses, optimizers and hyperparameters may change.",
+      "Transforms computed from legally revealed inputs and public problem structure are valid methods, including nonlinear features; the supplied linear RCDP-UCB learner is not a required candidate architecture. Estimating utility parameters from released feedback is permitted.",
+      "When retaining the supplied RCDP-UCB pipeline, changing only lambda_reg=1.0, alpha=0.1, C=25, Lambda=10000, mu_tau=100, kappa=0.25, the mapping Adam lr=1e-3 or the mapping epochs=2 does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "Do not substitute an easier utility law, context distribution, uncorrupted/instantaneous feedback channel or different regret definition.",
+      "Do not obtain true utility coefficients through private seed/state lookup, access unreleased outcomes/future contexts, query the service early, forge actions/regret or carry evaluation-fitted state between episodes.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Replacing the learned post-serving map with its generating closed form `y=[cos(x), sin(x)]` does not count as a method improvement, even though structural transforms are otherwise allowed."
+    ],
+    "evidence": [
+      {
+        "path": "agent/bench/private_dueling.py",
+        "section": "_instance and make_episode",
+        "finding": "Defines frozen sinusoidal contexts, linear true utilities, delay/corruption generation and half-sum regret; true environment is separate from any fitted candidate model."
+      },
+      {
+        "path": "agent/bench/dueling_env.py",
+        "finding": "Public client exposes only the causal service calls, not private closure state."
+      },
+      {
+        "path": "agent/bench/private_score.py",
+        "finding": "Trusted trajectories and original hidden utilities determine score; reported regret is independently checked."
+      },
+      {
+        "section": "Problem formulation and synthetic experiment",
+        "finding": "Learner uses pre/post-serving contexts and delayed corrupted preferences to minimize regret; actual environment is the fixed research problem."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/096_RobustDueling.json"
+  },
+  "research_contract_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/096_RobustDueling.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

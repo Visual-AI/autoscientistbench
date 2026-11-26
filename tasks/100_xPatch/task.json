@@ -1,0 +1,198 @@
+{
+  "pid": "100_xPatch",
+  "class": "A",
+  "title": "xPatch: Dual-Stream Time Series Forecasting with Exponential Seasonal-Trend Decomposition",
+  "metric": {
+    "name": "mse",
+    "higher_is_better": false,
+    "delta": 0.006,
+    "aggregate": "mean"
+  },
+  "cpus": 8,
+  "memory_gb": 8,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.json",
+    "val_labels": "data/val/evaluation",
+    "test_input": "test/input.json",
+    "test_labels": "test/evaluation",
+    "input_format": "private_forecast_descriptor_json",
+    "output_format": "policy_artifact_zip"
+  },
+  "split": {
+    "type": "std3",
+    "decision": "ETTh1 standard TSLib split (data_loader.py borders): train rows [0,8640), val rows [8640,11520) with 96-row context from 8544, test rows [11520,14400) with context from 11424. Agent gets the raw train and val rows (two CSVs) plus val windows; test = the every 8th of the first 2048 windows per horizon (= the released drop_last/batch-2048 protocol) materialised as window files under judge/test. Val windows mirror that: first 2048 per horizon."
+  },
+  "baseline": {
+    "train_min": 12.52,
+    "eval_min": 0.5,
+    "val": {
+      "mse": 1.1840760613752643
+    },
+    "paper_ref": "Table 1 ETTh1 L=96; main_table/final_1 seed 2021: MSE 0.42789485305547714, MAE 0.418658584356308",
+    "measured_s": {
+      "train": [
+        568.22,
+        465.07,
+        751.05
+      ],
+      "predict": [
+        4.62,
+        4.47,
+        5.38
+      ]
+    },
+    "timing_scope": "legacy protocol estimates retained for operational budgeting; not a measured v2 reference"
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:49de61c0974a2cafe5c8a05a0b02d466e45e96898bbd761c64d91a4ab8e2cfa4"
+  },
+  "env": {
+    "python": "3.9",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple",
+      "https://download.pytorch.org/whl/cpu"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "d12eecaa11409109582f5e2ffdebcc2cffd47b3e",
+    "adapt_commit": "5f2cb4f91cf33fe5530d86fd8a60ac9c4fee1e4f",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "protocol_version": "private-policy-v2",
+  "leakage_repair": {
+    "status": "protocol_smoke_pass",
+    "scope": "cross_window_future_observation_leakage",
+    "outer_harness_changed": false,
+    "original_instances_preserved": true,
+    "full_performance_validated": false,
+    "reference_status": "requires_rebuild_after_protocol_change",
+    "smoke_report": "audits/20261101_quality/repairs/forecast_smoke/100_xPatch.json",
+    "original_environment_import": "timed_out_45s",
+    "original_model_component_smoke": true
+  },
+  "leakage_remediation": {
+    "status": "smoke_verified",
+    "outer_harness_changed": false,
+    "full_training_or_evaluation_run": false,
+    "evidence": [
+      "tasks/100_xPatch/judge/verification/preserve_experiment/protocol_smoke.json",
+      "tasks/100_xPatch/judge/verification/preserve_experiment/model_smoke.json",
+      "tasks/100_xPatch/judge/verification/preserve_experiment/environment.json"
+    ],
+    "full_evaluation_ready": false,
+    "declared_environment_verified": false,
+    "superseded_by": "audits/20261101_method_freedom/100_xPatch.json",
+    "evidence_is_historical": true
+  },
+  "experiment_preservation": {
+    "report": "audits/20261101_preserve_experiment/100_xPatch.json",
+    "original_prediction_cap_s": 60,
+    "artifact_preparation_timed_separately": true,
+    "full_scale_throughput_verified": false,
+    "native_environment_startup_verified": false,
+    "model_training_and_lock_unchanged": true,
+    "method_seed_and_training_provenance_require_review": true
+  },
+  "method_freedom": {
+    "report": "audits/20261101_method_freedom/100_xPatch.json",
+    "full_training_or_evaluation_run": false,
+    "superseded_by": "research_contract",
+    "scope_superseded_by": "audits/20261101_research_contract/100_xPatch.json"
+  },
+  "method_freedom_review": {
+    "report": "audits/20261101_research_contract/100_xPatch.json",
+    "allowed_changes": [
+      "The entire forecaster, internal feature representation, training surrogate, optimizer, regularizer and training procedure may change within the specified input and data-provenance constraints. The evaluated prediction target and loss formula remain fixed.",
+      "A submission whose only change is new values for existing settings of train.sh or run.py (batch size, learning rate, learning-rate schedule, epochs, patience, moving-average type, alpha, beta, RevIN, patch length, stride) does not count as a method improvement; this rests on patch audit.",
+      "Switching the training loss to the unused mse_criterion, or to the commented MSE or CARD variants in exp/exp_main.py, does not on its own count as a method improvement; this rests on patch audit."
+    ],
+    "fixed_contract": [
+      "Forecast all seven ETTh1 variables at the four fixed horizons while satisfying the MAE guard.",
+      "The original split, every 8th of the first 2048 windows per horizon, seven channels and at most 96 input observations remain fixed.",
+      "The equal-horizon training-standardized mean MSE and mean MAE at most 0.4275 on test and 0.72 on validation remain fixed.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/100_xPatch.json",
+    "status": "scope_defined_existing_blocked",
+    "forbidden_substitutions": [
+      "Do not change/drop windows, use extra history or cross-window state, introduce external pretrained weights, or alter standardization, MSE or the MAE guard.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Forecast all seven ETTh1 variables at the four fixed horizons while satisfying the MAE guard.",
+    "fixed_research_objects": [
+      "The original split, every 8th of the first 2048 windows per horizon, seven channels and at most 96 input observations remain fixed.",
+      "The equal-horizon training-standardized mean MSE and mean MAE at most 0.4275 on test and 0.72 on validation remain fixed."
+    ],
+    "editable_components": [
+      "The entire forecaster, internal feature representation, training surrogate, optimizer, regularizer and training procedure may change within the specified input and data-provenance constraints. The evaluated prediction target and loss formula remain fixed.",
+      "A submission whose only change is new values for existing settings of train.sh or run.py (batch size, learning rate, learning-rate schedule, epochs, patience, moving-average type, alpha, beta, RevIN, patch length, stride) does not count as a method improvement; this rests on patch audit.",
+      "Switching the training loss to the unused mse_criterion, or to the commented MSE or CARD variants in exp/exp_main.py, does not on its own count as a method improvement; this rests on patch audit."
+    ],
+    "forbidden_substitutions": [
+      "Do not change/drop windows, use extra history or cross-window state, introduce external pretrained weights, or alter standardization, MSE or the MAE guard.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "path": "tasks/100_xPatch/BRIEF.md",
+        "finding": "The score rule fixes four horizons, every 8th of 2048 windows each, seq_len<=96 and MAE at most 0.4275 on test and 0.72 on validation; the xPatch network is a baseline."
+      },
+      {
+        "path": "tasks/100_xPatch/agent/bench/scorer.py",
+        "finding": "Existing scorer retains the stated target formula, aggregation and validity controls."
+      },
+      {
+        "path": "tasks/100_xPatch/agent/bench/legacy_metric.py",
+        "finding": "Reviewed the original per-window target standardization, horizon aggregation and task-specific validity conditions; all remain unchanged."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/100_xPatch.json"
+  },
+  "research_contract_review": {
+    "status": "scope_defined_existing_blocked",
+    "report": "audits/20261101_research_contract/100_xPatch.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

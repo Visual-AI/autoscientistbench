@@ -1,0 +1,1565 @@
+"""Reproducible data pipelines for the manuscript's random-circuit examples.
+
+The routines in this module use the gate definitions and brickwork convention
+from :mod:`functions` and :mod:`circuit_obj`.  They return raw, per-realization
+arrays; plotting and ensemble reduction deliberately remain in the notebooks.
+
+The non-Markovian U(1) pipeline can also consume the archived parameter rows
+from ``alessum/mpemba_circuits``.  This keeps the reference-repository run
+bit-for-bit tied to its published circuit samples while using the faster,
+validated batched state-vector implementation below.
+"""
+
+from __future__ import annotations
+
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from math import comb
+import os
+from pathlib import Path
+from time import perf_counter
+from typing import Callable
+
+import numpy as np
+import scipy.linalg as la
+from numba import njit, prange
+
+import functions as fn
+import notebook_utils as nu
+from circuit_obj import Circuit
+
+
+Progress = Callable[[str], None]
+
+
+def _entropy_from_eigenvalues(values: np.ndarray, cutoff: float = 1e-13) -> float:
+    values = np.clip(np.asarray(values, dtype=float), 0, None)
+    values = values[values > cutoff]
+    return float(-np.sum(values * np.log(values)))
+
+
+def _entropy(matrix: np.ndarray) -> float:
+    matrix = (matrix + matrix.conj().T) / 2
+    return _entropy_from_eigenvalues(la.eigvalsh(matrix).real)
+
+
+def _u1_asymmetry(state: np.ndarray, n_system: int) -> float:
+    """Relative entropy of U(1) asymmetry, S(G[rho]) - S(rho)."""
+    weights = nu.hamming_weights(n_system)
+    twirled_entropy = 0.0
+    for weight in range(n_system + 1):
+        indices = np.flatnonzero(weights == weight)
+        block = state[np.ix_(indices, indices)]
+        twirled_entropy += _entropy(block)
+    return max(0.0, twirled_entropy - _entropy(state))
+
+
+def _reduced_density_from_pure(
+    state: np.ndarray, n_system: int, n_environment: int
+) -> np.ndarray:
+    """Trace the leading environment qubits from ``|state><state|``."""
+    amplitudes = state.reshape(2**n_environment, 2**n_system).T
+    density = amplitudes @ amplitudes.conj().T
+    return (density + density.conj().T) / 2
+
+
+def _reduced_densities_from_pure_batch(
+    states: np.ndarray, n_system: int, n_environment: int
+) -> np.ndarray:
+    """Trace the environment from several column-stacked pure states."""
+    n_states = states.shape[1]
+    amplitudes = states.reshape(
+        2**n_environment, 2**n_system, n_states
+    ).transpose(1, 0, 2)
+    densities = np.einsum(
+        "sek,tek->stk", amplitudes, amplitudes.conj(), optimize=True
+    )
+    return (
+        densities + densities.conj().transpose(1, 0, 2)
+    ) / 2
+
+
+def _apply_channel(channel: np.ndarray, state: np.ndarray) -> np.ndarray:
+    """Apply a numerically trace-corrected column-vectorized channel."""
+    dimension = state.shape[0]
+    # Some Accelerate/BLAS builds emit spurious floating-point warnings for
+    # finite complex matrix products.  The explicit finiteness check below still
+    # catches genuine numerical failures.
+    with np.errstate(over="ignore", invalid="ignore", divide="ignore"):
+        output = nu.unvec(channel @ nu.vec(state), dimension)
+    if not np.isfinite(output).all():
+        raise FloatingPointError("Non-finite value produced by the channel.")
+    output = (output + output.conj().T) / 2
+    return output / np.trace(output)
+
+
+def _random_u1_gates(
+    rng: np.random.Generator, n_total: int, parameter_divisor: float
+) -> tuple[list[np.ndarray], np.ndarray]:
+    parameters = rng.uniform(-np.pi, np.pi, (n_total, 5)) / parameter_divisor
+    gates = [fn.gen_u1(row.tolist()) for row in parameters]
+    return gates, parameters
+
+
+def _apply_layer_batch(
+    states: np.ndarray,
+    gates: list[np.ndarray],
+    ordering: np.ndarray,
+    masks: dict[int, np.ndarray],
+) -> np.ndarray:
+    """Apply one original brickwork layer to several state vectors at once.
+
+    ``states[:, k]`` is one state vector.  The gather/apply/scatter operation is
+    algebraically identical to ``functions.apply_U`` and merely batches the
+    shared local gates to reduce the production runtime.
+    """
+    output = np.asarray(states, dtype=np.complex128)
+    for gate, site in zip(gates, ordering):
+        local = output[masks[int(site)]]
+        transformed = np.einsum(
+            "ab,bmk->amk", gate, local, optimize=True
+        )
+        updated = np.empty_like(output)
+        updated[masks[int(site)]] = transformed
+        output = updated
+    return output
+
+
+def _fixed_weight_basis(
+    n_qubits: int, hamming_weight: int
+) -> tuple[np.ndarray, np.ndarray]:
+    """Computational basis and inverse map for one fixed-magnetization sector."""
+    if not 0 <= hamming_weight <= n_qubits:
+        raise ValueError("hamming_weight must lie between 0 and n_qubits.")
+    full_dimension = 2**n_qubits
+    indices = np.fromiter(
+        (
+            index
+            for index in range(full_dimension)
+            if index.bit_count() == hamming_weight
+        ),
+        dtype=np.int64,
+    )
+    inverse = np.full(full_dimension, -1, dtype=np.int32)
+    inverse[indices] = np.arange(len(indices), dtype=np.int32)
+    return indices, inverse
+
+
+def _su2_sector_gate_maps(
+    basis_indices: np.ndarray,
+    inverse: np.ndarray,
+    n_qubits: int,
+) -> list[tuple[np.ndarray, np.ndarray, np.ndarray]]:
+    """Index maps for partial-SWAP gates within a fixed-weight sector."""
+    maps = []
+    for site in range(n_qubits):
+        neighbour = (site + 1) % n_qubits
+        # ``functions.get_masks_typed`` numbers circuit sites from the least
+        # significant bit.  Match that convention exactly.
+        site_mask = 1 << site
+        neighbour_mask = 1 << neighbour
+        site_bits = (basis_indices & site_mask) != 0
+        neighbour_bits = (basis_indices & neighbour_mask) != 0
+        first_positions = np.flatnonzero(
+            (~site_bits) & neighbour_bits
+        ).astype(np.int32)
+        swapped_indices = (
+            basis_indices[first_positions] ^ site_mask ^ neighbour_mask
+        )
+        second_positions = inverse[swapped_indices].astype(np.int32)
+        same_positions = np.flatnonzero(
+            site_bits == neighbour_bits
+        ).astype(np.int32)
+        if np.any(second_positions < 0):
+            raise RuntimeError("A swap left the fixed-weight sector.")
+        maps.append((first_positions, second_positions, same_positions))
+    return maps
+
+
+@njit(parallel=True, fastmath=True, cache=True)
+def _apply_su2_sector_gate(
+    state: np.ndarray,
+    first_positions: np.ndarray,
+    second_positions: np.ndarray,
+    same_positions: np.ndarray,
+    coupling: float,
+) -> None:
+    """Apply one partial swap in place on a fixed-weight state vector."""
+    cosine = np.cos(coupling / 2)
+    exchange = -1j * np.sin(coupling / 2)
+    same_phase = cosine + exchange
+    for index in prange(len(same_positions)):
+        position = same_positions[index]
+        state[position] *= same_phase
+    for index in prange(len(first_positions)):
+        first = first_positions[index]
+        second = second_positions[index]
+        first_value = state[first]
+        second_value = state[second]
+        state[first] = cosine * first_value + exchange * second_value
+        state[second] = exchange * first_value + cosine * second_value
+
+
+def _apply_su2_sector_layer(
+    state: np.ndarray,
+    couplings_in_application_order: np.ndarray,
+    ordering: np.ndarray,
+    gate_maps: list[tuple[np.ndarray, np.ndarray, np.ndarray]],
+) -> None:
+    """Apply one full periodic brickwork layer in a magnetization sector."""
+    for gate_index, site in enumerate(ordering):
+        first, second, same = gate_maps[int(site)]
+        _apply_su2_sector_gate(
+            state,
+            first,
+            second,
+            same,
+            float(couplings_in_application_order[gate_index]),
+        )
+
+
+def _validate_batched_layer() -> None:
+    """Guard the optimized state-vector path against convention drift."""
+    n_total = 4
+    rng = np.random.default_rng(91)
+    masks = fn.load_mask_memory(n_total)
+    ordering = fn.gen_gates_order(n_total, geometry="brickwork")
+    gates, _ = _random_u1_gates(rng, n_total, parameter_divisor=3)
+    states = rng.normal(size=(2**n_total, 2)) + 1j * rng.normal(
+        size=(2**n_total, 2)
+    )
+    states /= la.norm(states, axis=0)
+    batched = _apply_layer_batch(states, gates, ordering, masks)
+    reference = np.column_stack(
+        [
+            fn.apply_U(states[:, index], gates, ordering, masks, 2)
+            for index in range(states.shape[1])
+        ]
+    )
+    if not np.allclose(batched, reference, atol=1e-12):
+        raise RuntimeError("The batched layer disagrees with functions.apply_U.")
+
+
+def _u1_sector_layout(
+    n_system: int,
+    n_environment: int,
+) -> dict[str, object]:
+    """Precompute the exact occupied-sector representation for Fig. 10.
+
+    The environment begins in charge zero and the system contains at most
+    ``n_system`` excitations.  U(1) conservation therefore restricts the joint
+    evolution to total charges ``0, ..., n_system``.  All five homogeneous
+    product tilts have the same normalized vector inside a given charge sector;
+    only their sector coefficients differ.
+    """
+    n_total = n_system + n_environment
+    full_dimension = 2**n_total
+    joint_weights = np.fromiter(
+        (index.bit_count() for index in range(full_dimension)),
+        dtype=np.uint8,
+        count=full_dimension,
+    )
+    sector_indices = [
+        np.flatnonzero(joint_weights == charge).astype(np.int64)
+        for charge in range(n_system + 1)
+    ]
+    sector_offsets = np.zeros(n_system + 2, dtype=np.int64)
+    sector_offsets[1:] = np.cumsum(
+        [len(indices) for indices in sector_indices]
+    )
+    union_indices = np.concatenate(sector_indices)
+    flat_lookup = np.full(full_dimension, -1, dtype=np.int32)
+    flat_lookup[union_indices] = np.arange(
+        len(union_indices), dtype=np.int32
+    )
+
+    positions = np.arange(len(union_indices), dtype=np.int32)
+    zero_parts = []
+    first_parts = []
+    second_parts = []
+    three_parts = []
+    zero_offsets = [0]
+    mixed_offsets = [0]
+    three_offsets = [0]
+    for site in range(n_total):
+        neighbour = (site + 1) % n_total
+        site_mask = 1 << site
+        neighbour_mask = 1 << neighbour
+        site_bits = (union_indices & site_mask) != 0
+        neighbour_bits = (union_indices & neighbour_mask) != 0
+
+        zero = positions[(~site_bits) & (~neighbour_bits)]
+        first = positions[site_bits & (~neighbour_bits)]
+        swapped = (
+            union_indices[first] ^ site_mask ^ neighbour_mask
+        )
+        second = flat_lookup[swapped]
+        three = positions[site_bits & neighbour_bits]
+        if np.any(second < 0):
+            raise RuntimeError("A U(1) gate left the occupied charge sectors.")
+
+        zero_parts.append(zero)
+        first_parts.append(first)
+        second_parts.append(second.astype(np.int32))
+        three_parts.append(three)
+        zero_offsets.append(zero_offsets[-1] + len(zero))
+        mixed_offsets.append(mixed_offsets[-1] + len(first))
+        three_offsets.append(three_offsets[-1] + len(three))
+
+    d_system = 2**n_system
+    d_environment = 2**n_environment
+    system_weights = np.fromiter(
+        (index.bit_count() for index in range(d_system)),
+        dtype=np.uint8,
+        count=d_system,
+    )
+    environment_weights = np.fromiter(
+        (index.bit_count() for index in range(d_environment)),
+        dtype=np.uint8,
+        count=d_environment,
+    )
+    reduction_blocks = []
+    for environment_charge in range(n_system + 1):
+        environment_indices = np.flatnonzero(
+            environment_weights == environment_charge
+        )
+        system_indices = np.flatnonzero(
+            system_weights <= n_system - environment_charge
+        )
+        global_indices = (
+            environment_indices[None, :] * d_system
+            + system_indices[:, None]
+        )
+        flat_positions = flat_lookup[global_indices]
+        if np.any(flat_positions < 0):
+            raise RuntimeError("Reduced-density lookup left occupied sectors.")
+        row_charges = (
+            environment_charge + system_weights[system_indices]
+        ).astype(np.int32)
+        reduction_blocks.append(
+            (
+                system_indices.astype(np.int32),
+                flat_positions.astype(np.int32),
+                row_charges,
+            )
+        )
+
+    initial_sector_state = np.zeros(
+        len(union_indices), dtype=np.complex128
+    )
+    for charge in range(n_system + 1):
+        system_indices = np.flatnonzero(system_weights == charge)
+        flat_positions = flat_lookup[system_indices]
+        initial_sector_state[flat_positions] = 1 / np.sqrt(
+            comb(n_system, charge)
+        )
+
+    return {
+        "n_system": n_system,
+        "n_environment": n_environment,
+        "n_total": n_total,
+        "d_system": d_system,
+        "sector_offsets": sector_offsets,
+        "system_weights": system_weights,
+        "initial_sector_state": initial_sector_state,
+        "zero_positions": np.concatenate(zero_parts),
+        "zero_offsets": np.asarray(zero_offsets, dtype=np.int64),
+        "first_positions": np.concatenate(first_parts),
+        "second_positions": np.concatenate(second_parts),
+        "mixed_offsets": np.asarray(mixed_offsets, dtype=np.int64),
+        "three_positions": np.concatenate(three_parts),
+        "three_offsets": np.asarray(three_offsets, dtype=np.int64),
+        "reduction_blocks": reduction_blocks,
+    }
+
+
+@njit(cache=True, fastmath=True, nogil=True)
+def _apply_u1_sector_layer(
+    state: np.ndarray,
+    gates: np.ndarray,
+    ordering: np.ndarray,
+    zero_positions: np.ndarray,
+    zero_offsets: np.ndarray,
+    first_positions: np.ndarray,
+    second_positions: np.ndarray,
+    mixed_offsets: np.ndarray,
+    three_positions: np.ndarray,
+    three_offsets: np.ndarray,
+) -> None:
+    """Apply a complete U(1) brickwork layer in place in occupied sectors."""
+    for gate_index in range(len(ordering)):
+        site = ordering[gate_index]
+        gate = gates[gate_index]
+
+        for index in range(zero_offsets[site], zero_offsets[site + 1]):
+            position = zero_positions[index]
+            state[position] *= gate[0, 0]
+
+        for index in range(
+            mixed_offsets[site], mixed_offsets[site + 1]
+        ):
+            first = first_positions[index]
+            second = second_positions[index]
+            first_value = state[first]
+            second_value = state[second]
+            state[first] = (
+                gate[1, 1] * first_value
+                + gate[1, 2] * second_value
+            )
+            state[second] = (
+                gate[2, 1] * first_value
+                + gate[2, 2] * second_value
+            )
+
+        for index in range(
+            three_offsets[site], three_offsets[site + 1]
+        ):
+            position = three_positions[index]
+            state[position] *= gate[3, 3]
+
+
+def _u1_sector_coefficients(
+    n_system: int,
+    theta_over_pi: np.ndarray,
+) -> np.ndarray:
+    """Coefficients of homogeneous tilted states in normalized sectors."""
+    weights = nu.hamming_weights(n_system)
+    coefficients = np.zeros(
+        (len(theta_over_pi), n_system + 1), dtype=np.complex128
+    )
+    for state_index, theta in enumerate(theta_over_pi):
+        state = nu.multi_spin_tilted_state(
+            n_system, float(theta) * np.pi, 1
+        )
+        for charge in range(n_system + 1):
+            indices = np.flatnonzero(weights == charge)
+            coefficients[state_index, charge] = (
+                np.sum(state[indices]) / np.sqrt(len(indices))
+            )
+    return coefficients
+
+
+def _u1_sector_reduction_scales(
+    layout: dict[str, object],
+    coefficients: np.ndarray,
+) -> list[np.ndarray]:
+    scales = []
+    for _, _, row_charges in layout["reduction_blocks"]:
+        row_coefficients = coefficients[:, row_charges]
+        scales.append(
+            row_coefficients[:, :, None]
+            * row_coefficients.conj()[:, None, :]
+        )
+    return scales
+
+
+def _u1_reduced_densities_from_sectors(
+    state: np.ndarray,
+    layout: dict[str, object],
+    reduction_scales: list[np.ndarray],
+) -> np.ndarray:
+    """Form all tilted reduced states while sharing each Gram product."""
+    n_states = reduction_scales[0].shape[0]
+    d_system = int(layout["d_system"])
+    densities = np.zeros(
+        (n_states, d_system, d_system), dtype=np.complex128
+    )
+    for block_index, (
+        system_indices,
+        flat_positions,
+        _,
+    ) in enumerate(layout["reduction_blocks"]):
+        amplitudes = state[flat_positions]
+        gram = amplitudes @ amplitudes.conj().T
+        target = np.ix_(system_indices, system_indices)
+        for state_index in range(n_states):
+            densities[state_index][target] += (
+                gram * reduction_scales[block_index][state_index]
+            )
+    return (
+        densities + densities.conj().transpose(0, 2, 1)
+    ) / 2
+
+
+def _entropy_batch_from_eigenvalues(
+    values: np.ndarray,
+    cutoff: float = 1e-13,
+) -> np.ndarray:
+    values = np.clip(np.asarray(values, dtype=float), 0, None)
+    positive = values > cutoff
+    logarithms = np.zeros_like(values)
+    logarithms[positive] = np.log(values[positive])
+    return -np.sum(np.where(positive, values * logarithms, 0), axis=-1)
+
+
+def _u1_asymmetry_batch(
+    densities: np.ndarray,
+    system_weights: np.ndarray,
+    n_system: int,
+) -> np.ndarray:
+    """Relative entropy of U(1) asymmetry for a batch of reduced states."""
+    entropies = _entropy_batch_from_eigenvalues(
+        np.linalg.eigvalsh(densities)
+    )
+    twirled_entropies = np.zeros(len(densities))
+    for charge in range(n_system + 1):
+        indices = np.flatnonzero(system_weights == charge)
+        blocks = densities[:, indices][:, :, indices]
+        twirled_entropies += _entropy_batch_from_eigenvalues(
+            np.linalg.eigvalsh(blocks)
+        )
+    return np.maximum(0, twirled_entropies - entropies)
+
+
+def _simulate_u1_sector_realization(
+    parameter_sample: np.ndarray,
+    steps: int,
+    times: np.ndarray,
+    layout: dict[str, object],
+    reduction_scales: list[np.ndarray],
+) -> np.ndarray:
+    gates = np.asarray(
+        [fn.gen_u1(row.tolist()) for row in parameter_sample],
+        dtype=np.complex128,
+    )
+    ordering = fn.gen_gates_order(
+        int(layout["n_total"]), geometry="brickwork"
+    )
+    state = np.asarray(
+        layout["initial_sector_state"], dtype=np.complex128
+    ).copy()
+    curves = np.empty(
+        (reduction_scales[0].shape[0], len(times)), dtype=float
+    )
+    time_to_index = {
+        int(time): index for index, time in enumerate(times)
+    }
+    for time in range(steps + 1):
+        sample_index = time_to_index.get(time)
+        if sample_index is not None:
+            densities = _u1_reduced_densities_from_sectors(
+                state, layout, reduction_scales
+            )
+            curves[:, sample_index] = _u1_asymmetry_batch(
+                densities,
+                layout["system_weights"],
+                int(layout["n_system"]),
+            )
+        if time < steps:
+            _apply_u1_sector_layer(
+                state,
+                gates,
+                ordering,
+                layout["zero_positions"],
+                layout["zero_offsets"],
+                layout["first_positions"],
+                layout["second_positions"],
+                layout["mixed_offsets"],
+                layout["three_positions"],
+                layout["three_offsets"],
+            )
+    return curves
+
+
+def generate_u1_markovian(
+    *,
+    n_realizations: int = 100,
+    steps: int = 200,
+    n_system: int = 4,
+    n_environment: int = 2,
+    parameter_divisor: float = 3,
+    seed: int = 10_000,
+    progress: Progress = print,
+) -> dict[str, np.ndarray]:
+    """Run the reset-environment U(1) protocol behind manuscript Fig. 9."""
+    n_total = n_system + n_environment
+    times = np.arange(steps + 1)
+    theta_over_pi = np.array([0.1, 0.2, 0.5])
+    block_sizes = np.array([1, 2, 3], dtype=int)
+    initial_states = []
+    for theta_fraction, block_size in zip(theta_over_pi, block_sizes):
+        ket = nu.multi_spin_tilted_state(
+            n_system, theta_fraction * np.pi, int(block_size)
+        )
+        initial_states.append(np.outer(ket, ket.conj()))
+
+    curves = np.zeros((n_realizations, len(initial_states), len(times)))
+    rates = np.zeros((n_realizations, n_system + 1))
+    overlaps = np.zeros(
+        (n_realizations, len(initial_states), n_system + 1)
+    )
+    parameter_samples = np.zeros((n_realizations, n_total, 5))
+
+    # All blocks together contain exactly d_s^2 eigenvalues.
+    spectrum = np.zeros((n_realizations, 4**n_system), dtype=complex)
+    spectrum_charges = []
+    masks = fn.load_mask_memory(n_total)
+    ordering = fn.gen_gates_order(n_total, geometry="brickwork")
+
+    started = perf_counter()
+    for realization in range(n_realizations):
+        rng = np.random.default_rng(seed + realization)
+        gates, parameters = _random_u1_gates(
+            rng, n_total, parameter_divisor
+        )
+        parameter_samples[realization] = parameters
+        circuit = Circuit(
+            N=n_total,
+            T=steps,
+            gates=gates,
+            order=ordering,
+            symmetry="U1",
+        )
+        unitary = circuit.generate_unitary(masks)
+        channel = nu.reduced_channel(
+            unitary, n_system, n_environment
+        )
+
+        slow_values, slow_left_modes = nu.slowest_charge_data(
+            channel, n_system
+        )
+        values_this_realization = []
+        charges_this_realization = []
+        for charge, (block, _) in nu.channel_charge_blocks(
+            channel, n_system
+        ).items():
+            block_values = la.eigvals(block)
+            values_this_realization.extend(block_values)
+            charges_this_realization.extend([charge] * len(block_values))
+        spectrum[realization] = np.asarray(values_this_realization)
+        if not spectrum_charges:
+            spectrum_charges = charges_this_realization
+
+        for charge in range(n_system + 1):
+            rates[realization, charge] = np.log(
+                abs(slow_values[charge])
+            )
+
+        for state_index, initial_state in enumerate(initial_states):
+            state = initial_state.copy()
+            state_vector = nu.vec(initial_state)
+            for charge in range(n_system + 1):
+                overlaps[realization, state_index, charge] = abs(
+                    np.vdot(slow_left_modes[charge], state_vector)
+                )
+            for time in times:
+                curves[realization, state_index, time] = _u1_asymmetry(
+                    state, n_system
+                )
+                if time < steps:
+                    state = _apply_channel(channel, state)
+
+        if realization == 0 or (realization + 1) % 10 == 0:
+            progress(
+                f"U(1) Markov: {realization + 1}/{n_realizations} "
+                f"({perf_counter() - started:.1f} s)"
+            )
+
+    return {
+        "times": times,
+        "theta_over_pi": theta_over_pi,
+        "block_sizes": block_sizes,
+        "asymmetry": curves,
+        "slowest_log_modulus": rates,
+        "slow_mode_overlap": overlaps,
+        "spectrum": spectrum,
+        "spectrum_charge": np.asarray(spectrum_charges, dtype=int),
+        "gate_parameters": parameter_samples,
+        "n_system": np.array(n_system),
+        "n_environment": np.array(n_environment),
+        "n_realizations": np.array(n_realizations),
+        "parameter_divisor": np.array(parameter_divisor),
+        "seed": np.array(seed),
+        "environment": np.array("maximally mixed; reset after every layer"),
+        "protocol": np.array("U(1) Markovian brickwork, Eqs. (68)-(77)"),
+        "manuscript_figure": np.array("Fig. 9"),
+        "data_level": np.array("manuscript system and ensemble size"),
+    }
+
+
+def generate_u1_nonmarkovian(
+    *,
+    n_realizations: int = 24,
+    steps: int = 300,
+    n_system: int = 4,
+    n_environment: int = 8,
+    parameter_divisor: float = 1,
+    seed: int = 20_000,
+    gate_parameters: np.ndarray | None = None,
+    source_indices: np.ndarray | None = None,
+    source_repository: str = "",
+    source_commit: str = "",
+    source_parameter_file: str = "",
+    source_parameter_sha256: str = "",
+    data_level: str | None = None,
+    sample_times: np.ndarray | None = None,
+    progress: Progress = print,
+) -> dict[str, np.ndarray]:
+    """Run a state-vector U(1) protocol corresponding to manuscript Fig. 10."""
+    _validate_batched_layer()
+    n_total = n_system + n_environment
+    supplied_parameters = None
+    if gate_parameters is not None:
+        supplied_parameters = np.asarray(gate_parameters, dtype=float)
+        expected_shape = (n_realizations, n_total, 5)
+        if supplied_parameters.shape != expected_shape:
+            raise ValueError(
+                "gate_parameters must have shape "
+                f"{expected_shape}, got {supplied_parameters.shape}."
+            )
+        if not np.isfinite(supplied_parameters).all():
+            raise ValueError("gate_parameters contains non-finite values.")
+        if source_indices is None:
+            source_indices = np.arange(n_realizations)
+        source_indices = np.asarray(source_indices, dtype=int)
+        if source_indices.shape != (n_realizations,):
+            raise ValueError(
+                "source_indices must contain one index per realization."
+            )
+    elif source_indices is not None:
+        raise ValueError(
+            "source_indices is meaningful only when gate_parameters is supplied."
+        )
+
+    if sample_times is None:
+        times = np.arange(steps + 1)
+    else:
+        times = np.unique(np.asarray(sample_times, dtype=int))
+        if (
+            times.ndim != 1
+            or len(times) == 0
+            or times[0] != 0
+            or times[-1] > steps
+            or np.any(times < 0)
+        ):
+            raise ValueError(
+                "sample_times must be a nonempty one-dimensional collection "
+                "containing t=0 with values between 0 and steps."
+            )
+    time_to_index = {int(time): index for index, time in enumerate(times)}
+    theta_over_pi = np.array([0.30, 0.35, 0.40, 0.45, 0.50])
+    environment = np.zeros(2**n_environment, dtype=complex)
+    environment[0] = 1
+    system_states = [
+        nu.multi_spin_tilted_state(n_system, theta * np.pi, 1)
+        for theta in theta_over_pi
+    ]
+
+    curves = np.zeros(
+        (n_realizations, len(theta_over_pi), len(times))
+    )
+    parameters = np.zeros((n_realizations, n_total, 5))
+    masks = fn.load_mask_memory(n_total)
+    ordering = fn.gen_gates_order(n_total, geometry="brickwork")
+    started = perf_counter()
+
+    for realization in range(n_realizations):
+        if supplied_parameters is None:
+            rng = np.random.default_rng(seed + realization)
+            gates, parameter_sample = _random_u1_gates(
+                rng, n_total, parameter_divisor
+            )
+        else:
+            parameter_sample = supplied_parameters[realization]
+            gates = [
+                fn.gen_u1(row.tolist()) for row in parameter_sample
+            ]
+        parameters[realization] = parameter_sample
+        states = np.column_stack(
+            [np.kron(environment, system) for system in system_states]
+        )
+        for time in range(steps + 1):
+            if time in time_to_index:
+                densities = _reduced_densities_from_pure_batch(
+                    states, n_system, n_environment
+                )
+                sample_index = time_to_index[time]
+                for state_index in range(states.shape[1]):
+                    curves[
+                        realization, state_index, sample_index
+                    ] = _u1_asymmetry(
+                        densities[:, :, state_index], n_system
+                    )
+            if time < steps:
+                states = _apply_layer_batch(
+                    states, gates, ordering, masks
+                )
+
+        if (
+            realization == 0
+            or realization + 1 == n_realizations
+            or (realization + 1) % 4 == 0
+        ):
+            progress(
+                f"U(1) non-Markov: {realization + 1}/{n_realizations} "
+                f"({perf_counter() - started:.1f} s)"
+            )
+
+    if data_level is None:
+        data_level = (
+            "scaled verification run; paper uses Ns=8, Ne=12, R=100"
+        )
+
+    dataset = {
+        "times": times,
+        "theta_over_pi": theta_over_pi,
+        "asymmetry": curves,
+        "gate_parameters": parameters,
+        "n_system": np.array(n_system),
+        "n_environment": np.array(n_environment),
+        "n_realizations": np.array(n_realizations),
+        "parameter_divisor": np.array(parameter_divisor),
+        "seed": np.array(seed),
+        "environment": np.array("|0...0>; no reset"),
+        "protocol": np.array("U(1) non-Markovian brickwork, Eqs. (68)-(72), (78)"),
+        "manuscript_figure": np.array("Fig. 10"),
+        "data_level": np.array(data_level),
+        "paper_n_system": np.array(8),
+        "paper_n_environment": np.array(12),
+        "paper_n_realizations": np.array(100),
+        "paper_steps": np.array(1_000),
+        "parameter_origin": np.array(
+            "supplied reference rows"
+            if supplied_parameters is not None
+            else "NumPy default_rng draws"
+        ),
+    }
+    if supplied_parameters is not None:
+        dataset.update(
+            {
+                "source_indices": source_indices,
+                "source_repository": np.array(source_repository),
+                "source_commit": np.array(source_commit),
+                "source_parameter_file": np.array(source_parameter_file),
+                "source_parameter_sha256": np.array(
+                    source_parameter_sha256
+                ),
+            }
+        )
+    return dataset
+
+
+def generate_u1_nonmarkovian_sector(
+    *,
+    n_realizations: int = 24,
+    steps: int = 300,
+    n_system: int = 4,
+    n_environment: int = 8,
+    parameter_divisor: float = 1,
+    seed: int = 20_000,
+    gate_parameters: np.ndarray | None = None,
+    source_indices: np.ndarray | None = None,
+    source_repository: str = "",
+    source_commit: str = "",
+    source_parameter_file: str = "",
+    source_parameter_sha256: str = "",
+    data_level: str | None = None,
+    sample_times: np.ndarray | None = None,
+    workers: int = 1,
+    progress: Progress = print,
+) -> dict[str, np.ndarray]:
+    """Exact high-throughput U(1) implementation for manuscript Fig. 10.
+
+    It evolves each occupied total-charge sector once, reuses the result for
+    every homogeneous product tilt, and shares environment-weight Gram
+    products across all five reduced density matrices.
+    """
+    if workers < 1:
+        raise ValueError("workers must be at least one.")
+    n_total = n_system + n_environment
+    supplied_parameters = None
+    if gate_parameters is not None:
+        supplied_parameters = np.asarray(gate_parameters, dtype=float)
+        expected_shape = (n_realizations, n_total, 5)
+        if supplied_parameters.shape != expected_shape:
+            raise ValueError(
+                "gate_parameters must have shape "
+                f"{expected_shape}, got {supplied_parameters.shape}."
+            )
+        if not np.isfinite(supplied_parameters).all():
+            raise ValueError("gate_parameters contains non-finite values.")
+        if source_indices is None:
+            source_indices = np.arange(n_realizations)
+        source_indices = np.asarray(source_indices, dtype=int)
+        if source_indices.shape != (n_realizations,):
+            raise ValueError(
+                "source_indices must contain one index per realization."
+            )
+    elif source_indices is not None:
+        raise ValueError(
+            "source_indices is meaningful only when gate_parameters is supplied."
+        )
+
+    if sample_times is None:
+        times = np.arange(steps + 1)
+    else:
+        times = np.unique(np.asarray(sample_times, dtype=int))
+        if (
+            times.ndim != 1
+            or len(times) == 0
+            or times[0] != 0
+            or times[-1] > steps
+            or np.any(times < 0)
+        ):
+            raise ValueError(
+                "sample_times must be a nonempty one-dimensional collection "
+                "containing t=0 with values between 0 and steps."
+            )
+
+    theta_over_pi = np.array([0.30, 0.35, 0.40, 0.45, 0.50])
+    layout = _u1_sector_layout(n_system, n_environment)
+    coefficients = _u1_sector_coefficients(
+        n_system, theta_over_pi
+    )
+    reduction_scales = _u1_sector_reduction_scales(
+        layout, coefficients
+    )
+
+    parameters = np.empty((n_realizations, n_total, 5))
+    if supplied_parameters is not None:
+        parameters[:] = supplied_parameters
+    else:
+        for realization in range(n_realizations):
+            rng = np.random.default_rng(seed + realization)
+            _, parameters[realization] = _random_u1_gates(
+                rng, n_total, parameter_divisor
+            )
+
+    # Compile the in-place sector kernel before worker threads enter it.
+    compile_state = np.asarray(
+        layout["initial_sector_state"], dtype=np.complex128
+    ).copy()
+    compile_gates = np.repeat(
+        np.eye(4, dtype=np.complex128)[None, :, :],
+        n_total,
+        axis=0,
+    )
+    compile_ordering = fn.gen_gates_order(
+        n_total, geometry="brickwork"
+    )
+    _apply_u1_sector_layer(
+        compile_state,
+        compile_gates,
+        compile_ordering,
+        layout["zero_positions"],
+        layout["zero_offsets"],
+        layout["first_positions"],
+        layout["second_positions"],
+        layout["mixed_offsets"],
+        layout["three_positions"],
+        layout["three_offsets"],
+    )
+
+    curves = np.empty(
+        (n_realizations, len(theta_over_pi), len(times)),
+        dtype=float,
+    )
+    started = perf_counter()
+    completed = 0
+
+    def record(realization: int, values: np.ndarray) -> None:
+        nonlocal completed
+        curves[realization] = values
+        completed += 1
+        if (
+            completed == 1
+            or completed == n_realizations
+            or completed % max(1, min(4, n_realizations)) == 0
+        ):
+            elapsed = perf_counter() - started
+            rate = completed / elapsed if elapsed else float("inf")
+            remaining = (
+                (n_realizations - completed) / rate if rate else float("inf")
+            )
+            progress(
+                f"U(1) sector engine: {completed}/{n_realizations} "
+                f"({elapsed:.1f} s elapsed, {remaining:.1f} s remaining)"
+            )
+
+    if workers == 1:
+        for realization in range(n_realizations):
+            values = _simulate_u1_sector_realization(
+                parameters[realization],
+                steps,
+                times,
+                layout,
+                reduction_scales,
+            )
+            record(realization, values)
+    else:
+        with ThreadPoolExecutor(max_workers=workers) as executor:
+            future_to_realization = {
+                executor.submit(
+                    _simulate_u1_sector_realization,
+                    parameters[realization],
+                    steps,
+                    times,
+                    layout,
+                    reduction_scales,
+                ): realization
+                for realization in range(n_realizations)
+            }
+            for future in as_completed(future_to_realization):
+                realization = future_to_realization[future]
+                record(realization, future.result())
+
+    if data_level is None:
+        data_level = (
+            "scaled verification run; paper uses Ns=8, Ne=12, R=100"
+        )
+    dataset = {
+        "times": times,
+        "theta_over_pi": theta_over_pi,
+        "asymmetry": curves,
+        "gate_parameters": parameters,
+        "n_system": np.array(n_system),
+        "n_environment": np.array(n_environment),
+        "n_realizations": np.array(n_realizations),
+        "parameter_divisor": np.array(parameter_divisor),
+        "seed": np.array(seed),
+        "environment": np.array("|0...0>; no reset"),
+        "protocol": np.array(
+            "U(1) non-Markovian brickwork, Eqs. (68)-(72), (78)"
+        ),
+        "manuscript_figure": np.array("Fig. 10"),
+        "data_level": np.array(data_level),
+        "paper_n_system": np.array(8),
+        "paper_n_environment": np.array(12),
+        "paper_n_realizations": np.array(100),
+        "paper_steps": np.array(1_000),
+        "parameter_origin": np.array(
+            "supplied reference rows"
+            if supplied_parameters is not None
+            else "NumPy default_rng draws"
+        ),
+        "simulation_engine": np.array(
+            "exact occupied-U(1)-sector engine with shared Gram reductions"
+        ),
+        "simulation_workers": np.array(workers),
+    }
+    if supplied_parameters is not None:
+        dataset.update(
+            {
+                "source_indices": source_indices,
+                "source_repository": np.array(source_repository),
+                "source_commit": np.array(source_commit),
+                "source_parameter_file": np.array(source_parameter_file),
+                "source_parameter_sha256": np.array(
+                    source_parameter_sha256
+                ),
+            }
+        )
+    return dataset
+
+
+def _su2_asymmetry_from_amplitudes(
+    amplitudes: np.ndarray,
+    schur_basis: np.ndarray,
+    paths_by_spin: dict[int, list[tuple[int, ...]]],
+) -> float:
+    """Exact SU(2) asymmetry from a system-by-environment amplitude matrix."""
+    with np.errstate(over="ignore", invalid="ignore", divide="ignore"):
+        reduced = amplitudes @ amplitudes.conj().T
+    if not np.isfinite(reduced).all():
+        raise FloatingPointError("Non-finite reduced SU(2) state.")
+    entropy_reduced = _entropy(reduced)
+
+    with np.errstate(over="ignore", invalid="ignore", divide="ignore"):
+        transformed = schur_basis.conj().T @ amplitudes
+    if not np.isfinite(transformed).all():
+        raise FloatingPointError("Non-finite Schur-basis amplitudes.")
+    entropy_twirled = 0.0
+    offset = 0
+    for spin_twice in sorted(paths_by_spin):
+        multiplicity = len(paths_by_spin[spin_twice])
+        irrep_dimension = spin_twice + 1
+        block_size = multiplicity * irrep_dimension
+        block = transformed[offset : offset + block_size].reshape(
+            multiplicity, irrep_dimension, amplitudes.shape[1]
+        )
+        multiplicity_state_over_d = np.einsum(
+            "ame,bme->ab", block, block.conj(), optimize=True
+        ) / irrep_dimension
+        eigenvalues = la.eigvalsh(
+            (
+                multiplicity_state_over_d
+                + multiplicity_state_over_d.conj().T
+            )
+            / 2
+        ).real
+        entropy_twirled += irrep_dimension * _entropy_from_eigenvalues(
+            eigenvalues
+        )
+        offset += block_size
+    return max(0.0, entropy_twirled - entropy_reduced)
+
+
+def _su2_asymmetry_from_global_pure(
+    state: np.ndarray,
+    n_system: int,
+    n_environment: int,
+    schur_basis: np.ndarray,
+    paths_by_spin: dict[int, list[tuple[int, ...]]],
+) -> float:
+    """Exact SU(2) asymmetry without materializing the dense twirled state."""
+    amplitudes = state.reshape(2**n_environment, 2**n_system).T
+    return _su2_asymmetry_from_amplitudes(
+        amplitudes, schur_basis, paths_by_spin
+    )
+
+
+def _sector_amplitudes(
+    state: np.ndarray,
+    basis_indices: np.ndarray,
+    n_system: int,
+    n_environment: int,
+) -> np.ndarray:
+    """Scatter a fixed-weight state into system-by-environment amplitudes."""
+    system_dimension = 2**n_system
+    amplitudes = np.zeros(
+        (system_dimension, 2**n_environment), dtype=np.complex128
+    )
+    system_indices = basis_indices & (system_dimension - 1)
+    environment_indices = basis_indices >> n_system
+    amplitudes[system_indices, environment_indices] = state
+    return amplitudes
+
+
+def generate_su2_nonmarkovian(
+    *,
+    n_realizations: int = 3,
+    steps: int = 100,
+    n_system: int = 8,
+    n_environment: int = 12,
+    coupling_scale: float = np.pi / 5,
+    seed: int = 30_000,
+    sample_times: np.ndarray | None = None,
+    progress: Progress = print,
+) -> dict[str, np.ndarray]:
+    """Run the SU(2)-covariant open-system protocol defined by Eq. (79).
+
+    This routine intentionally implements the printed state
+    ``cos(theta/2)|singlets> + sin(theta/2)|0...0>`` in natural-log units.
+    It does not silently exchange the coefficients to imitate Fig. 11: the
+    vector data in that figure are inconsistent with Eq. (79) under the stated
+    covariant dynamics, so figure comparison belongs in the audit notebook.
+
+    ``sample_times`` can reduce measurement cost while still evolving every
+    Floquet layer. Couplings are stored in deterministic brickwork application
+    order (even bonds, then odd bonds), and a single sampled unitary is
+    repeated, as required for the non-Markovian protocol.
+    """
+    _validate_batched_layer()
+    if n_realizations < 1:
+        raise ValueError("n_realizations must be positive.")
+    if steps < 0:
+        raise ValueError("steps must be nonnegative.")
+    if n_system < 2 or n_environment < 2:
+        raise ValueError("Both partitions must contain at least two qubits.")
+    if n_system % 2 or n_environment % 2:
+        raise ValueError("The singlet preparation requires even subsystem sizes.")
+    if not np.isfinite(coupling_scale) or coupling_scale < 0:
+        raise ValueError("coupling_scale must be finite and nonnegative.")
+    n_total = n_system + n_environment
+    if sample_times is None:
+        times = np.arange(steps + 1)
+    else:
+        times = np.unique(np.asarray(sample_times, dtype=int))
+        if (
+            times.ndim != 1
+            or len(times) == 0
+            or times[0] != 0
+            or times[-1] > steps
+            or np.any(times < 0)
+        ):
+            raise ValueError(
+                "sample_times must be a nonempty one-dimensional collection "
+                "containing t=0 with values between 0 and steps."
+            )
+    time_to_index = {int(time): index for index, time in enumerate(times)}
+    theta_over_pi = np.array([0.30, 0.35, 0.40, 0.45, 0.50])
+    environment = nu.singlet_product(n_environment)
+    system_singlet = nu.singlet_product(n_system)
+    system_polarized = np.zeros(2**n_system, dtype=complex)
+    system_polarized[0] = 1
+    schur_basis, paths_by_spin = nu.su2_schur_basis(
+        n_system, convention="manuscript"
+    )
+
+    curves = np.zeros(
+        (n_realizations, len(theta_over_pi), len(times))
+    )
+    coupling_samples = np.zeros((n_realizations, n_total))
+    masks = fn.load_mask_memory(n_total)
+    ordering = fn.gen_gates_order(n_total, geometry="brickwork")
+    started = perf_counter()
+
+    for realization in range(n_realizations):
+        rng = np.random.default_rng(seed + realization)
+        couplings = rng.uniform(-coupling_scale, coupling_scale, n_total)
+        coupling_samples[realization] = couplings
+        gates = [
+            fn.gen_su2(float(coupling)) for coupling in couplings
+        ]
+
+        # Eq. (79) spans only two vectors.  Evolving those vectors once and
+        # forming all five theta superpositions is exact and saves fivefold work.
+        basis_states = np.column_stack(
+            [
+                np.kron(environment, system_singlet),
+                np.kron(environment, system_polarized),
+            ]
+        )
+        for time in range(steps + 1):
+            if time in time_to_index:
+                sample_index = time_to_index[time]
+                for theta_index, theta_fraction in enumerate(theta_over_pi):
+                    theta = theta_fraction * np.pi
+                    singlet_amplitude = np.cos(theta / 2)
+                    polarized_amplitude = np.sin(theta / 2)
+                    state = np.ascontiguousarray(
+                        singlet_amplitude * basis_states[:, 0]
+                        + polarized_amplitude * basis_states[:, 1]
+                    )
+                    curves[realization, theta_index, sample_index] = (
+                        _su2_asymmetry_from_global_pure(
+                            state,
+                            n_system,
+                            n_environment,
+                            schur_basis,
+                            paths_by_spin,
+                        )
+                    )
+            if time < steps:
+                basis_states = _apply_layer_batch(
+                    basis_states, gates, ordering, masks
+                )
+
+        progress(
+            f"SU(2) non-Markov: {realization + 1}/{n_realizations} "
+            f"({perf_counter() - started:.1f} s)"
+        )
+
+    spins = np.array(sorted(paths_by_spin), dtype=int)
+    multiplicities = np.array(
+        [len(paths_by_spin[spin]) for spin in spins], dtype=int
+    )
+    return {
+        "times": times,
+        "theta_over_pi": theta_over_pi,
+        "asymmetry": curves,
+        "couplings": coupling_samples,
+        "coupling_indexing": np.array(
+            "brickwork application order: even bonds, then odd bonds"
+        ),
+        "spin_twice": spins,
+        "multiplicity": multiplicities,
+        "n_system": np.array(n_system),
+        "n_environment": np.array(n_environment),
+        "n_realizations": np.array(n_realizations),
+        "coupling_scale": np.array(coupling_scale),
+        "coefficient_order": np.array("equation"),
+        "cg_basis_convention": np.array(
+            nu.SU2_CG_BASIS_CONVENTION
+        ),
+        "entropy_log_base": np.array("e"),
+        "state_definition": np.array(
+            "Eq. (79): cos(theta/2)|singlets> + "
+            "sin(theta/2)|0...0>"
+        ),
+        "seed": np.array(seed),
+        "environment": np.array("product of singlets; no reset"),
+        "protocol": np.array(
+            "Eq. (79)-consistent SU(2) non-Markovian brickwork validation"
+        ),
+        "manuscript_figure": np.array("Fig. 11"),
+        "data_level": np.array(
+            "Eq. (79) validation at manuscript system and ensemble size; "
+            "not asserted to reproduce Fig. 11"
+            if n_realizations == 100
+            else "Eq. (79) validation at manuscript system size; "
+            "reduced ensemble; not a Fig. 11 reproduction"
+        ),
+        "paper_n_realizations": np.array(100),
+        "paper_vector_samples_per_curve": np.array(1_001),
+    }
+
+
+def generate_su2_fig11(
+    *,
+    n_realizations: int = 100,
+    steps: int = 501,
+    n_system: int = 8,
+    n_environment: int = 12,
+    coupling_scale: float = np.pi / 5,
+    seed: int = 0,
+    sample_layers: np.ndarray | None = None,
+    workers: int = 1,
+    progress: Progress = print,
+) -> dict[str, np.ndarray]:
+    """Generate the full-SU(2) ensemble that matches the Fig. 11 panel.
+
+    ``workers`` > 1 evaluates independent circuit realizations concurrently
+    (threads), exactly as :func:`generate_u1_nonmarkovian_sector` does for the
+    Fig. 10 ensemble.  The couplings of realization ``r`` are always drawn from
+    ``default_rng(seed + r)``, so the output does not depend on ``workers``.
+
+    The simulation uses an invariant singlet bath, fixed periodic brickwork
+    layers of isotropic-exchange (partial-SWAP) gates, and the exact SU(2) Haar
+    twirl.  The figure-matching state convention inferred by comparing the
+    full-SU(2) protocol with the archived panel is a pi/2-shifted tilt,
+
+    ``cos((theta + pi/2)/2)|singlets> +``
+    ``sin((theta + pi/2)/2)|0...0>``.
+
+    Evolution takes place in exact fixed-magnetization sectors.  This is only a
+    symmetry compression: the result is algebraically identical to evolving
+    the complete ``2**(n_system+n_environment)`` state vector.
+    """
+    if n_realizations < 1:
+        raise ValueError("n_realizations must be positive.")
+    if steps < 1:
+        raise ValueError("steps must be positive.")
+    if n_system % 2 or n_environment % 2:
+        raise ValueError("The system and environment sizes must both be even.")
+    if n_system != 8 or n_environment != 12:
+        raise ValueError(
+            "The Figure 11 sector implementation is pinned to Ns=8, Ne=12."
+        )
+    if sample_layers is None:
+        sample_layers = np.unique(
+            np.concatenate(
+                [
+                    np.arange(1, min(steps, 10) + 1),
+                    np.rint(
+                        np.geomspace(min(steps, 11), steps, 51)
+                    ).astype(int),
+                ]
+            )
+        )
+    layers = np.unique(np.asarray(sample_layers, dtype=int))
+    if (
+        layers.ndim != 1
+        or len(layers) == 0
+        or layers[0] < 1
+        or layers[-1] > steps
+    ):
+        raise ValueError(
+            "sample_layers must be a nonempty one-dimensional collection "
+            "between layer 1 and steps."
+        )
+
+    n_total = n_system + n_environment
+    theta_over_pi = np.array([0.30, 0.35, 0.40, 0.45, 0.50])
+    effective_angles = np.pi * (theta_over_pi + 0.5)
+    singlet_amplitudes = np.cos(effective_angles / 2)
+    polarized_amplitudes = np.sin(effective_angles / 2)
+
+    environment = nu.singlet_product(n_environment)
+    system_singlet = nu.singlet_product(n_system)
+    system_polarized = np.zeros(2**n_system, dtype=complex)
+    system_polarized[0] = 1
+    singlet_branch_full = np.kron(environment, system_singlet)
+    polarized_branch_full = np.kron(environment, system_polarized)
+
+    singlet_weight = n_environment // 2 + n_system // 2
+    polarized_weight = n_environment // 2
+    singlet_indices, singlet_inverse = _fixed_weight_basis(
+        n_total, singlet_weight
+    )
+    polarized_indices, polarized_inverse = _fixed_weight_basis(
+        n_total, polarized_weight
+    )
+    singlet_maps = _su2_sector_gate_maps(
+        singlet_indices, singlet_inverse, n_total
+    )
+    polarized_maps = _su2_sector_gate_maps(
+        polarized_indices, polarized_inverse, n_total
+    )
+    singlet_initial = singlet_branch_full[singlet_indices]
+    polarized_initial = polarized_branch_full[polarized_indices]
+
+    schur_basis, paths_by_spin = nu.su2_schur_basis(
+        n_system, convention="manuscript"
+    )
+    ordering = fn.gen_gates_order(n_total, geometry="brickwork")
+    layer_to_sample = {
+        int(layer): index for index, layer in enumerate(layers)
+    }
+    curves = np.zeros(
+        (n_realizations, len(theta_over_pi), len(layers))
+    )
+    coupling_samples = np.zeros((n_realizations, n_total))
+    started = perf_counter()
+
+    def run_realization(
+        realization: int,
+    ) -> tuple[np.ndarray, np.ndarray]:
+        rng = np.random.default_rng(seed + realization)
+        couplings = rng.uniform(-coupling_scale, coupling_scale, n_total)
+        realization_curves = np.zeros(
+            (len(theta_over_pi), len(layers)), dtype=float
+        )
+        singlet_branch = singlet_initial.copy()
+        polarized_branch = polarized_initial.copy()
+
+        for layer in range(1, steps + 1):
+            _apply_su2_sector_layer(
+                singlet_branch,
+                couplings,
+                ordering,
+                singlet_maps,
+            )
+            _apply_su2_sector_layer(
+                polarized_branch,
+                couplings,
+                ordering,
+                polarized_maps,
+            )
+            if layer not in layer_to_sample:
+                continue
+
+            sample_index = layer_to_sample[layer]
+            singlet_matrix = _sector_amplitudes(
+                singlet_branch,
+                singlet_indices,
+                n_system,
+                n_environment,
+            )
+            polarized_matrix = _sector_amplitudes(
+                polarized_branch,
+                polarized_indices,
+                n_system,
+                n_environment,
+            )
+            for theta_index, (singlet_amplitude, polarized_amplitude) in enumerate(
+                zip(singlet_amplitudes, polarized_amplitudes)
+            ):
+                amplitudes = (
+                    singlet_amplitude * singlet_matrix
+                    + polarized_amplitude * polarized_matrix
+                )
+                realization_curves[theta_index, sample_index] = (
+                    _su2_asymmetry_from_amplitudes(
+                        amplitudes,
+                        schur_basis,
+                        paths_by_spin,
+                    )
+                )
+        return couplings, realization_curves
+
+    def record(
+        realization: int,
+        coupling_row: np.ndarray,
+        realization_curves: np.ndarray,
+        completed: int,
+    ) -> None:
+        coupling_samples[realization] = coupling_row
+        curves[realization] = realization_curves
+        progress(
+            f"Fig. 11 full SU(2): {completed}/{n_realizations} "
+            f"({perf_counter() - started:.1f} s)"
+        )
+
+    if workers <= 1:
+        for realization in range(n_realizations):
+            record(realization, *run_realization(realization), realization + 1)
+    else:
+        completed = 0
+        with ThreadPoolExecutor(max_workers=workers) as executor:
+            future_to_realization = {
+                executor.submit(run_realization, realization): realization
+                for realization in range(n_realizations)
+            }
+            for future in as_completed(future_to_realization):
+                realization = future_to_realization[future]
+                completed += 1
+                record(realization, *future.result(), completed)
+
+    initial_asymmetry = np.array(
+        [
+            _su2_asymmetry_from_amplitudes(
+                singlet_amplitude
+                * _sector_amplitudes(
+                    singlet_initial,
+                    singlet_indices,
+                    n_system,
+                    n_environment,
+                )
+                + polarized_amplitude
+                * _sector_amplitudes(
+                    polarized_initial,
+                    polarized_indices,
+                    n_system,
+                    n_environment,
+                ),
+                schur_basis,
+                paths_by_spin,
+            )
+            for singlet_amplitude, polarized_amplitude in zip(
+                singlet_amplitudes, polarized_amplitudes
+            )
+        ]
+    )
+    displayed_times = 0.1 + 0.2 * (layers - 1)
+    spins = np.array(sorted(paths_by_spin), dtype=int)
+    multiplicities = np.array(
+        [len(paths_by_spin[spin]) for spin in spins], dtype=int
+    )
+    return {
+        "layers": layers,
+        "displayed_times": displayed_times,
+        "theta_over_pi": theta_over_pi,
+        "effective_theta_over_pi": effective_angles / np.pi,
+        "initial_asymmetry": initial_asymmetry,
+        "asymmetry": curves,
+        "couplings": coupling_samples,
+        "spin_twice": spins,
+        "multiplicity": multiplicities,
+        "n_system": np.array(n_system),
+        "n_environment": np.array(n_environment),
+        "n_realizations": np.array(n_realizations),
+        "coupling_scale": np.array(coupling_scale),
+        "seed": np.array(seed),
+        "entropy_log_base": np.array("e"),
+        "environment": np.array("product of singlets; no reset"),
+        "gate_family": np.array(
+            "isotropic exchange / partial SWAP; exact full SU(2)"
+        ),
+        "state_definition": np.array(
+            "cos((theta+pi/2)/2)|singlets> + "
+            "sin((theta+pi/2)/2)|0...0>"
+        ),
+        "coefficient_convention": np.array(
+            "figure-matching pi/2-shifted tilt; inferred from archived panel"
+        ),
+        "time_calibration": np.array(
+            "displayed_time = 0.1 + 0.2*(Floquet_layer - 1)"
+        ),
+        "cg_basis_convention": np.array(
+            nu.SU2_CG_BASIS_CONVENTION
+        ),
+        "coupling_indexing": np.array(
+            "brickwork application order: even bonds, then odd bonds"
+        ),
+        "sector_dimensions": np.array(
+            [len(singlet_indices), len(polarized_indices)]
+        ),
+        "protocol": np.array(
+            "Fig. 11 full-SU(2) non-Markovian periodic brickwork ensemble"
+        ),
+        "manuscript_figure": np.array("Fig. 11"),
+        "data_level": np.array(
+            "raw per-realization full-SU(2) simulation"
+        ),
+        "paper_n_realizations": np.array(100),
+    }
+
+
+def save_dataset(path: str | Path, dataset: dict[str, np.ndarray]) -> Path:
+    """Atomically store one dataset as a compressed, pickle-free NPZ file."""
+    target = Path(path)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    temporary = target.with_suffix(".tmp.npz")
+    np.savez_compressed(temporary, **dataset)
+    os.replace(temporary, target)
+    return target

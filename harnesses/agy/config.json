@@ -1,0 +1,8 @@
+{
+  "type": "agy",
+  "model": "gemini-4-neon-xhigh",
+  "reasoning_effort": "xhigh",
+  "record_solution_versions": true,
+  "submission_selection": "last_valid",
+  "resumable": true
+}

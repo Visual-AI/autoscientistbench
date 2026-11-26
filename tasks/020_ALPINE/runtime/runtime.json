@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "python": "/usr/bin/python3",
+  "mounts": [
+    {
+      "name": "alpine",
+      "source": "runtime/alpine.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Bio-20_ALPINE/.mamba/envs/alpine",
+      "format": "tar",
+      "sha256": "becc6c05b56f90b81933cc9e173af071b553702b23d237cfe6f0f10a54395f11",
+      "bytes": 1438515200
+    },
+    {
+      "name": "cwl",
+      "source": "runtime/cwl.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Bio-20_ALPINE/.venv",
+      "format": "tar",
+      "sha256": "b1a10e3d51df82739427cccd67f80e144fb1462e4252f0636b3b2e7d432f82e3",
+      "bytes": 75909120
+    },
+    {
+      "name": "old_minimap",
+      "source": "runtime/old_minimap.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Bio-20_ALPINE/tools/minimap2-2.16",
+      "format": "tar",
+      "sha256": "ca2285a0b5e71cdb437ffabb07be7828cb57c899840891af1ca370aa8effb8d1",
+      "bytes": 890880
+    }
+  ],
+  "env": {
+    "PATH": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Bio-20_ALPINE/.mamba/envs/alpine/bin:/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Bio-20_ALPINE/.venv/bin:/usr/local/bin:/usr/bin:/bin",
+    "PATCHER_MINIMAP2_PATH": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Bio-20_ALPINE/tools/minimap2-2.16/minimap2",
+    "PATCHER_SAMTOOLS_PATH": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Bio-20_ALPINE/.mamba/envs/alpine/bin/samtools",
+    "MPLBACKEND": "Agg"
+  }
+}

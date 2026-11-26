@@ -1,0 +1,235 @@
+{
+  "task": "100_xPatch",
+  "created": "2026-11-04T12:47:10+0000",
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "cpus": 8,
+  "adapt_commit": "5f2cb4f91cf33fe5530d86fd8a60ac9c4fee1e4f",
+  "sandbox": true,
+  "budget_s": 216000.0,
+  "test": {
+    "per_seed": [
+      0.43397588747143573,
+      0.43681867975971245,
+      0.4398256095808808
+    ],
+    "mean": 0.4368733922706763,
+    "std": 0.0023884523976241165,
+    "n": 3
+  },
+  "val": {
+    "per_seed": [
+      1.185402464814721,
+      1.1833202782552972,
+      1.183505441055775
+    ],
+    "mean": 1.1840760613752643,
+    "std": 0.00094095018600771,
+    "n": 3
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "mse": 0.43397588747143573,
+        "mae": 0.4221052087134875,
+        "mse_unguarded": 0.43397588747143573,
+        "guard_mae_ok": true,
+        "mae_max": 0.4275,
+        "mse_per_horizon": {
+          "96": 0.3844308985628281,
+          "192": 0.42075970301788146,
+          "336": 0.4446632700894703,
+          "720": 0.48604967821556294
+        },
+        "mae_per_horizon": {
+          "96": 0.39027314306041155,
+          "192": 0.40783041310387247,
+          "336": 0.42485527163933084,
+          "720": 0.46546200705033525
+        },
+        "protocol": "private-forecast-v2",
+        "evaluation_windows": 1024,
+        "isolation": "fresh_worker_per_window",
+        "original_metric_preserved": true,
+        "prediction_wall_s": 483.207609096542,
+        "worker_pool_size": 8,
+        "artifact_setup_s": 4.7627241825684905
+      },
+      "val": {
+        "mse": 1.185402464814721,
+        "mae": 0.7131073706710693,
+        "mse_unguarded": 1.185402464814721,
+        "guard_mae_ok": true,
+        "mae_max": 0.72,
+        "mse_per_horizon": {
+          "96": 0.729495164209321,
+          "192": 1.0581122208250473,
+          "336": 1.3449180740797317,
+          "720": 1.6090844001447844
+        },
+        "mae_per_horizon": {
+          "96": 0.5604777381954362,
+          "192": 0.6688648990589096,
+          "336": 0.7655580073460079,
+          "720": 0.8575288380839237
+        },
+        "protocol": "private-forecast-v2",
+        "evaluation_windows": 1024,
+        "isolation": "fresh_worker_per_window",
+        "original_metric_preserved": true,
+        "prediction_wall_s": 485.4987553143874,
+        "worker_pool_size": 8,
+        "artifact_setup_s": 5.013334155082703
+      },
+      "timing": {
+        "train_s": 568.22,
+        "predict_s": 4.62,
+        "score_s": 488.85,
+        "predict_val_s": 4.77
+      }
+    },
+    "2": {
+      "test": {
+        "mse": 0.43681867975971245,
+        "mae": 0.4230955851441266,
+        "mse_unguarded": 0.43681867975971245,
+        "guard_mae_ok": true,
+        "mae_max": 0.4275,
+        "mse_per_horizon": {
+          "96": 0.38661753908570967,
+          "192": 0.4270413317641296,
+          "336": 0.4475617736539248,
+          "720": 0.48605407453508576
+        },
+        "mae_per_horizon": {
+          "96": 0.3906104030506188,
+          "192": 0.40977936068544707,
+          "336": 0.4264579479896549,
+          "720": 0.4655346288507856
+        },
+        "protocol": "private-forecast-v2",
+        "evaluation_windows": 1024,
+        "isolation": "fresh_worker_per_window",
+        "original_metric_preserved": true,
+        "prediction_wall_s": 536.2910463670269,
+        "worker_pool_size": 8,
+        "artifact_setup_s": 4.914609880186617
+      },
+      "val": {
+        "mse": 1.1833202782552972,
+        "mae": 0.7129157880964443,
+        "mse_unguarded": 1.1833202782552972,
+        "guard_mae_ok": true,
+        "mae_max": 0.72,
+        "mse_per_horizon": {
+          "96": 0.7347137764410189,
+          "192": 1.0558936572642448,
+          "336": 1.3375382661581137,
+          "720": 1.6051354131578115
+        },
+        "mae_per_horizon": {
+          "96": 0.562862782718758,
+          "192": 0.6678493012561563,
+          "336": 0.7654895533449054,
+          "720": 0.8554615150659572
+        },
+        "protocol": "private-forecast-v2",
+        "evaluation_windows": 1024,
+        "isolation": "fresh_worker_per_window",
+        "original_metric_preserved": true,
+        "prediction_wall_s": 553.4586278265342,
+        "worker_pool_size": 8,
+        "artifact_setup_s": 5.811198092997074
+      },
+      "timing": {
+        "train_s": 465.07,
+        "predict_s": 4.47,
+        "score_s": 542.1,
+        "predict_val_s": 5.28
+      }
+    },
+    "3": {
+      "test": {
+        "mse": 0.4398256095808808,
+        "mae": 0.4246917856101283,
+        "mse_unguarded": 0.4398256095808808,
+        "guard_mae_ok": true,
+        "mae_max": 0.4275,
+        "mse_per_horizon": {
+          "96": 0.3844196862790226,
+          "192": 0.41656407724404154,
+          "336": 0.45306244952560515,
+          "720": 0.5052562252748539
+        },
+        "mae_per_horizon": {
+          "96": 0.3904701077683081,
+          "192": 0.405841229154025,
+          "336": 0.4267037983537459,
+          "720": 0.4757520071644342
+        },
+        "protocol": "private-forecast-v2",
+        "evaluation_windows": 1024,
+        "isolation": "fresh_worker_per_window",
+        "original_metric_preserved": true,
+        "prediction_wall_s": 552.8131871633232,
+        "worker_pool_size": 8,
+        "artifact_setup_s": 5.858366354368627
+      },
+      "val": {
+        "mse": 1.183505441055775,
+        "mae": 0.7120583613106942,
+        "mse_unguarded": 1.183505441055775,
+        "guard_mae_ok": true,
+        "mae_max": 0.72,
+        "mse_per_horizon": {
+          "96": 0.7276687600412619,
+          "192": 1.0569009965548368,
+          "336": 1.34637576146042,
+          "720": 1.6030762461665817
+        },
+        "mae_per_horizon": {
+          "96": 0.5592467005101829,
+          "192": 0.6683706513122064,
+          "336": 0.7657231249331844,
+          "720": 0.854892968487203
+        },
+        "protocol": "private-forecast-v2",
+        "evaluation_windows": 1024,
+        "isolation": "fresh_worker_per_window",
+        "original_metric_preserved": true,
+        "prediction_wall_s": 549.9011833891273,
+        "worker_pool_size": 8,
+        "artifact_setup_s": 5.741272754967213
+      },
+      "timing": {
+        "train_s": 751.05,
+        "predict_s": 5.38,
+        "score_s": 559.72,
+        "predict_val_s": 5.24
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      568.22,
+      465.07,
+      751.05
+    ],
+    "predict_s": [
+      4.62,
+      4.47,
+      5.38
+    ],
+    "build_s": 7.7
+  },
+  "hashes": {
+    "env_lock": "0c9c1dda5dd4a9a62d4d3cc3d501f38150d5e92a9119be528173f03e05ba1191",
+    "scorer": "54c2c776ab87764e8717cf2f51e6f8ef022d5027c0943a31c9b43c6cd1468642",
+    "validate": "f8cdf79c0879d473c1b7969a112b99d94928d6c08831e07a14cac73849be39a4",
+    "test_labels": null,
+    "adapt_patch": "7e91cfac888ac65434e370e92ea1b713f69c4af31c731d257775df17ed5412c4"
+  }
+}

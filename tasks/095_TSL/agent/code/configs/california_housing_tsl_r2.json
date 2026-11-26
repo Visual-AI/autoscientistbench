@@ -1,0 +1,27 @@
+{
+  "dataset": "california_housing",
+  "openml_task_id": 361255,
+  "openml_dataset_id": 44977,
+  "model": "TSL (R<=2)",
+  "source": "github.com/jyliuu/tsl-benchmark-reproducibility @ cce83c87f252f154da3398af3e44c20efa94226d, results/interpretable/tsl_r2/california_housing/TSLRegressor/run_0021_california_housing_TSLRegressor.json: best trial of the authors' 200-trial Optuna TPE study (objective: 10-fold CV MSE on the training split; epochs in [1,2] is the R<=2 constraint)",
+  "best_params": {
+    "alpha": 0.00019968195819166008,
+    "decay": 0.9844135591182811,
+    "epochs": 2,
+    "min_interval_samples": 56,
+    "n_iter": 64,
+    "refinement_strategy": "l2",
+    "similarity_threshold": 0.8543533246874502,
+    "update_clamp": 5.569877273010641,
+    "bagged": true,
+    "complexity_penalty": 0,
+    "min_split_loss": 0,
+    "n_trees": 200,
+    "prior_sample_size": 0,
+    "split_strategy": "random",
+    "tilt_rho": 0,
+    "tilt_tau": 0,
+    "split_try": 10,
+    "colsample_bytree": 0.6382735724554662
+  }
+}

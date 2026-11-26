@@ -1,0 +1,162 @@
+{
+  "pid": "020_ALPINE",
+  "class": "C",
+  "title": "ALPINE long-read outcome classification",
+  "metric": {
+    "name": "f1",
+    "higher_is_better": true,
+    "delta": 0.005,
+    "aggregate": "mean"
+  },
+  "cpus": 16,
+  "memory_gb": 80,
+  "budget_hours_default": 24,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input",
+    "val_labels": "data/val/labels.json",
+    "test_input": "test/input",
+    "test_labels": "test/labels.json"
+  },
+  "split": {
+    "type": "training_free",
+    "decision": "All240000 original reads retained; 20/80 stratified by pool/outcome, independent opaque IDs; existing reference/config unchanged."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 7.99,
+    "val": {
+      "f1": 87.38499999999999
+    },
+    "paper_ref": "Historical ONT Total F1 mean87.035; unchanged thresholds, no full new reference.",
+    "measured_s": {
+      "train": [
+        0.31
+      ],
+      "predict": [
+        479.27
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:cd3011f639f27b916f280521767d5c3b84310997e2217270c50cc78fa1e1463f"
+  },
+  "env": {
+    "mode": "snapshot",
+    "snapshot": "runtime/runtime.json",
+    "python": "3.11",
+    "lock": "code/env.lock"
+  },
+  "adapt": {
+    "base_commit": "60ef339d7a29c3a34811e9bb0593bd7cfc8d587b",
+    "adapt_commit": "fb6d9e7205921e732ee2da8be21d3bdad1210b50",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "smoke": {
+    "input": "judge/verification/fixture/input",
+    "labels": "judge/verification/fixture/labels.json"
+  },
+  "conversion": {
+    "full_data_ready": true,
+    "source_commit": "b59121d132f20e5056b76038b50dc136a91a756b",
+    "smoke_report": "judge/verification/smoke.json",
+    "data_integrity": "judge/verification/data_checks.json",
+    "method_parity": "judge/verification/smoke_classification_parity.json",
+    "scorer_checks": "judge/verification/scorer_sandbox_checks.json"
+  },
+  "method_freedom_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/020_ALPINE.json",
+    "full_training_or_evaluation": false,
+    "allowed_changes": [
+      "computational classification, alignment, filtering and learned prediction methods",
+      "training surrogates and implementation with complete fixed read coverage",
+      "When retaining the supplied ALPINE pipeline, changing only variant_window=20, min_itr_length=10, full_hdr_cutoff=0.99 for HiFi or 0.95 for ONT, or min_qual=30 for HiFi or 10 for ONT does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Classify the existing observed long reads into the fixed outcome classes while improving ONT F1 and retaining all-pool validity.",
+      "four supplied read pools, reference/configuration definitions and stratified partition",
+      "outcome ontology, original rounded F1 aggregation and integration/overall control thresholds",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/020_ALPINE.json",
+    "forbidden_substitutions": [
+      "changing observed sequences, target definitions, outcome categories or scoring population",
+      "inferring labels from removed simulator identifiers, reusing cached class outputs or altering the control thresholds",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract"
+  },
+  "research_contract": {
+    "objective": "Classify the existing observed long reads into the fixed outcome classes while improving ONT F1 and retaining all-pool validity.",
+    "fixed_research_objects": [
+      "four supplied read pools, reference/configuration definitions and stratified partition",
+      "outcome ontology, original rounded F1 aggregation and integration/overall control thresholds"
+    ],
+    "editable_components": [
+      "computational classification, alignment, filtering and learned prediction methods",
+      "training surrogates and implementation with complete fixed read coverage",
+      "When retaining the supplied ALPINE pipeline, changing only variant_window=20, min_itr_length=10, full_hdr_cutoff=0.99 for HiFi or 0.95 for ONT, or min_qual=30 for HiFi or 10 for ONT does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "changing observed sequences, target definitions, outcome categories or scoring population",
+      "inferring labels from removed simulator identifiers, reusing cached class outputs or altering the control thresholds",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "source": "tasks/020_ALPINE/agent/README.md",
+        "section": "Goal,Data,Metric and baseline",
+        "finding": "Classify the existing observed long reads into the fixed outcome classes while improving ONT F1 and retaining all-pool validity."
+      },
+      {
+        "source": "tasks/020_ALPINE/agent/bench/scorer.py",
+        "section": "trusted score and guards",
+        "finding": "The fixed evaluation target is four supplied read pools, reference/configuration definitions and stratified partition; outcome ontology, original rounded F1 aggregation and integration/overall control thresholds"
+      },
+      {
+        "source": "audits/20261101_method_freedom/020_ALPINE.json",
+        "section": "prior task-specific scorer/interface audit",
+        "finding": "Reuse the prior actual evaluator review while narrowing the blanket permission to the present task-specific objects."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/020_ALPINE.json"
+  },
+  "research_contract_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/020_ALPINE.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

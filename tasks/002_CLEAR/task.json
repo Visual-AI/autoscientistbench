@@ -1,0 +1,175 @@
+{
+  "pid": "002_CLEAR",
+  "class": "A",
+  "title": "CLEAR: Calibrated Learning for Epistemic and Aleatoric Risk",
+  "metric": {
+    "name": "nciw",
+    "higher_is_better": false,
+    "delta": 0.002,
+    "aggregate": "mean"
+  },
+  "cpus": 128,
+  "memory_gb": 192,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.npz",
+    "val_labels": "data/val/labels.npz",
+    "test_input": "test/input.npz",
+    "test_labels": "test/labels.npz",
+    "input_format": "npz",
+    "output_format": "csv"
+  },
+  "split": {
+    "type": "std3",
+    "decision": "std3: materialize original 60/20/20 split once with sklearn random_state=777 at both split calls; ten algorithm repetitions use the same disjoint partitions to prevent cross-repetition leakage. Ten original split test arrays retained only for operator verification. All 17 datasets retained. Exact feature/target duplicates of hidden rows are purged from public train/val only; hidden rows remain exactly equal to archived seed 777. Per-dataset sizes and exclusions are recorded in private data_audit.json. Training-only calibration policy: reserve a deterministic 20% internal calibration subset of each supplied training dataset (RandomState seed 20261102, original row order); the other 80% fits base estimators. External validation/test files unchanged."
+  },
+  "baseline": {
+    "train_min": 24.87,
+    "eval_min": 0.5,
+    "val": {
+      "nciw": 0.207580199820847
+    },
+    "paper_ref": "Figure 3 standard variant (a); reproduced 17 x 10 split mean NCIW 0.19567",
+    "measured_s": {
+      "train": [
+        1492.0,
+        1465.64,
+        1462.74
+      ],
+      "predict": [
+        21.81,
+        22.51,
+        22.5
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:b6a4e04d2798c842cddd22fddc82c83468a46059b60bb96538f77499fc69e8b5"
+  },
+  "env": {
+    "python": "3.10.22",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple",
+      "https://download.pytorch.org/whl/cpu"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "732ae71f30b93717edc70e606e6b663b246f76be",
+    "adapt_commit": "53e8c647920173a64d82ea0f5bc7cc5f692d2d94",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "method_freedom": {
+    "report": "audits/20261101_method_freedom/002_CLEAR.json",
+    "full_training_or_evaluation_run": false,
+    "superseded_by": "research_contract",
+    "scope_superseded_by": "audits/20261101_research_contract/002_CLEAR.json"
+  },
+  "pre_method_freedom_baseline_val": {
+    "nciw": 0.1983871231504076
+  },
+  "conversion": {
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "leakage_remediation": {
+    "full_evaluation_ready": false,
+    "superseded_by": "audits/20261101_method_freedom/002_CLEAR.json",
+    "evidence_is_historical": true
+  },
+  "method_freedom_review": {
+    "report": "audits/20261101_research_contract/002_CLEAR.json",
+    "allowed_changes": [
+      "The interval estimator, calibration method, internal features, training surrogate and optimizer of the uncertainty method may change using allowed training/calibration inputs; the regression model behind `pred` may not."
+    ],
+    "fixed_contract": [
+      "Produce narrow calibrated regression intervals at fixed 95% target coverage on the 17 supplied datasets.",
+      "The datasets, partitions, regression targets/units and ten-repetition evaluation remain fixed.",
+      "The NCIW formula/rescaling and per-dataset PICP at least 0.87 on test and 0.90 on val and at most 0.99 remain fixed.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/002_CLEAR.json",
+    "status": "scope_defined",
+    "forbidden_substitutions": [
+      "The central estimate `pred` must remain the baseline's PCS median: the model pool, selection and bootstrap ensemble that produce it stay fixed, and only the uncertainty estimators and their calibration may change (patch audit).",
+      "Do not change coverage targets, data, splits, target units, width formula or coverage guard; do not calibrate on hidden labels.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Copies of this data from an installed package count as external data (patch audit)."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Produce narrow calibrated regression intervals at fixed 95% target coverage on the 17 supplied datasets.",
+    "fixed_research_objects": [
+      "The datasets, partitions, regression targets/units and ten-repetition evaluation remain fixed.",
+      "The NCIW formula/rescaling and per-dataset PICP at least 0.87 on test and 0.90 on val and at most 0.99 remain fixed."
+    ],
+    "editable_components": [
+      "The interval estimator, calibration method, internal features, training surrogate and optimizer of the uncertainty method may change using allowed training/calibration inputs; the regression model behind `pred` may not."
+    ],
+    "forbidden_substitutions": [
+      "The central estimate `pred` must remain the baseline's PCS median: the model pool, selection and bootstrap ensemble that produce it stay fixed, and only the uncertainty estimators and their calibration may change (patch audit).",
+      "Do not change coverage targets, data, splits, target units, width formula or coverage guard; do not calibrate on hidden labels.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Copies of this data from an installed package count as external data (patch audit)."
+    ],
+    "evidence": [
+      {
+        "path": "tasks/002_CLEAR/BRIEF.md",
+        "finding": "CLEAR is the baseline; the score rule fixes datasets, target coverage, width objective and coverage validity."
+      },
+      {
+        "path": "tasks/002_CLEAR/agent/bench/scorer.py",
+        "finding": "Existing scorer retains the stated target formula, aggregation and validity controls."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/002_CLEAR.json"
+  },
+  "research_contract_review": {
+    "status": "scope_defined",
+    "report": "audits/20261101_research_contract/002_CLEAR.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "validation_policy_review": {
+    "status": "implemented_bounded_checks",
+    "reason": "PCS selection and interval calibration now use a fixed internal subset of training; validation does not fit calibration state.",
+    "report": "audits/20261102_validation_training/report.md",
+    "full_training_or_evaluation": false
+  },
+  "agent_budget_hours": 3
+}

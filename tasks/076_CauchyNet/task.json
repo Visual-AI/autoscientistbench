@@ -1,0 +1,163 @@
+{
+  "pid": "076_CauchyNet",
+  "class": "A",
+  "title": "CauchyNet: Compact and Data-Efficient Learning using Holomorphic Activation Functions",
+  "metric": {
+    "name": "mae",
+    "higher_is_better": false,
+    "delta": 0.01,
+    "aggregate": "mean"
+  },
+  "cpus": 8,
+  "memory_gb": 8,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.csv",
+    "val_labels": "data/val/labels.csv",
+    "test_input": "test/input.csv",
+    "test_labels": "test/labels.csv",
+    "input_format": "csv",
+    "output_format": "csv"
+  },
+  "split": {
+    "type": "std3",
+    "decision": "Materialize original clipped-normal synthetic split, data seed 10: 200 train / 50 val outside turning gaps; 100 held-out inside gaps. Preserve archived float32 arrays and row order. No generator or source history exposed."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 0.5,
+    "val": {
+      "mae": 0.0008921614033170044
+    },
+    "paper_ref": "Camera-ready Table 1 row 7; fixed ten-seed suite",
+    "measured_s": {
+      "train": [
+        39.18
+      ],
+      "predict": [
+        2.92
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 1e-05,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:f944a01b95b035a2910985b11a7da43e3a0d8619b972d7d3709b15dd70565ea1"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple",
+      "https://download.pytorch.org/whl/cpu"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "c9842be9d7bc7eb30ddff7ea11dabc7f18568114",
+    "adapt_commit": "5f4e2f15cc38265cca9140c80f28ca3c38c5faf9",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "pre_method_freedom_baseline_val": {
+    "mae": 0.0008853869425365701
+  },
+  "leakage_remediation": {
+    "full_evaluation_ready": false,
+    "superseded_by": "audits/20261101_method_freedom/076_CauchyNet.json",
+    "evidence_is_historical": true
+  },
+  "method_freedom": {
+    "report": "audits/20261101_method_freedom/076_CauchyNet.json",
+    "full_training_or_evaluation_run": false,
+    "superseded_by": "research_contract",
+    "scope_superseded_by": "audits/20261101_research_contract/076_CauchyNet.json"
+  },
+  "method_freedom_review": {
+    "report": "audits/20261101_research_contract/076_CauchyNet.json",
+    "allowed_changes": [
+      "Compact function-estimator architecture, surrogate loss, optimizer and training strategy within the same capacity budget.",
+      "When retaining the supplied CauchyNet pipeline, changing only lr=0.05, epochs=3000, batch_size=32, hidden_size=64, r_re=2.5, r_im=0.4, imag_pen=0.0 or StepLR(2000, 0.5) does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Minimize mean gap-filling MAE across ten independently fitted seeds under the fixed 128-real-parameter capacity budget.",
+      "Fixed scalar regression observations, gap/validation design, hidden targets and ten model seeds.",
+      "At most 128 real learned parameters per model; complex scalars count twice.",
+      "Per-seed float32 MAE followed by float64 ten-seed mean; no ensemble replacement.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/076_CauchyNet.json",
+    "status": "scope_repaired_with_limitations",
+    "forbidden_substitutions": [
+      "Using a larger model, hidden fitted constants or an ensemble to replace the controlled-capacity experiment.",
+      "Using the paper target formula/hidden split as an oracle or changing data, target function or MAE aggregation.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Minimize mean gap-filling MAE across ten independently fitted seeds under the fixed 128-real-parameter capacity budget.",
+    "fixed_research_objects": [
+      "Fixed scalar regression observations, gap/validation design, hidden targets and ten model seeds.",
+      "At most 128 real learned parameters per model; complex scalars count twice.",
+      "Per-seed float32 MAE followed by float64 ten-seed mean; no ensemble replacement."
+    ],
+    "editable_components": [
+      "Compact function-estimator architecture, surrogate loss, optimizer and training strategy within the same capacity budget.",
+      "When retaining the supplied CauchyNet pipeline, changing only lr=0.05, epochs=3000, batch_size=32, hidden_size=64, r_re=2.5, r_im=0.4, imag_pen=0.0 or StepLR(2000, 0.5) does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "Using a larger model, hidden fitted constants or an ensemble to replace the controlled-capacity experiment.",
+      "Using the paper target formula/hidden split as an oracle or changing data, target function or MAE aggregation.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "path": "tasks/076_CauchyNet/BRIEF.md",
+        "lines": "28-29",
+        "finding": "The selected gap-filling row has an explicit <=128-real-parameter score condition, not a requirement that all solvers be the baseline implementation."
+      },
+      {
+        "path": "tasks/076_CauchyNet/agent/bench/common.py",
+        "finding": "Prediction protocol fixes ten seeds, float32 predictions and one parameter count per seed."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/076_CauchyNet.json"
+  },
+  "research_contract_review": {
+    "status": "scope_repaired_with_limitations",
+    "report": "audits/20261101_research_contract/076_CauchyNet.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

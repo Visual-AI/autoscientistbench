@@ -1,0 +1,79 @@
+{
+  "task": "079_LTARC",
+  "created": "2026-11-04T10:36:49+0000",
+  "seeds": [
+    1
+  ],
+  "cpus": 8,
+  "adapt_commit": "58de851828b3f1503e4bf6ad69f76c6280bb6f09",
+  "sandbox": true,
+  "budget_s": 43200.0,
+  "test": {
+    "per_seed": [
+      0.5420094786729858
+    ],
+    "mean": 0.5420094786729858,
+    "std": 0.0,
+    "n": 1
+  },
+  "val": {
+    "per_seed": [
+      0.23536612021857922
+    ],
+    "mean": 0.23536612021857922,
+    "std": 0.0,
+    "n": 1
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "population_risk": 0.5420094786729858,
+        "population_risk_unguarded": 0.5420094786729858,
+        "treatment_risk": 0.2290424438909491,
+        "coverage": 0.92,
+        "guard_pass": true,
+        "protocol": "private-policy-v2",
+        "suite": "star-original-100",
+        "repetitions": 100,
+        "certificate_verified": true,
+        "private_roles_verified": true,
+        "development": false
+      },
+      "val": {
+        "population_risk": 0.23536612021857922,
+        "population_risk_unguarded": 0.23536612021857922,
+        "treatment_risk": 0.05029491302195036,
+        "coverage": 0.95,
+        "guard_pass": true,
+        "protocol": "private-policy-v2",
+        "suite": "ist-public-development-v1",
+        "repetitions": 40,
+        "certificate_verified": true,
+        "private_roles_verified": true,
+        "development": true
+      },
+      "timing": {
+        "train_s": 0.26,
+        "predict_s": 0.31,
+        "score_s": 759.46,
+        "predict_val_s": 0.31
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      0.26
+    ],
+    "predict_s": [
+      0.31
+    ],
+    "build_s": 2.8
+  },
+  "hashes": {
+    "env_lock": "47842b194c39b29ecf6e5a76a134de6ff23ccccc2a9e444be8810e12f0d28d12",
+    "scorer": "61685f95157b27d2c1921a090def2606eec3e114491ef752b3d91a7e04adb237",
+    "validate": "cfcac630197b983b713dd142d09b44e41103bca6b315d94c0f40751d1497d9d5",
+    "test_labels": "d4acbf8936716598da45b5673aca9b6f0e136dbe5cc4eddd81c4c6477e9473f9",
+    "adapt_patch": "5d2e429a19361258d25796890469ea5400d1d695151479f18735c962523de9f7"
+  }
+}

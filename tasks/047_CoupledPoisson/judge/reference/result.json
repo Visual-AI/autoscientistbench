@@ -1,0 +1,151 @@
+{
+  "task": "047_CoupledPoisson",
+  "created": "2026-11-02T08:22:37+0000",
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "cpus": 16,
+  "adapt_commit": "948e2156899030f082b1c468e55e6e69fb5e7b0b",
+  "sandbox": true,
+  "budget_s": 21600.0,
+  "test": {
+    "per_seed": [
+      200724588160.11935,
+      168336672311.97943,
+      220821847209.81482
+    ],
+    "mean": 196627702560.63785,
+    "std": 21621929450.221313,
+    "n": 3
+  },
+  "val": {
+    "per_seed": [
+      196650928691.6603,
+      179382234327.378,
+      187727647730.4578
+    ],
+    "mean": 187920270249.83203,
+    "std": 7051230570.521079,
+    "n": 3
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "asymptotic_inefficiency": 200724588160.11935,
+        "mean": 10015.311231047104,
+        "sample_variance": 15088668.569704745,
+        "average_counted_cost": 13303.002,
+        "bias_guard_pass": true,
+        "three_standard_errors": 368.50782505578184,
+        "n": 1000,
+        "scope": "full",
+        "cost_arithmetic_checked": true,
+        "cost_interface_requires_patch_audit": true
+      },
+      "val": {
+        "asymptotic_inefficiency": 196650928691.6603,
+        "mean": 9971.713607910799,
+        "sample_variance": 14788317.028409852,
+        "average_counted_cost": 13297.722,
+        "bias_guard_pass": true,
+        "three_standard_errors": 364.82167322637054,
+        "n": 1000,
+        "scope": "full",
+        "cost_arithmetic_checked": true,
+        "cost_interface_requires_patch_audit": true
+      },
+      "timing": {
+        "train_s": 0.06,
+        "predict_s": 31.02,
+        "score_s": 0.12,
+        "predict_val_s": 32.42
+      }
+    },
+    "2": {
+      "test": {
+        "asymptotic_inefficiency": 168336672311.97943,
+        "mean": 9739.489057320003,
+        "sample_variance": 12766963.075184854,
+        "average_counted_cost": 13185.334,
+        "bias_guard_pass": true,
+        "three_standard_errors": 338.97296009661846,
+        "n": 1000,
+        "scope": "full",
+        "cost_arithmetic_checked": true,
+        "cost_interface_requires_patch_audit": true
+      },
+      "val": {
+        "asymptotic_inefficiency": 179382234327.378,
+        "mean": 10128.175867467178,
+        "sample_variance": 13433733.928463599,
+        "average_counted_cost": 13353.118,
+        "bias_guard_pass": true,
+        "three_standard_errors": 347.71195745354,
+        "n": 1000,
+        "scope": "full",
+        "cost_arithmetic_checked": true,
+        "cost_interface_requires_patch_audit": true
+      },
+      "timing": {
+        "train_s": 0.06,
+        "predict_s": 30.17,
+        "score_s": 0.13,
+        "predict_val_s": 31.07
+      }
+    },
+    "3": {
+      "test": {
+        "asymptotic_inefficiency": 220821847209.81482,
+        "mean": 10063.115841590363,
+        "sample_variance": 16658547.977741826,
+        "average_counted_cost": 13255.768,
+        "bias_guard_pass": true,
+        "three_standard_errors": 387.20399248932915,
+        "n": 1000,
+        "scope": "full",
+        "cost_arithmetic_checked": true,
+        "cost_interface_requires_patch_audit": true
+      },
+      "val": {
+        "asymptotic_inefficiency": 187727647730.4578,
+        "mean": 9991.138418865285,
+        "sample_variance": 14168419.4878669,
+        "average_counted_cost": 13249.724,
+        "bias_guard_pass": true,
+        "three_standard_errors": 357.0935107094528,
+        "n": 1000,
+        "scope": "full",
+        "cost_arithmetic_checked": true,
+        "cost_interface_requires_patch_audit": true
+      },
+      "timing": {
+        "train_s": 0.06,
+        "predict_s": 30.63,
+        "score_s": 0.12,
+        "predict_val_s": 31.42
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      0.06,
+      0.06,
+      0.06
+    ],
+    "predict_s": [
+      31.02,
+      30.17,
+      30.63
+    ],
+    "build_s": 0.49
+  },
+  "hashes": {
+    "env_lock": "eeb48ae5824c77771255fde51a680c09f4f9bc15733e80d1688c79571d899351",
+    "scorer": "86f28fca02721ce51805e222c68570fa3f5828ab6744a707125565da9e2a2945",
+    "validate": "72f01392b92a069b93556aeb3b143704fd4a2f41615e5945801f4433647bdefd",
+    "test_labels": "78b7c1eeaf6f9592fb392db838c13d3bdc852e5d2fc209b2020191d1abb5530e",
+    "adapt_patch": "5d0e4912bd3f9e8983824ec4b85307a1cfb7b22e73c4df09ec2093e0c8a824d3"
+  }
+}

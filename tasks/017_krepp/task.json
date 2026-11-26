@@ -1,0 +1,170 @@
+{
+  "pid": "017_krepp",
+  "class": "A",
+  "title": "krepp phylogenetic read placement",
+  "metric": {
+    "name": "mean_edge_error",
+    "higher_is_better": false,
+    "delta": 0.005,
+    "aggregate": "mean"
+  },
+  "cpus": 16,
+  "memory_gb": 80,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input",
+    "val_labels": "data/val/labels.json",
+    "test_input": "test/input",
+    "test_labels": "test/labels.json"
+  },
+  "split": {
+    "type": "training_free",
+    "decision": "Seed 1729, disjoint query genomes: 20 val and 80 hidden test; all 100 x 5000 existing reads retained; all 100 excluded globally."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 17.9,
+    "val": {
+      "mean_edge_error": 1.9080132157565324
+    },
+    "paper_ref": "Paper 2.36; prior source reproduction 2.2832 (not a benchmark reference).",
+    "measured_s": {
+      "train": [
+        18.3,
+        0.42,
+        0.47
+      ],
+      "predict": [
+        1074.11,
+        1060.99,
+        886.45
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.01,
+    "reference_hash": "sha256:e8cfc34f2a49ba89a7ab1958e5f210e42fc705adea5546fb95ae1384fb388af6"
+  },
+  "env": {
+    "python": "3.12",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple",
+      "https://download.pytorch.org/whl/cpu"
+    ],
+    "build_cap_s": 600,
+    "mode": "snapshot",
+    "snapshot": "runtime/runtime.json"
+  },
+  "adapt": {
+    "base_commit": "1aa143ca173bdd0324e6f8d754ca25e61da0f646",
+    "adapt_commit": "07e7f8bb682d50d9d9391bf3e02d326112e02d37",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "full_data_ready": true,
+  "smoke": {
+    "input": "judge/verification/smoke_input",
+    "labels": "judge/verification/smoke_labels.json",
+    "env": {}
+  },
+  "conversion": {
+    "full_data_ready": true
+  },
+  "method_freedom_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/017_krepp.json",
+    "full_training_or_evaluation": false,
+    "allowed_changes": [
+      "placement likelihoods, inference/search algorithms and derived internal reference representations",
+      "computational models and implementation while honoring reference exclusions"
+    ],
+    "fixed_contract": [
+      "Place each observed read on the fixed reference phylogeny, minimizing unit-edge placement error subject to coverage requirements.",
+      "reference tree/index information and edge numbering, global exclusion set and read/query partition",
+      "unit-edge distance after the specified leaf-removal procedure and overall/per-query coverage floors",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/017_krepp.json",
+    "forbidden_substitutions": [
+      "Excluded leaves may only be removed from the reference: do not use their identity or tree position, or the placements of other input reads, as a prior on where a read attaches (patch audit).",
+      "changing the reference phylogeny or scored edge geometry, altering observations or admitting excluded reference information",
+      "using query-origin tables, memorized placements or omitting unplaced reads",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract"
+  },
+  "research_contract": {
+    "objective": "Place each observed read on the fixed reference phylogeny, minimizing unit-edge placement error subject to coverage requirements.",
+    "fixed_research_objects": [
+      "reference tree/index information and edge numbering, global exclusion set and read/query partition",
+      "unit-edge distance after the specified leaf-removal procedure and overall/per-query coverage floors"
+    ],
+    "editable_components": [
+      "placement likelihoods, inference/search algorithms and derived internal reference representations",
+      "computational models and implementation while honoring reference exclusions"
+    ],
+    "forbidden_substitutions": [
+      "Excluded leaves may only be removed from the reference: do not use their identity or tree position, or the placements of other input reads, as a prior on where a read attaches (patch audit).",
+      "changing the reference phylogeny or scored edge geometry, altering observations or admitting excluded reference information",
+      "using query-origin tables, memorized placements or omitting unplaced reads",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "source": "tasks/017_krepp/agent/README.md",
+        "section": "Goal,Data,Metric and baseline",
+        "finding": "Place each observed read on the fixed reference phylogeny, minimizing unit-edge placement error subject to coverage requirements."
+      },
+      {
+        "source": "tasks/017_krepp/agent/bench/scorer.py",
+        "section": "trusted score and guards",
+        "finding": "The fixed evaluation target is reference tree/index information and edge numbering, global exclusion set and read/query partition; unit-edge distance after the specified leaf-removal procedure and overall/per-query coverage floors"
+      },
+      {
+        "source": "audits/20261101_method_freedom/017_krepp.json",
+        "section": "prior task-specific scorer/interface audit",
+        "finding": "Reuse the prior actual evaluator review while narrowing the blanket permission to the present task-specific objects."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/017_krepp.json"
+  },
+  "research_contract_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/017_krepp.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

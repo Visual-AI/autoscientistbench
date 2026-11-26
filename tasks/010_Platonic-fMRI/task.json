@@ -1,0 +1,176 @@
+{
+  "pid": "010_Platonic-fMRI",
+  "class": "A",
+  "title": "Platonic Representations in the Human Brain: Unsupervised Recovery of Universal Geometry",
+  "metric": {
+    "name": "recall_at_1",
+    "higher_is_better": true,
+    "delta": 0.004,
+    "aggregate": "mean"
+  },
+  "cpus": 128,
+  "memory_gb": 384,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input",
+    "val_labels": "data/val/labels.npz",
+    "test_input": "test/input",
+    "test_labels": "test/labels.npz",
+    "input_format": "npz",
+    "output_format": "npz"
+  },
+  "split": {
+    "type": "train_test",
+    "decision": "Retain the reproduction shared-image evaluation cohort privately. Carve validation from nonshared observed nsd_id groups using sklearn train_test_split(test_size=0.2, random_state=20261030), separately per subject; all repetitions stay together. Fit all preprocessing on train only. Original stimulus CSV row numbers are trial ids; files sorted by id. Validation scores complete triples; baseline and final candidate fits use training rows only. Materialized train/val trials by subject: [(1, 21600, 5400), (2, 21600, 5400), (3, 17281, 4348), (4, 16267, 4045), (5, 21600, 5400), (6, 17299, 4330), (7, 21600, 5400), (8, 16255, 4057)]. Hidden cohort and raw-array identities verified against archived metadata."
+  },
+  "baseline": {
+    "train_min": 6.65,
+    "eval_min": 0.5,
+    "val": {
+      "recall_at_1": 0.7361632556551032
+    },
+    "paper_ref": "Table 2 Ours (full), SSL repetitions; reproduction R@1 0.8171521077553431 (manifest rounded 0.81715). Training-only preprocessing and validation holdout change the benchmark protocol.",
+    "measured_s": {
+      "train": [
+        342.1,
+        399.05,
+        368.02
+      ],
+      "predict": [
+        14.59,
+        15.3,
+        13.34
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:1c7e09b0100e0a11d55b76027e26062c513f7fd05545c2dc6d5a917b377068b6"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple",
+      "https://download.pytorch.org/whl/cpu"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "8f2696dc86d403e577214226d0324e910abc6c4c",
+    "adapt_commit": "947eaca769cbe1d1b9388df2e113fa3629297612",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "pre_method_freedom_baseline_val": {
+    "recall_at_1": null
+  },
+  "leakage_remediation": {
+    "full_evaluation_ready": false,
+    "superseded_by": "audits/20261101_method_freedom/010_Platonic-fMRI.json",
+    "evidence_is_historical": true
+  },
+  "method_freedom": {
+    "report": "audits/20261101_method_freedom/010_Platonic-fMRI.json",
+    "full_training_or_evaluation_run": false,
+    "scope_superseded_by": "audits/20261101_research_contract/010_Platonic-fMRI.json"
+  },
+  "method_freedom_review": {
+    "report": "audits/20261101_research_contract/010_Platonic-fMRI.json",
+    "allowed_changes": [
+      "subject encoder architecture, derived preprocessing, self-supervised training surrogate losses and optimization",
+      "training-time handling of missing repetitions without changing supplied trial/group metadata or evaluation membership"
+    ],
+    "fixed_contract": [
+      "Learn compact subject-specific representations of repeated fMRI responses, maximizing within-subject retrieval while preserving the original representational-geometry requirement.",
+      "existing fMRI trial responses, subject/run metadata, image-group split and eight-subject evaluation population",
+      "embedding dimension 1..128, independent per-trial encoding by a fixed trained model, complete repetition groups and three repetition-pair averages",
+      "original cosine R@1, Pearson-distance RSA and mean RSA>=0.51 on test and >=0.48 on val",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/010_Platonic-fMRI.json",
+    "status": "reviewed_scope_with_existing_blocker",
+    "forbidden_substitutions": [
+      "Use the acquisition run only to remove acquisition confounds fitted on training trials; an embedding must not carry run, session or trial-order information as a retrieval feature.",
+      "escaping the compact-representation problem with embeddings above 128 dimensions or changing response observations/repetition groups",
+      "joint evaluation-batch matching/adaptation, identity-derived representations, model refitting during prediction or changing RSA/retrieval definitions",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Learn compact subject-specific representations of repeated fMRI responses, maximizing within-subject retrieval while preserving the original representational-geometry requirement.",
+    "fixed_research_objects": [
+      "existing fMRI trial responses, subject/run metadata, image-group split and eight-subject evaluation population",
+      "embedding dimension 1..128, independent per-trial encoding by a fixed trained model, complete repetition groups and three repetition-pair averages",
+      "original cosine R@1, Pearson-distance RSA and mean RSA>=0.51 on test and >=0.48 on val"
+    ],
+    "editable_components": [
+      "subject encoder architecture, derived preprocessing, self-supervised training surrogate losses and optimization",
+      "training-time handling of missing repetitions without changing supplied trial/group metadata or evaluation membership"
+    ],
+    "forbidden_substitutions": [
+      "Use the acquisition run only to remove acquisition confounds fitted on training trials; an embedding must not carry run, session or trial-order information as a retrieval feature.",
+      "escaping the compact-representation problem with embeddings above 128 dimensions or changing response observations/repetition groups",
+      "joint evaluation-batch matching/adaptation, identity-derived representations, model refitting during prediction or changing RSA/retrieval definitions",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "source": "tasks/010_Platonic-fMRI/BRIEF.md",
+        "section": "original experiment/score_rule/user decision,lines 26-33",
+        "finding": "The original score_rule explicitly requires embedding_dim<=128. That output-capacity constraint is intrinsic to this task; the specific PCA/MCCA/MLP and SSL objective remain replaceable methods."
+      },
+      {
+        "source": "tasks/010_Platonic-fMRI/agent/bench/scorer.py",
+        "section": "trusted numerical scoring and guard call path",
+        "finding": "The declared research target agrees with the actual scorer and its frozen helpers."
+      },
+      {
+        "source": "audits/20261101_method_freedom/010_Platonic-fMRI.json",
+        "section": "earlier evaluator/interface audit",
+        "finding": "Prior runtime/information-boundary work is preserved; unconditional method language is replaced by the task-specific scope."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/010_Platonic-fMRI.json"
+  },
+  "research_contract_review": {
+    "status": "reviewed_scope_with_existing_blocker",
+    "report": "audits/20261101_research_contract/010_Platonic-fMRI.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

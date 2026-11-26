@@ -1,0 +1,158 @@
+{
+  "pid": "071_OT-DRO",
+  "class": "A",
+  "title": "Loss-aware OT-DRO linear regression (Sec. 6.2, J=10): learn the transport cost L per instance",
+  "metric": {
+    "name": "e_oos",
+    "higher_is_better": false,
+    "delta": 0.05,
+    "aggregate": "mean"
+  },
+  "cpus": 8,
+  "memory_gb": 4,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.npz",
+    "val_labels": "data/val/truth.npz",
+    "test_input": "test/input.npz",
+    "test_labels": "test/truth.npz",
+    "input_format": "npz",
+    "output_format": "csv"
+  },
+  "split": {
+    "type": "synthetic",
+    "decision": "generator bench/generator.py = paper Sec. 6.2 / App. E.2 DGP with the 10 fixed Table-3 models, J=10, n_b=20. val = 20 public instances (models 0-9 x archived data seeds 1000m+{0,3}); test = 30 instances (models 0-9 x 3 hidden random seeds, listed only in NOTES/judge); train = 50 public labelled instances (seeds 1000m+100+d, d<5) that the baseline does not use. predict.sh learns L per instance (paper protocol); train.sh is a no-op."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 26.16,
+    "val": {
+      "e_oos": 29.747543926630016
+    },
+    "paper_ref": "paper Fig. 5 right / Fig. 7 at J=10: mean l* ~28.16 (read off the figure, 100 instances); archived in-sample reproduction on the 100 instances 1000m+d: 29.5823 (se 0.73); noise floor 22.451",
+    "measured_s": {
+      "train": [
+        0.52
+      ],
+      "predict": [
+        1569.45
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.01,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:c4c301259fc1f8dfa6b1c9b2a966910876ef3c3a3800f485f87d4ccdf74d07c7"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "927ed311ce677c249000f8c2479d834ebbcb52e8",
+    "adapt_commit": "af8c2db90b895bad60fab101698f64a8752781bf",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "method_freedom": {
+    "report": "audits/20261101_method_freedom/071_OT-DRO.json",
+    "full_training_or_evaluation_run": false,
+    "scope_superseded_by": "audits/20261101_research_contract/071_OT-DRO.json"
+  },
+  "method_freedom_review": {
+    "report": "audits/20261101_research_contract/071_OT-DRO.json",
+    "allowed_changes": [
+      "Methods for learning L/eps, bilevel optimization, auxiliary optimization losses, numerical differentiation, conic/other solvers and tuning may change.",
+      "Any submitted w must still solve the same fixed DRO objective for its submitted ambiguity set; Adam/initial radius learning and stopping choices are baseline methods.",
+      "When retaining the supplied bilevel optimization pipeline, changing only gamma=0.1, learning_rate=1e-4, lambda=10, eta=100, rel_impr_obj=1e-6 or n_iter_max=1e6 does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Learn an admissible type-1 Wasserstein ambiguity geometry and radius for the fixed scalar absolute-loss DRO regression problem, minimizing out-of-sample absolute error.",
+      "The decision model y_hat=w*x without intercept, absolute residual loss and DRO objective mean|y-w*x|+eps*||L^-1[-w,1]|| are fixed.",
+      "Mahalanobis ground cost ||L^T(xi1-xi2)||, positive lower-triangular L/radius, ten observations/twenty supplied resamples, optimality/exceedance/coverage guards and exact expected-absolute-error metric remain fixed.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/071_OT-DRO.json",
+    "status": "repaired_scope_with_limits",
+    "forbidden_substitutions": [
+      "Do not replace linear regression by a nonlinear model, absolute loss by squared error, type-1 cost by another ambiguity class, or submit an arbitrary low-error decision that is not DRO-optimal.",
+      "No Table3 truth/model-ID lookup, extra observations/resamples, hidden true distribution access or altered metric/guards.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Learn an admissible type-1 Wasserstein ambiguity geometry and radius for the fixed scalar absolute-loss DRO regression problem, minimizing out-of-sample absolute error.",
+    "fixed_research_objects": [
+      "The decision model y_hat=w*x without intercept, absolute residual loss and DRO objective mean|y-w*x|+eps*||L^-1[-w,1]|| are fixed.",
+      "Mahalanobis ground cost ||L^T(xi1-xi2)||, positive lower-triangular L/radius, ten observations/twenty supplied resamples, optimality/exceedance/coverage guards and exact expected-absolute-error metric remain fixed."
+    ],
+    "editable_components": [
+      "Methods for learning L/eps, bilevel optimization, auxiliary optimization losses, numerical differentiation, conic/other solvers and tuning may change.",
+      "Any submitted w must still solve the same fixed DRO objective for its submitted ambiguity set; Adam/initial radius learning and stopping choices are baseline methods.",
+      "When retaining the supplied bilevel optimization pipeline, changing only gamma=0.1, learning_rate=1e-4, lambda=10, eta=100, rel_impr_obj=1e-6 or n_iter_max=1e6 does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "Do not replace linear regression by a nonlinear model, absolute loss by squared error, type-1 cost by another ambiguity class, or submit an arbitrary low-error decision that is not DRO-optimal.",
+      "No Table3 truth/model-ID lookup, extra observations/resamples, hidden true distribution access or altered metric/guards.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "path": "agent/paper/paper.txt",
+        "section": "Section6.2 and Appendix A.3.1",
+        "finding": "Selected cell is type-1 Mahalanobis DRO linear regression with absolute loss; squared/type-2 is a separate experiment."
+      },
+      {
+        "path": "agent/bench/scorer.py",
+        "section": "objective, dro_optimum and main",
+        "finding": "Re-solves the exact submitted fixed DRO problem and evaluates frozen resample/coverage constraints."
+      },
+      {
+        "path": "agent/bench/io_spec.md",
+        "finding": "Submission is the joint (w,L,eps) certificate; inputs/resamples are immutable."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/071_OT-DRO.json"
+  },
+  "research_contract_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/071_OT-DRO.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 3
+}

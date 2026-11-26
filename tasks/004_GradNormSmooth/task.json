@@ -1,0 +1,151 @@
+{
+  "pid": "004_GradNormSmooth",
+  "class": "A",
+  "title": "Gradient-Normalized Smoothness for Optimization with Approximate Hessians",
+  "metric": {
+    "name": "iterations",
+    "higher_is_better": false,
+    "delta": 0.01,
+    "aggregate": "mean"
+  },
+  "cpus": 8,
+  "memory_gb": 16,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.npz",
+    "val_labels": "data/val/labels.npz",
+    "test_input": "test/input.npz",
+    "test_labels": "test/labels.npz",
+    "input_format": "npz",
+    "output_format": "csv"
+  },
+  "split": {
+    "type": "synthetic",
+    "decision": "用户决定 none 转 synthetic：val 为 seed 3124 与 2718；train 为 seed 42；test 为 secrets 隐藏 seed 的5个实例。相同 RandomState 生成与中心化；种子只在私有记录。"
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 0.5,
+    "val": {
+      "iterations": 16.5
+    },
+    "paper_ref": "Reproduced public instance: 17; paper panel not numerically matched.",
+    "measured_s": {
+      "train": [
+        0.97
+      ],
+      "predict": [
+        7.23
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 1e-06,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:c4b973289b1d44460711c6c958998345f05907d44a08e6c527cf579c3f6209da"
+  },
+  "env": {
+    "python": "3.10",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "da59b0fcdcc8fe806ff0e7c65edb406b00824829",
+    "adapt_commit": "bc7bd9f44503d29b74410cc1532778035217097f",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "method_freedom": {
+    "report": "audits/20261101_method_freedom/004_GradNormSmooth.json",
+    "full_training_or_evaluation_run": false,
+    "superseded_by": "research_contract",
+    "scope_superseded_by": "audits/20261101_research_contract/004_GradNormSmooth.json"
+  },
+  "method_freedom_review": {
+    "report": "audits/20261101_research_contract/004_GradNormSmooth.json",
+    "allowed_changes": [
+      "The optimizer, search strategy, Hessian approximation and preconditioner may change through the frozen oracle. Surrogates may guide the solver but cannot replace its evaluated objective."
+    ],
+    "fixed_contract": [
+      "Reach the specified accuracy for the fixed centered LogSumExp problem within its oracle-query budgets.",
+      "The centered LogSumExp(Ax-b) objective with mu=1, supplied 1000 by 500 A and b, and all-ones initialization remain fixed.",
+      "The first gap at most 1e-7, horizon 500, at most 25 gradient calls and at most 24 charged inverses remain fixed. All accepted iterates and rejected-query costs must be recorded.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/004_GradNormSmooth.json",
+    "status": "scope_defined",
+    "forbidden_substitutions": [
+      "Any point from which a new search direction is computed is an accepted iterate and must be recorded, so the inner steps of a nested, proximal or multi-step solver cannot be grouped under one recorded iteration.",
+      "Do not use the origin, f(0) or the iterate x_k itself as a step, search direction or subspace basis; the stopping test is the only permitted use of f(0).",
+      "Do not replace the mathematical objective/initialization, bypass counters, suppress accepted iterates, introduce uncounted derivative/inverse calls, or exploit knowledge of the synthetic optimum instead of the allowed oracle.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Reach the specified accuracy for the fixed centered LogSumExp problem within its oracle-query budgets.",
+    "fixed_research_objects": [
+      "The centered LogSumExp(Ax-b) objective with mu=1, supplied 1000 by 500 A and b, and all-ones initialization remain fixed.",
+      "The first gap at most 1e-7, horizon 500, at most 25 gradient calls and at most 24 charged inverses remain fixed. All accepted iterates and rejected-query costs must be recorded."
+    ],
+    "editable_components": [
+      "The optimizer, search strategy, Hessian approximation and preconditioner may change through the frozen oracle. Surrogates may guide the solver but cannot replace its evaluated objective."
+    ],
+    "forbidden_substitutions": [
+      "Any point from which a new search direction is computed is an accepted iterate and must be recorded, so the inner steps of a nested, proximal or multi-step solver cannot be grouped under one recorded iteration.",
+      "Do not use the origin, f(0) or the iterate x_k itself as a step, search direction or subspace basis; the stopping test is the only permitted use of f(0).",
+      "Do not replace the mathematical objective/initialization, bypass counters, suppress accepted iterates, introduce uncounted derivative/inverse calls, or exploit knowledge of the synthetic optimum instead of the allowed oracle.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "path": "tasks/004_GradNormSmooth/BRIEF.md",
+        "finding": "The experiment fixes the LogSumExp function, starting point and query budgets; its optimizer is editable."
+      },
+      {
+        "path": "tasks/004_GradNormSmooth/agent/bench/scorer.py",
+        "finding": "Existing scorer retains the stated target formula, aggregation and validity controls."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/004_GradNormSmooth.json"
+  },
+  "research_contract_review": {
+    "status": "scope_defined",
+    "report": "audits/20261101_research_contract/004_GradNormSmooth.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

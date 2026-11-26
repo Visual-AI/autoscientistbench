@@ -1,0 +1,154 @@
+{
+  "pid": "038_SuperIsing",
+  "class": "D",
+  "title": "Super-Ising spectrum parameter optimization",
+  "metric": {
+    "name": "cost",
+    "higher_is_better": false,
+    "delta": 0.005,
+    "aggregate": "mean"
+  },
+  "cpus": 32,
+  "memory_gb": 144,
+  "budget_hours_default": 24,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.json",
+    "val_labels": "data/val/labels.json",
+    "test_input": "test/input.json",
+    "test_labels": "test/labels.json"
+  },
+  "split": {
+    "type": "training_free",
+    "decision": "Fixed numerical optimization problem; public val and judge evaluate the same physical model, no fabricated independent-data claim."
+  },
+  "baseline": {
+    "train_min": 6.75,
+    "eval_min": 0.5,
+    "val": {
+      "cost": 0.03014293706878977
+    },
+    "paper_ref": "Historical reproduced cost0.03013518466351807; not a new measured reference.",
+    "measured_s": {
+      "train": [
+        404.83
+      ],
+      "predict": [
+        0.06
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1
+    ],
+    "val_judge": false,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:8b4a44270c7f28ae58ac40f50e7aa5946525b181a7e8ab43ecf192b5848bfb90"
+  },
+  "env": {
+    "mode": "snapshot",
+    "snapshot": "runtime/runtime.json",
+    "python": "3.11",
+    "lock": "code/env.lock"
+  },
+  "adapt": {
+    "base_commit": "e7daf415263f9052fd6664bcd26ac96c6f5c13d0",
+    "adapt_commit": "679a984ba8a9cc1efb0bab07f71d005f02f6bf1d",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "smoke": {
+    "input": "judge/verification/fixture/input.json",
+    "labels": "judge/verification/fixture/labels.json"
+  },
+  "conversion": {
+    "full_data_ready": true,
+    "source_commit": "3c84750fa9c4f439f6e3c77e7f80fda2288f0f45",
+    "constraint_limitation": "Original task omits definitions of three external constraints; reproduce the three explicit protocol checks in .repro/hard/eval_cost.py and report this scope."
+  },
+  "method_freedom_review": {
+    "full_evaluation_ready": false,
+    "status": "scope_clarified",
+    "report": "audits/20261101_research_contract/038_SuperIsing.json",
+    "full_training_or_evaluation": false,
+    "allowed_changes": [
+      "Optimizer/search, initialization, numerical surrogate, parameter proposals and implementation for the same three-variable physical objective.",
+      "Candidate numerical computation may change but cannot replace judge Hamiltonian/evaluation; Nelder-Mead and its stopping heuristics are baseline choices.",
+      "When retaining the supplied Nelder-Mead search, changing only adaptive=False, the default 5% initial simplex or maxfev=20 does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Optimize h, mu_1 and mu_b of the specified Super-Ising Hamiltonian for the frozen 14-operator relative RMS spectral cost at N_mf=9.",
+      "Original interacting Hamiltonian, t=1.5/U=.25/g=1, required observable convention and N_mf=9 physical problem.",
+      "Same 14 bootstrap references, state/operator assignment, analytic optimal lambda, eigenpair/spin validity and RMS formula.",
+      "Existing five-calibration/at-most-40-local-case protocol; frozen ED independently recomputes parameter cases. Originally unnamed external constraints remain unverified.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/038_SuperIsing.json",
+    "forbidden_substitutions": [
+      "Change Hamiltonian family, fixed couplings, physical size, bootstrap target, operator selection or cost normalization.",
+      "Submit spectra/scores instead of parameter cases, omit required calibration or certify undefined constraints as passed.",
+      "Replace full N9 with N4 smoke or use archived solutions instead of actual optimization.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Hard-coding (h, mu_1, mu_b) values found during development, as a search start or as a submitted case, does not count as a method improvement."
+    ],
+    "scope_source": "research_contract"
+  },
+  "research_contract": {
+    "objective": "Optimize h, mu_1 and mu_b of the specified Super-Ising Hamiltonian for the frozen 14-operator relative RMS spectral cost at N_mf=9.",
+    "fixed_research_objects": [
+      "Original interacting Hamiltonian, t=1.5/U=.25/g=1, required observable convention and N_mf=9 physical problem.",
+      "Same 14 bootstrap references, state/operator assignment, analytic optimal lambda, eigenpair/spin validity and RMS formula.",
+      "Existing five-calibration/at-most-40-local-case protocol; frozen ED independently recomputes parameter cases. Originally unnamed external constraints remain unverified."
+    ],
+    "editable_components": [
+      "Optimizer/search, initialization, numerical surrogate, parameter proposals and implementation for the same three-variable physical objective.",
+      "Candidate numerical computation may change but cannot replace judge Hamiltonian/evaluation; Nelder-Mead and its stopping heuristics are baseline choices.",
+      "When retaining the supplied Nelder-Mead search, changing only adaptive=False, the default 5% initial simplex or maxfev=20 does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "Change Hamiltonian family, fixed couplings, physical size, bootstrap target, operator selection or cost normalization.",
+      "Submit spectra/scores instead of parameter cases, omit required calibration or certify undefined constraints as passed.",
+      "Replace full N9 with N4 smoke or use archived solutions instead of actual optimization.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Hard-coding (h, mu_1, mu_b) values found during development, as a search start or as a submitted case, does not count as a method improvement."
+    ],
+    "evidence": [
+      "convert/tasks_merlin.json: 038_SuperIsing interacting Super-Ising task and fixed couplings.",
+      "Original reproduction .repro/HARD.md: calibration/local-evaluation protocol, analytic lambda and missing external constraint definitions.",
+      "agent/bench/contract.py, eval_cost.py and scorer.py: parameter-only inputs, fixed couplings and independent ED cost."
+    ],
+    "review_report": "audits/20261101_research_contract/038_SuperIsing.json"
+  },
+  "research_contract_review": {
+    "status": "scope_clarified",
+    "report": "audits/20261101_research_contract/038_SuperIsing.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

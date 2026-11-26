@@ -1,0 +1,144 @@
+#ifndef _KREPP_H
+#define _KREPP_H
+
+#include "common.hpp"
+#include "index.hpp"
+#include "sketch.hpp"
+#include "lshf.hpp"
+#include "phytree.hpp"
+#include "query.hpp"
+#include "seek.hpp"
+#include "record.hpp"
+#include "rqseq.hpp"
+#include "table.hpp"
+#include <CLI.hpp>
+
+const auto url_validator = CLI::Validator(
+  [](std::string& input) {
+    const std::regex url_regexp = std::regex(
+      R"(^(?:(?:https?|ftp)://)(?:\S+@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:[a-z\u00a1-\uffff0-9]+-)*[a-z\u00a1-\uffff0-9]+(?:\.(?:[a-z\u00a1-\uffff0-9]+-)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:/\S*)?$)");
+    if (std::regex_match(input, url_regexp)) {
+      return std::string("");
+    } else {
+      return "Given URL is not valid: " + input;
+    }
+  },
+  "URL",
+  "URL validator");
+
+// Binds the "index" subcommand options to config, which must outlive sc.
+void init_sc_index(CLI::App& sc, IndexConfig& config);
+
+class TargetSketch
+{
+public:
+  void load_sketch();
+
+protected:
+  sketch_sptr_t sketch = nullptr;
+  std::filesystem::path sketch_path;
+};
+
+class TargetIndex
+{
+public:
+  void load_index();
+  void ensure_backbone();
+  void read_lineages();
+
+protected:
+  std::string leave_out_refs_path;
+  std::filesystem::path nwk_path;
+  std::filesystem::path lineage_path;
+  index_sptr_t index = nullptr;
+  tree_sptr_t qtree = nullptr;
+  std::filesystem::path index_dir;
+};
+
+class SketchSingle : public BaseLSH
+{
+public:
+  SketchSingle(CLI::App& sc);
+  void create_sketch();
+  void save_sketch();
+
+private:
+  double rho;
+  std::string input;
+  std::filesystem::path sketch_path;
+  sflatht_sptr_t sketch_sflatht = nullptr;
+};
+
+class QuerySketch : public TargetSketch
+{
+public:
+  QuerySketch(CLI::App& sc);
+  void seek_sequences();
+  void header_dreport(strstream& dreport_stream);
+  uint32_t get_total_qseq() { return total_qseq; }
+
+private:
+  std::string query;
+  std::filesystem::path output_path;
+  std::ofstream output_file;
+  std::ostream* output_stream = &std::cout;
+  uint32_t hdist_th = 4;
+  uint64_t total_qseq = 0;
+};
+
+class QueryIndex : public TargetIndex
+{
+public:
+  QueryIndex(CLI::App& sc);
+  void init_sc_place(CLI::App& sc);
+  void init_sc_dist(CLI::App& sc);
+  void estimate_distances();
+  void place_sequences();
+  void header_dreport(strstream& dreport_stream);
+  void header_preport(strstream& dreport_stream);
+  void begin_jplace(strstream& jplace_stream);
+  void end_jplace(strstream& jplace_stream);
+  uint32_t get_total_qseq() { return total_qseq; }
+  bool validate_configuration_place()
+  {
+    bool is_invalid = true;
+    if ((is_invalid = (hdist_th < tau))) {
+      std::cerr << "The threshold tau must be less than HD threshold --hdist-th!" << std::endl;
+    }
+    return !is_invalid;
+  }
+  bool validate_configuration_dist()
+  {
+    bool is_invalid = false;
+    return !is_invalid;
+  }
+
+private:
+  std::string query;
+  std::filesystem::path output_path;
+  std::ofstream output_file;
+  std::ostream* output_stream = &std::cout;
+  uint32_t tau = 2;
+  uint32_t hdist_th = 4;
+  double dist_max = std::numeric_limits<double>::quiet_NaN();
+  bool no_filter = true;
+  bool filter = false;
+  bool p_value = false;
+  bool tabular = false;
+  bool multi = true;
+  bool summarize = false;
+  uint64_t total_qseq = 0;
+  double chisq_value = 2.706;
+};
+
+class InfoIndex : public TargetIndex
+{
+public:
+  InfoIndex(CLI::App& sc);
+  void display_info();
+
+private:
+  std::ostream* output_stream = &std::cout;
+};
+
+#endif

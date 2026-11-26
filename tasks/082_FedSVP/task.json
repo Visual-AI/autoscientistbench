@@ -1,0 +1,168 @@
+{
+  "pid": "082_FedSVP",
+  "class": "A",
+  "title": "Beyond Description: Federated Adaptation via Semantic-Visual Prototype Alignment",
+  "metric": {
+    "name": "genacc",
+    "higher_is_better": true,
+    "delta": 0.012,
+    "aggregate": "mean"
+  },
+  "cpus": 16,
+  "memory_gb": 16,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.npz",
+    "val_labels": "data/val/labels.csv",
+    "test_input": "test/input.npz",
+    "test_labels": "test/labels.csv",
+    "input_format": "npz",
+    "output_format": "csv"
+  },
+  "split": {
+    "type": "train_test",
+    "decision": "Fixed published seed-1 8-shot UCF101 pool, 808 rows. Stratified train_test_split(test_size=0.2,random_state=20261030) materialized as train646/val162. Fixed original K=10,rho=0.1 memberships inherited by retained rows. Frozen ViT-B/16 features. Original evaluation rows unchanged, held by judge. Original row IDs, sorted. Eight-shot is the total labeled pool budget; baseline fits only remaining train; baseline and candidate fits use only the 646 training rows; validation remains held out."
+  },
+  "baseline": {
+    "train_min": 2.44,
+    "eval_min": 0.5,
+    "val": {
+      "genacc": 80.04115226337449
+    },
+    "paper_ref": "ICML2026 official poster UCF101 ViT-B/16 FedSPA-G79.1 / FedSPA-P88.0; metric archive mean78.95849854612742 across seeds1,2,3.",
+    "measured_s": {
+      "train": [
+        146.15,
+        145.52,
+        138.67
+      ],
+      "predict": [
+        4.42,
+        4.53,
+        3.87
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:56df841c6637ae19c1763a900c595ca7f6358b01b22de522fe93fec71fc759a2"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple",
+      "https://download.pytorch.org/whl/cpu"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "81008cff8074f0592b80b53b03e8ec082ae48fb2",
+    "adapt_commit": "e2efd8fb44ad305083f5e59dc66162a491ff3b0b",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "pre_method_freedom_baseline_val": {
+    "genacc": 80.04115226337449
+  },
+  "leakage_remediation": {
+    "full_evaluation_ready": false,
+    "superseded_by": "audits/20261101_method_freedom/082_FedSVP.json",
+    "evidence_is_historical": true
+  },
+  "method_freedom": {
+    "report": "audits/20261101_method_freedom/082_FedSVP.json",
+    "full_training_or_evaluation_run": false,
+    "superseded_by": "research_contract",
+    "scope_superseded_by": "audits/20261101_research_contract/082_FedSVP.json"
+  },
+  "method_freedom_review": {
+    "report": "audits/20261101_research_contract/082_FedSVP.json",
+    "allowed_changes": [
+      "The learned heads, prototype/adaptation method, training surrogate, local optimizer and aggregation strategy may change within the fixed feature, federation and communication setting.",
+      "When retaining the supplied FedSPA pipeline, changing only alpha=9, beta=8, local_lr=0.0004, global_lr=0.0004, lam_reg=0.2, temperature tau=0.01, local_batch_size=8, global_batch_size=8, local_epochs=5, local_epochs_last=100 or local_epochs_server=100 does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Improve federated UCF101 generalization on frozen CLIP ViT-B/16 features while retaining personalized accuracy.",
+      "The supplied frozen image/text embeddings, eight-shot total labeled pool, ten clients with fixed rho=0.1 assignment, ten communication rounds and per-client-per-round upload limit 101*512 floats remain fixed.",
+      "Global accuracy is the objective; the unweighted ten-client personalized accuracy must be at least 86.5%.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/082_FedSVP.json",
+    "status": "scope_defined",
+    "forbidden_substitutions": [
+      "Do not change or fine-tune the CLIP encoders, replace the supplied features, centralize private client inputs, change client assignments/rounds/uploads, expose private client membership at prediction, or alter either accuracy rule.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Improve federated UCF101 generalization on frozen CLIP ViT-B/16 features while retaining personalized accuracy.",
+    "fixed_research_objects": [
+      "The supplied frozen image/text embeddings, eight-shot total labeled pool, ten clients with fixed rho=0.1 assignment, ten communication rounds and per-client-per-round upload limit 101*512 floats remain fixed.",
+      "Global accuracy is the objective; the unweighted ten-client personalized accuracy must be at least 86.5%."
+    ],
+    "editable_components": [
+      "The learned heads, prototype/adaptation method, training surrogate, local optimizer and aggregation strategy may change within the fixed feature, federation and communication setting.",
+      "When retaining the supplied FedSPA pipeline, changing only alpha=9, beta=8, local_lr=0.0004, global_lr=0.0004, lam_reg=0.2, temperature tau=0.01, local_batch_size=8, global_batch_size=8, local_epochs=5, local_epochs_last=100 or local_epochs_server=100 does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "Do not change or fine-tune the CLIP encoders, replace the supplied features, centralize private client inputs, change client assignments/rounds/uploads, expose private client membership at prediction, or alter either accuracy rule.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "path": "tasks/082_FedSVP/BRIEF.md",
+        "finding": "The literal score rule fixes CLIP ViT-B/16 encoders and the eight-shot/ten-client/ten-round communication protocol."
+      },
+      {
+        "path": "tasks/082_FedSVP/agent/bench/scorer.py",
+        "finding": "Existing scorer retains the stated target formula, aggregation and validity controls."
+      },
+      {
+        "path": "tasks/082_FedSVP/agent/bench/check_model.py",
+        "finding": "Both legacy and generic method paths check the same fixed protocol card and upload budget, then replay predictions; actual training/federation still requires source review."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/082_FedSVP.json"
+  },
+  "research_contract_review": {
+    "status": "scope_defined",
+    "report": "audits/20261101_research_contract/082_FedSVP.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

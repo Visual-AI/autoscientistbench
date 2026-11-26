@@ -1,0 +1,171 @@
+{
+  "pid": "070_CtrlConsist",
+  "class": "A",
+  "title": "Control Consistency Losses for Diffusion Bridges",
+  "metric": {
+    "name": "kl_to_solution",
+    "higher_is_better": false,
+    "delta": 0.05,
+    "aggregate": "mean"
+  },
+  "cpus": 16,
+  "memory_gb": 32,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.npz",
+    "val_labels": "data/val/labels.npz",
+    "test_input": "test/input.npz",
+    "test_labels": "test/labels.npz",
+    "input_format": "npz",
+    "output_format": "npz"
+  },
+  "split": {
+    "type": "synthetic",
+    "decision": "Reusable CIR controller trained on on-the-fly synthetic trajectories. Each harness seed trains five independent repeats (5*(BENCH_SEED-1)+i). Validation uses public generator seeds 20261001..20261005, 1000 paths each, 500 steps. Hidden evaluation uses independent secrets seeds, same per-repeat Monte Carlo protocol; no test-driven selection.",
+    "val_seeds": [
+      20261001,
+      20261002,
+      20261003,
+      20261004,
+      20261005
+    ]
+  },
+  "baseline": {
+    "train_min": 17.41,
+    "eval_min": 0.5,
+    "val": {
+      "kl_to_solution": 0.02087762219210466
+    },
+    "paper_ref": "Table 1 CIR SC1: 0.023 +/- 0.010; five independent training repeats",
+    "measured_s": {
+      "train": [
+        948.72,
+        913.67,
+        1044.37
+      ],
+      "predict": [
+        8.23,
+        8.64,
+        8.19
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:e935a517220978d149b010161b5f36f25b7a26e0b4814da4cc1defe4beaa03dc"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "6b4079d9664caac92b98aa089b8e6f031e493816",
+    "adapt_commit": "cba62268af4a354b02dfac78d153ae3f8876f5d8",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "method_freedom": {
+    "report": "audits/20261101_method_freedom/070_CtrlConsist.json",
+    "full_training_or_evaluation_run": false,
+    "scope_superseded_by": "audits/20261101_research_contract/070_CtrlConsist.json"
+  },
+  "method_freedom_review": {
+    "report": "audits/20261101_research_contract/070_CtrlConsist.json",
+    "allowed_changes": [
+      "Controller architecture, auxiliary learning loss, self-consistency/other valid control-learning algorithm, optimizer, simulation/discretization for training and checkpoint selection may change.",
+      "SC1 targets, conservative MLP, EMA and training counts are baseline methods; permitted training simulation uses the same base/controlled SDE rather than a different bridge.",
+      "When retaining the supplied SC1 target pipeline, changing only train.STL_adjustments=false does not count as a method improvement.",
+      "Changing only train.num_outer_iterations=2000, traj_batch_size=64, lr=1e-4 or beta_schedule=average also does not count."
+    ],
+    "fixed_contract": [
+      "Learn the control/total drift of the fixed CIR diffusion bridge, minimizing the original KL(P*||P_theta) discretization against its true bridge.",
+      "The CIR base drift/diffusion with a=b=epsilon=1, initial/terminal state2, horizon1, and conditional bridge law P* remain fixed.",
+      "Pointwise total drift at each supplied (x,t), five independent fitted repeat controllers, endpoint_idx=-1, float32 reduction and original Monte Carlo KL metric remain fixed.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/070_CtrlConsist.json",
+    "status": "repaired_scope_with_limits",
+    "forbidden_substitutions": [
+      "Do not change the SDE/diffusion parameters, endpoint/horizon conditioning or metric, use analytic true bridge drift as supervision/prediction, or fit using evaluation labels.",
+      "No future states/cross-path features, refitting during prediction, combining five controllers into an ensemble, hidden seeds or added ground-truth simulations.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Learn the control/total drift of the fixed CIR diffusion bridge, minimizing the original KL(P*||P_theta) discretization against its true bridge.",
+    "fixed_research_objects": [
+      "The CIR base drift/diffusion with a=b=epsilon=1, initial/terminal state2, horizon1, and conditional bridge law P* remain fixed.",
+      "Pointwise total drift at each supplied (x,t), five independent fitted repeat controllers, endpoint_idx=-1, float32 reduction and original Monte Carlo KL metric remain fixed."
+    ],
+    "editable_components": [
+      "Controller architecture, auxiliary learning loss, self-consistency/other valid control-learning algorithm, optimizer, simulation/discretization for training and checkpoint selection may change.",
+      "SC1 targets, conservative MLP, EMA and training counts are baseline methods; permitted training simulation uses the same base/controlled SDE rather than a different bridge.",
+      "When retaining the supplied SC1 target pipeline, changing only train.STL_adjustments=false does not count as a method improvement.",
+      "Changing only train.num_outer_iterations=2000, traj_batch_size=64, lr=1e-4 or beta_schedule=average also does not count."
+    ],
+    "forbidden_substitutions": [
+      "Do not change the SDE/diffusion parameters, endpoint/horizon conditioning or metric, use analytic true bridge drift as supervision/prediction, or fit using evaluation labels.",
+      "No future states/cross-path features, refitting during prediction, combining five controllers into an ensemble, hidden seeds or added ground-truth simulations.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "section": "Introduction/conditioned SDE and Table1 CIR",
+        "finding": "Learning algorithm approximates a fixed endpoint-conditioned diffusion process; consistency losses are proposed methods."
+      },
+      {
+        "path": "agent/bench/io_spec.md",
+        "finding": "Fixes CIR law, repeat slots, current-state input and total-drift output."
+      },
+      {
+        "path": "agent/bench/scorer.py",
+        "finding": "Evaluates original KL discretization, independent of controller architecture or auxiliary training objective."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/070_CtrlConsist.json"
+  },
+  "research_contract_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/070_CtrlConsist.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

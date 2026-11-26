@@ -1,0 +1,373 @@
+#include "record.hpp"
+
+#define MAXNTRY 10
+
+Record::Record(tree_sptr_t tree)
+  : tree(tree)
+{
+  node_sptr_t nd_curr;
+  sh_t ch;
+  tree->reset_traversal();
+  while ((nd_curr = tree->next_post_order())) {
+    sh_to_node[nd_curr->get_sh()] = nd_curr;
+    if (nd_curr->check_leaf()) {
+      ch = 0;
+    } else {
+      ch = (*nd_curr->get_children())->get_sh();
+    }
+    sh_to_subset[nd_curr->get_sh()] = std::make_shared<Subset>(nd_curr->get_sh(), ch, nd_curr->get_card());
+  }
+  tree->reset_traversal();
+  uint32_t ntry = 0;
+  while (check_tree_collision()) {
+    std::cerr << "Rehashing the tree to resolve collisions..." << std::endl;
+    rehash_tree();
+    ntry++;
+    if (ntry > MAXNTRY) {
+      error_exit("Failed the rehash the tree; perhaps there is a ghost node (w/ outdegree 1)?");
+    }
+  }
+  sh_to_subset[0] = std::make_shared<Subset>(0, 0, 0);
+}
+
+bool Record::check_tree_collision()
+{
+  bool collision_free = true;
+  node_sptr_t nd_curr;
+  sh_t sh_curr;
+  tree->reset_traversal();
+  while (collision_free && (nd_curr = tree->next_post_order())) {
+    sh_curr = nd_curr->get_sh();
+    if (!sh_to_node.contains(sh_curr) || (sh_to_node[sh_curr] != nd_curr) || (!sh_curr)) {
+      collision_free = false;
+    }
+  }
+  tree->reset_traversal();
+  return !collision_free;
+}
+
+void Record::rehash_tree()
+{
+  sh_to_node.clear();
+  sh_to_subset.clear();
+  node_sptr_t nd_curr;
+  sh_t ch;
+  sh_t ah = 0;
+  tree->reset_traversal();
+  while ((nd_curr = tree->next_post_order())) {
+    if (nd_curr->check_leaf()) {
+      nd_curr->set_sh(++ah + Subset::rehash(nd_curr->get_sh()));
+    } else {
+      nd_curr->set_sh(nd_curr->sum_children_sh());
+    }
+    sh_to_node[nd_curr->get_sh()] = nd_curr;
+    if (nd_curr->check_leaf()) {
+      ch = 0;
+    } else {
+      ch = (*nd_curr->get_children())->get_sh();
+    }
+    sh_to_subset[nd_curr->get_sh()] = std::make_shared<Subset>(nd_curr->get_sh(), ch, nd_curr->get_card());
+  }
+  tree->reset_traversal();
+}
+
+sh_t Record::add_subset(sh_t sh1, sh_t sh2)
+{
+  subset_sptr_t subset1 = nullptr;
+  sh_to_subset.if_contains(
+    sh1, [&subset1](const parallel_flat_phmap<sh_t, subset_sptr_t>::value_type& v) { subset1 = v.second; });
+  subset_sptr_t subset2 = nullptr;
+  sh_to_subset.if_contains(
+    sh2, [&subset2](const parallel_flat_phmap<sh_t, subset_sptr_t>::value_type& v) { subset2 = v.second; });
+  if (!(subset1 && subset2)) {
+    error_exit("Failed for partition: (" + std::to_string(sh1) + ", " + std::to_string(sh2) + ")");
+  }
+  sh_t sh = sh1 + sh2;
+  sh_t nonce = 0;
+  subset_sptr_t subset = nullptr;
+  while (sh_to_subset.if_contains(sh + nonce, [&subset](const parallel_flat_phmap<sh_t, subset_sptr_t>::value_type& v) {
+    subset = v.second;
+  }) && check_subset_collision(subset, subset1, subset2)) {
+    nonce = Subset::rehash(nonce++ * sh1 * sh2);
+  }
+  sh += nonce;
+  if ((!subset) | (nonce != 0)) {
+    sh_to_subset[sh] = std::make_shared<Subset>(
+      sh, subset1->card > subset2->card ? subset1->sh : subset2->sh, subset1->card + subset2->card, nonce);
+  }
+  return sh;
+}
+
+bool Record::check_subset_collision(subset_sptr_t s, subset_sptr_t s1, subset_sptr_t s2)
+{
+  if (!s) {
+    return false;
+  } else if (s->ch == 0 || s->sh == 0) {
+    return true;
+  } else if ((s->ch == s1->sh || s->ch == s2->sh)) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+void Record::make_compact()
+{ // TODO: Implement pruning, probably at this point.
+  se_t limit_senum = std::numeric_limits<se_t>::max();
+  se_t curr_senum = 1;
+  node_sptr_t nd_curr;
+  tree->reset_traversal();
+  while ((nd_curr = tree->next_post_order())) {
+    if (curr_senum < limit_senum) {
+      sh_to_se[nd_curr->get_sh()] = curr_senum++;
+    } else {
+      error_exit("The current se_t size is too small to fit all nodes!");
+    }
+  }
+  vec<sh_t> subset_keys;
+  subset_keys.reserve(sh_to_subset.size());
+  for (auto& [sh, subset] : sh_to_subset) {
+    subset_keys.push_back(sh);
+  }
+  std::sort(subset_keys.begin(), subset_keys.end());
+  for (sh_t sh : subset_keys) {
+    if (curr_senum < limit_senum) {
+      curr_senum += static_cast<se_t>(sh_to_se.try_emplace(sh, curr_senum).second);
+    } else {
+      error_exit("The current se_t size is too small to fit all subsets observed!");
+    }
+  }
+  sh_to_se[0] = 0;
+}
+
+CRecord::CRecord(record_sptr_t record)
+{
+  record->make_compact();
+  tree = record->get_tree();
+  node_sptr_t nd_curr;
+  tree->reset_traversal();
+  nsubsets = record->sh_to_se.size() + 1;
+  nnodes = record->sh_to_node.size() + 1;
+  se_to_rho.resize(nnodes);
+  while ((nd_curr = tree->next_post_order())) {
+    se_to_rho[nd_curr->get_se()] = record->sh_to_rho[nd_curr->get_sh()];
+  }
+  se_to_pse_ov.resize(nsubsets);
+  tree->reset_traversal();
+  while ((nd_curr = tree->next_post_order())) {
+    se_t nd_se = record->sh_to_se[nd_curr->get_sh()];
+    tuint_t nchildren = nd_curr->get_nchildren();
+    if (nchildren == 0) {
+      se_to_pse_ov[nd_se] = std::make_pair(0, 0);
+      continue;
+    }
+    if (nchildren == 1) {
+      error_exit("A node has a single child in the backbone tree! Please suppress unifurcations.");
+    }
+    se_t acc_se = record->sh_to_se[(*nd_curr->get_children())->get_sh()];
+    for (tuint_t ix = 1; ix < nchildren; ++ix) {
+      se_t child_se = record->sh_to_se[(*std::next(nd_curr->get_children(), ix))->get_sh()];
+      if (ix + 1 == nchildren) {
+        se_to_pse_ov[nd_se] = std::make_pair(acc_se, child_se);
+      } else {
+        se_to_pse_ov.push_back(std::make_pair(acc_se, child_se));
+        acc_se = static_cast<se_t>(se_to_pse_ov.size() - 1);
+      }
+    }
+  }
+  nsubsets = static_cast<se_t>(se_to_pse_ov.size());
+
+  for (auto& [sh, subset] : record->sh_to_subset) {
+    if (record->sh_to_node.contains(sh)) {
+      continue;
+    }
+    se_t se = record->sh_to_se[sh];
+    se_t xse = 0, yse = 0;
+    sh_t y_sh = sh - subset->ch - subset->nonce, y_ch = subset->ch;
+    record->sh_to_se.if_contains(y_ch, [&xse](const parallel_flat_phmap<sh_t, se_t>::value_type& v) { xse = v.second; });
+    record->sh_to_se.if_contains(y_sh, [&yse](const parallel_flat_phmap<sh_t, se_t>::value_type& v) { yse = v.second; });
+    if ((subset->ch && !xse) || ((sh - subset->ch - subset->nonce) && !yse)) {
+      error_exit("Failed to decompose a color into its recorded partitions.");
+    }
+    se_to_pse_ov[se] = std::make_pair(xse, yse);
+  }
+  se_to_pse_ov[0] = std::make_pair(0, 0);
+  bind();
+}
+
+void CRecord::print_info()
+{
+  std::cout << "Total number of subsets excluding nodes: " << nsubsets << std::endl;
+  std::cout << "Number of nodes: " << tree->get_nnodes() << std::endl;
+  for (uint32_t se = 1; se < nnodes; ++se) {
+    node_sptr_t nd = tree->get_node(se);
+    std::cout << se << ": " << nd->get_name() << "(" << nd->get_card() << ")" << std::endl;
+  }
+  for (uint32_t se = 1; se < nsubsets; ++se) {
+    const pse_t& pse = se_to_pse_vv[se];
+    std::cout << se << ": " << pse.first << "+" << pse.second << std::endl;
+  }
+}
+
+CRecord::CRecord(tree_sptr_t tree)
+  : tree(tree)
+{
+  tree->reset_traversal();
+  nnodes = tree->get_nnodes() + 1;
+  nsubsets = nnodes;
+  se_to_rho.resize(nnodes, 0);
+  se_to_pse_ov.assign(nnodes, std::make_pair(se_t{0}, se_t{0}));
+  bind();
+  tree->reset_traversal();
+}
+
+void CRecord::load(std::ifstream& crecord_stream)
+{
+  crecord_stream.read(reinterpret_cast<char*>(&nnodes), sizeof(se_t));
+  crecord_stream.read(reinterpret_cast<char*>(&nsubsets), sizeof(se_t));
+  se_to_pse_ov.resize(nsubsets);
+  crecord_stream.read(reinterpret_cast<char*>(se_to_pse_ov.data()), sizeof(pse_t) * nsubsets);
+  se_to_rho.resize(nnodes);
+  crecord_stream.read(reinterpret_cast<char*>(se_to_rho.data()), sizeof(double) * nnodes);
+  bind();
+}
+
+void CRecord::load(std::ifstream& crecord_stream, const std::filesystem::path& path)
+{
+  if (use_mmap) {
+    map = krepp::FileMap(path);
+    if (map.is_open()) {
+      // Validate first
+      if (map.size() < 2 * sizeof(se_t)) {
+        error_exit("Truncated colour array in " + path.string());
+      }
+      se_t nn = 0;
+      se_t nr = 0;
+      std::memcpy(&nn, map.data(), sizeof(nn));
+      std::memcpy(&nr, map.data() + sizeof(se_t), sizeof(nr));
+      const size_t pse_bytes = static_cast<size_t>(nr) * sizeof(pse_t);
+      if (map.size() < 2 * sizeof(se_t) + pse_bytes + static_cast<size_t>(nn) * sizeof(double)) {
+        error_exit("Truncated colour array in " + path.string());
+      }
+      nnodes = nn;
+      nsubsets = nr;
+      se_to_pse_vv = reinterpret_cast<const pse_t*>(map.data() + 2 * sizeof(se_t));
+      se_to_rho.resize(nnodes);
+      std::memcpy(se_to_rho.data(), map.data() + 2 * sizeof(se_t) + pse_bytes, static_cast<size_t>(nnodes) * sizeof(double));
+      return;
+    }
+  }
+  load(crecord_stream);
+}
+
+void CRecord::save(std::ofstream& crecord_stream)
+{
+  crecord_stream.write(reinterpret_cast<char*>(&nnodes), sizeof(se_t));
+  crecord_stream.write(reinterpret_cast<char*>(&nsubsets), sizeof(se_t));
+  crecord_stream.write(reinterpret_cast<const char*>(se_to_pse_vv), sizeof(pse_t) * nsubsets);
+  crecord_stream.write(reinterpret_cast<char*>(se_to_rho.data()), sizeof(double) * nnodes);
+}
+
+void Record::decode_sh(sh_t sh, vec<node_sptr_t>& subset_v)
+{
+  std::queue<sh_t> qsubset;
+  if (sh) qsubset.push(sh);
+  while (!qsubset.empty()) {
+    sh = qsubset.front();
+    qsubset.pop();
+    // 0 is the reserved empty colour and has no decomposition.
+    if (sh == 0) continue;
+    auto nd_it = sh_to_node.find(sh);
+    if (nd_it != sh_to_node.end()) {
+      subset_v.push_back(nd_it->second);
+      continue;
+    }
+    auto subset_it = sh_to_subset.find(sh);
+    if (subset_it == sh_to_subset.end() || !subset_it->second) {
+      error_exit("Unknown colour " + std::to_string(sh) + " in the index record.");
+    }
+    subset_sptr_t subset = subset_it->second;
+    qsubset.push(subset->ch);
+    qsubset.push(subset->sh - subset->ch - subset->nonce);
+  }
+}
+
+void CRecord::decode_se(se_t se, vec<node_sptr_t>& subset_v)
+{
+  std::queue<se_t> qsubset;
+  if (se) qsubset.push(se);
+  pse_t pse;
+  while (!qsubset.empty()) {
+    se = qsubset.front();
+    qsubset.pop();
+    // 0 is the reserved empty colour.
+    if (se == 0) continue;
+    if (tree->check_node(se)) {
+      node_sptr_t nd = tree->get_node(se);
+      if (nd) {
+        subset_v.push_back(nd);
+        continue;
+      }
+    }
+    if (se >= nsubsets) {
+      error_exit("Invalid colour ID " + std::to_string(se) + " in the index record.");
+    }
+    pse = se_to_pse_vv[se];
+    qsubset.push(pse.first);
+    qsubset.push(pse.second);
+  }
+}
+
+void CRecord::display_info(std::ostream* output_stream, uint32_t r, vec<uint64_t>& se_to_count)
+{
+  (*output_stream) << r << "\tNUM_COLORS\t" << nsubsets - 1 << "\n";
+  vec<uint64_t> se_to_outdegree(nsubsets);
+  for (uint32_t ix = 1; ix < nsubsets; ++ix) {
+    se_to_outdegree[se_to_pse_vv[ix].first]++;
+    se_to_outdegree[se_to_pse_vv[ix].second]++;
+  }
+  flat_phmap<uint64_t, uint32_t> outdegree_hist;
+  flat_phmap<uint64_t, uint32_t> count_hist;
+  for (uint32_t ix = 1; ix < nsubsets; ++ix) {
+    count_hist[se_to_count[ix]]++;
+    outdegree_hist[se_to_outdegree[ix]]++;
+  }
+  for (auto const& [key, val] : count_hist) {
+    (*output_stream) << r << "\tMER_COUNT\t" << key << "\t" << val << "\n";
+  }
+  for (auto const& [key, val] : outdegree_hist) {
+    (*output_stream) << r << "\tOUTDEGREE_COUNT\t" << key << "\t" << val << "\n";
+  }
+  // std::queue<se_t> se_q;
+  // uint64_t se;
+  // uint32_t depth;
+  // std::pair<se_t, se_t> pse;
+  // for (uint64_t ix = 1; ix < se_to_pse_ov.size(); ++ix) {
+  //   depth = 0;
+  //   if (!tree->check_node(ix)) {
+  //     se_q.push(ix);
+  //     while (!se_q.empty()) {
+  //       depth++;
+  //       uint32_t n = se_q.size();
+  //       for (uint32_t i = 0; i < n; i++) {
+  //         se = se_q.front();
+  //         se_q.pop();
+  //         if (!tree->check_node(se)) {
+  //          pse = se_to_pse_ov[se];
+  //           se_q.push(pse.first);
+  //           se_q.push(pse.second);
+  //         }
+  //       }
+  //     }
+  //     depth--;
+  //   }
+  //   (*output_stream) << r << "\tCOLOR_INFO\t" << ix << "\t" << depth << "\t" << se_to_count[ix] << "\n";
+  // }
+}
+
+void CRecord::apply_rho_coef(double coef)
+{
+  for (se_t se = 0; se < se_to_rho.size(); ++se) {
+    se_to_rho[se] *= coef;
+  }
+}

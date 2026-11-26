@@ -1,0 +1,85 @@
+{
+  "task": "038_SuperIsing",
+  "created": "2026-11-03T09:53:36+0000",
+  "seeds": [
+    1
+  ],
+  "cpus": 32,
+  "adapt_commit": "679a984ba8a9cc1efb0bab07f71d005f02f6bf1d",
+  "sandbox": true,
+  "budget_s": 86400.0,
+  "test": {
+    "per_seed": [
+      0.030142937068767344
+    ],
+    "mean": 0.030142937068767344,
+    "std": 0.0,
+    "n": 1
+  },
+  "val": {
+    "per_seed": [
+      0.03014293706878977
+    ],
+    "mean": 0.03014293706878977,
+    "std": 0.0,
+    "n": 1
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "cost": 0.030142937068767344,
+        "constraints_pass": true,
+        "best_tag": "local01",
+        "best_parameters": [
+          0.068,
+          0.0809,
+          0.0776
+        ],
+        "lambda_opt": 1.0554664624762973,
+        "operator_count": 14,
+        "states": 40,
+        "local_ed_evaluations": 20,
+        "ed_wall_s": 2198.3009021878242,
+        "constraint_scope": "The three explicit reproduction protocol checks; unspecified external constraints cannot be certified."
+      },
+      "val": {
+        "cost": 0.03014293706878977,
+        "constraints_pass": true,
+        "best_tag": "local01",
+        "best_parameters": [
+          0.068,
+          0.0809,
+          0.0776
+        ],
+        "lambda_opt": 1.0554664624763954,
+        "operator_count": 14,
+        "states": 40,
+        "local_ed_evaluations": 20,
+        "ed_wall_s": 2315.9509388282895,
+        "constraint_scope": "The three explicit reproduction protocol checks; unspecified external constraints cannot be certified."
+      },
+      "timing": {
+        "train_s": 404.83,
+        "predict_s": 0.06,
+        "score_s": 2198.41,
+        "predict_val_s": 0.07
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      404.83
+    ],
+    "predict_s": [
+      0.06
+    ],
+    "build_s": 2.71
+  },
+  "hashes": {
+    "env_lock": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "scorer": "b2125b2e33339b3296541c5b5dceac0547d823a344947245521d6ec07864681f",
+    "validate": "3a6be380fed0a3b6b5c2268dd64be320cc02c0cfd6733c68da882fe9d6cf5adc",
+    "test_labels": "4268a5a12449070c8ea3ba8a36c5c17e7853da0282feaac1527c38d9908b1682",
+    "adapt_patch": "348ec26a45d98a5d0c0d67f0649251cad574918e531604f1f0651763ec11aeaf"
+  }
+}

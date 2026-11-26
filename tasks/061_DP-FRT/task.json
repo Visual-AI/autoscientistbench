@@ -1,0 +1,168 @@
+{
+  "pid": "061_DP-FRT",
+  "class": "D",
+  "title": "Differentially private tests of Fisher's sharp null hypothesis for binary outcomes",
+  "metric": {
+    "name": "mean_width",
+    "higher_is_better": false,
+    "delta": 0.005,
+    "aggregate": "mean"
+  },
+  "cpus": 12,
+  "memory_gb": 48,
+  "budget_hours_default": 24,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.csv",
+    "val_labels": "data/val/labels.json",
+    "test_input": "test/input.csv",
+    "test_labels": "test/labels.json"
+  },
+  "split": {
+    "type": "synthetic",
+    "decision": "Independent two-sided geometric privatized releases, 36 cells x1000 per split; shuffled opaque IDs; raw counts and truth excluded from inputs."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 4.7,
+    "val": {
+      "mean_width": 0.38774892135928235
+    },
+    "paper_ref": "Historical mean width 0.3876; no full reference measured for this conversion.",
+    "measured_s": {
+      "train": [
+        0.11,
+        0.07,
+        0.06
+      ],
+      "predict": [
+        281.98,
+        272.08,
+        265.57
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "reference_hash": "sha256:7a00cc72ea0a9741fb2632420b01cb0753e987d76aafa60b9b313ebecd879b5f"
+  },
+  "env": {
+    "mode": "snapshot",
+    "snapshot": "runtime/runtime.json",
+    "python": "3.11",
+    "lock": "code/env.lock"
+  },
+  "adapt": {
+    "base_commit": "f2e0541a829daf0b418497a9915a4238010065f3",
+    "adapt_commit": "55d8e42a179d37dfe7a63cc9faf6f1dc54e94581",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "smoke": {
+    "input": "judge/verification/fixture/input.csv",
+    "labels": "judge/verification/fixture/labels.json"
+  },
+  "conversion": {
+    "full_data_ready": true,
+    "source_commit": "c8af4ea430d6a44e70884267482e6987a9fe32b0",
+    "smoke_report": "judge/verification/smoke.json",
+    "data_integrity": "judge/verification/data_checks.json",
+    "scorer_checks": "judge/verification/scorer_checks.json",
+    "method_parity": "judge/verification/parity.json"
+  },
+  "method_freedom_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/061_DP-FRT.json",
+    "candidate_method_replacement_allowed": true,
+    "frozen_data_metric_and_information_boundary": true,
+    "full_training_or_evaluation_run": false,
+    "allowed_changes": [
+      "Posterior sampling, exact enumeration, integration, caching of input-independent calculations and other numerical approximation may change.",
+      "Draw count and numerical routines may improve; auxiliary losses must approximate the same posterior rather than create a different uncertainty set.",
+      "When retaining the supplied DP-FRT-Bayes sampler, changing only R=10000 or method='sampling' does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Compute the central 95% credible set of the nonprivate Fisher randomization p-value under the specified DP-FRT-Bayes denoising posterior, minimizing its guarded width.",
+      "The discrete uniform prior over valid treated/control count pairs and two-sided geometric privacy likelihood with supplied epsilon define the fixed posterior.",
+      "The Fisher hypergeometric right-tail p-value, central 2.5%/97.5% posterior quantiles and supported discrete set between them, 12-decimal membership, 36-cell width/coverage rules and privatized inputs remain fixed.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/061_DP-FRT.json",
+    "forbidden_substitutions": [
+      "Do not change the count prior, privacy likelihood or p-value tail; replace credible sets with arbitrary frequentist intervals/HPD sets; or choose case-specific answers.",
+      "No original counts, latent noise, hidden case labels or additional privacy releases may be used.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Compute the central 95% credible set of the nonprivate Fisher randomization p-value under the specified DP-FRT-Bayes denoising posterior, minimizing its guarded width.",
+    "fixed_research_objects": [
+      "The discrete uniform prior over valid treated/control count pairs and two-sided geometric privacy likelihood with supplied epsilon define the fixed posterior.",
+      "The Fisher hypergeometric right-tail p-value, central 2.5%/97.5% posterior quantiles and supported discrete set between them, 12-decimal membership, 36-cell width/coverage rules and privatized inputs remain fixed."
+    ],
+    "editable_components": [
+      "Posterior sampling, exact enumeration, integration, caching of input-independent calculations and other numerical approximation may change.",
+      "Draw count and numerical routines may improve; auxiliary losses must approximate the same posterior rather than create a different uncertainty set.",
+      "When retaining the supplied DP-FRT-Bayes sampler, changing only R=10000 or method='sampling' does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "Do not change the count prior, privacy likelihood or p-value tail; replace credible sets with arbitrary frequentist intervals/HPD sets; or choose case-specific answers.",
+      "No original counts, latent noise, hidden case labels or additional privacy releases may be used.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "path": "agent/paper/paper.txt",
+        "section": "Sections 3.2 and 5.1, lines 342-398 and 686-689",
+        "finding": "The selected Table 2 study uses the uniform-prior DP-FRT posterior; other priors are separate sensitivity analyses."
+      },
+      {
+        "path": "agent/code/DP-FRT.R",
+        "section": "posterior weights and summaries, sampling/enumerate branches",
+        "finding": "Defines geometric likelihood and central quantile-supported discrete set; both numerical computation methods already exist."
+      },
+      {
+        "path": "agent/code/method.R",
+        "finding": "Chooses uniform prior, clipped privatized observations and credible_set (not HPD_set)."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/061_DP-FRT.json"
+  },
+  "research_contract_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/061_DP-FRT.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

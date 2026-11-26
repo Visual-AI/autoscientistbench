@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "python": "/usr/bin/python3",
+  "mounts": [
+    {
+      "source": "runtime/compiler.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Bio-19_strobealign/.mamba/envs/strobealign",
+      "format": "tar",
+      "name": "compiler"
+    }
+  ],
+  "env": {
+    "PATH": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Bio-19_strobealign/.mamba/envs/strobealign/bin:/usr/local/bin:/usr/bin:/bin",
+    "CMAKE_PREFIX_PATH": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Bio-19_strobealign/.mamba/envs/strobealign",
+    "PKG_CONFIG_PATH": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Bio-19_strobealign/.mamba/envs/strobealign/lib/pkgconfig"
+  }
+}

@@ -1,0 +1,174 @@
+{
+  "pid": "048_ALSE-Treat",
+  "class": "D",
+  "title": "Parameterizing the effect of a continuous treatment using average derivative effects",
+  "metric": {
+    "name": "scaled_mse",
+    "higher_is_better": false,
+    "delta": 0.005,
+    "aggregate": "mean"
+  },
+  "cpus": 36,
+  "memory_gb": 144,
+  "budget_hours_default": 24,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input",
+    "val_labels": "data/val/labels.json",
+    "test_input": "test/input",
+    "test_labels": "test/labels.json",
+    "input_format": "RDS+JSON directory",
+    "output_format": "csv"
+  },
+  "split": {
+    "type": "synthetic",
+    "decision": "Materialized independent Section 5 SEM observations; full 40 replications at eight sample sizes per split; generation seeds and truth excluded from prediction input."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 14.92,
+    "val": {
+      "scaled_mse": 3.454152513983234
+    },
+    "paper_ref": "Historical source scaled MSE 3.0844; no full reference measured under this conversion.",
+    "measured_s": {
+      "train": [
+        0.06,
+        0.06,
+        0.06
+      ],
+      "predict": [
+        894.57,
+        894.35,
+        895.25
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:6c598733e0f5c13f77f1038f5567217de8612f21991ae9c924ba1ed1fe1347d2"
+  },
+  "env": {
+    "mode": "snapshot",
+    "snapshot": "runtime/runtime.json",
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "build_cap_s": 1800
+  },
+  "adapt": {
+    "base_commit": "12376e5ab5c10d10950bcbc2fadd1d2df7d3a67b",
+    "adapt_commit": "4b9a45c228bd24ef92c5f026672493df23c648d0",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "conversion": {
+    "full_data_ready": true,
+    "source_commit": "12376e5ab5c10d10950bcbc2fadd1d2df7d3a67b",
+    "smoke_report": "judge/verification/smoke.json",
+    "runtime_provenance": "judge/verification/runtime_checks.json",
+    "data_integrity": "judge/verification/data_checks.json",
+    "scorer_checks": "judge/verification/scorer_checks.json"
+  },
+  "smoke": {
+    "input": "judge/verification/fixture/input",
+    "labels": "judge/verification/fixture/labels.json"
+  },
+  "method_freedom_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/048_ALSE-Treat.json",
+    "candidate_method_replacement_allowed": true,
+    "frozen_data_metric_and_information_boundary": true,
+    "full_training_or_evaluation_run": false,
+    "allowed_changes": [
+      "Nuisance fitting implementations, bases and smoothing within GAM, forest construction/tuning within the forest family, numerical optimization and variance estimation may change.",
+      "Valid ALSE estimation, sample splitting and cross-fitting may change while retaining both nuisance families; auxiliary fitting losses cannot redefine ALSE.",
+      "When retaining the supplied ranger nuisance-fitting routine, changing only num.trees=1000 does not count as a method improvement.",
+      "Only switching to the five-fold sample-splitting results the baseline already computes (`psi_0_2`, `std_err_0_2`) also does not count."
+    ],
+    "fixed_contract": [
+      "Improve ALSE (Psi) estimation and uncertainty quantification under the two specified nuisance-learning conditions, GAM and random forest.",
+      "ALSE Psi = E[Cov(A,Y|X)] / E[Var(A|X)] is a variance-weighted average of conditional least-squares slopes. The unweighted psi = E[Cov(A,Y|X) / Var(A|X)] is distinct and is not scored.",
+      "Both nuisance-learning conditions (GAM and random forest), the eight sample sizes, each dataset, fixed Wald multiplier 1.959964, equal 16-cell n*MSE and coverage floors remain fixed.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/048_ALSE-Treat.json",
+    "forbidden_substitutions": [
+      "Do not replace the GAM/forest experimental conditions with arbitrary neural predictors or one duplicate learner; their names are not cosmetic slots.",
+      "Do not substitute psi/another weighted derivative target, use known true Psi as a prediction, pool independent datasets or change the Wald/scoring rule.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Improve ALSE (Psi) estimation and uncertainty quantification under the two specified nuisance-learning conditions, GAM and random forest.",
+    "fixed_research_objects": [
+      "ALSE Psi = E[Cov(A,Y|X)] / E[Var(A|X)] is a variance-weighted average of conditional least-squares slopes. The unweighted psi = E[Cov(A,Y|X) / Var(A|X)] is distinct and is not scored.",
+      "Both nuisance-learning conditions (GAM and random forest), the eight sample sizes, each dataset, fixed Wald multiplier 1.959964, equal 16-cell n*MSE and coverage floors remain fixed."
+    ],
+    "editable_components": [
+      "Nuisance fitting implementations, bases and smoothing within GAM, forest construction/tuning within the forest family, numerical optimization and variance estimation may change.",
+      "Valid ALSE estimation, sample splitting and cross-fitting may change while retaining both nuisance families; auxiliary fitting losses cannot redefine ALSE.",
+      "When retaining the supplied ranger nuisance-fitting routine, changing only num.trees=1000 does not count as a method improvement.",
+      "Only switching to the five-fold sample-splitting results the baseline already computes (`psi_0_2`, `std_err_0_2`) also does not count."
+    ],
+    "forbidden_substitutions": [
+      "Do not replace the GAM/forest experimental conditions with arbitrary neural predictors or one duplicate learner; their names are not cosmetic slots.",
+      "Do not substitute psi/another weighted derivative target, use known true Psi as a prediction, pool independent datasets or change the Wald/scoring rule.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "path": "agent/paper/paper.txt",
+        "section": "Section 5, lines 1475-1492",
+        "finding": "Simulation explicitly studies GAM with smooth interactions and random forest nuisance regression as two conditions for ALSE/psi methods."
+      },
+      {
+        "path": "agent/code/R/algorithms.R",
+        "finding": "ALSE and weighted derivative are distinct estimands; estimator/sample-splitting routines are computational methods."
+      },
+      {
+        "path": "agent/bench/scorer.py",
+        "finding": "Separate learner cells are checked and scored, but learner labels cannot authenticate architecture."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/048_ALSE-Treat.json"
+  },
+  "research_contract_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/048_ALSE-Treat.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

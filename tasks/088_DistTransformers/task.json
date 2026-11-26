@@ -1,0 +1,169 @@
+{
+  "pid": "088_DistTransformers",
+  "class": "A",
+  "title": "Distribution Transformers: Fast Approximate Bayesian Inference With On-The-Fly Prior Adaptation",
+  "metric": {
+    "name": "posterior_kl",
+    "higher_is_better": false,
+    "delta": 0.03,
+    "aggregate": "mean"
+  },
+  "cpus": 8,
+  "memory_gb": 16,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.npz",
+    "val_labels": "data/val/truth.npz",
+    "test_input": "test/input.npz",
+    "test_labels": "test/truth.npz",
+    "input_format": "npz",
+    "output_format": "csv"
+  },
+  "split": {
+    "type": "synthetic",
+    "decision": "Training: original 20 epochs of 100 batches of 5000 fresh synthetic problems from InverseGamma(4,6) meta-prior; BENCH_SEED determines model and training RNG. Validation: one public draw seed 20261029, 1000 problems. Hidden evaluation: five independent secret-seeded draws of 1000 problems each, preserving original Monte Carlo protocol and draw positions 3-7 while replacing public seeds for isolation. Input contains supplied prior parameters and observation, never latent variance or posterior samples.",
+    "val_seeds": [
+      20261029
+    ]
+  },
+  "baseline": {
+    "train_min": 5.21,
+    "eval_min": 0.5,
+    "val": {
+      "posterior_kl": 0.005706832433740298
+    },
+    "paper_ref": "Table 1, Experiment 4.1, DT-2 wide meta-prior; reproduced metric 0.005802714172750712",
+    "measured_s": {
+      "train": [
+        312.56,
+        308.16,
+        308.11
+      ],
+      "predict": [
+        5.02,
+        6.12,
+        5.02
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:c5fcc4fb07deb7f6d3c256f1665aef6aa2a611b241b4e16eb463b53c477fd388"
+  },
+  "env": {
+    "python": "3.12",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple",
+      "https://download.pytorch.org/whl/cpu"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "8bdd57317a17d016efc3a6e9c542d6d36bdc513a",
+    "adapt_commit": "aa6612ee50d42038824e1507c2f56fb3463481de",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "pre_method_freedom_baseline_val": {
+    "posterior_kl": 0.005706836935132742
+  },
+  "leakage_remediation": {
+    "full_evaluation_ready": false,
+    "superseded_by": "audits/20261101_method_freedom/088_DistTransformers.json",
+    "evidence_is_historical": true
+  },
+  "method_freedom": {
+    "report": "audits/20261101_method_freedom/088_DistTransformers.json",
+    "full_training_or_evaluation_run": false,
+    "superseded_by": "research_contract",
+    "scope_superseded_by": "audits/20261101_research_contract/088_DistTransformers.json"
+  },
+  "method_freedom_review": {
+    "report": "audits/20261101_research_contract/088_DistTransformers.json",
+    "allowed_changes": [
+      "The shared inference architecture, fitted representation, offline training method, training surrogate and optimizer may change; a Transformer is not mandatory.",
+      "When retaining the supplied DT training pipeline, changing only epochs=20, steps_per_epoch=100, batch_size=5000, warmup_epochs=5, lr=0.005, weight_decay=0 or use_prior_loss=true does not count as a method improvement.",
+      "Changing only the width or depth in `transformer_kwargs` (num_layers=6, d_model=64, n_head=8, dim_feedforward=256) also does not count."
+    ],
+    "fixed_contract": [
+      "Improve prior-flexible amortised two-component approximation to the specified inverse-gamma posterior.",
+      "The supplied prior/observation distribution, normal likelihood, latent variance and log-variance output space are fixed.",
+      "Inference is amortised across problems; output is exactly two valid Gaussians. The original posterior KL Monte Carlo formula, Jacobian and aggregation remain fixed.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/088_DistTransformers.json",
+    "status": "scope_repaired_with_limitations",
+    "forbidden_substitutions": [
+      "Do not replace the Bayesian problem, fit each evaluation problem separately, run a posterior-sampling chain, expand the mixture family, change KL scoring, access labels or transfer information across evaluation problems.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Improve prior-flexible amortised two-component approximation to the specified inverse-gamma posterior.",
+    "fixed_research_objects": [
+      "The supplied prior/observation distribution, normal likelihood, latent variance and log-variance output space are fixed.",
+      "Inference is amortised across problems; output is exactly two valid Gaussians. The original posterior KL Monte Carlo formula, Jacobian and aggregation remain fixed."
+    ],
+    "editable_components": [
+      "The shared inference architecture, fitted representation, offline training method, training surrogate and optimizer may change; a Transformer is not mandatory.",
+      "When retaining the supplied DT training pipeline, changing only epochs=20, steps_per_epoch=100, batch_size=5000, warmup_epochs=5, lr=0.005, weight_decay=0 or use_prior_loss=true does not count as a method improvement.",
+      "Changing only the width or depth in `transformer_kwargs` (num_layers=6, d_model=64, n_head=8, dim_feedforward=256) also does not count."
+    ],
+    "forbidden_substitutions": [
+      "Do not replace the Bayesian problem, fit each evaluation problem separately, run a posterior-sampling chain, expand the mixture family, change KL scoring, access labels or transfer information across evaluation problems.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "path": "tasks/088_DistTransformers/BRIEF.md",
+        "finding": "The score rule explicitly requires amortised inference and two components."
+      },
+      {
+        "path": "../papers/088_DistTransformers/paper/paper.txt:49-68,97-101,279",
+        "finding": "Amortised inference transfers expensive optimization to offline training and applies a learned mapping across tasks and priors."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/088_DistTransformers.json"
+  },
+  "research_contract_review": {
+    "status": "scope_repaired_with_limitations",
+    "report": "audits/20261101_research_contract/088_DistTransformers.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

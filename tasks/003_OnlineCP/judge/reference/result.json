@@ -1,0 +1,241 @@
+{
+  "task": "003_OnlineCP",
+  "created": "2026-11-02T09:08:30+0000",
+  "seeds": [
+    1
+  ],
+  "cpus": 8,
+  "adapt_commit": "2c5cced68072d27d437b71a4053387412a0b7266",
+  "sandbox": true,
+  "budget_s": 21600.0,
+  "test": {
+    "per_seed": [
+      4.932262738524463
+    ],
+    "mean": 4.932262738524463,
+    "std": 0.0,
+    "n": 1
+  },
+  "val": {
+    "per_seed": [
+      1.2021421949292328
+    ],
+    "mean": 1.2021421949292328,
+    "std": 0.0,
+    "n": 1
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "geomean_width": 4.932262738524463,
+        "all_constraints_pass": true,
+        "cells": {
+          "Amazon_Prophet": {
+            "n_eval": 2919,
+            "mean_width": 40.42322276389245,
+            "coverage": 0.8958547447756081,
+            "coverage_threshold": 0.8888946000746227,
+            "passed": true
+          },
+          "Amazon_AR": {
+            "n_eval": 2919,
+            "mean_width": 17.4178485316389,
+            "coverage": 0.89482699554642,
+            "coverage_threshold": 0.8888946000746227,
+            "passed": true
+          },
+          "Amazon_Theta": {
+            "n_eval": 2919,
+            "mean_width": 17.612839897166612,
+            "coverage": 0.8958547447756081,
+            "coverage_threshold": 0.8888946000746227,
+            "passed": true
+          },
+          "Google_Prophet": {
+            "n_eval": 2919,
+            "mean_width": 47.612354760567875,
+            "coverage": 0.8972250770811921,
+            "coverage_threshold": 0.8888946000746227,
+            "passed": true
+          },
+          "Google_AR": {
+            "n_eval": 2919,
+            "mean_width": 19.495438724500488,
+            "coverage": 0.8958547447756081,
+            "coverage_threshold": 0.8888946000746227,
+            "passed": true
+          },
+          "Google_Theta": {
+            "n_eval": 2919,
+            "mean_width": 30.145722490500447,
+            "coverage": 0.893456663240836,
+            "coverage_threshold": 0.8888946000746227,
+            "passed": true
+          },
+          "Electricity_Prophet": {
+            "n_eval": 1699,
+            "mean_width": 0.3788820263953578,
+            "coverage": 0.9005297233666862,
+            "coverage_threshold": 0.885443580568199,
+            "passed": true
+          },
+          "Electricity_AR": {
+            "n_eval": 1699,
+            "mean_width": 0.09467113438212031,
+            "coverage": 0.899941141848146,
+            "coverage_threshold": 0.885443580568199,
+            "passed": true
+          },
+          "Electricity_Theta": {
+            "n_eval": 1699,
+            "mean_width": 0.06945780775680317,
+            "coverage": 0.898175397292525,
+            "coverage_threshold": 0.885443580568199,
+            "passed": true
+          },
+          "Temperature_Prophet": {
+            "n_eval": 1074,
+            "mean_width": 7.070578203200745,
+            "coverage": 0.9013035381750466,
+            "coverage_threshold": 0.8816916540690795,
+            "passed": true
+          },
+          "Temperature_AR": {
+            "n_eval": 1074,
+            "mean_width": 5.435369383012063,
+            "coverage": 0.8985102420856611,
+            "coverage_threshold": 0.8816916540690795,
+            "passed": true
+          },
+          "Temperature_Theta": {
+            "n_eval": 1074,
+            "mean_width": 6.238706933354414,
+            "coverage": 0.9003724394785847,
+            "coverage_threshold": 0.8816916540690795,
+            "passed": true
+          }
+        },
+        "protocol": "private-policy-v2",
+        "causality_guard_ok": true,
+        "independent_cell_state": true,
+        "synthetic_development": false
+      },
+      "val": {
+        "geomean_width": 1.2021421949292328,
+        "all_constraints_pass": true,
+        "cells": {
+          "Amazon_Prophet": {
+            "n_eval": 127,
+            "mean_width": 0.5654669842933046,
+            "coverage": 0.905511811023622,
+            "coverage_threshold": 0.8467586094350332,
+            "passed": true
+          },
+          "Amazon_AR": {
+            "n_eval": 127,
+            "mean_width": 0.5576281550577711,
+            "coverage": 0.8976377952755905,
+            "coverage_threshold": 0.8467586094350332,
+            "passed": true
+          },
+          "Amazon_Theta": {
+            "n_eval": 127,
+            "mean_width": 0.6343981325257566,
+            "coverage": 0.9133858267716536,
+            "coverage_threshold": 0.8467586094350332,
+            "passed": true
+          },
+          "Google_Prophet": {
+            "n_eval": 127,
+            "mean_width": 1.0897038575365994,
+            "coverage": 0.8976377952755905,
+            "coverage_threshold": 0.8467586094350332,
+            "passed": true
+          },
+          "Google_AR": {
+            "n_eval": 127,
+            "mean_width": 0.9421370374143103,
+            "coverage": 0.8976377952755905,
+            "coverage_threshold": 0.8467586094350332,
+            "passed": true
+          },
+          "Google_Theta": {
+            "n_eval": 127,
+            "mean_width": 1.0799804359615626,
+            "coverage": 0.8818897637795275,
+            "coverage_threshold": 0.8467586094350332,
+            "passed": true
+          },
+          "Electricity_Prophet": {
+            "n_eval": 127,
+            "mean_width": 1.839812342705352,
+            "coverage": 0.8976377952755905,
+            "coverage_threshold": 0.8467586094350332,
+            "passed": true
+          },
+          "Electricity_AR": {
+            "n_eval": 127,
+            "mean_width": 1.425684772138504,
+            "coverage": 0.905511811023622,
+            "coverage_threshold": 0.8467586094350332,
+            "passed": true
+          },
+          "Electricity_Theta": {
+            "n_eval": 127,
+            "mean_width": 1.6850803365912566,
+            "coverage": 0.8740157480314961,
+            "coverage_threshold": 0.8467586094350332,
+            "passed": true
+          },
+          "Temperature_Prophet": {
+            "n_eval": 127,
+            "mean_width": 1.7611220979697642,
+            "coverage": 0.889763779527559,
+            "coverage_threshold": 0.8467586094350332,
+            "passed": true
+          },
+          "Temperature_AR": {
+            "n_eval": 127,
+            "mean_width": 2.0800051748556547,
+            "coverage": 0.8740157480314961,
+            "coverage_threshold": 0.8467586094350332,
+            "passed": true
+          },
+          "Temperature_Theta": {
+            "n_eval": 127,
+            "mean_width": 2.536566572721523,
+            "coverage": 0.905511811023622,
+            "coverage_threshold": 0.8467586094350332,
+            "passed": true
+          }
+        },
+        "protocol": "private-policy-v2",
+        "causality_guard_ok": true,
+        "independent_cell_state": true,
+        "synthetic_development": true
+      },
+      "timing": {
+        "train_s": 0.21,
+        "predict_s": 0.26,
+        "score_s": 11.45,
+        "predict_val_s": 0.26
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      0.21
+    ],
+    "predict_s": [
+      0.26
+    ],
+    "build_s": 2.5
+  },
+  "hashes": {
+    "env_lock": "e77e7045d01a9431264f9262c6b199d8e7988c139276a5266a3cf689588ad66e",
+    "scorer": "ba841018f4ca5f7a7516305ee5417ea39f26ce39ed97d2029e2657b9dacf0ab9",
+    "validate": "59c6a5adde9ee011cd6652c1aace8a281534dab28e602b25dde5543ab5f2c9bb",
+    "test_labels": null,
+    "adapt_patch": "27a93f667fa33953c9c83b72651ab66523d043e9768ef813764794b38a636372"
+  }
+}

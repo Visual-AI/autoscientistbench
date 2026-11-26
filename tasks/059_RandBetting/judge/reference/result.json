@@ -1,0 +1,217 @@
+{
+  "task": "059_RandBetting",
+  "created": "2026-11-02T09:03:18+0000",
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "cpus": 16,
+  "adapt_commit": "1d07dd02ac6afbf89c548338d6a8a07ed3ddf71d",
+  "sandbox": true,
+  "budget_s": 21600.0,
+  "test": {
+    "per_seed": [
+      0.4747555555555556,
+      0.4735555555555555,
+      0.4743777777777778
+    ],
+    "mean": 0.4742296296296296,
+    "std": 0.0005009729901899903,
+    "n": 3
+  },
+  "val": {
+    "per_seed": [
+      0.4728888888888889,
+      0.4724444444444444,
+      0.4731111111111111
+    ],
+    "mean": 0.4728148148148148,
+    "std": 0.0002771598064277199,
+    "n": 3
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "power": 0.4747555555555556,
+        "power_raw": 0.4747555555555556,
+        "null_by_n": [
+          0.032,
+          0.048,
+          0.03,
+          0.042,
+          0.04,
+          0.032,
+          0.03,
+          0.028,
+          0.032,
+          0.026
+        ],
+        "null_pooled": 0.034,
+        "null_max": 0.048,
+        "null_ok": true,
+        "interface_ok": true,
+        "replay_mismatches": 0,
+        "seed": 1,
+        "execution": "certificate"
+      },
+      "val": {
+        "power": 0.4728888888888889,
+        "power_raw": 0.4728888888888889,
+        "null_by_n": [
+          0.022,
+          0.034,
+          0.044,
+          0.034,
+          0.036,
+          0.054,
+          0.042,
+          0.034,
+          0.022,
+          0.04
+        ],
+        "null_pooled": 0.0362,
+        "null_max": 0.054,
+        "null_ok": true,
+        "interface_ok": true,
+        "replay_mismatches": 0,
+        "seed": 1,
+        "execution": "certificate"
+      },
+      "timing": {
+        "train_s": 0.62,
+        "predict_s": 0.87,
+        "score_s": 166.06,
+        "predict_val_s": 0.82
+      }
+    },
+    "2": {
+      "test": {
+        "power": 0.4735555555555555,
+        "power_raw": 0.4735555555555555,
+        "null_by_n": [
+          0.024,
+          0.036,
+          0.034,
+          0.034,
+          0.028,
+          0.036,
+          0.042,
+          0.022,
+          0.032,
+          0.034
+        ],
+        "null_pooled": 0.0322,
+        "null_max": 0.042,
+        "null_ok": true,
+        "interface_ok": true,
+        "replay_mismatches": 0,
+        "seed": 2,
+        "execution": "certificate"
+      },
+      "val": {
+        "power": 0.4724444444444444,
+        "power_raw": 0.4724444444444444,
+        "null_by_n": [
+          0.028,
+          0.04,
+          0.042,
+          0.042,
+          0.034,
+          0.042,
+          0.034,
+          0.038,
+          0.044,
+          0.04
+        ],
+        "null_pooled": 0.0384,
+        "null_max": 0.044,
+        "null_ok": true,
+        "interface_ok": true,
+        "replay_mismatches": 0,
+        "seed": 2,
+        "execution": "certificate"
+      },
+      "timing": {
+        "train_s": 0.62,
+        "predict_s": 0.82,
+        "score_s": 167.49,
+        "predict_val_s": 0.87
+      }
+    },
+    "3": {
+      "test": {
+        "power": 0.4743777777777778,
+        "power_raw": 0.4743777777777778,
+        "null_by_n": [
+          0.018,
+          0.036,
+          0.028,
+          0.046,
+          0.03,
+          0.034,
+          0.036,
+          0.032,
+          0.028,
+          0.026
+        ],
+        "null_pooled": 0.0314,
+        "null_max": 0.046,
+        "null_ok": true,
+        "interface_ok": true,
+        "replay_mismatches": 0,
+        "seed": 3,
+        "execution": "certificate"
+      },
+      "val": {
+        "power": 0.4731111111111111,
+        "power_raw": 0.4731111111111111,
+        "null_by_n": [
+          0.036,
+          0.034,
+          0.032,
+          0.038,
+          0.036,
+          0.026,
+          0.04,
+          0.026,
+          0.024,
+          0.05
+        ],
+        "null_pooled": 0.0342,
+        "null_max": 0.05,
+        "null_ok": true,
+        "interface_ok": true,
+        "replay_mismatches": 0,
+        "seed": 3,
+        "execution": "certificate"
+      },
+      "timing": {
+        "train_s": 0.62,
+        "predict_s": 0.82,
+        "score_s": 166.58,
+        "predict_val_s": 0.92
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      0.62,
+      0.62,
+      0.62
+    ],
+    "predict_s": [
+      0.87,
+      0.82,
+      0.82
+    ],
+    "build_s": 2.4
+  },
+  "hashes": {
+    "env_lock": "e77e7045d01a9431264f9262c6b199d8e7988c139276a5266a3cf689588ad66e",
+    "scorer": "29b21fc5b7545f3fd162d19fd0f0a9c745b5cb78f1c34d59aedd9b5050b9337f",
+    "validate": "f0d6130fab1cf4f4ef1acb90fda2f2ecab57f353a12a105b2208031df8ee4dc8",
+    "test_labels": "27fa8d422c188982b83da73a6766595c0a8088c25bc077215514a1ee44184225",
+    "adapt_patch": "e73f06442fb8b668ec970764782e0595015d7a6afbdaed2005294056602aa68b"
+  }
+}

@@ -1,0 +1,170 @@
+{
+  "pid": "023_LI-DTI",
+  "class": "A",
+  "title": "LI-DTI numerical interaction prediction",
+  "metric": {
+    "name": "AUPR",
+    "higher_is_better": true,
+    "delta": 0.005,
+    "aggregate": "mean"
+  },
+  "cpus": 8,
+  "memory_gb": 48,
+  "budget_hours_default": 24,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.csv",
+    "val_labels": "data/val/labels.csv",
+    "test_input": "test/input.csv",
+    "test_labels": "test/labels.csv"
+  },
+  "split": {
+    "type": "cv_outer_pair",
+    "decision": "Label-independent global SHA256 coordinate partition:70%train,10%val,20%hidden test. All original10x10 fold masks retained; outer val/test globally zeroed before every fit. Score every fold intersection, all within-outer negatives, average10 folds then10 runs. Original manifest whole-fold hiding rejected because cross-fold labels leak.",
+    "seed": 0
+  },
+  "baseline": {
+    "train_min": 2.4,
+    "eval_min": 0.5,
+    "val": {
+      "AUPR": 0.4100615826445977
+    },
+    "paper_ref": "Paper AUPR0.7562; historical reproduction0.741716 on original populations. Not comparable to outer-held-out task. No new full reference measured.",
+    "measured_s": {
+      "train": [
+        143.72
+      ],
+      "predict": [
+        9.28
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      0
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:635d2c930154ef0de07ae49855d345e062e539f1624abdb7e87f2f5c3a977905"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple",
+      "https://download.pytorch.org/whl/cpu"
+    ],
+    "build_cap_s": 1800,
+    "mode": "snapshot",
+    "snapshot": "runtime/runtime.json"
+  },
+  "adapt": {
+    "base_commit": "24c7e45a3bb2d8ae53f3e39bbd18e519e8407db0",
+    "adapt_commit": "89b288b923951f8efc06b6b5d931f2fffd497182",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "smoke": {
+    "input": "judge/verification/smoke_input.csv",
+    "labels": "judge/verification/smoke_labels.csv",
+    "env": {}
+  },
+  "conversion": {
+    "full_data_ready": true,
+    "smoke_report": "judge/verification/smoke.json",
+    "checks_report": "judge/verification/contract_checks.json",
+    "lint_report": "judge/verification/lint.txt"
+  },
+  "full_data_ready": true,
+  "method_freedom_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/023_LI-DTI.json",
+    "full_training_or_evaluation": false,
+    "allowed_changes": [
+      "numerical interaction-prediction models, representation learning, training surrogates and optimizers",
+      "internal feature transformations respecting every fold exclusion",
+      "When retaining the supplied LI-DTI pipeline, changing only the similarity thresholds [0.6,0.5,0.7,0,0.3,0.4,0], lambda1=1 or lambda2=0.1 does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Predict the fixed observed binary interaction relation under the globally masked outer holdout and original100-fold scoring protocol.",
+      "supplied interaction/side-information matrices and permanent outer masks plus author fold masks",
+      "all positive and negative sample occurrences, threshold/tie convention and original nested mean trapezoidal AUPR",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/023_LI-DTI.json",
+    "forbidden_substitutions": [
+      "changing interaction truth, fold/outer populations or negative sampling",
+      "recovering held-out labels from other folds/external copies or replacing computation with pair-ID answer tables",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Patch audit enforces a ban on using how often a pair occurs in query rows or fold masks as label evidence or as a prediction feature."
+    ],
+    "scope_source": "research_contract"
+  },
+  "research_contract": {
+    "objective": "Predict the fixed observed binary interaction relation under the globally masked outer holdout and original100-fold scoring protocol.",
+    "fixed_research_objects": [
+      "supplied interaction/side-information matrices and permanent outer masks plus author fold masks",
+      "all positive and negative sample occurrences, threshold/tie convention and original nested mean trapezoidal AUPR"
+    ],
+    "editable_components": [
+      "numerical interaction-prediction models, representation learning, training surrogates and optimizers",
+      "internal feature transformations respecting every fold exclusion",
+      "When retaining the supplied LI-DTI pipeline, changing only the similarity thresholds [0.6,0.5,0.7,0,0.3,0.4,0], lambda1=1 or lambda2=0.1 does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "changing interaction truth, fold/outer populations or negative sampling",
+      "recovering held-out labels from other folds/external copies or replacing computation with pair-ID answer tables",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Patch audit enforces a ban on using how often a pair occurs in query rows or fold masks as label evidence or as a prediction feature."
+    ],
+    "evidence": [
+      {
+        "source": "tasks/023_LI-DTI/agent/README.md",
+        "section": "Goal,Data,Metric and baseline",
+        "finding": "Predict the fixed observed binary interaction relation under the globally masked outer holdout and original100-fold scoring protocol."
+      },
+      {
+        "source": "tasks/023_LI-DTI/agent/bench/scorer.py",
+        "section": "trusted score and guards",
+        "finding": "The fixed evaluation target is supplied interaction/side-information matrices and permanent outer masks plus author fold masks; all positive and negative sample occurrences, threshold/tie convention and original nested mean trapezoidal AUPR"
+      },
+      {
+        "source": "audits/20261101_method_freedom/023_LI-DTI.json",
+        "section": "prior task-specific scorer/interface audit",
+        "finding": "Reuse the prior actual evaluator review while narrowing the blanket permission to the present task-specific objects."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/023_LI-DTI.json"
+  },
+  "research_contract_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/023_LI-DTI.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

@@ -1,0 +1,75 @@
+{
+  "task": "027_Monofluoro-BO",
+  "created": "2026-11-03T06:29:05+0000",
+  "seeds": [
+    1
+  ],
+  "cpus": 8,
+  "adapt_commit": "ee66ce76cbe4822027685d0618818ab4a8ac9368",
+  "sandbox": true,
+  "budget_s": 43200.0,
+  "test": {
+    "per_seed": [
+      0.7831613326136457
+    ],
+    "mean": 0.7831613326136457,
+    "std": 0.0,
+    "n": 1
+  },
+  "val": {
+    "per_seed": [
+      -0.2024346262378065
+    ],
+    "mean": -0.2024346262378065,
+    "std": 0.0,
+    "n": 1
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "r2": 0.7831613326136457,
+        "raw_r2": 0.7831613326136457,
+        "f1": 0.9175257731958762,
+        "guard_passed": true,
+        "tp": 89,
+        "fp": 7,
+        "fn": 9,
+        "mae": 4.848513892901841,
+        "rmse": 8.165321097657179
+      },
+      "val": {
+        "r2": -0.2024346262378065,
+        "raw_r2": -0.2024346262378065,
+        "f1": 0.803921568627451,
+        "guard_passed": true,
+        "tp": 41,
+        "fp": 13,
+        "fn": 7,
+        "mae": 8.639883328567851,
+        "rmse": 12.621757748966637
+      },
+      "timing": {
+        "train_s": 5.22,
+        "predict_s": 3.77,
+        "score_s": 0.13,
+        "predict_val_s": 3.72
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      5.22
+    ],
+    "predict_s": [
+      3.77
+    ],
+    "build_s": 4.9
+  },
+  "hashes": {
+    "env_lock": "84eecb8be23c1904c0a5928b5ce21170ed6a1b206f377782bdf76f621c10aa2a",
+    "scorer": "e029cfcd2878b425aa2fa7b16e5cd131f81185066c3d895815f3a2a73d513ffe",
+    "validate": "a18d1d57963f56f384f56039d1b17a9f68c7de57112d56a8709d9b02274043a1",
+    "test_labels": "83e542d8d477d5ea5f9eabb583e39d73a819bd5f67665a715d8257c2e129ee0e",
+    "adapt_patch": "de34c8df3c9d647b2cf6cd81a943c7c8e2c466b322fda753108db7999a79189e"
+  }
+}

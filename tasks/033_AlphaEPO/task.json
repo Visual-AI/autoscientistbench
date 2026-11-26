@@ -1,0 +1,155 @@
+{
+  "pid": "033_AlphaEPO",
+  "class": "A",
+  "title": "Competition between private and expressed opinions in binary choice: The alpha-EPO q-voter model",
+  "metric": {
+    "name": "mae",
+    "higher_is_better": false,
+    "delta": 0.03501805924492584,
+    "aggregate": "mean"
+  },
+  "cpus": 16,
+  "memory_gb": 4,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.csv",
+    "val_labels": "data/val/labels.csv",
+    "test_input": "test/input.csv",
+    "test_labels": "test/labels.csv",
+    "input_format": "csv",
+    "output_format": "csv"
+  },
+  "split": {
+    "type": "synthetic",
+    "decision": "Fixed Fig.7(a) Artificial setting. Public validation: original WS graph seeds 910000..910049 and MC seeds 1910000..1910099, 50 graphs x 2 runs. Held-out ensemble: 50 fresh independently secret graph seeds and 100 secret MC seeds, retained only by operator. No training; each split is a full 51-point curve, opaque shuffled ids; inputs contain public p queries only. Fixed alpha=.1,q=3,N=320,k_PA=14.81,ring_degree=14,beta=.115. MC labels are independent between splits; no simulation-derived fitting.",
+    "public_seeds": {
+      "graph_start": 910000,
+      "mc_start": 1910000,
+      "bootstrap": 271828
+    }
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 0.5,
+    "val": {
+      "mae": 0.04973832686080737
+    },
+    "paper_ref": "No printed paper MAE; hard reproduction 0.04973832686080737, bootstrap SE 0.001090195.",
+    "measured_s": {
+      "train": [
+        0.56
+      ],
+      "predict": [
+        8.12
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 1e-06,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:0bc6b1f01eef5c50a61981b8de2ccd9aa4d4680474f1b97d50bc4ee5cf05f87b"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "fcc25134294d0eeabc311503b327773d0c857d0c",
+    "adapt_commit": "8bb164ce750d1b9795acdb9d7c3c220979e4ace2",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "method_freedom_previous_baseline_val": {
+    "mae": 0.04973832686080737
+  },
+  "method_freedom_review": {
+    "full_evaluation_ready": false,
+    "status": "scope_repaired_with_limitations",
+    "report": "audits/20261101_research_contract/033_AlphaEPO.json",
+    "full_training_or_evaluation": false,
+    "allowed_changes": [
+      "Analytical approximation, closure, numerical equations approximating the fixed physical dynamics, integration, solver and implementation.",
+      "Configuration selection from public diagnostics; PA at k=14.81, RK45 and its integration endpoint are baseline choices.",
+      "When retaining the supplied pair-approximation equations, changing only k=14.81, the integration endpoint t=2000, method=RK45, rtol=1e-7 or atol=1e-9 does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Reduce stationary expressed-opinion concentration MAE for the fixed Fig. 7(a) alpha-EPO q-voter experiment using a deterministic analytic/ODE approximation.",
+      "Q-voter dynamics with self-anticonformity, alpha=.1, q=3, ordered initialization and the supplied S2-matched Watts-Strogatz setting.",
+      "Original raw c_S(p), query grid, MC reference-generation protocol and uncertainty-aware MAE.",
+      "Analytic/ODE approximation without prediction-time MC, additional simulations, or fitting/interpolating evaluation MC labels.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/033_AlphaEPO.json",
+    "forbidden_substitutions": [
+      "Replace the physical q-voter dynamics/network ensemble or raw c_S with folded magnetization or another observable.",
+      "Replace analytic prediction with Monte Carlo, a simulation-trained regressor or evaluation-label lookup/interpolation.",
+      "Change the MAE/uncertainty rule, infer hidden seeds or use IDs as physical information.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract"
+  },
+  "research_contract": {
+    "objective": "Reduce stationary expressed-opinion concentration MAE for the fixed Fig. 7(a) alpha-EPO q-voter experiment using a deterministic analytic/ODE approximation.",
+    "fixed_research_objects": [
+      "Q-voter dynamics with self-anticonformity, alpha=.1, q=3, ordered initialization and the supplied S2-matched Watts-Strogatz setting.",
+      "Original raw c_S(p), query grid, MC reference-generation protocol and uncertainty-aware MAE.",
+      "Analytic/ODE approximation without prediction-time MC, additional simulations, or fitting/interpolating evaluation MC labels."
+    ],
+    "editable_components": [
+      "Analytical approximation, closure, numerical equations approximating the fixed physical dynamics, integration, solver and implementation.",
+      "Configuration selection from public diagnostics; PA at k=14.81, RK45 and its integration endpoint are baseline choices.",
+      "When retaining the supplied pair-approximation equations, changing only k=14.81, the integration endpoint t=2000, method=RK45, rtol=1e-7 or atol=1e-9 does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "Replace the physical q-voter dynamics/network ensemble or raw c_S with folded magnetization or another observable.",
+      "Replace analytic prediction with Monte Carlo, a simulation-trained regressor or evaluation-label lookup/interpolation.",
+      "Change the MAE/uncertainty rule, infer hidden seeds or use IDs as physical information.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      "BRIEF.md: task_metric and explicit deterministic analytic/ODE, no-simulation score_rule.",
+      "Original reproduction .repro/HARD.md: Fig. 7(a) dynamics, raw c_S target and separation of MC truth from analytical prediction.",
+      "agent/bench/scorer.py: fixed MAE and explicit nonanalytic-declaration rejection; provenance still requires source audit."
+    ],
+    "review_report": "audits/20261101_research_contract/033_AlphaEPO.json"
+  },
+  "research_contract_review": {
+    "status": "scope_repaired_with_limitations",
+    "report": "audits/20261101_research_contract/033_AlphaEPO.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

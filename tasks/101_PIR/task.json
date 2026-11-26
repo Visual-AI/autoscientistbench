@@ -1,0 +1,211 @@
+{
+  "pid": "101_PIR",
+  "class": "A",
+  "title": "PIR: Improving Time Series Forecasting via Instance-aware Post-hoc Revision",
+  "metric": {
+    "name": "mse",
+    "higher_is_better": false,
+    "delta": 0.003,
+    "aggregate": "mean"
+  },
+  "cpus": 16,
+  "memory_gb": 16,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.json",
+    "val_labels": "data/val/evaluation",
+    "test_input": "test/input.json",
+    "test_labels": "test/evaluation",
+    "input_format": "private_forecast_descriptor_json",
+    "output_format": "policy_artifact_zip"
+  },
+  "split": {
+    "type": "std3",
+    "decision": "ETTh1 official chronological split: train [0,8640), val [8640,11520), test [11520,14400); each forecast has 96 previous rows. Every 8th window evaluated, out of 2785/2689/2545/2161 per split/horizon (drop_last=False). No randomized split. Training and retrieval use train only; early stopping uses original shuffled validation loader."
+  },
+  "baseline": {
+    "train_min": 4.31,
+    "eval_min": 0.5,
+    "val": {
+      "mse": 1.1399158388376236
+    },
+    "paper_ref": "Table 1 ETTh1 PatchTST+PIR; main_table/final_1 mean MSE 0.4373302161693573, manifest 0.43733",
+    "measured_s": {
+      "train": [
+        258.3,
+        244.13,
+        242.8
+      ],
+      "predict": [
+        3.42,
+        3.52,
+        3.47
+      ]
+    },
+    "timing_scope": "legacy protocol estimates retained for operational budgeting; not a measured v2 reference"
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:38960d5c8b3ee9001427f48540ccddde9e644e885ad315af3ae305d13157e0f5"
+  },
+  "env": {
+    "python": "3.10.22",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple",
+      "https://download.pytorch.org/whl/cpu"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "fc2b968fb0bbf3a235c2adb03450680e8522b9f0",
+    "adapt_commit": "bef7905be5519556e20986ddaa687c5c53eec85f",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "protocol_version": "private-policy-v2",
+  "leakage_repair": {
+    "status": "protocol_smoke_pass",
+    "scope": "cross_window_future_observation_leakage",
+    "outer_harness_changed": false,
+    "original_instances_preserved": true,
+    "full_performance_validated": false,
+    "reference_status": "requires_rebuild_after_protocol_change",
+    "smoke_report": "audits/20261101_quality/repairs/forecast_smoke/101_PIR.json",
+    "original_environment_import": "timed_out_45s",
+    "original_model_component_smoke": false
+  },
+  "leakage_remediation": {
+    "status": "smoke_verified",
+    "outer_harness_changed": false,
+    "full_training_or_evaluation_run": false,
+    "evidence": [
+      "audits/20261101_preserve_experiment/imp-64-PIR-protocol-smoke.json",
+      "audits/20261101_preserve_experiment/imp-64-PIR-model-smoke.json",
+      "audits/20261101_preserve_experiment/imp-64-PIR-contract-checks.json",
+      "audits/20261101_preserve_experiment/imp-64-PIR-native-import.json",
+      "audits/20261101_preserve_experiment/imp-64-PIR-native-lock.json"
+    ],
+    "full_evaluation_ready": false,
+    "declared_interpreter_verified": false,
+    "installed_lock_versions_match": true,
+    "fresh_lock_install": false,
+    "verification_scope": "Five-window four-horizon protocol smoke plus one original H96 checkpoint/model forward in a compatible runtime; no training or full evaluation.",
+    "superseded_by": "audits/20261101_method_freedom/101_PIR.json",
+    "evidence_is_historical": true
+  },
+  "experiment_preservation": {
+    "report": "audits/20261101_preserve_experiment/101_PIR.json",
+    "original_prediction_budget_s": 60,
+    "original_train_cap_s": 1571,
+    "artifact_preparation_timed_separately": true,
+    "original_model_training_sources_unchanged": true,
+    "original_numeric_metric_unchanged": true,
+    "original_formal_window_counts_unchanged": true,
+    "original_method_scope_retained": true,
+    "full_scale_throughput_verified": false,
+    "declared_environment_verified": false,
+    "training_history_and_backbone_compliance_require_method_review": true
+  },
+  "method_freedom": {
+    "report": "audits/20261101_method_freedom/101_PIR.json",
+    "full_training_or_evaluation_run": false,
+    "superseded_by": "research_contract",
+    "scope_superseded_by": "audits/20261101_research_contract/101_PIR.json"
+  },
+  "method_freedom_review": {
+    "report": "audits/20261101_research_contract/101_PIR.json",
+    "allowed_changes": [
+      "The revision architecture, retrieval/weighting method, quality estimator, revision training surrogate, optimizer and hyperparameters may change. The revision may be replaced completely while still operating on the fixed backbone forecasts and permitted context.",
+      "A pass must come from a change to the revision method: changing only existing constants or switches of the baseline revision (`--retrieval_num`, `--refine_lr`, `--refine_epochs`, `--refine_d_model`, `--refine_d_ff`, `--refine_layers`, `--including_time_features`, `--patience`) does not count (patch audit)."
+    ],
+    "fixed_contract": [
+      "Improve post-hoc revision of the fixed authors-trained PatchTST forecasts for the four ETTh1 horizons.",
+      "The PatchTST architecture and authors pretraining recipe are fixed; the selected pretrained parameters and normalization buffers must remain unchanged during revision.",
+      "The 96-step inputs, four horizons, original observations/splits/windows, float32 training standardization and equal-horizon mean MSE remain fixed.",
+      "Revision retrieval history contains training-split observations/targets only.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/101_PIR.json",
+    "status": "scope_repaired_with_limitations",
+    "forbidden_substitutions": [
+      "Do not substitute or fine-tune another backbone, change pretraining settings/initialization selection, update backbone buffers during revision, use validation/test history for retrieval, replace forecasting targets or change the metric.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Revision models must take the fixed backbone forecast as an input and may not include a trainable copy of PatchTST, another model from `code/models`, or additional PatchTST seeds; those count as substituting or fine-tuning a backbone (patch audit).",
+      "For horizon H, only the fixed backbone trained for H supplies the backbone forecast; forecasts of the other horizons' backbones may not be blended in (patch audit)."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Improve post-hoc revision of the fixed authors-trained PatchTST forecasts for the four ETTh1 horizons.",
+    "fixed_research_objects": [
+      "The PatchTST architecture and authors pretraining recipe are fixed; the selected pretrained parameters and normalization buffers must remain unchanged during revision.",
+      "The 96-step inputs, four horizons, original observations/splits/windows, float32 training standardization and equal-horizon mean MSE remain fixed.",
+      "Revision retrieval history contains training-split observations/targets only."
+    ],
+    "editable_components": [
+      "The revision architecture, retrieval/weighting method, quality estimator, revision training surrogate, optimizer and hyperparameters may change. The revision may be replaced completely while still operating on the fixed backbone forecasts and permitted context.",
+      "A pass must come from a change to the revision method: changing only existing constants or switches of the baseline revision (`--retrieval_num`, `--refine_lr`, `--refine_epochs`, `--refine_d_model`, `--refine_d_ff`, `--refine_layers`, `--including_time_features`, `--patience`) does not count (patch audit)."
+    ],
+    "forbidden_substitutions": [
+      "Do not substitute or fine-tune another backbone, change pretraining settings/initialization selection, update backbone buffers during revision, use validation/test history for retrieval, replace forecasting targets or change the metric.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Revision models must take the fixed backbone forecast as an input and may not include a trainable copy of PatchTST, another model from `code/models`, or additional PatchTST seeds; those count as substituting or fine-tuning a backbone (patch audit).",
+      "For horizon H, only the fixed backbone trained for H supplies the backbone forecast; forecasts of the other horizons' backbones may not be blended in (patch audit)."
+    ],
+    "evidence": [
+      {
+        "path": "tasks/101_PIR/BRIEF.md",
+        "finding": "The curated score rule explicitly requires authors-trained PatchTST left unchanged and training-only revision history."
+      },
+      {
+        "path": "../papers/101_PIR/paper/paper.txt:222,234,645,3214",
+        "finding": "The paper studies a model-agnostic post-forecasting revision plugin and pretrained-backbone ablations. It does not itself establish a frozen-weights rule; that stricter rule is from the curated benchmark."
+      },
+      {
+        "path": "tasks/101_PIR/agent/code/exp/exp_long_term_forecasting_pir.py",
+        "finding": "The old adaptation optimized all model parameters and updated BN buffers during revision, contradicting the curated guard. The corrected optimizer and revision mode freeze the backbone."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/101_PIR.json"
+  },
+  "research_contract_review": {
+    "status": "scope_repaired_with_limitations",
+    "report": "audits/20261101_research_contract/101_PIR.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

@@ -1,0 +1,595 @@
+{
+  "task": "006_ResCP",
+  "created": "2026-11-03T13:57:14+0000",
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "cpus": 128,
+  "adapt_commit": "0331c2f53f80efa6e56a433034aef70253719868",
+  "sandbox": true,
+  "budget_s": 43200.0,
+  "test": {
+    "per_seed": [
+      1.017261735005791,
+      1.0359275078391035,
+      1.0283919659607925
+    ],
+    "mean": 1.0271937362685624,
+    "std": 0.007667228298097133,
+    "n": 3
+  },
+  "val": {
+    "per_seed": [
+      0.9997374838502138,
+      1.0127057877470351,
+      1.0101659440495934
+    ],
+    "mean": 1.0075364052156142,
+    "std": 0.0056113030185885706,
+    "n": 3
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "normalized_winkler": 1.017261735005791,
+        "unguarded": 1.017261735005791,
+        "coverage_ok": true,
+        "coverage_floor": 0.86,
+        "cells": {
+          "beijing_arima": {
+            "coverage": 0.8985641598701477,
+            "winkler": 118.2782211303711,
+            "width": 68.36507415771484,
+            "ratio": 1.0803155897653598
+          },
+          "beijing_rnn": {
+            "coverage": 0.8876147270202637,
+            "winkler": 114.9841079711914,
+            "width": 63.926231384277344,
+            "ratio": 1.0897214959596018
+          },
+          "beijing_transformer": {
+            "coverage": 0.8852145075798035,
+            "winkler": 111.11054229736328,
+            "width": 60.616302490234375,
+            "ratio": 1.0923748185279791
+          },
+          "elec_arima": {
+            "coverage": 0.9472553730010986,
+            "winkler": 16.192182540893555,
+            "width": 13.587615013122559,
+            "ratio": 1.041442376432205
+          },
+          "elec_rnn": {
+            "coverage": 0.9091074466705322,
+            "winkler": 12.854291915893555,
+            "width": 9.392494201660156,
+            "ratio": 0.9695710946763695
+          },
+          "elec_transformer": {
+            "coverage": 0.931211531162262,
+            "winkler": 12.896293640136719,
+            "width": 10.003172874450684,
+            "ratio": 0.9926015542072517
+          },
+          "exchange_arima": {
+            "coverage": 0.9103960394859314,
+            "winkler": 0.026300447061657906,
+            "width": 0.020464854314923286,
+            "ratio": 0.9712655605156174
+          },
+          "exchange_rnn": {
+            "coverage": 0.912508487701416,
+            "winkler": 0.026041584089398384,
+            "width": 0.020776236429810524,
+            "ratio": 0.9915674381893106
+          },
+          "exchange_transformer": {
+            "coverage": 0.9145451188087463,
+            "winkler": 0.02894574962556362,
+            "width": 0.022692358121275902,
+            "ratio": 0.9740228295488206
+          },
+          "solar_arima": {
+            "coverage": 0.8967065811157227,
+            "winkler": 107.49108123779297,
+            "width": 76.09859466552734,
+            "ratio": 1.0143815525611368
+          },
+          "solar_rnn": {
+            "coverage": 0.8992507457733154,
+            "winkler": 104.86630249023438,
+            "width": 59.26280975341797,
+            "ratio": 0.9983370776625768
+          },
+          "solar_transformer": {
+            "coverage": 0.9244877696037292,
+            "winkler": 103.30059814453125,
+            "width": 59.13912582397461,
+            "ratio": 0.991539432023263
+          }
+        },
+        "causality_guard_ok": true,
+        "protocol": "private-policy-v2",
+        "policy_elapsed_s": 14282.174025390297,
+        "prediction_elapsed_s": 3127.941970475018,
+        "artifact_prepare_s": 7.768317762762308,
+        "worker_pool_size": 12
+      },
+      "val": {
+        "normalized_winkler": 0.9997374838502138,
+        "unguarded": 0.9997374838502138,
+        "coverage_ok": true,
+        "coverage_floor": 0.83,
+        "cells": {
+          "beijing_arima": {
+            "coverage": 0.8790514469146729,
+            "winkler": 178.37818908691406,
+            "width": 78.13870239257812,
+            "ratio": 0.9976751735917608
+          },
+          "beijing_rnn": {
+            "coverage": 0.8664875030517578,
+            "winkler": 170.55799865722656,
+            "width": 74.03179931640625,
+            "ratio": 0.9995882776457387
+          },
+          "beijing_transformer": {
+            "coverage": 0.8620345592498779,
+            "winkler": 165.6780548095703,
+            "width": 69.89739990234375,
+            "ratio": 0.9998111405526814
+          },
+          "elec_arima": {
+            "coverage": 0.9358361959457397,
+            "winkler": 12.43497371673584,
+            "width": 10.221536636352539,
+            "ratio": 1.000010660428092
+          },
+          "elec_rnn": {
+            "coverage": 0.9071249961853027,
+            "winkler": 11.315228462219238,
+            "width": 8.389089584350586,
+            "ratio": 1.0000014328024098
+          },
+          "elec_transformer": {
+            "coverage": 0.8977919220924377,
+            "winkler": 10.815566062927246,
+            "width": 7.551685333251953,
+            "ratio": 0.9999739005588366
+          },
+          "exchange_arima": {
+            "coverage": 0.9263485670089722,
+            "winkler": 0.02776673063635826,
+            "width": 0.024770377203822136,
+            "ratio": 1.000180751313567
+          },
+          "exchange_rnn": {
+            "coverage": 0.9075854420661926,
+            "winkler": 0.03178142011165619,
+            "width": 0.026061661541461945,
+            "ratio": 0.9994818223685205
+          },
+          "exchange_transformer": {
+            "coverage": 0.9172008633613586,
+            "winkler": 0.03334213048219681,
+            "width": 0.02818450704216957,
+            "ratio": 1.0004194956729797
+          },
+          "solar_arima": {
+            "coverage": 0.8735790848731995,
+            "winkler": 144.4403076171875,
+            "width": 91.33145141601562,
+            "ratio": 0.9999277469164624
+          },
+          "solar_rnn": {
+            "coverage": 0.8533732295036316,
+            "winkler": 148.01048278808594,
+            "width": 65.95893859863281,
+            "ratio": 0.9998913521798474
+          },
+          "solar_transformer": {
+            "coverage": 0.8714593052864075,
+            "winkler": 145.69125366210938,
+            "width": 62.8972053527832,
+            "ratio": 0.9998880521716674
+          }
+        },
+        "causality_guard_ok": true,
+        "protocol": "private-policy-v2",
+        "policy_elapsed_s": 1756.3192216735333,
+        "prediction_elapsed_s": 425.2610392123461,
+        "artifact_prepare_s": 7.81467249058187,
+        "worker_pool_size": 12
+      },
+      "timing": {
+        "train_s": 10.38,
+        "predict_s": 5.47,
+        "score_s": 3142.56,
+        "predict_val_s": 5.57
+      }
+    },
+    "2": {
+      "test": {
+        "normalized_winkler": 1.0359275078391035,
+        "unguarded": 1.0359275078391035,
+        "coverage_ok": true,
+        "coverage_floor": 0.86,
+        "cells": {
+          "beijing_arima": {
+            "coverage": 0.8964959979057312,
+            "winkler": 118.6351547241211,
+            "width": 67.68889617919922,
+            "ratio": 1.0835757074958596
+          },
+          "beijing_rnn": {
+            "coverage": 0.8810687065124512,
+            "winkler": 114.63953399658203,
+            "width": 62.06322479248047,
+            "ratio": 1.086455917144361
+          },
+          "beijing_transformer": {
+            "coverage": 0.8829476237297058,
+            "winkler": 111.28082275390625,
+            "width": 60.29697036743164,
+            "ratio": 1.0940489178435704
+          },
+          "elec_arima": {
+            "coverage": 0.9519875049591064,
+            "winkler": 16.58367347717285,
+            "width": 14.055015563964844,
+            "ratio": 1.0666221352448721
+          },
+          "elec_rnn": {
+            "coverage": 0.9185390472412109,
+            "winkler": 13.38683032989502,
+            "width": 9.977356910705566,
+            "ratio": 1.009739301248853
+          },
+          "elec_transformer": {
+            "coverage": 0.931357204914093,
+            "winkler": 13.45422077178955,
+            "width": 10.394834518432617,
+            "ratio": 1.0355440734663839
+          },
+          "exchange_arima": {
+            "coverage": 0.9071782231330872,
+            "winkler": 0.026899784803390503,
+            "width": 0.020825235173106194,
+            "ratio": 0.9933988765880546
+          },
+          "exchange_rnn": {
+            "coverage": 0.9106415510177612,
+            "winkler": 0.02645767852663994,
+            "width": 0.021106747910380363,
+            "ratio": 1.007410779122952
+          },
+          "exchange_transformer": {
+            "coverage": 0.9143754243850708,
+            "winkler": 0.02964865043759346,
+            "width": 0.023099344223737717,
+            "ratio": 0.9976754019189216
+          },
+          "solar_arima": {
+            "coverage": 0.9087316989898682,
+            "winkler": 109.68467712402344,
+            "width": 77.00074768066406,
+            "ratio": 1.035082276520213
+          },
+          "solar_rnn": {
+            "coverage": 0.907702624797821,
+            "winkler": 105.92411804199219,
+            "width": 59.16599655151367,
+            "ratio": 1.0084075813569955
+          },
+          "solar_transformer": {
+            "coverage": 0.9236162304878235,
+            "winkler": 105.55402374267578,
+            "width": 58.919158935546875,
+            "ratio": 1.0131691261182065
+          }
+        },
+        "causality_guard_ok": true,
+        "protocol": "private-policy-v2",
+        "policy_elapsed_s": 14173.315811360255,
+        "prediction_elapsed_s": 3134.0829405803233,
+        "artifact_prepare_s": 7.674959870055318,
+        "worker_pool_size": 12
+      },
+      "val": {
+        "normalized_winkler": 1.0127057877470351,
+        "unguarded": 1.0127057877470351,
+        "coverage_ok": true,
+        "coverage_floor": 0.83,
+        "cells": {
+          "beijing_arima": {
+            "coverage": 0.8742938041687012,
+            "winkler": 180.22177124023438,
+            "width": 76.99495697021484,
+            "ratio": 1.0079863901943036
+          },
+          "beijing_rnn": {
+            "coverage": 0.8560460805892944,
+            "winkler": 171.27081298828125,
+            "width": 72.15785217285156,
+            "ratio": 1.003765864478779
+          },
+          "beijing_transformer": {
+            "coverage": 0.8585028648376465,
+            "winkler": 166.6465606689453,
+            "width": 69.82188415527344,
+            "ratio": 1.005655746520603
+          },
+          "elec_arima": {
+            "coverage": 0.9467576742172241,
+            "winkler": 12.819343566894531,
+            "width": 10.902108192443848,
+            "ratio": 1.0309213769653152
+          },
+          "elec_rnn": {
+            "coverage": 0.9121329188346863,
+            "winkler": 11.592775344848633,
+            "width": 8.712968826293945,
+            "ratio": 1.0245300829508313
+          },
+          "elec_transformer": {
+            "coverage": 0.9009788036346436,
+            "winkler": 11.03110408782959,
+            "width": 7.735610008239746,
+            "ratio": 1.0199018819725076
+          },
+          "exchange_arima": {
+            "coverage": 0.9299792647361755,
+            "winkler": 0.02783583477139473,
+            "width": 0.025088701397180557,
+            "ratio": 1.0026699397817673
+          },
+          "exchange_rnn": {
+            "coverage": 0.9027777910232544,
+            "winkler": 0.03182179853320122,
+            "width": 0.026240870356559753,
+            "ratio": 1.0007516680270343
+          },
+          "exchange_transformer": {
+            "coverage": 0.9193376302719116,
+            "winkler": 0.03370830789208412,
+            "width": 0.028598718345165253,
+            "ratio": 1.0114065266283625
+          },
+          "solar_arima": {
+            "coverage": 0.8705588579177856,
+            "winkler": 147.53819274902344,
+            "width": 91.27352142333984,
+            "ratio": 1.021373708581765
+          },
+          "solar_rnn": {
+            "coverage": 0.8613396883010864,
+            "winkler": 149.00204467773438,
+            "width": 65.51703643798828,
+            "ratio": 1.0065898923098062
+          },
+          "solar_transformer": {
+            "coverage": 0.8734688758850098,
+            "winkler": 148.1724090576172,
+            "width": 62.12751007080078,
+            "ratio": 1.0169163745533476
+          }
+        },
+        "causality_guard_ok": true,
+        "protocol": "private-policy-v2",
+        "policy_elapsed_s": 1713.6592323742807,
+        "prediction_elapsed_s": 396.72339057922363,
+        "artifact_prepare_s": 7.366440298035741,
+        "worker_pool_size": 12
+      },
+      "timing": {
+        "train_s": 10.13,
+        "predict_s": 5.27,
+        "score_s": 3148.42,
+        "predict_val_s": 5.37
+      }
+    },
+    "3": {
+      "test": {
+        "normalized_winkler": 1.0283919659607925,
+        "unguarded": 1.0283919659607925,
+        "coverage_ok": true,
+        "coverage_floor": 0.86,
+        "cells": {
+          "beijing_arima": {
+            "coverage": 0.9050420522689819,
+            "winkler": 118.2337875366211,
+            "width": 70.37940979003906,
+            "ratio": 1.0799097474760637
+          },
+          "beijing_rnn": {
+            "coverage": 0.8668250441551208,
+            "winkler": 115.64234161376953,
+            "width": 58.14949035644531,
+            "ratio": 1.0959596741073236
+          },
+          "beijing_transformer": {
+            "coverage": 0.8905119299888611,
+            "winkler": 111.14640045166016,
+            "width": 62.741214752197266,
+            "ratio": 1.0927273552358638
+          },
+          "elec_arima": {
+            "coverage": 0.9441613554954529,
+            "winkler": 15.906396865844727,
+            "width": 13.225132942199707,
+            "ratio": 1.0230613266990103
+          },
+          "elec_rnn": {
+            "coverage": 0.91937655210495,
+            "winkler": 13.264113426208496,
+            "width": 10.029701232910156,
+            "ratio": 1.000483033893082
+          },
+          "elec_transformer": {
+            "coverage": 0.9360547661781311,
+            "winkler": 13.329293251037598,
+            "width": 10.427371978759766,
+            "ratio": 1.0259286556787712
+          },
+          "exchange_arima": {
+            "coverage": 0.9035478830337524,
+            "winkler": 0.026602162048220634,
+            "width": 0.02079816721379757,
+            "ratio": 0.9824077808304587
+          },
+          "exchange_rnn": {
+            "coverage": 0.9164120554924011,
+            "winkler": 0.026154305785894394,
+            "width": 0.021107325330376625,
+            "ratio": 0.9958594644899842
+          },
+          "exchange_transformer": {
+            "coverage": 0.9162423610687256,
+            "winkler": 0.02960052713751793,
+            "width": 0.023164840415120125,
+            "ratio": 0.9960560556068331
+          },
+          "solar_arima": {
+            "coverage": 0.916790246963501,
+            "winkler": 111.95330047607422,
+            "width": 78.9042739868164,
+            "ratio": 1.056491026451185
+          },
+          "solar_rnn": {
+            "coverage": 0.9030810594558716,
+            "winkler": 104.55018615722656,
+            "width": 61.44842529296875,
+            "ratio": 0.9953276203955409
+          },
+          "solar_transformer": {
+            "coverage": 0.9244992136955261,
+            "winkler": 103.8165512084961,
+            "width": 61.425575256347656,
+            "ratio": 0.996491850665395
+          }
+        },
+        "causality_guard_ok": true,
+        "protocol": "private-policy-v2",
+        "policy_elapsed_s": 14523.07577806525,
+        "prediction_elapsed_s": 3149.039790980518,
+        "artifact_prepare_s": 8.181825503706932,
+        "worker_pool_size": 12
+      },
+      "val": {
+        "normalized_winkler": 1.0101659440495934,
+        "unguarded": 1.0101659440495934,
+        "coverage_ok": true,
+        "coverage_floor": 0.83,
+        "cells": {
+          "beijing_arima": {
+            "coverage": 0.8885667324066162,
+            "winkler": 179.9505157470703,
+            "width": 82.40035247802734,
+            "ratio": 1.0064692491547211
+          },
+          "beijing_rnn": {
+            "coverage": 0.8382341861724854,
+            "winkler": 172.36746215820312,
+            "width": 66.12039184570312,
+            "ratio": 1.0101929899350697
+          },
+          "beijing_transformer": {
+            "coverage": 0.8791554570198059,
+            "winkler": 166.32403564453125,
+            "width": 74.50146484375,
+            "ratio": 1.0037094168580123
+          },
+          "elec_arima": {
+            "coverage": 0.9419795274734497,
+            "winkler": 12.960240364074707,
+            "width": 10.798938751220703,
+            "ratio": 1.0422521849275965
+          },
+          "elec_rnn": {
+            "coverage": 0.9082631468772888,
+            "winkler": 11.51689624786377,
+            "width": 8.575788497924805,
+            "ratio": 1.01782414626047
+          },
+          "elec_transformer": {
+            "coverage": 0.8975642919540405,
+            "winkler": 10.816014289855957,
+            "width": 7.424003601074219,
+            "ratio": 1.0000153422390623
+          },
+          "exchange_arima": {
+            "coverage": 0.9398339986801147,
+            "winkler": 0.028172584250569344,
+            "width": 0.025389092043042183,
+            "ratio": 1.0147999363411855
+          },
+          "exchange_rnn": {
+            "coverage": 0.9091880321502686,
+            "winkler": 0.03197174519300461,
+            "width": 0.026334868744015694,
+            "ratio": 1.005467283637408
+          },
+          "exchange_transformer": {
+            "coverage": 0.9198718070983887,
+            "winkler": 0.03362153470516205,
+            "width": 0.02881179377436638,
+            "ratio": 1.0088029261192448
+          },
+          "solar_arima": {
+            "coverage": 0.8714863061904907,
+            "winkler": 147.78652954101562,
+            "width": 93.4703598022461,
+            "ratio": 1.0230928883106765
+          },
+          "solar_rnn": {
+            "coverage": 0.8539952039718628,
+            "winkler": 147.12066650390625,
+            "width": 67.99346160888672,
+            "ratio": 0.9938801589804175
+          },
+          "solar_transformer": {
+            "coverage": 0.8735406994819641,
+            "winkler": 145.04966735839844,
+            "width": 64.77495574951172,
+            "ratio": 0.9954848058312566
+          }
+        },
+        "causality_guard_ok": true,
+        "protocol": "private-policy-v2",
+        "policy_elapsed_s": 1701.244372325018,
+        "prediction_elapsed_s": 409.20208375155926,
+        "artifact_prepare_s": 7.97455776669085,
+        "worker_pool_size": 12
+      },
+      "timing": {
+        "train_s": 10.18,
+        "predict_s": 5.42,
+        "score_s": 3163.96,
+        "predict_val_s": 5.22
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      10.38,
+      10.13,
+      10.18
+    ],
+    "predict_s": [
+      5.47,
+      5.27,
+      5.42
+    ],
+    "build_s": 7.2
+  },
+  "hashes": {
+    "env_lock": "bb40d2f7e0c8b214d010a79aea386bf5bc1fc5689d51ae7927f1a2ab10cb0c88",
+    "scorer": "9fef337952db1b4b46a791417dfde88d3c6ee613f916fb00f6f59c3ca65ebe4d",
+    "validate": "db08be23f627b1d458d20cd0e375498d1b98a91625bb1d2484cf30bffdc5b94c",
+    "test_labels": null,
+    "adapt_patch": "87977d267a448b4c527e6a349be9e21f2dd21065bf649c959e77a3502b346cea"
+  }
+}

@@ -1,0 +1,175 @@
+{
+  "pid": "050_Lasso-FDR",
+  "class": "A",
+  "title": "Estimating the false discovery rate of variable selection",
+  "metric": {
+    "name": "MAD",
+    "higher_is_better": false,
+    "delta": 0.005,
+    "aggregate": "mean"
+  },
+  "cpus": 32,
+  "memory_gb": 144,
+  "budget_hours_default": 24,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input",
+    "val_labels": "data/val/labels",
+    "test_input": "test/input",
+    "test_labels": "test/labels"
+  },
+  "split": {
+    "type": "synthetic",
+    "decision": "Offline materialized original 4 designs x 120 observations x 10 original lambda values, n=1500 p=500 d1=30; val source seeds 1..120, held-out test independent private seeds; opaque random IDs. No full fitting during conversion."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 13.58,
+    "val": {
+      "MAD": 0.019046607923255434
+    },
+    "paper_ref": "Figure 5 / Section 5.1. Prior reproduction MAD 0.019008, 120 replicates/design, 2467.2s on 12 cores; not a new benchmark reference.",
+    "source_reported_MAD": 0.019008,
+    "measured_s": {
+      "train": [
+        0.16,
+        0.12,
+        0.13
+      ],
+      "predict": [
+        702.67,
+        815.02,
+        785.63
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:2dbdc9b9c98ef62df508577b7dbd6e3a57976e1d5537ad0747c9c46a68b9e4a4"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [],
+    "build_cap_s": 5400,
+    "mode": "snapshot",
+    "snapshot": "runtime/runtime.json"
+  },
+  "adapt": {
+    "base_commit": "200b817ef45a74af6c233f54acf94d98df9f808d",
+    "adapt_commit": "89cf5262a7755345fcafb348fd117e08d13a2bf9",
+    "patch": "judge/reference/adapt.patch",
+    "source_commit": "fc139b1736fd86a9ecf8dec517c1888b0c6b79e1"
+  },
+  "smoke": {
+    "input": "judge/verification/smoke_input",
+    "labels": "judge/verification/smoke_labels",
+    "env": {}
+  },
+  "conversion": {
+    "full_data_ready": true,
+    "source_commit": "fc139b1736fd86a9ecf8dec517c1888b0c6b79e1",
+    "package_commit": "aab14e171b16aa56ecc32b75a7c9eb7ea8562338",
+    "smoke_report": "judge/verification/smoke.json",
+    "data_audit": "judge/verification/data-audit.json"
+  },
+  "method_freedom_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/050_Lasso-FDR.json",
+    "candidate_method_replacement_allowed": true,
+    "frozen_data_metric_and_information_boundary": true,
+    "full_training_or_evaluation_run": false,
+    "allowed_changes": [
+      "FDR estimation theory/algorithm, auxiliary nuisance models, surrogate losses, homotopy integration, bootstrap/variance methods and numerical optimization may change.",
+      "The method need not execute the original hFDR estimator or optional bootstrap diagnostic.",
+      "When retaining the supplied hFDR estimator, changing only the p-value cutoff threshold=0.1 does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Estimate the false discovery rate of the specified Lasso selector in the fixed-X Gaussian linear experiment, minimizing guarded bias MAD.",
+      "The selected-variable rule is the frozen original Lasso at the supplied lambda grid, including its scaling and selection convention; the target is its FDR, not another selector or per-realization oracle FDP.",
+      "Fixed X/y, four designs, 120 replications/design, 40-cell MAD, paired MC bias guard and baseline-SD guard remain fixed.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/050_Lasso-FDR.json",
+    "forbidden_substitutions": [
+      "Do not switch the evaluated Lasso to ridge, elastic-net, a different lambda or another feature-selection rule; change null definitions or estimate a different error rate.",
+      "No true coefficient labels, modified design matrices, cross-replicate truth pooling or altered scoring.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Do not fit correction tables or other constants to extra simulations, including ones drawn from `bench/generator.R`."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Estimate the false discovery rate of the specified Lasso selector in the fixed-X Gaussian linear experiment, minimizing guarded bias MAD.",
+    "fixed_research_objects": [
+      "The selected-variable rule is the frozen original Lasso at the supplied lambda grid, including its scaling and selection convention; the target is its FDR, not another selector or per-realization oracle FDP.",
+      "Fixed X/y, four designs, 120 replications/design, 40-cell MAD, paired MC bias guard and baseline-SD guard remain fixed."
+    ],
+    "editable_components": [
+      "FDR estimation theory/algorithm, auxiliary nuisance models, surrogate losses, homotopy integration, bootstrap/variance methods and numerical optimization may change.",
+      "The method need not execute the original hFDR estimator or optional bootstrap diagnostic.",
+      "When retaining the supplied hFDR estimator, changing only the p-value cutoff threshold=0.1 does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "Do not switch the evaluated Lasso to ridge, elastic-net, a different lambda or another feature-selection rule; change null definitions or estimate a different error rate.",
+      "No true coefficient labels, modified design matrices, cross-replicate truth pooling or altered scoring.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Do not fit correction tables or other constants to extra simulations, including ones drawn from `bench/generator.R`."
+    ],
+    "evidence": [
+      {
+        "path": "agent/paper/paper.txt",
+        "section": "Section 5.1/Figure 5",
+        "finding": "The object whose error rate is estimated is Lasso variable selection in a fixed-X Gaussian model."
+      },
+      {
+        "path": "agent/bench/scorer.py",
+        "finding": "Independently refits original Lasso and computes oracle FDP before aggregating estimated FDR errors."
+      },
+      {
+        "path": "agent/bench/original_utils.R",
+        "finding": "Frozen source selector/data functions prevent candidate substitution of an easier selection problem."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/050_Lasso-FDR.json"
+  },
+  "research_contract_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/050_Lasso-FDR.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

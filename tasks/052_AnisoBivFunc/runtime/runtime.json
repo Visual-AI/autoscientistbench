@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "python": "/usr/bin/python3",
+  "mounts": [
+    {
+      "source": "runtime/r.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-24_direg/.mamba/envs/r",
+      "format": "tar",
+      "name": "r",
+      "sha256": "60aef5f8a2e020974c51896a5aa568d135d9f414608e612f9dd7fbeeccbd8da4"
+    }
+  ],
+  "env": {
+    "PATH": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-24_direg/.mamba/envs/r/bin:/usr/local/bin:/usr/bin:/bin",
+    "R_HOME": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-24_direg/.mamba/envs/r/lib/R"
+  }
+}

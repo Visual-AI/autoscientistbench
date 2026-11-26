@@ -1,0 +1,214 @@
+{
+  "pid": "009_HD-ConfSeq",
+  "class": "A",
+  "title": "On the Tightness and Computational Tractability of Higher-Dimensional Confidence Sequences",
+  "metric": {
+    "name": "mean_stop_t",
+    "higher_is_better": false,
+    "delta": 0.02,
+    "aggregate": "mean"
+  },
+  "cpus": 8,
+  "memory_gb": 16,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.npz",
+    "val_labels": "data/val/truth.npz",
+    "test_input": "test/input.npz",
+    "test_labels": "test/truth.npz",
+    "input_format": "npz",
+    "output_format": "npz"
+  },
+  "split": {
+    "type": "synthetic",
+    "decision": "No cross-instance fitting. Public validation: paper A/B seeds 1,2; replication seeds 101..120 and 201..220; original Figure 4 streams. Evaluation uses independently secret-generated streams of the same distributions; scenario and role are labels only. Observations materialized offline, opaque shuffled IDs. Preserve 500-batch horizon and 20 coverage checkpoints. The paper pair is replaced only on hidden evaluation to prevent seed reconstruction.",
+    "val_seeds": {
+      "ab": [
+        1,
+        2
+      ],
+      "effect_replicates": [
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        118,
+        119,
+        120
+      ],
+      "null_replicates": [
+        201,
+        202,
+        203,
+        204,
+        205,
+        206,
+        207,
+        208,
+        209,
+        210,
+        211,
+        212,
+        213,
+        214,
+        215,
+        216,
+        217,
+        218,
+        219,
+        220
+      ]
+    }
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 49.83,
+    "val": {
+      "mean_stop_t": 267.0
+    },
+    "paper_ref": "Table 3: reproduced mean 267.0 batches; original fixed pair, alpha=.05, r_tol=.02.",
+    "measured_s": {
+      "train": [
+        3.57,
+        3.47,
+        3.42
+      ],
+      "predict": [
+        2989.55,
+        2916.4,
+        2951.79
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 1e-06,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:417b85931b66dbb31a87efde76903ce2da0a9da846aa7f4bbb3f8fbdb0b7da91"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "ccf280f4360c8e041ba238a2b458794b8149964f",
+    "adapt_commit": "f831122efbe65db5d664a6d89fb3f3d24cdc653d",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "method_freedom_previous_baseline_val": {
+    "mean_stop_t": 267.0
+  },
+  "method_freedom_review": {
+    "status": "scope_clarified",
+    "report": "audits/20261101_research_contract/009_HD-ConfSeq.json",
+    "full_evaluation_ready": false,
+    "full_training_or_evaluation": false,
+    "allowed_changes": [
+      "Confidence-sequence construction, predictable betting strategy where used, within the fixed c, theta and weights, and geometric approximation.",
+      "Numerical algorithms, internal representations and implementation, provided the returned set and decisions refer to the original mean coordinates and preserve statistical validity.",
+      "Legal configuration selection from public development data, subject to the existing no-memorization and per-stream information rules."
+    ],
+    "fixed_contract": [
+      "Minimize the first valid A/B stopping time for the supplied bounded multivariate mean problem, subject to the original significance, uncertainty-volume, coverage and false-flag requirements.",
+      "The supplied ten-coordinate A/B web-metric observations and their original population-mean coordinates; the five-dimensional coverage problems and their observation models.",
+      "Original observation streams/splits, per-stream independence, and permitted observation prefixes.",
+      "Alpha 0.05, significance threshold 0.5, volume-radius tolerance 0.02, horizon 500, and the original ordering of stopping decisions.",
+      "Original 20-checkpoint joint-coverage and replicate false-flag checks, mean-stop metric and Monte Carlo volume protocol.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/009_HD-ConfSeq.json",
+    "forbidden_substitutions": [
+      "The truncation constant c=3/4, hedge theta=1/2 and uniform portfolio weights are fixed, because the experiment compares constructions at the same stake settings.",
+      "The set must be valid at alpha=0.05 for every stream bounded in [0,1]^D: do not assume a narrower support or a known variance taken from the simulator or validation, and do not lower the evidence threshold to use the slack in the coverage floor or false-flag cap.",
+      "At a volume-decided stop at least 100 of the 125,000 Monte Carlo points must fall inside the set, otherwise the prediction is invalid (scorer).",
+      "Replace the specified mean coordinates with a different embedding or an easier estimand, or score a transformed target without mapping back to the original scientific coordinates.",
+      "Change supplied observations, stream distribution, stopping thresholds, uncertainty measure, coverage aggregation or volume sampling rule.",
+      "Use a separate optimistic coverage construction unrelated to the A/B method, future observations, private scenario identity or memorized distribution truths.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract"
+  },
+  "research_contract": {
+    "objective": "Minimize the first valid A/B stopping time for the supplied bounded multivariate mean problem, subject to the original significance, uncertainty-volume, coverage and false-flag requirements.",
+    "fixed_research_objects": [
+      "The supplied ten-coordinate A/B web-metric observations and their original population-mean coordinates; the five-dimensional coverage problems and their observation models.",
+      "Original observation streams/splits, per-stream independence, and permitted observation prefixes.",
+      "Alpha 0.05, significance threshold 0.5, volume-radius tolerance 0.02, horizon 500, and the original ordering of stopping decisions.",
+      "Original 20-checkpoint joint-coverage and replicate false-flag checks, mean-stop metric and Monte Carlo volume protocol."
+    ],
+    "editable_components": [
+      "Confidence-sequence construction, predictable betting strategy where used, within the fixed c, theta and weights, and geometric approximation.",
+      "Numerical algorithms, internal representations and implementation, provided the returned set and decisions refer to the original mean coordinates and preserve statistical validity.",
+      "Legal configuration selection from public development data, subject to the existing no-memorization and per-stream information rules."
+    ],
+    "forbidden_substitutions": [
+      "The truncation constant c=3/4, hedge theta=1/2 and uniform portfolio weights are fixed, because the experiment compares constructions at the same stake settings.",
+      "The set must be valid at alpha=0.05 for every stream bounded in [0,1]^D: do not assume a narrower support or a known variance taken from the simulator or validation, and do not lower the evidence threshold to use the slack in the coverage floor or false-flag cap.",
+      "At a volume-decided stop at least 100 of the 125,000 Monte Carlo points must fall inside the set, otherwise the prediction is invalid (scorer).",
+      "Replace the specified mean coordinates with a different embedding or an easier estimand, or score a transformed target without mapping back to the original scientific coordinates.",
+      "Change supplied observations, stream distribution, stopping thresholds, uncertainty measure, coverage aggregation or volume sampling rule.",
+      "Use a separate optimistic coverage construction unrelated to the A/B method, future observations, private scenario identity or memorized distribution truths.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      "agent/paper/paper.pdf: Section 6, Table 3 compares distinct confidence-sequence families on the same A/B stopping problem.",
+      "Original reproduction .repro/paper.txt lines 632–690 and .repro/METRIC.md: fixed bounded-mean stopping experiment and score rule.",
+      "agent/bench/scorer.py: score_records and stopping/coverage/volume checks."
+    ],
+    "review_report": "audits/20261101_research_contract/009_HD-ConfSeq.json"
+  },
+  "research_contract_review": {
+    "status": "scope_clarified",
+    "report": "audits/20261101_research_contract/009_HD-ConfSeq.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 3
+}

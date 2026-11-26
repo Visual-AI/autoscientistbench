@@ -1,0 +1,161 @@
+{
+  "pid": "063_MartingalePost",
+  "class": "D",
+  "title": "Asymptotics for a class of parametric martingale posteriors",
+  "metric": {
+    "name": "interval_score",
+    "higher_is_better": false,
+    "delta": 0.005,
+    "aggregate": "mean"
+  },
+  "cpus": 12,
+  "memory_gb": 48,
+  "budget_hours_default": 24,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input",
+    "val_labels": "data/val/labels.json",
+    "test_input": "test/input",
+    "test_labels": "test/labels.json"
+  },
+  "split": {
+    "type": "synthetic",
+    "decision": "Three sample sizes x5000 datasets per split. Original public val RNG, independent hidden test RNG, cross-n pairing preserved; observations only."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 1.91,
+    "val": {
+      "interval_score": 5.611644397499667
+    },
+    "paper_ref": "Historical metric only; no full reference run for conversion.",
+    "measured_s": {
+      "train": [
+        0.17
+      ],
+      "predict": [
+        114.62
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1
+    ],
+    "val_judge": true,
+    "reference_hash": "sha256:287bdda023475e257da14832d877a5dd5ac3d20929e74306e4f2136f2b9f211e"
+  },
+  "env": {
+    "mode": "snapshot",
+    "snapshot": "runtime/runtime.json",
+    "python": "3.11",
+    "lock": "code/env.lock"
+  },
+  "adapt": {
+    "base_commit": "191cd26704edd30feb1d0cce8d147f70a71891d3",
+    "adapt_commit": "747ce265eb140e1c6e7adf3f03dc36785990e7f2",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "smoke": {
+    "input": "judge/verification/fixture/input",
+    "labels": "judge/verification/fixture/labels.json"
+  },
+  "conversion": {
+    "full_data_ready": true,
+    "source_commit": "eadc71bac56148b100de8c63f37d68f718b37e78",
+    "smoke_report": "judge/verification/smoke.json",
+    "data_integrity": "judge/verification/data_checks.json",
+    "method_parity": "judge/verification/parity.json",
+    "scorer_checks": "judge/verification/scorer_checks.json"
+  },
+  "method_freedom_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/063_MartingalePost.json",
+    "candidate_method_replacement_allowed": true,
+    "frozen_data_metric_and_information_boundary": true,
+    "full_training_or_evaluation_run": false,
+    "allowed_changes": [
+      "Predictive-resampling implementations, truncation/tail approximations, direct integration or other numerical inference algorithms may change while approximating that posterior.",
+      "Sample count and numerical solver settings may change; an auxiliary loss can improve approximation but cannot redefine the predictive law or posterior.",
+      "When retaining the supplied hybrid predictive resampling, changing only B=2000, T=50 or sampler seed 382 does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Approximate the specified bivariate-normal parametric martingale posterior and its central 95% intervals, evaluated by the unchanged scaled interval score.",
+      "The predictive family N(mu,Sigma), sample-mean/unbiased-covariance initialization, natural-gradient update Z and learning rule 1/N define the target limiting posterior.",
+      "The mu1/s1/s12 parameters, 2.5%/97.5% quantiles, independent observed datasets, fixed n grid and sqrt(n)-scaled interval score remain fixed.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/063_MartingalePost.json",
+    "forbidden_substitutions": [
+      "Do not replace this posterior with a conventional Bayesian prior, generic frequentist interval or changed predictive model/learning rule to obtain easier coverage.",
+      "No true design parameters as fitted values, cross-dataset pooling or modification of the interval score.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Approximate the specified bivariate-normal parametric martingale posterior and its central 95% intervals, evaluated by the unchanged scaled interval score.",
+    "fixed_research_objects": [
+      "The predictive family N(mu,Sigma), sample-mean/unbiased-covariance initialization, natural-gradient update Z and learning rule 1/N define the target limiting posterior.",
+      "The mu1/s1/s12 parameters, 2.5%/97.5% quantiles, independent observed datasets, fixed n grid and sqrt(n)-scaled interval score remain fixed."
+    ],
+    "editable_components": [
+      "Predictive-resampling implementations, truncation/tail approximations, direct integration or other numerical inference algorithms may change while approximating that posterior.",
+      "Sample count and numerical solver settings may change; an auxiliary loss can improve approximation but cannot redefine the predictive law or posterior.",
+      "When retaining the supplied hybrid predictive resampling, changing only B=2000, T=50 or sampler seed 382 does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "Do not replace this posterior with a conventional Bayesian prior, generic frequentist interval or changed predictive model/learning rule to obtain easier coverage.",
+      "No true design parameters as fitted values, cross-dataset pooling or modification of the interval score.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "path": "agent/paper/paper.txt",
+        "section": "Eq. (1) and Section 6.2, lines 94-104 and 582-630",
+        "finding": "Posterior is induced by normal predictives and natural-gradient resampling from sample estimates; traditional Bayes is a separate comparator."
+      },
+      {
+        "path": "agent/code/src/normal_biv.jl",
+        "finding": "Defines the natural-gradient predictive update and Gaussian tail approximation."
+      },
+      {
+        "path": "agent/code/method.jl",
+        "finding": "Uses unbiased sample covariance and central posterior quantiles for requested parameters."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/063_MartingalePost.json"
+  },
+  "research_contract_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/063_MartingalePost.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

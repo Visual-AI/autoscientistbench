@@ -1,0 +1,79 @@
+{
+  "task": "030_BayesNetRecon",
+  "created": "2026-11-03T02:24:19+0000",
+  "seeds": [
+    1
+  ],
+  "cpus": 8,
+  "adapt_commit": "20c6bf3276c13e6d1c26d05843540538ca8a1542",
+  "sandbox": true,
+  "budget_s": 43200.0,
+  "test": {
+    "per_seed": [
+      0.08912310706374947
+    ],
+    "mean": 0.08912310706374947,
+    "std": 0.0,
+    "n": 1
+  },
+  "val": {
+    "per_seed": [
+      0.07942739337466619
+    ],
+    "mean": 0.07942739337466619,
+    "std": 0.0,
+    "n": 1
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "re_l": 0.08912310706374947,
+        "n": 457,
+        "format_guard_ok": true,
+        "causality_guard_ok": true,
+        "causality_guard": "trusted_sequential_release",
+        "research_object_guard": "trusted_beta_berm_posterior_mean",
+        "prior_calibration_provenance": "requires_source_audit",
+        "protocol": "private-policy-v2",
+        "policy_elapsed_s": 0.7651254357770085,
+        "prediction_elapsed_s": 0.7692578565329313,
+        "artifact_prepare_s": 0.1933686938136816
+      },
+      "val": {
+        "re_l": 0.07942739337466619,
+        "n": 104,
+        "format_guard_ok": true,
+        "causality_guard_ok": true,
+        "causality_guard": "trusted_sequential_release",
+        "research_object_guard": "trusted_beta_berm_posterior_mean",
+        "prior_calibration_provenance": "requires_source_audit",
+        "protocol": "private-policy-v2",
+        "policy_elapsed_s": 0.5148324556648731,
+        "prediction_elapsed_s": 0.5167162278667092,
+        "artifact_prepare_s": 0.19682618789374828
+      },
+      "timing": {
+        "train_s": 0.51,
+        "predict_s": 0.51,
+        "score_s": 1.22,
+        "predict_val_s": 0.51
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      0.51
+    ],
+    "predict_s": [
+      0.51
+    ],
+    "build_s": 3.8
+  },
+  "hashes": {
+    "env_lock": "7242524339a9388141e1383e79b66ac2fd4b82276448eae06b8fa428192ccd1f",
+    "scorer": "571ea346552687243fa2ca808d92dfe7443eeab5b0518e4f5f5aa216f2c25c33",
+    "validate": "0f09573fe0abf32918461b9bde537a0ce7614c1d446b99c2613e307b5409116a",
+    "test_labels": null,
+    "adapt_patch": "c3e909f86b9091f9215dd61b6745207bd2d247e877b8ee6dc073f9e976969287"
+  }
+}

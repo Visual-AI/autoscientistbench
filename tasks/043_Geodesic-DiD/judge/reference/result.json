@@ -1,0 +1,103 @@
+{
+  "task": "043_Geodesic-DiD",
+  "created": "2026-11-02T11:03:28+0000",
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "cpus": 16,
+  "adapt_commit": "6b188ce719e0281cde7683c611b608095a74b0e4",
+  "sandbox": true,
+  "budget_s": 21600.0,
+  "test": {
+    "per_seed": [
+      0.09374797208007209,
+      0.09374797208007209,
+      0.09374797208007209
+    ],
+    "mean": 0.09374797208007209,
+    "std": 0.0,
+    "n": 3
+  },
+  "val": {
+    "per_seed": [
+      0.09536434825034541,
+      0.09536434825034541,
+      0.09536434825034541
+    ],
+    "mean": 0.09536434825034541,
+    "std": 0.0,
+    "n": 3
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "mean_geodesic_error": 0.09374797208007209,
+        "replications": 500
+      },
+      "val": {
+        "mean_geodesic_error": 0.09536434825034541,
+        "replications": 500
+      },
+      "timing": {
+        "train_s": 0.11,
+        "predict_s": 23.96,
+        "score_s": 1.43,
+        "predict_val_s": 24.38
+      }
+    },
+    "2": {
+      "test": {
+        "mean_geodesic_error": 0.09374797208007209,
+        "replications": 500
+      },
+      "val": {
+        "mean_geodesic_error": 0.09536434825034541,
+        "replications": 500
+      },
+      "timing": {
+        "train_s": 0.12,
+        "predict_s": 23.78,
+        "score_s": 1.27,
+        "predict_val_s": 23.83
+      }
+    },
+    "3": {
+      "test": {
+        "mean_geodesic_error": 0.09374797208007209,
+        "replications": 500
+      },
+      "val": {
+        "mean_geodesic_error": 0.09536434825034541,
+        "replications": 500
+      },
+      "timing": {
+        "train_s": 0.12,
+        "predict_s": 25.83,
+        "score_s": 1.25,
+        "predict_val_s": 25.93
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      0.11,
+      0.12,
+      0.12
+    ],
+    "predict_s": [
+      23.96,
+      23.78,
+      25.83
+    ],
+    "build_s": 4.29
+  },
+  "hashes": {
+    "env_lock": "4c85ce4e92c227b5cc8955684d02f789086005efad01d89181193e5671b80f19",
+    "scorer": "d583b2305bca6735883cc461e035f069991e2f53b0d745eb3d9f93627eb8929e",
+    "validate": "c0d0b24bc087ed8e5f0c110805244e0f532c750ca5e966af02d015fb3ab6f3a2",
+    "test_labels": null,
+    "adapt_patch": "282831882027776f3e317ac4c803c3399b9eeb361e71a41365ca78f6bf17f059"
+  }
+}

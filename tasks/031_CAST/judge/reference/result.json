@@ -1,0 +1,169 @@
+{
+  "task": "031_CAST",
+  "created": "2026-11-02T08:09:18+0000",
+  "seeds": [
+    1
+  ],
+  "cpus": 16,
+  "adapt_commit": "8897a88134fb428677f0c682aacfd4abf65cb4fd",
+  "sandbox": true,
+  "budget_s": 21600.0,
+  "test": {
+    "per_seed": [
+      0.2780038833970645
+    ],
+    "mean": 0.2780038833970645,
+    "std": 0.0,
+    "n": 1
+  },
+  "val": {
+    "per_seed": [
+      0.7498466812757798
+    ],
+    "mean": 0.7498466812757798,
+    "std": 0.0,
+    "n": 1
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "sharpe": 0.2780038833970645,
+        "unguarded_sharpe": 0.2780038833970645,
+        "guards_ok": true,
+        "failures": [],
+        "panels": {
+          "NASDAQ": {
+            "sharpe": 0.6162217505042111,
+            "mdd": 0.1507707923237618,
+            "turnover": 0.2658612051443935,
+            "insolvent_accounts": 0,
+            "margin_stopped": 0,
+            "minimum_nav": 218.14916948310446,
+            "violations": [],
+            "mdd_limit": 0.16077079232376182,
+            "turnover_limit": 0.531722410288787
+          },
+          "CSI300": {
+            "sharpe": 0.09886755749201914,
+            "mdd": 0.12015838727577073,
+            "turnover": 0.1443495997394364,
+            "insolvent_accounts": 0,
+            "margin_stopped": 0,
+            "minimum_nav": 222.8022412462446,
+            "violations": [],
+            "mdd_limit": 0.13015838727577073,
+            "turnover_limit": 0.2886991994788728
+          },
+          "TPX100": {
+            "sharpe": -0.0797209068089689,
+            "mdd": 0.2209442378484837,
+            "turnover": 0.36222655300691825,
+            "insolvent_accounts": 0,
+            "margin_stopped": 2,
+            "minimum_nav": 191.42958638827417,
+            "violations": [],
+            "mdd_limit": 0.2309442378484837,
+            "turnover_limit": 0.7244531060138365
+          },
+          "Global30": {
+            "sharpe": 0.47664713240099654,
+            "mdd": 0.13080265546018913,
+            "turnover": 0.07014479332068159,
+            "insolvent_accounts": 0,
+            "margin_stopped": 0,
+            "minimum_nav": 303.27547958201626,
+            "violations": [],
+            "mdd_limit": 0.14080265546018914,
+            "turnover_limit": 0.14028958664136318
+          }
+        },
+        "causality_guard_ok": true,
+        "protocol": "private-policy-v2",
+        "policy_elapsed_s": 817.6301515996456,
+        "trusted_decisions": 15329,
+        "prediction_elapsed_s": 213.71696408465505,
+        "artifact_prepare_s": 0.537644125521183
+      },
+      "val": {
+        "sharpe": 0.7498466812757798,
+        "unguarded_sharpe": 0.7498466812757798,
+        "guards_ok": true,
+        "failures": [],
+        "panels": {
+          "NASDAQ": {
+            "sharpe": 0.7576783126491407,
+            "mdd": 0.07331583543849164,
+            "turnover": 0.22449690321070578,
+            "insolvent_accounts": 0,
+            "margin_stopped": 0,
+            "minimum_nav": 218.97638033863421,
+            "violations": [],
+            "mdd_limit": 0.08331583543849164,
+            "turnover_limit": 0.44899380642141157
+          },
+          "CSI300": {
+            "sharpe": 1.3151631350507174,
+            "mdd": 0.06976442157506163,
+            "turnover": 0.1327882053506521,
+            "insolvent_accounts": 0,
+            "margin_stopped": 0,
+            "minimum_nav": 231.99291113209932,
+            "violations": [],
+            "mdd_limit": 0.07976442157506163,
+            "turnover_limit": 0.2655764107013042
+          },
+          "TPX100": {
+            "sharpe": -0.034048361475662474,
+            "mdd": 0.1813817704450387,
+            "turnover": 0.3623970355487573,
+            "insolvent_accounts": 0,
+            "margin_stopped": 0,
+            "minimum_nav": 415.96211469995393,
+            "violations": [],
+            "mdd_limit": 0.1913817704450387,
+            "turnover_limit": 0.7247940710975146
+          },
+          "Global30": {
+            "sharpe": 0.9605936388789239,
+            "mdd": 0.035344599010571714,
+            "turnover": 0.03255043113610249,
+            "insolvent_accounts": 0,
+            "margin_stopped": 0,
+            "minimum_nav": 369.319502130103,
+            "violations": [],
+            "mdd_limit": 0.045344599010571716,
+            "turnover_limit": 0.06510086227220498
+          }
+        },
+        "causality_guard_ok": true,
+        "protocol": "private-policy-v2",
+        "policy_elapsed_s": 113.73459514603019,
+        "trusted_decisions": 2000,
+        "prediction_elapsed_s": 29.94251685217023,
+        "artifact_prepare_s": 0.5408069714903831
+      },
+      "timing": {
+        "train_s": 99.05,
+        "predict_s": 0.72,
+        "score_s": 215.52,
+        "predict_val_s": 0.72
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      99.05
+    ],
+    "predict_s": [
+      0.72
+    ],
+    "build_s": 2.7
+  },
+  "hashes": {
+    "env_lock": "6afb83d59515deb526c4879fe45c151289c53c8b2bd6c073dfcd3702132e51ac",
+    "scorer": "2221a1bbe040acbac4909d69f8d4e6400d9351b89b6c53aa90adf69f5350b1aa",
+    "validate": "43efd2ba0283c184c5bd33d53d0566fb993be34acccd1cc2b70127ded2f4fb9f",
+    "test_labels": null,
+    "adapt_patch": "719efb01c1f4c5cbb9002040970fe7b6abb5d2e8194a9d0759b6a003a47988d5"
+  }
+}

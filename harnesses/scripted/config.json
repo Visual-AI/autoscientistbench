@@ -1,0 +1,5 @@
+{
+  "type": "scripted",
+  "script": "harnesses/scripted/improve_toy.sh",
+  "_doc": "Test double: runs a shell script inside the sandbox instead of an agent. Override with --set script=<path>."
+}

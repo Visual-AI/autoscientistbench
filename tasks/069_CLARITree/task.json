@@ -1,0 +1,193 @@
+{
+  "pid": "069_CLARITree",
+  "class": "A",
+  "title": "CLARITree: Cholesky and Lookahead Accelerations for Regression with Interpretable Piecewise Linear Trees",
+  "metric": {
+    "name": "mean_test_r2",
+    "higher_is_better": true,
+    "delta": 0.005,
+    "aggregate": "mean"
+  },
+  "cpus": 16,
+  "memory_gb": 16,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/request.json",
+    "val_labels": "data/val/replay",
+    "test_input": "test/request.json",
+    "test_labels": "test/replay",
+    "input_format": "private_fold_descriptor",
+    "output_format": "policy_artifact_zip"
+  },
+  "split": {
+    "type": "train_test",
+    "decision": "Preserve all five original complementary released folds and their exact populations; each fit receives only its own training fold in a fresh private sandbox. Public validation is the real Seoul Bike dataset from the paper's Table 2 (8760 rows, 9 features, its five released folds with 7008 training and 1752 test rows each), run through the same private replay. It shares no rows with California Housing, so it is public including labels; its score is a guide, not a California Housing estimate, and no new California Housing split is made."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 0.5,
+    "val": {
+      "mean_test_r2": 0.7122973400287749
+    },
+    "paper_ref": "Table 2 California Housing; no new formal benchmark reference measured",
+    "measured_s": {
+      "train": [
+        20.8
+      ],
+      "predict": [
+        0.52
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1
+    ],
+    "val_judge": false,
+    "parity_rel_tol": 1e-06,
+    "parity_abs_tol": 1e-09,
+    "reference_hash": "sha256:6067c879e2f49d39b36a08b81d7db5e710e132f2c86613db2b8365843a5a7e22"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "96f991ac53df1f032a6067fa7a5dedad35b96e68",
+    "adapt_commit": "df970670cff39722bbc1186e81db2ca05e4f294d",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "method_freedom": {
+    "report": "audits/20261101_method_freedom/069_CLARITree.json",
+    "full_training_or_evaluation_run": false,
+    "scope_superseded_by": "audits/20261101_research_contract/069_CLARITree.json",
+    "conversion_report": "audits/20261101_remaining_six_conversion/069_CLARITree.json"
+  },
+  "method_freedom_review": {
+    "report": "audits/20261101_research_contract/069_CLARITree.json",
+    "allowed_changes": [
+      "Tree construction/search, lookahead, Cholesky/numerical leaf fitting, auxiliary training losses and optimization may change within the fixed class.",
+      "Baseline lambda=.001/kappa=1e-5 and specific CLARITree implementation are method choices; they cannot justify replacing the tree class.",
+      "A change of lambda, kappa or the minimum leaf size alone does not count as an improvement; the gain must come from the search or the leaf fitting (patch audit)."
+    ],
+    "fixed_contract": [
+      "Improve California Housing mean test R^2 over the five released outer folds within the fixed depth-four piecewise-linear tree class.",
+      "The intended research object is one piecewise-linear regression tree per fold, depth<=4 with linear leaves and the twenty quantile split thresholds.",
+      "California Housing target/features, five released outer folds and their equal-weight mean test R^2 remain fixed.",
+      "Trusted evaluator and lawful information access.",
+      "Leaf coefficients of binary columns stay zero, as in the paper's experiments: binary features are for splits only (scorer)."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/069_CLARITree.json",
+    "status": "implemented_smoke_verified",
+    "forbidden_substitutions": [
+      "Do not substitute a forest, unrestricted neural regressor, deeper tree or different threshold grid, change outer folds, or optimize placeholder MSE instead of the scientific test R^2.",
+      "Do not expose private California Housing observations or labels, use outside data, or claim formal reference performance from public Seoul Bike development scores or synthetic smoke checks.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false,
+    "conversion_report": "audits/20261101_remaining_six_conversion/069_CLARITree.json"
+  },
+  "research_contract": {
+    "objective": "Improve California Housing mean test R^2 over the five released outer folds within the fixed depth-four piecewise-linear tree class.",
+    "fixed_research_objects": [
+      "The intended research object is one piecewise-linear regression tree per fold, depth<=4 with linear leaves and the twenty quantile split thresholds.",
+      "California Housing target/features, five released outer folds and their equal-weight mean test R^2 remain fixed.",
+      "Leaf coefficients of binary columns stay zero, as in the paper's experiments: binary features are for splits only (scorer)."
+    ],
+    "editable_components": [
+      "Tree construction/search, lookahead, Cholesky/numerical leaf fitting, auxiliary training losses and optimization may change within the fixed class.",
+      "Baseline lambda=.001/kappa=1e-5 and specific CLARITree implementation are method choices; they cannot justify replacing the tree class.",
+      "A change of lambda, kappa or the minimum leaf size alone does not count as an improvement; the gain must come from the search or the leaf fitting (patch audit)."
+    ],
+    "forbidden_substitutions": [
+      "Do not substitute a forest, unrestricted neural regressor, deeper tree or different threshold grid, change outer folds, or optimize placeholder MSE instead of the scientific test R^2.",
+      "Do not expose private California Housing observations or labels, use outside data, or claim formal reference performance from public Seoul Bike development scores or synthetic smoke checks.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "section": "Section6/Table2, lines 644-657",
+        "finding": "Comparison explicitly controls depth4, twenty quantile thresholds and piecewise-linear regression trees."
+      },
+      {
+        "path": "convert/tasks_merlin.json",
+        "section": "069_CLARITree selected task_metric/score_rule",
+        "finding": "Selected benchmark requires a single depth<=4 tree with linear leaves across five released folds."
+      },
+      {
+        "path": "task.json",
+        "finding": "No source/adaptation commits or measured baseline; placeholder score field is not a completed converter."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/069_CLARITree.json"
+  },
+  "research_contract_review": {
+    "status": "implemented_smoke_verified",
+    "report": "audits/20261101_research_contract/069_CLARITree.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification.",
+    "conversion_report": "audits/20261101_remaining_six_conversion/069_CLARITree.json"
+  },
+  "protocol_version": "private-policy-v2",
+  "conversion": {
+    "report": "audits/20261101_remaining_six_conversion/069_CLARITree.json",
+    "full_data_ready": true,
+    "root_delivery_check": "audits/20261101_remaining_six_conversion/delivery_checks.json"
+  },
+  "private_eval": {
+    "version": 2,
+    "protocol": "private-policy-v2",
+    "entrypoint": "policy.sh",
+    "independent_folds": 5,
+    "threads_per_fold": 1,
+    "stage_timeout_s": null,
+    "full_reproduction_performed": false,
+    "error_messages_redacted": true,
+    "candidate_receives_test_features": false,
+    "smoke_verified": true
+  },
+  "leakage_remediation": {
+    "status": "smoke_verified",
+    "outer_harness_changed": false,
+    "full_training_or_evaluation_run": false,
+    "cross_fold_isolation_verified": true,
+    "private_logs_returned_to_agent": false,
+    "evidence": [
+      "audits/20261101_remaining_six_conversion/069_CLARITree.smoke.json",
+      "audits/20261101_remaining_six_conversion/069_CLARITree.focused_checks.json",
+      "audits/20261101_remaining_six_conversion/069_CLARITree.loader_parity.json"
+    ],
+    "git_metadata_scrub": "audits/20261101_remaining_six_conversion/git_metadata_scrub/069_CLARITree.json"
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

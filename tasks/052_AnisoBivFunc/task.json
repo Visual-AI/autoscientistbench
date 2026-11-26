@@ -1,0 +1,177 @@
+{
+  "pid": "052_AnisoBivFunc",
+  "class": "A",
+  "title": "Structural adaptation and rate accelerated estimation in bivariate functional data",
+  "metric": {
+    "name": "mean_median_angle_risk",
+    "higher_is_better": false,
+    "delta": 0.005,
+    "aggregate": "mean"
+  },
+  "cpus": 12,
+  "memory_gb": 16,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input",
+    "val_labels": "data/val/labels.json",
+    "test_input": "test/input",
+    "test_labels": "test/labels.json"
+  },
+  "split": {
+    "type": "synthetic",
+    "decision": "Full 60 x 200 observations independently materialized per split with exact source simulator; public val seed0=2026, private independent test stream; opaque randomized IDs and shard order."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 20.98,
+    "val": {
+      "mean_median_angle_risk": 0.027840443014127112
+    },
+    "paper_ref": "Figure 3; paper 0.02877, prior source reproduction 0.02784 (historical; not benchmark reference)",
+    "measured_s": {
+      "train": [
+        0.06,
+        0.06,
+        0.06
+      ],
+      "predict": [
+        1258.72,
+        1253.74,
+        1222.96
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:325fcc4906e105639d12892d101d29d56b534885bda86a39e0b0566a6625d0d5"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple",
+      "https://download.pytorch.org/whl/cpu"
+    ],
+    "build_cap_s": 1800,
+    "mode": "snapshot",
+    "snapshot": "runtime/runtime.json"
+  },
+  "adapt": {
+    "base_commit": "265e37ba2c28eae554d37f11a975b053d480bb5e",
+    "adapt_commit": "8f4d6210f003a343e9a34add23750f51e15f9a70",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "smoke": {
+    "input": "judge/verification/input",
+    "labels": "judge/verification/labels.json",
+    "env": {}
+  },
+  "conversion": {
+    "full_data_ready": true,
+    "source_upstream_commit": "2dec6f98f39b0e4c177a3f2043f5cfa2533c8dcf",
+    "smoke_report": "judge/verification/smoke.json",
+    "data_audit": "judge/verification/data-audit.json",
+    "isolation_evidence": "judge/verification/isolation.json",
+    "scorer_checks": "judge/verification/scorer-sandbox-checks.json"
+  },
+  "method_freedom_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/052_AnisoBivFunc.json",
+    "candidate_method_replacement_allowed": true,
+    "frozen_data_metric_and_information_boundary": true,
+    "full_training_or_evaluation_run": false,
+    "allowed_changes": [
+      "Direction estimation, working covariance/noise models, regularity estimation, smoothing, auxiliary losses and numerical optimization may change.",
+      "The three baseline angle routines, spacing grid and correction computation are estimation methods rather than an alternative scientific target.",
+      "When retaining the supplied three-stage estimator, changing only delta_learn=1/sqrt(side) or the 15-point identification spacing grid from 1/sqrt(side) to 0.4 does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Estimate the anisotropy direction of the specified bivariate functional process from noisy surfaces, minimizing the fixed angle risk.",
+      "The Figure-3 anisotropy-direction parameter, functional-process design, raw observed surfaces/grid and independent learning sets remain fixed.",
+      "Angle coordinate in [0,pi], absolute nonwrapped angle error, median per each of 60 configurations and equal mean of medians remain fixed.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/052_AnisoBivFunc.json",
+    "forbidden_substitutions": [
+      "Do not replace anisotropy direction with a principal-component angle or circular-loss target unless it estimates the same parameter in the specified coordinate.",
+      "No hidden angle/noise/regularity labels, configuration lookup, modified surfaces, cross-learning-set pooling or changed aggregation.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Snapping estimated angles to the known angle set in `bench/scorer.py` or the validation labels counts as a configuration lookup."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Estimate the anisotropy direction of the specified bivariate functional process from noisy surfaces, minimizing the fixed angle risk.",
+    "fixed_research_objects": [
+      "The Figure-3 anisotropy-direction parameter, functional-process design, raw observed surfaces/grid and independent learning sets remain fixed.",
+      "Angle coordinate in [0,pi], absolute nonwrapped angle error, median per each of 60 configurations and equal mean of medians remain fixed."
+    ],
+    "editable_components": [
+      "Direction estimation, working covariance/noise models, regularity estimation, smoothing, auxiliary losses and numerical optimization may change.",
+      "The three baseline angle routines, spacing grid and correction computation are estimation methods rather than an alternative scientific target.",
+      "When retaining the supplied three-stage estimator, changing only delta_learn=1/sqrt(side) or the 15-point identification spacing grid from 1/sqrt(side) to 0.4 does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "Do not replace anisotropy direction with a principal-component angle or circular-loss target unless it estimates the same parameter in the specified coordinate.",
+      "No hidden angle/noise/regularity labels, configuration lookup, modified surfaces, cross-learning-set pooling or changed aggregation.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Snapping estimated angles to the known angle set in `bench/scorer.py` or the validation labels counts as a configuration lookup."
+    ],
+    "evidence": [
+      {
+        "path": "agent/paper/paper.txt",
+        "section": "Sections 4.2/4.3 and equation (36)",
+        "finding": "Defines anisotropy-direction risk; baseline algorithms estimate this parameter from functional observations."
+      },
+      {
+        "path": "agent/bench/scorer.py",
+        "finding": "Uses absolute angle error and exact 60-cell mean-of-medians protocol."
+      },
+      {
+        "path": "agent/bench/io_spec.md",
+        "finding": "Input exposes only observed surfaces and storage layout, not true design labels."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/052_AnisoBivFunc.json"
+  },
+  "research_contract_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/052_AnisoBivFunc.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 3
+}

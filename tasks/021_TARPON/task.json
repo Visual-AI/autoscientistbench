@@ -1,0 +1,160 @@
+{
+  "pid": "021_TARPON",
+  "class": "C",
+  "title": "TARPON telomeric boundary identification",
+  "metric": {
+    "name": "identification_rate",
+    "higher_is_better": true,
+    "delta": 0.005,
+    "aggregate": "mean"
+  },
+  "cpus": 12,
+  "memory_gb": 48,
+  "budget_hours_default": 24,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input",
+    "val_labels": "data/val/labels.json",
+    "test_input": "test/input",
+    "test_labels": "test/labels.json"
+  },
+  "split": {
+    "type": "training_free",
+    "decision": "Freeze original upstream subtelomere-pass observations; WB60 both libraries development, HG002/HEK judge; all4 full populations retained across split."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 3.05,
+    "val": {
+      "identification_rate": 0.885316892523603
+    },
+    "paper_ref": "Historical4-dataset mean0.9103913655217083; split-specific scores not directly comparable; no new full reference.",
+    "measured_s": {
+      "train": [
+        0.06
+      ],
+      "predict": [
+        182.72
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:97efee212d3629f044622843356cca392a89470052339c105fb6cc7357c3cb1e"
+  },
+  "env": {
+    "mode": "snapshot",
+    "snapshot": "runtime/runtime.json",
+    "python": "3.12",
+    "lock": "code/env.lock"
+  },
+  "adapt": {
+    "base_commit": "b8dc378fa9fcebeeb31ce4808a10ec98e7ddd9ff",
+    "adapt_commit": "21d64f647fc465cf8c0acbf2e3db621a1575d014",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "smoke": {
+    "input": "judge/verification/fixture/input",
+    "labels": "judge/verification/fixture/labels.json"
+  },
+  "conversion": {
+    "full_data_ready": true,
+    "source_commit": "e65729b8e0bde173f0c882efb783f70aea2cb3e2"
+  },
+  "method_freedom_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/021_TARPON.json",
+    "full_training_or_evaluation": false,
+    "allowed_changes": [
+      "boundary estimators, filtering decisions and computational/statistical methods on the supplied reads",
+      "implementation and internal summaries with honest output boundaries",
+      "When retaining the supplied boundary scripts, changing only sliding_window=100, sliding_window_interval=15, upper_threshold=0.6, lower_threshold=0.05, telomeric_rep_perc=0.7, consecutive_threshold=15, pre_telomeric_repeat_percentage=0.1, the 2000-base upstream span or minimum_telomere_length=0 does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Choose boundaries and retention decisions for the fixed observed human-read population, maximizing identification rate under original composition constraints.",
+      "upstream capture/strand/subtelomere selection and every supplied observed read",
+      "boundary-coordinate semantics, per-dataset denominators, original composition computation and purity floors",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/021_TARPON.json",
+    "forbidden_substitutions": [
+      "changing the upstream input population, sequences, composition definition or sample weights",
+      "submitting fabricated purity summaries, dropping difficult reads from the denominator or using cached decisions",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "The predicted start must estimate the transition into the variant repeat-rich region. Moving it into a short distal repeat tract only to raise tail purity does not count as a method improvement."
+    ],
+    "scope_source": "research_contract"
+  },
+  "research_contract": {
+    "objective": "Choose boundaries and retention decisions for the fixed observed human-read population, maximizing identification rate under original composition constraints.",
+    "fixed_research_objects": [
+      "upstream capture/strand/subtelomere selection and every supplied observed read",
+      "boundary-coordinate semantics, per-dataset denominators, original composition computation and purity floors"
+    ],
+    "editable_components": [
+      "boundary estimators, filtering decisions and computational/statistical methods on the supplied reads",
+      "implementation and internal summaries with honest output boundaries",
+      "When retaining the supplied boundary scripts, changing only sliding_window=100, sliding_window_interval=15, upper_threshold=0.6, lower_threshold=0.05, telomeric_rep_perc=0.7, consecutive_threshold=15, pre_telomeric_repeat_percentage=0.1, the 2000-base upstream span or minimum_telomere_length=0 does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "changing the upstream input population, sequences, composition definition or sample weights",
+      "submitting fabricated purity summaries, dropping difficult reads from the denominator or using cached decisions",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "The predicted start must estimate the transition into the variant repeat-rich region. Moving it into a short distal repeat tract only to raise tail purity does not count as a method improvement."
+    ],
+    "evidence": [
+      {
+        "source": "tasks/021_TARPON/agent/README.md",
+        "section": "Goal,Data,Metric and baseline",
+        "finding": "Choose boundaries and retention decisions for the fixed observed human-read population, maximizing identification rate under original composition constraints."
+      },
+      {
+        "source": "tasks/021_TARPON/agent/bench/scorer.py",
+        "section": "trusted score and guards",
+        "finding": "The fixed evaluation target is upstream capture/strand/subtelomere selection and every supplied observed read; boundary-coordinate semantics, per-dataset denominators, original composition computation and purity floors"
+      },
+      {
+        "source": "audits/20261101_method_freedom/021_TARPON.json",
+        "section": "prior task-specific scorer/interface audit",
+        "finding": "Reuse the prior actual evaluator review while narrowing the blanket permission to the present task-specific objects."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/021_TARPON.json"
+  },
+  "research_contract_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/021_TARPON.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "mounts": [
+    {
+      "source": "runtime/r.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-10_fd-methods/.mamba/envs/r",
+      "format": "tar",
+      "name": "r",
+      "sha256": "81ce6ebcd799580e38e086d8c9ebc3f5257b04a7c4004c7063fb2b170ad6f077"
+    },
+    {
+      "source": "runtime/Rlib.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-10_fd-methods/.Rlib",
+      "format": "tar",
+      "name": "Rlib",
+      "sha256": "58a884720c98762d5f77f2e4463d94e9777906466cbb9362aa7c0e33c63d63a4"
+    }
+  ],
+  "env": {
+    "PATH": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-10_fd-methods/.mamba/envs/r/bin:/usr/local/bin:/usr/bin:/bin",
+    "R_HOME": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-10_fd-methods/.mamba/envs/r/lib/R",
+    "R_LIBS_USER": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-10_fd-methods/.Rlib",
+    "LD_LIBRARY_PATH": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-10_fd-methods/.mamba/envs/r/lib",
+    "RSCRIPT": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-10_fd-methods/.mamba/envs/r/bin/Rscript"
+  },
+  "python": "/usr/bin/python3"
+}

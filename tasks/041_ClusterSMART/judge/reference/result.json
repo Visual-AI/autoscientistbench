@@ -1,0 +1,265 @@
+{
+  "task": "041_ClusterSMART",
+  "created": "2026-11-02T09:06:30+0000",
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "cpus": 32,
+  "adapt_commit": "aa36d8e5e5dc668d4965455aa4e18a39479a75d0",
+  "sandbox": true,
+  "budget_s": 28800.0,
+  "test": {
+    "per_seed": [
+      0.9079166666666667,
+      0.9079166666666667,
+      0.9079166666666667
+    ],
+    "mean": 0.9079166666666666,
+    "std": 0.0,
+    "n": 3
+  },
+  "val": {
+    "per_seed": [
+      0.9079166666666667,
+      0.9079166666666667,
+      0.9079166666666667
+    ],
+    "mean": 0.9079166666666666,
+    "std": 0.0,
+    "n": 3
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "power": 0.9079166666666667,
+        "unconstrained_power": 0.9079166666666667,
+        "coverage_guard_pass": true,
+        "environments": {
+          "g1": {
+            "n": 2400,
+            "power": 0.9008333333333334,
+            "coverage": 0.955,
+            "coverage_min": 0.9337
+          },
+          "g2": {
+            "n": 2400,
+            "power": 0.9004166666666666,
+            "coverage": 0.9454166666666667,
+            "coverage_min": 0.9247
+          },
+          "g3": {
+            "n": 2400,
+            "power": 0.9133333333333333,
+            "coverage": 0.9358333333333333,
+            "coverage_min": 0.9167
+          },
+          "g4": {
+            "n": 2400,
+            "power": 0.9170833333333334,
+            "coverage": 0.9191666666666667,
+            "coverage_min": 0.899
+          }
+        }
+      },
+      "val": {
+        "power": 0.9079166666666667,
+        "unconstrained_power": 0.9079166666666667,
+        "coverage_guard_pass": true,
+        "environments": {
+          "g1": {
+            "n": 600,
+            "power": 0.91,
+            "coverage": 0.945,
+            "coverage_min": 0.9337
+          },
+          "g2": {
+            "n": 600,
+            "power": 0.91,
+            "coverage": 0.9366666666666666,
+            "coverage_min": 0.9247
+          },
+          "g3": {
+            "n": 600,
+            "power": 0.915,
+            "coverage": 0.9466666666666667,
+            "coverage_min": 0.9167
+          },
+          "g4": {
+            "n": 600,
+            "power": 0.8966666666666666,
+            "coverage": 0.9166666666666666,
+            "coverage_min": 0.899
+          }
+        }
+      },
+      "timing": {
+        "train_s": 0.06,
+        "predict_s": 383.37,
+        "score_s": 0.13,
+        "predict_val_s": 107.43
+      }
+    },
+    "2": {
+      "test": {
+        "power": 0.9079166666666667,
+        "unconstrained_power": 0.9079166666666667,
+        "coverage_guard_pass": true,
+        "environments": {
+          "g1": {
+            "n": 2400,
+            "power": 0.9008333333333334,
+            "coverage": 0.955,
+            "coverage_min": 0.9337
+          },
+          "g2": {
+            "n": 2400,
+            "power": 0.9004166666666666,
+            "coverage": 0.9454166666666667,
+            "coverage_min": 0.9247
+          },
+          "g3": {
+            "n": 2400,
+            "power": 0.9133333333333333,
+            "coverage": 0.9358333333333333,
+            "coverage_min": 0.9167
+          },
+          "g4": {
+            "n": 2400,
+            "power": 0.9170833333333334,
+            "coverage": 0.9191666666666667,
+            "coverage_min": 0.899
+          }
+        }
+      },
+      "val": {
+        "power": 0.9079166666666667,
+        "unconstrained_power": 0.9079166666666667,
+        "coverage_guard_pass": true,
+        "environments": {
+          "g1": {
+            "n": 600,
+            "power": 0.91,
+            "coverage": 0.945,
+            "coverage_min": 0.9337
+          },
+          "g2": {
+            "n": 600,
+            "power": 0.91,
+            "coverage": 0.9366666666666666,
+            "coverage_min": 0.9247
+          },
+          "g3": {
+            "n": 600,
+            "power": 0.915,
+            "coverage": 0.9466666666666667,
+            "coverage_min": 0.9167
+          },
+          "g4": {
+            "n": 600,
+            "power": 0.8966666666666666,
+            "coverage": 0.9166666666666666,
+            "coverage_min": 0.899
+          }
+        }
+      },
+      "timing": {
+        "train_s": 0.06,
+        "predict_s": 348.57,
+        "score_s": 0.13,
+        "predict_val_s": 87.14
+      }
+    },
+    "3": {
+      "test": {
+        "power": 0.9079166666666667,
+        "unconstrained_power": 0.9079166666666667,
+        "coverage_guard_pass": true,
+        "environments": {
+          "g1": {
+            "n": 2400,
+            "power": 0.9008333333333334,
+            "coverage": 0.955,
+            "coverage_min": 0.9337
+          },
+          "g2": {
+            "n": 2400,
+            "power": 0.9004166666666666,
+            "coverage": 0.9454166666666667,
+            "coverage_min": 0.9247
+          },
+          "g3": {
+            "n": 2400,
+            "power": 0.9133333333333333,
+            "coverage": 0.9358333333333333,
+            "coverage_min": 0.9167
+          },
+          "g4": {
+            "n": 2400,
+            "power": 0.9170833333333334,
+            "coverage": 0.9191666666666667,
+            "coverage_min": 0.899
+          }
+        }
+      },
+      "val": {
+        "power": 0.9079166666666667,
+        "unconstrained_power": 0.9079166666666667,
+        "coverage_guard_pass": true,
+        "environments": {
+          "g1": {
+            "n": 600,
+            "power": 0.91,
+            "coverage": 0.945,
+            "coverage_min": 0.9337
+          },
+          "g2": {
+            "n": 600,
+            "power": 0.91,
+            "coverage": 0.9366666666666666,
+            "coverage_min": 0.9247
+          },
+          "g3": {
+            "n": 600,
+            "power": 0.915,
+            "coverage": 0.9466666666666667,
+            "coverage_min": 0.9167
+          },
+          "g4": {
+            "n": 600,
+            "power": 0.8966666666666666,
+            "coverage": 0.9166666666666666,
+            "coverage_min": 0.899
+          }
+        }
+      },
+      "timing": {
+        "train_s": 0.06,
+        "predict_s": 343.72,
+        "score_s": 0.12,
+        "predict_val_s": 77.92
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      0.06,
+      0.06,
+      0.06
+    ],
+    "predict_s": [
+      383.37,
+      348.57,
+      343.72
+    ],
+    "build_s": 1.76
+  },
+  "hashes": {
+    "env_lock": "8894b29ad5948bb42ed56c2ce2956f6dd056d1d19cf679a5abf6801a11f875d2",
+    "scorer": "fd28da3af7eeabb423e4a10b6bcf50fdf68921b5fc95d38e1c91ed961cd6f15c",
+    "validate": "8e5ded9854f81c3d3f1d9978db6e4c8d5d507b11d6c89d07c2838f3b97030911",
+    "test_labels": "8f86dde6e1373070ac46f0a7bdb7e9a1f915eb9894b7e16d1b468296ed033ad5",
+    "adapt_patch": "7b60ebf2f9799f805a6ceaee68a6b6012759f62e4ba16bf3bdc95a937f8730f8"
+  }
+}

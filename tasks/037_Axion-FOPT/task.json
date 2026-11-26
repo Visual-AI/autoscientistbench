@@ -1,0 +1,152 @@
+{
+  "pid": "037_Axion-FOPT",
+  "class": "A",
+  "title": "Axion Misalignment Across First-Order Phase Transitions",
+  "metric": {
+    "name": "log_rmse",
+    "higher_is_better": false,
+    "delta": 0.025,
+    "aggregate": "mean"
+  },
+  "cpus": 16,
+  "memory_gb": 16,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.csv",
+    "val_labels": "data/val/labels.csv",
+    "test_input": "test/input.csv",
+    "test_labels": "test/labels.csv"
+  },
+  "split": {
+    "type": "train_test",
+    "decision": "Secret random grouped split of all 28 original (H*,v_w) slices: ceil(20%)=6 hidden test slices, then ceil(20% of remaining)=5 public validation slices; 17 training slices. Row counts 396/330/1122. Seed and original-row mapping are operator-only in judge/split_manifest.json."
+  },
+  "baseline": {
+    "train_min": 2.56,
+    "eval_min": 0.75,
+    "val": {
+      "log_rmse": 0.1163004565875834
+    },
+    "paper_ref": "Sec. IV D / Eq.25 / Fig.7. Historical full-table released-fit reproduction: 0.11025001155862336; not a held-out reference. Newly reconstructed train-only Powell fitting protocol.",
+    "measured_s": {
+      "train": [
+        153.48
+      ],
+      "predict": [
+        44.74
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 1e-06,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:ebd8497a3430d0212cbcd003f730c97f2bc7cafddef6a3245f858d65680f84ea"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "565c8273f3f55facc7b168b189df714f1a2ab955",
+    "adapt_commit": "aec118531b1f51f0fb337db4f82ad0454eaca147",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "method_freedom_review": {
+    "status": "reviewed_implemented",
+    "report": "audits/20261101_remaining_six_conversion/037_Axion-FOPT.json",
+    "full_training_or_evaluation": false,
+    "allowed_changes": [
+      "Fitting solver, initialization, training objective, numerical approximation during fitting and enhancement expression predictor within physical/capacity requirements.",
+      "Train-only fitting of up to seven global constants, certified via editable scalar expressions over fixed physical primitives.",
+      "When retaining the supplied Powell fitting routine, changing only maxfev=4000 (PHY13_FIT_MAXFEV), maxiter=1000, xtol=1e-4 or ftol=1e-7 does not count as a method improvement.",
+      "Changing only the `INITIAL` or `BOUNDS` constants in `baseline.py` also does not count."
+    ],
+    "fixed_contract": [
+      "Reduce natural-log RMSE of original lattice enhancement xi on held-out physical slices with at most seven globally fitted enhancement constants.",
+      "Original lattice enhancement xi, physical inputs and materialized held-out (H*,v_w) slice protocol.",
+      "At most seven globally data-fitted enhancement constants; fixed independent pilot-kappa, geometry, Fanh/Finf and Minkowski calibration are not extra fitting channels.",
+      "Natural-log RMSE and all four original physical smoke checks."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/037_Axion-FOPT.json",
+    "forbidden_substitutions": [
+      "Replace the enhancement endpoint/population/slice experiment or exceed the fitted-capacity control.",
+      "Embed target-derived fitted constants, lookup tables or hidden coefficients/structure; refit fixed physical auxiliary calibration.",
+      "Import released global fits, evaluation labels or unsafe upstream Git history; bypass scorer or physical checks.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract"
+  },
+  "research_contract": {
+    "objective": "Reduce natural-log RMSE of original lattice enhancement xi on held-out physical slices with at most seven globally fitted enhancement constants.",
+    "fixed_research_objects": [
+      "Original lattice enhancement xi, physical inputs and materialized held-out (H*,v_w) slice protocol.",
+      "At most seven globally data-fitted enhancement constants; fixed independent pilot-kappa, geometry, Fanh/Finf and Minkowski calibration are not extra fitting channels.",
+      "Natural-log RMSE and all four original physical smoke checks."
+    ],
+    "editable_components": [
+      "Fitting solver, initialization, training objective, numerical approximation during fitting and enhancement expression predictor within physical/capacity requirements.",
+      "Train-only fitting of up to seven global constants, certified via editable scalar expressions over fixed physical primitives.",
+      "When retaining the supplied Powell fitting routine, changing only maxfev=4000 (PHY13_FIT_MAXFEV), maxiter=1000, xtol=1e-4 or ftol=1e-7 does not count as a method improvement.",
+      "Changing only the `INITIAL` or `BOUNDS` constants in `baseline.py` also does not count."
+    ],
+    "forbidden_substitutions": [
+      "Replace the enhancement endpoint/population/slice experiment or exceed the fitted-capacity control.",
+      "Embed target-derived fitted constants, lookup tables or hidden coefficients/structure; refit fixed physical auxiliary calibration.",
+      "Import released global fits, evaluation labels or unsafe upstream Git history; bypass scorer or physical checks.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      "BRIEF.md: seven-global-constant score rule, pilot-calibration correction, approved slice split.",
+      "Original xi_model/api.py, tests/test_smoke.py and paper sections IV A-D distinguish independent physical calibration from global xi fitting.",
+      "Current agent/README.md and bench/io_spec.md specify executable expression certificate, fitting permissions and residual provenance audit."
+    ],
+    "review_report": "audits/20261101_research_contract/037_Axion-FOPT.json"
+  },
+  "research_contract_review": {
+    "status": "reviewed_implemented",
+    "report": "audits/20261101_remaining_six_conversion/037_Axion-FOPT.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "conversion": {
+    "fitting_procedure": "new documented bounded Powell train-only reconstruction; original author optimizer unavailable",
+    "parameter_enforcement": "trusted scalar expression certificate plus source/provenance audit for hidden capacity",
+    "full_data_ready": true,
+    "report": "audits/20261101_remaining_six_conversion/037_Axion-FOPT.json",
+    "root_delivery_check": "audits/20261101_remaining_six_conversion/delivery_checks.json"
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

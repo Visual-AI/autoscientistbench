@@ -1,0 +1,2065 @@
+{
+  "task": "007_PairwiseScore",
+  "created": "2026-11-02T21:28:28+0000",
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "cpus": 128,
+  "adapt_commit": "468bdd2fd4cf336d3960889a8de792a6ad3984e8",
+  "sandbox": true,
+  "budget_s": 43200.0,
+  "test": {
+    "per_seed": [
+      0.23125750301736842,
+      0.22942875678681096,
+      0.23191779063719625
+    ],
+    "mean": 0.23086801681379188,
+    "std": 0.0010528048265382355,
+    "n": 3
+  },
+  "val": {
+    "per_seed": [
+      0.24190621593773007,
+      0.20020767475243417,
+      0.21382984865802554
+    ],
+    "mean": 0.21864791311606324,
+    "std": 0.017360921501786884,
+    "n": 3
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "mmtv": 0.23125750301736842,
+        "raw_mmtv": 0.23125750301736842,
+        "w_ratio_mean": 1.0094110099918887,
+        "w_ratio_max": 1.055273769720235,
+        "guard_passed": true,
+        "groups": [
+          {
+            "group": 0,
+            "mmtv": 0.19748088880677334,
+            "wasserstein": 0.35525821420930426,
+            "baseline_w": 0.34095079990761956,
+            "w_ratio": 1.0419632812287323
+          },
+          {
+            "group": 1,
+            "mmtv": 0.1110015878837757,
+            "wasserstein": 0.2934984804266288,
+            "baseline_w": 0.2922400176833614,
+            "w_ratio": 1.0043062642592329
+          },
+          {
+            "group": 2,
+            "mmtv": 0.283645794214756,
+            "wasserstein": 0.41607430758050173,
+            "baseline_w": 0.4209281737273649,
+            "w_ratio": 0.9884686593822369
+          },
+          {
+            "group": 3,
+            "mmtv": 0.42843580239516765,
+            "wasserstein": 1.311991335021541,
+            "baseline_w": 1.3404048188058357,
+            "w_ratio": 0.9788023115213744
+          },
+          {
+            "group": 4,
+            "mmtv": 0.2234759622524994,
+            "wasserstein": 1.0891101720661212,
+            "baseline_w": 1.0946833322884622,
+            "w_ratio": 0.9949088836397187
+          },
+          {
+            "group": 5,
+            "mmtv": 0.172981477966914,
+            "wasserstein": 1.3198003617025655,
+            "baseline_w": 1.3085972886434345,
+            "w_ratio": 1.008561131187078
+          },
+          {
+            "group": 6,
+            "mmtv": 0.3063298068597022,
+            "wasserstein": 1.6275500831068155,
+            "baseline_w": 1.5423012774574103,
+            "w_ratio": 1.055273769720235
+          },
+          {
+            "group": 7,
+            "mmtv": 0.12670870375935908,
+            "wasserstein": 4.994137080617794,
+            "baseline_w": 4.979180722144834,
+            "w_ratio": 1.0030037789965007
+          }
+        ],
+        "instances": [
+          {
+            "id": "39b5882988bfe63716c21ba9",
+            "wasserstein": 4.984514137621091,
+            "mmtv": 0.12839906118760303,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "ebb895e91dc2f0a6c2d8fdb2",
+            "wasserstein": 5.092464233909242,
+            "mmtv": 0.127368773643682,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "a74c9c4e4e59e88361f45152",
+            "wasserstein": 5.131965149684489,
+            "mmtv": 0.12218302519203421,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "7b8f0744ad534b1e46323c4f",
+            "wasserstein": 4.879987052430154,
+            "mmtv": 0.12790731476021397,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "2c39ab20f672aa64dede62c5",
+            "wasserstein": 5.020356798030821,
+            "mmtv": 0.12736455837658886,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "d8168dc29e3902660be1f6e8",
+            "wasserstein": 4.975703821811469,
+            "mmtv": 0.12483065600323026,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "30d6e8ed4a37547671dfb740",
+            "wasserstein": 5.005209868356641,
+            "mmtv": 0.1292357652870792,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "6935868b4a53a00e65fcbc4e",
+            "wasserstein": 5.118303194273674,
+            "mmtv": 0.12102075886618358,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "109cc23a0edba04342783098",
+            "wasserstein": 4.819321645029568,
+            "mmtv": 0.13120096689269933,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "ce9c0fb8f42a3a91624a6082",
+            "wasserstein": 4.913544905030789,
+            "mmtv": 0.12757615738427636,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "05b79f75924e2d65d10466db",
+            "wasserstein": 1.783789826376276,
+            "mmtv": 0.35228099209695485,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "bde32f448effac15e42199e4",
+            "wasserstein": 1.505997827564381,
+            "mmtv": 0.23958333497689271,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "6252390e164ecec58899ae66",
+            "wasserstein": 1.4153046363080515,
+            "mmtv": 0.2801555930483137,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "63489d6b394e9a82fa8b8b56",
+            "wasserstein": 1.856031446629707,
+            "mmtv": 0.33646868013370895,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "9371411764e88116e328c86b",
+            "wasserstein": 1.7488308033926154,
+            "mmtv": 0.34278267550116615,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "8d462ea8bb0aa73b99983691",
+            "wasserstein": 1.7023043544160137,
+            "mmtv": 0.34901681711514915,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "068507b6b4cda98d248425bb",
+            "wasserstein": 1.4915942543272926,
+            "mmtv": 0.3051698644694865,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "b20bfb73bf9eedd8260a817c",
+            "wasserstein": 1.5765874576842924,
+            "mmtv": 0.3382232057368034,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "4a42592c2eedf68159f336c7",
+            "wasserstein": 1.5095014386627523,
+            "mmtv": 0.16456117074395632,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "4383ee61d425548694b2cc87",
+            "wasserstein": 1.6855587857067698,
+            "mmtv": 0.35505573477458996,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "5ffea85e6fdd5e01e96b07c8",
+            "wasserstein": 1.3692970599450291,
+            "mmtv": 0.167052170620084,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "60b823c401523ecc850be0a1",
+            "wasserstein": 1.3813125071278654,
+            "mmtv": 0.18012702607989894,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "b908f0192d78873e8cb5877b",
+            "wasserstein": 1.3220536090251964,
+            "mmtv": 0.18808367685241567,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "88d613c5227c68929dc55b7a",
+            "wasserstein": 1.3120035349230306,
+            "mmtv": 0.15744779598774475,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "9c0ff807c92c3966db3391e2",
+            "wasserstein": 1.2277901357198158,
+            "mmtv": 0.1600895074486265,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "b391d5e238b37daba969a2f3",
+            "wasserstein": 1.3229608500218701,
+            "mmtv": 0.16368598163500356,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "c95872f9bb1d519e1825b548",
+            "wasserstein": 1.2718849393421072,
+            "mmtv": 0.1511451049617271,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "da1419558e4ea5333cd57d53",
+            "wasserstein": 1.3217759572925225,
+            "mmtv": 0.230003170954446,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "df83b7a735c6df6c4d1a59ea",
+            "wasserstein": 1.3345532596165748,
+            "mmtv": 0.18175860591095602,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "1d6b6c7df9ba3f36a7926de3",
+            "wasserstein": 1.3343717640116448,
+            "mmtv": 0.15042173921823734,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "87e9055b8f0990e093f45949",
+            "wasserstein": 1.0772023616329198,
+            "mmtv": 0.3688822882375805,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "d607a1104d4a70fe4df9af29",
+            "wasserstein": 1.0160806496657382,
+            "mmtv": 0.36977599481955326,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "a8252e5b449c3f26a2bab320",
+            "wasserstein": 1.5293034942212738,
+            "mmtv": 0.3662032585278648,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "0c6b7e59d3501d06803d53cc",
+            "wasserstein": 1.3715641335700737,
+            "mmtv": 0.4035897747495616,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "2820c2336d2b71815ab58150",
+            "wasserstein": 0.9927987615772207,
+            "mmtv": 0.2005772128916243,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "1dea383ff71d7596a44114b9",
+            "wasserstein": 1.0415772152903116,
+            "mmtv": 0.19751068699553306,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "279c5cd7a0a9ce7771e4c482",
+            "wasserstein": 0.9795725653020544,
+            "mmtv": 0.20861381526435593,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "4ea429a8e50a31e8667b5cef",
+            "wasserstein": 1.4869717497313393,
+            "mmtv": 0.5207030625753033,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "9fab07765c3e642038694416",
+            "wasserstein": 1.0136224427645315,
+            "mmtv": 0.20316648756350902,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "965372e1f0bd1d59d85629ad",
+            "wasserstein": 1.0679973328632824,
+            "mmtv": 0.2112206963623584,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "7634540777cd92e088b4857d",
+            "wasserstein": 1.2529488364753711,
+            "mmtv": 0.4301427109762159,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "622affe7964b5ed92ffe438e",
+            "wasserstein": 1.1334383169333293,
+            "mmtv": 0.20953862148110333,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "ff2fd6561d5e7ab6ef1d4068",
+            "wasserstein": 1.1614129486744253,
+            "mmtv": 0.223322268739786,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "50c43067fc33b6da481ab20a",
+            "wasserstein": 0.972035981421872,
+            "mmtv": 0.20642688565886144,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "4d483040819214a5ff3ed395",
+            "wasserstein": 0.902082335776408,
+            "mmtv": 0.19876973612550938,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "841658c02f4cda8e0239c005",
+            "wasserstein": 1.2252150923337246,
+            "mmtv": 0.43125318927992135,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "cf4b851406764afe08aa0304",
+            "wasserstein": 1.6265638200577768,
+            "mmtv": 0.37561321144235305,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "41df808e5afad9f5cd8cf7ba",
+            "wasserstein": 0.8958172942779532,
+            "mmtv": 0.31468444208518337,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "80b9e6b9e4e9294faca6f9b0",
+            "wasserstein": 1.6739567058592357,
+            "mmtv": 0.5323853695929046,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "f70caf689754bd369f285297",
+            "wasserstein": 1.5908530324477805,
+            "mmtv": 0.5467379331075877,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "c3307256c74fc9eeebb1d546",
+            "wasserstein": 0.24251195375536236,
+            "mmtv": 0.09959916607622032,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "7b2b1db7356effc9e8be402f",
+            "wasserstein": 0.4347178763005271,
+            "mmtv": 0.2094078454496939,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "f24fa975e831e276ece5b5e3",
+            "wasserstein": 0.20666559204341658,
+            "mmtv": 0.08779541344999034,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "d397cb00b6101635d114756f",
+            "wasserstein": 0.20241810028793222,
+            "mmtv": 0.11845339176938594,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "f294935edebf33630a16341e",
+            "wasserstein": 0.39007997644517983,
+            "mmtv": 0.24839906855673632,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "cefa0f0a237054b0183f33ec",
+            "wasserstein": 0.2867820363736586,
+            "mmtv": 0.093849357316862,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "4350dc5cb44386c7aef5a90c",
+            "wasserstein": 0.4127147584516166,
+            "mmtv": 0.31710585760897614,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "2f0b495a9254d34237298b5e",
+            "wasserstein": 0.3715192593025031,
+            "mmtv": 0.2572894310694431,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "92bb090cea9cb305ea208670",
+            "wasserstein": 0.323877339777341,
+            "mmtv": 0.13996552643494453,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "a2ff8a8f8df1ee4e8578442b",
+            "wasserstein": 0.4724816328380326,
+            "mmtv": 0.2956966971468027,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "063bcfaa5e5102b5840f23b0",
+            "wasserstein": 0.24084159190338664,
+            "mmtv": 0.2073342207573078,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "6d51524dd5b9a1c09fe7454d",
+            "wasserstein": 0.4416452979361049,
+            "mmtv": 0.18732960248012087,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "5e80d481a3050d43a09b6c20",
+            "wasserstein": 0.3475189484774993,
+            "mmtv": 0.248683364909478,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "0dccca8ab37fbb61d77408aa",
+            "wasserstein": 0.24454679162076173,
+            "mmtv": 0.12835098066100925,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "ddce350a0bdc43cea8d54523",
+            "wasserstein": 0.3147292272505623,
+            "mmtv": 0.12445162511314603,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "84fe7f0b765ced659898800a",
+            "wasserstein": 0.3667238249198446,
+            "mmtv": 0.13104194341267134,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "6267efaa467e1bf874d31f2d",
+            "wasserstein": 0.23955877313831597,
+            "mmtv": 0.1777449591996083,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "f51e98015b0be7e1bf0ed939",
+            "wasserstein": 0.2450250948358195,
+            "mmtv": 0.0810673261296448,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "2af13b2dd3e71d1433b5e12e",
+            "wasserstein": 0.2337550627030413,
+            "mmtv": 0.08572096422358391,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "582f66cef5da4fc19d972af0",
+            "wasserstein": 0.5512667033350509,
+            "mmtv": 0.2825579778281323,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "4a569523540074bbc30d1085",
+            "wasserstein": 0.5329482310318686,
+            "mmtv": 0.2611775869774924,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "472c3f7bfb493674add5c0ba",
+            "wasserstein": 0.6302385711882327,
+            "mmtv": 0.1987701256850257,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "0781762d635ca005006a14cd",
+            "wasserstein": 0.4801424561840075,
+            "mmtv": 0.25050188755570335,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "69412c9bda44bd717f78d8f5",
+            "wasserstein": 0.41700452588726317,
+            "mmtv": 0.3288593888929736,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "7fb83e4877ca6cf6138a6275",
+            "wasserstein": 0.2922045082239359,
+            "mmtv": 0.25975051984102154,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "82f2272e8303a4fc0355cdac",
+            "wasserstein": 0.4246252254048716,
+            "mmtv": 0.3471133147683918,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "111f3dc641daf28613f4923a",
+            "wasserstein": 0.27326937467113666,
+            "mmtv": 0.07919495420057282,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "4e01c460f5704b41e53ce858",
+            "wasserstein": 0.31245254636944925,
+            "mmtv": 0.1659346217099817,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "1a0ce1e62b392846cc19a542",
+            "wasserstein": 0.29518380226239677,
+            "mmtv": 0.22261415813321467,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "b39ae34705252d6d6b6ba084",
+            "wasserstein": 0.42086093924522894,
+            "mmtv": 0.2855214316949143,
+            "ot_iteration_warning": true
+          }
+        ]
+      },
+      "val": {
+        "mmtv": 0.24190621593773007,
+        "raw_mmtv": 0.24190621593773007,
+        "w_ratio_mean": 1.0255435550540954,
+        "w_ratio_max": 1.2019679923965194,
+        "guard_passed": true,
+        "groups": [
+          {
+            "group": 0,
+            "mmtv": 0.28011289258600863,
+            "wasserstein": 0.29303187069585374,
+            "baseline_w": 0.3156484351187995,
+            "w_ratio": 0.9283488783512149
+          },
+          {
+            "group": 1,
+            "mmtv": 0.08276613171425506,
+            "wasserstein": 0.3190605878460807,
+            "baseline_w": 0.3047211340061551,
+            "w_ratio": 1.0470576282366946
+          },
+          {
+            "group": 2,
+            "mmtv": 0.25301725768657995,
+            "wasserstein": 0.3672264070548824,
+            "baseline_w": 0.4037746897824112,
+            "w_ratio": 0.9094834727079496
+          },
+          {
+            "group": 3,
+            "mmtv": 0.4544561558074538,
+            "wasserstein": 1.3236637783435778,
+            "baseline_w": 1.1548295404575526,
+            "w_ratio": 1.1461984058869257
+          },
+          {
+            "group": 4,
+            "mmtv": 0.20650874272681546,
+            "wasserstein": 1.03255715652817,
+            "baseline_w": 1.042542749413099,
+            "w_ratio": 0.9904218864017322
+          },
+          {
+            "group": 5,
+            "mmtv": 0.15409247817183802,
+            "wasserstein": 1.2708671311944075,
+            "baseline_w": 1.2910870335775724,
+            "w_ratio": 0.9843388541149423
+          },
+          {
+            "group": 6,
+            "mmtv": 0.3764106710248716,
+            "wasserstein": 1.7562606559394172,
+            "baseline_w": 1.4611542628832674,
+            "w_ratio": 1.2019679923965194
+          },
+          {
+            "group": 7,
+            "mmtv": 0.12788539778401795,
+            "wasserstein": 4.962973904433959,
+            "baseline_w": 4.980248782141834,
+            "w_ratio": 0.9965313223367837
+          }
+        ],
+        "instances": [
+          {
+            "id": "2422a540a7a1e424692ba342",
+            "wasserstein": 4.962973904433959,
+            "mmtv": 0.12788539778401795,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "0526874228c51862f80c38d4",
+            "wasserstein": 1.7562606559394172,
+            "mmtv": 0.3764106710248716,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "48118b1e63182d2a922ec9d6",
+            "wasserstein": 1.2708671311944075,
+            "mmtv": 0.15409247817183802,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "a83d942760aadc8f5249d48e",
+            "wasserstein": 1.03255715652817,
+            "mmtv": 0.20650874272681546,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "cf58342fb89872b855622040",
+            "wasserstein": 1.3236637783435778,
+            "mmtv": 0.4544561558074538,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "cac2990641e730caebcc196b",
+            "wasserstein": 0.29303187069585374,
+            "mmtv": 0.28011289258600863,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "35eadbb79742aabb8a5b98ce",
+            "wasserstein": 0.3672264070548824,
+            "mmtv": 0.25301725768657995,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "246250ab69d476f339dccfcb",
+            "wasserstein": 0.3190605878460807,
+            "mmtv": 0.08276613171425506,
+            "ot_iteration_warning": true
+          }
+        ]
+      },
+      "timing": {
+        "train_s": 0.52,
+        "predict_s": 3139.87,
+        "score_s": 213.71,
+        "predict_val_s": 1513.07
+      }
+    },
+    "2": {
+      "test": {
+        "mmtv": 0.22942875678681096,
+        "raw_mmtv": 0.22942875678681096,
+        "w_ratio_mean": 0.978409429085175,
+        "w_ratio_max": 1.0269743559614457,
+        "guard_passed": true,
+        "groups": [
+          {
+            "group": 0,
+            "mmtv": 0.17395060699186843,
+            "wasserstein": 0.295282113692368,
+            "baseline_w": 0.34095079990761956,
+            "w_ratio": 0.8660549081344714
+          },
+          {
+            "group": 1,
+            "mmtv": 0.10567548453586655,
+            "wasserstein": 0.28899528810101677,
+            "baseline_w": 0.2922400176833614,
+            "w_ratio": 0.9888970387831681
+          },
+          {
+            "group": 2,
+            "mmtv": 0.28497084323929717,
+            "wasserstein": 0.41690579837500125,
+            "baseline_w": 0.4209281737273649,
+            "w_ratio": 0.9904440339149906
+          },
+          {
+            "group": 3,
+            "mmtv": 0.44779570370980865,
+            "wasserstein": 1.3765613755207415,
+            "baseline_w": 1.3404048188058357,
+            "w_ratio": 1.0269743559614457
+          },
+          {
+            "group": 4,
+            "mmtv": 0.21713285101176857,
+            "wasserstein": 1.0794018445790468,
+            "baseline_w": 1.0946833322884622,
+            "w_ratio": 0.9860402663869294
+          },
+          {
+            "group": 5,
+            "mmtv": 0.15355313098011428,
+            "wasserstein": 1.2981349041698347,
+            "baseline_w": 1.3085972886434345,
+            "w_ratio": 0.9920048860223104
+          },
+          {
+            "group": 6,
+            "mmtv": 0.32689773663864874,
+            "wasserstein": 1.4960662057533882,
+            "baseline_w": 1.5423012774574103,
+            "w_ratio": 0.9700220233362941
+          },
+          {
+            "group": 7,
+            "mmtv": 0.12545369718711533,
+            "wasserstein": 5.013227962294404,
+            "baseline_w": 4.979180722144834,
+            "w_ratio": 1.0068379201417905
+          }
+        ],
+        "instances": [
+          {
+            "id": "39b5882988bfe63716c21ba9",
+            "wasserstein": 4.99112925529,
+            "mmtv": 0.12876937351250503,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "ebb895e91dc2f0a6c2d8fdb2",
+            "wasserstein": 5.12262953281913,
+            "mmtv": 0.12518904022530952,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "a74c9c4e4e59e88361f45152",
+            "wasserstein": 4.876574941126723,
+            "mmtv": 0.12690243037047416,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "7b8f0744ad534b1e46323c4f",
+            "wasserstein": 5.008844765985657,
+            "mmtv": 0.12114276398492554,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "2c39ab20f672aa64dede62c5",
+            "wasserstein": 5.064134355728478,
+            "mmtv": 0.12287935255052913,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "d8168dc29e3902660be1f6e8",
+            "wasserstein": 5.0469830556360815,
+            "mmtv": 0.12484528332164876,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "30d6e8ed4a37547671dfb740",
+            "wasserstein": 4.994602236529991,
+            "mmtv": 0.1251820105810848,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "6935868b4a53a00e65fcbc4e",
+            "wasserstein": 4.95117306912264,
+            "mmtv": 0.12854721223740004,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "109cc23a0edba04342783098",
+            "wasserstein": 4.9762152497077174,
+            "mmtv": 0.12601741101452804,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "ce9c0fb8f42a3a91624a6082",
+            "wasserstein": 5.099993160997614,
+            "mmtv": 0.12506209407274818,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "05b79f75924e2d65d10466db",
+            "wasserstein": 1.3982353726775034,
+            "mmtv": 0.31807782349688607,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "bde32f448effac15e42199e4",
+            "wasserstein": 1.497067918935456,
+            "mmtv": 0.3078319005990613,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "6252390e164ecec58899ae66",
+            "wasserstein": 1.6615524463556506,
+            "mmtv": 0.35279590884840284,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "63489d6b394e9a82fa8b8b56",
+            "wasserstein": 1.453059754754744,
+            "mmtv": 0.32151961507196447,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "9371411764e88116e328c86b",
+            "wasserstein": 1.3605926113899076,
+            "mmtv": 0.25220816635583915,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "8d462ea8bb0aa73b99983691",
+            "wasserstein": 1.3313834498545338,
+            "mmtv": 0.32774416264052586,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "068507b6b4cda98d248425bb",
+            "wasserstein": 2.008196390408716,
+            "mmtv": 0.39276440684786396,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "b20bfb73bf9eedd8260a817c",
+            "wasserstein": 1.1345165643779935,
+            "mmtv": 0.2677799867583065,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "4a42592c2eedf68159f336c7",
+            "wasserstein": 1.7187680334083861,
+            "mmtv": 0.3674726646702289,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "4383ee61d425548694b2cc87",
+            "wasserstein": 1.3972895153709928,
+            "mmtv": 0.36078273109740827,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "5ffea85e6fdd5e01e96b07c8",
+            "wasserstein": 1.2878496873250944,
+            "mmtv": 0.1582405147643343,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "60b823c401523ecc850be0a1",
+            "wasserstein": 1.2205557291750153,
+            "mmtv": 0.14068231839637088,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "b908f0192d78873e8cb5877b",
+            "wasserstein": 1.4708594491509077,
+            "mmtv": 0.18589570106725295,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "88d613c5227c68929dc55b7a",
+            "wasserstein": 1.2456775906225657,
+            "mmtv": 0.14732371776670114,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "9c0ff807c92c3966db3391e2",
+            "wasserstein": 1.2029429061660335,
+            "mmtv": 0.14023017301918442,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "b391d5e238b37daba969a2f3",
+            "wasserstein": 1.3067061710294297,
+            "mmtv": 0.1494235843599027,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "c95872f9bb1d519e1825b548",
+            "wasserstein": 1.268990716252691,
+            "mmtv": 0.14159115448771983,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "da1419558e4ea5333cd57d53",
+            "wasserstein": 1.3476713438339778,
+            "mmtv": 0.16304958532532668,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "df83b7a735c6df6c4d1a59ea",
+            "wasserstein": 1.3500908646184888,
+            "mmtv": 0.17052167776390206,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "1d6b6c7df9ba3f36a7926de3",
+            "wasserstein": 1.2800045835241434,
+            "mmtv": 0.13857288285044778,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "87e9055b8f0990e093f45949",
+            "wasserstein": 1.241260199064583,
+            "mmtv": 0.4493977202009649,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "d607a1104d4a70fe4df9af29",
+            "wasserstein": 0.99256281981966,
+            "mmtv": 0.3668752736691666,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "a8252e5b449c3f26a2bab320",
+            "wasserstein": 1.7584552358982124,
+            "mmtv": 0.45912103766449597,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "0c6b7e59d3501d06803d53cc",
+            "wasserstein": 1.2677920424452669,
+            "mmtv": 0.4450400834329537,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "2820c2336d2b71815ab58150",
+            "wasserstein": 1.2070367387468015,
+            "mmtv": 0.24717367594732023,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "1dea383ff71d7596a44114b9",
+            "wasserstein": 1.0541142177557152,
+            "mmtv": 0.1972562120139812,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "279c5cd7a0a9ce7771e4c482",
+            "wasserstein": 1.02569015583164,
+            "mmtv": 0.22779709154122457,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "4ea429a8e50a31e8667b5cef",
+            "wasserstein": 1.7116198353980256,
+            "mmtv": 0.475218222306043,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "9fab07765c3e642038694416",
+            "wasserstein": 1.0444775319967934,
+            "mmtv": 0.21093163045758107,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "965372e1f0bd1d59d85629ad",
+            "wasserstein": 0.9887475127761338,
+            "mmtv": 0.21002896691077239,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "7634540777cd92e088b4857d",
+            "wasserstein": 1.350257090439176,
+            "mmtv": 0.46102835952789156,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "622affe7964b5ed92ffe438e",
+            "wasserstein": 1.1714411829575055,
+            "mmtv": 0.21443838485712174,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "ff2fd6561d5e7ab6ef1d4068",
+            "wasserstein": 1.255088784851466,
+            "mmtv": 0.22725572279556822,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "50c43067fc33b6da481ab20a",
+            "wasserstein": 0.9945072156164785,
+            "mmtv": 0.21358188479584717,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "4d483040819214a5ff3ed395",
+            "wasserstein": 1.000147742807176,
+            "mmtv": 0.20765496589041454,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "841658c02f4cda8e0239c005",
+            "wasserstein": 1.2022974763383727,
+            "mmtv": 0.4070877889816139,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "cf4b851406764afe08aa0304",
+            "wasserstein": 1.052767362450756,
+            "mmtv": 0.21520997490785465,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "41df808e5afad9f5cd8cf7ba",
+            "wasserstein": 1.002092638438887,
+            "mmtv": 0.32658451638701336,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "80b9e6b9e4e9294faca6f9b0",
+            "wasserstein": 1.6697930449032101,
+            "mmtv": 0.5441868977374885,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "f70caf689754bd369f285297",
+            "wasserstein": 1.569483372462023,
+            "mmtv": 0.5434171371904546,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "c3307256c74fc9eeebb1d546",
+            "wasserstein": 0.18343608861673588,
+            "mmtv": 0.0797075125638764,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "7b2b1db7356effc9e8be402f",
+            "wasserstein": 0.3139362725138858,
+            "mmtv": 0.14432620875155566,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "f24fa975e831e276ece5b5e3",
+            "wasserstein": 0.10721973985919182,
+            "mmtv": 0.10244699589085297,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "d397cb00b6101635d114756f",
+            "wasserstein": 0.18081317983103556,
+            "mmtv": 0.15453159230250457,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "f294935edebf33630a16341e",
+            "wasserstein": 0.36735922337449817,
+            "mmtv": 0.24616205279106318,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "cefa0f0a237054b0183f33ec",
+            "wasserstein": 0.2763849057245426,
+            "mmtv": 0.08762584888510186,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "4350dc5cb44386c7aef5a90c",
+            "wasserstein": 0.40337982644977316,
+            "mmtv": 0.3146234210787833,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "2f0b495a9254d34237298b5e",
+            "wasserstein": 0.32768555511381753,
+            "mmtv": 0.2603371111542531,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "92bb090cea9cb305ea208670",
+            "wasserstein": 0.4580203408388085,
+            "mmtv": 0.13696782619236728,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "a2ff8a8f8df1ee4e8578442b",
+            "wasserstein": 0.3576441657866171,
+            "mmtv": 0.2108520258191841,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "063bcfaa5e5102b5840f23b0",
+            "wasserstein": 0.20185275304545391,
+            "mmtv": 0.16441518749722397,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "6d51524dd5b9a1c09fe7454d",
+            "wasserstein": 0.32974738686018507,
+            "mmtv": 0.16862734192873888,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "5e80d481a3050d43a09b6c20",
+            "wasserstein": 0.30103087552396124,
+            "mmtv": 0.2508598283508502,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "0dccca8ab37fbb61d77408aa",
+            "wasserstein": 0.1569434546002768,
+            "mmtv": 0.09764650297950717,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "ddce350a0bdc43cea8d54523",
+            "wasserstein": 0.32786616843035027,
+            "mmtv": 0.0652206980054483,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "84fe7f0b765ced659898800a",
+            "wasserstein": 0.34194735096697315,
+            "mmtv": 0.0963535800329309,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "6267efaa467e1bf874d31f2d",
+            "wasserstein": 0.3162111326028258,
+            "mmtv": 0.20458957058133226,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "f51e98015b0be7e1bf0ed939",
+            "wasserstein": 0.17305913099727369,
+            "mmtv": 0.09015258300264559,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "2af13b2dd3e71d1433b5e12e",
+            "wasserstein": 0.3526569618349582,
+            "mmtv": 0.1301744357722936,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "582f66cef5da4fc19d972af0",
+            "wasserstein": 0.5673248144037392,
+            "mmtv": 0.28356928342460863,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "4a569523540074bbc30d1085",
+            "wasserstein": 0.5469009583657078,
+            "mmtv": 0.2648300190082193,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "472c3f7bfb493674add5c0ba",
+            "wasserstein": 0.36884685932509603,
+            "mmtv": 0.15611003913075466,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "0781762d635ca005006a14cd",
+            "wasserstein": 0.6496003609280219,
+            "mmtv": 0.24860663509248465,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "69412c9bda44bd717f78d8f5",
+            "wasserstein": 0.5297812642939722,
+            "mmtv": 0.33593899854573234,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "7fb83e4877ca6cf6138a6275",
+            "wasserstein": 0.2707366189200988,
+            "mmtv": 0.25818596915733727,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "82f2272e8303a4fc0355cdac",
+            "wasserstein": 0.4334934594035989,
+            "mmtv": 0.347435225361297,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "111f3dc641daf28613f4923a",
+            "wasserstein": 0.3396148068811483,
+            "mmtv": 0.09947802308440956,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "4e01c460f5704b41e53ce858",
+            "wasserstein": 0.14402859893357348,
+            "mmtv": 0.1628987724760801,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "1a0ce1e62b392846cc19a542",
+            "wasserstein": 0.2629443593568937,
+            "mmtv": 0.195529535288057,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "b39ae34705252d6d6b6ba084",
+            "wasserstein": 0.42136538790084577,
+            "mmtv": 0.2877665235208273,
+            "ot_iteration_warning": true
+          }
+        ]
+      },
+      "val": {
+        "mmtv": 0.20020767475243417,
+        "raw_mmtv": 0.20020767475243417,
+        "w_ratio_mean": 1.0231946207717073,
+        "w_ratio_max": 1.2239904950278993,
+        "guard_passed": true,
+        "groups": [
+          {
+            "group": 0,
+            "mmtv": 0.2436127435677004,
+            "wasserstein": 0.3863506843558411,
+            "baseline_w": 0.3156484351187995,
+            "w_ratio": 1.2239904950278993
+          },
+          {
+            "group": 1,
+            "mmtv": 0.07171653984774815,
+            "wasserstein": 0.2670789378323257,
+            "baseline_w": 0.3047211340061551,
+            "w_ratio": 0.8764700180819457
+          },
+          {
+            "group": 2,
+            "mmtv": 0.2666111201476605,
+            "wasserstein": 0.43032532224791104,
+            "baseline_w": 0.4037746897824112,
+            "w_ratio": 1.0657560593503461
+          },
+          {
+            "group": 3,
+            "mmtv": 0.3923044973800626,
+            "wasserstein": 1.1265255062165622,
+            "baseline_w": 1.1548295404575526,
+            "w_ratio": 0.9754907254712448
+          },
+          {
+            "group": 4,
+            "mmtv": 0.20303440394682504,
+            "wasserstein": 1.0437496783636155,
+            "baseline_w": 1.042542749413099,
+            "w_ratio": 1.0011576781395257
+          },
+          {
+            "group": 5,
+            "mmtv": 0.17524660328324712,
+            "wasserstein": 1.3440552624468725,
+            "baseline_w": 1.2910870335775724,
+            "w_ratio": 1.0410260714357313
+          },
+          {
+            "group": 6,
+            "mmtv": 0.12189369864287933,
+            "wasserstein": 1.4429881374982596,
+            "baseline_w": 1.4611542628832674,
+            "w_ratio": 0.9875672775650937
+          },
+          {
+            "group": 7,
+            "mmtv": 0.12724179120335039,
+            "wasserstein": 5.050463522319283,
+            "baseline_w": 4.980248782141834,
+            "w_ratio": 1.014098641101871
+          }
+        ],
+        "instances": [
+          {
+            "id": "2422a540a7a1e424692ba342",
+            "wasserstein": 5.050463522319283,
+            "mmtv": 0.12724179120335039,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "0526874228c51862f80c38d4",
+            "wasserstein": 1.4429881374982596,
+            "mmtv": 0.12189369864287933,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "48118b1e63182d2a922ec9d6",
+            "wasserstein": 1.3440552624468725,
+            "mmtv": 0.17524660328324712,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "a83d942760aadc8f5249d48e",
+            "wasserstein": 1.0437496783636155,
+            "mmtv": 0.20303440394682504,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "cf58342fb89872b855622040",
+            "wasserstein": 1.1265255062165622,
+            "mmtv": 0.3923044973800626,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "cac2990641e730caebcc196b",
+            "wasserstein": 0.3863506843558411,
+            "mmtv": 0.2436127435677004,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "35eadbb79742aabb8a5b98ce",
+            "wasserstein": 0.43032532224791104,
+            "mmtv": 0.2666111201476605,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "246250ab69d476f339dccfcb",
+            "wasserstein": 0.2670789378323257,
+            "mmtv": 0.07171653984774815,
+            "ot_iteration_warning": true
+          }
+        ]
+      },
+      "timing": {
+        "train_s": 0.47,
+        "predict_s": 2919.41,
+        "score_s": 136.88,
+        "predict_val_s": 1427.96
+      }
+    },
+    "3": {
+      "test": {
+        "mmtv": 0.23191779063719625,
+        "raw_mmtv": 0.23191779063719625,
+        "w_ratio_mean": 1.0123325255225804,
+        "w_ratio_max": 1.0919818106367962,
+        "guard_passed": true,
+        "groups": [
+          {
+            "group": 0,
+            "mmtv": 0.20613317629907316,
+            "wasserstein": 0.3723120718211864,
+            "baseline_w": 0.34095079990761956,
+            "w_ratio": 1.0919818106367962
+          },
+          {
+            "group": 1,
+            "mmtv": 0.09669038494965264,
+            "wasserstein": 0.2942262845224386,
+            "baseline_w": 0.2922400176833614,
+            "w_ratio": 1.0067966969575992
+          },
+          {
+            "group": 2,
+            "mmtv": 0.28544942257108064,
+            "wasserstein": 0.42980441522659163,
+            "baseline_w": 0.4209281737273649,
+            "w_ratio": 1.0210873067027721
+          },
+          {
+            "group": 3,
+            "mmtv": 0.4232810014511566,
+            "wasserstein": 1.332661745875225,
+            "baseline_w": 1.3404048188058357,
+            "w_ratio": 0.9942233325171801
+          },
+          {
+            "group": 4,
+            "mmtv": 0.22473347159383797,
+            "wasserstein": 1.115537980220219,
+            "baseline_w": 1.0946833322884622,
+            "w_ratio": 1.0190508499733524
+          },
+          {
+            "group": 5,
+            "mmtv": 0.1678675480799794,
+            "wasserstein": 1.3078566000579028,
+            "baseline_w": 1.3085972886434345,
+            "w_ratio": 0.9994339827906112
+          },
+          {
+            "group": 6,
+            "mmtv": 0.32431699843052453,
+            "wasserstein": 1.5043418079476858,
+            "baseline_w": 1.5423012774574103,
+            "w_ratio": 0.9753877727623339
+          },
+          {
+            "group": 7,
+            "mmtv": 0.12687032172226512,
+            "wasserstein": 4.932866632860451,
+            "baseline_w": 4.979180722144834,
+            "w_ratio": 0.990698451839998
+          }
+        ],
+        "instances": [
+          {
+            "id": "39b5882988bfe63716c21ba9",
+            "wasserstein": 4.819520786914344,
+            "mmtv": 0.12798295051693356,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "ebb895e91dc2f0a6c2d8fdb2",
+            "wasserstein": 4.9703677971552604,
+            "mmtv": 0.12716335501516463,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "a74c9c4e4e59e88361f45152",
+            "wasserstein": 4.904358311921078,
+            "mmtv": 0.12872326608135773,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "7b8f0744ad534b1e46323c4f",
+            "wasserstein": 4.961548699930713,
+            "mmtv": 0.12923111682955782,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "2c39ab20f672aa64dede62c5",
+            "wasserstein": 4.956662186105695,
+            "mmtv": 0.12687664602996895,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "d8168dc29e3902660be1f6e8",
+            "wasserstein": 5.027710369826235,
+            "mmtv": 0.12462285497667693,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "30d6e8ed4a37547671dfb740",
+            "wasserstein": 5.08990704129063,
+            "mmtv": 0.12208691007727979,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "6935868b4a53a00e65fcbc4e",
+            "wasserstein": 4.862575455522771,
+            "mmtv": 0.12388038649684802,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "109cc23a0edba04342783098",
+            "wasserstein": 4.8292748972009125,
+            "mmtv": 0.12955650975078037,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "ce9c0fb8f42a3a91624a6082",
+            "wasserstein": 4.906740782736869,
+            "mmtv": 0.12857922144808343,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "05b79f75924e2d65d10466db",
+            "wasserstein": 1.546176464844453,
+            "mmtv": 0.34102814254195896,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "bde32f448effac15e42199e4",
+            "wasserstein": 1.33564344774063,
+            "mmtv": 0.31288283175624726,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "6252390e164ecec58899ae66",
+            "wasserstein": 1.5966260795171479,
+            "mmtv": 0.34187125716777256,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "63489d6b394e9a82fa8b8b56",
+            "wasserstein": 2.1719834278637022,
+            "mmtv": 0.45829049890227525,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "9371411764e88116e328c86b",
+            "wasserstein": 1.3135468931127705,
+            "mmtv": 0.28543217101183405,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "8d462ea8bb0aa73b99983691",
+            "wasserstein": 1.370660930665597,
+            "mmtv": 0.34998514048641693,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "068507b6b4cda98d248425bb",
+            "wasserstein": 1.7315994550987768,
+            "mmtv": 0.32362073625637466,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "b20bfb73bf9eedd8260a817c",
+            "wasserstein": 1.3775187620248601,
+            "mmtv": 0.33228537047114204,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "4a42592c2eedf68159f336c7",
+            "wasserstein": 1.2787836311044103,
+            "mmtv": 0.2716019134189168,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "4383ee61d425548694b2cc87",
+            "wasserstein": 1.3208789875045108,
+            "mmtv": 0.22617192229230687,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "5ffea85e6fdd5e01e96b07c8",
+            "wasserstein": 1.4972213432970254,
+            "mmtv": 0.19283781584774573,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "60b823c401523ecc850be0a1",
+            "wasserstein": 1.1993725376723565,
+            "mmtv": 0.1310862769608345,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "b908f0192d78873e8cb5877b",
+            "wasserstein": 1.2557826509702037,
+            "mmtv": 0.15311792419108813,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "88d613c5227c68929dc55b7a",
+            "wasserstein": 1.2534504160137419,
+            "mmtv": 0.14396144111533635,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "9c0ff807c92c3966db3391e2",
+            "wasserstein": 1.3546992938751157,
+            "mmtv": 0.2036614159400544,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "b391d5e238b37daba969a2f3",
+            "wasserstein": 1.3249630257919331,
+            "mmtv": 0.15223739982731205,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "c95872f9bb1d519e1825b548",
+            "wasserstein": 1.2400651987288351,
+            "mmtv": 0.1487474851131051,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "da1419558e4ea5333cd57d53",
+            "wasserstein": 1.2583801603213272,
+            "mmtv": 0.16276593533310937,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "df83b7a735c6df6c4d1a59ea",
+            "wasserstein": 1.3589409270703114,
+            "mmtv": 0.1658719602678639,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "1d6b6c7df9ba3f36a7926de3",
+            "wasserstein": 1.3356904468381807,
+            "mmtv": 0.22438782620334408,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "87e9055b8f0990e093f45949",
+            "wasserstein": 1.2706439598375763,
+            "mmtv": 0.4295141744938486,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "d607a1104d4a70fe4df9af29",
+            "wasserstein": 0.80043341602873,
+            "mmtv": 0.30107236081533306,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "a8252e5b449c3f26a2bab320",
+            "wasserstein": 1.3465929356859505,
+            "mmtv": 0.3786136252581981,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "0c6b7e59d3501d06803d53cc",
+            "wasserstein": 1.2032210035718804,
+            "mmtv": 0.3914628449244731,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "2820c2336d2b71815ab58150",
+            "wasserstein": 1.018902111155487,
+            "mmtv": 0.24351254749795304,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "1dea383ff71d7596a44114b9",
+            "wasserstein": 1.3958888073242801,
+            "mmtv": 0.3441538455672733,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "279c5cd7a0a9ce7771e4c482",
+            "wasserstein": 1.1055140340041443,
+            "mmtv": 0.22411851146297404,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "4ea429a8e50a31e8667b5cef",
+            "wasserstein": 1.5553953737670527,
+            "mmtv": 0.4704102608154885,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "9fab07765c3e642038694416",
+            "wasserstein": 1.0834574691831176,
+            "mmtv": 0.19686037388726074,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "965372e1f0bd1d59d85629ad",
+            "wasserstein": 1.1705791177370146,
+            "mmtv": 0.2186204289782693,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "7634540777cd92e088b4857d",
+            "wasserstein": 1.327993886082861,
+            "mmtv": 0.42385545209407216,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "622affe7964b5ed92ffe438e",
+            "wasserstein": 1.0178798790963433,
+            "mmtv": 0.19429049103877505,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "ff2fd6561d5e7ab6ef1d4068",
+            "wasserstein": 1.220611241169622,
+            "mmtv": 0.22711866609382364,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "50c43067fc33b6da481ab20a",
+            "wasserstein": 0.9785398898690808,
+            "mmtv": 0.20246500243111537,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "4d483040819214a5ff3ed395",
+            "wasserstein": 0.9877734455021224,
+            "mmtv": 0.18155929977934016,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "841658c02f4cda8e0239c005",
+            "wasserstein": 1.4801668375669894,
+            "mmtv": 0.47082623038138843,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "cf4b851406764afe08aa0304",
+            "wasserstein": 1.1762338071609766,
+            "mmtv": 0.2146355492015954,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "41df808e5afad9f5cd8cf7ba",
+            "wasserstein": 1.5296021810662903,
+            "mmtv": 0.37203259500309516,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "80b9e6b9e4e9294faca6f9b0",
+            "wasserstein": 1.4104446548771001,
+            "mmtv": 0.5034036400767301,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "f70caf689754bd369f285297",
+            "wasserstein": 1.402123210267819,
+            "mmtv": 0.4916188306489384,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "c3307256c74fc9eeebb1d546",
+            "wasserstein": 0.2484581170085661,
+            "mmtv": 0.07778934260225416,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "7b2b1db7356effc9e8be402f",
+            "wasserstein": 0.4870492734924113,
+            "mmtv": 0.1644138844315297,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "f24fa975e831e276ece5b5e3",
+            "wasserstein": 0.19120916199605567,
+            "mmtv": 0.10063442543474654,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "d397cb00b6101635d114756f",
+            "wasserstein": 0.19212117236709467,
+            "mmtv": 0.17284799711188267,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "f294935edebf33630a16341e",
+            "wasserstein": 0.3705314787908811,
+            "mmtv": 0.249606528316825,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "cefa0f0a237054b0183f33ec",
+            "wasserstein": 0.23600008323177843,
+            "mmtv": 0.08039408672969647,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "4350dc5cb44386c7aef5a90c",
+            "wasserstein": 0.41656740851516666,
+            "mmtv": 0.3226049839393588,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "2f0b495a9254d34237298b5e",
+            "wasserstein": 0.32162109783313714,
+            "mmtv": 0.25197684546891136,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "92bb090cea9cb305ea208670",
+            "wasserstein": 0.3867222793560803,
+            "mmtv": 0.11402716146538869,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "a2ff8a8f8df1ee4e8578442b",
+            "wasserstein": 0.3372878372188589,
+            "mmtv": 0.25427754393822083,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "063bcfaa5e5102b5840f23b0",
+            "wasserstein": 0.33614895688190766,
+            "mmtv": 0.20000298172671277,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "6d51524dd5b9a1c09fe7454d",
+            "wasserstein": 0.40437422725160466,
+            "mmtv": 0.14458242175616037,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "5e80d481a3050d43a09b6c20",
+            "wasserstein": 0.3262556956489036,
+            "mmtv": 0.2477626474487854,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "0dccca8ab37fbb61d77408aa",
+            "wasserstein": 0.2850707734894508,
+            "mmtv": 0.10762191036614178,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "ddce350a0bdc43cea8d54523",
+            "wasserstein": 0.3524967481136191,
+            "mmtv": 0.082914172937978,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "84fe7f0b765ced659898800a",
+            "wasserstein": 0.265327969190559,
+            "mmtv": 0.09925611659402842,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "6267efaa467e1bf874d31f2d",
+            "wasserstein": 0.23473791490023121,
+            "mmtv": 0.2307595470249712,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "f51e98015b0be7e1bf0ed939",
+            "wasserstein": 0.2777799831526581,
+            "mmtv": 0.05252716323239442,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "2af13b2dd3e71d1433b5e12e",
+            "wasserstein": 0.1971260341124235,
+            "mmtv": 0.09065406460032455,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "582f66cef5da4fc19d972af0",
+            "wasserstein": 0.6109600653553326,
+            "mmtv": 0.2875073296771302,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "4a569523540074bbc30d1085",
+            "wasserstein": 0.5598301516730143,
+            "mmtv": 0.26499206373961737,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "472c3f7bfb493674add5c0ba",
+            "wasserstein": 0.4723772844235535,
+            "mmtv": 0.2547988411550733,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "0781762d635ca005006a14cd",
+            "wasserstein": 0.5512248863080275,
+            "mmtv": 0.2557136170323824,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "69412c9bda44bd717f78d8f5",
+            "wasserstein": 0.4772434995746749,
+            "mmtv": 0.3377846030245113,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "7fb83e4877ca6cf6138a6275",
+            "wasserstein": 0.29043945544383437,
+            "mmtv": 0.2607378619197264,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "82f2272e8303a4fc0355cdac",
+            "wasserstein": 0.5024966678194089,
+            "mmtv": 0.3522335449480537,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "111f3dc641daf28613f4923a",
+            "wasserstein": 0.38276824181104085,
+            "mmtv": 0.12412489414355472,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "4e01c460f5704b41e53ce858",
+            "wasserstein": 0.33649009827541,
+            "mmtv": 0.14861048986081493,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "1a0ce1e62b392846cc19a542",
+            "wasserstein": 0.4906125208549187,
+            "mmtv": 0.27228495034300193,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "b39ae34705252d6d6b6ba084",
+            "wasserstein": 0.4220986316115627,
+            "mmtv": 0.2792878172278861,
+            "ot_iteration_warning": true
+          }
+        ]
+      },
+      "val": {
+        "mmtv": 0.21382984865802554,
+        "raw_mmtv": 0.21382984865802554,
+        "w_ratio_mean": 0.9512618240353019,
+        "w_ratio_max": 1.0764723536813596,
+        "guard_passed": true,
+        "groups": [
+          {
+            "group": 0,
+            "mmtv": 0.2147713576105938,
+            "wasserstein": 0.26756275030470367,
+            "baseline_w": 0.3156484351187995,
+            "w_ratio": 0.847660626620886
+          },
+          {
+            "group": 1,
+            "mmtv": 0.08574452750780505,
+            "wasserstein": 0.32802387634005875,
+            "baseline_w": 0.3047211340061551,
+            "w_ratio": 1.0764723536813596
+          },
+          {
+            "group": 2,
+            "mmtv": 0.2621390495044057,
+            "wasserstein": 0.4137723400444401,
+            "baseline_w": 0.4037746897824112,
+            "w_ratio": 1.024760467941704
+          },
+          {
+            "group": 3,
+            "mmtv": 0.37140825322886484,
+            "wasserstein": 1.0142993368125175,
+            "baseline_w": 1.1548295404575526,
+            "w_ratio": 0.8783108686418293
+          },
+          {
+            "group": 4,
+            "mmtv": 0.22054654576184501,
+            "wasserstein": 1.051321413347511,
+            "baseline_w": 1.042542749413099,
+            "w_ratio": 1.0084204354587416
+          },
+          {
+            "group": 5,
+            "mmtv": 0.20528744589938075,
+            "wasserstein": 1.2583387070914371,
+            "baseline_w": 1.2910870335775724,
+            "w_ratio": 0.9746350744493263
+          },
+          {
+            "group": 6,
+            "mmtv": 0.22580785833507022,
+            "wasserstein": 1.1842139948738628,
+            "baseline_w": 1.4611542628832674,
+            "w_ratio": 0.8104647298068831
+          },
+          {
+            "group": 7,
+            "mmtv": 0.12493375141623893,
+            "wasserstein": 4.927308915291335,
+            "baseline_w": 4.980248782141834,
+            "w_ratio": 0.989370035681685
+          }
+        ],
+        "instances": [
+          {
+            "id": "2422a540a7a1e424692ba342",
+            "wasserstein": 4.927308915291335,
+            "mmtv": 0.12493375141623893,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "0526874228c51862f80c38d4",
+            "wasserstein": 1.1842139948738628,
+            "mmtv": 0.22580785833507022,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "48118b1e63182d2a922ec9d6",
+            "wasserstein": 1.2583387070914371,
+            "mmtv": 0.20528744589938075,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "a83d942760aadc8f5249d48e",
+            "wasserstein": 1.051321413347511,
+            "mmtv": 0.22054654576184501,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "cf58342fb89872b855622040",
+            "wasserstein": 1.0142993368125175,
+            "mmtv": 0.37140825322886484,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "cac2990641e730caebcc196b",
+            "wasserstein": 0.26756275030470367,
+            "mmtv": 0.2147713576105938,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "35eadbb79742aabb8a5b98ce",
+            "wasserstein": 0.4137723400444401,
+            "mmtv": 0.2621390495044057,
+            "ot_iteration_warning": true
+          },
+          {
+            "id": "246250ab69d476f339dccfcb",
+            "wasserstein": 0.32802387634005875,
+            "mmtv": 0.08574452750780505,
+            "ot_iteration_warning": true
+          }
+        ]
+      },
+      "timing": {
+        "train_s": 0.47,
+        "predict_s": 3028.24,
+        "score_s": 136.97,
+        "predict_val_s": 1280.26
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      0.52,
+      0.47,
+      0.47
+    ],
+    "predict_s": [
+      3139.87,
+      2919.41,
+      3028.24
+    ],
+    "build_s": 9.0
+  },
+  "hashes": {
+    "env_lock": "ec0e95a94f6ea54277c705685d365882cb44f319f9578fe25ba71a48aa91bcdb",
+    "scorer": "3938a0bc7e122142f9d9f193b16d513e9f4c9baae6258b3fbfd45ecce1b2d094",
+    "validate": "82ae7b4fb433512a2304b152625f1ca04a23ec6c53cb67ca945e77503cbbe042",
+    "test_labels": "8c024444a759e89ed2fcf2985c06f832ef27b57e471ef9c970cb046c86e5e1f8",
+    "adapt_patch": "5604c8febae0a14175c8d99517c355bc3df8d879b102373c3776a4d957c47537"
+  }
+}

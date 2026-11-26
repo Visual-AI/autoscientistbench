@@ -1,0 +1,172 @@
+{
+  "pid": "046_Chatterjee-BC",
+  "class": "D",
+  "title": "Bias correction for Chatterjee's graph-based correlation coefficient",
+  "metric": {
+    "name": "mean_rmse",
+    "higher_is_better": false,
+    "delta": 0.005,
+    "aggregate": "mean"
+  },
+  "cpus": 16,
+  "memory_gb": 80,
+  "budget_hours_default": 24,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input",
+    "val_labels": "data/val/labels.json",
+    "test_input": "test/input",
+    "test_labels": "test/labels.json",
+    "input_format": "directory/float64",
+    "output_format": "csv"
+  },
+  "split": {
+    "type": "synthetic",
+    "decision": "Independent materialized observed-only full 75-setting designs for validation and hidden test, each with 1000 replications plus one bootstrap dataset per setting. Truth and rho are physically separate labels."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 11.82,
+    "val": {
+      "mean_rmse": 0.04602472105559376
+    },
+    "paper_ref": "Historical reproduced mean RMSE 0.046042; paper mean ECP 0.948533. No new full reference was run.",
+    "measured_s": {
+      "train": [
+        0.11,
+        0.11,
+        0.07
+      ],
+      "predict": [
+        649.97,
+        709.1,
+        677.24
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "reference_hash": "sha256:2e355a1696cb73355278c60d2e08925f271b2e52198d785f0882259f5ce3ea80"
+  },
+  "env": {
+    "mode": "snapshot",
+    "snapshot": "runtime/runtime.json",
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "build_cap_s": 1800
+  },
+  "adapt": {
+    "base_commit": "985cb1c074bf5c1eba937e0ea5e2f50d8bb4e357",
+    "adapt_commit": "645ae37a98461111bf120de9e70af8d037f170e6",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "conversion": {
+    "full_data_ready": true,
+    "source_commit": "985cb1c074bf5c1eba937e0ea5e2f50d8bb4e357",
+    "smoke_report": "judge/verification/smoke.json",
+    "runtime_provenance": "judge/verification/runtime_checks.json",
+    "data_checks": "judge/verification/data_checks.json",
+    "scorer_checks": "judge/verification/scorer_checks.json"
+  },
+  "smoke": {
+    "input": "judge/verification/smoke_inputs/input",
+    "labels": "judge/verification/smoke_inputs/labels.json"
+  },
+  "method_freedom_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/046_Chatterjee-BC.json",
+    "candidate_method_replacement_allowed": true,
+    "frozen_data_metric_and_information_boundary": true,
+    "full_training_or_evaluation_run": false,
+    "allowed_changes": [
+      "Bias correction, nuisance regression/working models, basis, regularization, bootstrap/other variance estimation and fitting losses may change for the same population functional.",
+      "Degree-two basis, ridge exponent, bootstrap sizes and z-based interval implementation are baseline estimation choices.",
+      "When retaining the supplied estimator, bootstrap and normal-interval construction, changing only lambda=n^(-0.85), m=floor(sqrt(n)), B=10000 or z=1.96 does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Estimate the fixed population Chatterjee graph-based dependence functional and its 95% intervals, minimizing positive-rho cell RMSE under coverage constraints.",
+      "The population dependence functional defined by the paper, observed X/Y and normal-CDF experimental design remain fixed; rho itself is not the estimand.",
+      "All 75 coverage cells, 60 positive-rho RMSE cells, their aggregation, supplied independent calibration dataset and coverage floors remain fixed.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/046_Chatterjee-BC.json",
+    "forbidden_substitutions": [
+      "Do not substitute Pearson correlation, a latent rho estimate or another dependence measure; infer hidden rho/cell truth as predictions; or modify RMSE/coverage definitions.",
+      "Only the scored replicate and its supplied calibration dataset may inform its estimate; no pooling other scored replicates.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Do not fit bias-correction tables or other constants to extra simulations, including ones drawn from `bench/generator.R`."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Estimate the fixed population Chatterjee graph-based dependence functional and its 95% intervals, minimizing positive-rho cell RMSE under coverage constraints.",
+    "fixed_research_objects": [
+      "The population dependence functional defined by the paper, observed X/Y and normal-CDF experimental design remain fixed; rho itself is not the estimand.",
+      "All 75 coverage cells, 60 positive-rho RMSE cells, their aggregation, supplied independent calibration dataset and coverage floors remain fixed."
+    ],
+    "editable_components": [
+      "Bias correction, nuisance regression/working models, basis, regularization, bootstrap/other variance estimation and fitting losses may change for the same population functional.",
+      "Degree-two basis, ridge exponent, bootstrap sizes and z-based interval implementation are baseline estimation choices.",
+      "When retaining the supplied estimator, bootstrap and normal-interval construction, changing only lambda=n^(-0.85), m=floor(sqrt(n)), B=10000 or z=1.96 does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "Do not substitute Pearson correlation, a latent rho estimate or another dependence measure; infer hidden rho/cell truth as predictions; or modify RMSE/coverage definitions.",
+      "Only the scored replicate and its supplied calibration dataset may inform its estimate; no pooling other scored replicates.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Do not fit bias-correction tables or other constants to extra simulations, including ones drawn from `bench/generator.R`."
+    ],
+    "evidence": [
+      {
+        "path": "agent/paper/paper.txt",
+        "section": "Population graph correlation and Section 5 simulation",
+        "finding": "Bias-corrected NN procedure estimates a defined population dependence functional; simulation evaluates RMSE and coverage of that target."
+      },
+      {
+        "path": "agent/bench/scorer.py",
+        "finding": "Preserves distinct 60-cell RMSE and 75-cell coverage aggregation."
+      },
+      {
+        "path": "agent/bench/io_spec.md",
+        "finding": "Describes observed replicate/calibration input boundary."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/046_Chatterjee-BC.json"
+  },
+  "research_contract_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/046_Chatterjee-BC.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

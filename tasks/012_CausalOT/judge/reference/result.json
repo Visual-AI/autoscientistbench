@@ -1,0 +1,121 @@
+{
+  "task": "012_CausalOT",
+  "created": "2026-11-04T13:07:16+0000",
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "cpus": 8,
+  "adapt_commit": "bacf89f9d8df52780468a23491343e4beb33c63f",
+  "sandbox": true,
+  "budget_s": 43200.0,
+  "test": {
+    "per_seed": [
+      0.003719976669351857,
+      0.003678617580679052,
+      0.003690028293448755
+    ],
+    "mean": 0.003696207514493221,
+    "std": 1.7440960093957403e-05,
+    "n": 3
+  },
+  "val": {
+    "per_seed": [
+      0.0037854564769870393,
+      0.0037491100924753485,
+      0.003760725701454217
+    ],
+    "mean": 0.0037650974236388686,
+    "std": 1.5156932031532563e-05,
+    "n": 3
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "ci_length_gmean": 0.003719976669351857,
+        "raw_ci_length_gmean": 0.003719976669351857,
+        "coverage": 0.86,
+        "guards_ok": true,
+        "n": 200
+      },
+      "val": {
+        "ci_length_gmean": 0.0037854564769870393,
+        "raw_ci_length_gmean": 0.0037854564769870393,
+        "coverage": 0.9,
+        "guards_ok": true,
+        "n": 100
+      },
+      "timing": {
+        "train_s": 1.72,
+        "predict_s": 628.6,
+        "score_s": 0.49,
+        "predict_val_s": 315.61
+      }
+    },
+    "2": {
+      "test": {
+        "ci_length_gmean": 0.003678617580679052,
+        "raw_ci_length_gmean": 0.003678617580679052,
+        "coverage": 0.86,
+        "guards_ok": true,
+        "n": 200
+      },
+      "val": {
+        "ci_length_gmean": 0.0037491100924753485,
+        "raw_ci_length_gmean": 0.0037491100924753485,
+        "coverage": 0.86,
+        "guards_ok": true,
+        "n": 100
+      },
+      "timing": {
+        "train_s": 1.62,
+        "predict_s": 629.71,
+        "score_s": 0.51,
+        "predict_val_s": 317.72
+      }
+    },
+    "3": {
+      "test": {
+        "ci_length_gmean": 0.003690028293448755,
+        "raw_ci_length_gmean": 0.003690028293448755,
+        "coverage": 0.875,
+        "guards_ok": true,
+        "n": 200
+      },
+      "val": {
+        "ci_length_gmean": 0.003760725701454217,
+        "raw_ci_length_gmean": 0.003760725701454217,
+        "coverage": 0.85,
+        "guards_ok": true,
+        "n": 100
+      },
+      "timing": {
+        "train_s": 1.62,
+        "predict_s": 630.1,
+        "score_s": 0.49,
+        "predict_val_s": 316.45
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      1.72,
+      1.62,
+      1.62
+    ],
+    "predict_s": [
+      628.6,
+      629.71,
+      630.1
+    ],
+    "build_s": 2.9
+  },
+  "hashes": {
+    "env_lock": "bbae691406f222bbd288ce942c7d66a163f076c082542527226916613a22e9ed",
+    "scorer": "2b88e8b2ff2e110f4d33f5c2bd3d56ca4aeb627a874db8cfedf1fbe3614f1d68",
+    "validate": "9fcc6c359fb11475b215854701cc061955fc39dbe7341530649870db11acf306",
+    "test_labels": "e6be98e5377001df7b99c4ed818632d2de3cdb36872a09a5e4fd304975e95ec3",
+    "adapt_patch": "58a92ff245cd4801906e1b3c859144c7ac2f96ebd6ab012fbb386ed6749811ce"
+  }
+}

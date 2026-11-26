@@ -1,0 +1,93 @@
+{
+  "task": "058_AnytimeMC",
+  "created": "2026-11-02T11:13:47+0000",
+  "seeds": [
+    1
+  ],
+  "cpus": 32,
+  "adapt_commit": "14955804d76281e01f4be5b913e2edffeded8c9e",
+  "sandbox": true,
+  "budget_s": 43200.0,
+  "test": {
+    "per_seed": [
+      136.0035
+    ],
+    "mean": 136.0035,
+    "std": 0.0,
+    "n": 1
+  },
+  "val": {
+    "per_seed": [
+      134.7097
+    ],
+    "mean": 134.7097,
+    "std": 0.0,
+    "n": 1
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "mean_permutations_per_hypothesis_anytime_valid_BC": 136.0035,
+        "raw_mean_permutations": 136.0035,
+        "power": 0.723162845961396,
+        "FDR": 0.06311243044717905,
+        "power_guard": true,
+        "fdr_guard": true,
+        "sampler_only_declared": true,
+        "patch_audit_required": [
+          "sampler-only decision computation",
+          "exclusion of analytic p-values, extra null simulation and truth lookup"
+        ],
+        "scope": "full",
+        "trials": 10,
+        "protocol": "private-null-values-v3",
+        "isolation_ok": true,
+        "actual_disclosures": 1360035,
+        "draw_counts_verified": true,
+        "method_compliance_verified": false
+      },
+      "val": {
+        "mean_permutations_per_hypothesis_anytime_valid_BC": 134.7097,
+        "raw_mean_permutations": 134.7097,
+        "power": 0.7280842899061499,
+        "FDR": 0.06646591045283723,
+        "power_guard": true,
+        "fdr_guard": true,
+        "sampler_only_declared": true,
+        "patch_audit_required": [
+          "sampler-only decision computation",
+          "exclusion of analytic p-values, extra null simulation and truth lookup"
+        ],
+        "scope": "full",
+        "trials": 10,
+        "protocol": "private-null-values-v3",
+        "isolation_ok": true,
+        "actual_disclosures": 1347097,
+        "draw_counts_verified": true,
+        "method_compliance_verified": false
+      },
+      "timing": {
+        "train_s": 0.11,
+        "predict_s": 0.16,
+        "score_s": 27.01,
+        "predict_val_s": 0.17
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      0.11
+    ],
+    "predict_s": [
+      0.16
+    ],
+    "build_s": 0.67
+  },
+  "hashes": {
+    "env_lock": "549e23c298e684f80e4cfc4ae27ca3b3b049415d494044bdc5222d9f50ebe2a3",
+    "scorer": "c3daf09fa5447612903ca888c376527c659451274d2f8fa4178ba9f18498eb41",
+    "validate": "dc2b92021538f08bda4643c438b213b84652a48fde1f4d12fa3c9e8b2d691a79",
+    "test_labels": null,
+    "adapt_patch": "e4d420ee9d62efc9b8b3a7cbdafe25b8ec7e992c2e73d14c6a96b95a200b9086"
+  }
+}

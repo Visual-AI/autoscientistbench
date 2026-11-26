@@ -1,0 +1,177 @@
+{
+  "pid": "083_TT-Sparse",
+  "class": "A",
+  "title": "TT-Sparse: Learning Sparse Rule Models with Differentiable Truth Tables",
+  "metric": {
+    "name": "auc",
+    "higher_is_better": true,
+    "delta": 0.005,
+    "aggregate": "mean"
+  },
+  "cpus": 8,
+  "memory_gb": 8,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.csv",
+    "val_labels": "data/val/labels.csv",
+    "test_input": "test/input.csv",
+    "test_labels": "test/labels.csv",
+    "input_format": "csv",
+    "output_format": "csv"
+  },
+  "split": {
+    "type": "std3",
+    "decision": "std3: outer train_test_split 80/20 random_state=42 (614/154); inner stratified 20% random_state=0 materialized once (491 train,123 val). Original development order retained; encoder fitting and rule extraction use only the 491 training rows. Five training replicates per outer seed; algorithm seed=5*(BENCH_SEED-1)+replicate, replicate=0..4."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 0.5,
+    "val": {
+      "auc": 0.8454457364341085
+    },
+    "paper_ref": "Table 3 diabetes; fixed reproduction configuration",
+    "measured_s": {
+      "train": [
+        12.03,
+        11.68,
+        11.98
+      ],
+      "predict": [
+        5.87,
+        5.72,
+        5.52
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0020816174870751836,
+    "reference_hash": "sha256:b0949f7ca4a28b11dff0e251e8b0db7e520db6df078f19f0b1ece47a989eface"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple",
+      "https://download.pytorch.org/whl/cpu"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "4b5b56fa30f2d187c554a28d164d1846fe737b64",
+    "adapt_commit": "62282d205ca3fda0d39fd6ae374227cdb69ba350",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "method_freedom_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/083_TT-Sparse.json",
+    "full_training_or_evaluation": false,
+    "allowed_changes": [
+      "direct sparse-rule learning, training surrogate losses, optimization, feature-threshold selection and pruning",
+      "training a different teacher/estimator and distilling to a faithful admissible sparse-rule certificate",
+      "When retaining the supplied TT-Sparse pipeline, changing only max_drop_pct=2, finetune_epochs=30, max_iterations=80, num_bits=9, n_bits=4, num_nodes=30, tau=0.05, dropout=0.1, lr=0.005, epochs=200 or patience=25 does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Learn five independent sparse interpretable Boolean-rule predictors for the supplied diabetes classification problem, maximizing mean ROC-AUC with mean rule complexity<=14.",
+      "supplied eight-feature diabetes observations, target and materialized partitions",
+      "Boolean-rule/encoder certificate semantics, frozen rule inference, mean complexity accounting and five independent AUCs",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/083_TT-Sparse.json",
+    "forbidden_substitutions": [
+      "replacing the constrained interpretable output with an unrestricted black-box predictor or unfaithful explanatory rules",
+      "changing complexity accounting, fitting a new certificate at prediction time or changing certificate between input batches",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Copies of this data from an installed package count as external data (patch audit)."
+    ],
+    "scope_source": "research_contract"
+  },
+  "research_contract": {
+    "objective": "Learn five independent sparse interpretable Boolean-rule predictors for the supplied diabetes classification problem, maximizing mean ROC-AUC with mean rule complexity<=14.",
+    "fixed_research_objects": [
+      "supplied eight-feature diabetes observations, target and materialized partitions",
+      "Boolean-rule/encoder certificate semantics, frozen rule inference, mean complexity accounting and five independent AUCs"
+    ],
+    "editable_components": [
+      "direct sparse-rule learning, training surrogate losses, optimization, feature-threshold selection and pruning",
+      "training a different teacher/estimator and distilling to a faithful admissible sparse-rule certificate",
+      "When retaining the supplied TT-Sparse pipeline, changing only max_drop_pct=2, finetune_epochs=30, max_iterations=80, num_bits=9, n_bits=4, num_nodes=30, tau=0.05, dropout=0.1, lr=0.005, epochs=200 or patience=25 does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "replacing the constrained interpretable output with an unrestricted black-box predictor or unfaithful explanatory rules",
+      "changing complexity accounting, fitting a new certificate at prediction time or changing certificate between input batches",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Copies of this data from an installed package count as external data (patch audit)."
+    ],
+    "evidence": [
+      {
+        "source": "tasks/083_TT-Sparse/agent/README.md",
+        "section": "Goal,Data,Metric and baseline",
+        "finding": "Learn five independent sparse interpretable Boolean-rule predictors for the supplied diabetes classification problem, maximizing mean ROC-AUC with mean rule complexity<=14."
+      },
+      {
+        "source": "tasks/083_TT-Sparse/agent/bench/scorer.py",
+        "section": "trusted score and guards",
+        "finding": "The fixed evaluation target is supplied eight-feature diabetes observations, target and materialized partitions; Boolean-rule/encoder certificate semantics, frozen rule inference, mean complexity accounting and five independent AUCs"
+      },
+      {
+        "source": "audits/20261101_method_freedom/083_TT-Sparse.json",
+        "section": "prior task-specific scorer/interface audit",
+        "finding": "Reuse the prior actual evaluator review while narrowing the blanket permission to the present task-specific objects."
+      },
+      {
+        "source": "tasks/083_TT-Sparse/BRIEF.md",
+        "section": "26-29",
+        "finding": "The experiment jointly studies prediction accuracy and sparse extracted-rule complexity; score_rule explicitly requires frozen rule predictions and mean complexity<=14."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/083_TT-Sparse.json"
+  },
+  "research_contract_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/083_TT-Sparse.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "conversion": {
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "validation_policy_review": {
+    "status": "implemented_bounded_checks",
+    "reason": "Encoder fitting and rule extraction now use training rows only.",
+    "report": "audits/20261102_validation_training/report.md",
+    "full_training_or_evaluation": false
+  },
+  "agent_budget_hours": 2
+}

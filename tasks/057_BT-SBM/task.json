@@ -1,0 +1,183 @@
+{
+  "pid": "057_BT-SBM",
+  "class": "A",
+  "title": "The Bradley-Terry stochastic block model",
+  "metric": {
+    "name": "ari_minVI",
+    "higher_is_better": true,
+    "delta": 0.005,
+    "aggregate": "mean"
+  },
+  "cpus": 12,
+  "memory_gb": 48,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.json",
+    "val_labels": "data/val/labels.json",
+    "test_input": "test/input.json",
+    "test_labels": "test/labels.json"
+  },
+  "split": {
+    "type": "synthetic",
+    "decision": "Original Section 7 DGP; full 3 corrected ATP exposure designs x K={3,5,7} x 10 replications separately materialized for val and hidden test; shuffled dataset order; input W only."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 7.83,
+    "val": {
+      "ari_minVI": 0.7909380496766238
+    },
+    "paper_ref": "Section 7 / Table 1; historical corrected 90-dataset source baseline ARI .7955649992466579. No benchmark reference measured.",
+    "measured_s": {
+      "train": [
+        6.07,
+        6.27,
+        6.12
+      ],
+      "predict": [
+        469.68,
+        469.06,
+        468.83
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:848049ebd29d0dbe6c860cc8964678a30c70e0f30d7e55c0d366228874bf10f2"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple",
+      "https://download.pytorch.org/whl/cpu"
+    ],
+    "build_cap_s": 1800,
+    "mode": "snapshot",
+    "snapshot": "runtime/runtime.json"
+  },
+  "adapt": {
+    "base_commit": "34ddbb0042836b99a65c9273f9d55e7410b6f30e",
+    "adapt_commit": "371a73e755f74c6a54e9874307d9cac8c626d4f8",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "smoke": {
+    "input": "judge/verification/smoke_input.json",
+    "labels": "judge/verification/smoke_labels.json",
+    "env": {}
+  },
+  "conversion": {
+    "full_data_ready": true,
+    "source_upstream_commit": "1a96862a5c97baceb2417b4083de56d0642302d3",
+    "BTSBM_commit": "069d31d134bcca8ad00e0a7f32fd49258c5ead60",
+    "smoke_report": "judge/verification/smoke.json",
+    "data_audit": "judge/verification/data-audit.json",
+    "isolation_evidence": "judge/verification/isolation.json",
+    "scorer_checks": "judge/verification/scorer-sandbox-checks.json"
+  },
+  "method_freedom_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/057_BT-SBM.json",
+    "candidate_method_replacement_allowed": true,
+    "frozen_data_metric_and_information_boundary": true,
+    "full_training_or_evaluation_run": false,
+    "allowed_changes": [
+      "Posterior sampling or approximation, parameterization, relabeling implementations, optimization and numerical search for the same minVI decision may change.",
+      "Gibbs iteration counts, burn-in and scheduling are baseline computation choices; unscored comparison models need not run.",
+      "When retaining the supplied Gibbs sampler, changing only T_iter=10000 or T_burn=2000 does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Improve inference and posterior minimum-VI partition recovery for the specified Bayesian Bradley-Terry stochastic block model while retaining its posterior strength-ranking output.",
+      "The BT binomial pairwise-comparison likelihood, Gnedin partition prior with gamma=.71, and Gamma block-strength prior a=2, b=exp(digamma(2)) are fixed.",
+      "The minVI Bayes decision loss and normalized posterior-strength summary in fit_helpers.R define the outputs; data/exposure designs, literal fossil ARI and Spearman threshold .8211555622531486 remain fixed.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/057_BT-SBM.json",
+    "forbidden_substitutions": [
+      "No replacement with a different likelihood, partition/strength prior, arbitrary community algorithm, alternative partition decision loss or unrelated strength ranking.",
+      "Do not use hidden design/K/strength labels, pool independent networks or alter metric/coverage.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Partition labels must be the consecutive integers from 1 through the number of predicted groups. Do not move labels outside this range to exclude groups from the metric."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Improve inference and posterior minimum-VI partition recovery for the specified Bayesian Bradley-Terry stochastic block model while retaining its posterior strength-ranking output.",
+    "fixed_research_objects": [
+      "The BT binomial pairwise-comparison likelihood, Gnedin partition prior with gamma=.71, and Gamma block-strength prior a=2, b=exp(digamma(2)) are fixed.",
+      "The minVI Bayes decision loss and normalized posterior-strength summary in fit_helpers.R define the outputs; data/exposure designs, literal fossil ARI and Spearman threshold .8211555622531486 remain fixed."
+    ],
+    "editable_components": [
+      "Posterior sampling or approximation, parameterization, relabeling implementations, optimization and numerical search for the same minVI decision may change.",
+      "Gibbs iteration counts, burn-in and scheduling are baseline computation choices; unscored comparison models need not run.",
+      "When retaining the supplied Gibbs sampler, changing only T_iter=10000 or T_burn=2000 does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "No replacement with a different likelihood, partition/strength prior, arbitrary community algorithm, alternative partition decision loss or unrelated strength ranking.",
+      "Do not use hidden design/K/strength labels, pool independent networks or alter metric/coverage.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Partition labels must be the consecutive integers from 1 through the number of predicted groups. Do not move labels outside this range to exclude groups from the metric."
+    ],
+    "evidence": [
+      {
+        "path": "agent/paper/paper.txt",
+        "section": "Introduction and Section 6; lines 55-83,715-807",
+        "finding": "BT likelihood and Gnedin prior define model; minimum posterior expected VI and posterior means define summaries."
+      },
+      {
+        "path": "convert/tasks_merlin.json",
+        "section": "057_BT-SBM selected task_metric",
+        "finding": "Selected source simulation is BT-SBM minVI rather than generic graph clustering; local paper revision has different Appendix-D simulation, so converted source configuration governs this cell."
+      },
+      {
+        "path": "agent/code/fit_helpers.R",
+        "finding": "Defines selected .71/Gamma(2,exp(digamma(2))) posterior and normalized strength summary."
+      },
+      {
+        "path": "agent/bench/scorer.py",
+        "finding": "Numeric ARI/ranking checks do not authenticate posterior model or minVI provenance."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/057_BT-SBM.json"
+  },
+  "research_contract_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/057_BT-SBM.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

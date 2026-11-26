@@ -1,0 +1,515 @@
+{
+  "task": "008_Tensor-ScaledGD",
+  "created": "2026-11-04T06:54:29+0000",
+  "seeds": [
+    1
+  ],
+  "cpus": 128,
+  "adapt_commit": "4be30274ce1cfa3b9836db4edf8f3ebe890b56ef",
+  "sandbox": true,
+  "budget_s": 43200.0,
+  "test": {
+    "per_seed": [
+      7572.0
+    ],
+    "mean": 7572.0,
+    "std": 0.0,
+    "n": 1
+  },
+  "val": {
+    "per_seed": [
+      7568.0
+    ],
+    "mean": 7568.0,
+    "std": 0.0,
+    "n": 1
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "scaledgd_iterations": 7572,
+        "all_reached": true,
+        "wall_s": 3328.063717264682,
+        "iterations": [
+          339,
+          347,
+          348,
+          349,
+          294,
+          302,
+          303,
+          304,
+          148,
+          149,
+          148,
+          147,
+          148,
+          150,
+          149,
+          147,
+          355,
+          363,
+          364,
+          365,
+          310,
+          319,
+          320,
+          320,
+          134,
+          137,
+          136,
+          134,
+          135,
+          137,
+          136,
+          135
+        ],
+        "protocol": "private-policy-v2",
+        "oracle_integrity": true,
+        "private_state": true,
+        "scope": "full",
+        "timing": {
+          "train_replay_s": 11.086304023861885,
+          "predict_replay_s": 3316.97741324082,
+          "serialization_s": 21.831021148711443,
+          "infrastructure_bootstrap_s": 19.519614405930042,
+          "total_s": 3350.58165294677,
+          "scope": "trusted train replay plus observation generation, both solver trajectories and original NPZ serialization",
+          "submitted_train_seconds_used": false,
+          "outer_model_used": false,
+          "boundary_limit": "full workload throughput is unverified"
+        },
+        "diagnostics": [
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 1399,
+            "elapsed_s": 2795.9277669601142,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 1422,
+            "elapsed_s": 2791.0854842215776,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 1709,
+            "elapsed_s": 3018.7113252952695,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 1710,
+            "elapsed_s": 3017.1907416172326,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 1321,
+            "elapsed_s": 1966.9818007312715,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 1343,
+            "elapsed_s": 2019.3433041088283,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 1670,
+            "elapsed_s": 2341.5358306989074,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 1670,
+            "elapsed_s": 2344.2446004115045,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 802,
+            "elapsed_s": 1969.2030958756804,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 1402,
+            "elapsed_s": 2809.8759966753423,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 1400,
+            "elapsed_s": 2741.9812650233507,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 1399,
+            "elapsed_s": 2724.302798073739,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 804,
+            "elapsed_s": 1151.5193173773587,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 1403,
+            "elapsed_s": 1988.5727592296898,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 1401,
+            "elapsed_s": 1999.064345523715,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 1400,
+            "elapsed_s": 1970.750881459564,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 1431,
+            "elapsed_s": 2764.018987108022,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 1725,
+            "elapsed_s": 3002.0557945668697,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 1726,
+            "elapsed_s": 2990.752520505339,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 1726,
+            "elapsed_s": 3000.4292022697628,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 1341,
+            "elapsed_s": 1956.577410902828,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 1680,
+            "elapsed_s": 2298.345050763339,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 1681,
+            "elapsed_s": 2283.3872976079583,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 1681,
+            "elapsed_s": 2341.4330003745854,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "regression",
+            "cases": 8,
+            "rpc_calls": 9628,
+            "elapsed_s": 3199.5912916585803,
+            "allocated_cpus": 24
+          }
+        ]
+      },
+      "val": {
+        "scaledgd_iterations": 7568,
+        "all_reached": true,
+        "wall_s": 3342.208347324282,
+        "iterations": [
+          339,
+          347,
+          348,
+          349,
+          294,
+          302,
+          303,
+          304,
+          147,
+          148,
+          147,
+          146,
+          148,
+          149,
+          148,
+          147,
+          355,
+          363,
+          364,
+          365,
+          310,
+          318,
+          319,
+          320,
+          136,
+          136,
+          135,
+          134,
+          136,
+          138,
+          136,
+          137
+        ],
+        "protocol": "private-policy-v2",
+        "oracle_integrity": true,
+        "private_state": true,
+        "scope": "full",
+        "timing": {
+          "train_replay_s": 11.082967463880777,
+          "predict_replay_s": 3331.125379860401,
+          "serialization_s": 21.436931561678648,
+          "infrastructure_bootstrap_s": 19.593038767576218,
+          "total_s": 3365.3341330587864,
+          "scope": "trusted train replay plus observation generation, both solver trajectories and original NPZ serialization",
+          "submitted_train_seconds_used": false,
+          "outer_model_used": false,
+          "boundary_limit": "full workload throughput is unverified"
+        },
+        "diagnostics": [
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 1399,
+            "elapsed_s": 2819.44331234321,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 1422,
+            "elapsed_s": 2865.1631471142173,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 1709,
+            "elapsed_s": 3052.3035856857896,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 1710,
+            "elapsed_s": 3052.3030690066516,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 1319,
+            "elapsed_s": 1992.408995449543,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 1343,
+            "elapsed_s": 2036.9363353922963,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 1670,
+            "elapsed_s": 2375.71811318025,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 1670,
+            "elapsed_s": 2378.956131324172,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 799,
+            "elapsed_s": 1945.9232897348702,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 1400,
+            "elapsed_s": 2781.1277370788157,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 1399,
+            "elapsed_s": 2759.2448942922056,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 1398,
+            "elapsed_s": 2742.3197674155235,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 801,
+            "elapsed_s": 1184.8217059522867,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 1401,
+            "elapsed_s": 2001.7353995218873,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 1400,
+            "elapsed_s": 2047.7475053295493,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 1399,
+            "elapsed_s": 2034.1572872698307,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 1431,
+            "elapsed_s": 2804.3081777840853,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 1725,
+            "elapsed_s": 3023.200412798673,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 1725,
+            "elapsed_s": 3006.2656059786677,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 1726,
+            "elapsed_s": 3028.3449887670577,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 1341,
+            "elapsed_s": 1965.258187007159,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 1680,
+            "elapsed_s": 2318.9802917949855,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 1681,
+            "elapsed_s": 2300.8623562417924,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "small",
+            "cases": 1,
+            "rpc_calls": 1681,
+            "elapsed_s": 2365.2938658483326,
+            "allocated_cpus": 2
+          },
+          {
+            "kind": "regression",
+            "cases": 8,
+            "rpc_calls": 9654,
+            "elapsed_s": 3221.47586902231,
+            "allocated_cpus": 24
+          }
+        ]
+      },
+      "timing": {
+        "train_s": 10.83,
+        "predict_s": 1.07,
+        "score_s": 3351.55,
+        "predict_val_s": 0.72
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      10.83
+    ],
+    "predict_s": [
+      1.07
+    ],
+    "build_s": 1.8
+  },
+  "hashes": {
+    "env_lock": "0b3c348b3f0a3786974ec92a77449114d9f02366b4e5991a016f6be327d9c609",
+    "scorer": "a763b655a974281b7c200a0a0255a9b336a4de72ab3b4194e8f06e193e7070e5",
+    "validate": "b71199115d18ab40fc8070dd775d20d222e4d6dc0a6b979a91a91fb7102fe613",
+    "test_labels": null,
+    "adapt_patch": "55894451f8359d8b642b86e5357cc172b445dbbc74c552ce780156c6f246ccb2"
+  }
+}

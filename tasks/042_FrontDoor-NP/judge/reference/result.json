@@ -1,0 +1,121 @@
+{
+  "task": "042_FrontDoor-NP",
+  "created": "2026-11-03T02:32:24+0000",
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "cpus": 32,
+  "adapt_commit": "136b7b8f83c98594b48c5252ef649c959e04e88d",
+  "sandbox": true,
+  "budget_s": 43200.0,
+  "test": {
+    "per_seed": [
+      0.005566196899251604,
+      0.005566196899251604,
+      0.005566196899251604
+    ],
+    "mean": 0.0055661968992516036,
+    "std": 0.0,
+    "n": 3
+  },
+  "val": {
+    "per_seed": [
+      0.006044116097063796,
+      0.006044116097063796,
+      0.006044116097063796
+    ],
+    "mean": 0.006044116097063796,
+    "std": 0.0,
+    "n": 3
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "mse": 0.005566196899251604,
+        "unconstrained_mse": 0.005566196899251604,
+        "coverage": 0.911,
+        "coverage_pass": true,
+        "n_datasets": 1000
+      },
+      "val": {
+        "mse": 0.006044116097063796,
+        "unconstrained_mse": 0.006044116097063796,
+        "coverage": 0.912,
+        "coverage_pass": true,
+        "n_datasets": 1000
+      },
+      "timing": {
+        "train_s": 0.06,
+        "predict_s": 12.49,
+        "score_s": 0.13,
+        "predict_val_s": 11.79
+      }
+    },
+    "2": {
+      "test": {
+        "mse": 0.005566196899251604,
+        "unconstrained_mse": 0.005566196899251604,
+        "coverage": 0.911,
+        "coverage_pass": true,
+        "n_datasets": 1000
+      },
+      "val": {
+        "mse": 0.006044116097063796,
+        "unconstrained_mse": 0.006044116097063796,
+        "coverage": 0.912,
+        "coverage_pass": true,
+        "n_datasets": 1000
+      },
+      "timing": {
+        "train_s": 0.06,
+        "predict_s": 11.09,
+        "score_s": 0.13,
+        "predict_val_s": 11.58
+      }
+    },
+    "3": {
+      "test": {
+        "mse": 0.005566196899251604,
+        "unconstrained_mse": 0.005566196899251604,
+        "coverage": 0.911,
+        "coverage_pass": true,
+        "n_datasets": 1000
+      },
+      "val": {
+        "mse": 0.006044116097063796,
+        "unconstrained_mse": 0.006044116097063796,
+        "coverage": 0.912,
+        "coverage_pass": true,
+        "n_datasets": 1000
+      },
+      "timing": {
+        "train_s": 0.06,
+        "predict_s": 11.43,
+        "score_s": 0.13,
+        "predict_val_s": 11.34
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      0.06,
+      0.06,
+      0.06
+    ],
+    "predict_s": [
+      12.49,
+      11.09,
+      11.43
+    ],
+    "build_s": 7.94
+  },
+  "hashes": {
+    "env_lock": "24eba471008fe1cb5cb27e98ae8ae15de42a2618e01402c86b79c0dcea25e660",
+    "scorer": "ea4688fa81c931ad39ba58e2d84c8179e154a0e8abcbf1ad4fdeb8698de81466",
+    "validate": "98f0d8bca250ee4d308c251e0ce6c8857b30de1c0f55364832b27cd0804330df",
+    "test_labels": "ed907f6e772f64bbce0c815726d71cb07e2ac121724e0bf1376eddeb33fb58b9",
+    "adapt_patch": "a9a06c54381d2e441ec9a93dd74bd9a94654d69f0e6978496f7a8715896b5e73"
+  }
+}

@@ -1,0 +1,163 @@
+{
+  "pid": "022_WEPP",
+  "class": "C",
+  "title": "WEPP surveillance lineage abundance estimation",
+  "metric": {
+    "name": "rmse",
+    "higher_is_better": false,
+    "delta": 0.005,
+    "aggregate": "mean"
+  },
+  "cpus": 16,
+  "memory_gb": 64,
+  "budget_hours_default": 24,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input",
+    "val_labels": "data/val/labels.json",
+    "test_input": "test/input",
+    "test_labels": "test/labels.json"
+  },
+  "split": {
+    "type": "training_free",
+    "decision": "Existing archived10/20-scale mixtures for development,50-scale held out; all3 original replicate blocks and500000 existing read pairs per sample retained. Observations only; private expected abundance labels."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 4.31,
+    "val": {
+      "rmse": 0.0022178753325867886
+    },
+    "paper_ref": "Historical current metric RMSE0.001763605202480517 over all9 archived datasets; no new full reference.",
+    "measured_s": {
+      "train": [
+        14.44
+      ],
+      "predict": [
+        258.88
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:a51f8035f02969bf92a21f73ce83b7978655d331e252c0fbef46dbbdad74b49b"
+  },
+  "env": {
+    "mode": "snapshot",
+    "snapshot": "runtime/runtime.json",
+    "python": "3.11",
+    "lock": "code/env.lock"
+  },
+  "adapt": {
+    "base_commit": "48666b83ffa96ee965c8f23ac858148caacdaf2a",
+    "adapt_commit": "26f2ddf59de0ee7b0d6db3222681cb4a9febe623",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "smoke": {
+    "input": "judge/verification/fixture/input",
+    "labels": "judge/verification/fixture/labels.json"
+  },
+  "conversion": {
+    "full_data_ready": true,
+    "source_commit": "7ad4b3979237d08bac85cc6ee18ebeb87fb24826",
+    "smoke_report": "judge/verification/smoke.json",
+    "data_integrity": "judge/verification/data_checks.json",
+    "runtime_closure": "judge/verification/runtime_closure.json"
+  },
+  "method_freedom_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/022_WEPP.json",
+    "full_training_or_evaluation": false,
+    "allowed_changes": [
+      "computational abundance estimators, read summarization and statistical inference procedures",
+      "optimization and implementation with the same observed inputs",
+      "When retaining the supplied WEPP pipeline, changing only MIN_PROP=0.005, MIN_AF=0.005, MIN_DEPTH=10, MIN_Q=20, MIN_LEN=80, MAX_NEIGHBOR_ITERATIONS=10, TOP_N=10, MAX_PEAKS=300, MAX_NEIGHBORS_WEPP=50 or MAX_PEAK_PEAK_MUTATION=2 does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Estimate lineage abundances from the existing surveillance observations using the fixed reference/tree and minimize the original constrained abundance RMSE.",
+      "existing paired-read observations, reference/tree, lineage-name universe and mixture-scale partition",
+      "union-of-lineages RMSE without extra normalization, missing-lineage and spurious-mass guards",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/022_WEPP.json",
+    "forbidden_substitutions": [
+      "changing observed sequences, reference lineages, expected-composition definitions or sample grouping",
+      "generating new biological observations, using hidden compositions or replacing estimates with archived answers",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Report only lineages the estimator infers as present. Padding the output with zero or negligible abundances to enlarge the RMSE denominator does not count as a method improvement."
+    ],
+    "scope_source": "research_contract"
+  },
+  "research_contract": {
+    "objective": "Estimate lineage abundances from the existing surveillance observations using the fixed reference/tree and minimize the original constrained abundance RMSE.",
+    "fixed_research_objects": [
+      "existing paired-read observations, reference/tree, lineage-name universe and mixture-scale partition",
+      "union-of-lineages RMSE without extra normalization, missing-lineage and spurious-mass guards"
+    ],
+    "editable_components": [
+      "computational abundance estimators, read summarization and statistical inference procedures",
+      "optimization and implementation with the same observed inputs",
+      "When retaining the supplied WEPP pipeline, changing only MIN_PROP=0.005, MIN_AF=0.005, MIN_DEPTH=10, MIN_Q=20, MIN_LEN=80, MAX_NEIGHBOR_ITERATIONS=10, TOP_N=10, MAX_PEAKS=300, MAX_NEIGHBORS_WEPP=50 or MAX_PEAK_PEAK_MUTATION=2 does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "changing observed sequences, reference lineages, expected-composition definitions or sample grouping",
+      "generating new biological observations, using hidden compositions or replacing estimates with archived answers",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Report only lineages the estimator infers as present. Padding the output with zero or negligible abundances to enlarge the RMSE denominator does not count as a method improvement."
+    ],
+    "evidence": [
+      {
+        "source": "tasks/022_WEPP/agent/README.md",
+        "section": "Goal,Data,Metric and baseline",
+        "finding": "Estimate lineage abundances from the existing surveillance observations using the fixed reference/tree and minimize the original constrained abundance RMSE."
+      },
+      {
+        "source": "tasks/022_WEPP/agent/bench/scorer.py",
+        "section": "trusted score and guards",
+        "finding": "The fixed evaluation target is existing paired-read observations, reference/tree, lineage-name universe and mixture-scale partition; union-of-lineages RMSE without extra normalization, missing-lineage and spurious-mass guards"
+      },
+      {
+        "source": "audits/20261101_method_freedom/022_WEPP.json",
+        "section": "prior task-specific scorer/interface audit",
+        "finding": "Reuse the prior actual evaluator review while narrowing the blanket permission to the present task-specific objects."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/022_WEPP.json"
+  },
+  "research_contract_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/022_WEPP.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

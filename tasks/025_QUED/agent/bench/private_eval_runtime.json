@@ -1,0 +1,9 @@
+{
+  "mounts": [
+    "/opt/arb/runtime/python",
+    "/opt/arb/runtime/python"
+  ],
+  "env": {
+    "PATH": "/opt/arb/runtime/python/bin:/usr/bin:/bin"
+  }
+}

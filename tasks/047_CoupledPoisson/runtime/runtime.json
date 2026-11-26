@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "python": "/usr/bin/python3",
+  "mounts": [
+    {
+      "source": "runtime/r.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-17_unbiasedpoisson/.mamba/envs/r",
+      "format": "tar",
+      "name": "r"
+    }
+  ],
+  "env": {
+    "PATH": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-17_unbiasedpoisson/.mamba/envs/r/bin:/usr/local/bin:/usr/bin:/bin",
+    "R_HOME": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-17_unbiasedpoisson/.mamba/envs/r/lib/R",
+    "R_LIBS_USER": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-17_unbiasedpoisson/.mamba/envs/r/lib/R/library",
+    "R_LIBS_SITE": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-17_unbiasedpoisson/.mamba/envs/r/lib/R/library",
+    "LD_LIBRARY_PATH": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-17_unbiasedpoisson/.mamba/envs/r/lib"
+  },
+  "description": "Copied existing R interpreter, base R packages, tictoc and shared-library dependencies; no results, data, compiler tree or installed unbiasedpoisson package."
+}

@@ -1,0 +1,19 @@
+{
+  "tail_alpha": 0.05,
+  "scale": 0.5,
+  "proportional_lr": true,
+  "learning_rates": {
+    "Amazon_Prophet": 0.5,
+    "Amazon_AR": 0.1,
+    "Amazon_Theta": 0.1,
+    "Google_Prophet": 0.5,
+    "Google_AR": 0.05,
+    "Google_Theta": 0.1,
+    "Electricity_Prophet": 0.5,
+    "Electricity_AR": 0.1,
+    "Electricity_Theta": 0.05,
+    "Temperature_Prophet": 0.1,
+    "Temperature_AR": 0.05,
+    "Temperature_Theta": 0.1
+  }
+}

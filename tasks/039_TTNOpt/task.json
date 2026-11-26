@@ -1,0 +1,156 @@
+{
+  "pid": "039_TTNOpt",
+  "class": "A",
+  "title": "TTNOpt: Tree tensor network package for high-rank tensor compression",
+  "metric": {
+    "name": "fidelity",
+    "higher_is_better": true,
+    "delta": 0.005,
+    "aggregate": "mean"
+  },
+  "cpus": 32,
+  "memory_gb": 64,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.npz",
+    "val_labels": "data/val/labels.npz",
+    "test_input": "test/input.npz",
+    "test_labels": "test/labels.npz",
+    "input_format": "npz",
+    "output_format": "npz"
+  },
+  "split": {
+    "type": "synthetic",
+    "decision": "Eq. (32), n=30, L=8, standard variable-major order. Public validation seeds 12345 and 67890; two independently secret-seeded evaluation instances, design stored privately. No cross-instance training; train saves configuration. Dense target observations only, no generating seeds or wavevectors in inputs."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 10.41,
+    "val": {
+      "fidelity": 0.35592707073313595
+    },
+    "paper_ref": "Table 2 chi=4: 0.39408 averages 21 local auxiliary-bond records; original final dense fidelity 0.2872838954642813.",
+    "measured_s": {
+      "train": [
+        0.56,
+        0.62,
+        0.57
+      ],
+      "predict": [
+        614.43,
+        622.88,
+        624.75
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 1e-06,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:e5372266d5fdf797eeefb47ea02f9a7dd4b0da7a0b10af64c268ba6a24ecda3d"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "0b18be209486a25f94d7e2220cfa7f01930279b2",
+    "adapt_commit": "dc06697608d76eedb08f34a122132f5af396ce32",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "method_freedom_previous_baseline_val": {
+    "fidelity": 0.3559270707331361
+  },
+  "method_freedom_review": {
+    "full_evaluation_ready": false,
+    "status": "scope_clarified",
+    "report": "audits/20261101_research_contract/039_TTNOpt.json",
+    "full_training_or_evaluation": false,
+    "allowed_changes": [
+      "Tree topology/orientation, tensors, legal gauge, initialization, factorization/search/update rules, optimization surrogate and implementation.",
+      "Any compression algorithm yielding the same admissible TTN certificate; sequential SVD, two-site updates and 100 sweeps are baseline choices.",
+      "When retaining the supplied TTNOpt procedure, changing only fidelity.opt_structure.type=1, max_num_sweeps=[100], or setting beta=[0.04,0.02] to zero does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Maximize final-state dense fidelity compressing each supplied 24-leg quantics tensor to a binary TTN with all auxiliary dimensions <=4.",
+      "Supplied target tensor, 24 dimension-two physical axes, original bit order and instance distribution.",
+      "Binary TTN representation with 22 degree-three nodes, complete physical axes and auxiliary bond dimension <=4.",
+      "Final normalized dense-overlap fidelity against the original target, original instance/seed aggregation and isolation.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/039_TTNOpt.json",
+    "forbidden_substitutions": [
+      "Change target/axes, raise bond dimensions, output nonbinary/cyclic networks or substitute a dense-copy representation.",
+      "Replace final fidelity with averaged local-update records or a self-reported score.",
+      "Memorize target solutions, reconstruct hidden seeds or use other evaluation instances.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract"
+  },
+  "research_contract": {
+    "objective": "Maximize final-state dense fidelity compressing each supplied 24-leg quantics tensor to a binary TTN with all auxiliary dimensions <=4.",
+    "fixed_research_objects": [
+      "Supplied target tensor, 24 dimension-two physical axes, original bit order and instance distribution.",
+      "Binary TTN representation with 22 degree-three nodes, complete physical axes and auxiliary bond dimension <=4.",
+      "Final normalized dense-overlap fidelity against the original target, original instance/seed aggregation and isolation."
+    ],
+    "editable_components": [
+      "Tree topology/orientation, tensors, legal gauge, initialization, factorization/search/update rules, optimization surrogate and implementation.",
+      "Any compression algorithm yielding the same admissible TTN certificate; sequential SVD, two-site updates and 100 sweeps are baseline choices.",
+      "When retaining the supplied TTNOpt procedure, changing only fidelity.opt_structure.type=1, max_num_sweeps=[100], or setting beta=[0.04,0.02] to zero does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "Change target/axes, raise bond dimensions, output nonbinary/cyclic networks or substitute a dense-copy representation.",
+      "Replace final fidelity with averaged local-update records or a self-reported score.",
+      "Memorize target solutions, reconstruct hidden seeds or use other evaluation instances.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      "BRIEF.md: Section 4.2/Eq. (32), chi=4 binary-tree score_rule and dense-final-fidelity correction.",
+      "agent/bench/network.py: tree/physical-leg/bond checks before dense fidelity.",
+      "agent/bench/io_spec.md: tree/gauge certificate and original-axis semantics."
+    ],
+    "review_report": "audits/20261101_research_contract/039_TTNOpt.json"
+  },
+  "research_contract_review": {
+    "status": "scope_clarified",
+    "report": "audits/20261101_research_contract/039_TTNOpt.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

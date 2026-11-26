@@ -1,0 +1,186 @@
+{
+  "pid": "030_BayesNetRecon",
+  "class": "A",
+  "title": "A Bayesian approach to out-of-sample network reconstruction",
+  "metric": {
+    "name": "re_l",
+    "higher_is_better": false,
+    "delta": 0.01,
+    "aggregate": "mean"
+  },
+  "cpus": 8,
+  "memory_gb": 4,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/request.json",
+    "val_labels": "data/val/replay",
+    "test_input": "test/request.json",
+    "test_labels": "test/replay",
+    "input_format": "private_episode_descriptor",
+    "output_format": "policy_artifact_zip"
+  },
+  "split": {
+    "type": "temporal",
+    "decision": "时间顺序：1999-W01..2001-W52 seed train；2002–2003 共 104 周 val；2004-W01..2012-W39 共 457 周隐藏 test。predict 输入含起始历史，末行仅 N 已知，逐周预测只可读截至前一周的 L 及目标周 N；保留 3 年 inclusive ISO-week 窗口及 seed jackknife。无随机切分。"
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 0.5,
+    "val": {
+      "re_l": 0.07942739337466619
+    },
+    "paper_ref": "原完整 561 周 reproduction 0.08733；paper 0.08734；已按用户决定拆分验证与隐藏时段。",
+    "measured_s": {
+      "train": [
+        0.51
+      ],
+      "predict": [
+        0.51
+      ]
+    },
+    "timing_scope": "legacy protocol estimates retained for operational budgeting; not a measured v2 reference"
+  },
+  "judge": {
+    "seeds": [
+      1
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 1e-06,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:09b3646d34998cbd9b72f978d88f4cb5e1afec8689d3d9affd1492ed15572855"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "194e9bc52028cca96a4561f3b0152c23c0d71e8c",
+    "adapt_commit": "20c6bf3276c13e6d1c26d05843540538ca8a1542",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "private_eval": {
+    "version": 2,
+    "protocol": "private-policy-v2",
+    "entry": "policy.sh",
+    "information_boundary": "trusted_stepwise_release",
+    "full_reproduction_performed": false
+  },
+  "legacy_baseline_val": {
+    "re_l": 0.07942739337466619
+  },
+  "protocol_version": "private-policy-v2",
+  "leakage_remediation": {
+    "status": "smoke_verified",
+    "outer_harness_changed": false,
+    "full_training_or_evaluation_run": false,
+    "evidence": [
+      "audits/20261101_preserve_experiment/Fin-03-smoke.json",
+      "audits/20261101_preserve_experiment/shared_cpu_smoke.json"
+    ],
+    "full_evaluation_ready": false
+  },
+  "experiment_preservation": {
+    "report": "audits/20261101_preserve_experiment/030_BayesNetRecon.json",
+    "original_prediction_cap_s": 60,
+    "artifact_preparation_timed_separately": true,
+    "full_scale_throughput_verified": false,
+    "method_and_seed_semantics_require_review": true
+  },
+  "method_freedom_review": {
+    "full_evaluation_ready": false,
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/030_BayesNetRecon.json",
+    "full_training_or_evaluation": false,
+    "allowed_changes": [
+      "Beta hyperparameter calibration from permitted past observations, lawful calibration-window selection and numerical estimation procedures",
+      "implementation, internal representations and optimization of prior fitting within the same Bayesian statistical model"
+    ],
+    "fixed_contract": [
+      "Improve one-step observed-update Bayesian Erdos-Renyi network reconstruction on the supplied weekly panel using the original Beta-prior posterior-predictive mean and mean relative link-count error.",
+      "existing chronological weekly observations, node/pair counts and development/evaluation partition",
+      "BERM shared edge probability, Beta prior family, observed-update posterior-predictive mean and next-week expected count V*p",
+      "forecast-before-observe event order and original all-week mean relative error",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/030_BayesNetRecon.json",
+    "forbidden_substitutions": [
+      "The prior must be fitted to the distribution of past weekly density estimates L/V, as the paper's empirical prior is. Do not choose alpha and beta by minimizing forecast error, scale their sum by a free concentration factor, or use fixed or near-zero values that remove the prior or the observed week from the posterior.",
+      "replacing BERM/Beta posterior reconstruction with an unrelated discriminative forecaster, a different prior family, posterior mode or different network model",
+      "reverse-solving Beta parameters from desired predictions rather than calibrating a prior on allowed history, future information or memorized weekly answers",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract"
+  },
+  "research_contract": {
+    "objective": "Improve one-step observed-update Bayesian Erdos-Renyi network reconstruction on the supplied weekly panel using the original Beta-prior posterior-predictive mean and mean relative link-count error.",
+    "fixed_research_objects": [
+      "existing chronological weekly observations, node/pair counts and development/evaluation partition",
+      "BERM shared edge probability, Beta prior family, observed-update posterior-predictive mean and next-week expected count V*p",
+      "forecast-before-observe event order and original all-week mean relative error"
+    ],
+    "editable_components": [
+      "Beta hyperparameter calibration from permitted past observations, lawful calibration-window selection and numerical estimation procedures",
+      "implementation, internal representations and optimization of prior fitting within the same Bayesian statistical model"
+    ],
+    "forbidden_substitutions": [
+      "The prior must be fitted to the distribution of past weekly density estimates L/V, as the paper's empirical prior is. Do not choose alpha and beta by minimizing forecast error, scale their sum by a free concentration factor, or use fixed or near-zero values that remove the prior or the observed week from the posterior.",
+      "replacing BERM/Beta posterior reconstruction with an unrelated discriminative forecaster, a different prior family, posterior mode or different network model",
+      "reverse-solving Beta parameters from desired predictions rather than calibrating a prior on allowed history, future information or memorized weekly answers",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "source": "tasks/030_BayesNetRecon/BRIEF.md",
+        "section": "26-33",
+        "finding": "The original user explicitly retained only the BERM branch and chronological observed-update forecasts; development may choose window/variant."
+      },
+      {
+        "source": "../../ex-papers-science/Fin-03_OR4CLE/paper/paper.txt",
+        "section": "196-280;917-941;AppendixB",
+        "finding": "The research model has one shared Erdos-Renyi edge probability and a calibrated Bayesian prior, with posterior-predictive network expectations."
+      },
+      {
+        "source": "tasks/030_BayesNetRecon/agent/code/src/or4cle/BERM_solver.py",
+        "section": "615-640;718-721",
+        "finding": "The selected Beta branch uses exact posterior mean with original1e-9 probability clipping; this numeric model remains the trusted reconstruction rule."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/030_BayesNetRecon.json"
+  },
+  "research_contract_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/030_BayesNetRecon.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

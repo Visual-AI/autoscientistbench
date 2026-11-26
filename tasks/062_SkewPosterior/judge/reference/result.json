@@ -1,0 +1,145 @@
+{
+  "task": "062_SkewPosterior",
+  "created": "2026-11-02T04:47:52+0000",
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "cpus": 8,
+  "adapt_commit": "b04fc03de4cc736db7eb2589bb9d2c309af13030",
+  "sandbox": true,
+  "budget_s": 21600.0,
+  "test": {
+    "per_seed": [
+      0.03853206867789506,
+      0.03754492086119152,
+      0.03868735896531127
+    ],
+    "mean": 0.038254782834799286,
+    "std": 0.0005059359541300221,
+    "n": 3
+  },
+  "val": {
+    "per_seed": [
+      0.03833065305669803,
+      0.03811065472355456,
+      0.038386908849740706
+    ],
+    "mean": 0.038276072209997763,
+    "std": 0.00011920119456506127,
+    "n": 3
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "standardized_bias": 0.03853206867789506,
+        "raw_standardized_bias": 0.03853206867789506,
+        "plain_laplace_fallback": 0.05782271945853782,
+        "guards_passed": true,
+        "violations": [],
+        "max_full_fit_evals": 20389,
+        "max_wall_ratio": 1.5962887883985655,
+        "cases": 25,
+        "telemetry_provenance": "patch_audit_required"
+      },
+      "val": {
+        "standardized_bias": 0.03833065305669803,
+        "raw_standardized_bias": 0.03833065305669803,
+        "plain_laplace_fallback": 0.05783470774776845,
+        "guards_passed": true,
+        "violations": [],
+        "max_full_fit_evals": 20407,
+        "max_wall_ratio": 1.434674150296227,
+        "cases": 25,
+        "telemetry_provenance": "patch_audit_required"
+      },
+      "timing": {
+        "train_s": 52.76,
+        "predict_s": 135.77,
+        "score_s": 0.15,
+        "predict_val_s": 131.32
+      }
+    },
+    "2": {
+      "test": {
+        "standardized_bias": 0.03754492086119152,
+        "raw_standardized_bias": 0.03754492086119152,
+        "plain_laplace_fallback": 0.05782271945853782,
+        "guards_passed": true,
+        "violations": [],
+        "max_full_fit_evals": 20379,
+        "max_wall_ratio": 1.4766653370562395,
+        "cases": 25,
+        "telemetry_provenance": "patch_audit_required"
+      },
+      "val": {
+        "standardized_bias": 0.03811065472355456,
+        "raw_standardized_bias": 0.03811065472355456,
+        "plain_laplace_fallback": 0.05783470774776845,
+        "guards_passed": true,
+        "violations": [],
+        "max_full_fit_evals": 20350,
+        "max_wall_ratio": 1.4540068599937621,
+        "cases": 25,
+        "telemetry_provenance": "patch_audit_required"
+      },
+      "timing": {
+        "train_s": 52.03,
+        "predict_s": 129.82,
+        "score_s": 0.22,
+        "predict_val_s": 131.34
+      }
+    },
+    "3": {
+      "test": {
+        "standardized_bias": 0.03868735896531127,
+        "raw_standardized_bias": 0.03868735896531127,
+        "plain_laplace_fallback": 0.05782271945853782,
+        "guards_passed": true,
+        "violations": [],
+        "max_full_fit_evals": 20405,
+        "max_wall_ratio": 1.4949321690316544,
+        "cases": 25,
+        "telemetry_provenance": "patch_audit_required"
+      },
+      "val": {
+        "standardized_bias": 0.038386908849740706,
+        "raw_standardized_bias": 0.038386908849740706,
+        "plain_laplace_fallback": 0.05783470774776845,
+        "guards_passed": true,
+        "violations": [],
+        "max_full_fit_evals": 20423,
+        "max_wall_ratio": 1.4427696655675915,
+        "cases": 25,
+        "telemetry_provenance": "patch_audit_required"
+      },
+      "timing": {
+        "train_s": 59.89,
+        "predict_s": 133.79,
+        "score_s": 0.14,
+        "predict_val_s": 131.03
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      52.76,
+      52.03,
+      59.89
+    ],
+    "predict_s": [
+      135.77,
+      129.82,
+      133.79
+    ],
+    "build_s": 7.73
+  },
+  "hashes": {
+    "env_lock": "010ab1348ca5496015977f451da1eca2d18fa095ceb386852634c1d31111ccf4",
+    "scorer": "be2b3bbd336c60db1a6b63c24915730209d10b73e2f814d2616dc8057616db66",
+    "validate": "8ef27e7ab7b3462179c7e7b524de079fffc01b66878fa2afd3a53349ba200fe1",
+    "test_labels": "50db509ff971ccddac85b40a12adc86ce272d47ca7894f82e2de1d1bd99e8de4",
+    "adapt_patch": "e3d14a62c1ab48920de82c012d5775c8dea4921dc658f0f15936c279155806e5"
+  }
+}

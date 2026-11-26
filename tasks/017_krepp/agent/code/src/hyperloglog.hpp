@@ -1,0 +1,305 @@
+#if !defined(HYPERLOGLOG_HPP)
+  #define HYPERLOGLOG_HPP
+
+/**
+ * @file hyperloglog.hpp
+ * @brief HyperLogLog cardinality estimator
+ * @date Created 2013/3/20
+ * @author Hideaki Ohno
+ */
+
+  #include <vector>
+  #include <cmath>
+  #include <sstream>
+  #include <stdexcept>
+  #include <algorithm>
+
+  #define HLL_HASH_SEED 313
+
+  #if defined(__has_builtin) && (defined(__GNUC__) || defined(__clang__))
+
+inline uint8_t _clzll(uint64_t x, uint8_t b)
+{
+  if (x == 0) return static_cast<uint8_t>(b + 1);
+  return static_cast<uint8_t>(std::min<uint32_t>(b, static_cast<uint32_t>(::__builtin_clzll(x))) + 1);
+}
+    #define _GET_CLZ(x, b) _clzll(x, b)
+
+  #else
+
+inline uint8_t _clz(uint64_t x, uint8_t b)
+{
+  uint8_t v = 1;
+  while (v <= b && !(x & 0x8000000000000000ULL)) {
+    v++;
+    x <<= 1;
+  }
+  return v;
+}
+    #define _GET_CLZ(x, b) _clz(x, b)
+  #endif /* defined(__GNUC__) */
+
+namespace hll {
+
+  static const double pow_2_64 = 18446744073709551616.0;      ///< 2^64
+  static const double neg_pow_2_64 = -18446744073709551616.0; ///< -(2^64)
+
+  /** @class HyperLogLog
+ *  @brief Implement of 'HyperLogLog' estimate cardinality algorithm
+ */
+  class HyperLogLog
+  {
+  public:
+    /**
+     * Constructor
+     *
+     * @param[in] b bit width (register size will be 2 to the b power).
+     *            This value must be in the range[4,30].Default value is 4.
+     *
+     * @exception std::invalid_argument the argument is out of range.
+     */
+    HyperLogLog(uint8_t b = 4)
+      : b_(b)
+      , m_(1 << b)
+      , M_(m_, 0)
+    {
+
+      if (b < 4 || 30 < b) {
+        throw std::invalid_argument("bit width must be in the range [4,30]");
+      }
+
+      double alpha;
+      switch (m_) {
+        case 16:
+          alpha = 0.673;
+          break;
+        case 32:
+          alpha = 0.697;
+          break;
+        case 64:
+          alpha = 0.709;
+          break;
+        default:
+          alpha = 0.7213 / (1.0 + 1.079 / m_);
+          break;
+      }
+      alphaMM_ = alpha * m_ * m_;
+    }
+
+    /**
+     * Adds element to the estimator
+     *
+     * @param[in] str string to add
+     * @param[in] len length of string
+     */
+    void add(const uint64_t hash)
+    {
+      uint64_t index = hash >> (64 - b_);
+      uint8_t rank = _GET_CLZ((hash << b_), 64 - b_);
+      if (rank > M_[index]) {
+        M_[index] = rank;
+      }
+    }
+
+    /**
+     * Estimates cardinality value.
+     *
+     * @return Estimated cardinality value.
+     */
+    double estimate() const
+    {
+      double estimate;
+      double sum = 0.0;
+      for (uint32_t i = 0; i < m_; i++) {
+        sum += 1.0 / static_cast<double>(uint64_t(1) << M_[i]);
+      }
+      estimate = alphaMM_ / sum; // E in the original paper
+      if (estimate <= 2.5 * m_) {
+        uint32_t zeros = 0;
+        for (uint32_t i = 0; i < m_; i++) {
+          if (M_[i] == 0) {
+            zeros++;
+          }
+        }
+        if (zeros != 0) {
+          estimate = m_ * std::log(static_cast<double>(m_) / zeros);
+        }
+      } else if (estimate > (1.0 / 30.0) * pow_2_64) {
+        estimate = neg_pow_2_64 * log(1.0 - (estimate / pow_2_64));
+      }
+      return estimate;
+    }
+
+    /**
+     * Merges the estimate from 'other' into this object, returning the estimate of their union.
+     * The number of registers in each must be the same.
+     *
+     * @param[in] other HyperLogLog instance to be merged
+     * 
+     * @exception std::invalid_argument number of registers doesn't match.
+     */
+    void merge(const HyperLogLog& other)
+    {
+      if (m_ != other.m_) {
+        std::stringstream ss;
+        ss << "number of registers doesn't match: " << m_ << " != " << other.m_;
+        throw std::invalid_argument(ss.str().c_str());
+      }
+      for (uint32_t r = 0; r < m_; ++r) {
+        if (M_[r] < other.M_[r]) {
+          M_[r] |= other.M_[r];
+        }
+      }
+    }
+
+    /**
+     * Clears all internal registers.
+     */
+    void clear() { std::fill(M_.begin(), M_.end(), 0); }
+
+    /**
+     * Returns size of register.
+     *
+     * @return Register size
+     */
+    uint32_t registerSize() const { return m_; }
+
+    /**
+     * Exchanges the content of the instance
+     *
+     * @param[in,out] rhs Another HyperLogLog instance
+     */
+    void swap(HyperLogLog& rhs)
+    {
+      std::swap(b_, rhs.b_);
+      std::swap(m_, rhs.m_);
+      std::swap(alphaMM_, rhs.alphaMM_);
+      M_.swap(rhs.M_);
+    }
+
+  protected:
+    uint8_t b_;              ///< register bit width
+    uint32_t m_;             ///< register size
+    double alphaMM_;         ///< alpha * m^2
+    std::vector<uint8_t> M_; ///< registers
+  };
+
+  /**
+ * @brief HIP estimator on HyperLogLog counter.
+ */
+  class HyperLogLogHIP : public HyperLogLog
+  {
+  public:
+    /**
+     * Constructor
+     *
+     * @param[in] b bit width (register size will be 2 to the b power).
+     *            This value must be in the range[4,30].Default value is 4.
+     *
+     * @exception std::invalid_argument the argument is out of range.
+     */
+    HyperLogLogHIP(uint8_t b = 4)
+      : HyperLogLog(b)
+      , register_limit_((1 << 5) - 1)
+      , c_(0.0)
+      , p_(1 << b)
+    {
+    }
+
+    /**
+     * Adds element to the estimator
+     *
+     * @param[in] str string to add
+     * @param[in] len length of string
+     */
+    void add(const uint64_t hash)
+    {
+      uint64_t index = hash >> (64 - b_);
+      uint8_t rank = _GET_CLZ((hash << b_), 64 - b_);
+      rank = rank == 0 ? register_limit_ : std::min(register_limit_, rank);
+      const uint8_t old = M_[index];
+      if (rank > old) {
+        c_ += 1.0 / (p_ / m_);
+        p_ -= 1.0 / (1 << old);
+        M_[index] = rank;
+        if (rank < 31) {
+          p_ += 1.0 / (uint32_t(1) << rank);
+        }
+      }
+    }
+
+    /**
+     * Estimates cardinality value.
+     *
+     * @return Estimated cardinality value.
+     */
+    double estimate() const { return c_; }
+
+    /**
+     * Merges the estimate from 'other' into this object, returning the estimate of their union.
+     * The number of registers in each must be the same.
+     *
+     * @param[in] other HyperLogLog instance to be merged
+     * 
+     * @exception std::invalid_argument number of registers doesn't match.
+     */
+    void merge(const HyperLogLogHIP& other)
+    {
+      if (m_ != other.m_) {
+        std::stringstream ss;
+        ss << "number of registers doesn't match: " << m_ << " != " << other.m_;
+        throw std::invalid_argument(ss.str().c_str());
+      }
+      for (uint32_t r = 0; r < m_; ++r) {
+        const uint8_t b = M_[r];
+        const uint8_t b_other = other.M_[r];
+        if (b < b_other) {
+          c_ += 1.0 / (p_ / m_);
+          p_ -= 1.0 / (1 << b);
+          M_[r] |= b_other;
+          if (b_other < register_limit_) {
+            p_ += 1.0 / (1 << b_other);
+          }
+        }
+      }
+    }
+
+    /**
+     * Clears all internal registers.
+     */
+    void clear()
+    {
+      std::fill(M_.begin(), M_.end(), 0);
+      c_ = 0.0;
+      p_ = 1 << b_;
+    }
+
+    /**
+     * Returns size of register.
+     *
+     * @return Register size
+     */
+    uint32_t registerSize() const { return m_; }
+
+    /**
+     * Exchanges the content of the instance
+     *
+     * @param[in,out] rhs Another HyperLogLog instance
+     */
+    void swap(HyperLogLogHIP& rhs)
+    {
+      std::swap(b_, rhs.b_);
+      std::swap(m_, rhs.m_);
+      std::swap(c_, rhs.c_);
+      M_.swap(rhs.M_);
+    }
+
+  private:
+    const uint8_t register_limit_;
+    double c_;
+    double p_;
+  };
+
+} // namespace hll
+
+#endif // !defined(HYPERLOGLOG_HPP)

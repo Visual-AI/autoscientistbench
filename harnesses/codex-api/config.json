@@ -1,0 +1,12 @@
+{
+  "type": "codex",
+  "auth": "api",
+  "model": "gpt-5.4",
+  "reasoning_effort": "high",
+  "upstream_base_url": "https://api.openai.com/v1",
+  "upstream_api_key_env": "OPENAI_API_KEY",
+  "wire_api": "responses",
+  "stream_idle_timeout_ms": 1800000,
+  "extra_config": [],
+  "_doc": "OpenAI-compatible API: the operator proxy injects $OPENAI_API_KEY (never inside the sandbox) and records exchanges under runs/<run>/trace/. Override upstream_base_url, model, and upstream_api_key_env for vLLM or other OpenAI-compatible endpoints."
+}

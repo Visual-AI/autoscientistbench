@@ -1,0 +1,145 @@
+{
+  "task": "089_AICoG",
+  "created": "2026-11-03T14:50:19+0000",
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "cpus": 4,
+  "adapt_commit": "730e9b8cc856b0817d616da3e9c72dfa94058ffa",
+  "sandbox": true,
+  "budget_s": 43200.0,
+  "test": {
+    "per_seed": [
+      0.8345417157653113,
+      0.8421987018545786,
+      0.8315593755171334,
+      0.8362788035505168,
+      0.8404802572996415
+    ],
+    "mean": 0.8370117707974363,
+    "std": 0.0038807648613895227,
+    "n": 5
+  },
+  "val": {
+    "per_seed": [
+      0.8063709790810667,
+      0.8422565576715775,
+      0.8152447312096737,
+      0.8264462809917356,
+      0.8143698542392476
+    ],
+    "mean": 0.8209376806386602,
+    "std": 0.012430398279028441,
+    "n": 5
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "auc_roc": 0.8345417157653113,
+        "decoder": "neg_euclidean"
+      },
+      "val": {
+        "auc_roc": 0.8063709790810667,
+        "decoder": "neg_euclidean"
+      },
+      "timing": {
+        "train_s": 66.86,
+        "predict_s": 0.52,
+        "score_s": 0.41,
+        "predict_val_s": 0.56
+      }
+    },
+    "2": {
+      "test": {
+        "auc_roc": 0.8421987018545786,
+        "decoder": "neg_euclidean"
+      },
+      "val": {
+        "auc_roc": 0.8422565576715775,
+        "decoder": "neg_euclidean"
+      },
+      "timing": {
+        "train_s": 64.26,
+        "predict_s": 0.57,
+        "score_s": 0.41,
+        "predict_val_s": 0.56
+      }
+    },
+    "3": {
+      "test": {
+        "auc_roc": 0.8315593755171334,
+        "decoder": "neg_euclidean"
+      },
+      "val": {
+        "auc_roc": 0.8152447312096737,
+        "decoder": "neg_euclidean"
+      },
+      "timing": {
+        "train_s": 64.81,
+        "predict_s": 0.51,
+        "score_s": 0.41,
+        "predict_val_s": 0.52
+      }
+    },
+    "4": {
+      "test": {
+        "auc_roc": 0.8362788035505168,
+        "decoder": "neg_euclidean"
+      },
+      "val": {
+        "auc_roc": 0.8264462809917356,
+        "decoder": "neg_euclidean"
+      },
+      "timing": {
+        "train_s": 69.47,
+        "predict_s": 0.52,
+        "score_s": 0.41,
+        "predict_val_s": 0.56
+      }
+    },
+    "5": {
+      "test": {
+        "auc_roc": 0.8404802572996415,
+        "decoder": "neg_euclidean"
+      },
+      "val": {
+        "auc_roc": 0.8143698542392476,
+        "decoder": "neg_euclidean"
+      },
+      "timing": {
+        "train_s": 64.51,
+        "predict_s": 0.51,
+        "score_s": 0.41,
+        "predict_val_s": 0.51
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      66.86,
+      64.26,
+      64.81,
+      69.47,
+      64.51
+    ],
+    "predict_s": [
+      0.52,
+      0.57,
+      0.51,
+      0.52,
+      0.51
+    ],
+    "build_s": 6.9
+  },
+  "hashes": {
+    "env_lock": "34873796037aca5646cfbb43fe87b797753a8568cd133a850b08edea1e501df4",
+    "scorer": "63bb25f980a9521ccb210a0fe8125e52cbb3df8a2baf8a7948d4f1cca476e6a5",
+    "validate": "2eeb4ee9c6bad773cbaff62972671da0a411f140a23b40b6325f0032c2a693e0",
+    "test_labels": "a8aecfb3f6e64f7cf535cc35a4cd2385753368d2c19169f4fdeb154b3aa3bcb3",
+    "adapt_patch": "cc0e62197039daa3d78720b71113e42d75cd014192279f0e61f3ac76b9a10498"
+  }
+}

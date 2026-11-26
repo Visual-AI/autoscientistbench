@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "python": "/usr/bin/python3",
+  "mounts": [
+    {
+      "source": "runtime/r.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-19_DiPMInd-code/env/R",
+      "format": "tar",
+      "name": "r",
+      "sha256": "20eff0a7fb22d964b2cd22c7ae2ad9eadfa8491eb883d221d928d8d57817f96e"
+    }
+  ],
+  "env": {
+    "PATH": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-19_DiPMInd-code/env/R/bin:/usr/local/bin:/usr/bin:/bin",
+    "R_HOME": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-19_DiPMInd-code/env/R/lib/R",
+    "R_LIBS_USER": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-19_DiPMInd-code/env/R/lib/R/library",
+    "R_LIBS_SITE": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-19_DiPMInd-code/env/R/lib/R/library",
+    "LD_LIBRARY_PATH": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-19_DiPMInd-code/env/R/lib"
+  },
+  "description": "Copied installed R 4.5.3, Rcpp 1.1.2, igraph 2.3.4 and native dependency closure; system compiler builds candidate statistic sources."
+}

@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "python": "/usr/bin/python3",
+  "mounts": [
+    {
+      "source": "runtime/r.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-36_dp_frt/.mamba/envs/r",
+      "format": "tar",
+      "name": "r",
+      "sha256": "038f9826448f48b8712f19bd3885e0af6789e406bcaa9d93c320fc7031b0a18f"
+    }
+  ],
+  "env": {
+    "PATH": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-36_dp_frt/.mamba/envs/r/bin:/usr/local/bin:/usr/bin:/bin",
+    "R_HOME": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-36_dp_frt/.mamba/envs/r/lib/R",
+    "R_LIBS_USER": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-36_dp_frt/.mamba/envs/r/lib/R/library"
+  }
+}

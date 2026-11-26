@@ -1,0 +1,565 @@
+{
+  "task": "049_DiPMInd",
+  "created": "2026-11-02T09:45:49+0000",
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "cpus": 20,
+  "adapt_commit": "670c95dc972f7793910e54acc195689ddea109a8",
+  "sandbox": true,
+  "budget_s": 21600.0,
+  "test": {
+    "per_seed": [
+      0.42750000000000005,
+      0.43499999999999994,
+      0.42750000000000005
+    ],
+    "mean": 0.43,
+    "std": 0.0035355339059326882,
+    "n": 3
+  },
+  "val": {
+    "per_seed": [
+      0.42350000000000004,
+      0.425,
+      0.4305
+    ],
+    "mean": 0.4263333333333333,
+    "std": 0.0030092450142112834,
+    "n": 3
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "mean_power": 0.42750000000000005,
+        "unconstrained_mean_power": 0.42750000000000005,
+        "size_model1": 0.02,
+        "size_model2": 0.035,
+        "size_guards_pass": true,
+        "cells": [
+          {
+            "model": 1,
+            "rho": 0,
+            "n_replications": 200,
+            "rejection_rate": 0.02
+          },
+          {
+            "model": 1,
+            "rho": 0.16,
+            "n_replications": 200,
+            "rejection_rate": 0.09
+          },
+          {
+            "model": 1,
+            "rho": 0.32,
+            "n_replications": 200,
+            "rejection_rate": 0.225
+          },
+          {
+            "model": 1,
+            "rho": 0.48,
+            "n_replications": 200,
+            "rejection_rate": 0.51
+          },
+          {
+            "model": 1,
+            "rho": 0.64,
+            "n_replications": 200,
+            "rejection_rate": 0.83
+          },
+          {
+            "model": 1,
+            "rho": 0.8,
+            "n_replications": 200,
+            "rejection_rate": 0.945
+          },
+          {
+            "model": 2,
+            "rho": 0,
+            "n_replications": 200,
+            "rejection_rate": 0.035
+          },
+          {
+            "model": 2,
+            "rho": 0.16,
+            "n_replications": 200,
+            "rejection_rate": 0.08
+          },
+          {
+            "model": 2,
+            "rho": 0.32,
+            "n_replications": 200,
+            "rejection_rate": 0.18
+          },
+          {
+            "model": 2,
+            "rho": 0.48,
+            "n_replications": 200,
+            "rejection_rate": 0.33
+          },
+          {
+            "model": 2,
+            "rho": 0.64,
+            "n_replications": 200,
+            "rejection_rate": 0.435
+          },
+          {
+            "model": 2,
+            "rho": 0.8,
+            "n_replications": 200,
+            "rejection_rate": 0.65
+          }
+        ]
+      },
+      "val": {
+        "mean_power": 0.42350000000000004,
+        "unconstrained_mean_power": 0.42350000000000004,
+        "size_model1": 0.075,
+        "size_model2": 0.04,
+        "size_guards_pass": true,
+        "cells": [
+          {
+            "model": 1,
+            "rho": 0,
+            "n_replications": 200,
+            "rejection_rate": 0.075
+          },
+          {
+            "model": 1,
+            "rho": 0.16,
+            "n_replications": 200,
+            "rejection_rate": 0.08
+          },
+          {
+            "model": 1,
+            "rho": 0.32,
+            "n_replications": 200,
+            "rejection_rate": 0.215
+          },
+          {
+            "model": 1,
+            "rho": 0.48,
+            "n_replications": 200,
+            "rejection_rate": 0.465
+          },
+          {
+            "model": 1,
+            "rho": 0.64,
+            "n_replications": 200,
+            "rejection_rate": 0.765
+          },
+          {
+            "model": 1,
+            "rho": 0.8,
+            "n_replications": 200,
+            "rejection_rate": 0.965
+          },
+          {
+            "model": 2,
+            "rho": 0,
+            "n_replications": 200,
+            "rejection_rate": 0.04
+          },
+          {
+            "model": 2,
+            "rho": 0.16,
+            "n_replications": 200,
+            "rejection_rate": 0.075
+          },
+          {
+            "model": 2,
+            "rho": 0.32,
+            "n_replications": 200,
+            "rejection_rate": 0.22
+          },
+          {
+            "model": 2,
+            "rho": 0.48,
+            "n_replications": 200,
+            "rejection_rate": 0.415
+          },
+          {
+            "model": 2,
+            "rho": 0.64,
+            "n_replications": 200,
+            "rejection_rate": 0.435
+          },
+          {
+            "model": 2,
+            "rho": 0.8,
+            "n_replications": 200,
+            "rejection_rate": 0.6
+          }
+        ]
+      },
+      "timing": {
+        "train_s": 3.02,
+        "predict_s": 439.31,
+        "score_s": 0.15,
+        "predict_val_s": 435.8
+      }
+    },
+    "2": {
+      "test": {
+        "mean_power": 0.43499999999999994,
+        "unconstrained_mean_power": 0.43499999999999994,
+        "size_model1": 0.025,
+        "size_model2": 0.035,
+        "size_guards_pass": true,
+        "cells": [
+          {
+            "model": 1,
+            "rho": 0,
+            "n_replications": 200,
+            "rejection_rate": 0.025
+          },
+          {
+            "model": 1,
+            "rho": 0.16,
+            "n_replications": 200,
+            "rejection_rate": 0.095
+          },
+          {
+            "model": 1,
+            "rho": 0.32,
+            "n_replications": 200,
+            "rejection_rate": 0.235
+          },
+          {
+            "model": 1,
+            "rho": 0.48,
+            "n_replications": 200,
+            "rejection_rate": 0.52
+          },
+          {
+            "model": 1,
+            "rho": 0.64,
+            "n_replications": 200,
+            "rejection_rate": 0.82
+          },
+          {
+            "model": 1,
+            "rho": 0.8,
+            "n_replications": 200,
+            "rejection_rate": 0.945
+          },
+          {
+            "model": 2,
+            "rho": 0,
+            "n_replications": 200,
+            "rejection_rate": 0.035
+          },
+          {
+            "model": 2,
+            "rho": 0.16,
+            "n_replications": 200,
+            "rejection_rate": 0.1
+          },
+          {
+            "model": 2,
+            "rho": 0.32,
+            "n_replications": 200,
+            "rejection_rate": 0.185
+          },
+          {
+            "model": 2,
+            "rho": 0.48,
+            "n_replications": 200,
+            "rejection_rate": 0.325
+          },
+          {
+            "model": 2,
+            "rho": 0.64,
+            "n_replications": 200,
+            "rejection_rate": 0.465
+          },
+          {
+            "model": 2,
+            "rho": 0.8,
+            "n_replications": 200,
+            "rejection_rate": 0.66
+          }
+        ]
+      },
+      "val": {
+        "mean_power": 0.425,
+        "unconstrained_mean_power": 0.425,
+        "size_model1": 0.075,
+        "size_model2": 0.05,
+        "size_guards_pass": true,
+        "cells": [
+          {
+            "model": 1,
+            "rho": 0,
+            "n_replications": 200,
+            "rejection_rate": 0.075
+          },
+          {
+            "model": 1,
+            "rho": 0.16,
+            "n_replications": 200,
+            "rejection_rate": 0.09
+          },
+          {
+            "model": 1,
+            "rho": 0.32,
+            "n_replications": 200,
+            "rejection_rate": 0.215
+          },
+          {
+            "model": 1,
+            "rho": 0.48,
+            "n_replications": 200,
+            "rejection_rate": 0.48
+          },
+          {
+            "model": 1,
+            "rho": 0.64,
+            "n_replications": 200,
+            "rejection_rate": 0.78
+          },
+          {
+            "model": 1,
+            "rho": 0.8,
+            "n_replications": 200,
+            "rejection_rate": 0.965
+          },
+          {
+            "model": 2,
+            "rho": 0,
+            "n_replications": 200,
+            "rejection_rate": 0.05
+          },
+          {
+            "model": 2,
+            "rho": 0.16,
+            "n_replications": 200,
+            "rejection_rate": 0.06
+          },
+          {
+            "model": 2,
+            "rho": 0.32,
+            "n_replications": 200,
+            "rejection_rate": 0.23
+          },
+          {
+            "model": 2,
+            "rho": 0.48,
+            "n_replications": 200,
+            "rejection_rate": 0.425
+          },
+          {
+            "model": 2,
+            "rho": 0.64,
+            "n_replications": 200,
+            "rejection_rate": 0.415
+          },
+          {
+            "model": 2,
+            "rho": 0.8,
+            "n_replications": 200,
+            "rejection_rate": 0.59
+          }
+        ]
+      },
+      "timing": {
+        "train_s": 2.78,
+        "predict_s": 435.24,
+        "score_s": 0.16,
+        "predict_val_s": 434.88
+      }
+    },
+    "3": {
+      "test": {
+        "mean_power": 0.42750000000000005,
+        "unconstrained_mean_power": 0.42750000000000005,
+        "size_model1": 0.02,
+        "size_model2": 0.04,
+        "size_guards_pass": true,
+        "cells": [
+          {
+            "model": 1,
+            "rho": 0,
+            "n_replications": 200,
+            "rejection_rate": 0.02
+          },
+          {
+            "model": 1,
+            "rho": 0.16,
+            "n_replications": 200,
+            "rejection_rate": 0.1
+          },
+          {
+            "model": 1,
+            "rho": 0.32,
+            "n_replications": 200,
+            "rejection_rate": 0.225
+          },
+          {
+            "model": 1,
+            "rho": 0.48,
+            "n_replications": 200,
+            "rejection_rate": 0.51
+          },
+          {
+            "model": 1,
+            "rho": 0.64,
+            "n_replications": 200,
+            "rejection_rate": 0.825
+          },
+          {
+            "model": 1,
+            "rho": 0.8,
+            "n_replications": 200,
+            "rejection_rate": 0.945
+          },
+          {
+            "model": 2,
+            "rho": 0,
+            "n_replications": 200,
+            "rejection_rate": 0.04
+          },
+          {
+            "model": 2,
+            "rho": 0.16,
+            "n_replications": 200,
+            "rejection_rate": 0.08
+          },
+          {
+            "model": 2,
+            "rho": 0.32,
+            "n_replications": 200,
+            "rejection_rate": 0.185
+          },
+          {
+            "model": 2,
+            "rho": 0.48,
+            "n_replications": 200,
+            "rejection_rate": 0.315
+          },
+          {
+            "model": 2,
+            "rho": 0.64,
+            "n_replications": 200,
+            "rejection_rate": 0.44
+          },
+          {
+            "model": 2,
+            "rho": 0.8,
+            "n_replications": 200,
+            "rejection_rate": 0.65
+          }
+        ]
+      },
+      "val": {
+        "mean_power": 0.4305,
+        "unconstrained_mean_power": 0.4305,
+        "size_model1": 0.075,
+        "size_model2": 0.04,
+        "size_guards_pass": true,
+        "cells": [
+          {
+            "model": 1,
+            "rho": 0,
+            "n_replications": 200,
+            "rejection_rate": 0.075
+          },
+          {
+            "model": 1,
+            "rho": 0.16,
+            "n_replications": 200,
+            "rejection_rate": 0.09
+          },
+          {
+            "model": 1,
+            "rho": 0.32,
+            "n_replications": 200,
+            "rejection_rate": 0.205
+          },
+          {
+            "model": 1,
+            "rho": 0.48,
+            "n_replications": 200,
+            "rejection_rate": 0.5
+          },
+          {
+            "model": 1,
+            "rho": 0.64,
+            "n_replications": 200,
+            "rejection_rate": 0.78
+          },
+          {
+            "model": 1,
+            "rho": 0.8,
+            "n_replications": 200,
+            "rejection_rate": 0.965
+          },
+          {
+            "model": 2,
+            "rho": 0,
+            "n_replications": 200,
+            "rejection_rate": 0.04
+          },
+          {
+            "model": 2,
+            "rho": 0.16,
+            "n_replications": 200,
+            "rejection_rate": 0.075
+          },
+          {
+            "model": 2,
+            "rho": 0.32,
+            "n_replications": 200,
+            "rejection_rate": 0.245
+          },
+          {
+            "model": 2,
+            "rho": 0.48,
+            "n_replications": 200,
+            "rejection_rate": 0.415
+          },
+          {
+            "model": 2,
+            "rho": 0.64,
+            "n_replications": 200,
+            "rejection_rate": 0.44
+          },
+          {
+            "model": 2,
+            "rho": 0.8,
+            "n_replications": 200,
+            "rejection_rate": 0.59
+          }
+        ]
+      },
+      "timing": {
+        "train_s": 2.82,
+        "predict_s": 435.45,
+        "score_s": 0.15,
+        "predict_val_s": 435.71
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      3.02,
+      2.78,
+      2.82
+    ],
+    "predict_s": [
+      439.31,
+      435.24,
+      435.45
+    ],
+    "build_s": 0.81
+  },
+  "hashes": {
+    "env_lock": "f4e6606e120d69a7a2c686902aae79c4597f5d747909235150ed16813efad43c",
+    "scorer": "f282791542f72b1b94df6cc424c07cb91c78a20d86f6329f4ee405b65e2d1e8f",
+    "validate": "c386e4f693755e756621609fc16a6c7369860ac3c56b5583d0f4bfcd4025ea92",
+    "test_labels": "944eca2ab6a554826a064a485dc0a5ca73831cc0c50be8e3632273af5a53b248",
+    "adapt_patch": "07d85be46c511b6b8c9c5c00e197f4450d1ff4c76c7daf907684df9a35101222"
+  }
+}

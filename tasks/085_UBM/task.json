@@ -1,0 +1,165 @@
+{
+  "pid": "085_UBM",
+  "class": "A",
+  "title": "Uncovering Bias Mechanisms in Observational Studies",
+  "metric": {
+    "name": "rho_b1_A_detection",
+    "higher_is_better": true,
+    "delta": 0.05,
+    "aggregate": "mean",
+    "theoretical_bound": 1.0
+  },
+  "cpus": 8,
+  "memory_gb": 16,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.npz",
+    "val_labels": "data/val/truth.npz",
+    "test_input": "test/input.npz",
+    "test_labels": "test/truth.npz",
+    "input_format": "npz",
+    "output_format": "csv"
+  },
+  "split": {
+    "type": "synthetic",
+    "decision": "Four mechanisms; unchanged d=6, 50000 fitting patients and 40000 evaluation candidates per cohort, first 2000 eligible OS rows per statistic. Public validation is the complete seed-99 stream, 200 replications per mechanism. Hidden materialization uses independent secret streams; precision and replication decisions are documented in operator NOTES. Inputs contain only measured features and factual selected outcomes; IDs/order are opaque. No cross-instance training.",
+    "val_seeds": [
+      99
+    ]
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 10.42,
+    "val": {
+      "rho_b1_A_detection": 0.685
+    },
+    "paper_ref": "Figure 3 confounding treatment-signal detection, p < 0.01",
+    "measured_s": {
+      "train": [
+        3.03
+      ],
+      "predict": [
+        625.12
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 1e-06,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:0b9368600be68eacb4876c5f8f02e1e38eda8a0cf441567a581d5a97aec21fb0"
+  },
+  "env": {
+    "python": "3.12",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "2aac07841e22041aebb56e68a08fb2cc29979f58",
+    "adapt_commit": "e71daab1bdc84a820d827bf542beb08d8b2327df",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "method_freedom_review": {
+    "status": "reviewed_scope_with_existing_blocker",
+    "report": "audits/20261101_research_contract/085_UBM.json",
+    "full_training_or_evaluation": false,
+    "allowed_changes": [
+      "nuisance outcome/treatment/selection probability estimators on the measured covariates, fitting surrogates and numerical optimization",
+      "per-experiment statistical modeling using fitting cohorts only"
+    ],
+    "fixed_contract": [
+      "Detect the specified confounding mechanism using the original correlation between estimated bias magnitude and treatment-prediction squared error, subject to all fixed false-positive controls.",
+      "synthetic causal mechanisms, observed/unmeasured covariate distinction, factual-selection masks and independent RCT/OS fitting/evaluation cohorts",
+      "b1 as the specified difference of estimated treatment effects, eligible-row ordering, two-sided Pearson tests with positive-significance rule and four FP caps",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/085_UBM.json",
+    "forbidden_substitutions": [
+      "Every table entry must be an estimate of the named conditional probability for that cohort and stratum; do not choose table values to shape the bias or error vector instead of estimating those probabilities.",
+      "Do not infer the experiment's bias mechanism from the fitting cohorts and then set table values according to that inference; the mechanism may only be revealed by the fixed statistic on the evaluation rows.",
+      "changing the causal mechanisms, estimand, bias/error statistic, significance rule or cohort eligibility",
+      "fitting nuisance probabilities to evaluation outcomes, exploiting mechanism labels/oracle tables or pairing experiments",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract"
+  },
+  "research_contract": {
+    "objective": "Detect the specified confounding mechanism using the original correlation between estimated bias magnitude and treatment-prediction squared error, subject to all fixed false-positive controls.",
+    "fixed_research_objects": [
+      "synthetic causal mechanisms, observed/unmeasured covariate distinction, factual-selection masks and independent RCT/OS fitting/evaluation cohorts",
+      "b1 as the specified difference of estimated treatment effects, eligible-row ordering, two-sided Pearson tests with positive-significance rule and four FP caps"
+    ],
+    "editable_components": [
+      "nuisance outcome/treatment/selection probability estimators on the measured covariates, fitting surrogates and numerical optimization",
+      "per-experiment statistical modeling using fitting cohorts only"
+    ],
+    "forbidden_substitutions": [
+      "Every table entry must be an estimate of the named conditional probability for that cohort and stratum; do not choose table values to shape the bias or error vector instead of estimating those probabilities.",
+      "Do not infer the experiment's bias mechanism from the fitting cohorts and then set table values according to that inference; the mechanism may only be revealed by the fixed statistic on the evaluation rows.",
+      "changing the causal mechanisms, estimand, bias/error statistic, significance rule or cohort eligibility",
+      "fitting nuisance probabilities to evaluation outcomes, exploiting mechanism labels/oracle tables or pairing experiments",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "source": "tasks/085_UBM/agent/README.md",
+        "section": "Goal,Data,Metric and baseline",
+        "finding": "Detect the specified confounding mechanism using the original correlation between estimated bias magnitude and treatment-prediction squared error, subject to all fixed false-positive controls."
+      },
+      {
+        "source": "tasks/085_UBM/agent/bench/scorer.py",
+        "section": "trusted score and guards",
+        "finding": "The fixed evaluation target is synthetic causal mechanisms, observed/unmeasured covariate distinction, factual-selection masks and independent RCT/OS fitting/evaluation cohorts; b1 as the specified difference of estimated treatment effects, eligible-row ordering, two-sided Pearson tests with positive-significance rule and four FP caps"
+      },
+      {
+        "source": "audits/20261101_method_freedom/085_UBM.json",
+        "section": "prior task-specific scorer/interface audit",
+        "finding": "Reuse the prior actual evaluator review while narrowing the blanket permission to the present task-specific objects."
+      },
+      {
+        "source": "tasks/085_UBM/BRIEF.md",
+        "section": "26-29 and cited paper472-503",
+        "finding": "The causal mechanism detection statistic and error-control experiment are the research object; logistic nuisance fitting is a replaceable estimator."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/085_UBM.json"
+  },
+  "research_contract_review": {
+    "status": "reviewed_scope_with_existing_blocker",
+    "report": "audits/20261101_research_contract/085_UBM.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

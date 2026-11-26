@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "python": "/usr/bin/python3",
+  "mounts": [
+    {
+      "source": "runtime/r.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-20_hFDR_expr/.mamba/envs/renv",
+      "format": "tar",
+      "name": "r",
+      "sha256": "a06a3c0d60e36e8c07b91c94bc194555c93ec5326fa2c088f4630b5c5e9bfe53"
+    },
+    {
+      "source": "runtime/hfdr.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-20_hFDR_expr/.Rlib",
+      "format": "tar",
+      "name": "hfdr",
+      "sha256": "6e6072287cc5efb1e4ba288d270c8a9ab5a8200206ae92f432b23c26ab4bdc63"
+    }
+  ],
+  "env": {
+    "PATH": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-20_hFDR_expr/.mamba/envs/renv/bin:/usr/local/bin:/usr/bin:/bin",
+    "R_HOME": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-20_hFDR_expr/.mamba/envs/renv/lib/R",
+    "R_LIBS_USER": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-20_hFDR_expr/.Rlib",
+    "LD_LIBRARY_PATH": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-20_hFDR_expr/.mamba/envs/renv/lib"
+  }
+}

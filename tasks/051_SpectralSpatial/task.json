@@ -1,0 +1,172 @@
+{
+  "pid": "051_SpectralSpatial",
+  "class": "D",
+  "title": "A Spectral Confounder Adjustment for Spatial Regression with Multiple Exposures and Outcomes",
+  "metric": {
+    "name": "mean_mse",
+    "higher_is_better": false,
+    "delta": 0.005,
+    "aggregate": "mean"
+  },
+  "cpus": 32,
+  "memory_gb": 144,
+  "budget_hours_default": 24,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input",
+    "val_labels": "data/val/labels.csv",
+    "test_input": "test/input",
+    "test_labels": "test/labels.csv"
+  },
+  "split": {
+    "type": "synthetic",
+    "decision": "Original create_set7; independent offline full 5 settings x 12 replicates x n=400 splits. Input holds observed X/Y only; truth and generation seeds are separate."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 20.05,
+    "val": {
+      "mean_mse": 0.03169814662081416
+    },
+    "paper_ref": "Paper MSE 0.039; historical reproduction 0.038847. No converted full reference was run.",
+    "measured_s": {
+      "train": [
+        0.12,
+        0.12,
+        0.12
+      ],
+      "predict": [
+        1145.52,
+        1130.41,
+        1203.26
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:228b6960c024d0feae1159874ca3577fa04e8824d9f0b513d0c313f7d8a2caa4"
+  },
+  "env": {
+    "mode": "snapshot",
+    "snapshot": "runtime/runtime.json",
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "build_cap_s": 1800
+  },
+  "adapt": {
+    "base_commit": "69d95ba5cc561324e1c4dc1e6725c211fca98381",
+    "adapt_commit": "d5a07b17b0c0c97f9a716afed9bf266d602e3a68",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "smoke": {
+    "input": "judge/verification/fixture/input",
+    "labels": "judge/verification/fixture/labels.csv",
+    "env": {}
+  },
+  "conversion": {
+    "full_data_ready": true,
+    "source_commit": "30a11dab3b4c320967ee52a6d80bc710b8f6fedd",
+    "smoke_report": "judge/verification/smoke.json",
+    "runtime_provenance": "judge/verification/runtime_checks.json",
+    "data_integrity": "judge/verification/data_checks.json",
+    "scorer_checks": "judge/verification/scorer_checks.json",
+    "metric_parity": "judge/verification/author_metric_parity.json"
+  },
+  "method_freedom_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/051_SpectralSpatial.json",
+    "candidate_method_replacement_allowed": true,
+    "frozen_data_metric_and_information_boundary": true,
+    "full_training_or_evaluation_run": false,
+    "allowed_changes": [
+      "Posterior sampling, variational or other approximation, numerical parameterization and optimization may change while targeting the same posterior and summaries.",
+      "Iterations, burn-in, scheduling and auxiliary approximation losses are solver choices; unscored Naive/Spatial+/USM comparison fits may be omitted.",
+      "When retaining the supplied Gibbs/Metropolis sampler, changing only iters=5000, burn=1000, MH=0.1 or its warm-up adaptation settings (att>50, acceptance bounds 0.3 and 0.5, multipliers 0.8 and 1.2) does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Improve posterior computation for the specified multivariate spectral confounder model, evaluated through its first-frequency exposure-effect posterior means and 95% credible intervals.",
+      "The MSM likelihood, shared tensor spectral effect parameterization, horseshoe/hierarchical priors and hyperparameters in functions_sim.R, L=10 and K=5 define the target posterior.",
+      "First-frequency posterior means and equal-tailed 2.5%/97.5% quantiles, nine non-intercept exposures/five outcomes, fixed five settings, equal MSE and per-setting strict coverage >=.93 remain fixed.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/051_SpectralSpatial.json",
+    "forbidden_substitutions": [
+      "Do not replace the MSM likelihood/tensor/prior model with an ordinary regression or change the posterior quantities to generic estimates/intervals.",
+      "Do not change basis/rank model controls L/K, use hidden confounders/effects, pool independent cases or alter observed X/Y and scoring.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Improve posterior computation for the specified multivariate spectral confounder model, evaluated through its first-frequency exposure-effect posterior means and 95% credible intervals.",
+    "fixed_research_objects": [
+      "The MSM likelihood, shared tensor spectral effect parameterization, horseshoe/hierarchical priors and hyperparameters in functions_sim.R, L=10 and K=5 define the target posterior.",
+      "First-frequency posterior means and equal-tailed 2.5%/97.5% quantiles, nine non-intercept exposures/five outcomes, fixed five settings, equal MSE and per-setting strict coverage >=.93 remain fixed."
+    ],
+    "editable_components": [
+      "Posterior sampling, variational or other approximation, numerical parameterization and optimization may change while targeting the same posterior and summaries.",
+      "Iterations, burn-in, scheduling and auxiliary approximation losses are solver choices; unscored Naive/Spatial+/USM comparison fits may be omitted.",
+      "When retaining the supplied Gibbs/Metropolis sampler, changing only iters=5000, burn=1000, MH=0.1 or its warm-up adaptation settings (att>50, acceptance bounds 0.3 and 0.5, multipliers 0.8 and 1.2) does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "Do not replace the MSM likelihood/tensor/prior model with an ordinary regression or change the posterior quantities to generic estimates/intervals.",
+      "Do not change basis/rank model controls L/K, use hidden confounders/effects, pool independent cases or alter observed X/Y and scoring.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "path": "agent/paper/paper.txt",
+        "section": "Appendix F.2, lines 1691-1724",
+        "finding": "Defines MSM horseshoe tensor with L=10/K=5; explicitly evaluates posterior mean beta_1er and 95% intervals."
+      },
+      {
+        "path": "agent/code/simulation-code/functions_sim.R",
+        "finding": "Defines the selected likelihood, tensor structure and hierarchical prior."
+      },
+      {
+        "path": "agent/code/reproduce/sim_driver.R",
+        "finding": "Serializes MSM posterior summaries; comparison models are unscored."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/051_SpectralSpatial.json"
+  },
+  "research_contract_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/051_SpectralSpatial.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 3
+}

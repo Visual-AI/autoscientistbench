@@ -1,0 +1,103 @@
+{
+  "task": "087_BFM-SWM",
+  "created": "2026-11-03T10:48:05+0000",
+  "seeds": [
+    1
+  ],
+  "cpus": 4,
+  "adapt_commit": "c7fafd653b2bb215650391308022bb6e2844054c",
+  "sandbox": true,
+  "budget_s": 43200.0,
+  "test": {
+    "per_seed": [
+      0.5557069712964993
+    ],
+    "mean": 0.5557069712964993,
+    "std": 0.0,
+    "n": 1
+  },
+  "val": {
+    "per_seed": [
+      0.5648436056480995
+    ],
+    "mean": 0.5648436056480995,
+    "std": 0.0,
+    "n": 1
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "welfare_ratio": 0.5557069712964993,
+        "guards_ok": true,
+        "n_instances": 180,
+        "mean_welfare": 6647.760236698632,
+        "mean_greedy": 12052.010609009387,
+        "mean_payment_share": 0.7018948985985844,
+        "mean_upper_bound_ratio": 1.3678200717439373,
+        "per_group": {
+          "family:hidden": 0.569918200628359,
+          "family:lognormal_sqrtdeg": 0.5492963814449628,
+          "family:uniform_10_100": 0.5479063318161758,
+          "graph:email_all": 0.5501137044218625,
+          "graph:epinions": 0.5687757785222007,
+          "graph:slashdot": 0.5482314309454345
+        },
+        "offers_total": 56934508,
+        "rpc_calls_total": 20600,
+        "worker_elapsed_mean_s": 2.2959024496169556,
+        "worker_elapsed_max_s": 5.149208270013332,
+        "protocol": "private-policy-v2",
+        "preparation_s": 1.0249604769051075,
+        "artifact_prepare_s": 0.19326912239193916,
+        "workers": 4,
+        "prediction_elapsed_s": 104.91229924932122
+      },
+      "val": {
+        "welfare_ratio": 0.5648436056480995,
+        "guards_ok": true,
+        "n_instances": 60,
+        "mean_welfare": 7046.1986510039615,
+        "mean_greedy": 12512.440621381567,
+        "mean_payment_share": 0.7024774086944878,
+        "mean_upper_bound_ratio": 1.3783745331146176,
+        "per_group": {
+          "family:lognormal_sqrtdeg": 0.5766607505340825,
+          "family:uniform_10_100": 0.5530264607621164,
+          "graph:epinions": 0.5726827411056917,
+          "graph:slashdot": 0.5570044701905071
+        },
+        "offers_total": 12553210,
+        "rpc_calls_total": 4874,
+        "worker_elapsed_mean_s": 1.4803539440656701,
+        "worker_elapsed_max_s": 2.245450224727392,
+        "protocol": "private-policy-v2",
+        "preparation_s": 0.7500058822333813,
+        "artifact_prepare_s": 0.24608582630753517,
+        "workers": 4,
+        "prediction_elapsed_s": 22.776517052203417
+      },
+      "timing": {
+        "train_s": 3.07,
+        "predict_s": 0.47,
+        "score_s": 106.62,
+        "predict_val_s": 1.22
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      3.07
+    ],
+    "predict_s": [
+      0.47
+    ],
+    "build_s": 2.2
+  },
+  "hashes": {
+    "env_lock": "a23aaf94250a9f53031a592980142245a848e2372b6c6c3093e8260b129265b8",
+    "scorer": "4d117ce5c92d66fb887e58990155b50ea371c7308654dbdd54fc29eee9e0b9f9",
+    "validate": "438b0a925081066006ddfe92d2c480c86b117271ba0c5b2fb89fd997b3b10c65",
+    "test_labels": null,
+    "adapt_patch": "b6c0e35531fb31dde102b3acce399f0cdc631c7bdad82d83a133fde08f75aaec"
+  }
+}

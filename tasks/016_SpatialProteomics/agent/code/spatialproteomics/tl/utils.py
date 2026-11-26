@@ -1,0 +1,389 @@
+from importlib.metadata import version
+from typing import Callable, Optional
+
+import numpy as np
+import pandas as pd
+import xarray as xr
+from packaging import version as pkg_version
+
+from ..base_logger import logger
+from ..constants import Dims
+from ..pp.utils import _normalize
+
+
+def _get_channels(obj, key_added, channel):
+    if key_added is not None and key_added in obj:
+        raise KeyError(f'The key "{key_added}" already exists. Please choose another key.')
+
+    if channel is not None:
+        if isinstance(channel, list):
+            channels = channel
+        else:
+            channels = [channel]
+    else:
+        channels = obj.coords[Dims.CHANNELS].values.tolist()
+
+    return channels
+
+
+def _convert_masks_to_data_array(obj, all_masks, key_added):
+    if len(all_masks.shape) == 2:
+        da = xr.DataArray(
+            all_masks,
+            coords=[obj.coords[Dims.Y], obj.coords[Dims.X]],
+            dims=[Dims.Y, Dims.X],
+            name=key_added,
+        )
+    # if we segment on all of the channels, we need to add the channel dimension
+    else:
+        da = xr.DataArray(
+            all_masks,
+            coords=[
+                obj.coords[Dims.CHANNELS],
+                obj.coords[Dims.Y],
+                obj.coords[Dims.X],
+            ],
+            dims=[Dims.CHANNELS, Dims.Y, Dims.X],
+            name=key_added,
+        )
+
+    return da
+
+
+def _cellpose(
+    img: np.ndarray,
+    diameter: float = None,
+    channel_settings: list = None,
+    num_iterations: int = 2000,
+    cellprob_threshold: float = 0.0,
+    flow_threshold: float = 0.4,
+    batch_size: int = 8,
+    gpu: bool = True,
+    model_type: str = "cyto3",  # cellpose < 4.0
+    pretrained_model: str = "cpsam",  # cellpose 4.0
+    postprocess_func: Callable = lambda x: x,
+    **kwargs,
+):
+    from cellpose import models
+
+    cp_version = version("cellpose")
+
+    # checking that the input is 2D or 3D
+    if img.ndim not in [2, 3]:
+        raise ValueError(f"Input image must be 2D or 3D, got {img.ndim}.")
+
+    # if the input is 2D, we add a channel dimension
+    if img.ndim == 2:
+        img = img[np.newaxis, :, :]
+
+    # The cellpose API has changed in version 4.0, so we need to check the version
+    if pkg_version.parse(cp_version).major < 4:
+        assert (
+            channel_settings is not None
+        ), "The argument channel_settings must be provided for Cellpose < 4.0. For independent segmentation of each channel, set it to [0, 0]. For joint segmentation, set it to [1, 2] or [2, 1]."
+        model = models.Cellpose(gpu=gpu, model_type=model_type)
+    else:
+        # model_type is not used in cellpose 4.0
+        model = models.CellposeModel(gpu=gpu, pretrained_model=pretrained_model)
+
+    all_masks = []
+    # if the channels are [0, 0], independent segmentation is performed on all channels
+    if channel_settings == [0, 0]:
+        if img.shape[0] > 1:
+            logger.warn(
+                "Performing independent segmentation on all markers. If you want to perform joint segmentation, please set the channel_settings argument appropriately."
+            )
+        for ch in range(img.shape[0]):
+            # Build version-aware keyword arguments
+            eval_kwargs = dict(
+                diameter=diameter,
+                niter=num_iterations,
+                cellprob_threshold=cellprob_threshold,
+                flow_threshold=flow_threshold,
+                batch_size=batch_size,
+                **kwargs,
+            )
+
+            if pkg_version.parse(cp_version).major < 4:
+                eval_kwargs["channels"] = channel_settings
+
+            # Get the image at the channel and run Cellpose
+            output = model.eval(img[ch].squeeze(), **eval_kwargs)
+
+            # Unpack outputs based on version
+            if pkg_version.parse(cp_version).major >= 4:
+                masks_pred, _, diams = output
+            else:
+                masks_pred, _, _, diams = output
+
+            masks_pred = postprocess_func(masks_pred)
+            all_masks.append(masks_pred)
+    else:
+        # if the channels are anything else, joint segmentation is attempted
+        eval_kwargs = dict(
+            diameter=diameter,
+            niter=num_iterations,
+            cellprob_threshold=cellprob_threshold,
+            flow_threshold=flow_threshold,
+            batch_size=batch_size,
+            **kwargs,
+        )
+
+        if pkg_version.parse(cp_version).major < 4:
+            eval_kwargs["channels"] = channel_settings
+
+        output = model.eval(img.squeeze(), **eval_kwargs)
+
+        # Unpack based on version
+        if pkg_version.parse(cp_version).major >= 4:
+            masks_pred, _, diams = output
+        else:
+            masks_pred, _, _, diams = output
+
+        masks_pred = postprocess_func(masks_pred)
+        all_masks.append(masks_pred)
+
+    return np.array(all_masks), diams
+
+
+def _stardist(
+    img: np.ndarray,
+    scale: float = 3,
+    n_tiles: int = 12,
+    normalize: bool = True,
+    predict_big: bool = False,
+    postprocess_func: Callable = lambda x: x,
+    **kwargs,
+):
+    # checking that the input is 2D or 3D
+    if img.ndim not in [2, 3]:
+        raise ValueError(f"Input image must be 2D or 3D, got {img.ndim}.")
+
+    # if the input is 2D, we add a channel dimension
+    if img.ndim == 2:
+        img = img[np.newaxis, :, :]
+
+    from stardist.models import StarDist2D
+
+    model = StarDist2D.from_pretrained("2D_versatile_fluo")
+
+    all_masks = []
+    for ch in range(img.shape[0]):
+        single_image = img[ch]
+        if normalize:
+            single_image = _normalize(single_image[np.newaxis, :, :])
+
+        # Predict the label image (different methods for large or small images, see the StarDist documentation for more details)
+        if predict_big:
+            labels, _ = model.predict_instances_big(single_image.squeeze(), scale=scale, **kwargs)
+        else:
+            labels, _ = model.predict_instances(
+                single_image.squeeze(), scale=scale, n_tiles=(n_tiles, n_tiles), **kwargs
+            )
+
+        labels = postprocess_func(labels)
+        all_masks.append(labels)
+
+    return np.array(all_masks)
+
+
+def _instanseg(
+    img: np.ndarray,
+    model_type: str = "fluorescence_nuclei_and_cells",
+    pixel_size: Optional[float] = None,
+    target: str = "cells",
+    normalize: bool = True,
+    method: str = "auto",
+    tile_size: int = 512,
+    batch_size: int = 1,
+    device: Optional[str] = None,
+    verbosity: int = 1,
+    postprocess_func: Callable = lambda x: x,
+    **kwargs,
+):
+    """
+    Runs InstanSeg on a (channels, y, x) image. All channels are segmented jointly, since InstanSeg is channel-invariant.
+
+    Returns a dictionary mapping the output names ("nuclei" and/or "cells") to integer label masks of shape (y, x).
+    """
+    from instanseg import InstanSeg
+
+    # checking that the input is 2D or 3D
+    if img.ndim not in [2, 3]:
+        raise ValueError(f"Input image must be 2D or 3D, got {img.ndim}.")
+
+    # if the input is 2D, we add a channel dimension
+    if img.ndim == 2:
+        img = img[np.newaxis, :, :]
+
+    if target not in ["nuclei", "cells", "all_outputs"]:
+        raise ValueError(f"Target must be 'nuclei', 'cells' or 'all_outputs', got '{target}'.")
+
+    if method not in ["auto", "small", "medium"]:
+        raise ValueError(f"Method must be 'auto', 'small' or 'medium', got '{method}'.")
+
+    if pixel_size is None:
+        logger.warning(
+            "No pixel_size (in microns) was provided to InstanSeg, so the image is not rescaled to the pixel size the model was trained on. This may lead to inaccurate results."
+        )
+
+    model = InstanSeg(model_type, device=device, verbosity=verbosity)
+
+    # determining which outputs we will get back from the model
+    if model.instanseg.cells_and_nuclei:
+        output_names = ["nuclei", "cells"] if target == "all_outputs" else [target]
+    else:
+        if target == "cells":
+            logger.warning(
+                f"The InstanSeg model {model_type} only predicts nuclei, returning the nuclear segmentation."
+            )
+        output_names = ["nuclei"]
+
+    # instanseg infers the channel axis from the smallest dimension of the image
+    if img.shape[0] >= min(img.shape[1:]):
+        logger.warning(
+            "The image has at least as many channels as pixels along one of its spatial axes. InstanSeg may not be able to identify the channel axis correctly."
+        )
+
+    if method == "auto":
+        method = "small" if img.shape[1] * img.shape[2] <= model.small_image_threshold else "medium"
+
+    if method == "small":
+        labels = model.eval_small_image(
+            img, pixel_size=pixel_size, normalise=normalize, return_image_tensor=False, target=target, **kwargs
+        )
+    else:
+        labels = model.eval_medium_image(
+            img,
+            pixel_size=pixel_size,
+            normalise=normalize,
+            tile_size=tile_size,
+            batch_size=batch_size,
+            return_image_tensor=False,
+            target=target,
+            **kwargs,
+        )
+
+    # output has shape (1, num_outputs, y, x)
+    labels = labels.detach().cpu().numpy()[0].astype(np.int64)
+
+    assert labels.shape[0] == len(
+        output_names
+    ), f"Expected {len(output_names)} output(s) from InstanSeg, got {labels.shape[0]}."
+
+    return {name: postprocess_func(labels[i]) for i, name in enumerate(output_names)}
+
+
+def _instanseg_keys(masks: dict, key_added: str) -> dict:
+    """
+    Maps the InstanSeg outputs to the keys they are stored under. A single output is stored under key_added.
+    If both nuclei and cells are returned, the cells are stored under key_added and the nuclei under f"{key_added}_nuclei".
+    """
+    if len(masks) == 1:
+        return {name: key_added for name in masks}
+    return {name: key_added if name == "cells" else f"{key_added}_{name}" for name in masks}
+
+
+def _astir(
+    expression_df: pd.DataFrame,
+    marker_dict: dict,
+    threshold: float = 0,
+    seed: int = 42,
+    learning_rate: float = 0.001,
+    batch_size: float = 64,
+    n_init: int = 5,
+    n_init_epochs: int = 5,
+    max_epochs: int = 500,
+    cell_id_col: str = "cell_id",
+    cell_type_col: str = "cell_type",
+    **kwargs,
+):
+    import astir
+    import torch
+
+    model = astir.Astir(expression_df, marker_dict, dtype=torch.float64, random_seed=seed)
+    model.fit_type(
+        learning_rate=learning_rate,
+        batch_size=batch_size,
+        n_init=n_init,
+        n_init_epochs=n_init_epochs,
+        max_epochs=max_epochs,
+        **kwargs,
+    )
+
+    # getting the predictions
+    assigned_cell_types = model.get_celltypes(threshold=threshold)
+    # assign the index to its own column
+    assigned_cell_types = assigned_cell_types.reset_index()
+    # renaming the columns
+    assigned_cell_types.columns = [cell_id_col, cell_type_col]
+    # restoring the dtype of the cell ids in the expression matrix (e.g. int for xarray, str for anndata)
+    assigned_cell_types[cell_id_col] = assigned_cell_types[cell_id_col].astype(expression_df.index.dtype)
+
+    return assigned_cell_types
+
+
+def _spotiflow(
+    img,
+    channel_names,
+    pretrained_name: str = "general",
+    model_kwargs: dict = None,
+    predict_kwargs: dict = None,
+):
+    model_kwargs = model_kwargs or {}
+    predict_kwargs = predict_kwargs or {}
+
+    from spotiflow.model import Spotiflow
+
+    if img.ndim not in [2, 3]:
+        raise ValueError(f"Input image must be 2D or 3D, got {img.ndim}.")
+
+    if img.ndim == 2:
+        img = img[np.newaxis, :, :]
+        channel_names = [channel_names] if np.isscalar(channel_names) else channel_names
+
+    assert img.shape[0] == len(channel_names), "Number of channels in image does not match number of channel names."
+
+    model = Spotiflow.from_pretrained(pretrained_name, **model_kwargs)
+
+    dfs = []
+    for ch_idx, ch_name in enumerate(channel_names):
+        single_image = img[ch_idx]
+        points, _ = model.predict(single_image, **predict_kwargs)
+        # spotiflow returns points as (row, col) == (y, x)
+        df = pd.DataFrame(points, columns=["y", "x"])
+        df["channel"] = ch_name
+        dfs.append(df)
+
+    df = pd.concat(dfs, ignore_index=True)
+    df.index.name = "points"
+    return df
+
+
+def _compute_transformation(x_coords, y_coords):
+    from spatialdata.transformations import Affine
+
+    # Compute resolution
+    x_res = np.mean(np.diff(x_coords))
+    y_res = np.mean(np.diff(y_coords))
+
+    # Check if spacing is consistent
+    if not (np.allclose(np.diff(x_coords), x_res) and np.allclose(np.diff(y_coords), y_res)):
+        raise ValueError("Coordinate increments in 'x' and 'y' must be consistent.")
+
+    # Origin
+    x_start = x_coords[0]
+    y_start = y_coords[0]
+
+    # Create affine transformation with scale + translation
+    translation = Affine(
+        [
+            [x_res, 0, x_start],  # x' = x * x_res + x_start
+            [0, y_res, y_start],  # y' = y * y_res + y_start
+            [0, 0, 1],
+        ],
+        input_axes=("x", "y"),
+        output_axes=("x", "y"),
+    )
+
+    return translation

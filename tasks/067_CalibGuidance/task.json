@@ -1,0 +1,159 @@
+{
+  "pid": "067_CalibGuidance",
+  "class": "A",
+  "title": "Calibrated Test-Time Guidance for Bayesian Inference",
+  "metric": {
+    "name": "c2st",
+    "higher_is_better": false,
+    "delta": 0.01,
+    "aggregate": "mean"
+  },
+  "cpus": 64,
+  "memory_gb": 240,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input",
+    "val_labels": "data/val/labels.npz",
+    "test_input": "test/input",
+    "test_labels": "test/labels.npz",
+    "input_format": "npz_directory",
+    "output_format": "npz"
+  },
+  "split": {
+    "type": "training_free",
+    "decision": "training_free; no training; val=25 independent sbibm simulator instances (5 per family), public seed20261030; test=original 50 task/observation pairs, float32 arrays bit-identical to source mirrors, opaque ids from secret permutation; no source indices in input. Public wheels mirrored locally to exclude sbibm evaluation data downloads. Hidden details only in NOTES and judge."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 52.71,
+    "val": {
+      "c2st": 0.6800299882888794
+    },
+    "paper_ref": "Table 1 CBG gradient-free, SLCP: 0.584",
+    "measured_s": {
+      "train": [
+        0.07
+      ],
+      "predict": [
+        3162.37
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 1e-06,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:d2b17b5253c3f88328a0dd9b885349930372a39cd6ca67b848df7c2b924957fe"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://download.pytorch.org/whl/cpu"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "63014d81455c3d97245ab24c796793ab4e2127df",
+    "adapt_commit": "1784a27ed8fe0505c158414c2e2ebf3857e8a3e6",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "method_freedom": {
+    "report": "audits/20261101_method_freedom/067_CalibGuidance.json",
+    "full_training_or_evaluation_run": false,
+    "scope_superseded_by": "audits/20261101_research_contract/067_CalibGuidance.json"
+  },
+  "method_freedom_review": {
+    "report": "audits/20261101_research_contract/067_CalibGuidance.json",
+    "allowed_changes": [
+      "Common posterior solvers, approximation families, auxiliary approximation losses, numerical integration/sampling and optimizers may change.",
+      "Generic adaptive behavior may respond to permitted observations, prior support, dimensions and oracle geometry; selecting the declared target prior/likelihood is legitimate.",
+      "Additional development observations may use the already permitted frozen simulator; no new evaluation inputs or target distributions may be substituted.",
+      "When retaining the supplied REINFORCE CBG sampler, changing only N=100 time points, K=1000 candidates per step or the uniform-prior start offset 1e-3 does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Improve sampling of the fixed SLCP posterior while retaining a common inference algorithm and posterior quality across the four specified companion families.",
+      "The five supplied Bayesian prior/likelihood targets (Gaussian linear, uniform-prior Gaussian linear, SLCP, Gaussian mixture, two moons), parameter coordinates and current observed instance are fixed.",
+      "10000 posterior samples, original C2ST classifier/normalization, SLCP mean and companion-family guards, common task-agnostic solver and <=100000 counted likelihood evaluations per sample remain fixed.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/067_CalibGuidance.json",
+    "status": "repaired_scope_with_limits",
+    "forbidden_substitutions": [
+      "Do not modify priors/likelihoods or posterior temperature, replace posterior sampling with predictive fitting, use family-ID-specific solver/tuning tables, or retrieve known observations/posteriors.",
+      "No reference sample fitting/lookup, uncounted likelihood copies, forged counts, hidden package datasets or cross-instance evaluation information.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Improve sampling of the fixed SLCP posterior while retaining a common inference algorithm and posterior quality across the four specified companion families.",
+    "fixed_research_objects": [
+      "The five supplied Bayesian prior/likelihood targets (Gaussian linear, uniform-prior Gaussian linear, SLCP, Gaussian mixture, two moons), parameter coordinates and current observed instance are fixed.",
+      "10000 posterior samples, original C2ST classifier/normalization, SLCP mean and companion-family guards, common task-agnostic solver and <=100000 counted likelihood evaluations per sample remain fixed."
+    ],
+    "editable_components": [
+      "Common posterior solvers, approximation families, auxiliary approximation losses, numerical integration/sampling and optimizers may change.",
+      "Generic adaptive behavior may respond to permitted observations, prior support, dimensions and oracle geometry; selecting the declared target prior/likelihood is legitimate.",
+      "Additional development observations may use the already permitted frozen simulator; no new evaluation inputs or target distributions may be substituted.",
+      "When retaining the supplied REINFORCE CBG sampler, changing only N=100 time points, K=1000 candidates per step or the uniform-prior start offset 1e-3 does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "Do not modify priors/likelihoods or posterior temperature, replace posterior sampling with predictive fitting, use family-ID-specific solver/tuning tables, or retrieve known observations/posteriors.",
+      "No reference sample fitting/lookup, uncounted likelihood copies, forged counts, hidden package datasets or cross-instance evaluation information.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "section": "Sections 1-3 and Bayesian inference experiment",
+        "finding": "Goal is calibrated sampling of a specified Bayesian posterior, not changing its prior or likelihood."
+      },
+      {
+        "path": "agent/bench/likelihood_env.py",
+        "finding": "Defines frozen target likelihood functions and counts every parameter vector."
+      },
+      {
+        "path": "convert/tasks_merlin.json",
+        "section": "067_CalibGuidance score_rule",
+        "finding": "Explicit cross-family and task-agnostic requirements; current benchmark supplies declared target family legitimately."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/067_CalibGuidance.json"
+  },
+  "research_contract_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/067_CalibGuidance.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 3
+}

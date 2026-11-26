@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "python": "/usr/bin/python3",
+  "mounts": [
+    {
+      "source": "runtime/r.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-22_multivar_spectral_confounder/.mamba/envs/r",
+      "format": "tar",
+      "name": "r"
+    },
+    {
+      "source": "runtime/rlib.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-22_multivar_spectral_confounder/.Rlib",
+      "format": "tar",
+      "name": "rlib"
+    }
+  ],
+  "env": {
+    "PATH": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-22_multivar_spectral_confounder/.mamba/envs/r/bin:/usr/local/bin:/usr/bin:/bin",
+    "R_HOME": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-22_multivar_spectral_confounder/.mamba/envs/r/lib/R",
+    "R_LIBS_USER": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-22_multivar_spectral_confounder/.Rlib"
+  }
+}

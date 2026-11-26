@@ -1,0 +1,172 @@
+{
+  "pid": "086_OptRobustPaging",
+  "class": "A",
+  "title": "Towards Optimal Robustness in Learning-Augmented Paging",
+  "metric": {
+    "name": "mean_cost_ratio",
+    "higher_is_better": false,
+    "delta": 0.03,
+    "aggregate": "mean"
+  },
+  "cpus": 4,
+  "memory_gb": 8,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.json",
+    "val_labels": "data/val/labels",
+    "test_input": "test/input.json",
+    "test_labels": "test/labels",
+    "input_format": "private_policy_request",
+    "output_format": "policy_artifact_zip"
+  },
+  "split": {
+    "type": "online",
+    "decision": "Program-disjoint split of the paper's SPEC CPU 2006 traces. Public training programs: full train+valid segments, fitting allowed. Public validation programs: valid segment, evaluation and selection only. Hidden evaluation programs: the paper's test segment, disjoint from both. Stratified random draw with a hidden seed; program names withheld everywhere under agent/. Assignment only in judge/split.json and NOTES section 9."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 0.5,
+    "val": {
+      "mean_cost_ratio": 1.1356245689115767
+    },
+    "paper_ref": "Table 1, POPU block, RPB-OM tau=4: mean cost ratio 1.213 over 13 traces (reproduced 1.2123; tau=1 row 1.220, reproduced 1.2207). This task evaluates fewer programs, so the reference differs from those means; compare Table 5 per trace. Parity: through this interface the baseline reproduces the authors' Cache and PredictiveRPBOnlineMinAlgorithm miss counts exactly at the same seed, see judge/verification/parity_tau4.jsonl and NOTES section 4.",
+    "reference_status": "requires_measurement",
+    "measured_s": {
+      "train": [
+        0.21,
+        0.21,
+        0.21
+      ],
+      "predict": [
+        0.51,
+        0.52,
+        0.52
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 1e-09,
+    "parity_abs_tol": 0.0,
+    "prediction_timing_scope": "Sealing the artifact is timed as predict; every policy worker and RPC round trip is timed inside the scorer. See per_trace.policy_elapsed_s.",
+    "reference_hash": "sha256:93768b7854b388a07c802fdd08d51ed34bf91b56e9d9a6830d4c26e55e9d9f99"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "04739f13c5c24e49a1ec40c7e5c789ce9c5c7fdc",
+    "adapt_commit": "e77846ce6d8c72e0dc7b43e891a3760ba6a63925",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "smoke": {
+    "input": "judge/verification/private_smoke/input.json",
+    "labels": "judge/verification/private_smoke/labels"
+  },
+  "private_eval": {
+    "version": 2,
+    "protocol": "private-policy-v2",
+    "entrypoint": "policy.sh",
+    "full_reproduction_performed": false,
+    "full_benchmark_ready": false
+  },
+  "protocol_version": "private-policy-v2",
+  "method_freedom_review": {
+    "status": "conversion_review_only",
+    "candidate_method_replacement_allowed": true,
+    "frozen_data_metric_and_information_boundary": true,
+    "full_training_or_evaluation_run": false,
+    "allowed_changes": [
+      "The eviction policy as a whole: RPB-OM, its budget rule tau, OnlineMin priorities and the POPU predictor are baseline choices, not required.",
+      "Predictors learned at train stage from data/train, online-learned state within a trace, including state shared across sets of that trace, features from pc and address history, and any numerical implementation."
+    ],
+    "fixed_contract": [
+      "Reduce the empirical mean cost ratio of online paging on SPEC CPU 2006 programs unseen in training, relative to Belady's offline optimum.",
+      "Online paging on the paper's SPEC CPU 2006 memory traces: a 2 MB, 64-byte-line, 16-way cache, 2048 sets, k=16, set index from the low line bits. A miss always loads the requested line; no bypass and no prefetch.",
+      "Cost is the trusted miss count, including fills of an empty way. The score is the unweighted mean over traces of misses divided by Belady's misses computed per set by the scorer.",
+      "Strictly causal access: accesses revealed in order, next access released only after the pending eviction is committed. Fresh worker state per trace; no horizon, trace identity or program name.",
+      "Generalization across programs: evaluation programs are disjoint from training and validation programs.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "forbidden_substitutions": [
+      "Changing the cache geometry, the trace population or the cost or OPT definition; bypassing or prefetching; forging counts.",
+      "Using future accesses by any channel, carrying state between traces, or embedding trace-specific tables for programs outside data/train, including from memory or external sources.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "scope_source": "research_contract"
+  },
+  "research_contract": {
+    "objective": "Reduce the empirical mean cost ratio of online paging on SPEC CPU 2006 programs unseen in training, relative to Belady's offline optimum.",
+    "fixed_research_objects": [
+      "Online paging on the paper's SPEC CPU 2006 memory traces: a 2 MB, 64-byte-line, 16-way cache, 2048 sets, k=16, set index from the low line bits. A miss always loads the requested line; no bypass and no prefetch.",
+      "Cost is the trusted miss count, including fills of an empty way. The score is the unweighted mean over traces of misses divided by Belady's misses computed per set by the scorer.",
+      "Strictly causal access: accesses revealed in order, next access released only after the pending eviction is committed. Fresh worker state per trace; no horizon, trace identity or program name.",
+      "Generalization across programs: evaluation programs are disjoint from training and validation programs."
+    ],
+    "editable_components": [
+      "The eviction policy as a whole: RPB-OM, its budget rule tau, OnlineMin priorities and the POPU predictor are baseline choices, not required.",
+      "Predictors learned at train stage from data/train, online-learned state within a trace, including state shared across sets of that trace, features from pc and address history, and any numerical implementation."
+    ],
+    "forbidden_substitutions": [
+      "Changing the cache geometry, the trace population or the cost or OPT definition; bypassing or prefetching; forging counts.",
+      "Using future accesses by any channel, carrying state between traces, or embedding trace-specific tables for programs outside data/train, including from memory or external sources.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "path": "agent/paper/paper.pdf",
+        "section": "Section 6, Tables 1 and 5, Appendix J",
+        "finding": "Cost ratio over SPEC CPU 2006 at 2 MB, 16-way, k=16 is the empirical objective; RPB-OM and POPU are one method. tau is reported as an insensitive tuning value."
+      },
+      {
+        "path": "agent/bench/private_paging.py",
+        "finding": "Trusted replay owns the trace, cache state and miss count; only causal, batched reveal."
+      },
+      {
+        "path": "agent/bench/belady.py",
+        "finding": "The scorer's own per-set Belady optimum, matching the authors' OPT on all 13 test segments."
+      }
+    ]
+  },
+  "research_contract_review": {
+    "status": "conversion_review_only",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Scope written at conversion against the paper and the trusted scorer; bounded checks only. No independent audit report exists yet."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

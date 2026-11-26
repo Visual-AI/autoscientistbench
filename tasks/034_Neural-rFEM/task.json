@@ -1,0 +1,162 @@
+{
+  "pid": "034_Neural-rFEM",
+  "class": "A",
+  "title": "An r-adaptive finite element method using neural networks for parametric self-adjoint elliptic problems",
+  "metric": {
+    "name": "mean_relative_ritz_error",
+    "higher_is_better": false,
+    "delta": 0.058,
+    "aggregate": "mean",
+    "theoretical_bound": 0.0
+  },
+  "cpus": 32,
+  "memory_gb": 8,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.csv",
+    "val_labels": "data/val/labels.csv",
+    "test_input": "test/input.csv",
+    "test_labels": "test/labels.csv",
+    "input_format": "csv",
+    "output_format": "csv"
+  },
+  "split": {
+    "type": "train_test",
+    "decision": "Original archived paper test (120 rows) retained exactly, verified against archived mesh/energy arrays. Carve 20% of original 280 training rows: 56 validation rows chosen by numpy RandomState(20261030).permutation from non-corners; retain four forced training corners, leaving 224 training rows. Files sorted by original integer row id. Hidden split details are operator-only."
+  },
+  "baseline": {
+    "train_min": 35.46,
+    "eval_min": 0.5,
+    "val": {
+      "mean_relative_ritz_error": 0.19573980092696394
+    },
+    "paper_ref": "Table 5 N=10 Test: 0.1933; reproduced 0.1916202678384128. Benchmark carves validation from original training and retrains independently.",
+    "measured_s": {
+      "train": [
+        2127.82,
+        2116.08,
+        2115.41
+      ],
+      "predict": [
+        2.12,
+        2.12,
+        2.12
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:8351ae700a37f5d0efbc4c31ca33b5dfde3b46bd68f9c9ffc6bd996584d4bb37"
+  },
+  "env": {
+    "python": "3.12",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "68188b65ba85c0207311051b7b990c45f5a734c9",
+    "adapt_commit": "ccd46719cf45b3f7c4edb89c339cc6b3d6dcae65",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "method_freedom_previous_baseline_val": {
+    "mean_relative_ritz_error": 0.1997819520160621
+  },
+  "method_freedom_review": {
+    "full_evaluation_ready": false,
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/034_Neural-rFEM.json",
+    "full_training_or_evaluation": false,
+    "allowed_changes": [
+      "coefficient-to-mesh predictor architecture, internal representation, training surrogate loss and optimizer",
+      "training-time FEM/mesh optimization on the training data, distillation and equivalent geometry-preserving prediction implementations",
+      "When retaining the supplied training pipeline, changing only --lr=0.01, --lr-schedule=fixed or --steps=1400000 does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Learn a reusable coefficient-to-mesh predictor for the fixed parametric multi-material L-shaped elliptic PDE, minimizing the original Q1 Ritz-energy relative error.",
+      "fixed L-shaped domain, material coefficient meanings, forcing, homogeneous Dirichlet conditions and supplied coefficient split",
+      "conforming Q1 evaluation with10 elements/11 ordered nodes per axis including0,0.5,1; original reference Ritz-energy error",
+      "offline learning followed by parameter-to-mesh prediction, with no prediction-time FEM/PDE solve or fresh instance-specific mesh optimization",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/034_Neural-rFEM.json",
+    "forbidden_substitutions": [
+      "replacing the physical PDE, reference energy, finite-element order, domain or mesh-size problem",
+      "turning held-out parametric prediction into fresh per-instance FEM/mesh optimization, reconstructing withheld coefficient rows or using reference-energy lookup tables",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract"
+  },
+  "research_contract": {
+    "objective": "Learn a reusable coefficient-to-mesh predictor for the fixed parametric multi-material L-shaped elliptic PDE, minimizing the original Q1 Ritz-energy relative error.",
+    "fixed_research_objects": [
+      "fixed L-shaped domain, material coefficient meanings, forcing, homogeneous Dirichlet conditions and supplied coefficient split",
+      "conforming Q1 evaluation with10 elements/11 ordered nodes per axis including0,0.5,1; original reference Ritz-energy error",
+      "offline learning followed by parameter-to-mesh prediction, with no prediction-time FEM/PDE solve or fresh instance-specific mesh optimization"
+    ],
+    "editable_components": [
+      "coefficient-to-mesh predictor architecture, internal representation, training surrogate loss and optimizer",
+      "training-time FEM/mesh optimization on the training data, distillation and equivalent geometry-preserving prediction implementations",
+      "When retaining the supplied training pipeline, changing only --lr=0.01, --lr-schedule=fixed or --steps=1400000 does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "replacing the physical PDE, reference energy, finite-element order, domain or mesh-size problem",
+      "turning held-out parametric prediction into fresh per-instance FEM/mesh optimization, reconstructing withheld coefficient rows or using reference-energy lookup tables",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "source": "../../ex-papers-science/Phy-09_rFEM-NN/paper/paper.txt",
+        "section": "292-361;450-465;857-920",
+        "finding": "Section2.2 parameterizes meshes with one learned map across parameters; Section4.1.2 separates training/test tuples; Section4.3.2 explicitly distinguishes non-parametric per-instance optimization from parametric mesh generation."
+      },
+      {
+        "source": "tasks/034_Neural-rFEM/BRIEF.md",
+        "section": "26-29",
+        "finding": "The selected Table5 parametric N=10 test experiment explicitly requires no test-time FEM solves. This scientific offline/online distinction survives removal of stage wall-clock gates."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/034_Neural-rFEM.json"
+  },
+  "research_contract_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/034_Neural-rFEM.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 3
+}

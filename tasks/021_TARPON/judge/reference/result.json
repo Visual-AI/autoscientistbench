@@ -1,0 +1,143 @@
+{
+  "task": "021_TARPON",
+  "created": "2026-11-02T06:48:14+0000",
+  "seeds": [
+    1
+  ],
+  "cpus": 12,
+  "adapt_commit": "21d64f647fc465cf8c0acbf2e3db621a1575d014",
+  "sandbox": true,
+  "budget_s": 21600.0,
+  "test": {
+    "per_seed": [
+      0.9354658385198136
+    ],
+    "mean": 0.9354658385198136,
+    "std": 0.0,
+    "n": 1
+  },
+  "val": {
+    "per_seed": [
+      0.885316892523603
+    ],
+    "mean": 0.885316892523603,
+    "std": 0.0,
+    "n": 1
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "identification_rate": 0.9354658385198136,
+        "unconstrained_identification_rate": 0.9354658385198136,
+        "constraints_pass": true,
+        "samples": {
+          "SE_HG002": {
+            "subtelo_pass": 8516,
+            "telomeric_reads": 8285,
+            "identification_rate": 0.9728745890089244,
+            "mean_wt_composition": 83.59936869963425,
+            "mean_wt_plus_1N_composition": 95.9771272941822,
+            "median_vrr_telo_length": 3704,
+            "constraints": {
+              "denominator_unchanged": true,
+              "purity_satisfied": true,
+              "tail_length_kept": true
+            },
+            "purity_threshold_percent": 95.477,
+            "audit": {
+              "retained": 8285,
+              "no_start": 96,
+              "filtered": 135
+            }
+          },
+          "DE_HEK": {
+            "subtelo_pass": 8338,
+            "telomeric_reads": 7488,
+            "identification_rate": 0.8980570880307028,
+            "mean_wt_composition": 91.18469780974293,
+            "mean_wt_plus_1N_composition": 97.92021072568998,
+            "median_vrr_telo_length": 5494.0,
+            "constraints": {
+              "denominator_unchanged": true,
+              "purity_satisfied": true,
+              "tail_length_kept": true
+            },
+            "purity_threshold_percent": 97.42,
+            "audit": {
+              "retained": 7488,
+              "no_start": 387,
+              "filtered": 463
+            }
+          }
+        }
+      },
+      "val": {
+        "identification_rate": 0.885316892523603,
+        "unconstrained_identification_rate": 0.885316892523603,
+        "constraints_pass": true,
+        "samples": {
+          "SE_WB60": {
+            "subtelo_pass": 3618,
+            "telomeric_reads": 3170,
+            "identification_rate": 0.8761746821448314,
+            "mean_wt_composition": 86.72591574011726,
+            "mean_wt_plus_1N_composition": 97.03653990882344,
+            "median_vrr_telo_length": 5179.5,
+            "constraints": {
+              "denominator_unchanged": true,
+              "purity_satisfied": true,
+              "tail_length_kept": true
+            },
+            "purity_threshold_percent": 96.537,
+            "audit": {
+              "retained": 3170,
+              "no_start": 219,
+              "filtered": 229
+            }
+          },
+          "DE_WB60": {
+            "subtelo_pass": 2274,
+            "telomeric_reads": 2034,
+            "identification_rate": 0.8944591029023746,
+            "mean_wt_composition": 87.3784429592883,
+            "mean_wt_plus_1N_composition": 97.25911468384973,
+            "median_vrr_telo_length": 5149.0,
+            "constraints": {
+              "denominator_unchanged": true,
+              "purity_satisfied": true,
+              "tail_length_kept": true
+            },
+            "purity_threshold_percent": 96.759,
+            "audit": {
+              "retained": 2034,
+              "no_start": 144,
+              "filtered": 96
+            }
+          }
+        }
+      },
+      "timing": {
+        "train_s": 0.06,
+        "predict_s": 182.72,
+        "score_s": 4.07,
+        "predict_val_s": 72.54
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      0.06
+    ],
+    "predict_s": [
+      182.72
+    ],
+    "build_s": 1.32
+  },
+  "hashes": {
+    "env_lock": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "scorer": "98f6c7026f0a83d4c663d36f2d8f2ca1332b355a4be91ff6babf820805bab8f5",
+    "validate": "3374ed82eac7070f1a2ba90d59394a241830606ebafea1d53d0d845f0b0ccdde",
+    "test_labels": "4467fabb239de8cedaabae4e1d85e48265ae08caa5947d976b1d515f23c69836",
+    "adapt_patch": "c79574b2cf8ca83f805a243196e398e67bab9bda2d989e52ca5dbec74d58b72f"
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "task": "053_DMFM-IGau",
+  "created": "2026-11-02T12:43:52+0000",
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "cpus": 32,
+  "adapt_commit": "551dfa653dcd0fa021eb17c50468594d1820153e",
+  "sandbox": true,
+  "budget_s": 27000.0,
+  "test": {
+    "per_seed": [
+      0.8606515727767828,
+      0.861618636653614,
+      0.8622859691401529
+    ],
+    "mean": 0.8615187261901832,
+    "std": 0.0006709691715106434,
+    "n": 3
+  },
+  "val": {
+    "per_seed": [
+      0.8616026340282253,
+      0.8623682521501833,
+      0.8610918951570002
+    ],
+    "mean": 0.8616875937784697,
+    "std": 0.0005245222670093938,
+    "n": 3
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "dARI": 0.8606515727767828,
+        "valid": true,
+        "networks": 50,
+        "draws_per_network": 50000
+      },
+      "val": {
+        "dARI": 0.8616026340282253,
+        "valid": true,
+        "networks": 50,
+        "draws_per_network": 50000
+      },
+      "timing": {
+        "train_s": 0.11,
+        "predict_s": 1319.03,
+        "score_s": 62.35,
+        "predict_val_s": 1675.24
+      }
+    },
+    "2": {
+      "test": {
+        "dARI": 0.861618636653614,
+        "valid": true,
+        "networks": 50,
+        "draws_per_network": 50000
+      },
+      "val": {
+        "dARI": 0.8623682521501833,
+        "valid": true,
+        "networks": 50,
+        "draws_per_network": 50000
+      },
+      "timing": {
+        "train_s": 0.11,
+        "predict_s": 1677.27,
+        "score_s": 61.71,
+        "predict_val_s": 1704.4
+      }
+    },
+    "3": {
+      "test": {
+        "dARI": 0.8622859691401529,
+        "valid": true,
+        "networks": 50,
+        "draws_per_network": 50000
+      },
+      "val": {
+        "dARI": 0.8610918951570002,
+        "valid": true,
+        "networks": 50,
+        "draws_per_network": 50000
+      },
+      "timing": {
+        "train_s": 0.11,
+        "predict_s": 1629.15,
+        "score_s": 62.14,
+        "predict_val_s": 1745.33
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      0.11,
+      0.11,
+      0.11
+    ],
+    "predict_s": [
+      1319.03,
+      1677.27,
+      1629.15
+    ],
+    "build_s": 0.75
+  },
+  "hashes": {
+    "env_lock": "72d3e6eca1308f5cec4cf5a2f54575fd102c331d16bb93f34851139f15a2dd98",
+    "scorer": "e2c1cb34636ec64448fc2004273faff7c3acc8d50e03f0f2b3f41dd01ec86378",
+    "validate": "473c4345a70b964232ccc2df821e0227dad2a720f24304b011e02aa768e218dc",
+    "test_labels": "a9d4457ed1a07f6c4d516deb47b74d03095645d5bacb050809a79a91f3039651",
+    "adapt_patch": "695d3dc93ff15dbc0f234822ffdedd133e6a9993848117186e3b2c937f595377"
+  }
+}

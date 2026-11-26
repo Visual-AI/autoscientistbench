@@ -1,0 +1,174 @@
+{
+  "pid": "062_SkewPosterior",
+  "class": "D",
+  "title": "Skew-symmetric approximations of posterior distributions",
+  "metric": {
+    "name": "standardized_bias",
+    "higher_is_better": false,
+    "delta": 0.005,
+    "aggregate": "mean"
+  },
+  "cpus": 8,
+  "memory_gb": 48,
+  "budget_hours_default": 24,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.json",
+    "val_labels": "data/val/labels.json",
+    "test_input": "test/input.json",
+    "test_labels": "test/labels.json"
+  },
+  "split": {
+    "type": "synthetic",
+    "decision": "Archived accepted observation/reference pairs; stratified by n, original replicates 1-5 public validation and 6-10 private test. All 50 archived cases retained, 25 per split, five cases per original n/d setting. No new HMC or generated labels."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 2.26,
+    "val": {
+      "standardized_bias": 0.038276072209997763
+    },
+    "paper_ref": "Historical full-archive S-LAP standardized bias 0.0384313608672964; no full conversion reference measured.",
+    "measured_s": {
+      "train": [
+        52.76,
+        52.03,
+        59.89
+      ],
+      "predict": [
+        135.77,
+        129.82,
+        133.79
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "reference_hash": "sha256:338271ccbb0357b097193e7f4e652e28b66225effecbc08397826e6f06c22bcd"
+  },
+  "env": {
+    "mode": "snapshot",
+    "snapshot": "runtime/runtime.json",
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "build_cap_s": 1800
+  },
+  "adapt": {
+    "base_commit": "f1dd4957f27382172651390c7bc5497657f92495",
+    "adapt_commit": "b04fc03de4cc736db7eb2589bb9d2c309af13030",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "smoke": {
+    "input": "judge/verification/fixture/input.json",
+    "labels": "judge/verification/fixture/labels.json"
+  },
+  "conversion": {
+    "full_data_ready": true,
+    "source_commit": "06d1e597500757543b7678a3f2298e88d70aad8f",
+    "smoke_report": "judge/verification/smoke.json",
+    "data_integrity": "judge/verification/data_checks.json",
+    "scorer_checks": "judge/verification/scorer_checks.json",
+    "method_parity": "judge/verification/parity.json",
+    "isolation": "judge/verification/isolation.json",
+    "runtime_checks": "judge/verification/runtime_checks.json",
+    "count_guard": 21500,
+    "count_guard_authority": "convert/tasks_merlin.json 062_SkewPosterior.review (corrects stale score_rule cap 20000)",
+    "telemetry_provenance": "patch_audit_required"
+  },
+  "method_freedom_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/062_SkewPosterior.json",
+    "candidate_method_replacement_allowed": true,
+    "frozen_data_metric_and_information_boundary": true,
+    "full_training_or_evaluation_run": false,
+    "allowed_changes": [
+      "Posterior approximation family, numerical sampling/integration, auxiliary approximation loss, optimizer, reparameterization and implementation may change while targeting that posterior.",
+      "Skew-symmetric Laplace and its proposal/kernel settings are baseline methods.",
+      "When retaining the supplied skew-symmetric Laplace estimator, changing only the 10,000 Gaussian proposal count does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Approximate posterior means for the fixed Poisson regression/Student-t(3) posterior under the existing posterior-evaluation budget.",
+      "The Poisson likelihood/link, independent Student-t(3) coefficient priors, observed X/y, coordinates and posterior-mean functional remain fixed.",
+      "The HMC coordinate reference, standardized absolute bias then coordinate median/cell mean, 21500 actual posterior-evaluation cap and zero-reference-access rule remain fixed.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/062_SkewPosterior.json",
+    "forbidden_substitutions": [
+      "Do not change likelihood, prior/scale, posterior temperature or coordinates, optimize predictive fit instead of the requested posterior mean, or use reference summaries during fitting.",
+      "No fabricated posterior-call telemetry, cached outputs, cross-instance fitting or changed fallback/metric.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Approximate posterior means for the fixed Poisson regression/Student-t(3) posterior under the existing posterior-evaluation budget.",
+    "fixed_research_objects": [
+      "The Poisson likelihood/link, independent Student-t(3) coefficient priors, observed X/y, coordinates and posterior-mean functional remain fixed.",
+      "The HMC coordinate reference, standardized absolute bias then coordinate median/cell mean, 21500 actual posterior-evaluation cap and zero-reference-access rule remain fixed."
+    ],
+    "editable_components": [
+      "Posterior approximation family, numerical sampling/integration, auxiliary approximation loss, optimizer, reparameterization and implementation may change while targeting that posterior.",
+      "Skew-symmetric Laplace and its proposal/kernel settings are baseline methods.",
+      "When retaining the supplied skew-symmetric Laplace estimator, changing only the 10,000 Gaussian proposal count does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "Do not change likelihood, prior/scale, posterior temperature or coordinates, optimize predictive fit instead of the requested posterior mean, or use reference summaries during fitting.",
+      "No fabricated posterior-call telemetry, cached outputs, cross-instance fitting or changed fallback/metric.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "path": "agent/paper/paper.txt",
+        "section": "Section 4.2 high-dimensional Poisson experiment",
+        "finding": "Methods approximate a common Poisson/Student-t posterior whose means are compared against HMC."
+      },
+      {
+        "path": "agent/bench/scorer.py",
+        "finding": "Uses coordinate standardized bias and fixed 21500-call/reference-access guards."
+      },
+      {
+        "path": "agent/README.md",
+        "section": "Rules and budget correction",
+        "finding": "21500 reflects reviewed full baseline call count; computational budget is scientific cost, not a wall-clock gate."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/062_SkewPosterior.json"
+  },
+  "research_contract_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/062_SkewPosterior.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

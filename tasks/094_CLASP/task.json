@@ -1,0 +1,203 @@
+{
+  "pid": "094_CLASP",
+  "class": "A",
+  "title": "CLASP: Online learning algorithms for Convex Losses And Squared Penalties",
+  "metric": {
+    "name": "ccv2",
+    "higher_is_better": false,
+    "delta": 0.05,
+    "aggregate": "mean"
+  },
+  "cpus": 8,
+  "memory_gb": 8,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.json",
+    "val_labels": "data/val/labels",
+    "test_input": "test/input.json",
+    "test_labels": "test/labels",
+    "input_format": "private-policy-v2-manifest",
+    "output_format": "private-policy-v2-artifact"
+  },
+  "split": {
+    "type": "online",
+    "decision": "Online Figure 1: n=10,k=4,T=100. 100 validation episodes (public master 20261030), 100 independently generated hidden episodes, disjoint seeds; no offline training. Instance and noise streams are separate from BENCH_SEED algorithm randomness; the random initial point is part of each episode. Historical seeds 0–99 used only for operator equivalence verification. Protocol v2 preserves every generated episode but hides all test seeds and future state in the private labels directory. Candidate policies run in per-episode sandbox workers; trusted RPC enforces causal access and counts."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 0.5,
+    "val": {
+      "ccv2": 81.92305101691161
+    },
+    "paper_ref": "Figure 1, no numerical table. Historical 100-trial reproduction CCV2=85.05606671165904; fresh independent episode streams used for benchmark.",
+    "reference_status": "invalidated_by_private_policy_v2",
+    "timing_scope": "Original 60s aggregate prediction budget enforced by v2; full 100-episode throughput and new reference are not measured.",
+    "measured_s": {
+      "train": [
+        0.26
+      ],
+      "predict": [
+        0.87
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 1e-06,
+    "parity_abs_tol": 0.0,
+    "policy_predict_timing_scope": "One aggregate input-preparation-to-output-serialization wall clock; artifact freeze/validation/extraction and resource configuration separately measured; no per-episode reset.",
+    "policy_cpu_allocation": "At most 8 actual affinity CPUs. Default 1 CPU per episode; optional code/policy_resources.json episode_cpus integer 1..8, nonoverlapping groups, bounded by actual available affinity.",
+    "reference_hash": "sha256:2be92f079fa63a6a50312f014a334f83099e697a5f38e3dff43acab8c525fe8c"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "73dc12006db459be78d7719c5c14f6221e365db9",
+    "adapt_commit": "727d188f5bd1eee4caaf321714d5c43fdca74b41",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "protocol_version": "private-policy-v2",
+  "conversion": {
+    "historical_reason": "Experiment-preserving causal adapter with original prediction budget; one T=100 baseline episode and bounded negative controls passed. Production throughput and reference remain unmeasured.",
+    "reason": "Current method and timing contract is documented in method_freedom.report."
+  },
+  "smoke": {
+    "input": "judge/verification/private_smoke/input.json",
+    "labels": "judge/verification/private_smoke/labels"
+  },
+  "leakage_remediation": {
+    "status": "smoke_verified",
+    "outer_harness_changed": false,
+    "full_training_or_evaluation_run": false,
+    "evidence": [
+      "audits/20261101_preserve_experiment/094_CLASP.json",
+      "audits/20261101_preserve_experiment/094_CLASP/smoke.json",
+      "audits/20261101_preserve_experiment/094_CLASP/import.json",
+      "audits/20261101_preserve_experiment/094_CLASP/contract.json"
+    ],
+    "full_evaluation_ready": false,
+    "scope": "experiment-preserving causal policy execution; original aggregate prediction and CPU budget restored",
+    "verification_scope": "One original validation episode, all 100 CLASP-I updates plus x101; legacy feedback and trusted totals exact; 14 bounded negative controls. No production split run.",
+    "declared_interpreter_verified": true,
+    "installed_lock_versions_match": true,
+    "fresh_lock_install": false,
+    "method_semantics_require_source_review": true,
+    "randomness_contract_require_source_review": true,
+    "production_throughput_verified": false,
+    "artifact_reused": true,
+    "artifact_reuse_scope": "All 14 tracked code files and the freshly generated model marker match byte-for-byte; packaged dependency metadata matches env.lock. No new artifact export and no dependency file-by-file comparison against the installed environment.",
+    "original_predict_wall_cap_s": 60,
+    "superseded_by": "audits/20261101_method_freedom/094_CLASP.json",
+    "evidence_is_historical": true
+  },
+  "method_freedom": {
+    "report": "audits/20261101_method_freedom/094_CLASP.json",
+    "full_training_or_evaluation_run": false,
+    "scope_superseded_by": "audits/20261101_research_contract/094_CLASP.json"
+  },
+  "method_freedom_review": {
+    "report": "audits/20261101_research_contract/094_CLASP.json",
+    "allowed_changes": [
+      "Online policies, initial-decision selection, internal predictive models, auxiliary surrogate losses, updates, preconditioners, optimizers and numerical schedules may change.",
+      "The returned original initial point is legal information; the candidate may choose its own first decision, as in the existing interface. CLASP update equations are a baseline.",
+      "Changing only the coefficient or exponent of the step size 1/sqrt(t+1) in `clasp.py` also does not count."
+    ],
+    "fixed_contract": [
+      "Minimize squared cumulative constraint violation in the fixed online convex-learning environment while satisfying its original loss and CCV1 guards.",
+      "The original episode generators/data with n10/k4/T100, decision domain [0,1]^10, per-round loss .5*||H*x-y||^2 and linear violation max(max(A*x-b),0) are fixed.",
+      "Each decision is committed before its round feedback; all100 scored decisions and the final unscored update are required. The original100-episode split and mean sums of violation^2 remain fixed.",
+      "Mean loss<=1.01*baseline and mean CCV1<=1.05*baseline remain fixed and use independently reconstructed original metrics.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/094_CLASP.json",
+    "status": "repaired_scope_with_limits",
+    "forbidden_substitutions": [
+      "Do not replace the true quadratic loss/linear constraints, change the domain/horizon/CCV definitions, expose round feedback before the associated action, or omit difficult rounds.",
+      "No hidden future parameters/seeds, reset/query-budget evasion, forged trajectories/metrics or cross-episode private state.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "After the initial action, the policy must adapt its decisions using the episode's revealed loss and constraint feedback; constant actions and preset trajectories that ignore this feedback do not count as a method improvement. Patch audit checks this rule."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Minimize squared cumulative constraint violation in the fixed online convex-learning environment while satisfying its original loss and CCV1 guards.",
+    "fixed_research_objects": [
+      "The original episode generators/data with n10/k4/T100, decision domain [0,1]^10, per-round loss .5*||H*x-y||^2 and linear violation max(max(A*x-b),0) are fixed.",
+      "Each decision is committed before its round feedback; all100 scored decisions and the final unscored update are required. The original100-episode split and mean sums of violation^2 remain fixed.",
+      "Mean loss<=1.01*baseline and mean CCV1<=1.05*baseline remain fixed and use independently reconstructed original metrics."
+    ],
+    "editable_components": [
+      "Online policies, initial-decision selection, internal predictive models, auxiliary surrogate losses, updates, preconditioners, optimizers and numerical schedules may change.",
+      "The returned original initial point is legal information; the candidate may choose its own first decision, as in the existing interface. CLASP update equations are a baseline.",
+      "Changing only the coefficient or exponent of the step size 1/sqrt(t+1) in `clasp.py` also does not count."
+    ],
+    "forbidden_substitutions": [
+      "Do not replace the true quadratic loss/linear constraints, change the domain/horizon/CCV definitions, expose round feedback before the associated action, or omit difficult rounds.",
+      "No hidden future parameters/seeds, reset/query-budget evasion, forged trajectories/metrics or cross-episode private state.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "After the initial action, the policy must adapt its decisions using the episode's revealed loss and constraint feedback; constant actions and preset trajectories that ignore this feedback do not count as a method improvement. Patch audit checks this rule."
+    ],
+    "evidence": [
+      {
+        "path": "agent/bench/private_clasp.py",
+        "section": "_instance, _round_metrics, make_episode",
+        "finding": "Frozen environment owns true loss and constraints; actions are committed before revealing that round feedback."
+      },
+      {
+        "path": "agent/bench/private_handler.py",
+        "finding": "Owns private episode state and rejects reset/other-ID/out-of-order interactions."
+      },
+      {
+        "path": "agent/bench/private_score.py",
+        "finding": "Matches worker CSV to trusted records before original numerical scoring."
+      },
+      {
+        "section": "Online convex optimization with constraints",
+        "finding": "The loss/constraint sequence defines the research optimization problem; candidate update rules solve it."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/094_CLASP.json"
+  },
+  "research_contract_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/094_CLASP.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

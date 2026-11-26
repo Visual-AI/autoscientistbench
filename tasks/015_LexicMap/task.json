@@ -1,0 +1,174 @@
+{
+  "pid": "015_LexicMap",
+  "class": "A",
+  "title": "LexicMap existing-query alignment benchmark",
+  "metric": {
+    "name": "alignment_rate",
+    "higher_is_better": true,
+    "delta": 0.005,
+    "aggregate": "mean"
+  },
+  "cpus": 32,
+  "memory_gb": 32,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.zip",
+    "val_labels": "data/val/labels.json",
+    "test_input": "test/input.zip",
+    "test_labels": "test/labels.json"
+  },
+  "split": {
+    "type": "training_free",
+    "decision": "Existing seed-1 3x queries partitioned by whole reference genome: two development genomes and eight held out; union preserves all 60 files and all retained reads. All ten reference genomes supplied for index construction. Smoke reuses 48 unchanged development reads in a separate explicit fixture."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 1.36,
+    "val": {
+      "alignment_rate": 72.34593063809245
+    },
+    "paper_ref": "Fig. 3, 1000 bp panel; original full archived job final_1=71.90472089383158%, not a converted validation reference",
+    "archived_job_value": 71.90472089383158,
+    "paper_value": 72.25,
+    "measured_reference": false,
+    "measured_s": {
+      "train": [
+        35.74
+      ],
+      "predict": [
+        81.67
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:1c220fb1b64554ed45cc79f8884e1d635272e2efebae65c62d1e3e1351692c75"
+  },
+  "env": {
+    "mode": "snapshot",
+    "snapshot": "runtime/runtime.json",
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [],
+    "build_cap_s": 300
+  },
+  "adapt": {
+    "base_commit": "f28dcf24a6e438e6db88d704e93b9d8ee5bc9146",
+    "adapt_commit": "194fc3ffd58fd5a1a9dfff0285061e00a88d7a30",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "smoke": {
+    "input": "judge/verification/smoke_input.zip",
+    "labels": "judge/verification/smoke_labels.json",
+    "env": {}
+  },
+  "conversion": {
+    "full_data_ready": true,
+    "upstream_commit": "76366f04afeed14ed1d7c530d033d29cba417db9",
+    "original_checkout_commit": "d4f37d7496ae49a0a5ed603129e4865b923a24bb",
+    "source_binary_version": "0.7.0",
+    "smoke_queries": 48,
+    "smoke_reference_genomes": 1,
+    "full_query_count": 451881
+  },
+  "method_freedom_review": {
+    "full_evaluation_ready": false,
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/015_LexicMap.json",
+    "full_training_or_evaluation": false,
+    "allowed_changes": [
+      "anchor matching, chaining, extension, alignment and derived internal representations",
+      "filtering, scoring heuristics and computational models within the same observed-query problem"
+    ],
+    "fixed_contract": [
+      "Align the fixed existing query reads to the supplied reference genomes while preserving accuracy, off-target and index-size constraints.",
+      "reference/query universe, whole-genome partition and all identity strata",
+      "inclusive endpoint matching rule, pooled alignment metric, control floors, off-target ceiling and index-size budget",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/015_LexicMap.json",
+    "forbidden_substitutions": [
+      "Seeding stays at the paper's defaults: 20,000 probes, k=31, seed desert limit 100 bp with 50 bp spacing, and minimum anchor lengths 15 and 17 (`-m`, `-k`, `-D`, `-d`, `-p`, `-P`). Do not replace it with denser or exhaustive seeding; a gain must come from how anchors are matched, chained, extended and filtered.",
+      "Do not use the FASTQ quality bytes in seeding, alignment or filtering: the simulator's ideal quality model tracks where the simulated errors are, which real sequence divergence does not provide.",
+      "Each HSP row must report the two ends of one base-level alignment of the query to that subject, with a span of at most 2,000 bp (span checked by the scorer, alignment by patch audit).",
+      "modifying or replacing reference/query sequences or their partitions",
+      "changing endpoint correctness, hiding unmatched queries, using origin-label lookups or exceeding the index-size budget",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract"
+  },
+  "research_contract": {
+    "objective": "Align the fixed existing query reads to the supplied reference genomes while preserving accuracy, off-target and index-size constraints.",
+    "fixed_research_objects": [
+      "reference/query universe, whole-genome partition and all identity strata",
+      "inclusive endpoint matching rule, pooled alignment metric, control floors, off-target ceiling and index-size budget"
+    ],
+    "editable_components": [
+      "anchor matching, chaining, extension, alignment and derived internal representations",
+      "filtering, scoring heuristics and computational models within the same observed-query problem"
+    ],
+    "forbidden_substitutions": [
+      "Seeding stays at the paper's defaults: 20,000 probes, k=31, seed desert limit 100 bp with 50 bp spacing, and minimum anchor lengths 15 and 17 (`-m`, `-k`, `-D`, `-d`, `-p`, `-P`). Do not replace it with denser or exhaustive seeding; a gain must come from how anchors are matched, chained, extended and filtered.",
+      "Do not use the FASTQ quality bytes in seeding, alignment or filtering: the simulator's ideal quality model tracks where the simulated errors are, which real sequence divergence does not provide.",
+      "Each HSP row must report the two ends of one base-level alignment of the query to that subject, with a span of at most 2,000 bp (span checked by the scorer, alignment by patch audit).",
+      "modifying or replacing reference/query sequences or their partitions",
+      "changing endpoint correctness, hiding unmatched queries, using origin-label lookups or exceeding the index-size budget",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "source": "tasks/015_LexicMap/agent/README.md",
+        "section": "Goal,Data,Metric and baseline",
+        "finding": "Align the fixed existing query reads to the supplied reference genomes while preserving accuracy, off-target and index-size constraints."
+      },
+      {
+        "source": "tasks/015_LexicMap/agent/bench/scorer.py",
+        "section": "trusted score and guards",
+        "finding": "The fixed evaluation target is reference/query universe, whole-genome partition and all identity strata; inclusive endpoint matching rule, pooled alignment metric, control floors, off-target ceiling and index-size budget"
+      },
+      {
+        "source": "audits/20261101_method_freedom/015_LexicMap.json",
+        "section": "prior task-specific scorer/interface audit",
+        "finding": "Reuse the prior actual evaluator review while narrowing the blanket permission to the present task-specific objects."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/015_LexicMap.json"
+  },
+  "research_contract_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/015_LexicMap.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

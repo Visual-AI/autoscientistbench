@@ -1,0 +1,199 @@
+{
+  "pid": "031_CAST",
+  "class": "A",
+  "title": "CAST: A Cross-Asset State-Space Trading System for Drawdown Control in Stock Markets",
+  "metric": {
+    "name": "sharpe",
+    "higher_is_better": true,
+    "delta": 0.001,
+    "aggregate": "mean"
+  },
+  "cpus": 16,
+  "memory_gb": 16,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/request.json",
+    "val_labels": "data/val/replay",
+    "test_input": "test/request.json",
+    "test_labels": "test/replay",
+    "input_format": "private_episode_descriptor",
+    "output_format": "policy_artifact_zip"
+  },
+  "split": {
+    "type": "temporal",
+    "decision": "Calibration 2005–2007; global c from {1,1.5,2} maximizing validation mean CAST Sharpe across four panels and four lambda cells, tie lower MDD then grid order; per-panel lambda from {0.05,0.1,0.3,0.6} maximizing 2008–2009 validation Sharpe. Hidden 2010-01-01..2025-04-30; online filters warmed from complete past, accounts reset at each evaluation block. Sizes (train/val/test): NASDAQ 754/505/3855, CSI300 745/490/3720, TPX100 765/488/3769, Global30 781/521/3989. History included in evaluation inputs. All archived raw_prices match bitwise; no split RNG. Nonfinite c means rank last; when all c means are undefined (zero-trading candidates), select the lowest mean MDD, then original grid order. Per-panel invalid lambda scores rank last."
+  },
+  "baseline": {
+    "train_min": 1.65,
+    "eval_min": 0.5,
+    "val": {
+      "sharpe": 0.7498466812757798
+    },
+    "paper_ref": "Reproduced original protocol: 0.38413502089675605; paper: 0.384",
+    "measured_s": {
+      "train": [
+        99.05
+      ],
+      "predict": [
+        0.72
+      ]
+    },
+    "timing_scope": "legacy protocol estimates retained for operational budgeting; not a measured v2 reference"
+  },
+  "judge": {
+    "seeds": [
+      1
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 1e-06,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:b023d0c1e08269abd9c8a83e67e4be2b565e7e62afae132ff1ba8432936a33fc"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "a5ad75a40c5a89b31984f2a103f8fd4268b57a53",
+    "adapt_commit": "8897a88134fb428677f0c682aacfd4abf65cb4fd",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "private_eval": {
+    "version": 2,
+    "protocol": "private-policy-v2",
+    "entry": "policy.sh",
+    "information_boundary": "trusted_stepwise_release",
+    "full_reproduction_performed": false
+  },
+  "legacy_baseline_val": {
+    "sharpe": 0.7498466812757798
+  },
+  "protocol_version": "private-policy-v2",
+  "leakage_remediation": {
+    "status": "smoke_verified",
+    "outer_harness_changed": false,
+    "full_training_or_evaluation_run": false,
+    "evidence": [
+      "audits/20261101_preserve_experiment/Fin-04-smoke.json",
+      "audits/20261101_preserve_experiment/Fin-04-frozen-before.json",
+      "audits/20261101_preserve_experiment/shared_cpu_smoke.json"
+    ],
+    "full_evaluation_ready": false
+  },
+  "experiment_preservation": {
+    "report": "audits/20261101_preserve_experiment/031_CAST.json",
+    "original_train_cap_s": 228,
+    "original_predict_cap_s": 502,
+    "artifact_preparation_timed_separately": true,
+    "formal_data_and_numerical_sources_unchanged": true,
+    "full_scale_throughput_verified": false,
+    "method_and_seed_semantics_require_review": true
+  },
+  "method_freedom_review": {
+    "full_evaluation_ready": false,
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/031_CAST.json",
+    "full_training_or_evaluation": false,
+    "allowed_changes": [
+      "causal price forecasting, state estimation, trading controllers and derived features from permitted observations",
+      "training surrogate losses, calibration estimators, online state updates and optimization within the same accounting rules",
+      "When retaining the supplied CAST pipeline, changing only L=7, IRW orders (1,2,3), beta=0.5, the c candidates {1,1.5,2}, the lambda candidates {0.05,0.1,0.3,0.6} or the per-asset 4x4 calibration grid does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Optimize causal trading decisions for the four existing market panels, maximizing mean annualized Sharpe under the original account and risk constraints.",
+      "chronological market observations and calibration/development split;30 independent accounts per panel with initial cash1000",
+      "next-close fills, no transfers/costs, decision-close no leverage, permanent stop below NAV200 and positive-NAV requirement",
+      "daily mean-account NAV, original Sharpe/MDD/turnover definitions and frozen panel risk limits",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/031_CAST.json",
+    "forbidden_substitutions": [
+      "substituting market paths, dates, assets, account structure or execution/risk rules",
+      "future-price access, date-related answer tables, transfers between accounts or alternate return/turnover definitions",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract"
+  },
+  "research_contract": {
+    "objective": "Optimize causal trading decisions for the four existing market panels, maximizing mean annualized Sharpe under the original account and risk constraints.",
+    "fixed_research_objects": [
+      "chronological market observations and calibration/development split;30 independent accounts per panel with initial cash1000",
+      "next-close fills, no transfers/costs, decision-close no leverage, permanent stop below NAV200 and positive-NAV requirement",
+      "daily mean-account NAV, original Sharpe/MDD/turnover definitions and frozen panel risk limits"
+    ],
+    "editable_components": [
+      "causal price forecasting, state estimation, trading controllers and derived features from permitted observations",
+      "training surrogate losses, calibration estimators, online state updates and optimization within the same accounting rules",
+      "When retaining the supplied CAST pipeline, changing only L=7, IRW orders (1,2,3), beta=0.5, the c candidates {1,1.5,2}, the lambda candidates {0.05,0.1,0.3,0.6} or the per-asset 4x4 calibration grid does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "substituting market paths, dates, assets, account structure or execution/risk rules",
+      "future-price access, date-related answer tables, transfers between accounts or alternate return/turnover definitions",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "source": "tasks/031_CAST/agent/README.md",
+        "section": "Goal,Data,Metric and baseline",
+        "finding": "Optimize causal trading decisions for the four existing market panels, maximizing mean annualized Sharpe under the original account and risk constraints."
+      },
+      {
+        "source": "tasks/031_CAST/agent/bench/scorer.py",
+        "section": "trusted score and guards",
+        "finding": "The fixed evaluation target is chronological market observations and calibration/development split;30 independent accounts per panel with initial cash1000; next-close fills, no transfers/costs, decision-close no leverage, permanent stop below NAV200 and positive-NAV requirement; daily mean-account NAV, original Sharpe/MDD/turnover definitions and frozen panel risk limits"
+      },
+      {
+        "source": "audits/20261101_method_freedom/031_CAST.json",
+        "section": "prior task-specific scorer/interface audit",
+        "finding": "Reuse the prior actual evaluator review while narrowing the blanket permission to the present task-specific objects."
+      },
+      {
+        "source": "tasks/031_CAST/BRIEF.md",
+        "section": "27-33",
+        "finding": "The score rule fixes trading rules and risk controls; the algorithmic filter/MPC is the solution method. Calibration and development remain chronological."
+      },
+      {
+        "source": "tasks/031_CAST/agent/bench/accounting.py",
+        "section": "replay/evaluate",
+        "finding": "Trusted accounting enforces the scientific constraints independently of the candidate controller."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/031_CAST.json"
+  },
+  "research_contract_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/031_CAST.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

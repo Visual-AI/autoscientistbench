@@ -1,0 +1,217 @@
+{
+  "task": "009_HD-ConfSeq",
+  "created": "2026-11-02T09:51:37+0000",
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "cpus": 8,
+  "adapt_commit": "f831122efbe65db5d664a6d89fb3f3d24cdc653d",
+  "sandbox": true,
+  "budget_s": 27360.0,
+  "test": {
+    "per_seed": [
+      269.5,
+      269.5,
+      269.5
+    ],
+    "mean": 269.5,
+    "std": 0.0,
+    "n": 3
+  },
+  "val": {
+    "per_seed": [
+      267.0,
+      267.0,
+      267.0
+    ],
+    "mean": 267.0,
+    "std": 0.0,
+    "n": 3
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "mean_stop_t": 269.5,
+        "raw_mean_stop_t": 269.5,
+        "guards_ok": true,
+        "guards": {
+          "effect_decision": true,
+          "no_effect_decision": true,
+          "coverage": true,
+          "false_flags": true
+        },
+        "coverage": {
+          "bernoulli_mix": 0.985,
+          "circle": 0.985
+        },
+        "false_flags": {
+          "no_effect": 0,
+          "effect": 0
+        },
+        "primary_stops": {
+          "no_effect": 356,
+          "effect": 183
+        }
+      },
+      "val": {
+        "mean_stop_t": 267.0,
+        "raw_mean_stop_t": 267.0,
+        "guards_ok": true,
+        "guards": {
+          "effect_decision": true,
+          "no_effect_decision": true,
+          "coverage": true,
+          "false_flags": true
+        },
+        "coverage": {
+          "circle": 0.98,
+          "bernoulli_mix": 0.95
+        },
+        "false_flags": {
+          "effect": 0,
+          "no_effect": 0
+        },
+        "primary_stops": {
+          "effect": 178,
+          "no_effect": 356
+        }
+      },
+      "timing": {
+        "train_s": 3.57,
+        "predict_s": 2989.55,
+        "score_s": 6.09,
+        "predict_val_s": 2930.98
+      }
+    },
+    "2": {
+      "test": {
+        "mean_stop_t": 269.5,
+        "raw_mean_stop_t": 269.5,
+        "guards_ok": true,
+        "guards": {
+          "effect_decision": true,
+          "no_effect_decision": true,
+          "coverage": true,
+          "false_flags": true
+        },
+        "coverage": {
+          "bernoulli_mix": 0.985,
+          "circle": 0.985
+        },
+        "false_flags": {
+          "no_effect": 0,
+          "effect": 0
+        },
+        "primary_stops": {
+          "no_effect": 356,
+          "effect": 183
+        }
+      },
+      "val": {
+        "mean_stop_t": 267.0,
+        "raw_mean_stop_t": 267.0,
+        "guards_ok": true,
+        "guards": {
+          "effect_decision": true,
+          "no_effect_decision": true,
+          "coverage": true,
+          "false_flags": true
+        },
+        "coverage": {
+          "circle": 0.98,
+          "bernoulli_mix": 0.95
+        },
+        "false_flags": {
+          "effect": 0,
+          "no_effect": 0
+        },
+        "primary_stops": {
+          "effect": 178,
+          "no_effect": 356
+        }
+      },
+      "timing": {
+        "train_s": 3.47,
+        "predict_s": 2916.4,
+        "score_s": 5.97,
+        "predict_val_s": 3035.38
+      }
+    },
+    "3": {
+      "test": {
+        "mean_stop_t": 269.5,
+        "raw_mean_stop_t": 269.5,
+        "guards_ok": true,
+        "guards": {
+          "effect_decision": true,
+          "no_effect_decision": true,
+          "coverage": true,
+          "false_flags": true
+        },
+        "coverage": {
+          "bernoulli_mix": 0.985,
+          "circle": 0.985
+        },
+        "false_flags": {
+          "no_effect": 0,
+          "effect": 0
+        },
+        "primary_stops": {
+          "no_effect": 356,
+          "effect": 183
+        }
+      },
+      "val": {
+        "mean_stop_t": 267.0,
+        "raw_mean_stop_t": 267.0,
+        "guards_ok": true,
+        "guards": {
+          "effect_decision": true,
+          "no_effect_decision": true,
+          "coverage": true,
+          "false_flags": true
+        },
+        "coverage": {
+          "circle": 0.98,
+          "bernoulli_mix": 0.95
+        },
+        "false_flags": {
+          "effect": 0,
+          "no_effect": 0
+        },
+        "primary_stops": {
+          "effect": 178,
+          "no_effect": 356
+        }
+      },
+      "timing": {
+        "train_s": 3.42,
+        "predict_s": 2951.79,
+        "score_s": 6.13,
+        "predict_val_s": 2895.98
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      3.57,
+      3.47,
+      3.42
+    ],
+    "predict_s": [
+      2989.55,
+      2916.4,
+      2951.79
+    ],
+    "build_s": 3.2
+  },
+  "hashes": {
+    "env_lock": "095251aefdc016db86d5d3b66d715f91814e8542b897fcf3365b5bf0e06b3a6b",
+    "scorer": "3e5c34a4d35042111d1f88c28688c1f69ec817c8ae2f337b4491f9bf00c5550f",
+    "validate": "81b5ad4c6502ccb4dc95ac6be2e76eefcd927f917867d413984723bfb8f3722e",
+    "test_labels": "46044d9e6a19e649eb70e335f8c082da1172f375d6a0b7814fefc0a8e2aa8f09",
+    "adapt_patch": "d62244bc61f45fb365d8b3a19ee7447001fe257b9ecfb4bc40671f5c824b8105"
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "task": "052_AnisoBivFunc",
+  "created": "2026-11-02T18:33:29+0000",
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "cpus": 12,
+  "adapt_commit": "8f4d6210f003a343e9a34add23750f51e15f9a70",
+  "sandbox": true,
+  "budget_s": 21600.0,
+  "test": {
+    "per_seed": [
+      0.027456726673350258,
+      0.027456726673350258,
+      0.027456726673350258
+    ],
+    "mean": 0.02745672667335026,
+    "std": 0.0,
+    "n": 3
+  },
+  "val": {
+    "per_seed": [
+      0.027840443014127112,
+      0.027840443014127112,
+      0.027840443014127112
+    ],
+    "mean": 0.027840443014127112,
+    "std": 0.0,
+    "n": 3
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "mean_median_angle_risk": 0.027456726673350258
+      },
+      "val": {
+        "mean_median_angle_risk": 0.027840443014127112
+      },
+      "timing": {
+        "train_s": 0.06,
+        "predict_s": 1258.72,
+        "score_s": 0.19,
+        "predict_val_s": 1249.58
+      }
+    },
+    "2": {
+      "test": {
+        "mean_median_angle_risk": 0.027456726673350258
+      },
+      "val": {
+        "mean_median_angle_risk": 0.027840443014127112
+      },
+      "timing": {
+        "train_s": 0.06,
+        "predict_s": 1253.74,
+        "score_s": 0.19,
+        "predict_val_s": 1259.83
+      }
+    },
+    "3": {
+      "test": {
+        "mean_median_angle_risk": 0.027456726673350258
+      },
+      "val": {
+        "mean_median_angle_risk": 0.027840443014127112
+      },
+      "timing": {
+        "train_s": 0.06,
+        "predict_s": 1222.96,
+        "score_s": 0.19,
+        "predict_val_s": 1214.58
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      0.06,
+      0.06,
+      0.06
+    ],
+    "predict_s": [
+      1258.72,
+      1253.74,
+      1222.96
+    ],
+    "build_s": 0.61
+  },
+  "hashes": {
+    "env_lock": "0df34fc4339b643e3ebb8142c86ddac7c889ef0f6a6320bce5d407923f063c91",
+    "scorer": "2f5b7e0e2793faff691261fdd7c4b337a989545bb9021b07f1d9fccd8ad52919",
+    "validate": "92de2ccffb6d0b69ff2a0eaba3c3a28521b710cee4fcda2c717f628d14f9a756",
+    "test_labels": "dec33369ced921f521fe73aae6a046ae37dfe50bd60535e0ba3e79f9199a4eec",
+    "adapt_patch": "0c9dcef2ad813c109f0865c16d1774ea888f1aae17cac144722636f78aa64143"
+  }
+}

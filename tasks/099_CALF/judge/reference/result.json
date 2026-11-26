@@ -1,0 +1,217 @@
+{
+  "task": "099_CALF",
+  "created": "2026-11-04T16:46:51+0000",
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "cpus": 64,
+  "adapt_commit": "87d60b753def2ce11d5de41dfcb73dd1f071d4d3",
+  "sandbox": true,
+  "budget_s": 43200.0,
+  "test": {
+    "per_seed": [
+      0.4436882156358785,
+      0.4444522580541009,
+      0.44632541643669776
+    ],
+    "mean": 0.444821963375559,
+    "std": 0.0011079165234788803,
+    "n": 3
+  },
+  "val": {
+    "per_seed": [
+      1.1326010050767095,
+      1.1317333756838455,
+      1.1328496863233268
+    ],
+    "mean": 1.1323946890279606,
+    "std": 0.0004785130405282153,
+    "n": 3
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "mse": 0.4436882156358785,
+        "mae": 0.43557761517166044,
+        "mse_per_horizon": {
+          "96": 0.37977066688014166,
+          "192": 0.4314339359449321,
+          "336": 0.47817707904226675,
+          "720": 0.4853711806761735
+        },
+        "mae_per_horizon": {
+          "96": 0.3951041572241635,
+          "192": 0.4248746988645287,
+          "336": 0.4504808486798092,
+          "720": 0.47185075591814024
+        },
+        "protocol": "private-forecast-v2",
+        "evaluation_windows": 1276,
+        "isolation": "fresh_worker_per_window",
+        "original_metric_preserved": true,
+        "prediction_wall_s": 344.901133550331,
+        "worker_pool_size": 32,
+        "artifact_setup_s": 16.262207750231028
+      },
+      "val": {
+        "mse": 1.1326010050767095,
+        "mae": 0.6999755675097621,
+        "mse_per_horizon": {
+          "96": 0.6889589409500426,
+          "192": 0.9949291206054268,
+          "336": 1.2862693120747142,
+          "720": 1.5602466466766538
+        },
+        "mae_per_horizon": {
+          "96": 0.54458467498723,
+          "192": 0.6519575130406363,
+          "336": 0.7561825511317463,
+          "720": 0.8471775308794359
+        },
+        "protocol": "private-forecast-v2",
+        "evaluation_windows": 1276,
+        "isolation": "fresh_worker_per_window",
+        "original_metric_preserved": true,
+        "prediction_wall_s": 335.4397533265874,
+        "worker_pool_size": 32,
+        "artifact_setup_s": 14.724456193856895
+      },
+      "timing": {
+        "train_s": 3025.17,
+        "predict_s": 13.25,
+        "score_s": 362.34,
+        "predict_val_s": 11.94
+      }
+    },
+    "2": {
+      "test": {
+        "mse": 0.4444522580541009,
+        "mae": 0.43637846054015134,
+        "mse_per_horizon": {
+          "96": 0.38296451062364956,
+          "192": 0.434725954963685,
+          "336": 0.47587932618839973,
+          "720": 0.48423924044066924
+        },
+        "mae_per_horizon": {
+          "96": 0.39704183254397285,
+          "192": 0.42801022448960463,
+          "336": 0.4496981434726955,
+          "720": 0.4707636416543324
+        },
+        "protocol": "private-forecast-v2",
+        "evaluation_windows": 1276,
+        "isolation": "fresh_worker_per_window",
+        "original_metric_preserved": true,
+        "prediction_wall_s": 350.859241575934,
+        "worker_pool_size": 32,
+        "artifact_setup_s": 16.16749246325344
+      },
+      "val": {
+        "mse": 1.1317333756838455,
+        "mae": 0.7005665973996725,
+        "mse_per_horizon": {
+          "96": 0.686731763745989,
+          "192": 0.9918273912386226,
+          "336": 1.2861919899631433,
+          "720": 1.5621823577876268
+        },
+        "mae_per_horizon": {
+          "96": 0.5443024532106773,
+          "192": 0.6519184899120344,
+          "336": 0.7574765416446002,
+          "720": 0.848568904831378
+        },
+        "protocol": "private-forecast-v2",
+        "evaluation_windows": 1276,
+        "isolation": "fresh_worker_per_window",
+        "original_metric_preserved": true,
+        "prediction_wall_s": 350.83839610777795,
+        "worker_pool_size": 32,
+        "artifact_setup_s": 16.19653538055718
+      },
+      "timing": {
+        "train_s": 3212.94,
+        "predict_s": 12.99,
+        "score_s": 368.21,
+        "predict_val_s": 12.75
+      }
+    },
+    "3": {
+      "test": {
+        "mse": 0.44632541643669776,
+        "mae": 0.43748709432966515,
+        "mse_per_horizon": {
+          "96": 0.38225564627787345,
+          "192": 0.43361360583020975,
+          "336": 0.4783380500522724,
+          "720": 0.4910943635864354
+        },
+        "mae_per_horizon": {
+          "96": 0.397782401470722,
+          "192": 0.4277880337657374,
+          "336": 0.4503300197566063,
+          "720": 0.4740479223255948
+        },
+        "protocol": "private-forecast-v2",
+        "evaluation_windows": 1276,
+        "isolation": "fresh_worker_per_window",
+        "original_metric_preserved": true,
+        "prediction_wall_s": 352.4990102685988,
+        "worker_pool_size": 32,
+        "artifact_setup_s": 17.017692510038614
+      },
+      "val": {
+        "mse": 1.1328496863233268,
+        "mae": 0.7003893026019585,
+        "mse_per_horizon": {
+          "96": 0.6858545478524799,
+          "192": 0.9980659962619088,
+          "336": 1.285050501364728,
+          "720": 1.562427699814191
+        },
+        "mae_per_horizon": {
+          "96": 0.5438248349889752,
+          "192": 0.6542460317354151,
+          "336": 0.755597803875116,
+          "720": 0.8478885398083282
+        },
+        "protocol": "private-forecast-v2",
+        "evaluation_windows": 1276,
+        "isolation": "fresh_worker_per_window",
+        "original_metric_preserved": true,
+        "prediction_wall_s": 349.67655939701945,
+        "worker_pool_size": 32,
+        "artifact_setup_s": 16.81765592005104
+      },
+      "timing": {
+        "train_s": 2967.87,
+        "predict_s": 12.89,
+        "score_s": 370.69,
+        "predict_val_s": 12.9
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      3025.17,
+      3212.94,
+      2967.87
+    ],
+    "predict_s": [
+      13.25,
+      12.99,
+      12.89
+    ],
+    "build_s": 9.6
+  },
+  "hashes": {
+    "env_lock": "7cf1d8ad79d7a17efe8288b49e788b6fe372763e1e45c044a2530d40bb6f113a",
+    "scorer": "54c2c776ab87764e8717cf2f51e6f8ef022d5027c0943a31c9b43c6cd1468642",
+    "validate": "f8cdf79c0879d473c1b7969a112b99d94928d6c08831e07a14cac73849be39a4",
+    "test_labels": null,
+    "adapt_patch": "9c33313945bb59c7383749b8b76e352f8a07e817e725f3671248174a50321615"
+  }
+}

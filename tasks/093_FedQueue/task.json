@@ -1,0 +1,178 @@
+{
+  "pid": "093_FedQueue",
+  "class": "A",
+  "title": "FedQueue: Queue-Aware Federated Learning for Cross-Facility HPC Training",
+  "metric": {
+    "name": "accuracy",
+    "higher_is_better": true,
+    "delta": 0.04,
+    "aggregate": "mean"
+  },
+  "cpus": 16,
+  "memory_gb": 16,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.npz",
+    "val_labels": "data/val/labels.npz",
+    "test_input": "test/input.npz",
+    "test_labels": "test/labels.npz",
+    "input_format": "npz",
+    "output_format": "csv"
+  },
+  "split": {
+    "type": "train_test",
+    "decision": "Official MNIST training data: fixed stratified 20% holdout via train_test_split(random_state=20261030): train 48000 / val 12000; ids original zero-based row indices sorted. Apply unchanged APPFL two-Dirichlet partition alpha1=8 alpha2=0.1, K=4 with BENCH_SEED to remaining train; select earliest best of 50 checkpoints on val. Official evaluation rows unchanged and held by judge."
+  },
+  "baseline": {
+    "train_min": 17.75,
+    "eval_min": 0.5,
+    "val": {
+      "accuracy": 84.93166666666666
+    },
+    "paper_ref": "Appendix E.4 Table 12, alpha_dir=0.1, published 88.7%; reproduced Max-A 88.96000000000001%. Benchmark selects on validation.",
+    "measured_s": {
+      "train": [
+        1026.2,
+        1052.31,
+        946.59,
+        1040.28,
+        1065.21
+      ],
+      "predict": [
+        10.83,
+        10.84,
+        10.13,
+        10.88,
+        11.08
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:e868152417a03a0c20d746f8eac3f9984ec5a84a8f9f1c88abf62fef7665d271"
+  },
+  "env": {
+    "python": "3.10",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple",
+      "https://download.pytorch.org/whl/cpu"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "2eafafb555ca327f734b725bb26fcc38124bef4e",
+    "adapt_commit": "9485954e00d4007bd707296e85832c77001adfe7",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "pre_method_freedom_baseline_val": {
+    "accuracy": 85.14333333333335
+  },
+  "leakage_remediation": {
+    "full_evaluation_ready": false,
+    "superseded_by": "audits/20261101_method_freedom/093_FedQueue.json",
+    "evidence_is_historical": true
+  },
+  "method_freedom": {
+    "report": "audits/20261101_method_freedom/093_FedQueue.json",
+    "full_training_or_evaluation_run": false,
+    "superseded_by": "research_contract",
+    "scope_superseded_by": "audits/20261101_research_contract/093_FedQueue.json"
+  },
+  "method_freedom_review": {
+    "report": "audits/20261101_research_contract/093_FedQueue.json",
+    "allowed_changes": [
+      "Local optimizer, learning rates, aggregation, admission, scheduling and implementation for this fixed objective within those controls."
+    ],
+    "fixed_contract": [
+      "Improve validation-selected MNIST accuracy by optimizing the fixed CNN/cross-entropy federated workload under the same queue, communication-round and local-work controls.",
+      "Table-9 SimpleCNN architecture, cross-entropy objective, pixels/255 and minibatch-64 work-counting convention.",
+      "Four clients, fixed two-Dirichlet partition, exogenous lognormal queue and genuine compute-time feedback.",
+      "50 target rounds; all returned scheduler Ek work <=1.2 times the frozen baseline mean; original selection/accuracy rules.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/093_FedQueue.json",
+    "status": "scope_repaired_with_limitations",
+    "forbidden_substitutions": [
+      "Queue delays stay unknown until a client reports them: budgeting and admission may use only delays already observed, not the queue RNG, its seed, or a delay sampled for the current round.",
+      "Replacing CNN/objective, changing batch granularity to obtain more work, centralizing client data or changing client/queue processes.",
+      "Exceeding the algorithmic local-work budget or selecting checkpoints using hidden labels.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Copies of this data from an installed package count as external data (patch audit)."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Improve validation-selected MNIST accuracy by optimizing the fixed CNN/cross-entropy federated workload under the same queue, communication-round and local-work controls.",
+    "fixed_research_objects": [
+      "Table-9 SimpleCNN architecture, cross-entropy objective, pixels/255 and minibatch-64 work-counting convention.",
+      "Four clients, fixed two-Dirichlet partition, exogenous lognormal queue and genuine compute-time feedback.",
+      "50 target rounds; all returned scheduler Ek work <=1.2 times the frozen baseline mean; original selection/accuracy rules."
+    ],
+    "editable_components": [
+      "Local optimizer, learning rates, aggregation, admission, scheduling and implementation for this fixed objective within those controls."
+    ],
+    "forbidden_substitutions": [
+      "Queue delays stay unknown until a client reports them: budgeting and admission may use only delays already observed, not the queue RNG, its seed, or a delay sampled for the current round.",
+      "Replacing CNN/objective, changing batch granularity to obtain more work, centralizing client data or changing client/queue processes.",
+      "Exceeding the algorithmic local-work budget or selecting checkpoints using hidden labels.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Copies of this data from an installed package count as external data (patch audit)."
+    ],
+    "evidence": [
+      {
+        "path": "baseline-repro/papers/093_FedQueue/paper/paper.txt",
+        "lines": "878-900,2577-2607",
+        "finding": "Controlled experiment fixes MNIST+SimpleCNN+cross-entropy workload; Table 9 specifies minibatch 64 and common protocol."
+      },
+      {
+        "path": "tasks/093_FedQueue/BRIEF.md",
+        "lines": "28-29",
+        "finding": "Selected stronger-non-IID cell has a 1.2x local-step score condition and fixed round/client/queue/partition protocol."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/093_FedQueue.json"
+  },
+  "research_contract_review": {
+    "status": "scope_repaired_with_limitations",
+    "report": "audits/20261101_research_contract/093_FedQueue.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

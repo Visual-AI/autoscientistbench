@@ -1,0 +1,225 @@
+{
+  "pid": "058_AnytimeMC",
+  "class": "A",
+  "title": "Multiple testing with anytime-valid Monte Carlo p-values",
+  "metric": {
+    "name": "mean_permutations_per_hypothesis_anytime_valid_BC",
+    "higher_is_better": false,
+    "delta": 0.005,
+    "aggregate": "mean"
+  },
+  "cpus": 32,
+  "memory_gb": 16,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.json",
+    "val_labels": "data/val/evaluation",
+    "test_input": "test/input.json",
+    "test_labels": "test/evaluation",
+    "input_format": "private_trial_descriptor_json",
+    "output_format": "policy_artifact_zip",
+    "protocol_version": "private-null-values-v3"
+  },
+  "split": {
+    "type": "synthetic",
+    "decision": "Original independent Gaussian standard cell: M=1000, pi_A=.4, mu_A=2.5, alpha=.1, B=10000, 10 trials; validation exactly set.seed(123) pis grid cell 4; test same DGP with independent private seed. Observed statistics only; frozen sampler carries null-stream state without truth."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 0.5,
+    "val": {
+      "mean_permutations_per_hypothesis_anytime_valid_BC": 134.7097
+    },
+    "paper_ref": "Historical source/paper value 134.7097 permutations/hypothesis.",
+    "timing_scope": "legacy protocol estimates retained for operational budgeting; not a measured v2 reference",
+    "measured_s": {
+      "train": [
+        0.11
+      ],
+      "predict": [
+        0.16
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:4d443ddb834b6dac3f10ccb630b001abb3e9f82e82acfe914f5793d8e0eb8346"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple",
+      "https://download.pytorch.org/whl/cpu"
+    ],
+    "build_cap_s": 1800,
+    "mode": "snapshot",
+    "snapshot": "runtime/runtime.json"
+  },
+  "adapt": {
+    "base_commit": "0330ab815dffc4e56b0a85c564aef1a29c14f3fd",
+    "adapt_commit": "14955804d76281e01f4be5b913e2edffeded8c9e",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "smoke": {
+    "input": "judge/verification/private_smoke/input.json",
+    "labels": "judge/verification/private_smoke/evaluation"
+  },
+  "conversion": {
+    "full_data_ready": true,
+    "source_upstream_commit": "e2601e705372111188d3084f17c7aa4acc8b9bd0",
+    "smoke_report": "judge/verification/preserve_experiment_smoke.json",
+    "data_audit": "judge/verification/data-audit.json",
+    "isolation_evidence": "judge/verification/isolation.json",
+    "scorer_checks": "judge/verification/scorer-checks.json",
+    "patch_audit_required": [
+      "sampler-only decision computation",
+      "exclusion of analytic p-values, extra null simulation and truth lookup"
+    ],
+    "smoke_actual_method": true
+  },
+  "leakage_repair": {
+    "status": "protocol_smoke_pass",
+    "outer_harness_changed": false,
+    "original_instances_preserved": true,
+    "full_performance_validated": false,
+    "reference_status": "requires_rebuild_after_protocol_change",
+    "smoke_report": "tasks/058_AnytimeMC/judge/verification/preserve_experiment_smoke.json",
+    "original_method_smoke": true,
+    "exact_snapshot_runtime": true,
+    "guard_note": "tiny original-method power guard fails unchanged",
+    "original_raw_statistics_restored": true
+  },
+  "protocol_version": "private-policy-v2",
+  "leakage_remediation": {
+    "status": "smoke_verified",
+    "outer_harness_changed": false,
+    "full_training_or_evaluation_run": false,
+    "evidence": [
+      "tasks/058_AnytimeMC/judge/verification/preserve_experiment_smoke.json",
+      "audits/20261101_preserve_experiment/058_AnytimeMC.json"
+    ],
+    "full_evaluation_ready": false,
+    "scope": "original raw observation/null-value interface restored",
+    "method_compliance_verified": false,
+    "patch_audit_required": [
+      "sampler-only decision computation",
+      "exclusion of analytic p-values, extra null simulation and truth lookup"
+    ],
+    "superseded_by": "method_freedom_review",
+    "historical_policy_record": "judge/legacy_protocol/pre_method_freedom/task_policy.json"
+  },
+  "experiment_preservation": {
+    "original_raw_statistics_restored": true,
+    "original_null_stream_and_disclosure_counts_preserved": true,
+    "original_algorithm_scope_preserved": true,
+    "method_review_required": [
+      "sampler-only decision computation",
+      "exclusion of analytic p-values, extra null simulation and truth lookup"
+    ],
+    "full_reference_run": false,
+    "full_performance_validated": false,
+    "evidence": "tasks/058_AnytimeMC/judge/verification/preserve_experiment_smoke.json",
+    "superseded_by": "method_freedom_review",
+    "historical_policy_record": "judge/legacy_protocol/pre_method_freedom/task_policy.json"
+  },
+  "method_freedom_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/058_AnytimeMC.json",
+    "candidate_method_replacement_allowed": true,
+    "frozen_data_metric_and_information_boundary": true,
+    "full_training_or_evaluation_run": false,
+    "allowed_changes": [
+      "Adaptive query allocation, stopping, valid p-value/e-value construction, multiple-testing strategy and auxiliary fitting methods may change within the sampler-only information contract.",
+      "Besag-Clifford h=10 and sequential-BH implementation are baseline methods rather than mandatory algorithms.",
+      "When retaining the supplied sequential_BH code, changing only method=\"bc\" (including its existing bm and AMT branches), param_bc=10 or peeking_times=1:B does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Reduce the actual Monte Carlo null-sampling cost of the specified multiple-testing problem while maintaining its fixed power and FDR thresholds.",
+      "Only supplied observed statistics and authorized raw null-sampler prefixes are admissible decision information; the null law cannot be replaced by analytic Gaussian knowledge or external draws.",
+      "Ten independent trials, M=1000, B=10000, alpha=.1, actual unique disclosed query cost, power>=.720 and FDR<=.10 remain fixed.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/058_AnytimeMC.json",
+    "forbidden_substitutions": [
+      "No analytical normal p-values, extra simulated null samples, sampler-RNG recovery, inaccessible future prefixes, false query counts or cross-trial state.",
+      "Do not replace null hypotheses, change FDR/power definitions or submit known truth labels as decisions.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Rejections must be supported by Monte Carlo p-values, e-values or another valid test calibrated from authorized null-sampler observations. A rule that rejects by an observed-statistic cutoff or rank chosen through validation selection, while ignoring the disclosed null samples, is not allowed. Patch audit enforces this."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Reduce the actual Monte Carlo null-sampling cost of the specified multiple-testing problem while maintaining its fixed power and FDR thresholds.",
+    "fixed_research_objects": [
+      "Only supplied observed statistics and authorized raw null-sampler prefixes are admissible decision information; the null law cannot be replaced by analytic Gaussian knowledge or external draws.",
+      "Ten independent trials, M=1000, B=10000, alpha=.1, actual unique disclosed query cost, power>=.720 and FDR<=.10 remain fixed."
+    ],
+    "editable_components": [
+      "Adaptive query allocation, stopping, valid p-value/e-value construction, multiple-testing strategy and auxiliary fitting methods may change within the sampler-only information contract.",
+      "Besag-Clifford h=10 and sequential-BH implementation are baseline methods rather than mandatory algorithms.",
+      "When retaining the supplied sequential_BH code, changing only method=\"bc\" (including its existing bm and AMT branches), param_bc=10 or peeking_times=1:B does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "No analytical normal p-values, extra simulated null samples, sampler-RNG recovery, inaccessible future prefixes, false query counts or cross-trial state.",
+      "Do not replace null hypotheses, change FDR/power definitions or submit known truth labels as decisions.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Rejections must be supported by Monte Carlo p-values, e-values or another valid test calibrated from authorized null-sampler observations. A rule that rejects by an observed-statistic cutoff or rank chosen through validation selection, while ignoring the disclosed null samples, is not allowed. Patch audit enforces this."
+    ],
+    "evidence": [
+      {
+        "path": "agent/paper/paper.txt",
+        "section": "Section 6.1, Figure-2 standard cell",
+        "finding": "Research question concerns savings from sequential Monte Carlo multiple testing."
+      },
+      {
+        "path": "agent/bench/sampler.R",
+        "finding": "Exposes only bounded raw null prefixes and query accounting through the private service."
+      },
+      {
+        "path": "agent/README.md",
+        "section": "Information-access contract and scorer enforcement",
+        "finding": "Analytic distribution knowledge is explicitly excluded by the selected sampler-only problem."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/058_AnytimeMC.json"
+  },
+  "research_contract_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/058_AnytimeMC.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

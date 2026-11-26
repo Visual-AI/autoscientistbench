@@ -1,0 +1,187 @@
+{
+  "pid": "019_MultiContextSeeds",
+  "class": "D",
+  "title": "Multi-context seeds enable fast and high-accuracy read mapping",
+  "metric": {
+    "name": "mapping_accuracy_pct",
+    "higher_is_better": true,
+    "delta": 0.005,
+    "aggregate": "mean"
+  },
+  "cpus": 12,
+  "memory_gb": 80,
+  "budget_hours_default": 24,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input",
+    "val_labels": "data/val/labels",
+    "test_input": "test/input",
+    "test_labels": "test/labels",
+    "input_format": "directory+fastq",
+    "output_format": "json-header+tsv"
+  },
+  "split": {
+    "type": "training_free",
+    "decision": "Hold out complete existing SIM4 and SIM6 libraries. Both use existing default-seed simulations and may share origin draws; independent secret per-split ID salts prevent enumerable name joins. Fixed CHM13 reference public; origins separate."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 0.95,
+    "val": {
+      "mapping_accuracy_pct": 92.4397
+    },
+    "paper_ref": "Historical SIM6 mapping accuracy 85.0746%, tool mapping time 15.9 s at 12 threads; not newly measured.",
+    "measured_s": {
+      "train": [
+        10.75,
+        10.85,
+        10.65
+      ],
+      "predict": [
+        56.22,
+        56.27,
+        56.81
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:df5666ecce48bc58086dfed0fbc3c96e04bc898a7f3d21b67dec1018d4ba3cf2"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [],
+    "build_cap_s": 600,
+    "mode": "snapshot",
+    "snapshot": "runtime/runtime.json"
+  },
+  "adapt": {
+    "base_commit": "caa3745fe58ba61dfcebc7e3c419f64b168c94e4",
+    "adapt_commit": "bac299e2ab0f44b546e84e1322a2989911386e62",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "smoke": {
+    "input": "judge/verification/smoke_fixture/input",
+    "labels": "judge/verification/smoke_fixture/labels",
+    "env": {}
+  },
+  "conversion": {
+    "full_data_ready": true,
+    "full_reference": "not_run",
+    "smoke": "passed",
+    "static_lint_errors": 0,
+    "origin_id_isolation": "independent secret random salts per split; operator-only",
+    "source_method_files_unchanged": true
+  },
+  "verification": {
+    "full_reference": "not_run",
+    "full_materialization": "complete",
+    "full_data_ready": true,
+    "smoke": "passed",
+    "sandbox": true,
+    "static_lint_errors": 0,
+    "guard_tests": 10,
+    "source_runtime_integrity": "passed",
+    "id_scheme": "split-secret HMAC-SHA256"
+  },
+  "method_freedom_review": {
+    "full_evaluation_ready": false,
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/019_MultiContextSeeds.json",
+    "full_training_or_evaluation": false,
+    "allowed_changes": [
+      "mapping/indexing algorithms, alignment scoring and computational representations",
+      "implementation and internal heuristics operating on the same observed inputs",
+      "When retaining the supplied mapper, changing only -S=0.5, -M=20, -R=100, -f=0.0002, --mcs=always, -H=50, --gd=0.1, --gl=0.05, --vp=0.7, --sg=10000, --mw=0.01, -A=2, -B=8, -O=12, -E=1, -L=10 or --nams off does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Map the existing human reads to the supplied reference and maximize the original all-read interval-overlap accuracy.",
+      "existing reference and complete read libraries, held-out-library split and coordinate semantics",
+      "same-reference inclusive interval-overlap correctness and all-read denominator",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/019_MultiContextSeeds.json",
+    "forbidden_substitutions": [
+      "changing the reference or read/quality bytes, generating replacement reads or reconstructing hidden origin labels",
+      "dropping unmapped reads, using origin lookup tables or redefining overlap accuracy",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Each mapped interval must be the reference span of that read's own alignment or seed placement. Enlarging intervals to gain overlap credit does not count as a method improvement."
+    ],
+    "scope_source": "research_contract"
+  },
+  "research_contract": {
+    "objective": "Map the existing human reads to the supplied reference and maximize the original all-read interval-overlap accuracy.",
+    "fixed_research_objects": [
+      "existing reference and complete read libraries, held-out-library split and coordinate semantics",
+      "same-reference inclusive interval-overlap correctness and all-read denominator"
+    ],
+    "editable_components": [
+      "mapping/indexing algorithms, alignment scoring and computational representations",
+      "implementation and internal heuristics operating on the same observed inputs",
+      "When retaining the supplied mapper, changing only -S=0.5, -M=20, -R=100, -f=0.0002, --mcs=always, -H=50, --gd=0.1, --gl=0.05, --vp=0.7, --sg=10000, --mw=0.01, -A=2, -B=8, -O=12, -E=1, -L=10 or --nams off does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "changing the reference or read/quality bytes, generating replacement reads or reconstructing hidden origin labels",
+      "dropping unmapped reads, using origin lookup tables or redefining overlap accuracy",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Each mapped interval must be the reference span of that read's own alignment or seed placement. Enlarging intervals to gain overlap credit does not count as a method improvement."
+    ],
+    "evidence": [
+      {
+        "source": "tasks/019_MultiContextSeeds/agent/README.md",
+        "section": "Goal,Data,Metric and baseline",
+        "finding": "Map the existing human reads to the supplied reference and maximize the original all-read interval-overlap accuracy."
+      },
+      {
+        "source": "tasks/019_MultiContextSeeds/agent/bench/scorer.py",
+        "section": "trusted score and guards",
+        "finding": "The fixed evaluation target is existing reference and complete read libraries, held-out-library split and coordinate semantics; same-reference inclusive interval-overlap correctness and all-read denominator"
+      },
+      {
+        "source": "audits/20261101_method_freedom/019_MultiContextSeeds.json",
+        "section": "prior task-specific scorer/interface audit",
+        "finding": "Reuse the prior actual evaluator review while narrowing the blanket permission to the present task-specific objects."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/019_MultiContextSeeds.json"
+  },
+  "research_contract_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/019_MultiContextSeeds.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

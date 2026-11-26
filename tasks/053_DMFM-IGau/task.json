@@ -1,0 +1,169 @@
+{
+  "pid": "053_DMFM-IGau",
+  "class": "A",
+  "title": "Bayesian mixture modeling using a mixture of finite mixtures with normalized inverse Gaussian weights",
+  "metric": {
+    "name": "dARI",
+    "higher_is_better": true,
+    "delta": 0.005,
+    "aggregate": "mean"
+  },
+  "cpus": 32,
+  "memory_gb": 144,
+  "budget_hours_default": 24,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.json",
+    "val_labels": "data/val/labels.json",
+    "test_input": "test/input.json",
+    "test_labels": "test/labels.json"
+  },
+  "split": {
+    "type": "synthetic",
+    "decision": "Full source 50-network observed validation set; independently seeded judge-held 50-network set. Exact original generator; consistent independent node permutations hide fixed label ordering. Truth/parameters/seeds outside prediction inputs."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 27.95,
+    "val": {
+      "dARI": 0.8616875937784697
+    },
+    "paper_ref": "Section 4.3.1 Table 3; source reproduction dARI 0.8627841513162644, historical only; no benchmark reference measured",
+    "historical_source_dARI": 0.8627841513162644,
+    "measured_s": {
+      "train": [
+        0.11,
+        0.11,
+        0.11
+      ],
+      "predict": [
+        1319.03,
+        1677.27,
+        1629.15
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:47d3c97ab73e182f249375af985439c3685746c6785da2094f0069c78881fa78"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [],
+    "build_cap_s": 300,
+    "mode": "snapshot",
+    "snapshot": "runtime/runtime.json"
+  },
+  "adapt": {
+    "base_commit": "d785705eb4c948eb227c567b760aeb7d7840726a",
+    "adapt_commit": "551dfa653dcd0fa021eb17c50468594d1820153e",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "smoke": {
+    "input": "judge/verification/smoke_input.json",
+    "labels": "judge/verification/smoke_labels.json",
+    "env": {}
+  },
+  "conversion": {
+    "full_data_ready": true,
+    "smoke_actual_method": true
+  },
+  "method_freedom_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/053_DMFM-IGau.json",
+    "candidate_method_replacement_allowed": true,
+    "frozen_data_metric_and_information_boundary": true,
+    "full_training_or_evaluation_run": false,
+    "allowed_changes": [
+      "Any valid posterior sampler, deterministic integration or approximation strategy may replace telescoping Gibbs, with editable numerical optimization and initialization.",
+      "Iteration labels preserve the output grid, not a mandatory transition implementation or burn-in schedule.",
+      "When retaining the supplied TS_IG_network_DMFM_BNB sampler, changing only s_pro=1.0, the initial k=10, iters=100000 or burn=50000 does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Improve posterior community inference for the specified DMFM-IGau network model, scored by posterior-mean fossil ARI.",
+      "The Bernoulli stochastic-block likelihood and normalized inverse-Gaussian DMFM weights remain fixed, with BNB(1,4,3) on M-1, Beta(1,1) on Q and F(6,3) on shape.",
+      "Each observed 50-node network is independent; all 50000 posterior partition slots, canonical labels and k/M/M_na semantics, literal fossil ARI and aggregation remain fixed.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/053_DMFM-IGau.json",
+    "forbidden_substitutions": [
+      "Do not change weight/shape/component priors or graph likelihood, substitute generic spectral clustering for posterior inference, or fabricate a point-mass posterior by duplicating an unrelated point estimate.",
+      "No hidden communities, generator-seed reconstruction, cross-network fitting or output-slot reduction.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Improve posterior community inference for the specified DMFM-IGau network model, scored by posterior-mean fossil ARI.",
+    "fixed_research_objects": [
+      "The Bernoulli stochastic-block likelihood and normalized inverse-Gaussian DMFM weights remain fixed, with BNB(1,4,3) on M-1, Beta(1,1) on Q and F(6,3) on shape.",
+      "Each observed 50-node network is independent; all 50000 posterior partition slots, canonical labels and k/M/M_na semantics, literal fossil ARI and aggregation remain fixed."
+    ],
+    "editable_components": [
+      "Any valid posterior sampler, deterministic integration or approximation strategy may replace telescoping Gibbs, with editable numerical optimization and initialization.",
+      "Iteration labels preserve the output grid, not a mandatory transition implementation or burn-in schedule.",
+      "When retaining the supplied TS_IG_network_DMFM_BNB sampler, changing only s_pro=1.0, the initial k=10, iters=100000 or burn=50000 does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "Do not change weight/shape/component priors or graph likelihood, substitute generic spectral clustering for posterior inference, or fabricate a point-mass posterior by duplicating an unrelated point estimate.",
+      "No hidden communities, generator-seed reconstruction, cross-network fitting or output-slot reduction.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "path": "agent/paper/paper.txt",
+        "section": "Section 4.3.1, lines 889-977",
+        "finding": "DMFM-IGau is a separate model cell, priors specified, and dARI is averaged over its posterior draws."
+      },
+      {
+        "path": "agent/code/IG_functions_DMFM_network.R",
+        "finding": "Implements selected inverse-Gaussian-weight DMFM posterior; bench_predict.R retains F(6,3) wrapper."
+      },
+      {
+        "path": "agent/bench/scorer.py",
+        "finding": "Enforces output structure and fossil ARI; no likelihood/target audit is possible from partitions alone."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/053_DMFM-IGau.json"
+  },
+  "research_contract_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/053_DMFM-IGau.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 3
+}

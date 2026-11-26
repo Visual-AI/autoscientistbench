@@ -1,0 +1,67 @@
+{
+  "task": "016_SpatialProteomics",
+  "created": "2026-11-02T05:10:27+0000",
+  "seeds": [
+    1
+  ],
+  "cpus": 8,
+  "adapt_commit": "9ca8fac171103a0fa69ef93171630f5408b9e0d8",
+  "sandbox": true,
+  "budget_s": 21600.0,
+  "test": {
+    "per_seed": [
+      0.9581644112021016
+    ],
+    "mean": 0.9581644112021016,
+    "std": 0.0,
+    "n": 1
+  },
+  "val": {
+    "per_seed": [
+      0.9765284791344949
+    ],
+    "mean": 0.9765284791344949,
+    "std": 0.0,
+    "n": 1
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "pooled_kappa": 0.9581644112021016,
+        "n_cells": 266384,
+        "n_missing": 0,
+        "n_invalid_labels": 0,
+        "accuracy": 0.9723031413298096
+      },
+      "val": {
+        "pooled_kappa": 0.9765284791344949,
+        "n_cells": 267883,
+        "n_missing": 0,
+        "n_invalid_labels": 0,
+        "accuracy": 0.985295819443563
+      },
+      "timing": {
+        "train_s": 0.06,
+        "predict_s": 66.17,
+        "score_s": 4.59,
+        "predict_val_s": 63.67
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      0.06
+    ],
+    "predict_s": [
+      66.17
+    ],
+    "build_s": 4.0
+  },
+  "hashes": {
+    "env_lock": "137fc8a90006b89e11f9f25b4f25c3d40d34ec570ad4dae192a2d403fd398727",
+    "scorer": "296a32705789e3fa94ffad8a6820c5899bb5acc3b6fc21e2161c35f776232e86",
+    "validate": "24cd361a9bfbd7ef17e529609759390e9e353fb2e0b9a94ca9c4aad2c791d33c",
+    "test_labels": "f4ff0ec1bbdf32c7bc431e42e0d11f46f7b3e33b3bad9d8177ab201237f142fe",
+    "adapt_patch": "a150f82d08becf9682b76d82181bcc8bb6e83254f7b9124a67b5c01e96e90de4"
+  }
+}

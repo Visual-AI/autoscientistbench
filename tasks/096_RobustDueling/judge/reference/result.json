@@ -1,0 +1,235 @@
+{
+  "task": "096_RobustDueling",
+  "created": "2026-11-02T08:29:42+0000",
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "cpus": 8,
+  "adapt_commit": "bd8ee33ad5046059956bf3895474e060f9db4196",
+  "sandbox": true,
+  "budget_s": 21600.0,
+  "test": {
+    "per_seed": [
+      9755.047950754313,
+      9506.236086295216,
+      9771.439465285937
+    ],
+    "mean": 9677.574500778488,
+    "std": 121.33922049469838,
+    "n": 3
+  },
+  "val": {
+    "per_seed": [
+      9740.526534493303,
+      9344.277440508999,
+      9740.319776160992
+    ],
+    "mean": 9608.374583721097,
+    "std": 186.7448999336547,
+    "n": 3
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "cumulative_regret": 9755.047950754313,
+        "episode_std": 1510.1052696900786,
+        "max_reconstruction_error": 0.0,
+        "per_episode": {
+          "60876dbdd96b9088dc6ad454bd344016": 6671.268872055727,
+          "e0cb4338bff25df1fdb02aed16b2f855": 10322.676390067963,
+          "36cca46a5ee16cb656baf391ae3b58dc": 10239.306531432947,
+          "bcc39e1e28422e118c29b8980502c1e8": 9397.88185492707,
+          "ead916601890f7a208cf752772ce2b02": 10438.076174229516,
+          "ee28900f3a87f5abe72c82ff3cd642a8": 10343.484513597103,
+          "991f5330da3347eeefba0f141500bb7f": 10395.432660769486,
+          "7d79bc5339167f323f6669cb31ca4811": 12364.959354649109,
+          "57df9e240c1927f877ee655e6dd70031": 8586.065858080896,
+          "8d019a2e2f4f084918a5cf6aafb8724f": 8791.327297733316
+        },
+        "guard_ok": true,
+        "trusted_oracle": true,
+        "protocol_version": 2,
+        "verification_scope": "full",
+        "prediction_elapsed_s": 40.7331084497273,
+        "artifact_prepare_s": 3.1799422670155764,
+        "input_elapsed_s": 0.0006750971078872681,
+        "worker_cpus": 1,
+        "parallel_workers": 8
+      },
+      "val": {
+        "cumulative_regret": 9740.526534493303,
+        "episode_std": 981.2703841862696,
+        "max_reconstruction_error": 0.0,
+        "per_episode": {
+          "ep_205085d38c8da3be": 9330.062442229948,
+          "ep_73cd72a18a16a355": 10144.556486776108,
+          "ep_53bf86f5ac3b7740": 9154.575114751025,
+          "ep_16b29ba9653a410a": 11294.13478707457,
+          "ep_29b2934e3efdae35": 9844.190256201387,
+          "ep_0abc65c87b22d4bf": 9494.520758464354,
+          "ep_0c3b1349edc75ef3": 8371.623765624376,
+          "ep_02e28d70a66ab7f7": 10587.510071529896,
+          "ep_623bdf12a3abfedf": 10790.09247246179,
+          "ep_1ad15d03572efa6c": 8393.999189819566
+        },
+        "guard_ok": true,
+        "trusted_oracle": true,
+        "protocol_version": 2,
+        "verification_scope": "full",
+        "prediction_elapsed_s": 40.41466605477035,
+        "artifact_prepare_s": 3.1457419265061617,
+        "input_elapsed_s": 0.0008394308388233185,
+        "worker_cpus": 1,
+        "parallel_workers": 8
+      },
+      "timing": {
+        "train_s": 0.31,
+        "predict_s": 2.88,
+        "score_s": 44.71,
+        "predict_val_s": 2.83
+      }
+    },
+    "2": {
+      "test": {
+        "cumulative_regret": 9506.236086295216,
+        "episode_std": 1346.9225868839671,
+        "max_reconstruction_error": 0.0,
+        "per_episode": {
+          "60876dbdd96b9088dc6ad454bd344016": 6597.662794108763,
+          "e0cb4338bff25df1fdb02aed16b2f855": 10646.06501462526,
+          "36cca46a5ee16cb656baf391ae3b58dc": 10135.518319124032,
+          "bcc39e1e28422e118c29b8980502c1e8": 9257.289371776506,
+          "ead916601890f7a208cf752772ce2b02": 9907.757890485065,
+          "ee28900f3a87f5abe72c82ff3cd642a8": 9599.847266770623,
+          "991f5330da3347eeefba0f141500bb7f": 10712.809733878472,
+          "7d79bc5339167f323f6669cb31ca4811": 11124.283526470068,
+          "57df9e240c1927f877ee655e6dd70031": 8571.364671556372,
+          "8d019a2e2f4f084918a5cf6aafb8724f": 8509.76227415698
+        },
+        "guard_ok": true,
+        "trusted_oracle": true,
+        "protocol_version": 2,
+        "verification_scope": "full",
+        "prediction_elapsed_s": 40.75385138951242,
+        "artifact_prepare_s": 3.0856572836637497,
+        "input_elapsed_s": 0.0006719548255205154,
+        "worker_cpus": 1,
+        "parallel_workers": 8
+      },
+      "val": {
+        "cumulative_regret": 9344.277440508999,
+        "episode_std": 764.0855056911269,
+        "max_reconstruction_error": 0.0,
+        "per_episode": {
+          "ep_205085d38c8da3be": 9024.172116038051,
+          "ep_73cd72a18a16a355": 9277.877718236192,
+          "ep_53bf86f5ac3b7740": 9959.36687022794,
+          "ep_16b29ba9653a410a": 9969.205699071568,
+          "ep_29b2934e3efdae35": 9354.319460568231,
+          "ep_0abc65c87b22d4bf": 8815.561533579908,
+          "ep_0c3b1349edc75ef3": 8447.415831223474,
+          "ep_02e28d70a66ab7f7": 10722.41439397842,
+          "ep_623bdf12a3abfedf": 9665.058024230402,
+          "ep_1ad15d03572efa6c": 8207.382757935786
+        },
+        "guard_ok": true,
+        "trusted_oracle": true,
+        "protocol_version": 2,
+        "verification_scope": "full",
+        "prediction_elapsed_s": 40.08120209351182,
+        "artifact_prepare_s": 3.003347022458911,
+        "input_elapsed_s": 0.0008368249982595444,
+        "worker_cpus": 1,
+        "parallel_workers": 8
+      },
+      "timing": {
+        "train_s": 0.31,
+        "predict_s": 2.77,
+        "score_s": 44.65,
+        "predict_val_s": 2.82
+      }
+    },
+    "3": {
+      "test": {
+        "cumulative_regret": 9771.439465285937,
+        "episode_std": 1595.0513606752818,
+        "max_reconstruction_error": 0.0,
+        "per_episode": {
+          "60876dbdd96b9088dc6ad454bd344016": 6545.887258587442,
+          "e0cb4338bff25df1fdb02aed16b2f855": 10486.508309652798,
+          "36cca46a5ee16cb656baf391ae3b58dc": 11383.009072677844,
+          "bcc39e1e28422e118c29b8980502c1e8": 10366.99809431771,
+          "ead916601890f7a208cf752772ce2b02": 10699.24367235545,
+          "ee28900f3a87f5abe72c82ff3cd642a8": 10080.794415613738,
+          "991f5330da3347eeefba0f141500bb7f": 9605.83648405612,
+          "7d79bc5339167f323f6669cb31ca4811": 11792.634767576332,
+          "57df9e240c1927f877ee655e6dd70031": 8564.890808240782,
+          "8d019a2e2f4f084918a5cf6aafb8724f": 8188.591769781161
+        },
+        "guard_ok": true,
+        "trusted_oracle": true,
+        "protocol_version": 2,
+        "verification_scope": "full",
+        "prediction_elapsed_s": 40.57768791541457,
+        "artifact_prepare_s": 2.942870609462261,
+        "input_elapsed_s": 0.0007046554237604141,
+        "worker_cpus": 1,
+        "parallel_workers": 8
+      },
+      "val": {
+        "cumulative_regret": 9740.319776160992,
+        "episode_std": 1104.616635878273,
+        "max_reconstruction_error": 0.0,
+        "per_episode": {
+          "ep_205085d38c8da3be": 10092.354608798836,
+          "ep_73cd72a18a16a355": 11230.4666146144,
+          "ep_53bf86f5ac3b7740": 10721.411345590475,
+          "ep_16b29ba9653a410a": 10589.101893052512,
+          "ep_29b2934e3efdae35": 8955.233012041668,
+          "ep_0abc65c87b22d4bf": 9068.625860286918,
+          "ep_0c3b1349edc75ef3": 8207.293539934857,
+          "ep_02e28d70a66ab7f7": 10305.541414183055,
+          "ep_623bdf12a3abfedf": 10220.870400024809,
+          "ep_1ad15d03572efa6c": 8012.299073082385
+        },
+        "guard_ok": true,
+        "trusted_oracle": true,
+        "protocol_version": 2,
+        "verification_scope": "full",
+        "prediction_elapsed_s": 40.793451031669974,
+        "artifact_prepare_s": 3.1403557751327753,
+        "input_elapsed_s": 0.0007044337689876556,
+        "worker_cpus": 1,
+        "parallel_workers": 8
+      },
+      "timing": {
+        "train_s": 0.31,
+        "predict_s": 2.88,
+        "score_s": 44.33,
+        "predict_val_s": 2.82
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      0.31,
+      0.31,
+      0.31
+    ],
+    "predict_s": [
+      2.88,
+      2.77,
+      2.88
+    ],
+    "build_s": 7.5
+  },
+  "hashes": {
+    "env_lock": "055dfd02c868fff75ccd2425bb345c8b250405159b0525172429d9343ac164b8",
+    "scorer": "b65532c73dfd35598f81f345948f5404767184a68b16a03953dafed0627fd61b",
+    "validate": "bf09464631db25103b15c801a976e739ed714e0ed550c5525aa2b2eb6c25a256",
+    "test_labels": null,
+    "adapt_patch": "d1f6555754e24340df8e1fc1d21491d0f72bab79628b8074ab5c54da0e45427f"
+  }
+}

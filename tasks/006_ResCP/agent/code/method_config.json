@@ -1,0 +1,266 @@
+{
+  "beijing_arima": {
+    "reservoir": {
+      "n_internal_units": 512,
+      "leak": 0.65,
+      "spectral_radius": 1.45,
+      "input_scaling": 0.75,
+      "noise_level": 0.0,
+      "connectivity": 0.2,
+      "circle": false
+    },
+    "sampler": {
+      "T": 0.15,
+      "past_residuals_window": 3800,
+      "eta": 0.0,
+      "n_quantiles": 100,
+      "similarity": "cosine",
+      "decay": "linear",
+      "decay_rate": 0.99
+    },
+    "delay": 0,
+    "clip": true
+  },
+  "beijing_rnn": {
+    "reservoir": {
+      "n_internal_units": 512,
+      "leak": 0.95,
+      "spectral_radius": 1.3,
+      "input_scaling": 0.25,
+      "noise_level": 0.0,
+      "connectivity": 0.2,
+      "circle": false
+    },
+    "sampler": {
+      "T": 0.1,
+      "past_residuals_window": 3200,
+      "eta": 0.0,
+      "n_quantiles": 100,
+      "similarity": "cosine",
+      "decay": "linear",
+      "decay_rate": 0.99
+    },
+    "delay": 0,
+    "clip": true
+  },
+  "beijing_transformer": {
+    "reservoir": {
+      "n_internal_units": 512,
+      "leak": 0.8,
+      "spectral_radius": 1.0,
+      "input_scaling": 0.25,
+      "noise_level": 0.0,
+      "connectivity": 0.2,
+      "circle": false
+    },
+    "sampler": {
+      "T": 0.1,
+      "past_residuals_window": 10500,
+      "eta": 0.0,
+      "n_quantiles": 100,
+      "similarity": "cosine",
+      "decay": "linear",
+      "decay_rate": 0.99
+    },
+    "delay": 0,
+    "clip": true
+  },
+  "elec_arima": {
+    "reservoir": {
+      "n_internal_units": 512,
+      "leak": 0.8,
+      "spectral_radius": 0.95,
+      "input_scaling": 0.25,
+      "noise_level": 0.0,
+      "connectivity": 0.2,
+      "circle": false
+    },
+    "sampler": {
+      "T": 0.1,
+      "past_residuals_window": 1000,
+      "eta": 0.0,
+      "n_quantiles": 100,
+      "similarity": "cosine",
+      "decay": "linear",
+      "decay_rate": 0.99
+    },
+    "delay": 0,
+    "clip": false
+  },
+  "elec_rnn": {
+    "reservoir": {
+      "n_internal_units": 512,
+      "leak": 0.8,
+      "spectral_radius": 0.95,
+      "input_scaling": 0.25,
+      "noise_level": 0.0,
+      "connectivity": 0.2,
+      "circle": false
+    },
+    "sampler": {
+      "T": 0.1,
+      "past_residuals_window": 1000,
+      "eta": 0.0,
+      "n_quantiles": 100,
+      "similarity": "cosine",
+      "decay": "linear",
+      "decay_rate": 0.99
+    },
+    "delay": 0,
+    "clip": false
+  },
+  "elec_transformer": {
+    "reservoir": {
+      "n_internal_units": 512,
+      "leak": 0.8,
+      "spectral_radius": 0.99,
+      "input_scaling": 0.25,
+      "noise_level": 0.0,
+      "connectivity": 0.2,
+      "circle": false
+    },
+    "sampler": {
+      "T": 0.1,
+      "past_residuals_window": 3000,
+      "eta": 0.0,
+      "n_quantiles": 100,
+      "similarity": "cosine",
+      "decay": "linear",
+      "decay_rate": 0.99
+    },
+    "delay": 0,
+    "clip": false
+  },
+  "exchange_arima": {
+    "reservoir": {
+      "n_internal_units": 512,
+      "leak": 0.8,
+      "spectral_radius": 0.95,
+      "input_scaling": 0.5,
+      "noise_level": 0.0,
+      "connectivity": 0.2,
+      "circle": false
+    },
+    "sampler": {
+      "T": 0.1,
+      "past_residuals_window": 1000,
+      "eta": 0.0,
+      "n_quantiles": 100,
+      "similarity": "cosine",
+      "decay": "linear",
+      "decay_rate": 0.99
+    },
+    "delay": 0,
+    "clip": false
+  },
+  "exchange_rnn": {
+    "reservoir": {
+      "n_internal_units": 512,
+      "leak": 0.8,
+      "spectral_radius": 0.95,
+      "input_scaling": 0.5,
+      "noise_level": 0.0,
+      "connectivity": 0.2,
+      "circle": false
+    },
+    "sampler": {
+      "T": 0.1,
+      "past_residuals_window": 1000,
+      "eta": 0.0,
+      "n_quantiles": 100,
+      "similarity": "cosine",
+      "decay": "linear",
+      "decay_rate": 0.99
+    },
+    "delay": 0,
+    "clip": false
+  },
+  "exchange_transformer": {
+    "reservoir": {
+      "n_internal_units": 512,
+      "leak": 0.8,
+      "spectral_radius": 0.99,
+      "input_scaling": 0.5,
+      "noise_level": 0.0,
+      "connectivity": 0.2,
+      "circle": false
+    },
+    "sampler": {
+      "T": 0.1,
+      "past_residuals_window": 1000,
+      "eta": 0.0,
+      "n_quantiles": 100,
+      "similarity": "cosine",
+      "decay": "linear",
+      "decay_rate": 0.99
+    },
+    "delay": 0,
+    "clip": false
+  },
+  "solar_arima": {
+    "reservoir": {
+      "n_internal_units": 512,
+      "leak": 0.8,
+      "spectral_radius": 1,
+      "input_scaling": 0.2,
+      "noise_level": 0.0,
+      "connectivity": 0.2,
+      "circle": false
+    },
+    "sampler": {
+      "T": 0.1,
+      "past_residuals_window": 1500,
+      "eta": 0.0,
+      "n_quantiles": 100,
+      "similarity": "cosine",
+      "decay": "linear",
+      "decay_rate": 0.99
+    },
+    "delay": 0,
+    "clip": false
+  },
+  "solar_rnn": {
+    "reservoir": {
+      "n_internal_units": 512,
+      "leak": 0.75,
+      "spectral_radius": 0.9,
+      "input_scaling": 0.7,
+      "noise_level": 0.0,
+      "connectivity": 0.2,
+      "circle": false
+    },
+    "sampler": {
+      "T": 0.1,
+      "past_residuals_window": 3900,
+      "eta": 0.0,
+      "n_quantiles": 100,
+      "similarity": "cosine",
+      "decay": "linear",
+      "decay_rate": 0.99
+    },
+    "delay": 0,
+    "clip": false
+  },
+  "solar_transformer": {
+    "reservoir": {
+      "n_internal_units": 512,
+      "leak": 0.8,
+      "spectral_radius": 0.9,
+      "input_scaling": 0.4,
+      "noise_level": 0.0,
+      "connectivity": 0.2,
+      "circle": false
+    },
+    "sampler": {
+      "T": 0.1,
+      "past_residuals_window": 7600,
+      "eta": 0.0,
+      "n_quantiles": 100,
+      "similarity": "cosine",
+      "decay": "linear",
+      "decay_rate": 0.99
+    },
+    "delay": 0,
+    "clip": false
+  }
+}

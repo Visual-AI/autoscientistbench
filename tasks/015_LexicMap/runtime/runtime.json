@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "python": "/usr/bin/python3",
+  "mounts": [
+    {
+      "source": "runtime/go.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Bio-07_LexicMap/tools/go",
+      "format": "tar",
+      "name": "go",
+      "sha256": "8667b645faf647d16cd5fd0cfde77c58cd8a6fc5cd7520176606b74f94971a61"
+    },
+    {
+      "source": "runtime/modules.tar",
+      "target": "/tmp/bio07-runtime-stage/gopath/pkg/mod",
+      "format": "tar",
+      "name": "modules",
+      "sha256": "8597c02026c1ccb9c926118e4b4d9494401899cb217e900162fe76e59b8d6f82"
+    }
+  ],
+  "env": {
+    "PATH": "${BENCH_RUNTIME_DIR}/go/bin:/usr/local/bin:/usr/bin:/bin",
+    "GOROOT": "${BENCH_RUNTIME_DIR}/go",
+    "GOMODCACHE": "${BENCH_RUNTIME_DIR}/modules",
+    "GOTOOLCHAIN": "local",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "CGO_ENABLED": "0"
+  }
+}

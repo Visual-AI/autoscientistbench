@@ -1,0 +1,75 @@
+{
+  "task": "056_SurrogateInf",
+  "created": "2026-11-02T08:46:51+0000",
+  "seeds": [
+    1
+  ],
+  "cpus": 16,
+  "adapt_commit": "918688757cd6fc78ca8dbb0cb7537102461d4db0",
+  "sandbox": true,
+  "budget_s": 21600.0,
+  "test": {
+    "per_seed": [
+      0.5877671668784068
+    ],
+    "mean": 0.5877671668784068,
+    "std": 0.0,
+    "n": 1
+  },
+  "val": {
+    "per_seed": [
+      0.5228495701210457
+    ],
+    "mean": 0.5228495701210457,
+    "std": 0.0,
+    "n": 1
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "power": 0.5877671668784068,
+        "raw_power": 0.5877671668784068,
+        "type1_err": 0.06596664649922554,
+        "fdr_BH": 0.06554478074803112,
+        "guards_ok": true,
+        "power_rep_std": 0.13452048498226274,
+        "power_rep_se": 0.019024069427892223,
+        "type1_max": 0.069,
+        "fdr_BH_max": 0.085
+      },
+      "val": {
+        "power": 0.5228495701210457,
+        "raw_power": 0.5228495701210457,
+        "type1_err": 0.06515612229638587,
+        "fdr_BH": 0.07467473754960981,
+        "guards_ok": true,
+        "power_rep_std": 0.11296170587030635,
+        "power_rep_se": 0.025259005318034204,
+        "type1_max": 0.069,
+        "fdr_BH_max": 0.085
+      },
+      "timing": {
+        "train_s": 3.42,
+        "predict_s": 36.1,
+        "score_s": 0.93,
+        "predict_val_s": 20.82
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      3.42
+    ],
+    "predict_s": [
+      36.1
+    ],
+    "build_s": 6.3
+  },
+  "hashes": {
+    "env_lock": "a7e335d420baf429cbe00ff2b7553e8ad8b9b149b00807c50b7ba8c8ea08cff7",
+    "scorer": "f811b6713145de61588a5e7988f6e0237991427dab9c86747ec46526ab275fb9",
+    "validate": "6f28f0271500ae0374b61bf5e6b80b4d5f145e025da8129b875eed2fc392423b",
+    "test_labels": "304f7034f89a28b13c9951d3b92c7f5af0c5b3217991541ee99846f5bb224945",
+    "adapt_patch": "681a262cfac214067443cb67da8b701f8250fcacf835d1eb914ea55031cb067f"
+  }
+}

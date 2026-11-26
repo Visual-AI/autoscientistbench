@@ -1,0 +1,135 @@
+{
+  "task": "015_LexicMap",
+  "created": "2026-11-03T07:13:58+0000",
+  "seeds": [
+    1
+  ],
+  "cpus": 32,
+  "adapt_commit": "194fc3ffd58fd5a1a9dfff0285061e00a88d7a30",
+  "sandbox": true,
+  "budget_s": 43200.0,
+  "test": {
+    "per_seed": [
+      71.81964790659876
+    ],
+    "mean": 71.81964790659876,
+    "std": 0.0,
+    "n": 1
+  },
+  "val": {
+    "per_seed": [
+      72.34593063809245
+    ],
+    "mean": 72.34593063809245,
+    "std": 0.0,
+    "n": 1
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "alignment_rate": 71.81964790659876,
+        "raw_alignment_rate": 71.81964790659876,
+        "guards": {
+          "index_bytes": true,
+          "offtarget_hsp_per_query": true,
+          "identity_95_rate_pct": true,
+          "identity_100_rate_pct": true,
+          "same_cpu_budget": true
+        },
+        "constraint_metrics": {
+          "search_wall_s": 76.98899758979678,
+          "index_wall_s": 28.16074050962925,
+          "index_bytes": 75810688,
+          "offtarget_hsp_per_query": 0.08669564178665613,
+          "identity_95_rate_pct": 99.99284564478626,
+          "identity_100_rate_pct": 100.0
+        },
+        "rate_by_identity": {
+          "80": 43.41984676857656,
+          "82": 64.44338164962107,
+          "84": 84.0014765596161,
+          "86": 95.41388664858127,
+          "95": 99.99284564478626,
+          "100": 100.0
+        },
+        "query_counts": {
+          "80": 54558,
+          "82": 54364,
+          "84": 54180,
+          "86": 54556,
+          "95": 55910,
+          "100": 105207
+        },
+        "guard_thresholds": {
+          "index_bytes": 113716032.0,
+          "offtarget_hsp_per_query": 0.14,
+          "identity_95_rate_pct": 99.8910031488979,
+          "identity_100_rate_pct": 99.9
+        }
+      },
+      "val": {
+        "alignment_rate": 72.34593063809245,
+        "raw_alignment_rate": 72.34593063809245,
+        "guards": {
+          "index_bytes": true,
+          "offtarget_hsp_per_query": true,
+          "identity_95_rate_pct": true,
+          "identity_100_rate_pct": true,
+          "same_cpu_budget": true
+        },
+        "constraint_metrics": {
+          "search_wall_s": 17.276995677500963,
+          "index_wall_s": 28.16074050962925,
+          "index_bytes": 75810688,
+          "offtarget_hsp_per_query": 0.13503042403498763,
+          "identity_95_rate_pct": 99.98144712430427,
+          "identity_100_rate_pct": 100.0
+        },
+        "rate_by_identity": {
+          "80": 44.4996180290298,
+          "82": 64.82536066818527,
+          "84": 84.29169840060929,
+          "86": 95.76704545454545,
+          "95": 99.98144712430427,
+          "100": 100.0
+        },
+        "query_counts": {
+          "80": 10472,
+          "82": 10536,
+          "84": 10504,
+          "86": 10560,
+          "95": 10780,
+          "100": 20254
+        },
+        "guard_thresholds": {
+          "index_bytes": 113716032.0,
+          "offtarget_hsp_per_query": 0.14,
+          "identity_95_rate_pct": 99.8910031488979,
+          "identity_100_rate_pct": 99.9
+        }
+      },
+      "timing": {
+        "train_s": 35.74,
+        "predict_s": 81.67,
+        "score_s": 2.74,
+        "predict_val_s": 18.3
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      35.74
+    ],
+    "predict_s": [
+      81.67
+    ],
+    "build_s": 3.65
+  },
+  "hashes": {
+    "env_lock": "9bfa3936c700aeb9d285f48d7ae93a63db1e5926c0be15d18823641ddf79d9ef",
+    "scorer": "e9da75b0c0fa073754ac0f54c4d86cd4c0bf6f382885a73bce27eff1cd24ab55",
+    "validate": "5da28dd943c4f10880851122877e7ad87b6ec1bc37d832ef673760aa49fcabb8",
+    "test_labels": "6be4bcc8371a3394856a0d82fc06cd188c88e12d16ac6c483ab58c1881534936",
+    "adapt_patch": "ec508b14794616fec5a5eaa80ca73a46e9df9104725f36e20b989d07a88330ab"
+  }
+}

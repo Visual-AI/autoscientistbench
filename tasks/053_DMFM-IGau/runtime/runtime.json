@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "python": "/usr/bin/python3",
+  "mounts": [
+    {
+      "source": "runtime/r.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-26_MFM-Inv-Ga/.mamba/envs/.Renv",
+      "format": "tar",
+      "name": "r",
+      "sha256": "89b3597c74458d443f0688407f19c19ee4015d89753e3ed45d8076399cc3df25"
+    },
+    {
+      "source": "runtime/rlib.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-26_MFM-Inv-Ga/.Rlib",
+      "format": "tar",
+      "name": "rlib",
+      "sha256": "cba31f3fe1e15b85fa36e52beb49676b74399b14d08bf0b97bd56f3c8395541d"
+    }
+  ],
+  "env": {
+    "PATH": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-26_MFM-Inv-Ga/.mamba/envs/.Renv/bin:/usr/local/bin:/usr/bin:/bin",
+    "R_HOME": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-26_MFM-Inv-Ga/.mamba/envs/.Renv/lib/R",
+    "R_LIBS_USER": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-26_MFM-Inv-Ga/.Rlib",
+    "R_LIBS_SITE": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-26_MFM-Inv-Ga/.mamba/envs/.Renv/lib/R/library"
+  }
+}

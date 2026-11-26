@@ -1,0 +1,176 @@
+{
+  "pid": "091_EOC-Dropout",
+  "class": "A",
+  "title": "Dropout Universality: Scaling Laws and Optimal Scheduling at the Edge-of-Chaos",
+  "metric": {
+    "name": "final_loss_reduction_pct",
+    "higher_is_better": true,
+    "delta": 0.03,
+    "aggregate": "mean"
+  },
+  "cpus": 16,
+  "memory_gb": 16,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.npz",
+    "val_labels": "data/val/labels.npz",
+    "test_input": "test/input.npz",
+    "test_labels": "test/labels.npz",
+    "input_format": "npz",
+    "output_format": "npz"
+  },
+  "split": {
+    "type": "train_test",
+    "decision": "Original evaluation subset retained privately, identical to archived prepared tensors. Stratified train_test_split(test_size=0.2, random_state=20261030) of paper training subset: train 4000, val 1000. ids are original row indices, sorted. Final epoch only, no selection. Baseline fits train only; final candidate fits also use train only."
+  },
+  "baseline": {
+    "train_min": 2.37,
+    "eval_min": 0.5,
+    "val": {
+      "final_loss_reduction_pct": 16.641493550935255
+    },
+    "paper_ref": "Binding main-table reproduction 17.661; fixed Constant CE normalization 2.20679. Archive final_1 exact ratio 17.660871396784906. Benchmark carves validation from training.",
+    "measured_s": {
+      "train": [
+        136.97,
+        131.08,
+        142.39
+      ],
+      "predict": [
+        9.03,
+        8.53,
+        8.63
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.01889578294950915,
+    "reference_hash": "sha256:71e965b2305d87fa491a4d37412a36ad9f770b423f7dc8620aa7df227785d418"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple",
+      "https://download.pytorch.org/whl/cpu"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "e8b57c135337906fa4438f84e69fa368bb0873ba",
+    "adapt_commit": "ae72c986324cd8c9317e11ec1dc4ab7866b07a87",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "method_freedom_previous_baseline_val": {
+    "final_loss_reduction_pct": 16.641493550935255
+  },
+  "method_freedom_review": {
+    "full_evaluation_ready": false,
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/091_EOC-Dropout.json",
+    "full_training_or_evaluation": false,
+    "allowed_changes": [
+      "the dropout allocation and the search or optimization algorithm used to select it from lawful development data",
+      "equivalent implementation, data loading and scheduling within the allocated resources",
+      "When retaining the supplied `get_dropout_schedule` presets, changing only sched='reverse_step' or h_max=0.2 does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Optimize a fixed-budget layerwise dropout allocation in the specified critical ReLU MLP experiment; preserve its final-epoch normalized cross-entropy objective.",
+      "six hidden layers of width 256, input 3072 and ten logits, ReLU activations and critical initialization variances 1.98/0.02",
+      "one six-rate allocation shared by 25 independent replicas, rates in [0,1) with mean 0.1",
+      "matched experimental controls: float32, cross-entropy, AdamW lr 1e-4 and weight decay 1e-7, cosine T_max 75 and eta_min 1e-7, batch 100, 75 epochs and final checkpoint",
+      "supplied normalized tensors without augmentation, training on the train split with validation for selection only, original seed mapping and CE normalization 2.20679",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/091_EOC-Dropout.json",
+    "forbidden_substitutions": [
+      "replacing the controlled MLP with a different predictor or changing its width, depth, activation or initialization",
+      "changing the loss, optimizer, epoch endpoint or preprocessing to win a different experiment",
+      "changing the total dropout budget, selecting by hidden data, or replacing member CE by ensemble CE",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract"
+  },
+  "research_contract": {
+    "objective": "Optimize a fixed-budget layerwise dropout allocation in the specified critical ReLU MLP experiment; preserve its final-epoch normalized cross-entropy objective.",
+    "fixed_research_objects": [
+      "six hidden layers of width 256, input 3072 and ten logits, ReLU activations and critical initialization variances 1.98/0.02",
+      "one six-rate allocation shared by 25 independent replicas, rates in [0,1) with mean 0.1",
+      "matched experimental controls: float32, cross-entropy, AdamW lr 1e-4 and weight decay 1e-7, cosine T_max 75 and eta_min 1e-7, batch 100, 75 epochs and final checkpoint",
+      "supplied normalized tensors without augmentation, training on the train split with validation for selection only, original seed mapping and CE normalization 2.20679"
+    ],
+    "editable_components": [
+      "the dropout allocation and the search or optimization algorithm used to select it from lawful development data",
+      "equivalent implementation, data loading and scheduling within the allocated resources",
+      "When retaining the supplied `get_dropout_schedule` presets, changing only sched='reverse_step' or h_max=0.2 does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "replacing the controlled MLP with a different predictor or changing its width, depth, activation or initialization",
+      "changing the loss, optimizer, epoch endpoint or preprocessing to win a different experiment",
+      "changing the total dropout budget, selecting by hidden data, or replacing member CE by ensemble CE",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "source": "../papers/091_EOC-Dropout/paper/paper.txt",
+        "lines": "780-933;2570-2605",
+        "finding": "The paper formulates fixed-budget spatial dropout allocation and tests it in a controlled finite-width critical MLP."
+      },
+      {
+        "source": "tasks/091_EOC-Dropout/BRIEF.md",
+        "lines": "27-29",
+        "finding": "The curated score rule fixes mean dropout at0.1 and requires the remaining matched experimental settings unchanged."
+      },
+      {
+        "source": "../papers/091_EOC-Dropout/BASELINE.md",
+        "section": "Training and revision note",
+        "finding": "The supported revised artifact uses25 replicas,75 epochs and batch100; these are experiment controls, while Step(early) is the replaceable allocation."
+      },
+      {
+        "source": "tasks/091_EOC-Dropout/NOTES.md",
+        "lines": "26-33",
+        "finding": "Original guard distinguishes declared configuration, fixed-network reconstruction and source-level training provenance."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/091_EOC-Dropout.json"
+  },
+  "research_contract_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/091_EOC-Dropout.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "python": "/usr/bin/python3",
+  "mounts": [
+    {
+      "source": "runtime/octave.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Bio-28_LI-DTI/.mamba/envs/octave",
+      "format": "tar",
+      "name": "octave",
+      "sha256": "f149c8b9db0a7d2ab8af5fe06c89263e646b06434c61eaa1c58d9ee16a543ad2"
+    },
+    {
+      "source": "runtime/octave-packages.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Bio-28_LI-DTI/.home/.local/share/octave/api-v60/packages",
+      "format": "tar",
+      "name": "octave-packages",
+      "sha256": "69abb863e8e87d18000de334b168b7b24d573bc3d0af84c98fba1a9d15325e8a"
+    },
+    {
+      "source": "runtime/octave-config.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Bio-28_LI-DTI/.home/.config/octave/api-v60",
+      "format": "tar",
+      "name": "octave-config",
+      "sha256": "bef477524d57d76341afc1823a4e4e7dc09f3f9db80712307ce6ed887c5344fe"
+    }
+  ],
+  "env": {
+    "PATH": "${BENCH_RUNTIME_DIR}/octave/bin:/usr/local/bin:/usr/bin:/bin",
+    "OCTAVE_HOME": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Bio-28_LI-DTI/.mamba/envs/octave"
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "task": "098_BalancedActiveInf",
+  "created": "2026-11-03T10:52:26+0000",
+  "seeds": [
+    0
+  ],
+  "cpus": 8,
+  "adapt_commit": "2821ad0a1d4b782169b94bc02526cf2041a43001",
+  "sandbox": true,
+  "budget_s": 172800.0,
+  "test": {
+    "per_seed": [
+      0.32885292395276605
+    ],
+    "mean": 0.32885292395276605,
+    "std": 0.0,
+    "n": 1
+  },
+  "val": {
+    "per_seed": [
+      0.20001208780788665
+    ],
+    "mean": 0.20001208780788665,
+    "std": 0.0,
+    "n": 1
+  },
+  "per_seed": {
+    "0": {
+      "test": {
+        "mean_ci_width": 0.32885292395276605,
+        "observed_mean_width": 0.32885292395276605,
+        "coverage": 0.8937,
+        "mean_n_labeled": 869.0628,
+        "max_sum_pi": 869.0,
+        "replications": 10000,
+        "eligible": true,
+        "guards": {
+          "coverage": true,
+          "mean_label_count": true,
+          "design_budget": true,
+          "predictions_hash_identical": true
+        },
+        "verification_scope": "full",
+        "label_access_enforcement": "private_rpc",
+        "protocol": "private-active-label-v2",
+        "isolation_ok": true,
+        "isolation": "fresh_worker_per_draw",
+        "actual_queries": 8690628,
+        "actual_cube_calls": 10000,
+        "cube_requests": 10000,
+        "canonical_cube_calls": 10000,
+        "predict_wall_s": 472.3494026362896,
+        "artifact_unpack_s": 0.004117704927921295,
+        "worker_pool_size": 8,
+        "randomness": "original_default_R_stream; independent_draw_local_custom_streams",
+        "method_audit_required": true
+      },
+      "val": {
+        "mean_ci_width": 0.20001208780788665,
+        "observed_mean_width": 0.20001208780788665,
+        "coverage": 0.8952,
+        "mean_n_labeled": 868.808,
+        "max_sum_pi": 868.9000854492188,
+        "replications": 10000,
+        "eligible": true,
+        "guards": {
+          "coverage": true,
+          "mean_label_count": true,
+          "design_budget": true,
+          "predictions_hash_identical": true
+        },
+        "verification_scope": "full",
+        "label_access_enforcement": "private_rpc",
+        "protocol": "private-active-label-v2",
+        "isolation_ok": true,
+        "isolation": "fresh_worker_per_draw",
+        "actual_queries": 8688080,
+        "actual_cube_calls": 10000,
+        "cube_requests": 10000,
+        "canonical_cube_calls": 10000,
+        "predict_wall_s": 480.1866375505924,
+        "artifact_unpack_s": 0.003981348127126694,
+        "worker_pool_size": 8,
+        "randomness": "original_default_R_stream; independent_draw_local_custom_streams",
+        "method_audit_required": true
+      },
+      "timing": {
+        "train_s": 2.52,
+        "predict_s": 0.26,
+        "score_s": 476.16,
+        "predict_val_s": 0.11
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      2.52
+    ],
+    "predict_s": [
+      0.26
+    ],
+    "build_s": 10.19
+  },
+  "hashes": {
+    "env_lock": "a65cfbdfad5c85d8b7ec09997ae7062363b572554de0090c74f97941db736e48",
+    "scorer": "9cbad3985d97469115ce462069f750a02f55aa7d264cf1363983e36f0608204a",
+    "validate": "090229109fd4d3cb586ab83d5cbdef863303e599176c31b3dc49132ca20306e4",
+    "test_labels": null,
+    "adapt_patch": "5e7d2bd6199c4a220c1db6b0af34aae7496404da2d970ec51b8974fce068f7ef"
+  }
+}

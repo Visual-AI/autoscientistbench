@@ -1,0 +1,143 @@
+{
+  "task": "035_NA-QSP",
+  "created": "2026-11-02T05:56:40+0000",
+  "seeds": [
+    1
+  ],
+  "cpus": 8,
+  "adapt_commit": "f88b0534d82cd207afe4bc092290a560c04c69b3",
+  "sandbox": true,
+  "budget_s": 21600.0,
+  "test": {
+    "per_seed": [
+      0.002254293440507274
+    ],
+    "mean": 0.002254293440507274,
+    "std": 0.0,
+    "n": 1
+  },
+  "val": {
+    "per_seed": [
+      0.002983169219097581
+    ],
+    "mean": 0.002983169219097581,
+    "std": 0.0,
+    "n": 1
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "hybrid_infidelity": 0.002254293440507274,
+        "score_rule_value": 0.002254293440507274,
+        "guards_ok": true,
+        "max_cutoff_difference": 3.552713678800501e-15,
+        "max_cd_amplitude": 0.782960343005975,
+        "per_instance": [
+          {
+            "infidelity": {
+              "plus_alpha": 0.001497373422219117,
+              "minus_alpha": 0.001497373422219117,
+              "even_cat": 0.0017171611586428437
+            },
+            "cutoff_difference": 0.0
+          },
+          {
+            "infidelity": {
+              "plus_alpha": 0.002859631482527325,
+              "minus_alpha": 0.002859631482527325,
+              "even_cat": 0.002956584357048153
+            },
+            "cutoff_difference": 2.220446049250313e-16
+          },
+          {
+            "infidelity": {
+              "plus_alpha": 0.0020038024075009764,
+              "minus_alpha": 0.0020038024075009764,
+              "even_cat": 0.002485908750280652
+            },
+            "cutoff_difference": 0.0
+          },
+          {
+            "infidelity": {
+              "plus_alpha": 0.0015850812395353797,
+              "minus_alpha": 0.0015850812395353797,
+              "even_cat": 0.002003434084849487
+            },
+            "cutoff_difference": 0.0
+          },
+          {
+            "infidelity": {
+              "plus_alpha": 0.0025565121080978193,
+              "minus_alpha": 0.0025565121080978193,
+              "even_cat": 0.0031518318096478426
+            },
+            "cutoff_difference": 0.0
+          },
+          {
+            "infidelity": {
+              "plus_alpha": 0.0012280436244560544,
+              "minus_alpha": 0.0012280436244560544,
+              "even_cat": 0.0013919019223390672
+            },
+            "cutoff_difference": 0.0
+          },
+          {
+            "infidelity": {
+              "plus_alpha": 0.001874937471043725,
+              "minus_alpha": 0.001874937471043725,
+              "even_cat": 0.002075806784083145
+            },
+            "cutoff_difference": 4.440892098500626e-16
+          },
+          {
+            "infidelity": {
+              "plus_alpha": 0.002176636168003343,
+              "minus_alpha": 0.002176636168003343,
+              "even_cat": 0.002251718657167001
+            },
+            "cutoff_difference": 3.552713678800501e-15
+          }
+        ]
+      },
+      "val": {
+        "hybrid_infidelity": 0.002983169219097581,
+        "score_rule_value": 0.002983169219097581,
+        "guards_ok": true,
+        "max_cutoff_difference": 1.5543122344752192e-15,
+        "max_cd_amplitude": 0.7853981633974483,
+        "per_instance": [
+          {
+            "infidelity": {
+              "plus_alpha": 0.002894923348534695,
+              "minus_alpha": 0.002894923348534695,
+              "even_cat": 0.002983169219097581
+            },
+            "cutoff_difference": 1.5543122344752192e-15
+          }
+        ]
+      },
+      "timing": {
+        "train_s": 0.22,
+        "predict_s": 0.22,
+        "score_s": 36.39,
+        "predict_val_s": 0.22
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      0.22
+    ],
+    "predict_s": [
+      0.22
+    ],
+    "build_s": 7.1
+  },
+  "hashes": {
+    "env_lock": "5dab76f150a12acb4ca2324b0a9645bef4b140a4a202caabb373c63ae7b0334d",
+    "scorer": "8b164bbc1bd161778016d0754f67ea815186e5280453b3b3428be0c9183d486d",
+    "validate": "bb122b58297edd94c66811421f391f9e0bd62ab6a529f377cc0ebffa0646f79f",
+    "test_labels": "a443f70aeefc0775720e86f98a3044faef09261c0ba85a8d8789cccd8c2fad4f",
+    "adapt_patch": "9f5ae7c6aa479dee579f6e0934cfed02cb5a83bfacbc41bc935584d4da4de14c"
+  }
+}

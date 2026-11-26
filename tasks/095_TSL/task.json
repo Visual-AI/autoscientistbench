@@ -1,0 +1,164 @@
+{
+  "pid": "095_TSL",
+  "class": "A",
+  "title": "TSL (R<=2) separable regression on california_housing: test RMSE",
+  "metric": {
+    "name": "rmse",
+    "higher_is_better": false,
+    "delta": 0.005,
+    "aggregate": "mean"
+  },
+  "cpus": 4,
+  "memory_gb": 4,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.csv",
+    "val_labels": "data/val/labels.csv",
+    "test_input": "test/input.csv",
+    "test_labels": "test/labels.csv"
+  },
+  "split": {
+    "type": "train_test",
+    "decision": "Paper: OpenML CTR-23 california_housing (20640 rows) split 80/20 with sklearn train_test_split(random_state=0) -> train 16512 / test 4128; the paper has no val. Bench: the 4128 test rows (verified identical to the reproduction's archived test arrays) are the judge's test split; from the 16512 paper-train rows, 20% are carved out as val with train_test_split(random_state=20261029) -> train 13209 / val 3303. ids = 0-based row numbers of the OpenML table; all files sorted by id."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 0.5,
+    "val": {
+      "rmse": 54546.1628885417
+    },
+    "paper_ref": "paper Table 1 (p.8) california_housing, TSL (R<=2): 54557.89 test RMSE (single 80/20 split, authors' tuned refit on all 16512 train rows, seed 42); reproduction with code v0.3.0 + released best trial: 54138.595 (same 16512 rows). Bench reference trains on 13209 rows (val carved out) with seeds 1,2,3, so it is not directly comparable.",
+    "measured_s": {
+      "train": [
+        18.7,
+        19.15,
+        18.6
+      ],
+      "predict": [
+        2.47,
+        2.72,
+        2.42
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:08f7fa9854d621443be01f9853e42e048be15623970deb8c2a3f434db6b6b7b0"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple"
+    ],
+    "build_cap_s": 1800
+  },
+  "adapt": {
+    "base_commit": "21b591b567a0b5af814349118aeefa4cf2ad6dfd",
+    "adapt_commit": "941a9930766710c8e698637c1946e9132adefc57",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "legacy_baseline_val": {
+    "rmse": 54546.1628885417
+  },
+  "method_freedom_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/095_TSL.json",
+    "candidate_method_replacement_allowed": true,
+    "frozen_data_metric_and_information_boundary": true,
+    "full_training_or_evaluation_run": false,
+    "allowed_changes": [
+      "Training algorithm, surrogate loss, optimizer and arbitrary univariate factors including neural functions may change within the same four-product capacity class.",
+      "Two-stage TSL, ordered signs, positive factors and step-function parameterization are baseline constructions rather than the scientific rank budget.",
+      "When retaining the supplied TSL pipeline, changing only n_trees=200, n_iter=64, split_try=10, min_interval_samples=56 or the other released `best_params` values in `code/configs/california_housing_tsl_r2.json` does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Improve raw-USD house-value RMSE within the paper-supported low-separation-rank interpretable regression class.",
+      "The predictor is a sum of at most four rank-one products of univariate functions of the eight original raw features; a nonzero standalone constant consumes one term.",
+      "Original target units/censoring, supplied fixed train/validation/test splits, pointwise raw-feature factor access, reconstruction tolerance<1e-6 and RMSE remain fixed.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/095_TSL.json",
+    "forbidden_substitutions": [
+      "Do not replace the four-product separable model with a generic neural/tree predictor, add a fifth term/unaccounted intercept, or let one factor inspect multiple raw coordinates or row identity.",
+      "No external/held-out data, changed raw features/target units or dishonest structure/reconstruction cards.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Copies of this data from an installed package count as external data (patch audit)."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Improve raw-USD house-value RMSE within the paper-supported low-separation-rank interpretable regression class.",
+    "fixed_research_objects": [
+      "The predictor is a sum of at most four rank-one products of univariate functions of the eight original raw features; a nonzero standalone constant consumes one term.",
+      "Original target units/censoring, supplied fixed train/validation/test splits, pointwise raw-feature factor access, reconstruction tolerance<1e-6 and RMSE remain fixed."
+    ],
+    "editable_components": [
+      "Training algorithm, surrogate loss, optimizer and arbitrary univariate factors including neural functions may change within the same four-product capacity class.",
+      "Two-stage TSL, ordered signs, positive factors and step-function parameterization are baseline constructions rather than the scientific rank budget.",
+      "When retaining the supplied TSL pipeline, changing only n_trees=200, n_iter=64, split_try=10, min_interval_samples=56 or the other released `best_params` values in `code/configs/california_housing_tsl_r2.json` does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "Do not replace the four-product separable model with a generic neural/tree predictor, add a fifth term/unaccounted intercept, or let one factor inspect multiple raw coordinates or row identity.",
+      "No external/held-out data, changed raw features/target units or dishonest structure/reconstruction cards.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Copies of this data from an installed package count as external data (patch audit)."
+    ],
+    "evidence": [
+      {
+        "path": "agent/paper/paper.txt",
+        "section": "Section 7 and Appendix L, lines 919-922,965-971,5489-5491",
+        "finding": "Low separation rank is an explicit interpretable condition; R<=2 has total rank<=4 and matched-rank comparison supports this scientific capacity budget."
+      },
+      {
+        "path": "agent/bench/check_model.py",
+        "finding": "Enforces four total terms including nonzero intercept and reconstructs prediction within fixed tolerance."
+      },
+      {
+        "path": "agent/bench/factor_runtime.py",
+        "finding": "Executable factors see one scalar raw coordinate in fresh isolation, preventing hidden multivariate factors."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/095_TSL.json"
+  },
+  "research_contract_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/095_TSL.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

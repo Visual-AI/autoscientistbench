@@ -1,0 +1,169 @@
+{
+  "pid": "044_TAVIE-SSG",
+  "class": "A",
+  "title": "A Generalized Tangent Approximation based Variational Inference Framework for Strongly Super-Gaussian Likelihoods",
+  "metric": {
+    "name": "sw",
+    "higher_is_better": false,
+    "delta": 0.05,
+    "aggregate": "mean"
+  },
+  "cpus": 32,
+  "memory_gb": 32,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.npz",
+    "val_labels": "data/val/truth.npz",
+    "test_input": "test/input.npz",
+    "test_labels": "test/truth.npz",
+    "input_format": "npz",
+    "output_format": "npz"
+  },
+  "split": {
+    "type": "synthetic",
+    "decision": "Per-instance Student-t E1 inference. Public validation: 10 replications per n in {200,500,1000,2000}, archived public seeds 1000+37*r+101*n (r=1..10), beta seed 123. Hidden evaluation: independently secret instance and beta seeds, materialized observations only; exact same 10-replication aggregation. No cross-instance training.",
+    "public_seeds": {
+      "beta": 123,
+      "data_rule": "1000+37*r+101*n; r=1..10"
+    }
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 0.5,
+    "val": {
+      "sw": 0.005367784961820073
+    },
+    "paper_ref": "Manifest 0.0007041 is a different MSE metric; matching SW paper Table S5 mean is 0.0053635. Reproduced SW 0.005311984361498589.",
+    "measured_s": {
+      "train": [
+        4.78,
+        4.72,
+        4.67
+      ],
+      "predict": [
+        12.24,
+        12.19,
+        12.24
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.002,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:928e89bf230c19634692a52d9b5289d2f11746bd822e0a1c555e005e1e4277d8"
+  },
+  "env": {
+    "python": "3.13.18",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "0c17df8ebe147bec8d9ca01b4aa92c21fe885ad5",
+    "adapt_commit": "2ce5b6217a1442ff90b0cba57e6aeb4c0e31b148",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "legacy_baseline_val": {
+    "sw": 0.005367784961820582
+  },
+  "method_freedom_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/044_TAVIE-SSG.json",
+    "candidate_method_replacement_allowed": true,
+    "frozen_data_metric_and_information_boundary": true,
+    "full_training_or_evaluation_run": false,
+    "allowed_changes": [
+      "Within variational inference, the approximation family, variational auxiliary objective, optimizer and numerical/convergence settings may change while targeting this same posterior.",
+      "Working approximation distributions need not be the baseline TAVIE family; the target likelihood/prior remain unchanged."
+    ],
+    "fixed_contract": [
+      "Approximate the fixed joint Student-t regression posterior in (beta, log tau2), minimizing sliced-Wasserstein distance to its hidden NUTS reference.",
+      "The nu=5 Student-t Type-I SSG likelihood, alpha=1, target prior with variance 10 for beta and a0=b0=.005, as in the reference and precision interpretation of tau2 are fixed.",
+      "The joint ten-dimensional coordinate system, 8000 output samples, 500 fixed projection directions, four n-cell medians and their equal mean remain fixed.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/044_TAVIE-SSG.json",
+    "forbidden_substitutions": [
+      "Also do not use accept-reject correction of draws, and do not fit the approximation to MCMC draws.",
+      "The method must be variational inference: fit a parametric approximation by optimization and draw the output samples from it. Do not run MCMC (NUTS, HMC, Gibbs, Metropolis or SMC) or importance resampling to produce or correct samples. Do not change likelihood, prior or posterior temperature; substitute parameter-estimation MSE for distributional inference; output variance where precision is required; or rescale scoring coordinates.",
+      "No NUTS reference access during inference, hidden seeds, cached samples, cross-instance pooling or extra simulated datasets.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Approximate the fixed joint Student-t regression posterior in (beta, log tau2), minimizing sliced-Wasserstein distance to its hidden NUTS reference.",
+    "fixed_research_objects": [
+      "The nu=5 Student-t Type-I SSG likelihood, alpha=1, target prior with variance 10 for beta and a0=b0=.005, as in the reference and precision interpretation of tau2 are fixed.",
+      "The joint ten-dimensional coordinate system, 8000 output samples, 500 fixed projection directions, four n-cell medians and their equal mean remain fixed."
+    ],
+    "editable_components": [
+      "Within variational inference, the approximation family, variational auxiliary objective, optimizer and numerical/convergence settings may change while targeting this same posterior.",
+      "Working approximation distributions need not be the baseline TAVIE family; the target likelihood/prior remain unchanged."
+    ],
+    "forbidden_substitutions": [
+      "Also do not use accept-reject correction of draws, and do not fit the approximation to MCMC draws.",
+      "The method must be variational inference: fit a parametric approximation by optimization and draw the output samples from it. Do not run MCMC (NUTS, HMC, Gibbs, Metropolis or SMC) or importance resampling to produce or correct samples. Do not change likelihood, prior or posterior temperature; substitute parameter-estimation MSE for distributional inference; output variance where precision is required; or rescale scoring coordinates.",
+      "No NUTS reference access during inference, hidden seeds, cached samples, cross-instance pooling or extra simulated datasets.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "path": "agent/README.md",
+        "section": "Goal, Rules and Known pitfalls",
+        "finding": "Explicitly fixes target likelihood/prior, precision coordinates and distributional SW metric."
+      },
+      {
+        "path": "agent/bench/scorer.py",
+        "finding": "Computes fixed joint projection distance and cell aggregation."
+      },
+      {
+        "path": "convert/tasks_merlin.json",
+        "section": "044_TAVIE-SSG task_metric",
+        "finding": "Selected task is posterior approximation rather than the source paper coefficient-MSE experiment."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/044_TAVIE-SSG.json"
+  },
+  "research_contract_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/044_TAVIE-SSG.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

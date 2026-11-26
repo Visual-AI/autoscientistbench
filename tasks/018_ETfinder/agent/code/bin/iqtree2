@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+exec "$ET_BIO_PREFIX/bin/iqtree2" "$@"

@@ -1,0 +1,179 @@
+{
+  "pid": "056_SurrogateInf",
+  "class": "A",
+  "title": "Assumption-lean post-integrated inference with surrogate-control outcomes",
+  "metric": {
+    "name": "power",
+    "higher_is_better": true,
+    "delta": 0.08,
+    "aggregate": "mean"
+  },
+  "cpus": 16,
+  "memory_gb": 16,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.npz",
+    "val_labels": "data/val/truth.npz",
+    "test_input": "test/input.npz",
+    "test_labels": "test/truth.npz",
+    "input_format": "npz",
+    "output_format": "csv"
+  },
+  "split": {
+    "type": "synthetic",
+    "decision": "Per-instance PII; frozen exact author DGP. Public validation seeds 100..119; 50 independently secret-generated evaluation instances; observations only, no latent U or instance seeds in inputs. No reusable training.",
+    "val_seeds": [
+      100,
+      101,
+      102,
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      109,
+      110,
+      111,
+      112,
+      113,
+      114,
+      115,
+      116,
+      117,
+      118,
+      119
+    ]
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 0.6,
+    "val": {
+      "power": 0.5228495701210457
+    },
+    "paper_ref": "Fig.4 row 1 n=100 sigma_eps=0.8: manifest power 0.5118; exact archived 50-rep aggregation 0.51180405525106, reproduced with zero per-rep discrepancy.",
+    "measured_s": {
+      "train": [
+        3.42
+      ],
+      "predict": [
+        36.1
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 1e-06,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:1d30f27d48095614835b5f9482ab14f1eb23876bcd92f429472afa30effd0d37"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "7ee99bf1e352f875500b6def37bc35ac74a7ed1e",
+    "adapt_commit": "918688757cd6fc78ca8dbb0cb7537102461d4db0",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "legacy_baseline_val": {
+    "power": 0.5228495701210457
+  },
+  "method_freedom_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/056_SurrogateInf.json",
+    "candidate_method_replacement_allowed": true,
+    "frozen_data_metric_and_information_boundary": true,
+    "full_training_or_evaluation_run": false,
+    "allowed_changes": [
+      "Surrogate-control embeddings, nuisance working models and surrogate losses, semiparametric effect estimators, variance estimation, cross-fitting and valid p-value calibrations may change.",
+      "PCA, ECV-tuned forests and t(df=99) are baseline estimation/calibration choices; alternative methods must estimate/test the same logit-scale effect rather than change the estimand.",
+      "When retaining the supplied PII pipeline, changing only the variance ridge 1e-4, Lasso alpha=1e-4, r=10, crossfit=1, M=M0=25, M_max=100, max_depth 1/3/5, max_samples .25/.5/.75/1 or df=99 does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Improve testing power for the specified logit-link direct-effect hypotheses using only observed covariates, binary outcomes and known surrogate controls.",
+      "The selected generalized partially linear/logit effect parameter and zero-effect hypotheses, observed X/Y and supplied 500 control indices define the scientific inference problem; latent U is not an input.",
+      "The complementary 500 tested outcomes, finite beta/positive sampling variance, valid two-sided p-values, power/type-I/BH-FDR rules and independent-instance protocol remain fixed.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/056_SurrogateInf.json",
+    "forbidden_substitutions": [
+      "Do not change the link/scale to marginal mean association or another causal effect, use latent U/true coefficients, test the known controls as alternatives, or submit unrelated beta/variance/p-values.",
+      "No hidden-seed recovery, additional labeled simulations, per-instance truth lookup or changed BH/type-I/power definitions.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Improve testing power for the specified logit-link direct-effect hypotheses using only observed covariates, binary outcomes and known surrogate controls.",
+    "fixed_research_objects": [
+      "The selected generalized partially linear/logit effect parameter and zero-effect hypotheses, observed X/Y and supplied 500 control indices define the scientific inference problem; latent U is not an input.",
+      "The complementary 500 tested outcomes, finite beta/positive sampling variance, valid two-sided p-values, power/type-I/BH-FDR rules and independent-instance protocol remain fixed."
+    ],
+    "editable_components": [
+      "Surrogate-control embeddings, nuisance working models and surrogate losses, semiparametric effect estimators, variance estimation, cross-fitting and valid p-value calibrations may change.",
+      "PCA, ECV-tuned forests and t(df=99) are baseline estimation/calibration choices; alternative methods must estimate/test the same logit-scale effect rather than change the estimand.",
+      "When retaining the supplied PII pipeline, changing only the variance ridge 1e-4, Lasso alpha=1e-4, r=10, crossfit=1, M=M0=25, M_max=100, max_depth 1/3/5, max_samples .25/.5/.75/1 or df=99 does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "Do not change the link/scale to marginal mean association or another causal effect, use latent U/true coefficients, test the known controls as alternatives, or submit unrelated beta/variance/p-values.",
+      "No hidden-seed recovery, additional labeled simulations, per-instance truth lookup or changed BH/type-I/power definitions.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "section": "Section 2.2 and Section 4, especially lines 391-430 and 691-714",
+        "finding": "Defines projected direct effects and selected logistic simulation; nuisance learners/embeddings implement estimation, and oracle-U methods are distinct comparators."
+      },
+      {
+        "path": "agent/code/PII.py",
+        "finding": "The selected baseline uses logit-link nuisance/effect estimation with surrogate-control embedding."
+      },
+      {
+        "path": "agent/bench/scorer.py",
+        "finding": "Checks output range and fixed power/error-rate aggregation; no fixed t calibration is necessary to define the hypotheses."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/056_SurrogateInf.json"
+  },
+  "research_contract_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/056_SurrogateInf.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

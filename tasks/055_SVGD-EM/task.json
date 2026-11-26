@@ -1,0 +1,171 @@
+{
+  "pid": "055_SVGD-EM",
+  "class": "A",
+  "title": "Momentum SVGD-EM for Accelerated Maximum Marginal Likelihood Estimation",
+  "metric": {
+    "name": "test_error",
+    "higher_is_better": false,
+    "delta": 0.11,
+    "aggregate": "mean"
+  },
+  "cpus": 8,
+  "memory_gb": 16,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.npz",
+    "val_labels": "data/val/truth.npz",
+    "test_input": "test/input.npz",
+    "test_labels": "test/truth.npz",
+    "input_format": "npz",
+    "output_format": "npz"
+  },
+  "split": {
+    "type": "train_test",
+    "decision": "MNIST digits 4 vs 9 from the Keras mnist.npz (sha256 731c5ac602752760c8e48fbffcf8c3b850d9dc2a2aedcf2cc48468fc17b673d1). Train and val are the authors' fixed split (notebook cell 12, sklearn train_test_split with random_state=0: 1000 of the 11791 training-pool images, then 800 and 200). The scaler is computed on those 1000 images; the 230 pixels with zero std are 0 there. Hidden test is all 1991 official MNIST test images of the two digits (982 fours, 1009 nines), standardised with the frozen scaler with the constant pixels set to 0, held only in the judge's labels file; predict never receives them. Each split has 10 trials with materialized initial states by the notebook rule: public keys for val, private secrets-drawn keys for test (judge seeds file and NOTES). No test image is under agent.",
+    "val_trial_keys": [
+      102,
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      109,
+      110,
+      111
+    ]
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 0.5,
+    "val": {
+      "test_error": 0.07399999834597111
+    },
+    "paper_ref": "Fig.4a, theta0=(0,0), read off the authors' notebook plot at t≈497: test error 0.073 ± 0.017, LPPD -0.67 ± 0.04 on the 200 val images; measured here 0.0740 and -0.6625. The hidden images are new, so the hidden reference is newly measured.",
+    "measured_s": {
+      "train": [
+        0.52
+      ],
+      "predict": [
+        22.61
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.002,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:af82153671f5ee7657e44213f8acc93259565d1be28e13661c85e7f155a79ebe"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "f6c7159623d47a7868c01f0663d8007f9377d90b",
+    "adapt_commit": "6e050b3d6955a2e91ee35ed44fdb15427d454811",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "method_freedom_review": {
+    "status": "replaced_experiment_20261104",
+    "report": "NOTES.md, section 2026-11-04 BNN MNIST",
+    "candidate_method_replacement_allowed": true,
+    "frozen_data_metric_and_information_boundary": true,
+    "full_training_or_evaluation_run": true,
+    "allowed_changes": [
+      "Particle interaction, kernels and their bandwidth, the form of the momentum or acceleration on particles and on theta, the M-step rule (gradient-based or closed-form) and implementation may change.",
+      "The base update of both theta and the particles is AdaGrad with step size 0.1, as in the published comparison, which holds it fixed for all methods. Do not change, tune, schedule or adapt the step size, do not replace AdaGrad, and do not emulate another step size by rescaling gradients or updates. Both AdaGrad updates keep the `ox.adagrad` defaults `initial_accumulator_value=0.1` and `eps=1e-7`; do not change, reset or rescale the accumulator. A closed-form M-step has no step size and is allowed; a gradient-based theta update uses AdaGrad with step size 0.1. In the baseline code the particle momentum term computes `new + alpha*(new - current)`, which is exactly a step of (1+alpha) times the AdaGrad update and has no memory; if you keep that form, keep alpha=0.9. Acceleration must come from memory of earlier iterates, for example the two-sequence form `x_tilde[t+1] = x[t+1] + alpha*(x[t+1] - x[t])` with alpha below 1, or from the theta update, the kernel or particle interaction."
+    ],
+    "fixed_contract": [
+      "Improve the ensemble test error of a particle-based EM method for the fixed Bayesian neural network on MNIST 4 vs 9, after a fixed number of full-batch iterations from supplied initial states, while keeping predictive quality and the oracle budget.",
+      "The tanh network with 40 hidden units, its likelihood, the Gaussian priors with scale exp(2*theta) and the division of log_prob by n remain fixed, as does the frozen predictor, which is the argmax of the log-softmax averaged over particles. Theta remains a quantity estimated from the particle cloud.",
+      "The 800 training images, supplied w0, v0 and theta0, 10 particles, 500 iterations, independent trials, at most one full-batch latent-score evaluation and one full-batch theta-gradient evaluation per particle per iteration, the test error definition and the LPPD guard remain fixed.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/055_SVGD-EM.json",
+    "forbidden_substitutions": [
+      "Do not change the likelihood, the priors or the network, and do not swap the predictor or report anything other than this network's weights. Do not hold theta fixed, schedule it by hand or choose it by validation score.",
+      "Do not use minibatches, split a full-batch evaluation into several updates or make uncounted model evaluations, including your own forward pass on training images for a line search or a stopping rule.",
+      "Do not add data, augment images, add features or read validation images or labels while train.sh or predict.sh runs; settings chosen offline on validation are allowed. Do not discard the supplied initial state, warm-start from weights obtained before the run, or evaluate the model during train.sh.",
+      "Do not rescale `w` or `v` after the last iteration or otherwise post-process the cloud: report the state after the 500th update. Reporting an average of earlier iterates counts as post-processing. Do not fabricate states or bypass model-call accounting. No cross-trial fitting.",
+      "No training or fitting of reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Copies of this data from an installed package count as external data (patch audit)."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": true,
+    "toyhm_research_contract_report": "audits/20261101_research_contract/055_SVGD-EM.json"
+  },
+  "research_contract": {
+    "objective": "Improve the ensemble test error of a particle-based EM method for the fixed Bayesian neural network on MNIST 4 vs 9, after a fixed number of full-batch iterations from supplied initial states, while keeping predictive quality and the oracle budget.",
+    "fixed_research_objects": [
+      "The tanh network with 40 hidden units, its likelihood, the Gaussian priors with scale exp(2*theta) and the division of log_prob by n remain fixed, as does the frozen predictor, which is the argmax of the log-softmax averaged over particles. Theta remains a quantity estimated from the particle cloud.",
+      "The 800 training images, supplied w0, v0 and theta0, 10 particles, 500 iterations, independent trials, at most one full-batch latent-score evaluation and one full-batch theta-gradient evaluation per particle per iteration, the test error definition and the LPPD guard remain fixed."
+    ],
+    "editable_components": [
+      "Particle interaction, kernels and their bandwidth, the form of the momentum or acceleration on particles and on theta, the M-step rule (gradient-based or closed-form) and implementation may change.",
+      "The base update of both theta and the particles is AdaGrad with step size 0.1, as in the published comparison, which holds it fixed for all methods. Do not change, tune, schedule or adapt the step size, do not replace AdaGrad, and do not emulate another step size by rescaling gradients or updates. Both AdaGrad updates keep the `ox.adagrad` defaults `initial_accumulator_value=0.1` and `eps=1e-7`; do not change, reset or rescale the accumulator. A closed-form M-step has no step size and is allowed; a gradient-based theta update uses AdaGrad with step size 0.1. In the baseline code the particle momentum term computes `new + alpha*(new - current)`, which is exactly a step of (1+alpha) times the AdaGrad update and has no memory; if you keep that form, keep alpha=0.9. Acceleration must come from memory of earlier iterates, for example the two-sequence form `x_tilde[t+1] = x[t+1] + alpha*(x[t+1] - x[t])` with alpha below 1, or from the theta update, the kernel or particle interaction."
+    ],
+    "forbidden_substitutions": [
+      "Do not change the likelihood, the priors or the network, and do not swap the predictor or report anything other than this network's weights. Do not hold theta fixed, schedule it by hand or choose it by validation score.",
+      "Do not use minibatches, split a full-batch evaluation into several updates or make uncounted model evaluations, including your own forward pass on training images for a line search or a stopping rule.",
+      "Do not add data, augment images, add features or read validation images or labels while train.sh or predict.sh runs; settings chosen offline on validation are allowed. Do not discard the supplied initial state, warm-start from weights obtained before the run, or evaluate the model during train.sh.",
+      "Do not rescale `w` or `v` after the last iteration or otherwise post-process the cloud: report the state after the 500th update. Reporting an average of earlier iterates counts as post-processing. Do not fabricate states or bypass model-call accounting. No cross-trial fitting.",
+      "No training or fitting of reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Copies of this data from an installed package count as external data (patch audit)."
+    ],
+    "evidence": [
+      {
+        "path": "agent/code/bnn_model.py",
+        "finding": "Cell 10 of the authors' notebook, byte for byte: prior scale exp(2*theta), log_prob divided by n."
+      },
+      {
+        "path": "agent/bench/scorer.py",
+        "finding": "Computes test error and LPPD from submitted w and v with the frozen functions of cell 18; enforces the LPPD limit and the declared per-kind oracle budget."
+      },
+      {
+        "path": "judge/tools/replay_probe.py",
+        "finding": "Instrumented replay counts particle-image evaluations per iteration and kind, requires every call to use all 800 training images, and compares the final state."
+      }
+    ],
+    "review_report": "NOTES.md, section 2026-11-04 BNN MNIST"
+  },
+  "research_contract_review": {
+    "status": "replaced_experiment_20261104",
+    "report": "NOTES.md, section 2026-11-04 BNN MNIST",
+    "full_training_or_evaluation": true,
+    "verification_scope": "Rules checked against the baseline code and against baseline runs and a full replay on scratch copies on 2026-11-04; not a new performance or readiness certification. Owner reference run pending."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

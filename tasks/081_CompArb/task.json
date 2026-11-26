@@ -1,0 +1,159 @@
+{
+  "pid": "081_CompArb",
+  "class": "A",
+  "title": "Computational Arbitrage in AI Model Markets",
+  "metric": {
+    "name": "buy_cost_usd",
+    "higher_is_better": false,
+    "delta": 0.1,
+    "aggregate": "mean"
+  },
+  "cpus": 4,
+  "memory_gb": 4,
+  "budget_hours_default": 5,
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "research_contract": {
+    "objective": "Reduce the expected cost, in USD scaled to the 500-issue benchmark, of buying a 70% solve rate on SWE-bench Verified issues unseen in fitting, from the paper's two-model market.",
+    "fixed_research_objects": [
+      "The market: GPT-5 mini and DeepSeek v3.2 Thinking only, with the authors' released per-issue attempts and mean costs. No other model may be bought.",
+      "The purchase rule: repeated sampling until first success, at most $1 per issue, each model used at most once per issue, per-model outcomes treated as independent (paper Eq. 8).",
+      "The estimators: unbiased pass@k from attempts, k = floor(dollars / mean_cost), expected spend by the survival identity, computed by the trusted scorer from outcomes it holds.",
+      "The target and scale: 70% solve rate read from the lower convex envelope of a nested purchase family, mean cost multiplied by 500.",
+      "Generalization: outcomes of evaluation issues stay hidden; inputs are only fields known before buying (problem statement, repo, version).",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "editable_components": [
+      "The purchase policy as a whole: the fixed-tau cascade is a baseline choice, not a requirement. Per-issue or per-repo allocation, model order, skipping issues, budget levels and the split between models may all change.",
+      "Anything fitted at train stage from data/train: predictors of solve probability or cost built on problem statements, repo and version, any model class and objective, with dependencies from PyPI in env.lock.",
+      "When retaining the supplied issue-independent cascade, changing only the model order gpt5mini then deepseek, the fitted cap of $0.0812, budget_levels=logspace(1e-4, 1, 250), performance_grid=linspace(0.68, max_perf, 1000) or compute_first=logspace(0.01, 0.5, 100) does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "Buying from any model outside the two-model market, changing the $1 cap, the estimators, the 70% target or the 500-issue scale, or reporting cost or solve figures instead of plans.",
+      "Using outcomes, gold patches, test lists or per-issue results of benchmark issues from memory or outside sources, or embedding per-issue tables for issues outside data/train.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "path": "agent/paper/paper.pdf",
+        "section": "Sections 2 and 3, Figure 1, Figure 2, Eq. 7 and 8",
+        "finding": "Buy cost at a target solve rate in the GPT-5 mini and DeepSeek market is the headline experiment; the cascade with tau is the paper's simple policy, with the policy class left open by Eq. 6."
+      },
+      {
+        "path": "agent/bench/replay.py",
+        "finding": "Trusted replay holds attempts and mean costs and takes only plans from the candidate."
+      },
+      {
+        "path": "judge/verification/parity_75.json",
+        "finding": "The scorer reproduces the authors' $78.74 on all 445 issues without the envelope."
+      }
+    ]
+  },
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.jsonl",
+    "val_labels": "data/val/labels.json",
+    "test_input": "test/input.jsonl",
+    "test_labels": "test/labels.json",
+    "input_format": "jsonl",
+    "output_format": "csv"
+  },
+  "split": {
+    "type": "std3",
+    "decision": "The paper has no split: it fits and reports on one set of 445 SWE-bench Verified issues. Disjoint train, val and held-out issues, stratified by repo, 50/20/30, drawn once with secrets; the record stays under the judge directory. Only a baseline that cannot reach 70% may trigger a redraw; none happened."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 0.5,
+    "val": {
+      "buy_cost_usd": 42.69287781768624
+    },
+    "paper_ref": "Figure 1 and Section 3: $80 buy cost at a 75% solve rate, tau* = {$0.08, $0.92}; reproduced $78.74. Parity through this task's scorer on all 445 issues with the authors' tau* = {$0.0812, $0.9188}: authors' code $78.7367, scorer without the envelope $78.7327 (difference -$0.0040, -0.005%), scorer with the envelope $77.8836 (-$0.85, the chord between levels 228 and 230 under a non-convex step). DeepSeek alone at 75%: authors' code $118.445, scorer without the envelope $118.465. See judge/verification/parity_75.json. This task's metric is at 70% on held-out issues, so its value differs from those.",
+    "reference_status": "requires_measurement",
+    "timing_scope": "train_min and eval_min are conservative estimates before the first reference; NOTES section 5 has what was measured.",
+    "measured_s": {
+      "train": [
+        6.03
+      ],
+      "predict": [
+        0.57
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 1e-06,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:205565801367f92144c920a292ed388af098fbf6a334399f777c522c75598225"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "f8e79bd15d8fee7b003ac2862e6ea4f7a474ee93",
+    "adapt_commit": "56798662ef37a29c4b55d5464faed701f3be411a",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "method_freedom_review": {
+    "status": "conversion_review_only",
+    "candidate_method_replacement_allowed": true,
+    "frozen_data_metric_and_information_boundary": true,
+    "full_training_or_evaluation_run": false,
+    "allowed_changes": [
+      "The purchase policy as a whole: the fixed-tau cascade is a baseline choice, not a requirement. Per-issue or per-repo allocation, model order, skipping issues, budget levels and the split between models may all change.",
+      "Anything fitted at train stage from data/train: predictors of solve probability or cost built on problem statements, repo and version, any model class and objective, with dependencies from PyPI in env.lock.",
+      "When retaining the supplied issue-independent cascade, changing only the model order gpt5mini then deepseek, the fitted cap of $0.0812, budget_levels=logspace(1e-4, 1, 250), performance_grid=linspace(0.68, max_perf, 1000) or compute_first=logspace(0.01, 0.5, 100) does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Reduce the expected cost, in USD scaled to the 500-issue benchmark, of buying a 70% solve rate on SWE-bench Verified issues unseen in fitting, from the paper's two-model market.",
+      "The market: GPT-5 mini and DeepSeek v3.2 Thinking only, with the authors' released per-issue attempts and mean costs. No other model may be bought.",
+      "The purchase rule: repeated sampling until first success, at most $1 per issue, each model used at most once per issue, per-model outcomes treated as independent (paper Eq. 8).",
+      "The estimators: unbiased pass@k from attempts, k = floor(dollars / mean_cost), expected spend by the survival identity, computed by the trusted scorer from outcomes it holds.",
+      "The target and scale: 70% solve rate read from the lower convex envelope of a nested purchase family, mean cost multiplied by 500.",
+      "Generalization: outcomes of evaluation issues stay hidden; inputs are only fields known before buying (problem statement, repo, version).",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "forbidden_substitutions": [
+      "Buying from any model outside the two-model market, changing the $1 cap, the estimators, the 70% target or the 500-issue scale, or reporting cost or solve figures instead of plans.",
+      "Using outcomes, gold patches, test lists or per-issue results of benchmark issues from memory or outside sources, or embedding per-issue tables for issues outside data/train.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "scope_source": "research_contract"
+  },
+  "research_contract_review": {
+    "status": "conversion_review_only",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Scope written at conversion against the paper and the trusted scorer; bounded checks only. No independent audit report exists yet."
+  },
+  "agent_budget_hours": 2
+}

@@ -1,0 +1,159 @@
+{
+  "pid": "026_ChemSpaceViz",
+  "class": "A",
+  "title": "Efficient visualization of chemical space",
+  "metric": {
+    "name": "auc_mean",
+    "higher_is_better": true,
+    "delta": 0.0001,
+    "aggregate": "mean"
+  },
+  "cpus": 8,
+  "memory_gb": 16,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.npz",
+    "val_labels": "data/val/labels.npz",
+    "test_input": "test/input.npz",
+    "test_labels": "test/labels.npz",
+    "input_format": "npz",
+    "output_format": "csv"
+  },
+  "split": {
+    "type": "transductive",
+    "decision": "按 2026-10-29 用户决定：固定实例优化 variant B。固定 CHEMBL33 BitBIRCH 191 簇、7382 分子公开指纹和分组，val 与 judge 评价同一固定实例，无隐藏标签、无随机划分。judge 的 labels 只存输入可推导的 Tanimoto 真值；不宣称泛化。重算 PCA，禁止分发预拟合坐标。"
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 0.5,
+    "val": {
+      "auc_mean": 0.8056602755246448
+    },
+    "paper_ref": "Fig. 6 approximately 0.80; fixed archived reproduction 0.8056602755246448",
+    "measured_s": {
+      "train": [
+        3.57
+      ],
+      "predict": [
+        2.82
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 1e-05,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:769653120727a7642933e87dd62f23f1084cc89691255e80db423797061c2e4c"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "62e2f8a48edb7dbc1afe713c07059d345de285a0",
+    "adapt_commit": "21c91cf3825948fea00e9e1f52ac9299dcbee33b",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "method_freedom_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/026_ChemSpaceViz.json",
+    "full_training_or_evaluation": false,
+    "allowed_changes": [
+      "projection/embedding and numerical layout optimization algorithms, including replacing PCA",
+      "internal computational representations and training objectives that optimize the same fixed-instance layout problem",
+      "When retaining the supplied PCA pipeline, changing only random_state=42 does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Optimize a two-dimensional layout of the existing fixed molecular fingerprint clusters for the original co-ranking QNN neighborhood-preservation AUC.",
+      "supplied1024-bit ECFP4 observations, BitBIRCH partition, molecule identities and per-cluster population",
+      "two-dimensional coordinate output, Tanimoto reference geometry, stable rank/tie conventions and unweighted QNN-AUC objective",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/026_ChemSpaceViz.json",
+    "forbidden_substitutions": [
+      "changing fingerprints, clustering or membership to create an easier geometry",
+      "adding output dimensions, changing high-dimensional distances, supplying cached layouts or claiming held-out generalization",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract"
+  },
+  "research_contract": {
+    "objective": "Optimize a two-dimensional layout of the existing fixed molecular fingerprint clusters for the original co-ranking QNN neighborhood-preservation AUC.",
+    "fixed_research_objects": [
+      "supplied1024-bit ECFP4 observations, BitBIRCH partition, molecule identities and per-cluster population",
+      "two-dimensional coordinate output, Tanimoto reference geometry, stable rank/tie conventions and unweighted QNN-AUC objective"
+    ],
+    "editable_components": [
+      "projection/embedding and numerical layout optimization algorithms, including replacing PCA",
+      "internal computational representations and training objectives that optimize the same fixed-instance layout problem",
+      "When retaining the supplied PCA pipeline, changing only random_state=42 does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "changing fingerprints, clustering or membership to create an easier geometry",
+      "adding output dimensions, changing high-dimensional distances, supplying cached layouts or claiming held-out generalization",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "source": "tasks/026_ChemSpaceViz/agent/README.md",
+        "section": "Goal,Data,Metric and baseline",
+        "finding": "Optimize a two-dimensional layout of the existing fixed molecular fingerprint clusters for the original co-ranking QNN neighborhood-preservation AUC."
+      },
+      {
+        "source": "tasks/026_ChemSpaceViz/agent/bench/scorer.py",
+        "section": "trusted score and guards",
+        "finding": "The fixed evaluation target is supplied1024-bit ECFP4 observations, BitBIRCH partition, molecule identities and per-cluster population; two-dimensional coordinate output, Tanimoto reference geometry, stable rank/tie conventions and unweighted QNN-AUC objective"
+      },
+      {
+        "source": "audits/20261101_method_freedom/026_ChemSpaceViz.json",
+        "section": "prior task-specific scorer/interface audit",
+        "finding": "Reuse the prior actual evaluator review while narrowing the blanket permission to the present task-specific objects."
+      },
+      {
+        "source": "tasks/026_ChemSpaceViz/BRIEF.md",
+        "section": "26-33",
+        "finding": "The explicit score rule fixes clusters and coordinate dimension; the user retained fixed-instance optimization rather than molecule generalization."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/026_ChemSpaceViz.json"
+  },
+  "research_contract_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/026_ChemSpaceViz.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

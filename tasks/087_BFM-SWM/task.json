@@ -1,0 +1,182 @@
+{
+  "pid": "087_BFM-SWM",
+  "class": "A",
+  "title": "BFM-SWM: budget-feasible procurement mechanism for submodular welfare (Figure 1, influence maximization)",
+  "metric": {
+    "name": "welfare_ratio",
+    "higher_is_better": true,
+    "delta": 0.25,
+    "aggregate": "mean"
+  },
+  "cpus": 4,
+  "memory_gb": 8,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/request.json",
+    "val_labels": "data/val/labels",
+    "test_input": "test/request.json",
+    "test_labels": "test/labels",
+    "input_format": "private_instance_descriptor",
+    "output_format": "policy_artifact_zip"
+  },
+  "split": {
+    "type": "online",
+    "decision": "Private policy protocol v2. The scorer holds costs; one isolated worker per instance interacts through offers. Train and validation use the Slashdot and Epinions graphs with public cost draws of two families on the paper's budget grid (80 and 60 instances). The held-out split has fresh draws from secrets and differs from the public splits in ways recorded only under the judge directory and in operator notes. The single Figure-1 cell (6434.1) is a parity check, not the metric.",
+    "public_seeds": {
+      "train": 44540101,
+      "val": 44540202
+    }
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 0.5,
+    "val": {
+      "welfare_ratio": 0.5648436056480995
+    },
+    "paper_ref": "6434.1 = BFM-SWM welfare on Slashdot at B=400, Figure 1(a), 1+sqrt(degree) costs. Through this task's offer oracle the adapted baseline reproduces it with identical winners and payments (all 30 Figure-1 cells, judge/verification/parity_figure1.json). That cell moves 4731-7693 with epsilon alone, so it is a parity check only; the metric is welfare_ratio.",
+    "reference_status": "not_measured_owner_runs_reference",
+    "timing_scope": "train_min and eval_min are conservative estimates before the first reference; see NOTES for what was measured.",
+    "measured_s": {
+      "train": [
+        3.07
+      ],
+      "predict": [
+        0.47
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 1e-09,
+    "parity_abs_tol": 0.0,
+    "prediction_timing_scope": "predict.sh only seals the artifact; instance workers run inside scorer.py, whose elapsed times are reported as diagnostics.",
+    "reference_hash": "sha256:e9493e556f1abd64b3ba560e37b7637747637dbea4ab58ad557c6e74ade87dad"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "9720a1cae127b0db358afac8387dc6f55d7b55cd",
+    "adapt_commit": "c7fafd653b2bb215650391308022bb6e2844054c",
+    "patch": "judge/reference/adapt.patch",
+    "source": "papers/087_BFM-SWM/code with the reproducer's CLI patch reversed: upstream 82f97be91f4404a9f943c5ebf3d60a272a76a13d"
+  },
+  "smoke": {
+    "input": "judge/verification/private_smoke/request.json",
+    "labels": "judge/verification/private_smoke/labels"
+  },
+  "private_eval": {
+    "version": 2,
+    "protocol": "private-policy-v2",
+    "entrypoint": "policy.sh",
+    "full_reproduction_performed": false,
+    "full_benchmark_ready": false
+  },
+  "protocol_version": "private-policy-v2",
+  "conversion": {
+    "reason": "Protocol, parity, guards and val timing verified; the reference is left to the owner."
+  },
+  "method_freedom_review": {
+    "status": "task_specific_scope_written_at_conversion",
+    "report": "NOTES.md",
+    "candidate_method_replacement_allowed": true,
+    "frozen_data_metric_and_information_boundary": true,
+    "full_training_or_evaluation_run": false,
+    "allowed_changes": [
+      "Everything inside the mechanism: order of offers, price rule and its parameters (alpha, beta, epsilon, or none of them), number of rounds, candidate sets, stopping rule, choice of final winners.",
+      "Within-instance learning from accept/reject answers, including deliberately sacrificing suppliers to learn about the cost distribution; randomization through BENCH_SEED and algorithm_index.",
+      "Anything fitted offline on the training cost draws, frozen into the model directory; implementation language and data structures."
+    ],
+    "fixed_contract": [
+      "Raise the social welfare v(S)-c(S) that a budget-feasible procurement mechanism achieves on coverage valuations when supplier costs are private, using only take-it-or-leave-it offers with non-rising prices.",
+      "Procurement setting of the paper: coverage valuation v(S)=|N(S)| on the supplied graph, private supplier costs, one budget per instance, welfare v(S)-c(S) as the objective.",
+      "Offer protocol: a supplier accepts iff cost<=price; prices to a supplier never rise; a rejection is final; each winner is paid its most recent offer, which it accepted; one declaration per instance.",
+      "Economic guards: total payment<=budget and v(S)-payment>=0 on every instance; any violation makes the whole evaluation Infinity. Truthfulness and individual rationality follow from the protocol.",
+      "Metric welfare_ratio: mean over instances of welfare divided by the frozen full-information greedy benchmark; fresh worker and fresh oracle per instance.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "forbidden_substitutions": [
+      "Learning costs other than through offers, including file, memory, process or timing side channels, and any assumption that hidden costs can be regenerated.",
+      "Changing the oracle, scorer, value function, budgets, benchmark or supplier behaviour; simulating another mechanism's payment rule such as pay-as-bid.",
+      "Carrying state between instances, or memorizing public validation draws as a price table.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Raise the social welfare v(S)-c(S) that a budget-feasible procurement mechanism achieves on coverage valuations when supplier costs are private, using only take-it-or-leave-it offers with non-rising prices.",
+    "fixed_research_objects": [
+      "Procurement setting of the paper: coverage valuation v(S)=|N(S)| on the supplied graph, private supplier costs, one budget per instance, welfare v(S)-c(S) as the objective.",
+      "Offer protocol: a supplier accepts iff cost<=price; prices to a supplier never rise; a rejection is final; each winner is paid its most recent offer, which it accepted; one declaration per instance.",
+      "Economic guards: total payment<=budget and v(S)-payment>=0 on every instance; any violation makes the whole evaluation Infinity. Truthfulness and individual rationality follow from the protocol.",
+      "Metric welfare_ratio: mean over instances of welfare divided by the frozen full-information greedy benchmark; fresh worker and fresh oracle per instance."
+    ],
+    "editable_components": [
+      "Everything inside the mechanism: order of offers, price rule and its parameters (alpha, beta, epsilon, or none of them), number of rounds, candidate sets, stopping rule, choice of final winners.",
+      "Within-instance learning from accept/reject answers, including deliberately sacrificing suppliers to learn about the cost distribution; randomization through BENCH_SEED and algorithm_index.",
+      "Anything fitted offline on the training cost draws, frozen into the model directory; implementation language and data structures."
+    ],
+    "forbidden_substitutions": [
+      "Learning costs other than through offers, including file, memory, process or timing side channels, and any assumption that hidden costs can be regenerated.",
+      "Changing the oracle, scorer, value function, budgets, benchmark or supplier behaviour; simulating another mechanism's payment rule such as pay-as-bid.",
+      "Carrying state between instances, or memorizing public validation draws as a price table.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "path": "papers/087_BFM-SWM/paper/paper.txt",
+        "section": "Section 3 lines 318-325; Algorithm 1 lines 346-385; Section 4.1 line 459; Appendix A.1 lines 1115-1118",
+        "finding": "The objective and the four economic properties are the problem; the mechanism is a descending clock of take-it-or-leave-it offers paying the most recently posted price, so it is expressible in this protocol."
+      },
+      {
+        "path": "judge/verification/parity_figure1.json",
+        "finding": "The adapted baseline reproduces the authors' winners and payments on all Figure-1 cells through the same interface a candidate uses."
+      },
+      {
+        "path": "judge/verification/guard_tests.json",
+        "finding": "Pay-as-bid style cheating, over-budget payment, rising prices and unaccepted winners all score Infinity through the real path."
+      }
+    ]
+  },
+  "research_contract_review": {
+    "status": "task_specific_scope_written_at_conversion",
+    "report": "NOTES.md",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope definition and bounded checks; not a performance or readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

@@ -1,0 +1,160 @@
+{
+  "pid": "028_ResidenceDiff",
+  "class": "A",
+  "title": "A Residence-Time Approach for Determining Position-Dependent Diffusivities from Biased Molecular Simulations",
+  "metric": {
+    "name": "tv",
+    "higher_is_better": false,
+    "delta": 0.001,
+    "aggregate": "mean",
+    "theoretical_bound": 0.0
+  },
+  "cpus": 16,
+  "memory_gb": 16,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.npz",
+    "val_labels": "data/val/labels.npz",
+    "test_input": "test/input.npz",
+    "test_labels": "test/labels.npz",
+    "input_format": "npz",
+    "output_format": "csv"
+  },
+  "split": {
+    "type": "none",
+    "decision": "Variant B fixed numerical design. POPC public validation; SC unbiased MD propagators held only by judge. Public ABF histograms and PMFs for both systems; no MD data in train. No random split; deterministic seed 1. Full sizes and checks in NOTES. Materialized sizes: {\"popc_water\": {\"histogram_rows\": 21559082, \"analysis_shape\": [30, 215], \"grid\": 763, \"lags\": [5, 50, 75, 100, 200, 300, 500, 600, 700], \"md_max_abs_diff\": 0.0, \"public_train_bytes\": 345222918, \"sha256_labels\": \"fe76603757d90eb753899e0215730ca7c4a016ca01e948124425665bd0cf9b64\"}, \"sc_water\": {\"histogram_rows\": 24802654, \"analysis_shape\": [30, 179], \"grid\": 951, \"lags\": [5, 10, 50, 75, 100, 150, 200, 300, 500, 600, 700], \"md_max_abs_diff\": 0.0, \"public_train_bytes\": 397099166, \"sha256_labels\": \"2036a204da088b8eb5f019cc1827be99f840361d4471a377f1a6c7aaa4473bee\"}}"
+  },
+  "baseline": {
+    "train_min": 1.01,
+    "eval_min": 0.5,
+    "val": {
+      "tv": 0.10001307621145611
+    },
+    "paper_ref": "0.0387; reproduced rounded headline 0.0395",
+    "measured_s": {
+      "train": [
+        60.33
+      ],
+      "predict": [
+        1.92
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 1e-06,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:9f7bcc3dcdeae75d4b4a6fcd100b81fd08c8000b8228356ef4f8eee5b1cc496b"
+  },
+  "env": {
+    "python": "3.12",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "debbcb8c52dd374e14d5c49cc442b436230de913",
+    "adapt_commit": "77f3e528193bcee034fb73ebc9abf7b854d64a62",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "method_freedom_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/028_ResidenceDiff.json",
+    "full_training_or_evaluation": false,
+    "allowed_changes": [
+      "diffusivity estimators, statistical fitting and regularization, interval selection and smoothing computed from authorized observations",
+      "optimization/training surrogate losses and computational implementation without changing the physical evaluator",
+      "When retaining the supplied RTA reconstruction and smoothing pipeline, changing only L=7.5 Å (including switching to the supplied NLL width selection), smoothing_length=1.0, plateau=True, plateau_tolerance=0.05, symmetry_center=0.0 or positive=True does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Infer a positive position-dependent diffusivity profile from the released biased-simulation first-exit observations, minimizing the original propagator total-variation objective.",
+      "existing physical systems and ABF first-exit observations, PMF, temperature, periodic grid, boundaries and central initial condition",
+      "Smoluchowski physical forward model, reference MD densities, headline75/200ps lags, all-lag quality cap and original TV aggregation",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/028_ResidenceDiff.json",
+    "forbidden_substitutions": [
+      "replacing the Smoluchowski equation, PMF, initial/boundary conditions or reference densities with an easier physical model",
+      "submitting arbitrary densities or cached profiles instead of a freshly inferred positive diffusivity design",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract"
+  },
+  "research_contract": {
+    "objective": "Infer a positive position-dependent diffusivity profile from the released biased-simulation first-exit observations, minimizing the original propagator total-variation objective.",
+    "fixed_research_objects": [
+      "existing physical systems and ABF first-exit observations, PMF, temperature, periodic grid, boundaries and central initial condition",
+      "Smoluchowski physical forward model, reference MD densities, headline75/200ps lags, all-lag quality cap and original TV aggregation"
+    ],
+    "editable_components": [
+      "diffusivity estimators, statistical fitting and regularization, interval selection and smoothing computed from authorized observations",
+      "optimization/training surrogate losses and computational implementation without changing the physical evaluator",
+      "When retaining the supplied RTA reconstruction and smoothing pipeline, changing only L=7.5 Å (including switching to the supplied NLL width selection), smoothing_length=1.0, plateau=True, plateau_tolerance=0.05, symmetry_center=0.0 or positive=True does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "replacing the Smoluchowski equation, PMF, initial/boundary conditions or reference densities with an easier physical model",
+      "submitting arbitrary densities or cached profiles instead of a freshly inferred positive diffusivity design",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "source": "tasks/028_ResidenceDiff/agent/README.md",
+        "section": "Goal,Data,Metric and baseline",
+        "finding": "Infer a positive position-dependent diffusivity profile from the released biased-simulation first-exit observations, minimizing the original propagator total-variation objective."
+      },
+      {
+        "source": "tasks/028_ResidenceDiff/agent/bench/scorer.py",
+        "section": "trusted score and guards",
+        "finding": "The fixed evaluation target is existing physical systems and ABF first-exit observations, PMF, temperature, periodic grid, boundaries and central initial condition; Smoluchowski physical forward model, reference MD densities, headline75/200ps lags, all-lag quality cap and original TV aggregation"
+      },
+      {
+        "source": "audits/20261101_method_freedom/028_ResidenceDiff.json",
+        "section": "prior task-specific scorer/interface audit",
+        "finding": "Reuse the prior actual evaluator review while narrowing the blanket permission to the present task-specific objects."
+      },
+      {
+        "source": "tasks/028_ResidenceDiff/BRIEF.md",
+        "section": "26-33",
+        "finding": "The original propagator validation fixes ABF PMF and periodic physical propagation; the user designated POPC development and independent MD transfer evaluation."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/028_ResidenceDiff.json"
+  },
+  "research_contract_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/028_ResidenceDiff.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

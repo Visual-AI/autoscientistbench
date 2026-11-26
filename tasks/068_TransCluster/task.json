@@ -1,0 +1,174 @@
+{
+  "pid": "068_TransCluster",
+  "class": "A",
+  "title": "Transformer Circuits Can Realize Clustering Algorithms",
+  "metric": {
+    "name": "normal_log_objective",
+    "higher_is_better": false,
+    "delta": 0.01,
+    "aggregate": "mean"
+  },
+  "cpus": 128,
+  "memory_gb": 32,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.npz",
+    "val_labels": "data/val/labels.npz",
+    "test_input": "test/input.npz",
+    "test_labels": "test/labels.npz",
+    "input_format": "npz",
+    "output_format": "npz"
+  },
+  "split": {
+    "type": "synthetic",
+    "decision": "Online fresh Normal training batches, independent scheduler-development draws from algorithm seeds. Public validation seed 721903, 320 tasks per family. Hidden evaluation: 320 tasks per family generated with secrets seeds recorded only in operator notes. Five families; observations and random initial centers only, opaque shuffled IDs. Each BENCH_SEED fits three independent models; scorer takes median of three family means, outer harness averages three replicates.",
+    "val_seeds": [
+      721903
+    ]
+  },
+  "baseline": {
+    "train_min": 25.03,
+    "eval_min": 1.28,
+    "val": {
+      "normal_log_objective": 4.997331301371257
+    },
+    "paper_ref": "Appendix B.4 Table 1 / Figure 4a, Normal k-means transformer 5.0052; reproduced 4.994764804840088",
+    "measured_s": {
+      "train": [
+        1501.52,
+        1472.34,
+        1496.34
+      ],
+      "predict": [
+        72.81,
+        76.8,
+        70.36
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:f3ac9ee46289a659558b08d00f7036148b1c244620423b7af04f35bdd87bc546"
+  },
+  "env": {
+    "python": "3.13",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple",
+      "https://download.pytorch.org/whl/cpu"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "b72c74c2c03a3453cd347c64bc6432e37b09164f",
+    "adapt_commit": "fd1eefcf047a3cb8c22bb6d20e3a1e9e4fda6c73",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "pre_method_freedom_baseline_val": {
+    "normal_log_objective": null
+  },
+  "leakage_remediation": {
+    "full_evaluation_ready": false,
+    "superseded_by": "audits/20261101_method_freedom/068_TransCluster.json",
+    "evidence_is_historical": true
+  },
+  "method_freedom": {
+    "report": "audits/20261101_method_freedom/068_TransCluster.json",
+    "full_training_or_evaluation_run": false,
+    "superseded_by": "research_contract",
+    "scope_superseded_by": "audits/20261101_research_contract/068_TransCluster.json"
+  },
+  "method_freedom_review": {
+    "report": "audits/20261101_research_contract/068_TransCluster.json",
+    "allowed_changes": [
+      "Transformer architecture, training surrogate and optimizer within the fixed capacity and horizon. The update must be computed by a learned transformer built from attention with residual connections, with optional feed-forward blocks. Transformer variants are allowed; a hand-written or analytic rule such as Lloyd's algorithm is not."
+    ],
+    "fixed_contract": [
+      "Minimize the Normal-family median-of-seeds mean log k-means objective after twenty updates under the original capacity and OOD controls.",
+      "Normalized 512x32 point-cloud problems, ten supplied initial centers, three independent model members and original family guards.",
+      "Twenty actual clustering updates and at most 21672 fitted real parameters per model.",
+      "Original float32 objective and median-of-means aggregation; no hidden family or target access.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/068_TransCluster.json",
+    "status": "scope_repaired_with_limitations",
+    "forbidden_substitutions": [
+      "Within one `step` call, each fitted layer runs at most once, so a call cannot apply a layer repeatedly to iterate.",
+      "Hand-written clustering computations, such as hard assignments, Lloyd means, re-seeding or farthest-point selection, may not run before, after or around the transformer inside `step`, and their results may not be given to it as input features.",
+      "Replacing twenty measured updates with an unbounded inner solver or changing supplied initial centers.",
+      "Exceeding matched capacity, using cross-instance inference data, or weakening OOD/metric controls.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Minimize the Normal-family median-of-seeds mean log k-means objective after twenty updates under the original capacity and OOD controls.",
+    "fixed_research_objects": [
+      "Normalized 512x32 point-cloud problems, ten supplied initial centers, three independent model members and original family guards.",
+      "Twenty actual clustering updates and at most 21672 fitted real parameters per model.",
+      "Original float32 objective and median-of-means aggregation; no hidden family or target access."
+    ],
+    "editable_components": [
+      "Transformer architecture, training surrogate and optimizer within the fixed capacity and horizon. The update must be computed by a learned transformer built from attention with residual connections, with optional feed-forward blocks. Transformer variants are allowed; a hand-written or analytic rule such as Lloyd's algorithm is not."
+    ],
+    "forbidden_substitutions": [
+      "Within one `step` call, each fitted layer runs at most once, so a call cannot apply a layer repeatedly to iterate.",
+      "Hand-written clustering computations, such as hard assignments, Lloyd means, re-seeding or farthest-point selection, may not run before, after or around the transformer inside `step`, and their results may not be given to it as input features.",
+      "Replacing twenty measured updates with an unbounded inner solver or changing supplied initial centers.",
+      "Exceeding matched capacity, using cross-instance inference data, or weakening OOD/metric controls.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "path": "tasks/068_TransCluster/BRIEF.md",
+        "lines": "28-29",
+        "finding": "Figure 4a/Table 1 objective is after twenty iterations with parameters <=baseline; the former inference-time gate remains removed under the latest global time policy."
+      },
+      {
+        "path": "tasks/068_TransCluster/agent/bench/validate.py",
+        "finding": "Measurement shape is three members and 21 states including supplied initialization."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/068_TransCluster.json"
+  },
+  "research_contract_review": {
+    "status": "scope_repaired_with_limitations",
+    "report": "audits/20261101_research_contract/068_TransCluster.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 3
+}

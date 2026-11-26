@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "python": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/baseline-repro/papers/imp-104-BalancedActiveInf/.venv/bin/python",
+  "mounts": [
+    {
+      "source": "runtime/python.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/baseline-repro/papers/imp-104-BalancedActiveInf/.venv",
+      "format": "tar",
+      "name": "python",
+      "sha256": "29e77076579a3bdbc27d7eeecd6de252bbe545399e6c1f363de28b0c534bbd49"
+    },
+    {
+      "source": "runtime/r.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/baseline-repro/papers/imp-104-BalancedActiveInf/data/r-env",
+      "format": "tar",
+      "name": "r",
+      "sha256": "815666e5c7faa8ca39d9a48ec90ce6337fc12ba595c6d6539a509508959b12a6"
+    },
+    {
+      "source": "runtime/r-library.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/baseline-repro/papers/imp-104-BalancedActiveInf/.repro/opt30/R-library",
+      "format": "tar",
+      "name": "r-library",
+      "sha256": "c6f338dbfaafc9eadc75ac5984385fa6df05f5a3d1059486e7a609520d7d1733"
+    }
+  ],
+  "env": {
+    "PATH": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/baseline-repro/papers/imp-104-BalancedActiveInf/.venv/bin:/mnt/bn/pistis/changbin.zhang/code/RealPapers/baseline-repro/papers/imp-104-BalancedActiveInf/data/r-env/bin:/usr/local/bin:/usr/bin:/bin",
+    "VIRTUAL_ENV": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/baseline-repro/papers/imp-104-BalancedActiveInf/.venv",
+    "R_HOME": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/baseline-repro/papers/imp-104-BalancedActiveInf/data/r-env/lib/R",
+    "R_LIBS_USER": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/baseline-repro/papers/imp-104-BalancedActiveInf/.repro/opt30/R-library",
+    "LD_LIBRARY_PATH": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/baseline-repro/papers/imp-104-BalancedActiveInf/data/r-env/lib"
+  }
+}

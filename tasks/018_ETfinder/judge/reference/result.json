@@ -1,0 +1,77 @@
+{
+  "task": "018_ETfinder",
+  "created": "2026-11-02T12:34:33+0000",
+  "seeds": [
+    1
+  ],
+  "cpus": 16,
+  "adapt_commit": "aeaa2b4b0eac5a63d67093eec135d5280a9ebedb",
+  "sandbox": true,
+  "budget_s": 21600.0,
+  "test": {
+    "per_seed": [
+      0.39097744360902253
+    ],
+    "mean": 0.39097744360902253,
+    "std": 0.0,
+    "n": 1
+  },
+  "val": {
+    "per_seed": [
+      0.5217391304347826
+    ],
+    "mean": 0.5217391304347826,
+    "std": 0.0,
+    "n": 1
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "f1": 0.39097744360902253,
+        "unconstrained_f1": 0.39097744360902253,
+        "constraints_pass": true,
+        "candidate_count_global": 88,
+        "candidate_count_scored": 64,
+        "n_reference": 69,
+        "tp": 26,
+        "fp": 38,
+        "fn": 43,
+        "population": "test"
+      },
+      "val": {
+        "f1": 0.5217391304347826,
+        "unconstrained_f1": 0.5217391304347826,
+        "constraints_pass": true,
+        "candidate_count_global": 88,
+        "candidate_count_scored": 24,
+        "n_reference": 22,
+        "tp": 12,
+        "fp": 12,
+        "fn": 10,
+        "population": "val"
+      },
+      "timing": {
+        "train_s": 0.11,
+        "predict_s": 3969.94,
+        "score_s": 0.37,
+        "predict_val_s": 2222.5
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      0.11
+    ],
+    "predict_s": [
+      3969.94
+    ],
+    "build_s": 1.83
+  },
+  "hashes": {
+    "env_lock": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "scorer": "dbecfaf830582be3e6c84d10b10e6419c75f444b737aa6ff0bd4f56144cbb44c",
+    "validate": "486a2374aa0b71c6572f1fb818afdbed2a1c73e0a2befef6cf1c85739721b242",
+    "test_labels": "4e3be639323802a51527b6cc9644fe09e58283844ddc92eca9c9748503eebc82",
+    "adapt_patch": "f4001d276bbfeeaf250e51a8b8580ca2bfa0c4395ddd7f1e4e747acbceb8c317"
+  }
+}

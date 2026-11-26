@@ -1,0 +1,174 @@
+{
+  "pid": "077_ZeroFlow",
+  "class": "A",
+  "title": "Zero-Flow Encoders",
+  "metric": {
+    "name": "edge_auc",
+    "higher_is_better": true,
+    "delta": 0.02,
+    "aggregate": "mean",
+    "theoretical_bound": 1.0
+  },
+  "cpus": 8,
+  "memory_gb": 16,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.npz",
+    "val_labels": "data/val/truth.npz",
+    "test_input": "test/input.npz",
+    "test_labels": "test/truth.npz",
+    "input_format": "npz",
+    "output_format": "csv"
+  },
+  "split": {
+    "type": "synthetic",
+    "decision": "Per-instance fit; val public data seeds 0-9, ten independent hidden data seeds from secrets; original 2048x50 observations and preprocessing. No cross-instance training. Original fixed precision model, no truth-table use permitted (patch audit). Algorithm streams separated from hidden data seeds; BENCH_SEED chooses a block of ten trials.",
+    "public_seeds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ]
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 1.98,
+    "val": {
+      "edge_auc": 0.7845196236019021
+    },
+    "paper_ref": "Table 1 Nonparanormal MLP: 0.79 +/- 0.02; original reproduced mean 0.7829715127084589",
+    "measured_s": {
+      "train": [
+        0.51,
+        0.51,
+        0.51
+      ],
+      "predict": [
+        116.38,
+        115.58,
+        119.02
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.001,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:e757c4e43dd94986deca598bb913a7b27d54f2a6214d9187177d6c80760f2284"
+  },
+  "env": {
+    "python": "3.8",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple",
+      "https://download.pytorch.org/whl/cpu"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "6f22460fce464a97d4dcc325a16244b4f011e7e8",
+    "adapt_commit": "df32a3bc5dd013361bddd3153c0569deaee3320b",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "method_freedom_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/077_ZeroFlow.json",
+    "full_training_or_evaluation": false,
+    "allowed_changes": [
+      "the zero-flow encoder's architecture, regularization and training surrogate losses, and how edge scores are read from it",
+      "numerical optimization and internal observation representations within each instance"
+    ],
+    "fixed_contract": [
+      "Recover the conditional-dependence graph independently from each fixed nonparanormal observation instance, maximizing the original full-matrix edge ROC-AUC.",
+      "Gaussian/nonparanormal observation law, coordinatewise cubic transform, supplied standardized50-variable instances and latent graph target",
+      "observations-only independent-instance estimation and full50x50 absolute-score AUC including diagonal negatives and original ties",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/077_ZeroFlow.json",
+    "forbidden_substitutions": [
+      "Internal observation representations may not invert the cubic transform: cube-root, rank, quantile or other coordinatewise Gaussianizing maps of the observations are not allowed.",
+      "replacing the zero-flow encoder with a classical estimator on the observations, such as graphical lasso, rank correlation, partial correlation or neighborhood regression; replacing the source graphical model/distribution, using another graph metric or excluding difficult matrix entries",
+      "fitting a fixed-graph truth lookup, seed inference, extra simulations or cross-instance observation sharing",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract"
+  },
+  "research_contract": {
+    "objective": "Recover the conditional-dependence graph independently from each fixed nonparanormal observation instance, maximizing the original full-matrix edge ROC-AUC.",
+    "fixed_research_objects": [
+      "Gaussian/nonparanormal observation law, coordinatewise cubic transform, supplied standardized50-variable instances and latent graph target",
+      "observations-only independent-instance estimation and full50x50 absolute-score AUC including diagonal negatives and original ties"
+    ],
+    "editable_components": [
+      "the zero-flow encoder's architecture, regularization and training surrogate losses, and how edge scores are read from it",
+      "numerical optimization and internal observation representations within each instance"
+    ],
+    "forbidden_substitutions": [
+      "Internal observation representations may not invert the cubic transform: cube-root, rank, quantile or other coordinatewise Gaussianizing maps of the observations are not allowed.",
+      "replacing the zero-flow encoder with a classical estimator on the observations, such as graphical lasso, rank correlation, partial correlation or neighborhood regression; replacing the source graphical model/distribution, using another graph metric or excluding difficult matrix entries",
+      "fitting a fixed-graph truth lookup, seed inference, extra simulations or cross-instance observation sharing",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "source": "tasks/077_ZeroFlow/agent/README.md",
+        "section": "Goal,Data,Metric and baseline",
+        "finding": "Recover the conditional-dependence graph independently from each fixed nonparanormal observation instance, maximizing the original full-matrix edge ROC-AUC."
+      },
+      {
+        "source": "tasks/077_ZeroFlow/agent/bench/scorer.py",
+        "section": "trusted score and guards",
+        "finding": "The fixed evaluation target is Gaussian/nonparanormal observation law, coordinatewise cubic transform, supplied standardized50-variable instances and latent graph target; observations-only independent-instance estimation and full50x50 absolute-score AUC including diagonal negatives and original ties"
+      },
+      {
+        "source": "audits/20261101_method_freedom/077_ZeroFlow.json",
+        "section": "prior task-specific scorer/interface audit",
+        "finding": "Reuse the prior actual evaluator review while narrowing the blanket permission to the present task-specific objects."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/077_ZeroFlow.json"
+  },
+  "research_contract_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/077_ZeroFlow.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

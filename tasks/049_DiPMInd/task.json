@@ -1,0 +1,176 @@
+{
+  "pid": "049_DiPMInd",
+  "class": "D",
+  "title": "DiPMInd: Distance profile based mutual independence testing for random objects",
+  "metric": {
+    "name": "mean_power",
+    "higher_is_better": true,
+    "delta": 0.005,
+    "aggregate": "mean"
+  },
+  "cpus": 20,
+  "memory_gb": 80,
+  "budget_hours_default": 24,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input",
+    "val_labels": "data/val/labels.json",
+    "test_input": "test/input",
+    "test_labels": "test/labels.json",
+    "input_format": "CSV manifest + RDS distance pairs",
+    "output_format": "csv"
+  },
+  "split": {
+    "type": "synthetic",
+    "decision": "Independent materialized Example 1 observed distance matrices; 200 replications per 12 cells per split; model/rho and generator RNG excluded from all observed inputs."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 7.32,
+    "val": {
+      "mean_power": 0.4263333333333333
+    },
+    "paper_ref": "Historical source mean power 0.4265; full conversion reference deliberately not run.",
+    "measured_s": {
+      "train": [
+        3.02,
+        2.78,
+        2.82
+      ],
+      "predict": [
+        439.31,
+        435.24,
+        435.45
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:fe58af3326d51d80dfb141a9dcb7d89001f1449350d8901ebf4126cce747acc9"
+  },
+  "env": {
+    "mode": "snapshot",
+    "snapshot": "runtime/runtime.json",
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "build_cap_s": 1800
+  },
+  "adapt": {
+    "base_commit": "7473344c22aa0f1fd31215fd4f3fb8063b233d24",
+    "adapt_commit": "670c95dc972f7793910e54acc195689ddea109a8",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "smoke": {
+    "input": "judge/verification/fixture/input",
+    "labels": "judge/verification/fixture/labels.json"
+  },
+  "conversion": {
+    "full_data_ready": true,
+    "source_commit": "7473344c22aa0f1fd31215fd4f3fb8063b233d24",
+    "smoke_report": "judge/verification/smoke.json",
+    "runtime_provenance": "judge/verification/runtime_checks.json",
+    "data_integrity": "judge/verification/data_checks.json",
+    "scorer_checks": "judge/verification/scorer_checks.json"
+  },
+  "method_freedom_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/049_DiPMInd.json",
+    "candidate_method_replacement_allowed": true,
+    "frozen_data_metric_and_information_boundary": true,
+    "full_training_or_evaluation_run": false,
+    "allowed_changes": [
+      "Dependence statistic, auxiliary model/surrogate loss and valid null calibration may change; the prod-AD statistic and 500 permutations are baseline methods.",
+      "Numerical implementation and within-case randomization may change using only the same observations."
+    ],
+    "fixed_contract": [
+      "Improve power of mutual-independence tests for the fixed observed random-object distance pairs while retaining empirical type-I control.",
+      "The mutual-independence null, source L1-transformed pairwise-distance observations and n=100 study design are fixed.",
+      "Two model grids, ten alternative power cells, separate null-size thresholds, p<=.05 rejection rule and full replication aggregation remain fixed.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/049_DiPMInd.json",
+    "forbidden_substitutions": [
+      "A p_value must be valid for every law under which the two objects are independent, not only at rho=0: a rejection rule driven by the marginal structure of Dx or Dy alone, including any estimate of rho or of the model, is forbidden.",
+      "Each case's p_value may depend only on that case's Dx and Dy, artifacts from train.sh and randomization: pooling, ranking, clustering or counting across the cases of an input directory is forbidden.",
+      "Reject at a nominal level of 0.05: rescaling p-values, taking an uncorrected minimum over several tests or randomizations, or otherwise using the room between 0.05 and the size guards is forbidden.",
+      "Do not redefine the null as a weaker moment-correlation test, substitute raw latent/generated objects, or treat design/rho labels as prediction inputs.",
+      "No hidden truth/seed lookup, cached p-values, altered distance inputs or changed size/power arithmetic.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Improve power of mutual-independence tests for the fixed observed random-object distance pairs while retaining empirical type-I control.",
+    "fixed_research_objects": [
+      "The mutual-independence null, source L1-transformed pairwise-distance observations and n=100 study design are fixed.",
+      "Two model grids, ten alternative power cells, separate null-size thresholds, p<=.05 rejection rule and full replication aggregation remain fixed."
+    ],
+    "editable_components": [
+      "Dependence statistic, auxiliary model/surrogate loss and valid null calibration may change; the prod-AD statistic and 500 permutations are baseline methods.",
+      "Numerical implementation and within-case randomization may change using only the same observations."
+    ],
+    "forbidden_substitutions": [
+      "A p_value must be valid for every law under which the two objects are independent, not only at rho=0: a rejection rule driven by the marginal structure of Dx or Dy alone, including any estimate of rho or of the model, is forbidden.",
+      "Each case's p_value may depend only on that case's Dx and Dy, artifacts from train.sh and randomization: pooling, ranking, clustering or counting across the cases of an input directory is forbidden.",
+      "Reject at a nominal level of 0.05: rescaling p-values, taking an uncorrected minimum over several tests or randomizations, or otherwise using the room between 0.05 and the size guards is forbidden.",
+      "Do not redefine the null as a weaker moment-correlation test, substitute raw latent/generated objects, or treat design/rho labels as prediction inputs.",
+      "No hidden truth/seed lookup, cached p-values, altered distance inputs or changed size/power arithmetic.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "path": "agent/paper/paper.txt",
+        "section": "Example 1 and independence-test construction",
+        "finding": "Scientific null concerns independence of random objects; distance-profile prod-AD is the tested method."
+      },
+      {
+        "path": "agent/bench/scorer.py",
+        "finding": "Computes fixed cell-level rejection rates and separate empirical null-size guards."
+      },
+      {
+        "path": "agent/bench/io_spec.md",
+        "finding": "Only observed distance matrices and opaque IDs are provided."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/049_DiPMInd.json"
+  },
+  "research_contract_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/049_DiPMInd.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

@@ -1,0 +1,175 @@
+{
+  "pid": "007_PairwiseScore",
+  "class": "A",
+  "title": "Score-Based Density Estimation from Pairwise Comparisons",
+  "metric": {
+    "name": "mmtv",
+    "higher_is_better": false,
+    "delta": 0.05,
+    "aggregate": "mean"
+  },
+  "cpus": 128,
+  "memory_gb": 320,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.npz",
+    "val_labels": "data/val/labels.npz",
+    "test_input": "test/input.npz",
+    "test_labels": "test/labels.npz",
+    "input_format": "npz",
+    "output_format": "npz"
+  },
+  "split": {
+    "type": "synthetic",
+    "decision": "Independent synthetic ranked-comparison datasets from released Table-1 generators: 8 public train instances (seed 100), 8 public validation instances (seed 101), and 80 hidden instances (10 per target) generated from independently secret seeds. Hidden seeds are recorded only in operator NOTES and private split design. IDs are opaque and shuffled; target identities and evaluation samples live in labels. Known proposal metadata and original empirical calibration scalar are observations. Fit independently within predict; no cross-instance learning.",
+    "val_seeds": [
+      101
+    ]
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 52.33,
+    "val": {
+      "mmtv": 0.21864791311606324
+    },
+    "paper_ref": "Table 1 score-tau(x); original reproduced aggregate 0.22508 (different observation and algorithm seeds).",
+    "measured_s": {
+      "train": [
+        0.52,
+        0.47,
+        0.47
+      ],
+      "predict": [
+        3139.87,
+        2919.41,
+        3028.24
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0001,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:a05cb821c14d37a3d53cd66cf1f4df714e5b5b4eb7de8e44b086054fd001802e"
+  },
+  "env": {
+    "python": "3.11.15",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple",
+      "https://download.pytorch.org/whl/cpu"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "590aaac66f38db67e99b788e69ee55a5ee765039",
+    "adapt_commit": "468bdd2fd4cf336d3960889a8de792a6ad3984e8",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "method_freedom": {
+    "report": "audits/20261101_method_freedom/007_PairwiseScore.json",
+    "full_training_or_evaluation_run": false,
+    "scope_superseded_by": "audits/20261101_research_contract/007_PairwiseScore.json"
+  },
+  "method_freedom_review": {
+    "report": "audits/20261101_research_contract/007_PairwiseScore.json",
+    "allowed_changes": [
+      "density/score estimators, neural or other representations, training surrogate losses and optimization",
+      "the fitted tempering field tau(x), numerical samplers and internal transformations preserving the same inferred density and output units"
+    ],
+    "fixed_contract": [
+      "Estimate each original multivariate belief density from its noisy ranked comparisons and return full samples in original coordinates, minimizing MMTV under the Wasserstein guards.",
+      "original ranked-comparison observations and known proposal/calibration metadata for the eight target distributions",
+      "independent observation-only instance fitting, original-coordinate sample interface and dimension-dependent full sample counts",
+      "original marginal-TV/KDE integration, leading-sample Wasserstein computation and relative mean/worst guards",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/007_PairwiseScore.json",
+    "status": "reviewed_and_corrected",
+    "forbidden_substitutions": [
+      "Use proposal means, proposal covariances and `sigma_data` only as the baseline does, to map between original and unit-cube coordinates and to precondition the score model; do not use them to set the location, scale or component positions of the estimate (patch audit).",
+      "Apply one estimator family to every instance; numeric hyperparameters and the released preprocessing may depend on dimension, but no choice may depend on which of the eight targets an instance appears to be (patch audit).",
+      "The sampler keeps the fitted input-dependent tempering field tau(x): do not replace it by a constant such as its mean or quantile, the paper's score-tau* variant, on any instance, including by forcing tau(x) to be constant; a gain must come from a better tau(x), score model or sampler (patch audit).",
+      "using published/generator target-density formulas or target identities as lookup answers, extra population-target simulations or another instance's observations",
+      "substituting target distributions, comparison data, sample counts, output coordinates or evaluation metrics",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Estimate each original multivariate belief density from its noisy ranked comparisons and return full samples in original coordinates, minimizing MMTV under the Wasserstein guards.",
+    "fixed_research_objects": [
+      "original ranked-comparison observations and known proposal/calibration metadata for the eight target distributions",
+      "independent observation-only instance fitting, original-coordinate sample interface and dimension-dependent full sample counts",
+      "original marginal-TV/KDE integration, leading-sample Wasserstein computation and relative mean/worst guards"
+    ],
+    "editable_components": [
+      "density/score estimators, neural or other representations, training surrogate losses and optimization",
+      "the fitted tempering field tau(x), numerical samplers and internal transformations preserving the same inferred density and output units"
+    ],
+    "forbidden_substitutions": [
+      "Use proposal means, proposal covariances and `sigma_data` only as the baseline does, to map between original and unit-cube coordinates and to precondition the score model; do not use them to set the location, scale or component positions of the estimate (patch audit).",
+      "Apply one estimator family to every instance; numeric hyperparameters and the released preprocessing may depend on dimension, but no choice may depend on which of the eight targets an instance appears to be (patch audit).",
+      "The sampler keeps the fitted input-dependent tempering field tau(x): do not replace it by a constant such as its mean or quantile, the paper's score-tau* variant, on any instance, including by forcing tau(x) to be constant; a gain must come from a better tau(x), score model or sampler (patch audit).",
+      "using published/generator target-density formulas or target identities as lookup answers, extra population-target simulations or another instance's observations",
+      "substituting target distributions, comparison data, sample counts, output coordinates or evaluation metrics",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "source": "tasks/007_PairwiseScore/BRIEF.md",
+        "section": "original experiment/score_rule/user decision,lines 26-33",
+        "finding": "The selected experiment estimates distributions from pairwise comparisons; the score network, tempering field and Langevin sampler are solution methods, not fixed target distributions."
+      },
+      {
+        "source": "tasks/007_PairwiseScore/agent/bench/scorer.py",
+        "section": "trusted numerical scoring and guard call path",
+        "finding": "The declared research target agrees with the actual scorer and its frozen helpers."
+      },
+      {
+        "source": "audits/20261101_method_freedom/007_PairwiseScore.json",
+        "section": "earlier evaluator/interface audit",
+        "finding": "Prior runtime/information-boundary work is preserved; unconditional method language is replaced by the task-specific scope."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/007_PairwiseScore.json"
+  },
+  "research_contract_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/007_PairwiseScore.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 3
+}

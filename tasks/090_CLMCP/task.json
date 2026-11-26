@@ -1,0 +1,207 @@
+{
+  "pid": "090_CLMCP",
+  "class": "A",
+  "title": "The Cost of Learning Under Multiple Change Points",
+  "metric": {
+    "name": "cumulative_regret",
+    "higher_is_better": false,
+    "delta": 0.0001,
+    "aggregate": "mean"
+  },
+  "cpus": 8,
+  "memory_gb": 4,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/request.json",
+    "val_labels": "data/val/replay",
+    "test_input": "test/request.json",
+    "test_labels": "test/replay",
+    "input_format": "private_episode_descriptor",
+    "output_format": "policy_artifact_zip"
+  },
+  "split": {
+    "type": "online",
+    "decision": "Online real NAB CPU streams; no offline training. Development: first three lexicographically sorted non-target ec2_cpu_utilization series in NAB realAWSCloudwatch, 12096 observations; public master 20261030; NAB annotated event timestamps delimit sample-mean reference segments. Evaluation: unchanged complete released-code stream and original manual reference segmentation held by the judge. Development/evaluation source series, episode seeds and ids are disjoint. Current observation is allowed; future observations are forbidden. Seeds identify episodes only; raw observations are materialized and never generated from seeds."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 0.5,
+    "val": {
+      "cumulative_regret": 1992.3608585454524
+    },
+    "paper_ref": "Released-code Figure 4(b); archived operator provenance.",
+    "measured_s": {
+      "train": [
+        0.57
+      ],
+      "predict": [
+        0.52
+      ]
+    },
+    "timing_scope": "legacy protocol estimates retained for operational budgeting; not a measured v2 reference"
+  },
+  "judge": {
+    "seeds": [
+      1
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 1e-06,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:e8fa8384c613f277cbe2a09e77272bad7ace7097856263c59d81d2a781a048a4"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "66d73d3e5f92cbfae344fdff150200d3b1ccc09a",
+    "adapt_commit": "2625bce8cccf0b6d407f38758a5cb6095ad46734",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "private_eval": {
+    "version": 2,
+    "protocol": "private-policy-v2",
+    "entrypoint": "policy.sh",
+    "full_reproduction_performed": false
+  },
+  "legacy_baseline_val": {
+    "cumulative_regret": 1992.3608585454524
+  },
+  "protocol_version": "private-policy-v2",
+  "leakage_remediation": {
+    "status": "smoke_verified",
+    "outer_harness_changed": false,
+    "full_training_or_evaluation_run": false,
+    "evidence": [
+      "audits/20261101_preserve_experiment/icml-5412-CLMCP-smoke.json",
+      "audits/20261101_preserve_experiment/shared_cpu_smoke.json",
+      "audits/20261101_preserve_experiment/icml-5412-CLMCP-resources-smoke.json"
+    ],
+    "full_evaluation_ready": false,
+    "superseded_by": "audits/20261101_method_freedom/090_CLMCP.json",
+    "evidence_is_historical": true
+  },
+  "experiment_preservation": {
+    "report": "audits/20261101_preserve_experiment/090_CLMCP.json",
+    "original_predict_cap_s": 60,
+    "artifact_preparation_timed_separately": true,
+    "full_scale_throughput_verified": false,
+    "method_and_seed_semantics_require_review": true,
+    "worker_cpu_allocation": {
+      "default_per_episode": 1,
+      "optional_config": "code/policy_resources.json",
+      "episode_cpus_range": [
+        1,
+        8
+      ],
+      "disjoint_live_groups": true,
+      "clamped_to_actual_affinity": true,
+      "actual_multicore_throughput_tested": false,
+      "evidence": "audits/20261101_preserve_experiment/icml-5412-CLMCP-resources-smoke.json"
+    }
+  },
+  "method_freedom": {
+    "report": "audits/20261101_method_freedom/090_CLMCP.json",
+    "full_training_or_evaluation_run": false,
+    "scope_superseded_by": "audits/20261101_research_contract/090_CLMCP.json"
+  },
+  "method_freedom_review": {
+    "report": "audits/20261101_research_contract/090_CLMCP.json",
+    "allowed_changes": [
+      "Online mean estimators, change-point detectors, working noise/latent-state approximations, auxiliary training losses, optimizers and numerical methods may change.",
+      "ATC, its sigma1/alpha.05 tuning and exact scan implementation are baseline choices; the evaluation squared loss and reference segmentation are not candidate-selectable.",
+      "When retaining the supplied ATC pipeline, changing only sigma=1, alpha=0.05, the `gamma_paper` coefficients 6 and 2, or a global multiplier on that threshold does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Track the fixed reference segment mean of each NAB CPU stream using the original experiment observation order, minimizing mean endpoint cumulative squared error.",
+      "Original stream observations, episode horizons/boundaries and fixed reference segment means are the research objects; candidate detection rules cannot relabel the evaluation target.",
+      "At step t, observe X_t then submit an estimate using X_1:t before observing X_(t+1); each episode has fresh state. The original experiment metric sums squared errors at all released timestamps and averages episode endpoints.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/090_CLMCP.json",
+    "status": "repaired_scope_with_limits",
+    "forbidden_substitutions": [
+      "Do not replace current segment-mean tracking with next-observation prediction or retrospective smoothing, redefine change points/means in labels, or optimize a substituted reference.",
+      "No future observations, hidden means, precomputed episode estimates, seed reconstruction or state/data reuse from another evaluation episode.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Track the fixed reference segment mean of each NAB CPU stream using the original experiment observation order, minimizing mean endpoint cumulative squared error.",
+    "fixed_research_objects": [
+      "Original stream observations, episode horizons/boundaries and fixed reference segment means are the research objects; candidate detection rules cannot relabel the evaluation target.",
+      "At step t, observe X_t then submit an estimate using X_1:t before observing X_(t+1); each episode has fresh state. The original experiment metric sums squared errors at all released timestamps and averages episode endpoints."
+    ],
+    "editable_components": [
+      "Online mean estimators, change-point detectors, working noise/latent-state approximations, auxiliary training losses, optimizers and numerical methods may change.",
+      "ATC, its sigma1/alpha.05 tuning and exact scan implementation are baseline choices; the evaluation squared loss and reference segmentation are not candidate-selectable.",
+      "When retaining the supplied ATC pipeline, changing only sigma=1, alpha=0.05, the `gamma_paper` coefficients 6 and 2, or a global multiplier on that threshold does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "Do not replace current segment-mean tracking with next-observation prediction or retrospective smoothing, redefine change points/means in labels, or optimize a substituted reference.",
+      "No future observations, hidden means, precomputed episode estimates, seed reconstruction or state/data reuse from another evaluation episode.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "section": "Section2/Eq2 and real-world NAB experiment",
+        "finding": "Scientific object is piecewise-stationary mean tracking with squared-error regret. The theoretical formulation uses F_(t-1), whereas the selected released NAB experiment includes the current observation."
+      },
+      {
+        "section": "atc_run",
+        "finding": "Original experiment hatmu[t]=(cs[t]-cs[r])/(t-r), including X_t; current-sample alarms set hatmu[t]=X[t-1]."
+      },
+      {
+        "section": "run_algo and regret traces",
+        "finding": "NAB experiment sums (res[hatmu]-mu_t)^2 at the same timestamps; no shift to one-step-ahead prediction."
+      },
+      {
+        "path": "agent/bench/replay.py",
+        "finding": "Private state machine owns the observe/submit sequence and only returns completed trusted records."
+      },
+      {
+        "path": "agent/bench/metric.py",
+        "finding": "Reconstructs squared errors against fixed reference means and averages endpoint sums."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/090_CLMCP.json"
+  },
+  "research_contract_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/090_CLMCP.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

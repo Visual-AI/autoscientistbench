@@ -1,0 +1,25 @@
+--- stanc generated (unmodified)
++++ stanc generated (counted)
+@@ -1,3 +1,6 @@
++static unsigned long long metric_hd_counter = 0;
++extern "C" SEXP metric_hd_get_count() { return Rf_ScalarReal(static_cast<double>(metric_hd_counter)); }
++extern "C" SEXP metric_hd_reset_count() { metric_hd_counter = 0; return R_NilValue; }
+ #ifndef USE_STANC3
+ #define USE_STANC3
+ #endif
+@@ -132,6 +135,7 @@
+   inline stan::scalar_type_t<VecR>
+   log_prob_impl(VecR& params_r__, VecI& params_i__, std::ostream*
+                 pstream__ = nullptr) const {
++    ++metric_hd_counter;
+     using T__ = stan::scalar_type_t<VecR>;
+     using local_scalar_t__ = T__;
+     T__ lp__(0.0);
+@@ -172,6 +176,7 @@
+   inline stan::scalar_type_t<VecR>
+   log_prob_impl(VecR& params_r__, VecI& params_i__, std::ostream*
+                 pstream__ = nullptr) const {
++    ++metric_hd_counter;
+     using T__ = stan::scalar_type_t<VecR>;
+     using local_scalar_t__ = T__;
+     T__ lp__(0.0);

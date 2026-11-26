@@ -1,0 +1,174 @@
+{
+  "pid": "040_HD-MissLin",
+  "class": "A",
+  "title": "Efficient inference on high-dimensional linear models with missing outcomes",
+  "metric": {
+    "name": "ci_length",
+    "higher_is_better": false,
+    "delta": 0.03,
+    "aggregate": "mean"
+  },
+  "cpus": 32,
+  "memory_gb": 48,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.npz",
+    "val_labels": "data/val/truth.npz",
+    "test_input": "test/input.npz",
+    "test_labels": "test/truth.npz",
+    "input_format": "npz",
+    "output_format": "csv"
+  },
+  "split": {
+    "type": "synthetic",
+    "decision": "Dense beta norm 5, e100, n900 d1000 MAR(23). Public val seeds 1..8, no cross-instance training. Hidden fresh independent data seeds, opaque shuffled ids; materialized observations only. Fitting uses independent BENCH_SEED algorithm stream.",
+    "val_seeds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ]
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 47.01,
+    "val": {
+      "ci_length": 0.8833581163242745
+    },
+    "paper_ref": "Manifest 0.937 is an indexing/metric mismatch; matching published e100 dense 1SE CI length 0.870; reproduced mean 0.8782661040144949.",
+    "measured_s": {
+      "train": [
+        5.47,
+        5.22,
+        5.23
+      ],
+      "predict": [
+        2820.68,
+        2055.96,
+        2031.32
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:c52f1cfc40f0febf910931881333c94ef7e26cdb72e43bc95da91989daf05909"
+  },
+  "env": {
+    "python": "3.12",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "82497ff07d4c3d3ec1548614f681459d7f26ae0c",
+    "adapt_commit": "72f85ec95092b6d78a42a85f8212239a0c486071",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "method_freedom_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/040_HD-MissLin.json",
+    "candidate_method_replacement_allowed": true,
+    "frozen_data_metric_and_information_boundary": true,
+    "full_training_or_evaluation_run": false,
+    "allowed_changes": [
+      "Outcome/propensity nuisance estimators, working models, surrogate losses, debiasing and uncertainty methods, regularization and numerical solvers may change.",
+      "The scaled-Lasso pilot, propensity logistic model, CV grids and 1SE rule are baseline estimators, not a different posterior/parameter target.",
+      "When retaining the supplied scaled-Lasso, logistic-propensity and debiasing pipeline, changing only lam0='univ', the 40-point propensity grid, the 41-point gamma/n grid, the 5-fold splits or the submitted 1SE rule does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Construct shorter valid 95% confidence intervals for the fixed conditional mean m(e100) in the dense high-dimensional missing-outcome linear-model experiment.",
+      "The conditional-mean estimand, query e100, dense-coefficient generating design, n=900/d=1000, MAR mask and supplied observed outcomes are fixed.",
+      "The normal-multiplier interval convention, mean length, coverage threshold .95-2*sqrt(.0475/M), full instance set and independent-instance inference remain fixed.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/040_HD-MissLin.json",
+    "forbidden_substitutions": [
+      "Do not change the target to another query, marginal mean or alternative coefficient model; treat missing zeros as observed responses; or substitute known true coefficients/mean.",
+      "No extra simulated datasets, hidden seeds, cross-instance fitting or modified data/metric.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Multiplying `sigma_hat` or `asym_se` by a constant, or any other fixed rescaling of interval width, also does not count."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Construct shorter valid 95% confidence intervals for the fixed conditional mean m(e100) in the dense high-dimensional missing-outcome linear-model experiment.",
+    "fixed_research_objects": [
+      "The conditional-mean estimand, query e100, dense-coefficient generating design, n=900/d=1000, MAR mask and supplied observed outcomes are fixed.",
+      "The normal-multiplier interval convention, mean length, coverage threshold .95-2*sqrt(.0475/M), full instance set and independent-instance inference remain fixed."
+    ],
+    "editable_components": [
+      "Outcome/propensity nuisance estimators, working models, surrogate losses, debiasing and uncertainty methods, regularization and numerical solvers may change.",
+      "The scaled-Lasso pilot, propensity logistic model, CV grids and 1SE rule are baseline estimators, not a different posterior/parameter target.",
+      "When retaining the supplied scaled-Lasso, logistic-propensity and debiasing pipeline, changing only lam0='univ', the 40-point propensity grid, the 41-point gamma/n grid, the 5-fold splits or the submitted 1SE rule does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "Do not change the target to another query, marginal mean or alternative coefficient model; treat missing zeros as observed responses; or substitute known true coefficients/mean.",
+      "No extra simulated datasets, hidden seeds, cross-instance fitting or modified data/metric.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Multiplying `sigma_hat` or `asym_se` by a constant, or any other fixed rescaling of interval width, also does not count."
+    ],
+    "evidence": [
+      {
+        "path": "agent/README.md",
+        "section": "Goal, Data, Metric and baseline",
+        "finding": "Selected object is m(e100) and interval coverage/length; baseline tuning is a method."
+      },
+      {
+        "path": "agent/bench/scorer.py",
+        "finding": "Constructs fixed normal-multiplier CI and coverage threshold from center/positive SE factors."
+      },
+      {
+        "path": "convert/tasks_merlin.json",
+        "section": "040_HD-MissLin task_metric",
+        "finding": "Dense e100 cell governs the selected task despite sparse descriptor elsewhere."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/040_HD-MissLin.json"
+  },
+  "research_contract_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/040_HD-MissLin.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 3
+}

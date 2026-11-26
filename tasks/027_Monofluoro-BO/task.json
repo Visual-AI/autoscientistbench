@@ -1,0 +1,154 @@
+{
+  "pid": "027_Monofluoro-BO",
+  "class": "A",
+  "title": "Bayesian optimization- and high-throughput-guided synthesis of monofluoroalkenes via defluorinative C-C bond formation",
+  "metric": {
+    "name": "r2",
+    "higher_is_better": true,
+    "delta": 0.001,
+    "aggregate": "mean"
+  },
+  "cpus": 8,
+  "memory_gb": 4,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.csv",
+    "val_labels": "data/val/labels.csv",
+    "test_input": "test/input.csv",
+    "test_labels": "test/labels.csv"
+  },
+  "split": {
+    "type": "train_test",
+    "decision": "Original fixed reaction-level test partition is unchanged. From original train, hold out 20% of product Bemis-Murcko scaffold groups using GroupShuffleSplit(test_size=0.2, random_state=20261030). IDs are original zero-based row numbers, sorted. No outcome-based split search. Materialized train=696, val=88, test=186; archived rows and CSV round trips verified exactly."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 0.5,
+    "val": {
+      "r2": -0.2024346262378065
+    },
+    "paper_ref": "Fig.7a: R2 0.852; reproduced 0.8524613380432129. Benchmark holds out validation scaffolds from the original training partition.",
+    "measured_s": {
+      "train": [
+        5.22
+      ],
+      "predict": [
+        3.77
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 1e-06,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:9c90a3a3e49d6a7aca2374f9a1a6a39adc2f1474840b346e75a215a6e04bbbe2"
+  },
+  "env": {
+    "python": "3.13",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "f9edda1ae4ae83890b2810be48c0e3779de85c7a",
+    "adapt_commit": "ee66ce76cbe4822027685d0618818ab4a8ac9368",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "method_freedom_review": {
+    "status": "reviewed_scope_with_existing_blocker",
+    "report": "audits/20261101_research_contract/027_Monofluoro-BO.json",
+    "full_training_or_evaluation": false,
+    "allowed_changes": [
+      "chemical features derived from the supplied SMILES, classifiers/regressors, joint or staged prediction architectures",
+      "training surrogate losses, optimization and hyperparameters; the Bayesian experimental campaign is outside this task",
+      "When retaining the supplied staged XGBoost pipeline, changing only Morgan radius=2 or bits=2048, classifier n_estimators=200 or max_depth=6, or regressor n_estimators=300, max_depth=6 or learning_rate=0.05 does not count as a method improvement.",
+      "Selecting the existing `rf` or `svm` branch of `build_model_bundle` with no other change also does not count."
+    ],
+    "fixed_contract": [
+      "Predict productivity and percent yield for the supplied substrate/product reactions under the fixed reaction condition, maximizing all-row R2 subject to positive-class F1>=0.912 on test and >=0.80 on val.",
+      "reaction observations, fixed Pd168/KHCO3/DCE/80C condition, supplied product as an input, scaffold split and zero-yield rows",
+      "yield/productivity target definitions, all-row R2 and fixed classification-F1 guard",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/027_Monofluoro-BO.json",
+    "forbidden_substitutions": [
+      "generating different reactions/products, changing chemical conditions or replacing the productivity/yield target",
+      "discarding zero yields, relaxing the F1 guard or recovering omitted reactions from row identifiers",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract"
+  },
+  "research_contract": {
+    "objective": "Predict productivity and percent yield for the supplied substrate/product reactions under the fixed reaction condition, maximizing all-row R2 subject to positive-class F1>=0.912 on test and >=0.80 on val.",
+    "fixed_research_objects": [
+      "reaction observations, fixed Pd168/KHCO3/DCE/80C condition, supplied product as an input, scaffold split and zero-yield rows",
+      "yield/productivity target definitions, all-row R2 and fixed classification-F1 guard"
+    ],
+    "editable_components": [
+      "chemical features derived from the supplied SMILES, classifiers/regressors, joint or staged prediction architectures",
+      "training surrogate losses, optimization and hyperparameters; the Bayesian experimental campaign is outside this task",
+      "When retaining the supplied staged XGBoost pipeline, changing only Morgan radius=2 or bits=2048, classifier n_estimators=200 or max_depth=6, or regressor n_estimators=300, max_depth=6 or learning_rate=0.05 does not count as a method improvement.",
+      "Selecting the existing `rf` or `svm` branch of `build_model_bundle` with no other change also does not count."
+    ],
+    "forbidden_substitutions": [
+      "generating different reactions/products, changing chemical conditions or replacing the productivity/yield target",
+      "discarding zero yields, relaxing the F1 guard or recovering omitted reactions from row identifiers",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "source": "tasks/027_Monofluoro-BO/agent/README.md",
+        "section": "Goal,Data,Metric and baseline",
+        "finding": "Predict productivity and percent yield for the supplied substrate/product reactions under the fixed reaction condition, maximizing all-row R2 subject to positive-class F1>=0.912 on test and >=0.80 on val."
+      },
+      {
+        "source": "tasks/027_Monofluoro-BO/agent/bench/scorer.py",
+        "section": "trusted score and guards",
+        "finding": "The fixed evaluation target is reaction observations, fixed Pd168/KHCO3/DCE/80C condition, supplied product as an input, scaffold split and zero-yield rows; yield/productivity target definitions, all-row R2 and fixed classification-F1 guard"
+      },
+      {
+        "source": "audits/20261101_method_freedom/027_Monofluoro-BO.json",
+        "section": "prior task-specific scorer/interface audit",
+        "finding": "Reuse the prior actual evaluator review while narrowing the blanket permission to the present task-specific objects."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/027_Monofluoro-BO.json"
+  },
+  "research_contract_review": {
+    "status": "reviewed_scope_with_existing_blocker",
+    "report": "audits/20261101_research_contract/027_Monofluoro-BO.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

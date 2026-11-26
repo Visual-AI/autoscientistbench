@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "python": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Bio-23_TARPON/.mamba/envs/tarpon/bin/python",
+  "mounts": [
+    {
+      "source": "runtime/python.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Bio-23_TARPON/.mamba/envs/tarpon",
+      "format": "tar",
+      "name": "python",
+      "sha256": "1822fce06440b2310f0c85a60ccedd589d9fd6eee9f743d91f81c9332d8a60ac"
+    }
+  ],
+  "env": {
+    "PATH": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Bio-23_TARPON/.mamba/envs/tarpon/bin:/usr/local/bin:/usr/bin:/bin"
+  }
+}

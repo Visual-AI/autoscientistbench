@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "python": "/usr/bin/python3",
+  "mounts": [
+    {
+      "source": "runtime/r.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-32_BT-SBM-Bradley-Terry-Stochastic-Block-Mo/.mamba/envs/r",
+      "format": "tar",
+      "name": "r",
+      "sha256": "146c7a01c55d56d8b0384ea049cda921d421adce0ff5d8085774c6cbd9c1d6ce"
+    },
+    {
+      "source": "runtime/rlib.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-32_BT-SBM-Bradley-Terry-Stochastic-Block-Mo/.Rlib",
+      "format": "tar",
+      "name": "rlib",
+      "sha256": "186c88ac7d9618610044e4c7c76fc6cd3f71836a915a964c1d371852baecd963"
+    },
+    {
+      "source": "runtime/metric-rlib.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-32_BT-SBM-Bradley-Terry-Stochastic-Block-Mo/.repro/metric/Rlib",
+      "format": "tar",
+      "name": "metric-rlib",
+      "sha256": "1e3702f9f01297359a5f0fb5cba02f11b704fcb9bb8b96f59a7274531eff0a71"
+    }
+  ],
+  "env": {
+    "PATH": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-32_BT-SBM-Bradley-Terry-Stochastic-Block-Mo/.mamba/envs/r/bin:/usr/local/bin:/usr/bin:/bin",
+    "R_HOME": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-32_BT-SBM-Bradley-Terry-Stochastic-Block-Mo/.mamba/envs/r/lib/R",
+    "R_LIBS_USER": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-32_BT-SBM-Bradley-Terry-Stochastic-Block-Mo/.repro/metric/Rlib:/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-32_BT-SBM-Bradley-Terry-Stochastic-Block-Mo/.Rlib"
+  }
+}

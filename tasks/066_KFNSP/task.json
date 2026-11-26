@@ -1,0 +1,169 @@
+{
+  "pid": "066_KFNSP",
+  "class": "A",
+  "title": "Extending Fair Null-Space Projections for Continuous Attributes to Kernel Methods",
+  "metric": {
+    "name": "fair_mae",
+    "higher_is_better": false,
+    "delta": 0.001,
+    "aggregate": "mean"
+  },
+  "cpus": 8,
+  "memory_gb": 16,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.csv",
+    "val_labels": "data/val/labels.csv",
+    "test_input": "test/input.csv",
+    "test_labels": "test/labels.csv"
+  },
+  "split": {
+    "type": "std3",
+    "decision": "Original KFold(5, shuffle=True, random_state=7341293) fifth fold remains hidden (398 rows), unchanged. Of the existing 1596 public rows, fixed public fold 4ec78c74 (lexicographically first) is independent validation (399 rows), and the other three folds form training (1197 rows). Every fit, including final retraining, excludes validation. Preserve original opaque IDs, row order, feature values and fairness caps."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 0.5,
+    "val": {
+      "fair_mae": 0.10085594654083252
+    },
+    "paper_ref": "Figure 1 Crime SVR-FKD m=30; reproduced five-fold MAE 0.100017141; benchmark uses a held-out fold.",
+    "measured_s": {
+      "train": [
+        29.61
+      ],
+      "predict": [
+        2.87
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 1e-06,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:621063fa6643c5a44661992ea7f1963ef7a5b5cea60dfc19b5c5b5af16317e8e"
+  },
+  "env": {
+    "python": "3.12.13",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple",
+      "https://download.pytorch.org/whl/cpu"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "22b5ea41f2ada06dd4d36c7c183b4b698b5d6d99",
+    "adapt_commit": "d10e5451603f13ea2c799a206bc24c03a3bd89bf",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "method_freedom_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/066_KFNSP.json",
+    "full_training_or_evaluation": false,
+    "allowed_changes": [
+      "fair regression/representation methods, training surrogate losses, optimization and legal derived features",
+      "model architecture and fitting procedures respecting train-only fitting for development and final submission",
+      "When retaining the supplied SVR-FKD pipeline, changing only m=30, epsilon=0.01, gamma=0.05, C=0.75 or alpha_prime=0.05 does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Predict normalized community violent-crime rate while satisfying the original three continuous-protected-attribute fairness constraints.",
+      "observed community features, crime target, protected racepctblack attribute and fixed independent training/validation partitions",
+      "inductive per-row prediction with the protected attribute absent at inference; original MAE/HGR/GDP/PF computation and frozen fairness caps",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/066_KFNSP.json",
+    "forbidden_substitutions": [
+      "changing the target/protected attribute, fairness definition or caps, or fitting any model or learned preprocessing on the validation fold",
+      "using prediction-batch transduction, protected attributes at inference, administrative identities or recovered source rows",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Copies of this data from an installed package count as external data (patch audit)."
+    ],
+    "scope_source": "research_contract"
+  },
+  "research_contract": {
+    "objective": "Predict normalized community violent-crime rate while satisfying the original three continuous-protected-attribute fairness constraints.",
+    "fixed_research_objects": [
+      "observed community features, crime target, protected racepctblack attribute and fixed independent training/validation partitions",
+      "inductive per-row prediction with the protected attribute absent at inference; original MAE/HGR/GDP/PF computation and frozen fairness caps"
+    ],
+    "editable_components": [
+      "fair regression/representation methods, training surrogate losses, optimization and legal derived features",
+      "model architecture and fitting procedures respecting train-only fitting for development and final submission",
+      "When retaining the supplied SVR-FKD pipeline, changing only m=30, epsilon=0.01, gamma=0.05, C=0.75 or alpha_prime=0.05 does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "changing the target/protected attribute, fairness definition or caps, or fitting any model or learned preprocessing on the validation fold",
+      "using prediction-batch transduction, protected attributes at inference, administrative identities or recovered source rows",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Copies of this data from an installed package count as external data (patch audit)."
+    ],
+    "evidence": [
+      {
+        "source": "tasks/066_KFNSP/agent/README.md",
+        "section": "Goal,Data,Metric and baseline",
+        "finding": "Predict normalized community violent-crime rate while satisfying the original three continuous-protected-attribute fairness constraints."
+      },
+      {
+        "source": "tasks/066_KFNSP/agent/bench/scorer.py",
+        "section": "trusted score and guards",
+        "finding": "The fixed evaluation target is observed community features, crime target, protected racepctblack attribute and fixed fold exclusions; inductive per-row prediction with the protected attribute absent at inference; original MAE/HGR/GDP/PF computation and frozen fairness caps"
+      },
+      {
+        "source": "audits/20261101_method_freedom/066_KFNSP.json",
+        "section": "prior task-specific scorer/interface audit",
+        "finding": "Reuse the prior actual evaluator review while narrowing the blanket permission to the present task-specific objects."
+      },
+      {
+        "source": "tasks/066_KFNSP/BRIEF.md",
+        "section": "26-33",
+        "finding": "The original score fixes accuracy at or below all three fairness levels and inductive folds; the reference SVR-FKD operating point supplies caps, not an immutable architecture."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/066_KFNSP.json"
+  },
+  "research_contract_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/066_KFNSP.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "conversion": {
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "validation_policy_review": {
+    "status": "implemented_bounded_checks",
+    "reason": "User-approved independent 1197 train / 399 validation split; all fitting, including formal retraining, excludes validation.",
+    "report": "audits/20261102_validation_training/report.md",
+    "full_training_or_evaluation": false
+  },
+  "agent_budget_hours": 2
+}

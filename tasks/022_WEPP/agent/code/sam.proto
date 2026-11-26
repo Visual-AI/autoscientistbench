@@ -1,0 +1,19 @@
+syntax = "proto3";
+package Sam;
+
+message read_info {
+    string read = 1;
+    int32 start_idx = 3;
+    string content = 6; // ACGTN or _
+    int32 degree = 5; // how many repeats
+}
+
+message column_info {
+    string column_name = 1;
+    repeated string input_columns = 2;
+}
+
+message sam {
+    repeated read_info reads = 1;
+    repeated column_info reverse_columns = 2;
+}

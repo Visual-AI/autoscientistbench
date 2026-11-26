@@ -1,0 +1,93 @@
+{
+  "task": "094_CLASP",
+  "created": "2026-11-02T10:08:17+0000",
+  "seeds": [
+    1
+  ],
+  "cpus": 8,
+  "adapt_commit": "727d188f5bd1eee4caaf321714d5c43fdca74b41",
+  "sandbox": true,
+  "budget_s": 21600.0,
+  "test": {
+    "per_seed": [
+      83.41160709118178
+    ],
+    "mean": 83.41160709118178,
+    "std": 0.0,
+    "n": 1
+  },
+  "val": {
+    "per_seed": [
+      81.92305101691161
+    ],
+    "mean": 81.92305101691161,
+    "std": 0.0,
+    "n": 1
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "ccv2": 83.41160709118178,
+        "mean_loss": 665.041617876141,
+        "mean_ccv1": 51.072485024042926,
+        "raw_ccv2": 83.41160709118178,
+        "loss_cap": 671.6920340549021,
+        "ccv1_cap": 53.626109275245085,
+        "guard_loss": true,
+        "guard_ccv1": true,
+        "guard_reported_metrics": true,
+        "guard_domain": true,
+        "trusted_oracle": true,
+        "protocol_version": 2,
+        "verification_scope": "full",
+        "prediction_wall_s": 38.12885911017656,
+        "prediction_cpus": 8,
+        "worker_count": 8,
+        "cpus_per_worker": 1,
+        "artifact_prepare_wall_s": 0.9233931303024292
+      },
+      "val": {
+        "ccv2": 81.92305101691161,
+        "mean_loss": 665.5940293884933,
+        "mean_ccv1": 51.757949892163616,
+        "raw_ccv2": 81.92305101691161,
+        "loss_cap": 672.2499696823783,
+        "ccv1_cap": 54.345847386771815,
+        "guard_loss": true,
+        "guard_ccv1": true,
+        "guard_reported_metrics": true,
+        "guard_domain": true,
+        "trusted_oracle": true,
+        "protocol_version": 2,
+        "verification_scope": "full",
+        "prediction_wall_s": 39.350900150835514,
+        "prediction_cpus": 8,
+        "worker_count": 8,
+        "cpus_per_worker": 1,
+        "artifact_prepare_wall_s": 0.8728637397289276
+      },
+      "timing": {
+        "train_s": 0.26,
+        "predict_s": 0.87,
+        "score_s": 40.91,
+        "predict_val_s": 0.87
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      0.26
+    ],
+    "predict_s": [
+      0.87
+    ],
+    "build_s": 3.3
+  },
+  "hashes": {
+    "env_lock": "c6eb84f1ec1f1eb5afb4414c69b6e68b400ee4bb1e4c637b14b903ffa36e39ca",
+    "scorer": "7c94a54bd413b07c734e96187245f208fdd4c4197ffa53a02650caadbe874e70",
+    "validate": "4add3c38f2bf07079375deb5f939ae65d7326f1a77395878261b58a24ea72a5c",
+    "test_labels": null,
+    "adapt_patch": "4eaac46833430a79bd36344fbbb98d4ae51aba00b72ceaa93b27eb63299b736a"
+  }
+}

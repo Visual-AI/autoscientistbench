@@ -1,0 +1,162 @@
+{
+  "pid": "064_IsoCLIP",
+  "class": "A",
+  "title": "IsoCLIP: Decomposing CLIP Projectors for Efficient Intra-modal Alignment",
+  "metric": {
+    "name": "retrieval_map",
+    "higher_is_better": true,
+    "delta": 0.001,
+    "aggregate": "mean"
+  },
+  "cpus": 16,
+  "memory_gb": 32,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input",
+    "val_labels": "data/val/labels.npz",
+    "test_input": "test/input",
+    "test_labels": "test/labels.npz",
+    "input_format": "npz-dir",
+    "output_format": "npz"
+  },
+  "split": {
+    "type": "training_free",
+    "decision": "Training-free. Public Caltech101 CoOp val queries (1649), train gallery (4128), seed 20261030. Hidden original eight-dataset evaluation: seven test/train retrieval sets and CUB all/all. Query sets disjoint; Caltech train gallery is public reference imagery, shared as required by the retrieval protocol. Opaque privately permuted ids and image ordering. All other datasets withheld."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 7.51,
+    "val": {
+      "retrieval_map": 82.38315604561618
+    },
+    "paper_ref": "Table 1 IsoCLIP OpenAI ViT-B/32 kt=150 kb=50; reproduced mean 45.359.",
+    "measured_s": {
+      "train": [
+        0.11
+      ],
+      "predict": [
+        450.58
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 1e-05,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:f37cb29a9c1dbe51f481c23a5597bd362d6046509f0b85559bf82c64051d8e6a"
+  },
+  "env": {
+    "python": "3.10",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple",
+      "https://download.pytorch.org/whl/cpu"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "8571066dfa8894ffdc0e8c680275aa3de7d102ab",
+    "adapt_commit": "ccb70ee5971dd6e74c3303d2004923463f96bdd6",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "pre_method_freedom_baseline_val": {
+    "retrieval_map": 82.38320527762049
+  },
+  "leakage_remediation": {
+    "full_evaluation_ready": false,
+    "superseded_by": "audits/20261101_method_freedom/064_IsoCLIP.json",
+    "evidence_is_historical": true
+  },
+  "method_freedom": {
+    "report": "audits/20261101_method_freedom/064_IsoCLIP.json",
+    "full_training_or_evaluation_run": false,
+    "superseded_by": "research_contract",
+    "scope_superseded_by": "audits/20261101_research_contract/064_IsoCLIP.json"
+  },
+  "method_freedom_review": {
+    "report": "audits/20261101_research_contract/064_IsoCLIP.json",
+    "allowed_changes": [
+      "The projector decomposition/filtering, feature postprocessing, similarity function and retrieval method may change on top of the fixed representation. Validation labels may select configurations but cannot become answers or lookup tables.",
+      "When retaining the supplied IsoCLIP projector, changing only iso_ktop=150 or iso_kbottom=50 does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Improve image-to-image retrieval by postprocessing the fixed pretrained CLIP ViT-B/32 representation.",
+      "The supplied CLIP ViT-B/32 encoder architecture, pretrained weights/buffers and released image decoding/RGB/resize/crop/normalization are fixed.",
+      "The supplied raw query/gallery images, self-match exclusion, full-gallery float32 AP/tie handling and equal-collection mean mAP remain fixed.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/064_IsoCLIP.json",
+    "status": "scope_repaired_with_limitations",
+    "forbidden_substitutions": [
+      "Do not replace or fine-tune the encoder, introduce another pretrained model or extra training data, change encoder preprocessing, use answer lookups, change gallery membership/self-exclusion or alter the AP metric.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Improve image-to-image retrieval by postprocessing the fixed pretrained CLIP ViT-B/32 representation.",
+    "fixed_research_objects": [
+      "The supplied CLIP ViT-B/32 encoder architecture, pretrained weights/buffers and released image decoding/RGB/resize/crop/normalization are fixed.",
+      "The supplied raw query/gallery images, self-match exclusion, full-gallery float32 AP/tie handling and equal-collection mean mAP remain fixed."
+    ],
+    "editable_components": [
+      "The projector decomposition/filtering, feature postprocessing, similarity function and retrieval method may change on top of the fixed representation. Validation labels may select configurations but cannot become answers or lookup tables.",
+      "When retaining the supplied IsoCLIP projector, changing only iso_ktop=150 or iso_kbottom=50 does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "Do not replace or fine-tune the encoder, introduce another pretrained model or extra training data, change encoder preprocessing, use answer lookups, change gallery membership/self-exclusion or alter the AP metric.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "path": "tasks/064_IsoCLIP/BRIEF.md",
+        "finding": "The curated score rule fixes the frozen ViT-B/32 and prohibits extra training data."
+      },
+      {
+        "path": "../papers/064_IsoCLIP/paper/paper.txt:137-165,214-226,364-370,417-458",
+        "finding": "The experiment analyzes and modifies the cross-modal projectors of a pretrained frozen CLIP representation for intra-modal retrieval."
+      },
+      {
+        "path": "tasks/064_IsoCLIP/agent/code/iso_core.py",
+        "finding": "The baseline extracts the unprojected frozen visual features, derives a new projector and computes retrieval similarities."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/064_IsoCLIP.json"
+  },
+  "research_contract_review": {
+    "status": "scope_repaired_with_limitations",
+    "report": "audits/20261101_research_contract/064_IsoCLIP.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

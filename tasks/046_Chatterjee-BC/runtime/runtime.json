@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "python": "/usr/bin/python3",
+  "mounts": [
+    {
+      "source": "runtime/r.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-16_Simulation-for-ACbc/env/r",
+      "format": "tar",
+      "name": "r",
+      "sha256": "ea9419a8c6464f99e62889375f899afe6a27437c9f4b9be8caefe27610b419e7"
+    }
+  ],
+  "env": {
+    "PATH": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-16_Simulation-for-ACbc/env/r/bin:/usr/local/bin:/usr/bin:/bin",
+    "R_HOME": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-16_Simulation-for-ACbc/env/r/lib/R",
+    "LD_LIBRARY_PATH": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-16_Simulation-for-ACbc/env/r/lib",
+    "RSCRIPT": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-16_Simulation-for-ACbc/env/r/bin/Rscript"
+  }
+}

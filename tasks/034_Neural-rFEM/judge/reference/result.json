@@ -1,0 +1,139 @@
+{
+  "task": "034_Neural-rFEM",
+  "created": "2026-11-02T09:49:46+0000",
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "cpus": 32,
+  "adapt_commit": "ccd46719cf45b3f7c4edb89c339cc6b3d6dcae65",
+  "sandbox": true,
+  "budget_s": 21600.0,
+  "test": {
+    "per_seed": [
+      0.19190686391122255,
+      0.189328304789409,
+      0.20414062359131885
+    ],
+    "mean": 0.19512526409731681,
+    "std": 0.006461154277203702,
+    "n": 3
+  },
+  "val": {
+    "per_seed": [
+      0.1922263209319119,
+      0.1915721065366315,
+      0.2034209753123484
+    ],
+    "mean": 0.19573980092696394,
+    "std": 0.005437973217585321,
+    "n": 3
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "mean_relative_ritz_error": 0.19190686391122255,
+        "score_rule_value": 0.19190686391122255,
+        "all_admissible": true,
+        "max_relative_error": 0.2525612769293257,
+        "scorer_fem_solves": 120,
+        "reported_train_s": 2127.5570670589805,
+        "reported_inference_max_s": 0.008068464696407318,
+        "resource_evidence": "Zero prediction-time FEM declaration checked; actual offline/online provenance requires patch audit."
+      },
+      "val": {
+        "mean_relative_ritz_error": 0.1922263209319119,
+        "score_rule_value": 0.1922263209319119,
+        "all_admissible": true,
+        "max_relative_error": 0.2494476066938666,
+        "scorer_fem_solves": 56,
+        "reported_train_s": 2127.5570670589805,
+        "reported_inference_max_s": 0.008088603615760803,
+        "resource_evidence": "Zero prediction-time FEM declaration checked; actual offline/online provenance requires patch audit."
+      },
+      "timing": {
+        "train_s": 2127.82,
+        "predict_s": 2.12,
+        "score_s": 5.09,
+        "predict_val_s": 2.17
+      }
+    },
+    "2": {
+      "test": {
+        "mean_relative_ritz_error": 0.189328304789409,
+        "score_rule_value": 0.189328304789409,
+        "all_admissible": true,
+        "max_relative_error": 0.2555398427979787,
+        "scorer_fem_solves": 120,
+        "reported_train_s": 2115.8543411120772,
+        "reported_inference_max_s": 0.00825454294681549,
+        "resource_evidence": "Zero prediction-time FEM declaration checked; actual offline/online provenance requires patch audit."
+      },
+      "val": {
+        "mean_relative_ritz_error": 0.1915721065366315,
+        "score_rule_value": 0.1915721065366315,
+        "all_admissible": true,
+        "max_relative_error": 0.2563414514104363,
+        "scorer_fem_solves": 56,
+        "reported_train_s": 2115.8543411120772,
+        "reported_inference_max_s": 0.008070409297943115,
+        "resource_evidence": "Zero prediction-time FEM declaration checked; actual offline/online provenance requires patch audit."
+      },
+      "timing": {
+        "train_s": 2116.08,
+        "predict_s": 2.12,
+        "score_s": 5.13,
+        "predict_val_s": 2.12
+      }
+    },
+    "3": {
+      "test": {
+        "mean_relative_ritz_error": 0.20414062359131885,
+        "score_rule_value": 0.20414062359131885,
+        "all_admissible": true,
+        "max_relative_error": 0.2510327346689736,
+        "scorer_fem_solves": 120,
+        "reported_train_s": 2115.1480546966195,
+        "reported_inference_max_s": 0.00807248055934906,
+        "resource_evidence": "Zero prediction-time FEM declaration checked; actual offline/online provenance requires patch audit."
+      },
+      "val": {
+        "mean_relative_ritz_error": 0.2034209753123484,
+        "score_rule_value": 0.2034209753123484,
+        "all_admissible": true,
+        "max_relative_error": 0.24926758965481313,
+        "scorer_fem_solves": 56,
+        "reported_train_s": 2115.1480546966195,
+        "reported_inference_max_s": 0.008057132363319397,
+        "resource_evidence": "Zero prediction-time FEM declaration checked; actual offline/online provenance requires patch audit."
+      },
+      "timing": {
+        "train_s": 2115.41,
+        "predict_s": 2.12,
+        "score_s": 5.11,
+        "predict_val_s": 2.12
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      2127.82,
+      2116.08,
+      2115.41
+    ],
+    "predict_s": [
+      2.12,
+      2.12,
+      2.12
+    ],
+    "build_s": 4.0
+  },
+  "hashes": {
+    "env_lock": "9c3fd32f32832e730228688a5ac7f8ca06fe16e76b2c7982126db32f15f29c50",
+    "scorer": "efb632cffa4d39a64d9c228e93e9912f0230452170ccf015f558494933a92f4d",
+    "validate": "725f3ffca8f52b9412b12e8a56da2120b2aa99a837ff30658367553990c01490",
+    "test_labels": "1c5fe27929167e45cac06b57f47e1be40424e0f35f67cf694880cff7c7a55fcc",
+    "adapt_patch": "f3507f7a4610782c686e9ca54d79f56b2b0dfa9efc627592af86eca8d22738ef"
+  }
+}

@@ -1,0 +1,157 @@
+{
+  "task": "040_HD-MissLin",
+  "created": "2026-11-09T06:54:38+0000",
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "cpus": 32,
+  "adapt_commit": "72f85ec95092b6d78a42a85f8212239a0c486071",
+  "sandbox": true,
+  "budget_s": 18000.0,
+  "test": {
+    "per_seed": [
+      0.8806110937979283,
+      0.880611091655226,
+      0.8806110917926431
+    ],
+    "mean": 0.8806110924152658,
+    "std": 9.792982650813091e-10,
+    "n": 3
+  },
+  "val": {
+    "per_seed": [
+      0.8833581124785652,
+      0.8833581137929548,
+      0.8833581227013034
+    ],
+    "mean": 0.8833581163242745,
+    "std": 4.54105557464847e-09,
+    "n": 3
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "ci_length": 0.8806110937979283,
+        "ci_length_raw": 0.8806110937979283,
+        "coverage": 0.90625,
+        "coverage_threshold": 0.8031960472009928,
+        "coverage_ok": true,
+        "baseline_coverage": 0.90625,
+        "coverage_tolerance": 0.10305395279900718,
+        "nominal_threshold": 0.8729448249628877,
+        "mc_se": 0.007630681103994464,
+        "mean_abs_bias": 0.17693033960663673,
+        "n_instances": 32
+      },
+      "val": {
+        "ci_length": 0.8833581124785652,
+        "ci_length_raw": 0.8833581124785652,
+        "coverage": 1.0,
+        "coverage_threshold": 0.8458896499257755,
+        "coverage_ok": true,
+        "baseline_coverage": 1.0,
+        "coverage_tolerance": 0.1541103500742244,
+        "nominal_threshold": 0.7958896499257755,
+        "mc_se": 0.007053245981678508,
+        "mean_abs_bias": 0.19080207100545296,
+        "n_instances": 8
+      },
+      "timing": {
+        "train_s": 5.47,
+        "predict_s": 2820.68,
+        "score_s": 2.35,
+        "predict_val_s": 776.16
+      }
+    },
+    "2": {
+      "test": {
+        "ci_length": 0.880611091655226,
+        "ci_length_raw": 0.880611091655226,
+        "coverage": 0.90625,
+        "coverage_threshold": 0.8031960472009928,
+        "coverage_ok": true,
+        "baseline_coverage": 0.90625,
+        "coverage_tolerance": 0.10305395279900718,
+        "nominal_threshold": 0.8729448249628877,
+        "mc_se": 0.007630679994951591,
+        "mean_abs_bias": 0.17693072072425634,
+        "n_instances": 32
+      },
+      "val": {
+        "ci_length": 0.8833581137929548,
+        "ci_length_raw": 0.8833581137929548,
+        "coverage": 1.0,
+        "coverage_threshold": 0.8458896499257755,
+        "coverage_ok": true,
+        "baseline_coverage": 1.0,
+        "coverage_tolerance": 0.1541103500742244,
+        "nominal_threshold": 0.7958896499257755,
+        "mc_se": 0.007053246901155536,
+        "mean_abs_bias": 0.19080203548047953,
+        "n_instances": 8
+      },
+      "timing": {
+        "train_s": 5.22,
+        "predict_s": 2055.96,
+        "score_s": 2.19,
+        "predict_val_s": 619.19
+      }
+    },
+    "3": {
+      "test": {
+        "ci_length": 0.8806110917926431,
+        "ci_length_raw": 0.8806110917926431,
+        "coverage": 0.90625,
+        "coverage_threshold": 0.8031960472009928,
+        "coverage_ok": true,
+        "baseline_coverage": 0.90625,
+        "coverage_tolerance": 0.10305395279900718,
+        "nominal_threshold": 0.8729448249628877,
+        "mc_se": 0.007630680951425072,
+        "mean_abs_bias": 0.17693217484058793,
+        "n_instances": 32
+      },
+      "val": {
+        "ci_length": 0.8833581227013034,
+        "ci_length_raw": 0.8833581227013034,
+        "coverage": 1.0,
+        "coverage_threshold": 0.8458896499257755,
+        "coverage_ok": true,
+        "baseline_coverage": 1.0,
+        "coverage_tolerance": 0.1541103500742244,
+        "nominal_threshold": 0.7958896499257755,
+        "mc_se": 0.007053246827095636,
+        "mean_abs_bias": 0.1908025609455636,
+        "n_instances": 8
+      },
+      "timing": {
+        "train_s": 5.23,
+        "predict_s": 2031.32,
+        "score_s": 2.15,
+        "predict_val_s": 561.1
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      5.47,
+      5.22,
+      5.23
+    ],
+    "predict_s": [
+      2820.68,
+      2055.96,
+      2031.32
+    ],
+    "build_s": 3.2
+  },
+  "hashes": {
+    "env_lock": "86a519f5dd06f79e3560cbaafc829604233bd52245c655a9b017078927f0463d",
+    "scorer": "c39b585af0b65cad3aeff16be02f51239e5ddac02ad0cb51197cc6901446adb9",
+    "validate": "339822180b4e587ac65d553c6748e8f7ed7190cfc69556309b2ac1d6f6a1bb7b",
+    "test_labels": "dbd74d673e3b540a728159e104523349fc47ef3959fd2678cbb4af8ed86c6fa7",
+    "adapt_patch": "c6af788c81952d145963224ba7ea856e4a4b48101c1831d195a01f75df9b24c2"
+  }
+}

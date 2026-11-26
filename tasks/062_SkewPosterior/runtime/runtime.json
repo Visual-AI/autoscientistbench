@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "python": "/usr/bin/python3",
+  "mounts": [
+    {
+      "source": "runtime/r.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-39_SkewAppr_Post/env/R",
+      "format": "tar",
+      "name": "r",
+      "sha256": "9cbcbe3cfe2224039d34e01192ccfbae47415e20977a2c71970904846698dd98"
+    }
+  ],
+  "env": {
+    "PATH": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-39_SkewAppr_Post/env/R/bin:/usr/local/bin:/usr/bin:/bin",
+    "R_HOME": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-39_SkewAppr_Post/env/R/lib/R",
+    "R_LIBS_USER": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-39_SkewAppr_Post/env/R/lib/R/library",
+    "LD_LIBRARY_PATH": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-39_SkewAppr_Post/env/R/lib:/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-39_SkewAppr_Post/env/R/lib/R/lib"
+  }
+}

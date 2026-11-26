@@ -1,0 +1,134 @@
+{
+  "task": "022_WEPP",
+  "created": "2026-11-02T07:24:03+0000",
+  "seeds": [
+    1
+  ],
+  "cpus": 16,
+  "adapt_commit": "26f2ddf59de0ee7b0d6db3222681cb4a9febe623",
+  "sandbox": true,
+  "budget_s": 21600.0,
+  "test": {
+    "per_seed": [
+      0.0008550649422679736
+    ],
+    "mean": 0.0008550649422679736,
+    "std": 0.0,
+    "n": 1
+  },
+  "val": {
+    "per_seed": [
+      0.0022178753325867886
+    ],
+    "mean": 0.0022178753325867886,
+    "std": 0.0,
+    "n": 1
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "rmse": 0.0008550649422679736,
+        "unconstrained_rmse": 0.0008550649422679736,
+        "constraints_pass": true,
+        "max_missed_lineages": 0,
+        "max_spurious_mass": 0,
+        "samples": {
+          "sdf0ca4511c81de882d34f40f": {
+            "rmse": 0.0007419254342587272,
+            "mae": 0.0005451500000000015,
+            "expected_lineages_missed_at_0_5pct": 0,
+            "non_simulated_lineage_mass": 0,
+            "estimated_total_mass": 1.000001
+          },
+          "s100ca5df5c21e3d335047f8a": {
+            "rmse": 0.00107793436720424,
+            "mae": 0.0007620000000000019,
+            "expected_lineages_missed_at_0_5pct": 0,
+            "non_simulated_lineage_mass": 0,
+            "estimated_total_mass": 0.9999999999999999
+          },
+          "s5d334260a0c3c10258305014": {
+            "rmse": 0.0007453350253409536,
+            "mae": 0.0006400000000000003,
+            "expected_lineages_missed_at_0_5pct": 0,
+            "non_simulated_lineage_mass": 0,
+            "estimated_total_mass": 1.0
+          }
+        }
+      },
+      "val": {
+        "rmse": 0.0022178753325867886,
+        "unconstrained_rmse": 0.0022178753325867886,
+        "constraints_pass": true,
+        "max_missed_lineages": 0,
+        "max_spurious_mass": 0,
+        "samples": {
+          "s59d0ddcee931befdfe0cd787": {
+            "rmse": 0.001994929384715154,
+            "mae": 0.0015037499999999999,
+            "expected_lineages_missed_at_0_5pct": 0,
+            "non_simulated_lineage_mass": 0,
+            "estimated_total_mass": 1.0
+          },
+          "s3084efbbf837f8881a11fad0": {
+            "rmse": 0.0011650061256179161,
+            "mae": 0.000881999999999999,
+            "expected_lineages_missed_at_0_5pct": 0,
+            "non_simulated_lineage_mass": 0,
+            "estimated_total_mass": 0.9999999999999999
+          },
+          "s77dfd946c7b54db1e4defa44": {
+            "rmse": 0.0038094897460158573,
+            "mae": 0.0029756249999999974,
+            "expected_lineages_missed_at_0_5pct": 0,
+            "non_simulated_lineage_mass": 0,
+            "estimated_total_mass": 1.000001
+          },
+          "sb6546fb52e9d3002eb6816fd": {
+            "rmse": 0.0011760921809883002,
+            "mae": 0.0010115454545454544,
+            "expected_lineages_missed_at_0_5pct": 0,
+            "non_simulated_lineage_mass": 0,
+            "estimated_total_mass": 0.9999989999999999
+          },
+          "sb21b2866b48c76c8dbbdf7a8": {
+            "rmse": 0.0012475675970026216,
+            "mae": 0.0010030909090909062,
+            "expected_lineages_missed_at_0_5pct": 0,
+            "non_simulated_lineage_mass": 0,
+            "estimated_total_mass": 1.0
+          },
+          "s51ce736726dc65de703bdd37": {
+            "rmse": 0.003914166961180883,
+            "mae": 0.002843250000000002,
+            "expected_lineages_missed_at_0_5pct": 0,
+            "non_simulated_lineage_mass": 0,
+            "estimated_total_mass": 0.9999999999999998
+          }
+        }
+      },
+      "timing": {
+        "train_s": 14.44,
+        "predict_s": 258.88,
+        "score_s": 0.13,
+        "predict_val_s": 547.95
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      14.44
+    ],
+    "predict_s": [
+      258.88
+    ],
+    "build_s": 9.82
+  },
+  "hashes": {
+    "env_lock": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "scorer": "891cd9bec5f890117731df86c1d2f91af8c12e164efac10c81ee2a9893dc7157",
+    "validate": "77786a3c85eebb5fdd653beb01d87a57c3e2b84d12d43dc8479c33a3ac7f3c5d",
+    "test_labels": "bb86ae3652a7367419610d9754b9f360e0630eea5757758654aaba6a6530b96b",
+    "adapt_patch": "119134e4a52ae0a1d0cb35f56a38e2d82991f0b0f1a53bb7dc44cb5e546db79c"
+  }
+}

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# cap cd-hit to ET_THREADS cores and 16 GB RAM
+n="${ET_THREADS:-12}"; args=("$@"); out=(); i=0
+while [ $i -lt ${#args[@]} ]; do
+  case "${args[$i]}" in
+    -T) out+=("-T" "$n"); i=$((i+2));;
+    -M) out+=("-M" "16000"); i=$((i+2));;
+    *) out+=("${args[$i]}"); i=$((i+1));;
+  esac
+done
+exec "$ET_BIO_PREFIX/bin/cd-hit" "${out[@]}"

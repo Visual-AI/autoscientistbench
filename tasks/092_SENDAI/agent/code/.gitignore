@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+.venv/
+checkpoints/
+*.pt
+*.pth
+*.ckpt
+
+__pycache__/
+*.pyc
+build/
+*.so
+*.pt

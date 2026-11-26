@@ -1,0 +1,78 @@
+{
+  "task": "064_IsoCLIP",
+  "created": "2026-11-03T05:52:22+0000",
+  "seeds": [
+    1
+  ],
+  "cpus": 16,
+  "adapt_commit": "ccb70ee5971dd6e74c3303d2004923463f96bdd6",
+  "sandbox": true,
+  "budget_s": 43200.0,
+  "test": {
+    "per_seed": [
+      45.359027872460814
+    ],
+    "mean": 45.359027872460814,
+    "std": 0.0,
+    "n": 1
+  },
+  "val": {
+    "per_seed": [
+      82.38315604561618
+    ],
+    "mean": 82.38315604561618,
+    "std": 0.0,
+    "n": 1
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "retrieval_map": 45.359027872460814,
+        "raw_map": 45.359027872460814,
+        "per_instance_map": {
+          "i5acea50d": 66.72175967282382,
+          "i6f03438d": 47.94843827615296,
+          "ic60b87ed": 41.27487060993415,
+          "icb635e14": 27.028671890459442,
+          "ie10d522f": 31.026680372935004,
+          "ie2225550": 52.32786891370276,
+          "ieffc97a9": 81.60595457335937,
+          "ifafee87e": 14.937978670319016
+        },
+        "eval_wall_s": 482.6985175386071,
+        "timing_source": "prediction_receipt"
+      },
+      "val": {
+        "retrieval_map": 82.38315604561618,
+        "raw_map": 82.38315604561618,
+        "per_instance_map": {
+          "ic3277414": 82.38315604561618
+        },
+        "eval_wall_s": 53.518575832247734,
+        "timing_source": "prediction_receipt"
+      },
+      "timing": {
+        "train_s": 0.11,
+        "predict_s": 450.58,
+        "score_s": 33.22,
+        "predict_val_s": 49.98
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      0.11
+    ],
+    "predict_s": [
+      450.58
+    ],
+    "build_s": 9.2
+  },
+  "hashes": {
+    "env_lock": "55a8d8313a5dff0a51eabf8380436dad928873d1b29bb763e3e0d7537426d865",
+    "scorer": "a40a3fa7d0fc1602fe69c7e6aa226840e7f51690a5b445667e2caf943ae93765",
+    "validate": "2b28119519c897eb213e88697d178f6779fe6a1d7ef1dd2d1c6e78064d3e05d8",
+    "test_labels": "66b4b3d4635942d35cade9140349093cf85826595f47bbe16b9f5b8e8fb0b620",
+    "adapt_patch": "c293fbe18e4a9981152e2b05994be2753fbe821599f12d9673f498b20a526ca3"
+  }
+}

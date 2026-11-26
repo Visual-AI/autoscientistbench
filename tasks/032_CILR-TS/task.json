@@ -1,0 +1,176 @@
+{
+  "pid": "032_CILR-TS",
+  "class": "A",
+  "title": "Conditionally Identifiable Latent Representation for Multivariate Time Series Forecasting",
+  "metric": {
+    "name": "mcc",
+    "higher_is_better": true,
+    "delta": 0.05,
+    "aggregate": "mean"
+  },
+  "cpus": 8,
+  "memory_gb": 16,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.npz",
+    "val_labels": "data/val/truth.npz",
+    "test_input": "test/input.npz",
+    "test_labels": "test/truth.npz",
+    "input_format": "npz",
+    "output_format": "csv"
+  },
+  "split": {
+    "type": "synthetic",
+    "decision": "Per-instance unsupervised dynamic DGP factor recovery; public validation seeds [2026,2027,2028]; independent hidden simulation seeds held by the judge. Observations only at prediction time.",
+    "val_seeds": [
+      2026,
+      2027,
+      2028
+    ]
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 0.76,
+    "val": {
+      "mcc": 0.6470676237909055
+    },
+    "paper_ref": "Table 1 dynamic iVDFM MCC 0.6548",
+    "measured_s": {
+      "train": [
+        0.72,
+        0.67,
+        0.82
+      ],
+      "predict": [
+        45.48,
+        45.75,
+        45.1
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:842d5ea20a577b77736919e10292ee8dc06e5f93450764a1b997fb045e5e6d36"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple",
+      "https://download.pytorch.org/whl/cpu"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "763ad02215e380695710335805f9b5127609a2c2",
+    "adapt_commit": "970a7aa95ec1f2d7a5dc9a652172574f2e8cf11e",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "method_freedom_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/032_CILR-TS.json",
+    "full_training_or_evaluation": false,
+    "allowed_changes": [
+      "factor-recovery estimators, representation architectures, training surrogate losses and numerical optimizers",
+      "internal observation preprocessing and per-instance fitting using its observations alone",
+      "When retaining the supplied iVDFM pipeline, changing only decoder_type=mlp, factor_order=2, num_regimes=7, max_epochs=200, learning_rate=0.002, patience=33, beta_kl=2.96384804579094, dropout=0.09054073499204782, optimizer_weight_decay=0.001826481870844076 or the layer sizes and counts in code/config/experiment/factor_recovery.yaml does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Recover the five latent dynamic factors independently from each supplied200x20 observation matrix, maximizing the original optimally matched absolute-Pearson MCC.",
+      "dynamic DGP with AR(1) factors, Laplace innovations, loading distribution and idiosyncratic-noise process; supplied observation instances",
+      "five-factor target and200-step population, per-instance estimation boundary, exact one-to-one matching and original MCC aggregation",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/032_CILR-TS.json",
+    "forbidden_substitutions": [
+      "replacing the generative or latent-factor research model, changing factor dimension/time length or redefining recovery up to arbitrary rotations",
+      "cross-instance fitting, additional generated observations, seed inversion, latent truth use or opaque-ID answer lookup",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract"
+  },
+  "research_contract": {
+    "objective": "Recover the five latent dynamic factors independently from each supplied200x20 observation matrix, maximizing the original optimally matched absolute-Pearson MCC.",
+    "fixed_research_objects": [
+      "dynamic DGP with AR(1) factors, Laplace innovations, loading distribution and idiosyncratic-noise process; supplied observation instances",
+      "five-factor target and200-step population, per-instance estimation boundary, exact one-to-one matching and original MCC aggregation"
+    ],
+    "editable_components": [
+      "factor-recovery estimators, representation architectures, training surrogate losses and numerical optimizers",
+      "internal observation preprocessing and per-instance fitting using its observations alone",
+      "When retaining the supplied iVDFM pipeline, changing only decoder_type=mlp, factor_order=2, num_regimes=7, max_epochs=200, learning_rate=0.002, patience=33, beta_kl=2.96384804579094, dropout=0.09054073499204782, optimizer_weight_decay=0.001826481870844076 or the layer sizes and counts in code/config/experiment/factor_recovery.yaml does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "replacing the generative or latent-factor research model, changing factor dimension/time length or redefining recovery up to arbitrary rotations",
+      "cross-instance fitting, additional generated observations, seed inversion, latent truth use or opaque-ID answer lookup",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "source": "tasks/032_CILR-TS/agent/README.md",
+        "section": "Goal,Data,Metric and baseline",
+        "finding": "Recover the five latent dynamic factors independently from each supplied200x20 observation matrix, maximizing the original optimally matched absolute-Pearson MCC."
+      },
+      {
+        "source": "tasks/032_CILR-TS/agent/bench/scorer.py",
+        "section": "trusted score and guards",
+        "finding": "The fixed evaluation target is dynamic DGP with AR(1) factors, Laplace innovations, loading distribution and idiosyncratic-noise process; supplied observation instances; five-factor target and200-step population, per-instance estimation boundary, exact one-to-one matching and original MCC aggregation"
+      },
+      {
+        "source": "audits/20261101_method_freedom/032_CILR-TS.json",
+        "section": "prior task-specific scorer/interface audit",
+        "finding": "Reuse the prior actual evaluator review while narrowing the blanket permission to the present task-specific objects."
+      },
+      {
+        "source": "tasks/032_CILR-TS/BRIEF.md",
+        "section": "26-29",
+        "finding": "The original experiment compares five distinct recovery methods on the same dynamic DGP; the DGP and factor recovery target are fixed, not the iVDFM estimator."
+      },
+      {
+        "source": "tasks/032_CILR-TS/agent/bench/generator.py",
+        "section": "frozen dynamic generator",
+        "finding": "The generator defines the scientific observation/factor distribution and is outside the editable method."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/032_CILR-TS.json"
+  },
+  "research_contract_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/032_CILR-TS.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

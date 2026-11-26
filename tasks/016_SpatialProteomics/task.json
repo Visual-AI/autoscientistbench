@@ -1,0 +1,154 @@
+{
+  "pid": "016_SpatialProteomics",
+  "class": "A",
+  "title": "Spatialproteomics: an interoperable toolbox for analyzing highly multiplexed fluorescence image data",
+  "metric": {
+    "name": "pooled_kappa",
+    "higher_is_better": true,
+    "delta": 0.0001,
+    "aggregate": "mean"
+  },
+  "cpus": 8,
+  "memory_gb": 40,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input",
+    "val_labels": "data/val/labels.csv",
+    "test_input": "test/input",
+    "test_labels": "test/labels.csv",
+    "input_format": "npz-dir",
+    "output_format": "csv"
+  },
+  "split": {
+    "type": "training_free",
+    "decision": "No training. Only 40 cores have three-annotator reference labels. Stratified patient-group holdout: 5 of 10 patients per disease (FL 1, DLBCL) allocated to development with both cores together; remaining patients hidden. 20 cores per split, all QC-passed cells retained. Private split and ID randomization seed stored only in NOTES section 9 and judge/split.json; no source identifiers in agent data. Materialized cells: val=267883, test=266384; all 534267 original QC cells accounted for. All 40 raw image and segmentation arrays exactly match source; per-core QC IDs exactly match archive."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 1.1,
+    "val": {
+      "pooled_kappa": 0.9765284791344949
+    },
+    "paper_ref": "Default quantile level-0 typing vs three-annotator consensus; pooled reproduced kappa=0.96722742603962 on all 534267 QC cells; no paper numeric target.",
+    "measured_s": {
+      "train": [
+        0.06
+      ],
+      "predict": [
+        66.17
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 1e-06,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:dc4fbcaa8a50424661dff7ca810c1c25d759443a380443f1a7ed7d183104c9d3"
+  },
+  "env": {
+    "python": "3.12",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "07e9de977f8c1d1825b413c96184c63359a549b4",
+    "adapt_commit": "9ca8fac171103a0fa69ef93171630f5408b9e0d8",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "method_freedom_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/016_SpatialProteomics.json",
+    "full_training_or_evaluation": false,
+    "allowed_changes": [
+      "features, fluorescence normalization, thresholds, classifiers and learned models",
+      "procedures that do not fit any model on validation labels; there is no training split",
+      "When retaining the supplied threshold-and-argmax pipeline, changing only PAX5=0.8, CD3=0.7, CD11b=0.8, CD11c=0.9, CD68=0.9, CD90=0.95, Podoplanin=0.95, CD31=0.95, CD34=0.95 or shift=True does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Assign the seven specified cell types to every supplied QC cell and maximize pooled agreement with the fixed consensus annotations.",
+      "supplied56-channel tissue images, segmentation masks, QC cell population and patient-group split",
+      "seven-class ontology, annotator-consensus rule and pooled Cohen kappa",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/016_SpatialProteomics.json",
+    "forbidden_substitutions": [
+      "resegmenting cells, changing QC eligibility or replacing the consensus/class definition",
+      "dropping difficult cells, using source-specific answer tables or exploiting opaque identifiers",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract"
+  },
+  "research_contract": {
+    "objective": "Assign the seven specified cell types to every supplied QC cell and maximize pooled agreement with the fixed consensus annotations.",
+    "fixed_research_objects": [
+      "supplied56-channel tissue images, segmentation masks, QC cell population and patient-group split",
+      "seven-class ontology, annotator-consensus rule and pooled Cohen kappa"
+    ],
+    "editable_components": [
+      "features, fluorescence normalization, thresholds, classifiers and learned models",
+      "procedures that do not fit any model on validation labels; there is no training split",
+      "When retaining the supplied threshold-and-argmax pipeline, changing only PAX5=0.8, CD3=0.7, CD11b=0.8, CD11c=0.9, CD68=0.9, CD90=0.95, Podoplanin=0.95, CD31=0.95, CD34=0.95 or shift=True does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "resegmenting cells, changing QC eligibility or replacing the consensus/class definition",
+      "dropping difficult cells, using source-specific answer tables or exploiting opaque identifiers",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "source": "tasks/016_SpatialProteomics/agent/README.md",
+        "section": "Goal,Data,Metric and baseline",
+        "finding": "Assign the seven specified cell types to every supplied QC cell and maximize pooled agreement with the fixed consensus annotations."
+      },
+      {
+        "source": "tasks/016_SpatialProteomics/agent/bench/scorer.py",
+        "section": "trusted score and guards",
+        "finding": "The fixed evaluation target is supplied56-channel tissue images, segmentation masks, QC cell population and patient-group split; seven-class ontology, annotator-consensus rule and pooled Cohen kappa"
+      },
+      {
+        "source": "audits/20261101_method_freedom/016_SpatialProteomics.json",
+        "section": "prior task-specific scorer/interface audit",
+        "finding": "Reuse the prior actual evaluator review while narrowing the blanket permission to the present task-specific objects."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/016_SpatialProteomics.json"
+  },
+  "research_contract_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/016_SpatialProteomics.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

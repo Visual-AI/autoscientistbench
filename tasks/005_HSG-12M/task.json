@@ -1,0 +1,170 @@
+{
+  "pid": "005_HSG-12M",
+  "class": "A",
+  "title": "HSG-12M: A Large-Scale Benchmark of Spatial Multigraphs from the Energy Spectra of Non-Hermitian Crystals",
+  "metric": {
+    "name": "accuracy",
+    "higher_is_better": true,
+    "delta": 0.003,
+    "aggregate": "mean"
+  },
+  "cpus": 128,
+  "memory_gb": 32,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.npz",
+    "val_labels": "data/val/labels.csv",
+    "test_input": "test/input.npz",
+    "test_labels": "test/labels.csv",
+    "input_format": "npz",
+    "output_format": "csv"
+  },
+  "split": {
+    "type": "std3",
+    "decision": "std3: materialize original stratified 80/10/10 split once with seed 42, including original Numba rebalancing order; train 158995, val 19874, test 19875. Opaque random ids; private source-index map. Training BENCH_SEED 1/2/3 maps to original 42/2025/666, independent of the fixed data split."
+  },
+  "baseline": {
+    "train_min": 12.79,
+    "eval_min": 0.5,
+    "val": {
+      "accuracy": 0.8518499882593673
+    },
+    "paper_ref": "Reproduced metric mean accuracy 0.8523102725366876; seeds 42/2025/666; 703080 parameters.",
+    "measured_s": {
+      "train": [
+        753.28,
+        767.29,
+        758.33
+      ],
+      "predict": [
+        10.08,
+        9.63,
+        9.69
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:8932cefbd7b34650fade9c1565c91c8fba9460549b975c873e20bf6e59619759"
+  },
+  "env": {
+    "python": "3.12",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple",
+      "https://download.pytorch.org/whl/cpu"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "ec591130a94116a1a45ed3e896cf5891ed047171",
+    "adapt_commit": "9f75f77f351a0dd194ab81bcf01c122d9b04971f",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "pre_method_freedom_baseline_val": {
+    "accuracy": 0.8530072791922444
+  },
+  "leakage_remediation": {
+    "full_evaluation_ready": false,
+    "superseded_by": "audits/20261101_method_freedom/005_HSG-12M.json",
+    "evidence_is_historical": true
+  },
+  "method_freedom": {
+    "report": "audits/20261101_method_freedom/005_HSG-12M.json",
+    "full_training_or_evaluation_run": false,
+    "superseded_by": "research_contract",
+    "scope_superseded_by": "audits/20261101_research_contract/005_HSG-12M.json"
+  },
+  "method_freedom_review": {
+    "report": "audits/20261101_research_contract/005_HSG-12M.json",
+    "allowed_changes": [
+      "GNN or other classification architecture, learned feature processing, surrogate loss, optimizer and training strategy within the same capacity/work controls."
+    ],
+    "fixed_contract": [
+      "Maximize one-band spatial-multigraph Top-1 accuracy under the original controlled capacity and training-work budgets.",
+      "Fixed graph inputs/features, 24 Hamiltonian classes, supplied split and from-scratch fitting/data-use rules.",
+      "At most floor(1.04*703080)=731203 real trainable parameters, 1000 optimizer updates across all ranks and 100 started epochs.",
+      "Original micro accuracy, three-seed aggregation and validation-based checkpoint selection.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/005_HSG-12M.json",
+    "status": "scope_repaired_with_limitations",
+    "forbidden_substitutions": [
+      "The 1,000 limit counts updates to the fitted model across all ranks: a synchronized DDP step counts once, and asynchronous, local-update or separately trained workers each add their own updates to the total.",
+      "Increasing model capacity or training-work budget to replace the controlled comparison.",
+      "Using hidden/external labels or pretrained weights, changing graph inputs/labels or the scoring objective.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Maximize one-band spatial-multigraph Top-1 accuracy under the original controlled capacity and training-work budgets.",
+    "fixed_research_objects": [
+      "Fixed graph inputs/features, 24 Hamiltonian classes, supplied split and from-scratch fitting/data-use rules.",
+      "At most floor(1.04*703080)=731203 real trainable parameters, 1000 optimizer updates across all ranks and 100 started epochs.",
+      "Original micro accuracy, three-seed aggregation and validation-based checkpoint selection."
+    ],
+    "editable_components": [
+      "GNN or other classification architecture, learned feature processing, surrogate loss, optimizer and training strategy within the same capacity/work controls."
+    ],
+    "forbidden_substitutions": [
+      "The 1,000 limit counts updates to the fitted model across all ranks: a synchronized DDP step counts once, and asynchronous, local-update or separately trained workers each add their own updates to the total.",
+      "Increasing model capacity or training-work budget to replace the controlled comparison.",
+      "Using hidden/external labels or pretrained weights, changing graph inputs/labels or the scoring objective.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "path": "tasks/005_HSG-12M/BRIEF.md",
+        "lines": "28-29",
+        "finding": "Selected one-band classification cell has explicit 1.04x parameter and 100-epoch/1000-step score conditions."
+      },
+      {
+        "path": "tasks/005_HSG-12M/NOTES.md",
+        "lines": "9,31",
+        "finding": "Original conversion measured 703080 parameters and verified that 731204 parameters or 1001 steps fail; baseline architecture is the source method, not the only possible solver."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/005_HSG-12M.json"
+  },
+  "research_contract_review": {
+    "status": "scope_repaired_with_limitations",
+    "report": "audits/20261101_research_contract/005_HSG-12M.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

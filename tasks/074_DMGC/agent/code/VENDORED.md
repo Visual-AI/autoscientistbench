@@ -1,0 +1,1 @@
+kmeans_pytorch/__init__.py is vendored from upstream commit f7f36bd1cb4e3a761d73d584866d0a9c6b4d2805. Only the unused optional SoftDTW import and dispatch branches were removed. Euclidean k-means, initialization, convergence, empty-cluster behavior and randomness are unchanged.

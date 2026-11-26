@@ -1,0 +1,163 @@
+{
+  "pid": "024_SpatialIsoform",
+  "class": "A",
+  "title": "Spatial isoform sequencing at single-cell resolution reveals cell-type-specific spatial isoform variability in multiple brain cell types",
+  "metric": {
+    "name": "macro_recall",
+    "higher_is_better": true,
+    "delta": 0.03,
+    "aggregate": "mean"
+  },
+  "cpus": 32,
+  "memory_gb": 32,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.npz",
+    "val_labels": "data/val/labels.npz",
+    "test_input": "test/input.npz",
+    "test_labels": "test/labels.npz",
+    "input_format": "npz",
+    "output_format": "csv"
+  },
+  "split": {
+    "type": "synthetic",
+    "decision": "Independent scenario/replicate RNG streams; original Sample 1 coordinates and nested uniform subsampling. Public validation master seed 20261030, 20 pattern repetitions and 100 null repetitions per scenario/level. Hidden generation uses secrets and observations only. No cross-instance training.",
+    "val_seed": 20261030
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 8.28,
+    "val": {
+      "macro_recall": 0.4155555555555555
+    },
+    "paper_ref": "Supp. Fig. 13 simulations; macro recall is a benchmark aggregate, distinct from 282 real-data SVI calls.",
+    "measured_s": {
+      "train": [
+        0.36,
+        0.41,
+        0.36
+      ],
+      "predict": [
+        496.85,
+        468.99,
+        445.31
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.001,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:eb286d29c18ef313d7423ec8d52885430702728f58a9bfd0a775f3784788cd5a"
+  },
+  "env": {
+    "python": "3.12.16",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "a7110c4e4e8a4f6fc0ce71645851615657262675",
+    "adapt_commit": "c59ddce868dfab7035388fb935006782a90cf0cd",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "method_freedom_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/024_SpatialIsoform.json",
+    "full_training_or_evaluation": false,
+    "allowed_changes": [
+      "spatial statistics, single-instance estimators, features and numerical testing procedures",
+      "algorithmic implementation and permitted configuration using observations only",
+      "When retaining the supplied Moran pipeline, changing only test='moransI', nperm=10000, k=50, mincellspergroup=20, imb=0.05, alpha=0.05 or I_threshold=0.01 does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Detect spatially variable expression from each observed coordinate/value instance, maximizing macro recall subject to the original null-rejection controls.",
+      "supplied coordinate design, observation instances, pattern/null distribution and independent-seed split",
+      "single pattern-agnostic per-instance decision rule, macro recall and pooled/per-cell null limits",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/024_SpatialIsoform.json",
+    "forbidden_substitutions": [
+      "replacing the statistical alternative/null definitions, scoring population or null thresholds",
+      "fitting to diagnostic truth labels, using scenario-specific answer rules, crossing instance boundaries or generating extra simulations",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Positive calls must rest on spatial association between coordinates and expression. A shift in the marginal fraction of ones alone does not count as spatial variability. Expression counts may still set eligibility or conditional calibration. Patch audit enforces this rule."
+    ],
+    "scope_source": "research_contract"
+  },
+  "research_contract": {
+    "objective": "Detect spatially variable expression from each observed coordinate/value instance, maximizing macro recall subject to the original null-rejection controls.",
+    "fixed_research_objects": [
+      "supplied coordinate design, observation instances, pattern/null distribution and independent-seed split",
+      "single pattern-agnostic per-instance decision rule, macro recall and pooled/per-cell null limits"
+    ],
+    "editable_components": [
+      "spatial statistics, single-instance estimators, features and numerical testing procedures",
+      "algorithmic implementation and permitted configuration using observations only",
+      "When retaining the supplied Moran pipeline, changing only test='moransI', nperm=10000, k=50, mincellspergroup=20, imb=0.05, alpha=0.05 or I_threshold=0.01 does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "replacing the statistical alternative/null definitions, scoring population or null thresholds",
+      "fitting to diagnostic truth labels, using scenario-specific answer rules, crossing instance boundaries or generating extra simulations",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Positive calls must rest on spatial association between coordinates and expression. A shift in the marginal fraction of ones alone does not count as spatial variability. Expression counts may still set eligibility or conditional calibration. Patch audit enforces this rule."
+    ],
+    "evidence": [
+      {
+        "source": "tasks/024_SpatialIsoform/agent/README.md",
+        "section": "Goal,Data,Metric and baseline",
+        "finding": "Detect spatially variable expression from each observed coordinate/value instance, maximizing macro recall subject to the original null-rejection controls."
+      },
+      {
+        "source": "tasks/024_SpatialIsoform/agent/bench/scorer.py",
+        "section": "trusted score and guards",
+        "finding": "The fixed evaluation target is supplied coordinate design, observation instances, pattern/null distribution and independent-seed split; single pattern-agnostic per-instance decision rule, macro recall and pooled/per-cell null limits"
+      },
+      {
+        "source": "audits/20261101_method_freedom/024_SpatialIsoform.json",
+        "section": "prior task-specific scorer/interface audit",
+        "finding": "Reuse the prior actual evaluator review while narrowing the blanket permission to the present task-specific objects."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/024_SpatialIsoform.json"
+  },
+  "research_contract_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/024_SpatialIsoform.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

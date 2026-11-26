@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "python": "/usr/bin/python3",
+  "mounts": [
+    {
+      "source": "runtime/r.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-29_ConjugateDP/env/r",
+      "format": "tar",
+      "name": "r",
+      "sha256": "11b9261e67a29cc6d6288a3596a46d4134fc3bcdd60fde15fde33328a9a4249b"
+    },
+    {
+      "source": "runtime/rlib.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-29_ConjugateDP/.Rlib",
+      "format": "tar",
+      "name": "rlib",
+      "sha256": "fb6b544a008df0779308c306e7f43c272c14ba5cfebaac3a34abed64799693ae"
+    }
+  ],
+  "env": {
+    "PATH": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-29_ConjugateDP/env/r/bin:/usr/local/bin:/usr/bin:/bin",
+    "R_HOME": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-29_ConjugateDP/env/r/lib/R",
+    "R_LIBS_USER": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-29_ConjugateDP/.Rlib",
+    "LD_LIBRARY_PATH": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Sta-29_ConjugateDP/env/r/lib"
+  }
+}

@@ -1,0 +1,9 @@
+numpy>=1.16
+scipy>=1.1.0
+cvxpy[CVXOPT,MOSEK]
+scikit-learn
+statsmodels
+sphinx>=1.4
+sphinx-rtd-theme
+ipykernel
+nbsphinx

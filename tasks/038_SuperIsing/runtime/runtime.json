@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "python": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Phy-18_FuzzifiED.jl/.venv/bin/python",
+  "mounts": [
+    {
+      "source": "runtime/julia.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Phy-18_FuzzifiED.jl/tools/julia-1.11.5",
+      "format": "tar",
+      "name": "julia",
+      "sha256": "9304bcffdc567bb01df0f6104e405accb2088a0a97bbd5eb1430f1f78e8c7dca"
+    },
+    {
+      "source": "runtime/depot.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Phy-18_FuzzifiED.jl/.julia",
+      "format": "tar",
+      "name": "depot",
+      "sha256": "ceb46629898619c01fcfe355c2a86f68070f6855490cd650b1b64091725feb4d"
+    },
+    {
+      "source": "runtime/python.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Phy-18_FuzzifiED.jl/.venv",
+      "format": "tar",
+      "name": "python",
+      "sha256": "47a9a3f7237c63f90c5dfabeb7518cc00c369dd47db6fbae1235d034ea846ee5"
+    }
+  ],
+  "env": {
+    "PATH": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Phy-18_FuzzifiED.jl/.venv/bin:/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Phy-18_FuzzifiED.jl/tools/julia-1.11.5/bin:/usr/local/bin:/usr/bin:/bin",
+    "JULIA_DEPOT_PATH": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Phy-18_FuzzifiED.jl/.julia",
+    "JULIA_PKG_OFFLINE": "true"
+  }
+}

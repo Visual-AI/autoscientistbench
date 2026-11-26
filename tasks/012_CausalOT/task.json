@@ -1,0 +1,177 @@
+{
+  "pid": "012_CausalOT",
+  "class": "A",
+  "title": "Statistical Inference in Causal Partial Identification under Smooth Densities",
+  "metric": {
+    "name": "ci_length_gmean",
+    "higher_is_better": false,
+    "delta": 0.03,
+    "aggregate": "mean"
+  },
+  "cpus": 8,
+  "memory_gb": 16,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.npz",
+    "val_labels": "data/val/labels.npz",
+    "test_input": "test/input.npz",
+    "test_labels": "test/labels.npz",
+    "input_format": "npz",
+    "output_format": "csv"
+  },
+  "split": {
+    "type": "synthetic",
+    "decision": "Training-free per-instance estimation. 100 public and 200 hidden instances of (dY,dZ,n)=(2,1,3000), each with its own location model drawn by make_data.py, with secrets-drawn seeds in judge/tools/split_design.json. No outcome-based selection. Original 100 bootstrap resamples retained. Algorithm seeds separated from data seeds."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 10.5,
+    "val": {
+      "ci_length_gmean": 0.0037650974236388686
+    },
+    "paper_ref": "Table 2 measures coverage with one fixed distribution per configuration. Here every instance has its own distribution, so there is no published value to compare; public preprint arXiv:2602.20681v1.",
+    "measured_s": {
+      "train": [
+        1.72,
+        1.62,
+        1.62
+      ],
+      "predict": [
+        628.6,
+        629.71,
+        630.1
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.01,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:466d1e2691601c03df963375c2cc1a2b521cbee8abe733c6e040c0ddb781795d"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "309641bc4eb683fef7e5c55911f512b80a602cd1",
+    "adapt_commit": "bacf89f9d8df52780468a23491343e4beb33c63f",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "pre_method_freedom_baseline_val": {
+    "ci_length_gmean": null
+  },
+  "leakage_remediation": {
+    "full_evaluation_ready": false,
+    "superseded_by": "audits/20261101_method_freedom/012_CausalOT.json",
+    "evidence_is_historical": true
+  },
+  "method_freedom": {
+    "report": "audits/20261101_method_freedom/012_CausalOT.json",
+    "full_training_or_evaluation_run": false,
+    "scope_superseded_by": "audits/20261101_research_contract/012_CausalOT.json"
+  },
+  "method_freedom_review": {
+    "report": "audits/20261101_research_contract/012_CausalOT.json",
+    "allowed_changes": [
+      "density estimation, conditional optimal-transport solvers, valid confidence-interval construction and numerical optimization",
+      "bootstrap resampling or integration from distributions fitted to the current observations; development-selected configuration"
+    ],
+    "fixed_contract": [
+      "Construct informative 95% confidence intervals for each instance's COT value from its pair of observed groups, minimizing mean interval length subject to coverage.",
+      "the instance family with (dY,dZ,n)=(2,1,3000) and one distribution per instance, clipped observed data and independent per-instance boundary",
+      "the target, each instance's COT value before clipping",
+      "endpoint-inclusive coverage above the task's floors and mean interval length",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/012_CausalOT.json",
+    "status": "reviewed_scope_with_existing_blocker",
+    "forbidden_substitutions": [
+      "The estimator must stay nonparametric: it may assume smooth densities, but it may not assume a parametric form for the conditional laws, such as a Gaussian or location-scale model, and it may not evaluate the closed-form value of such a model at fitted parameters.",
+      "Intervals must target nominal 95% coverage: do not lower the nominal level, scale widths by a factor tuned against validation coverage, or return degenerate intervals on a subset of instances.",
+      "changing the estimand to the clipped-data population, replacing the distribution family or relaxing coverage",
+      "extra population simulations, lookup of the truth, fitting to truth labels or sharing observations across instances",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Construct informative 95% confidence intervals for each instance's COT value from its pair of observed groups, minimizing mean interval length subject to coverage.",
+    "fixed_research_objects": [
+      "the instance family with (dY,dZ,n)=(2,1,3000) and one distribution per instance, clipped observed data and independent per-instance boundary",
+      "the target, each instance's COT value before clipping",
+      "endpoint-inclusive coverage above the task's floors and mean interval length"
+    ],
+    "editable_components": [
+      "density estimation, conditional optimal-transport solvers, valid confidence-interval construction and numerical optimization",
+      "bootstrap resampling or integration from distributions fitted to the current observations; development-selected configuration"
+    ],
+    "forbidden_substitutions": [
+      "The estimator must stay nonparametric: it may assume smooth densities, but it may not assume a parametric form for the conditional laws, such as a Gaussian or location-scale model, and it may not evaluate the closed-form value of such a model at fitted parameters.",
+      "Intervals must target nominal 95% coverage: do not lower the nominal level, scale widths by a factor tuned against validation coverage, or return degenerate intervals on a subset of instances.",
+      "changing the estimand to the clipped-data population, replacing the distribution family or relaxing coverage",
+      "extra population simulations, lookup of the truth, fitting to truth labels or sharing observations across instances",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "source": "tasks/012_CausalOT/BRIEF.md",
+        "section": "original experiment/score_rule/user decision,lines 26-33",
+        "finding": "The target and coverage-controlled interval objective define the experiment. The baseline normal interval named basic, wavelet density estimator, grid and bootstrap count are solution choices."
+      },
+      {
+        "source": "tasks/012_CausalOT/agent/bench/scorer.py",
+        "section": "trusted numerical scoring and guard call path",
+        "finding": "The declared research target agrees with the actual scorer and its frozen helpers."
+      },
+      {
+        "source": "audits/20261101_method_freedom/012_CausalOT.json",
+        "section": "earlier evaluator/interface audit",
+        "finding": "Prior runtime/information-boundary work is preserved; unconditional method language is replaced by the task-specific scope."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/012_CausalOT.json"
+  },
+  "research_contract_review": {
+    "status": "reviewed_scope_with_existing_blocker",
+    "report": "audits/20261101_research_contract/012_CausalOT.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

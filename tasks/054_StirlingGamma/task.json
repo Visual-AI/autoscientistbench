@@ -1,0 +1,173 @@
+{
+  "pid": "054_StirlingGamma",
+  "class": "A",
+  "title": "Bayesian Nonparametric Modeling of Latent Partitions via Stirling-Gamma Priors",
+  "metric": {
+    "name": "posterior_probability",
+    "higher_is_better": true,
+    "delta": 0.005,
+    "aggregate": "mean"
+  },
+  "cpus": 8,
+  "memory_gb": 48,
+  "budget_hours_default": 24,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.json",
+    "val_labels": "data/val/labels.json",
+    "test_input": "test/input.json",
+    "test_labels": "test/labels.json"
+  },
+  "split": {
+    "type": "synthetic",
+    "decision": "Original frozen generator; full independent 20-replicate K=2,4,6 validation and hidden-test splits, each dataset n=500. Observations only with opaque IDs."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 0.58,
+    "val": {
+      "posterior_probability": 0.6553133333333334
+    },
+    "paper_ref": "Section 5.1 / Figure 3; source manifest baseline 0.6568, not measured here.",
+    "measured_s": {
+      "train": [
+        11.73,
+        11.29,
+        11.43
+      ],
+      "predict": [
+        34.17,
+        34.07,
+        34.88
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:c00f874f27b495d0dcaf35fe8a9cde9b516535a83c29dd3d11d2e6d554452d04"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple",
+      "https://download.pytorch.org/whl/cpu"
+    ],
+    "build_cap_s": 5400,
+    "mode": "snapshot",
+    "snapshot": "runtime/runtime.json"
+  },
+  "adapt": {
+    "base_commit": "0cbc7356240c031e5f8a436e3d74f37b394e3d53",
+    "adapt_commit": "0889caacf89504af424b5058d7326d728fc9ab97",
+    "patch": "judge/reference/adapt.patch",
+    "upstream_commit": "719a6804a4ee03c125d025de4fd59280a0d2b190"
+  },
+  "smoke": {
+    "input": "judge/verification/smoke_input.json",
+    "labels": "judge/verification/smoke_labels.json",
+    "env": {}
+  },
+  "conversion": {
+    "full_data_ready": true,
+    "verification": "judge/verification/smoke.json"
+  },
+  "method_freedom_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/054_StirlingGamma.json",
+    "candidate_method_replacement_allowed": true,
+    "frozen_data_metric_and_information_boundary": true,
+    "full_training_or_evaluation_run": false,
+    "allowed_changes": [
+      "Any valid inference or posterior approximation algorithm, proposal, variational family, numerical solver, initialization and convergence strategy may replace the baseline Gibbs implementation.",
+      "Auxiliary losses may improve approximation of this same posterior; Monte Carlo length and burn-in are numerical choices.",
+      "When retaining the supplied Gibbs transition kernel, changing only niter=15000, burnin=5000, init_type=1 or alpha_init=1 does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Approximate the specified Stirling-gamma Dirichlet-process-mixture posterior of occupied cluster count K_n, improving its guarded true-count posterior probability.",
+      "The bivariate Gaussian mixture likelihood, DP random measure, alpha ~ Sg(1,0.25,n), and NIW base N(mu;0,Sigma/2) IW(Sigma;2,I) define the fixed posterior.",
+      "All 500 observed rows per independent dataset, the normalized K=1..500 output distribution, three cell floors, and equal cell aggregation remain fixed.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/054_StirlingGamma.json",
+    "forbidden_substitutions": [
+      "Do not replace the likelihood, base measure or precision prior, tune them against true K, or submit a generic classification distribution instead of the specified posterior.",
+      "No hidden truth, data substitutions, cross-dataset pooling or ID-derived predictions.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Approximate the specified Stirling-gamma Dirichlet-process-mixture posterior of occupied cluster count K_n, improving its guarded true-count posterior probability.",
+    "fixed_research_objects": [
+      "The bivariate Gaussian mixture likelihood, DP random measure, alpha ~ Sg(1,0.25,n), and NIW base N(mu;0,Sigma/2) IW(Sigma;2,I) define the fixed posterior.",
+      "All 500 observed rows per independent dataset, the normalized K=1..500 output distribution, three cell floors, and equal cell aggregation remain fixed."
+    ],
+    "editable_components": [
+      "Any valid inference or posterior approximation algorithm, proposal, variational family, numerical solver, initialization and convergence strategy may replace the baseline Gibbs implementation.",
+      "Auxiliary losses may improve approximation of this same posterior; Monte Carlo length and burn-in are numerical choices.",
+      "When retaining the supplied Gibbs transition kernel, changing only niter=15000, burnin=5000, init_type=1 or alpha_init=1 does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "Do not replace the likelihood, base measure or precision prior, tune them against true K, or submit a generic classification distribution instead of the specified posterior.",
+      "No hidden truth, data substitutions, cross-dataset pooling or ID-derived predictions.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "path": "agent/paper/paper.txt",
+        "section": "Section 5.1, lines 546-607",
+        "finding": "Experiment compares different priors as distinct posterior models and selects Sg(1,0.25,n); NIW and Gaussian likelihood explicitly specified."
+      },
+      {
+        "path": "agent/code/sim/common.R",
+        "section": "CFG and run_chain",
+        "finding": "Fixed nu0=kappa0=2, mu0=0, Psi0=I and selected sg_1_.25 branch; Gibbs steps are computation."
+      },
+      {
+        "path": "agent/bench/scorer.py",
+        "finding": "Scores normalized p_kn at true K and cell floors; does not authenticate posterior provenance."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/054_StirlingGamma.json"
+  },
+  "research_contract_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/054_StirlingGamma.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

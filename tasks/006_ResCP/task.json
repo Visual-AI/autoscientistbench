@@ -1,0 +1,212 @@
+{
+  "pid": "006_ResCP",
+  "class": "A",
+  "title": "ResCP: Reservoir Conformal Prediction for Time Series Forecasting",
+  "metric": {
+    "name": "normalized_winkler",
+    "higher_is_better": false,
+    "delta": 0.016,
+    "aggregate": "mean"
+  },
+  "cpus": 128,
+  "memory_gb": 64,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/request.json",
+    "val_labels": "data/val/replay",
+    "test_input": "test/request.json",
+    "test_labels": "test/replay",
+    "input_format": "private_episode_descriptor",
+    "output_format": "policy_artifact_zip"
+  },
+  "split": {
+    "type": "std3",
+    "decision": "std3 原发布时间索引，校准末10%验证尾；各 cell train/val 时间点数 {'beijing_arima': [10098, 1121], 'beijing_rnn': [10049, 1116], 'beijing_transformer': [10049, 1116], 'elec_arima': [39556, 4395], 'elec_rnn': [39546, 4393], 'elec_transformer': [39546, 4393], 'exchange_arima': [2176, 241], 'exchange_rnn': [2116, 234], 'exchange_transformer': [2116, 234], 'solar_arima': [7575, 841], 'solar_rnn': [7526, 836], 'solar_transformer': [7526, 836]}；base forecasts冻结；ACEA/Exchange scaler拟合分别去掉进入验证的6/7点；隐藏原测试段及截断探针。"
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 0.5,
+    "val": {
+      "normalized_winkler": 1.0075364052156142
+    },
+    "paper_ref": "Normalized Table 1 ResCP reference 1.0; alpha=0.1",
+    "measured_s": {
+      "train": [
+        10.38,
+        10.13,
+        10.18
+      ],
+      "predict": [
+        5.47,
+        5.27,
+        5.42
+      ]
+    },
+    "timing_scope": "legacy protocol estimates retained for operational budgeting; not a measured v2 reference"
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:cab26ddc32f92b3ffc3fdb66c0f0a31376f31805ad24ab9890f824aa20481db6"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple",
+      "https://download.pytorch.org/whl/cpu"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "44459d05d5f8595f76ecfc7402e0e99660b8ad04",
+    "adapt_commit": "0331c2f53f80efa6e56a433034aef70253719868",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "private_eval": {
+    "version": 2,
+    "protocol": "private-policy-v2",
+    "entrypoint": "policy.sh",
+    "full_reproduction_performed": false
+  },
+  "legacy_baseline_val": {
+    "normalized_winkler": null
+  },
+  "protocol_version": "private-policy-v2",
+  "leakage_remediation": {
+    "status": "smoke_verified",
+    "outer_harness_changed": false,
+    "full_training_or_evaluation_run": false,
+    "evidence": [
+      "audits/20261101_preserve_experiment/006_ResCP.json",
+      "audits/20261101_preserve_experiment/044-smoke.json",
+      "audits/20261101_preserve_experiment/044-native-environment.json",
+      "audits/20261101_preserve_experiment/044-frozen-hashes-after.json"
+    ],
+    "full_evaluation_ready": false,
+    "scope": "experiment-preserving causal replay",
+    "method_semantics_review_required": true,
+    "seed_authentication_review_required": true,
+    "superseded_by": "audits/20261101_method_freedom/006_ResCP.json",
+    "evidence_is_historical": true
+  },
+  "experiment_preservation": {
+    "report": "audits/20261101_preserve_experiment/006_ResCP.json",
+    "original_prediction_cap_s": 883,
+    "prediction_input_and_output_serialization_charged": true,
+    "artifact_preparation_timed_separately": true,
+    "numerical_sources_unchanged": true,
+    "short_original_method_equivalence": true,
+    "full_throughput_verified": false,
+    "exact_pin_import_verified": true,
+    "exact_pin_actual_workflow_verified": false,
+    "original_baseline_coverage_guard_failure_requires_review": true,
+    "full_evaluation_ready": false,
+    "candidate_method_and_seed_semantics_review_required": true
+  },
+  "method_freedom": {
+    "report": "audits/20261101_method_freedom/006_ResCP.json",
+    "full_training_or_evaluation_run": false,
+    "scope_superseded_by": "audits/20261101_research_contract/006_ResCP.json"
+  },
+  "method_freedom_review": {
+    "report": "audits/20261101_research_contract/006_ResCP.json",
+    "allowed_changes": [
+      "conformal calibration model, residual/history features, training surrogate losses and numerical optimizers",
+      "interval construction, calibration hyperparameters and adaptation from legally preceding observations"
+    ],
+    "fixed_contract": [
+      "Calibrate prediction intervals around the supplied frozen point forecasts for twelve time-series cells, minimizing normalized Winkler score while preserving every cell's coverage.",
+      "four datasets crossed with the three frozen RNN/Transformer/ARIMA point-predictor outputs and chronological observations/splits",
+      "alpha=0.1, all twelve cells, fixed baseline normalization denominators, per-cell coverage>=0.86 on test and >=0.83 on val and original float32 Winkler arithmetic",
+      "query-before-future-observation release and independent per-cell policy state",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/006_ResCP.json",
+    "status": "reviewed_scope_with_existing_reference_limit",
+    "forbidden_substitutions": [
+      "Every random draw, including reservoir weights, must derive from BENCH_SEED, and seeds or reservoir draws may not be selected by validation score (patch audit).",
+      "retraining or replacing the fixed base point predictors or altering their supplied forecast values",
+      "changing coverage/normalization/targets, future-information access or memorized intervals",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Copies of this data from an installed package count as external data (patch audit)."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Calibrate prediction intervals around the supplied frozen point forecasts for twelve time-series cells, minimizing normalized Winkler score while preserving every cell's coverage.",
+    "fixed_research_objects": [
+      "four datasets crossed with the three frozen RNN/Transformer/ARIMA point-predictor outputs and chronological observations/splits",
+      "alpha=0.1, all twelve cells, fixed baseline normalization denominators, per-cell coverage>=0.86 on test and >=0.83 on val and original float32 Winkler arithmetic",
+      "query-before-future-observation release and independent per-cell policy state"
+    ],
+    "editable_components": [
+      "conformal calibration model, residual/history features, training surrogate losses and numerical optimizers",
+      "interval construction, calibration hyperparameters and adaptation from legally preceding observations"
+    ],
+    "forbidden_substitutions": [
+      "Every random draw, including reservoir weights, must derive from BENCH_SEED, and seeds or reservoir draws may not be selected by validation score (patch audit).",
+      "retraining or replacing the fixed base point predictors or altering their supplied forecast values",
+      "changing coverage/normalization/targets, future-information access or memorized intervals",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation.",
+      "Copies of this data from an installed package count as external data (patch audit)."
+    ],
+    "evidence": [
+      {
+        "source": "tasks/006_ResCP/BRIEF.md",
+        "section": "original experiment/score_rule/user decision,lines 26-33",
+        "finding": "The original user decision explicitly freezes base-predictor outputs as input data. Conformal calibration is the optimization surface; the point predictors are part of the fixed research object."
+      },
+      {
+        "source": "tasks/006_ResCP/agent/bench/scorer.py",
+        "section": "trusted numerical scoring and guard call path",
+        "finding": "The declared research target agrees with the actual scorer and its frozen helpers."
+      },
+      {
+        "source": "audits/20261101_method_freedom/006_ResCP.json",
+        "section": "earlier evaluator/interface audit",
+        "finding": "Prior runtime/information-boundary work is preserved; unconditional method language is replaced by the task-specific scope."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/006_ResCP.json"
+  },
+  "research_contract_review": {
+    "status": "reviewed_scope_with_existing_reference_limit",
+    "report": "audits/20261101_research_contract/006_ResCP.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "python": "/usr/bin/python3",
+  "mounts": [
+    {
+      "source": "runtime/python-env.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Bio-17_krepp/.venv",
+      "format": "tar",
+      "name": "python-env",
+      "sha256": "bad3b4f1117ca710bf8defb83751be0a21b95fb4d69e3301847854a96340b90a"
+    },
+    {
+      "source": "runtime/python-base.tar",
+      "target": "/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Bio-17_krepp/.uv-python",
+      "format": "tar",
+      "name": "python-base",
+      "sha256": "b4f6bff59be9fcb3a6fb2376285176b0220aabc9d6e20d718e91b833d3b4d236"
+    },
+    {
+      "source": "runtime/boost.tar",
+      "target": "/opt/arb/deps/boost",
+      "format": "tar",
+      "name": "boost",
+      "sha256": "b19963b37f68bfda20bbd0b6239dc785725318772c26959941a9f6e0d46e4f56"
+    },
+    {
+      "source": "runtime/toolchain.tar",
+      "target": "/opt/arb/deps/toolchain",
+      "format": "tar",
+      "name": "toolchain",
+      "sha256": "5a338e6b418257c297582c02743bc2026296be0733fb3e526779f169bd390b00"
+    },
+    {
+      "source": "runtime/headers.tar",
+      "target": "/opt/arb/deps/headers",
+      "format": "tar",
+      "name": "headers",
+      "sha256": "ce80b65cd5e19e1e31a149366d45e94b89d1ee2d56f601ca96aa037be677aa2f"
+    }
+  ],
+  "env": {
+    "PATH": "/opt/arb/runtime/toolchain/usr/bin:/mnt/bn/pistis/changbin.zhang/code/RealPapers/ex-papers-science/Bio-17_krepp/.venv/bin:/usr/local/bin:/usr/bin:/bin",
+    "GCC_EXEC_PREFIX": "/opt/arb/runtime/toolchain/usr/lib/gcc/",
+    "LD_LIBRARY_PATH": "/opt/arb/runtime/toolchain/usr/lib/x86_64-linux-gnu:/opt/arb/runtime/toolchain/lib/x86_64-linux-gnu"
+  }
+}

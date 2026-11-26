@@ -1,0 +1,6 @@
+{
+  "val_seed0": 2026,
+  "test_seed0": 185056607,
+  "smoke_seed0": 1154427246,
+  "format": "float64 little endian, R column major per surface"
+}

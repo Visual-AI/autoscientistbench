@@ -1,0 +1,175 @@
+{
+  "pid": "059_RandBetting",
+  "class": "A",
+  "title": "Randomized and Exchangeable Improvements of Markov's, Chebyshev's and Chernoff's Inequalities",
+  "metric": {
+    "name": "power",
+    "higher_is_better": true,
+    "delta": 0.02,
+    "aggregate": "mean"
+  },
+  "cpus": 16,
+  "memory_gb": 16,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/request.json",
+    "val_labels": "data/val/truth.npz",
+    "test_input": "test/request.json",
+    "test_labels": "test/truth.npz",
+    "input_format": "private_episode_descriptor",
+    "output_format": "policy_artifact_zip"
+  },
+  "split": {
+    "type": "synthetic",
+    "decision": "Frozen Beta(20,b) generator; no cross-instance training. Public validation seed 20261030, 50 alternative and 500 null replications per cell; full hidden evaluation with 500 replications per cell. Observations only, shuffled SHA256-hashed opaque IDs; independently drawn secret data seeds are recorded only in operator artifacts. Algorithm streams use BENCH_SEED and opaque IDs; original reset/shuffle schedule retained. See NOTES for original archive parity and seed separation.",
+    "public_seeds": [
+      20261030
+    ]
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 0.5,
+    "val": {
+      "power": 0.4728148148148148
+    },
+    "paper_ref": "Sec.9.4/Fig.5: reproduced UMI power 0.4718; 0.13554 is a distinct Sec.9.1 interval-width metric and is not the power target.",
+    "measured_s": {
+      "train": [
+        0.62,
+        0.62,
+        0.62
+      ],
+      "predict": [
+        0.87,
+        0.82,
+        0.82
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:7c527107ca63abe5493ef839c1946902f5864da837df471483257ccb173f6da0"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "deff085f49f7ef3db0ce0899dac1ce4284d71f55",
+    "adapt_commit": "1d07dd02ac6afbf89c548338d6a8a07ed3ddf71d",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "protocol_version": "private-policy-v2",
+  "private_eval": {
+    "version": 2,
+    "protocol": "private-policy-v2",
+    "entrypoint": "policy.sh",
+    "full_reproduction_performed": false,
+    "full_benchmark_ready": false,
+    "baseline_fast_path": "original_frozen_certificate_arithmetic"
+  },
+  "legacy_baseline_val": {
+    "power": 0.4728148148148148
+  },
+  "method_freedom_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/059_RandBetting.json",
+    "candidate_method_replacement_allowed": true,
+    "frozen_data_metric_and_information_boundary": true,
+    "full_training_or_evaluation_run": false,
+    "allowed_changes": [
+      "Any stateful predictable bet selector, prefix-based working model, learned parameters and auxiliary loss may replace LBOW/predmix.",
+      "Global permutation count and admissible mixture/clipping configuration may be chosen before private observations, within the fixed capital construction.",
+      "When retaining the supplied betting_interface.DEFAULT pipeline, changing only B=100, positive=\"lbow\", negative=\"predmix\", theta=0.5, trunc_scale=0.5 or combine=\"max\" does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Improve power of the fixed bounded-mean test constructed from permutation-averaged predictable betting capital and randomized Markov rejection.",
+      "The null E[X]=1/2 for bounded iid observations, supplied sequences, alpha=.05, trusted capital recursion and final randomized Markov rule remain fixed.",
+      "Bet-before-observation predictability, known horizon n, fresh state per permutation, same permutation/U schedule and all per-n/pooled type-I thresholds remain fixed.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/059_RandBetting.json",
+    "forbidden_substitutions": [
+      "Do not substitute a parametric Beta-only null or generic p-value classifier, self-report e-values/decisions, change the capital arithmetic or condition bets on future observations.",
+      "No sample ID/truth/U/shuffle-seed access, cross-permutation information sharing, evaluation-driven global policy selection or altered sequences.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Improve power of the fixed bounded-mean test constructed from permutation-averaged predictable betting capital and randomized Markov rejection.",
+    "fixed_research_objects": [
+      "The null E[X]=1/2 for bounded iid observations, supplied sequences, alpha=.05, trusted capital recursion and final randomized Markov rule remain fixed.",
+      "Bet-before-observation predictability, known horizon n, fresh state per permutation, same permutation/U schedule and all per-n/pooled type-I thresholds remain fixed."
+    ],
+    "editable_components": [
+      "Any stateful predictable bet selector, prefix-based working model, learned parameters and auxiliary loss may replace LBOW/predmix.",
+      "Global permutation count and admissible mixture/clipping configuration may be chosen before private observations, within the fixed capital construction.",
+      "When retaining the supplied betting_interface.DEFAULT pipeline, changing only B=100, positive=\"lbow\", negative=\"predmix\", theta=0.5, trunc_scale=0.5 or combine=\"max\" does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "Do not substitute a parametric Beta-only null or generic p-value classifier, self-report e-values/decisions, change the capital arithmetic or condition bets on future observations.",
+      "No sample ID/truth/U/shuffle-seed access, cross-permutation information sharing, evaluation-driven global policy selection or altered sequences.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "section": "Section 9.4 / Figure 5",
+        "finding": "Selected experiment applies randomized Markov rejection to permutation-averaged betting evidence for a bounded mean."
+      },
+      {
+        "path": "agent/bench/private_betting.py",
+        "finding": "Trusted service computes capital and reveal order, supplies n and isolates each permutation."
+      },
+      {
+        "path": "agent/bench/io_spec.md",
+        "finding": "Separates editable bet strategy from fixed evidence/rejection construction."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/059_RandBetting.json"
+  },
+  "research_contract_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/059_RandBetting.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

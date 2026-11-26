@@ -1,0 +1,49 @@
+# Rust
+target/
+**/*.rs.bk
+*.pdb
+
+# Python bytecode & caches
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Compiled Python extensions (maturin build outputs)
+*.so
+*.dylib
+
+# Python packaging artifacts
+*.egg-info/
+*.egg
+dist/
+build/
+
+# Virtual environments
+.venv/
+venv/
+
+# Testing
+.pytest_cache/
+
+# MkDocs build output
+docs/site/
+
+# Local-only notes (never committed)
+*.local.md
+
+# macOS
+.DS_Store
+
+# Claude internal files (local-only), but keep shared project skills tracked
+.claude/*
+!.claude/skills/
+
+# bench (AutoResearch) additions
+.venv/
+venv/
+checkpoints/
+/out/
+/runs/
+*.pt
+*.pth
+*.ckpt

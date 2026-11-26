@@ -1,0 +1,166 @@
+{
+  "pid": "084_BRIDGE",
+  "class": "A",
+  "title": "BRIDGE: Predicting Human Task Completion Time From Model Performance",
+  "metric": {
+    "name": "bucket_accuracy",
+    "higher_is_better": true,
+    "delta": 0.02,
+    "aggregate": "mean"
+  },
+  "cpus": 8,
+  "memory_gb": 8,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.csv",
+    "val_labels": "data/val/labels.csv",
+    "test_input": "test/input.csv",
+    "test_labels": "test/labels.csv",
+    "input_format": "csv",
+    "output_format": "csv"
+  },
+  "split": {
+    "type": "train_test",
+    "decision": "METR grouped 80/20 family holdout: GroupShuffleSplit(test_size=0.2, random_state=20261030), 142 train tasks/28 validation tasks; 40/10 task families. IRT auxiliary non-target tasks retained without human times. Original 500 evaluation tasks isolated; all archived response cells and test truths verified exactly. Original source task-table row IDs; files sorted by ID. Joint IRT refit during predict on training context + current input, calibration exclusively on train times."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 0.5,
+    "val": {
+      "bucket_accuracy": 55.952380952380956
+    },
+    "paper_ref": "Figure 3 BRIDGE; reproduced seed-0 accuracy 41.6%; thresholds linear weighted kappa >=0.22 and macro F1 >=0.27.",
+    "measured_s": {
+      "train": [
+        17.19,
+        18.89,
+        17.09
+      ],
+      "predict": [
+        18.54,
+        18.94,
+        26.0
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.32785287656770595,
+    "reference_hash": "sha256:8bb1224088132dfba5c84cdad3d0dd9e64d1d8a24dc5e314ae1f0191a9c1cc01"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple",
+      "https://download.pytorch.org/whl/cpu"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "10688492dfc462c24891f0c44d665b5b28777fbb",
+    "adapt_commit": "1c47b3cf4738dd45b5201fe64e19b27075a9763c",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "method_freedom_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/084_BRIDGE.json",
+    "full_training_or_evaluation": false,
+    "allowed_changes": [
+      "completion-time estimators, task/model representations, calibration functions and training surrogate losses",
+      "optimization and joint fitting on the current unlabeled batch within the allowed transductive protocol",
+      "When retaining the supplied IRT pipeline, changing only epochs=1000 or priors=hierarchical does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Predict human task completion minutes from the supplied sparse model success/failure observations and transfer calibration, maximizing the original four-bucket accuracy with kappa/F1 guards.",
+      "supplied binary response observations and missingness, labeled calibration/auxiliary sets and family-disjoint development split",
+      "human-time target and transfer setting, right-closed four-bucket definition, weighted-kappa/F1 constraints and no cross-call retention",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/084_BRIDGE.json",
+    "forbidden_substitutions": [
+      "replacing the human-time target with model success accuracy or alternate time buckets",
+      "filling missing responses as observed failures, using source identifiers/order as time features, or retaining hidden batches between calls",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract"
+  },
+  "research_contract": {
+    "objective": "Predict human task completion minutes from the supplied sparse model success/failure observations and transfer calibration, maximizing the original four-bucket accuracy with kappa/F1 guards.",
+    "fixed_research_objects": [
+      "supplied binary response observations and missingness, labeled calibration/auxiliary sets and family-disjoint development split",
+      "human-time target and transfer setting, right-closed four-bucket definition, weighted-kappa/F1 constraints and no cross-call retention"
+    ],
+    "editable_components": [
+      "completion-time estimators, task/model representations, calibration functions and training surrogate losses",
+      "optimization and joint fitting on the current unlabeled batch within the allowed transductive protocol",
+      "When retaining the supplied IRT pipeline, changing only epochs=1000 or priors=hierarchical does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "replacing the human-time target with model success accuracy or alternate time buckets",
+      "filling missing responses as observed failures, using source identifiers/order as time features, or retaining hidden batches between calls",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "source": "tasks/084_BRIDGE/agent/README.md",
+        "section": "Goal,Data,Metric and baseline",
+        "finding": "Predict human task completion minutes from the supplied sparse model success/failure observations and transfer calibration, maximizing the original four-bucket accuracy with kappa/F1 guards."
+      },
+      {
+        "source": "tasks/084_BRIDGE/agent/bench/scorer.py",
+        "section": "trusted score and guards",
+        "finding": "The fixed evaluation target is supplied binary response observations and missingness, labeled calibration/auxiliary sets and family-disjoint development split; human-time target and transfer setting, right-closed four-bucket definition, weighted-kappa/F1 constraints and no cross-call retention"
+      },
+      {
+        "source": "audits/20261101_method_freedom/084_BRIDGE.json",
+        "section": "prior task-specific scorer/interface audit",
+        "finding": "Reuse the prior actual evaluator review while narrowing the blanket permission to the present task-specific objects."
+      },
+      {
+        "source": "tasks/084_BRIDGE/BRIEF.md",
+        "section": "26-32",
+        "finding": "The evaluated quantity is human completion-time transfer, not reconstruction of a specified IRT parameter vector; IRT is the solution baseline."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/084_BRIDGE.json"
+  },
+  "research_contract_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/084_BRIDGE.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

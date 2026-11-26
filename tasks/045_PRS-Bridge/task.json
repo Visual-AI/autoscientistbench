@@ -1,0 +1,162 @@
+{
+  "pid": "045_PRS-Bridge",
+  "class": "A",
+  "title": "Constructing Genetic Risk Scores: Robust Bayesian Approach through Projected Summary Statistics and Flexible Shrinkage",
+  "metric": {
+    "name": "mean_r2",
+    "higher_is_better": true,
+    "delta": 0.01,
+    "aggregate": "mean"
+  },
+  "cpus": 16,
+  "memory_gb": 64,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.npz",
+    "val_labels": "data/val/labels.npz",
+    "test_input": "test/input.npz",
+    "test_labels": "test/labels.npz",
+    "input_format": "npz",
+    "output_format": "csv"
+  },
+  "split": {
+    "type": "std3",
+    "decision": "GWAS training summaries unchanged (first 100000 individuals). Fix an outer 50/50 split of the released held-out pool using seed 20261030; expose one pool for development, reserve the disjoint pool for evaluation. Within each pool, materialize 100 random 50/50 tuning/scoring masks; public masks use seeds 1..100, private masks use independent secrets seeds stored only in operator records. This extra outer partition prevents overlap across the original repeated splits; no individual is discarded. Public pool contains 10000 individuals; private details in NOTES section 9."
+  },
+  "baseline": {
+    "train_min": 18.86,
+    "eval_min": 2.47,
+    "val": {
+      "mean_r2": 0.19298909148637877
+    },
+    "paper_ref": "Figure 3 central cell, paper R2 0.196; reproduced 0.19352237979598808 before disjoint-pool protocol.",
+    "measured_s": {
+      "train": [
+        1131.86,
+        1096.41,
+        1095.08
+      ],
+      "predict": [
+        139.53,
+        148.0,
+        137.18
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0027872749949218335,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:ae7cf2c0edb40b56e32a0ce9d1895d03938d9a02d401c1cab7ef49305027bc8a"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "5e6ae5636189bc7b71f4d264584125ea894db7ea",
+    "adapt_commit": "71b3163c607044852a2f27bd2fc21b5d777a7953",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "method_freedom_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/045_PRS-Bridge.json",
+    "candidate_method_replacement_allowed": true,
+    "frozen_data_metric_and_information_boundary": true,
+    "full_training_or_evaluation_run": false,
+    "allowed_changes": [
+      "Predictive architecture, shrinkage/prior used as a predictive modeling choice, surrogate training loss, optimizer, numerical method and internal genotype features may change.",
+      "PRS-Bridge posterior sampling is a baseline predictor, not a fixed posterior distribution being evaluated in this task.",
+      "When retaining the supplied PRS-Bridge pipeline, changing only alpha=0.125 or 0.25, percent=0.8, h2=0, h2_se=0, or the iteration counts 1000/600 and 800/500 does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Predict the fixed quantitative phenotype from supplied genotype, GWAS summary statistics and LD data, maximizing scorer-selected out-of-sample correlation R^2.",
+      "The phenotype, plasmode EUR study population, supplied reconciled SNP/allele/genotype/GWAS/LD observations, fixed outer split and 100 tuning/scoring half-splits remain fixed.",
+      "Two candidate score functions are fixed across scoring splits; tuning-half selection, squared Pearson correlation and mean aggregation remain fixed.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/045_PRS-Bridge.json",
+    "forbidden_substitutions": [
+      "Do not replace genotype inputs or phenotype/allele meaning, import extra cohorts/labels, change splits or target sklearn R^2 instead of the frozen correlation metric.",
+      "No scoring-half label selection, hidden-ID lookup or predictions depending on other individuals in the prediction batch.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Predict the fixed quantitative phenotype from supplied genotype, GWAS summary statistics and LD data, maximizing scorer-selected out-of-sample correlation R^2.",
+    "fixed_research_objects": [
+      "The phenotype, plasmode EUR study population, supplied reconciled SNP/allele/genotype/GWAS/LD observations, fixed outer split and 100 tuning/scoring half-splits remain fixed.",
+      "Two candidate score functions are fixed across scoring splits; tuning-half selection, squared Pearson correlation and mean aggregation remain fixed."
+    ],
+    "editable_components": [
+      "Predictive architecture, shrinkage/prior used as a predictive modeling choice, surrogate training loss, optimizer, numerical method and internal genotype features may change.",
+      "PRS-Bridge posterior sampling is a baseline predictor, not a fixed posterior distribution being evaluated in this task.",
+      "When retaining the supplied PRS-Bridge pipeline, changing only alpha=0.125 or 0.25, percent=0.8, h2=0, h2_se=0, or the iteration counts 1000/600 and 800/500 does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "Do not replace genotype inputs or phenotype/allele meaning, import extra cohorts/labels, change splits or target sklearn R^2 instead of the frozen correlation metric.",
+      "No scoring-half label selection, hidden-ID lookup or predictions depending on other individuals in the prediction batch.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "path": "agent/README.md",
+        "section": "Goal, Data and Metric",
+        "finding": "The output is predictive phenotype score; no posterior distribution is submitted or compared."
+      },
+      {
+        "path": "agent/bench/scorer.py",
+        "finding": "Scorer selects among two predictions on tuning halves and evaluates fixed scoring halves."
+      },
+      {
+        "path": "convert/tasks_merlin.json",
+        "section": "045_PRS-Bridge task_metric",
+        "finding": "Selected Figure-3 cell evaluates out-of-sample PRS R^2; bridge prior is a baseline prediction method."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/045_PRS-Bridge.json"
+  },
+  "research_contract_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/045_PRS-Bridge.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 3
+}

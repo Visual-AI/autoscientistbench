@@ -1,0 +1,181 @@
+{
+  "pid": "089_AICoG",
+  "class": "A",
+  "title": "Aitchison Embeddings for Learning Compositional Graph Representations",
+  "metric": {
+    "name": "auc_roc",
+    "higher_is_better": true,
+    "delta": 0.011,
+    "aggregate": "mean"
+  },
+  "cpus": 4,
+  "memory_gb": 4,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.json",
+    "val_labels": "data/val/labels.npz",
+    "test_input": "test/input.json",
+    "test_labels": "test/labels.npz",
+    "input_format": "json_node_count_only",
+    "output_format": "npz_z_b_decoder"
+  },
+  "split": {
+    "type": "transductive",
+    "decision": "One graph. Training edges: the authors' residual graph, unchanged (2535 edges, connected, 2485 nodes), nothing held out for val. Val: 253 positive and 253 negative pairs drawn once with secrets from the authors' 2534 + 2534 held-out pairs. Test: the remaining 2281 + 2281 pairs, about 10% fewer than the paper's. All nodes relabelled by one secret permutation. Record only in judge/split.json. Not redrawn by score. Val is not carved from training because the residual is a spanning tree plus 51 edges; see NOTES section 1."
+  },
+  "baseline": {
+    "train_min": 1.16,
+    "eval_min": 0.5,
+    "val": {
+      "auc_roc": 0.8209376806386602
+    },
+    "paper_ref": "Table 2, Cora, D=8, row AICOG (LB): 0.839 over five runs; reproduced 0.8400 +/- 0.0041, seeds 0-4 (BASELINE.md). Parity on the authors' residual and full test files with original labels and no val carved: adapted train.sh and predict.sh plus the real scorer give 0.8405 +/- 0.0029 over seeds 1-5 (judge/verification/parity_authors_files.jsonl). On the same embeddings the scorer equals LSM.link_prediction() to within one pair in 6.4M (at most 1.56e-7), and rank AUC equals sklearn on identical score vectors to 1.1e-16 (judge/verification/scorer_vs_authors.jsonl). Relabelling leaves AUC identical. The task's test is about 90% of the paper's pairs, so the reference estimates the same quantity with removal SD 0.0019.",
+    "reference_status": "requires_measurement",
+    "measured_s": {
+      "train": [
+        66.86,
+        64.26,
+        64.81,
+        69.47,
+        64.51
+      ],
+      "predict": [
+        0.52,
+        0.57,
+        0.51,
+        0.52,
+        0.51
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.015,
+    "parity_note": "Baseline is not seed-deterministic. bench.score.parity_ok adds the terms: tol = 0.5*sigma + |archived|*rel + abs. rel=0 leaves the absolute term as the only allowance beyond sigma/2. Evidence in NOTES section 5.",
+    "reference_hash": "sha256:734127d60dc342c1c085c739c5bd6536d46f45d3234fa55872ab44ea9e16fba1"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple",
+      "https://download.pytorch.org/whl/cpu"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "034397f04512fe17eca09bebfa4eeba559e32777",
+    "adapt_commit": "730e9b8cc856b0817d616da3e9c72dfa94058ffa",
+    "patch": "judge/reference/adapt.patch",
+    "source": "papers/089_AICoG/code at upstream commit 890a99e5a810b7ab2cc6306ff9c41536e9fdf748, with the reproducer's patch reversed and datasets/ and paper.pdf excluded"
+  },
+  "method_freedom_review": {
+    "status": "conversion_review_only",
+    "candidate_method_replacement_allowed": true,
+    "frozen_data_metric_and_information_boundary": true,
+    "full_training_or_evaluation_run": false,
+    "allowed_changes": [
+      "Everything about how the representation is learned: objective and loss, geometry, optimizer and schedule, initialization. AICoG itself is a baseline choice, not a requirement.",
+      "Graph preprocessing derived from the training edges, such as degrees, walks or proximity matrices.",
+      "Model selection on val: hyperparameters, checkpoints and choice of decoder.",
+      "Ensembling across seeds or models, provided the output still has 8 dimensions per node and one scalar per node at most.",
+      "Dependencies through env.lock, and any numerical implementation.",
+      "When retaining the supplied AICoG training procedure, changing only lr=0.01, epochs=5000, scaling_epochs=500 or M_neg=5*sparse_i_idx.shape[0] does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Maximize link-prediction AUC-ROC on edges removed from the authors' Cora split, using an 8-dimensional node representation learned from the residual graph alone, with no node features.",
+      "Representation budget: 8 dimensions per node (z), plus at most one scalar per node (b), the baseline's bias term. Pair scores come only from z, b and one decoder of the frozen family.",
+      "Input of learning: only the training edges of data/train/edges.csv and the node count. No node features or labels, and no external copy of Cora.",
+      "Metric: AUC-ROC computed by the trusted scorer from pairs it holds, with a tie-correct rank formula. No metric is taken from the candidate.",
+      "Output format and script signatures: predict.sh receives only the node count and writes the frozen npz. No pair list is ever given to candidate code.",
+      "Supplied data: the authors' residual graph, the val pairs and the hidden pairs, all under one secret node relabelling.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "forbidden_substitutions": [
+      "More than 8 dimensions per node or more than one scalar per node; a decoder outside the frozen family; a metric or pair scores supplied by the candidate.",
+      "Using node features, node labels or any external copy of Cora, including matching the relabelled graph against a public copy or using package indexes to obtain one.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation. Val positives are true edges and must not be added to the training graph.",
+      "Hard-coding pairs, node scores or results recalled from the paper or from memory."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "scope_source": "research_contract"
+  },
+  "research_contract": {
+    "objective": "Maximize link-prediction AUC-ROC on edges removed from the authors' Cora split, using an 8-dimensional node representation learned from the residual graph alone, with no node features.",
+    "fixed_research_objects": [
+      "Representation budget: 8 dimensions per node (z), plus at most one scalar per node (b), the baseline's bias term. Pair scores come only from z, b and one decoder of the frozen family.",
+      "Input of learning: only the training edges of data/train/edges.csv and the node count. No node features or labels, and no external copy of Cora.",
+      "Metric: AUC-ROC computed by the trusted scorer from pairs it holds, with a tie-correct rank formula. No metric is taken from the candidate.",
+      "Output format and script signatures: predict.sh receives only the node count and writes the frozen npz. No pair list is ever given to candidate code.",
+      "Supplied data: the authors' residual graph, the val pairs and the hidden pairs, all under one secret node relabelling."
+    ],
+    "editable_components": [
+      "Everything about how the representation is learned: objective and loss, geometry, optimizer and schedule, initialization. AICoG itself is a baseline choice, not a requirement.",
+      "Graph preprocessing derived from the training edges, such as degrees, walks or proximity matrices.",
+      "Model selection on val: hyperparameters, checkpoints and choice of decoder.",
+      "Ensembling across seeds or models, provided the output still has 8 dimensions per node and one scalar per node at most.",
+      "Dependencies through env.lock, and any numerical implementation.",
+      "When retaining the supplied AICoG training procedure, changing only lr=0.01, epochs=5000, scaling_epochs=500 or M_neg=5*sparse_i_idx.shape[0] does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "More than 8 dimensions per node or more than one scalar per node; a decoder outside the frozen family; a metric or pair scores supplied by the candidate.",
+      "Using node features, node labels or any external copy of Cora, including matching the relabelled graph against a public copy or using package indexes to obtain one.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation. Val positives are true edges and must not be added to the training graph.",
+      "Hard-coding pairs, node scores or results recalled from the paper or from memory."
+    ],
+    "evidence": [
+      {
+        "path": "agent/paper/paper.pdf",
+        "section": "Section 4 and Table 2",
+        "finding": "Link prediction removes 50% of the edges while keeping the residual connected, learns on the residual only, and reports AUC-ROC at D in {8,16,32,64} over five runs; likelihood-based models rank by the learned log-odds."
+      },
+      {
+        "path": "agent/code/src/AICoG.py",
+        "section": "LSM.link_prediction",
+        "finding": "The authors rank pairs by -||x_i-x_j||_2 + gamma_i + gamma_j over ILR coordinates x, which the neg_euclidean decoder expresses with z=x and b=gamma."
+      },
+      {
+        "path": "agent/bench/scorer.py",
+        "finding": "The trusted scorer computes the pair scores and AUC itself, and enforces the 8-dimension budget mechanically."
+      }
+    ]
+  },
+  "research_contract_review": {
+    "status": "conversion_review_only",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Scope written at conversion against the paper and the trusted scorer; bounded checks only. No independent audit report exists yet."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

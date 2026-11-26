@@ -1,0 +1,164 @@
+{
+  "pid": "072_EMP",
+  "class": "A",
+  "title": "Effective Model Pruning : Measuring the Redundancy of Model Components",
+  "metric": {
+    "name": "sparsity",
+    "higher_is_better": true,
+    "delta": 0.04,
+    "aggregate": "mean"
+  },
+  "cpus": 32,
+  "memory_gb": 32,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.npz",
+    "val_labels": "data/val/labels.npz",
+    "test_input": "test/input.npz",
+    "test_labels": "test/labels.npz",
+    "input_format": "npz",
+    "output_format": "npz"
+  },
+  "split": {
+    "type": "train_test",
+    "decision": "20% stratified holdout of the original training pool with train_test_split(random_state=20261030): train 40000, val 10000. Original evaluation rows held by judge unchanged. Original row ids, sorted. Dense selection uses val accuracy only; seed-specific dense checkpoints are frozen after clean training."
+  },
+  "baseline": {
+    "train_min": 1.0,
+    "eval_min": 0.5,
+    "val": {
+      "sparsity": 40.45093395750149
+    },
+    "paper_ref": "Table 1 FC12/CIFAR-10; original native EMP beta=1 sparsity 38.22950571389233; new train/val protocol changes dense checkpoint.",
+    "measured_s": {
+      "train": [
+        4.82,
+        4.72,
+        4.68
+      ],
+      "predict": [
+        3.52,
+        3.52,
+        3.47
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.006,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:6b8f1c3a5d57c873f0a163f1ed43d5adfcd642938db98cee9149eacb61af9748"
+  },
+  "env": {
+    "python": "3.10",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple",
+      "https://download.pytorch.org/whl/cpu"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "ae3c7919e87ad107a78328b272f9dbbed6dffac0",
+    "adapt_commit": "7ba3505bbcd3016c6cf996be599311b92c2c2a31",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "method_freedom": {
+    "report": "audits/20261101_method_freedom/072_EMP.json",
+    "full_training_or_evaluation_run": false,
+    "scope_superseded_by": "audits/20261101_research_contract/072_EMP.json"
+  },
+  "method_freedom_review": {
+    "report": "audits/20261101_research_contract/072_EMP.json",
+    "allowed_changes": [
+      "Pruning algorithms, auxiliary importance/mask models, surrogate mask-learning losses, optimizers, selection criteria may change; fitting stays on the training split, and validation is for selection only.",
+      "Dense reconstruction implementation may only change if it reproduces the exact approved checkpoint; the final pruned predictor remains that checkpoint multiplied by a binary mask.",
+      "When retaining the supplied EMP global magnitude pipeline, changing only beta=1.0 or the resulting global magnitude threshold does not count as a method improvement."
+    ],
+    "fixed_contract": [
+      "Maximize mask-only sparsity of the specified frozen FC12 CIFAR-10 network while limiting its cross-entropy loss change to .1.",
+      "The approved seed-specific dense tensors, FC12 widths/ReLU computation, CIFAR-10 normalized inputs and all retained weights/biases are the fixed object being pruned.",
+      "One input-independent boolean weight mask per run, 7263000-weight denominator, unchanged biases, exact dense identity and original CE difference<=.1 remain fixed.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/072_EMP.json",
+    "status": "repaired_scope_with_limits",
+    "forbidden_substitutions": [
+      "Do not retrain/fine-tune surviving weights, change architecture/activations/biases, substitute an easier dense network, alter input normalization, or change the CE guard.",
+      "No input-dependent masks, evaluation-label access, forged model/sparsity/logit certificates or unsupported seed switching.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Maximize mask-only sparsity of the specified frozen FC12 CIFAR-10 network while limiting its cross-entropy loss change to .1.",
+    "fixed_research_objects": [
+      "The approved seed-specific dense tensors, FC12 widths/ReLU computation, CIFAR-10 normalized inputs and all retained weights/biases are the fixed object being pruned.",
+      "One input-independent boolean weight mask per run, 7263000-weight denominator, unchanged biases, exact dense identity and original CE difference<=.1 remain fixed."
+    ],
+    "editable_components": [
+      "Pruning algorithms, auxiliary importance/mask models, surrogate mask-learning losses, optimizers, selection criteria may change; fitting stays on the training split, and validation is for selection only.",
+      "Dense reconstruction implementation may only change if it reproduces the exact approved checkpoint; the final pruned predictor remains that checkpoint multiplied by a binary mask.",
+      "When retaining the supplied EMP global magnitude pipeline, changing only beta=1.0 or the resulting global magnitude threshold does not count as a method improvement."
+    ],
+    "forbidden_substitutions": [
+      "Do not retrain/fine-tune surviving weights, change architecture/activations/biases, substitute an easier dense network, alter input normalization, or change the CE guard.",
+      "No input-dependent masks, evaluation-label access, forged model/sparsity/logit certificates or unsupported seed switching.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "path": "convert/tasks_merlin.json",
+        "section": "072_EMP task_metric/score_rule",
+        "finding": "User-selected research object explicitly fixed dense FC12; task is mask-only pruning under loss change."
+      },
+      {
+        "path": "agent/bench/certificate.py",
+        "finding": "Authenticates dense tensor digests, exact mask-only relation, tensor shapes and independent forward logits."
+      },
+      {
+        "path": "agent/bench/scorer.py",
+        "finding": "Recomputes sparsity and pruned/dense CE; architecture/loss-object guards remain active."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/072_EMP.json"
+  },
+  "research_contract_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/072_EMP.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

@@ -1,0 +1,170 @@
+{
+  "pid": "080_MAP-Gen",
+  "class": "A",
+  "title": "Manifold-Aware Perturbations for Constrained Generative Modeling",
+  "metric": {
+    "name": "cov",
+    "higher_is_better": true,
+    "delta": 0.02,
+    "aggregate": "mean"
+  },
+  "cpus": 16,
+  "memory_gb": 16,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.npz",
+    "val_labels": "data/val/truth.npz",
+    "test_input": "test/input.npz",
+    "test_labels": "test/truth.npz",
+    "input_format": "npz",
+    "output_format": "npz"
+  },
+  "split": {
+    "type": "synthetic",
+    "decision": "Fixed 100000 lifted training points from public seed 42; validation reference from public seed 20261029; independent secret reference drawn with secrets and recorded only in operator metadata. Each evaluation uses 10000 raw samples and 10000 reference points. Training learns a reusable DDPM. Algorithm RNG separated from frozen data RNG; judge seeds 1,2,3.",
+    "public_seeds": {
+      "train": 42,
+      "val": 20261029
+    }
+  },
+  "baseline": {
+    "train_min": 7.58,
+    "eval_min": 0.5,
+    "val": {
+      "cov": 0.8566765671563173
+    },
+    "paper_ref": "Table 2 Bunny lifted DDPM: COV 0.8506",
+    "measured_s": {
+      "train": [
+        414.62,
+        443.72,
+        455.02
+      ],
+      "predict": [
+        14.12,
+        13.65,
+        13.35
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.007041709446537506,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:e7400e06d74626106a72e45508ab404373485fc9c8082ebf4cf677cba4bddb52"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple",
+      "https://download.pytorch.org/whl/cpu"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "e8b355a69b0a72dec9f602e4a558887b348c4187",
+    "adapt_commit": "9de089270b1a66446790b9cb73966f125a69a5d7",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "method_freedom": {
+    "report": "audits/20261101_method_freedom/080_MAP-Gen.json",
+    "full_training_or_evaluation_run": false,
+    "scope_superseded_by": "audits/20261101_research_contract/080_MAP-Gen.json"
+  },
+  "method_freedom_review": {
+    "report": "audits/20261101_research_contract/080_MAP-Gen.json",
+    "allowed_changes": [
+      "Within DDPM, the denoiser architecture, auxiliary learning losses, internal feature representations, noise schedule, perturbation design, optimizers, training procedure and reverse-diffusion sampler may change.",
+      "Public mesh geometry may support geometric computations inside training and the reverse process; every variant must still learn from the same released training sample rather than substitute another target or data source."
+    ],
+    "fixed_contract": [
+      "Learn the fixed Bunny surface distribution from the supplied lifted training cloud and public mesh, maximizing the frozen projected-sample COV under distribution-fidelity guards.",
+      "The original mesh/coordinate system, 100000 lifted training points at sigma.0005 and the fixed heat-weight target distribution with author Euclidean-distance behavior remain fixed.",
+      "Independent reference distribution, raw3D output semantics, authoritative author mesh projection, generated-centered COV k5, fixed JSD/TVD histogram formula and baseline-relative guards remain fixed.",
+      "At most ten nonfinite raw/projected rows and original failed-row handling remain fixed.",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/080_MAP-Gen.json",
+    "status": "repaired_scope_with_limits",
+    "forbidden_substitutions": [
+      "The denoiser must be a neural network fitted by gradient training; it must not store training points or per-vertex weights or counts, and must not compute a closed-form posterior over training points or mesh vertices.",
+      "Do not change the surface/target weights/noise data, replace projection or reverse COV arguments, drop/resample failed rows, or replace distribution learning with a fixed-reference lookup. Do not replace the DDPM with another generative family or a non-diffusion estimator, such as a flow, GAN, VAE, vertex histogram, kernel density or nearest-neighbor lookup of training points. Do not post-process samples by snapping or reassigning them to mesh vertices or training points, by jittering such points, or by resampling or reweighting them.",
+      "No additional generated training/reference sets, exact-distribution oracle from the frozen generator, external data/pretraining or reference-label fitting.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Learn the fixed Bunny surface distribution from the supplied lifted training cloud and public mesh, maximizing the frozen projected-sample COV under distribution-fidelity guards.",
+    "fixed_research_objects": [
+      "The original mesh/coordinate system, 100000 lifted training points at sigma.0005 and the fixed heat-weight target distribution with author Euclidean-distance behavior remain fixed.",
+      "Independent reference distribution, raw3D output semantics, authoritative author mesh projection, generated-centered COV k5, fixed JSD/TVD histogram formula and baseline-relative guards remain fixed.",
+      "At most ten nonfinite raw/projected rows and original failed-row handling remain fixed."
+    ],
+    "editable_components": [
+      "Within DDPM, the denoiser architecture, auxiliary learning losses, internal feature representations, noise schedule, perturbation design, optimizers, training procedure and reverse-diffusion sampler may change.",
+      "Public mesh geometry may support geometric computations inside training and the reverse process; every variant must still learn from the same released training sample rather than substitute another target or data source."
+    ],
+    "forbidden_substitutions": [
+      "The denoiser must be a neural network fitted by gradient training; it must not store training points or per-vertex weights or counts, and must not compute a closed-form posterior over training points or mesh vertices.",
+      "Do not change the surface/target weights/noise data, replace projection or reverse COV arguments, drop/resample failed rows, or replace distribution learning with a fixed-reference lookup. Do not replace the DDPM with another generative family or a non-diffusion estimator, such as a flow, GAN, VAE, vertex histogram, kernel density or nearest-neighbor lookup of training points. Do not post-process samples by snapping or reassigning them to mesh vertices or training points, by jittering such points, or by resampling or reweighting them.",
+      "No additional generated training/reference sets, exact-distribution oracle from the frozen generator, external data/pretraining or reference-label fitting.",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "section": "Section5.3 and Table2",
+        "finding": "Table 2 compares diffusion methods on the same constrained Bunny target at sigma.0005; the task is limited to DDPM methods by user decision of 2026-11-04."
+      },
+      {
+        "path": "agent/bench/generator.py",
+        "finding": "Defines fixed author heat-weight/normal-lift behavior and public geometry."
+      },
+      {
+        "path": "agent/bench/scorer.py",
+        "section": "measure/score",
+        "finding": "Independently projects samples, evaluates the original COV direction and unchanged failure/histogram guards."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/080_MAP-Gen.json"
+  },
+  "research_contract_review": {
+    "status": "repaired_scope_with_limits",
+    "report": "audits/20261101_research_contract/080_MAP-Gen.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

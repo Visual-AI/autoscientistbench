@@ -1,0 +1,178 @@
+{
+  "pid": "011_Tera-GP",
+  "class": "A",
+  "title": "Scalable Derivative Gaussian Processes via Exact Gradient Reduction",
+  "metric": {
+    "name": "energy_rmse_sum",
+    "higher_is_better": false,
+    "delta": 0.03,
+    "aggregate": "mean"
+  },
+  "cpus": 64,
+  "memory_gb": 56,
+  "budget_hours_default": 5,
+  "io": {
+    "spec": "bench/io_spec.md",
+    "validator": "bench/validate.py",
+    "scorer": "bench/scorer.py",
+    "val_input": "data/val/input.npz",
+    "val_labels": "data/val/labels.csv",
+    "test_input": "test/input.npz",
+    "test_labels": "test/labels.csv",
+    "input_format": "npz",
+    "output_format": "csv"
+  },
+  "split": {
+    "type": "train_test",
+    "decision": "Three archived evaluation partitions retained privately; exclude their union from every public training/validation file. From the common eligible training frames select the final 20% in original trajectory order for validation (fixed protocol seed 20261030; temporal rule needs no random draw). All files sorted by original frame ID. Six datasets and three independent fits per benchmark run. Historical split details are operator-only. Public train/val sizes by dataset: DHA=40726/10182, AT-AT=11689/2923, stachyose=15879/3970, AT-AT-CG-CG=5906/1477, buckyball-catcher=3557/890, double-walled-nanotube=2934/734."
+  },
+  "baseline": {
+    "train_min": 12.18,
+    "eval_min": 0.57,
+    "val": {
+      "energy_rmse_sum": 1.4328999854942712
+    },
+    "paper_ref": "Figure 3 / Appendix C.1 Table 4; isotropic SE Tera",
+    "measured_s": {
+      "train": [
+        680.67,
+        730.82,
+        715.66
+      ],
+      "predict": [
+        34.12,
+        31.82,
+        31.44
+      ]
+    }
+  },
+  "judge": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "val_judge": true,
+    "parity_rel_tol": 0.0,
+    "parity_abs_tol": 0.0,
+    "reference_hash": "sha256:8adb452d78eadb277422b19270c20276d84b9b9a269628c0bbd205de5e2d0786"
+  },
+  "env": {
+    "python": "3.11",
+    "lock": "code/env.lock",
+    "index": [
+      "https://pypi.org/simple",
+      "https://download.pytorch.org/whl/cpu"
+    ],
+    "build_cap_s": 5400
+  },
+  "adapt": {
+    "base_commit": "613493b8b48e9982a4461f92e99e9fe9daa6a618",
+    "adapt_commit": "60126496bf80d822ec255fdf73a3550e0a15ee36",
+    "patch": "judge/reference/adapt.patch"
+  },
+  "pre_method_freedom_baseline_val": {
+    "energy_rmse_sum": 1.4340694712553421
+  },
+  "leakage_remediation": {
+    "full_evaluation_ready": false,
+    "superseded_by": "audits/20261101_method_freedom/011_Tera-GP.json",
+    "evidence_is_historical": true
+  },
+  "method_freedom": {
+    "report": "audits/20261101_method_freedom/011_Tera-GP.json",
+    "full_training_or_evaluation_run": false,
+    "scope_superseded_by": "audits/20261101_research_contract/011_Tera-GP.json"
+  },
+  "method_freedom_review": {
+    "report": "audits/20261101_research_contract/011_Tera-GP.json",
+    "allowed_changes": [
+      "within Gaussian processes conditioned on observed energies and forces: kernel, legal descriptors/features, conditioning structure, training surrogate loss and numerical optimizer",
+      "internal scaling, approximation and scheduling within the same observed-energy prediction problem and resource budget"
+    ],
+    "fixed_contract": [
+      "Predict raw molecular energies for the six fixed MD22 trajectory datasets under the original CPU/memory budget, minimizing the sum of three-replica mean energy RMSEs per atom.",
+      "original six molecular datasets, coordinates/energies/forces, physical units, atom counts and materialized splits",
+      "eighteen independent fitted predictors, all fitting in train, raw-energy targets and original per-replica/per-dataset RMSE aggregation",
+      "at most 64 allocated CPUs, peak process-tree memory<=56 decimal GB and complete resource monitoring",
+      "Supplied data/splits, evaluation metric, trusted evaluator and lawful information access."
+    ],
+    "budget_policy": "agent overall deadline; separate overall formal replay budget",
+    "requires_explicit_submission": true,
+    "historical_review_report": "audits/20261101_method_freedom/011_Tera-GP.json",
+    "status": "reviewed_and_corrected",
+    "forbidden_substitutions": [
+      "Original frame numbers in IDs and `id` arrays are row keys only: do not use them as model inputs, to choose conditioning sets, or to infer which frames are held out.",
+      "The GP prior mean must be fitted on the training split only and must not carry the prediction: no mean or energy offset may be selected on validation, and no neural network, tree ensemble or other non-GP regressor may serve as the mean.",
+      "replacing the Gaussian process with a neural network, tree ensemble or other non-GP predictor; replacing observed molecular energy with agreement to a chosen GP posterior, an easier molecular dataset or altered physical units",
+      "pooling/ensembling away independent replica scores, fitting during prediction, modifying resource records or reconstructing unavailable frames",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "scope_source": "research_contract",
+    "full_training_or_evaluation": false
+  },
+  "research_contract": {
+    "objective": "Predict raw molecular energies for the six fixed MD22 trajectory datasets under the original CPU/memory budget, minimizing the sum of three-replica mean energy RMSEs per atom.",
+    "fixed_research_objects": [
+      "original six molecular datasets, coordinates/energies/forces, physical units, atom counts and materialized splits",
+      "eighteen independent fitted predictors, all fitting in train, raw-energy targets and original per-replica/per-dataset RMSE aggregation",
+      "at most 64 allocated CPUs, peak process-tree memory<=56 decimal GB and complete resource monitoring"
+    ],
+    "editable_components": [
+      "within Gaussian processes conditioned on observed energies and forces: kernel, legal descriptors/features, conditioning structure, training surrogate loss and numerical optimizer",
+      "internal scaling, approximation and scheduling within the same observed-energy prediction problem and resource budget"
+    ],
+    "forbidden_substitutions": [
+      "Original frame numbers in IDs and `id` arrays are row keys only: do not use them as model inputs, to choose conditioning sets, or to infer which frames are held out.",
+      "The GP prior mean must be fitted on the training split only and must not carry the prediction: no mean or energy offset may be selected on validation, and no neural network, tree ensemble or other non-GP regressor may serve as the mean.",
+      "replacing the Gaussian process with a neural network, tree ensemble or other non-GP predictor; replacing observed molecular energy with agreement to a chosen GP posterior, an easier molecular dataset or altered physical units",
+      "pooling/ensembling away independent replica scores, fitting during prediction, modifying resource records or reconstructing unavailable frames",
+      "Training or fitting reusable model state or learned preprocessing on validation features or labels, including final train+val refits or validation-based distillation."
+    ],
+    "evidence": [
+      {
+        "source": "tasks/011_Tera-GP/BRIEF.md",
+        "section": "original experiment/score_rule/user decision,lines 26-33",
+        "finding": "The selected MD22 experiment scores raw observed energy, not fidelity to a fixed GP posterior. The SE Tera model is a reference estimator; the score_rule fixes resources and the energy target, not its kernel."
+      },
+      {
+        "source": "tasks/011_Tera-GP/agent/bench/scorer.py",
+        "section": "trusted numerical scoring and guard call path",
+        "finding": "The declared research target agrees with the actual scorer and its frozen helpers."
+      },
+      {
+        "source": "audits/20261101_method_freedom/011_Tera-GP.json",
+        "section": "earlier evaluator/interface audit",
+        "finding": "Prior runtime/information-boundary work is preserved; unconditional method language is replaced by the task-specific scope."
+      }
+    ],
+    "review_report": "audits/20261101_research_contract/011_Tera-GP.json"
+  },
+  "research_contract_review": {
+    "status": "reviewed_and_corrected",
+    "report": "audits/20261101_research_contract/011_Tera-GP.json",
+    "full_training_or_evaluation": false,
+    "verification_scope": "Task-specific research-scope review and bounded checks; not a new performance/readiness certification."
+  },
+  "validation_policy": {
+    "version": 1,
+    "applies_to": [
+      "baseline",
+      "candidate"
+    ],
+    "fit_on": "designated training observations only",
+    "validation_allowed": [
+      "evaluation",
+      "method selection",
+      "hyperparameter selection",
+      "checkpoint selection"
+    ],
+    "validation_training_allowed": false,
+    "final_train_val_refit_allowed": false,
+    "learned_preprocessing": "fit on training only; apply frozen fitted transforms to validation/test",
+    "instance_roles": "Preserve explicit per-instance observation/training/calibration/causal-feedback roles; no evaluation-target fitting or validation-derived fitted state carried across independent cases.",
+    "enforcement": "binding prompt and task contract; task-specific replay/guards where available; arbitrary training-data provenance requires source/patch audit",
+    "report": "audits/20261102_validation_training/report.md"
+  },
+  "agent_budget_hours": 2
+}

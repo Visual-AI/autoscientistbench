@@ -1,0 +1,205 @@
+{
+  "task": "083_TT-Sparse",
+  "created": "2026-11-02T07:45:01+0000",
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "cpus": 8,
+  "adapt_commit": "62282d205ca3fda0d39fd6ae374227cdb69ba350",
+  "sandbox": true,
+  "budget_s": 21600.0,
+  "test": {
+    "per_seed": [
+      0.8041138659320477,
+      0.8075298438934804,
+      0.8017998163452708
+    ],
+    "mean": 0.8044811753902663,
+    "std": 0.0023536483884079333,
+    "n": 3
+  },
+  "val": {
+    "per_seed": [
+      0.8445348837209302,
+      0.8438372093023256,
+      0.8479651162790697
+    ],
+    "mean": 0.8454457364341085,
+    "std": 0.0018040959880211863,
+    "n": 3
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "auc": 0.8041138659320477,
+        "auc_per_replicate": [
+          0.8075298438934803,
+          0.7823691460055097,
+          0.8038567493112947,
+          0.8350780532598715,
+          0.7917355371900826
+        ],
+        "mean_complexity": 11.2,
+        "complexities": [
+          3,
+          5,
+          38,
+          4,
+          6
+        ],
+        "guard_complexity_ok": true,
+        "guard_rules_ok": true,
+        "max_prediction_error": 0.0
+      },
+      "val": {
+        "auc": 0.8445348837209302,
+        "auc_per_replicate": [
+          0.8470930232558139,
+          0.8415697674418605,
+          0.8296511627906977,
+          0.8563953488372094,
+          0.8479651162790698
+        ],
+        "mean_complexity": 11.2,
+        "complexities": [
+          3,
+          5,
+          38,
+          4,
+          6
+        ],
+        "guard_complexity_ok": true,
+        "guard_rules_ok": true,
+        "max_prediction_error": 0.0
+      },
+      "timing": {
+        "train_s": 12.03,
+        "predict_s": 5.87,
+        "score_s": 3.1,
+        "predict_val_s": 5.52
+      }
+    },
+    "2": {
+      "test": {
+        "auc": 0.8075298438934804,
+        "auc_per_replicate": [
+          0.8058769513314968,
+          0.8077134986225896,
+          0.7818181818181817,
+          0.8347107438016529,
+          0.8075298438934803
+        ],
+        "mean_complexity": 4.8,
+        "complexities": [
+          9,
+          3,
+          5,
+          4,
+          3
+        ],
+        "guard_complexity_ok": true,
+        "guard_rules_ok": true,
+        "max_prediction_error": 0.0
+      },
+      "val": {
+        "auc": 0.8438372093023256,
+        "auc_per_replicate": [
+          0.8270348837209303,
+          0.8470930232558139,
+          0.8424418604651163,
+          0.8555232558139535,
+          0.8470930232558139
+        ],
+        "mean_complexity": 4.8,
+        "complexities": [
+          9,
+          3,
+          5,
+          4,
+          3
+        ],
+        "guard_complexity_ok": true,
+        "guard_rules_ok": true,
+        "max_prediction_error": 0.0
+      },
+      "timing": {
+        "train_s": 11.68,
+        "predict_s": 5.72,
+        "score_s": 3.03,
+        "predict_val_s": 5.58
+      }
+    },
+    "3": {
+      "test": {
+        "auc": 0.8017998163452708,
+        "auc_per_replicate": [
+          0.8347107438016528,
+          0.7906336088154269,
+          0.8075298438934803,
+          0.7946740128558311,
+          0.7814508723599631
+        ],
+        "mean_complexity": 8.0,
+        "complexities": [
+          4,
+          7,
+          3,
+          22,
+          4
+        ],
+        "guard_complexity_ok": true,
+        "guard_rules_ok": true,
+        "max_prediction_error": 0.0
+      },
+      "val": {
+        "auc": 0.8479651162790697,
+        "auc_per_replicate": [
+          0.8563953488372094,
+          0.8421511627906977,
+          0.8470930232558139,
+          0.852906976744186,
+          0.8412790697674419
+        ],
+        "mean_complexity": 8.0,
+        "complexities": [
+          4,
+          7,
+          3,
+          22,
+          4
+        ],
+        "guard_complexity_ok": true,
+        "guard_rules_ok": true,
+        "max_prediction_error": 0.0
+      },
+      "timing": {
+        "train_s": 11.98,
+        "predict_s": 5.52,
+        "score_s": 3.08,
+        "predict_val_s": 5.52
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      12.03,
+      11.68,
+      11.98
+    ],
+    "predict_s": [
+      5.87,
+      5.72,
+      5.52
+    ],
+    "build_s": 8.1
+  },
+  "hashes": {
+    "env_lock": "e69a130e457c4a2cc40cdc205a4b5daf16753d07eb2c6d6ac088fa10fe329af3",
+    "scorer": "417cd4d734d1130193196b358c9a587b898b985770850d63910e4a482ee5cd02",
+    "validate": "6e4a1fcab7a87ecf4ec6b7533e975405e0b4c090aac3d86010962562ac0d1566",
+    "test_labels": "50fb8f254e81096607e3656e02015d7d91e67af5fee271c13e758d115a0086b1",
+    "adapt_patch": "71188d821f23050e6210290a2b1d5881dc89e3253c50b29371c5fd8e37871529"
+  }
+}

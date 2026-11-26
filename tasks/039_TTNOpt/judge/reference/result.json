@@ -1,0 +1,133 @@
+{
+  "task": "039_TTNOpt",
+  "created": "2026-11-03T08:48:22+0000",
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "cpus": 32,
+  "adapt_commit": "dc06697608d76eedb08f34a122132f5af396ce32",
+  "sandbox": true,
+  "budget_s": 43200.0,
+  "test": {
+    "per_seed": [
+      0.4216475618034611,
+      0.41709181292390807,
+      0.4341627703737465
+    ],
+    "mean": 0.42430071503370526,
+    "std": 0.0072172854366405114,
+    "n": 3
+  },
+  "val": {
+    "per_seed": [
+      0.35630689382355263,
+      0.3548526508831936,
+      0.35662166749266166
+    ],
+    "mean": 0.35592707073313595,
+    "std": 0.0007705210904116332,
+    "n": 3
+  },
+  "per_seed": {
+    "1": {
+      "test": {
+        "fidelity": 0.4216475618034611,
+        "per_instance": [
+          0.3329801102284074,
+          0.5103150133785147
+        ],
+        "max_bond": 4,
+        "is_binary_tree": true
+      },
+      "val": {
+        "fidelity": 0.35630689382355263,
+        "per_instance": [
+          0.28728389546428196,
+          0.4253298921828233
+        ],
+        "max_bond": 4,
+        "is_binary_tree": true
+      },
+      "timing": {
+        "train_s": 0.56,
+        "predict_s": 614.43,
+        "score_s": 1.28,
+        "predict_val_s": 610.86
+      }
+    },
+    "2": {
+      "test": {
+        "fidelity": 0.41709181292390807,
+        "per_instance": [
+          0.342253292305817,
+          0.49193033354199905
+        ],
+        "max_bond": 4,
+        "is_binary_tree": true
+      },
+      "val": {
+        "fidelity": 0.3548526508831936,
+        "per_instance": [
+          0.2822651768626254,
+          0.4274401249037619
+        ],
+        "max_bond": 4,
+        "is_binary_tree": true
+      },
+      "timing": {
+        "train_s": 0.62,
+        "predict_s": 622.88,
+        "score_s": 1.17,
+        "predict_val_s": 617.84
+      }
+    },
+    "3": {
+      "test": {
+        "fidelity": 0.4341627703737465,
+        "per_instance": [
+          0.364755281350972,
+          0.503570259396521
+        ],
+        "max_bond": 4,
+        "is_binary_tree": true
+      },
+      "val": {
+        "fidelity": 0.35662166749266166,
+        "per_instance": [
+          0.2870212726327057,
+          0.42622206235261756
+        ],
+        "max_bond": 4,
+        "is_binary_tree": true
+      },
+      "timing": {
+        "train_s": 0.57,
+        "predict_s": 624.75,
+        "score_s": 1.3,
+        "predict_val_s": 631.54
+      }
+    }
+  },
+  "timing": {
+    "train_s": [
+      0.56,
+      0.62,
+      0.57
+    ],
+    "predict_s": [
+      614.43,
+      622.88,
+      624.75
+    ],
+    "build_s": 3.4
+  },
+  "hashes": {
+    "env_lock": "52d0422a4136cc9c2872a6e6ee3aea9ab90fc8441c0040c111af921bf7e03fe0",
+    "scorer": "f5118faaa653679386f817f8ff521cec4afbd13c244d2e06c149eed1731521e3",
+    "validate": "c3f7d8716dd6ed4c944a5b5ad8887bcf1ee804973e427100dbee084db5bcf1d0",
+    "test_labels": "cfbcf8320d5bb8760ac4dfe0f125f486c9e9fee749e0e2a899bf9dad63f30d1c",
+    "adapt_patch": "8cdda610616b0b8199b121608886e296ea88db71e0a974bd44c84ac80f33f23b"
+  }
+}
