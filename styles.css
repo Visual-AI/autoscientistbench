@@ -221,6 +221,34 @@ select:focus-visible,
   background: rgba(0, 82, 255, 0.08);
 }
 
+.header-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.header-repo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.78);
+  font-size: var(--text-sm);
+  font-weight: 560;
+  color: var(--ink);
+  white-space: nowrap;
+  transition: border-color 160ms var(--ease), color 160ms var(--ease), background-color 160ms var(--ease), transform 160ms var(--ease);
+}
+
+.header-repo-link:hover {
+  border-color: var(--ink);
+  background: #fff;
+  transform: translateY(-1px);
+}
+
 .header-status {
   display: inline-flex;
   align-items: center;
@@ -462,6 +490,9 @@ select:focus-visible,
   margin-top: 22px;
   display: flex;
   justify-content: center;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .primary-cta {
@@ -482,6 +513,30 @@ select:focus-visible,
   background: var(--accent);
   transform: translateY(-1px);
   box-shadow: 0 10px 24px rgba(0, 82, 255, 0.22);
+}
+
+.secondary-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 18px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--ink);
+  font-size: var(--text-sm);
+  font-weight: 560;
+  letter-spacing: -0.01em;
+  box-shadow: 0 4px 12px rgba(10, 14, 23, 0.04);
+  transition: transform 180ms var(--ease), border-color 180ms var(--ease), color 180ms var(--ease), box-shadow 180ms var(--ease), background-color 180ms var(--ease);
+}
+
+.secondary-cta:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(0, 82, 255, 0.12);
 }
 
 /* Atlas Container */
@@ -3366,12 +3421,24 @@ dialog::backdrop {
   }
 
   .header-inner {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px 12px;
+  }
+
+  .header-actions {
+    order: 2;
+  }
+
+  .header-repo-link {
+    padding: 5px 10px;
+    font-size: 0.78rem;
   }
 
   .site-header nav {
+    order: 3;
+    width: 100%;
     justify-content: space-between;
     overflow-x: auto;
     gap: 2px;
