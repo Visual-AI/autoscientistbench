@@ -59,7 +59,6 @@ const MODEL_EFFORT_FALLBACK = {
   qwen38flash: 'xhigh',
   qwen3827b: 'xhigh',
   qwen36935: 'xhigh',
-  qwen359b: 'xhigh',
   kimi31: 'high',
 };
 
@@ -692,7 +691,7 @@ function renderChart(models) {
         const geom = scoreGeometry(model.score, scale);
         const [gradTop, gradBottom] = modelGradient(model);
         const effort = modelEffort(model);
-        return `<button type="button" class="bar-column" data-model="${esc(model.id)}" aria-label="${esc(model.name)}${effort ? ` (${esc(effort)})` : ''}: ${percentage(model.score)} improvement score" style="--grad-top:${gradTop};--grad-bottom:${gradBottom};--height:${geom.size}%;--bottom:${geom.start}%">
+        return `<button type="button" class="bar-column" data-model="${esc(model.id)}" aria-label="${esc(model.name)}${effort ? ` (${esc(effort)})` : ''}${model.harness ? ` · ${esc(model.harness)}` : ''}: ${percentage(model.score)} improvement score" style="--grad-top:${gradTop};--grad-bottom:${gradBottom};--height:${geom.size}%;--bottom:${geom.start}%">
           <span class="bar-space">
             <span class="bar-fill">
               <span class="bar-value">${percent(model.score)}${model.scorePartial ? '*' : ''}</span>
@@ -702,6 +701,7 @@ function renderChart(models) {
             ${logo(model)}
             <span class="bar-name">${esc(model.short)}</span>
             ${effort ? `<span class="bar-effort">${esc(effort)}</span>` : ''}
+            ${model.harness ? `<span class="bar-harness">${esc(model.harness)}</span>` : ''}
           </span>
         </button>`;
       })
@@ -715,7 +715,7 @@ function renderChart(models) {
         const [gradTop, gradBottom] = modelGradient(model);
         const effort = modelEffort(model);
         return `<button type="button" class="row-bar" data-model="${esc(model.id)}" style="--grad-top:${gradTop};--grad-bottom:${gradBottom};--start:${geom.start}%;--width:${geom.size}%;--ref:${refPct}%">
-          <span class="row-bar-label">${logo(model)}<span>${esc(model.name)}${effort ? ` <small style="font-weight:450;color:#6b7688">${esc(effort)}</small>` : ''}</span></span>
+          <span class="row-bar-label">${logo(model)}<span class="row-bar-text"><span>${esc(model.name)}${effort ? ` <small class="row-bar-effort">${esc(effort)}</small>` : ''}</span>${model.harness ? `<small class="row-bar-harness">${esc(model.harness)}</small>` : ''}</span></span>
           <span class="row-track"><i></i><span class="row-ref-mark"></span></span>
           <span class="row-bar-stats"><strong>${percentage(model.score)}${model.scorePartial ? '*' : ''}</strong><span>${model.passed}/${total}</span></span>
         </button>`;
